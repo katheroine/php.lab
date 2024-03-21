@@ -54,3 +54,7 @@ usort($someArray, function ($a, $b) {
 });
 print_r($someArray);
 print(PHP_EOL);
+
+($value < 10) ? print("Cool!\n") : print("Woah!\n");
+
+print(PHP_EOL);
