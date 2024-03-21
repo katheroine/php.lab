@@ -11,3 +11,4 @@ Laboratory of PHP.
     4. [Static variables](./literals_constants_variables/static_variables.php)
 2. [Operators](./operators/)
     1. [Spaceship operator](./operators/spaceship_operator.php)
+    2. [Ternary operator](./operators/spaceship_operator.php)
