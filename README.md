@@ -12,4 +12,5 @@ Laboratory of PHP.
 2. [Operators](./operators/)
     1. [Spaceship operator](./operators/spaceship_operator.php)
     2. [Ternary operator](./operators/spaceship_operator.php)
-    2. [Null coalescing operator](./operators/null_coalescing_operator.php)
+    3. [Null coalescing operator](./operators/null_coalescing_operator.php)
+    2. [Null coalescing assignment operator](./operators/null_coalescing_assignment_operator.php)
