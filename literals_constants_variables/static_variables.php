@@ -1,6 +1,6 @@
 <?php
 
-function some_function()
+function someFunction()
 {
     static $quantity = 6 / (1 + 2);
     static $level = sqrt(9); // Correct from 8.3
@@ -12,6 +12,8 @@ function some_function()
     $level--;
 }
 
-some_function();
-some_function();
-some_function();
+someFunction();
+someFunction();
+someFunction();
+
+print(PHP_EOL);

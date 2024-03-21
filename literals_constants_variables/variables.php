@@ -34,7 +34,7 @@ printf("GLOBAL SCOPE: Number: %s\n", $number);
 printf("GLOBAL SCOPE: Level: %s\n", $level);
 print(PHP_EOL);
 
-function some_function()
+function someFunction()
 {
     $flower = 'rose';
     static $step = 0;
@@ -47,9 +47,9 @@ function some_function()
     $step++;
 }
 
-some_function();
-some_function();
-some_function();
+someFunction();
+someFunction();
+someFunction();
 
 printf("Flower defined? %s\n", isset($flower));
 print(PHP_EOL);
@@ -62,7 +62,7 @@ class SomeClass
     public $vegetable = 'pumpkin';
     public static $grain = 'wheat';
 
-    static function some_class_function()
+    static function someClassFunction()
     {
         $utensil = 'cup';
 
@@ -71,21 +71,22 @@ class SomeClass
         print(PHP_EOL);
     }
 
-    function some_object_function()
+    function someObjectFunction()
     {
         $furniture = 'armchair';
 
         printf("OBJECT SCOPE: Vegetable: %s\n", $this->vegetable);
         printf("OBJECT SCOPE: Grain: %s\n", self::$grain);
+        // printf("OBJECT SCOPE: Grain: %s\n", $this->grain);
         printf("OBJECT SCOPE: Furniture: %s\n", $furniture);
         print(PHP_EOL);
     }
 }
 
-SomeClass::some_class_function();
+SomeClass::someClassFunction();
 
 $someObject = new SomeClass();
-$someObject->some_object_function();
+$someObject->someObjectFunction();
 
 printf("Grain defined? %s\n", isset(SomeClass::$grain));
 print(PHP_EOL);
@@ -98,7 +99,7 @@ trait SomeTrait
     public $fruit = 'orange';
     public static $plant = 'polypodium';
 
-    static function some_trait_function()
+    static function someTraitFunction()
     {
         $tool = 'axe';
 
@@ -108,7 +109,7 @@ trait SomeTrait
         print(PHP_EOL);
     }
 
-    static function some_class_function()
+    static function someClassFunction()
     {
         $device = 'calculator';
 
@@ -118,7 +119,7 @@ trait SomeTrait
         print(PHP_EOL);
     }
 
-    function some_object_function()
+    function someObjectFunction()
     {
         $decor = 'vase';
 
@@ -130,7 +131,7 @@ trait SomeTrait
     }
 }
 
-SomeTrait::some_trait_function();
+SomeTrait::someTraitFunction();
 
 printf("Plant defined? %s\n", isset(SomeTrait::$plant));
 print(PHP_EOL);
@@ -143,10 +144,10 @@ class SomeTraitUsingClass
     use SomeTrait;
 }
 
-SomeTraitUsingClass::some_class_function();
+SomeTraitUsingClass::someClassFunction();
 
 $some_trait_using_object = new SomeTraitUsingClass();
-$some_trait_using_object->some_object_function();
+$some_trait_using_object->someObjectFunction();
 
 printf("Plant defined? %s\n", isset(SomeTraitUsingClass::$plant));
 print(PHP_EOL);

@@ -28,7 +28,7 @@ printf("GLOBAL SCOPE: Color: %s\n", COLOR);
 printf("GLOBAL SCOPE: Number: %s\n", NUMBER);
 print(PHP_EOL);
 
-function some_function()
+function someFunction()
 {
     define("FLOWER", "rose");
     // const TREE = "pine";
@@ -40,7 +40,7 @@ function some_function()
     print(PHP_EOL);
 }
 
-some_function();
+someFunction();
 
 printf("GLOBAL SCOPE: Flower: %s\n", FLOWER);
 print(PHP_EOL);
@@ -49,7 +49,7 @@ class SomeClass
 {
     const VEGETABLE = 'pumpkin';
 
-    static function some_class_function()
+    static function someClassFunction()
     {
         define('UTENSIL', 'cup');
 
@@ -62,7 +62,7 @@ class SomeClass
         print(PHP_EOL);
     }
 
-    function some_object_function()
+    function someObjectFunction()
     {
         define('FURNITURE', 'armchair');
 
@@ -76,10 +76,10 @@ class SomeClass
     }
 }
 
-SomeClass::some_class_function();
+SomeClass::someClassFunction();
 
 $someObject = new SomeClass();
-$someObject->some_object_function();
+$someObject->someObjectFunction();
 
 printf("Vegetable defined? %s\n", defined('SomeClass::VEGETABLE'));
 printf("Utensil defined? %s\n", defined('UTENSIL'));
@@ -106,7 +106,7 @@ trait SomeTrait
 {
     const FRUIT = 'orange';
 
-    static function some_trait_function()
+    static function someTraitFunction()
     {
         define('TOOL', 'axe');
 
@@ -119,7 +119,7 @@ trait SomeTrait
         printf("TRAIT SCOPE: Tool: %s\n", TOOL);
         print(PHP_EOL);
     }
-    static function some_class_function()
+    static function someClassFunction()
     {
         define('DEVICE', 'calculator');
 
@@ -133,7 +133,7 @@ trait SomeTrait
         print(PHP_EOL);
     }
 
-    function some_object_function()
+    function someObjectFunction()
     {
         define('DECOR', 'vase');
 
@@ -148,7 +148,7 @@ trait SomeTrait
     }
 }
 
-SomeTrait::some_trait_function();
+SomeTrait::someTraitFunction();
 
 printf("Fruit defined? %s\n", defined('SomeTrait::FRUIT'));
 printf("Tool defined? %s\n", defined('TOOL'));
@@ -165,10 +165,10 @@ class SomeTraitUsingClass
     use SomeTrait;
 }
 
-SomeTraitUsingClass::some_class_function();
+SomeTraitUsingClass::someClassFunction();
 
 $some_trait_using_object = new SomeTraitUsingClass();
-$some_trait_using_object->some_object_function();
+$some_trait_using_object->someObjectFunction();
 
 printf("GLOBAL SCOPE: Fruit: %s\n", SomeTraitUsingClass::FRUIT);
 printf("GLOBAL SCOPE: Tool: %s\n", TOOL);
