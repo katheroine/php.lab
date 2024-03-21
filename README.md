@@ -9,3 +9,5 @@ Laboratory of PHP.
     2. [Constants](./literals_constants_variables/constants.php)
     3. [Variables](./literals_constants_variables/variables.php)
     4. [Static variables](./literals_constants_variables/static_variables.php)
+2. [Operators](./operators/)
+    1. [Spaceship operator](./operators/spaceship_operator.php)
