@@ -17,3 +17,4 @@ Laboratory of PHP.
     5. [Nullsafe operator](./operators/nullsafe_operator.php)
 2. [Functions](./functions/)
      1. [Functions](./functions/functions.php)
+     2. [Passing arguments](./functions/passing_arguments.php)
