@@ -18,3 +18,4 @@ Laboratory of PHP.
 2. [Functions](./functions/)
      1. [Functions](./functions/functions.php)
      2. [Passing arguments](./functions/passing_arguments.php)
+     3. [Lambdas](./functions/lambdas.php)
