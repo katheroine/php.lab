@@ -52,3 +52,14 @@ function functionWithArguments(int $number, string $text): void
 functionWithArguments(6, "orange");
 
 print(PHP_EOL);
+
+function functionWithDefaultArguments(int $number = 10, string $text = "moon"): void
+{
+    print("A function with some arguments:\nnumber: $number\ntext: $text\n");
+}
+
+functionWithDefaultArguments();
+functionWithDefaultArguments(5);
+functionWithDefaultArguments(7, "pencil");
+
+print(PHP_EOL);
