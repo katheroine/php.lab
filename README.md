@@ -21,3 +21,4 @@ Laboratory of PHP.
      3. [Lambdas](./functions/lambdas.php)
      4. [Cloasures](./functions/closures.php)
      5. [Generators](./functions/generators.php)
+     6. [Higher order functions](./functions/higher_order_functions.php)
