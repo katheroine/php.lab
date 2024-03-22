@@ -19,3 +19,4 @@ Laboratory of PHP.
      1. [Functions](./functions/functions.php)
      2. [Passing arguments](./functions/passing_arguments.php)
      3. [Lambdas](./functions/lambdas.php)
+     4. [Cloasures](./functions/closures.php)
