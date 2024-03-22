@@ -15,3 +15,5 @@ Laboratory of PHP.
     3. [Null coalescing operator](./operators/null_coalescing_operator.php)
     4. [Null coalescing assignment operator](./operators/null_coalescing_assignment_operator.php)
     5. [Nullsafe operator](./operators/nullsafe_operator.php)
+2. [Functions](./functions/)
+     1. [Functions](./functions/functions.php)
