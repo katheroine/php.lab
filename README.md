@@ -22,6 +22,7 @@ Laboratory of PHP.
     4. [Cloasures](./functions/closures.php)
     5. [Generators](./functions/generators.php)
     6. [Higher order functions](./functions/higher_order_functions.php)
-3. [Classes](./classes/)
+4. [Classes](./classes/)
     1. [Classes](./classes/classes.php)
     2. [Inheritance](./classes/inheritance.php)
+    3. [Encapsulation](./classes/encapsulation.php)
