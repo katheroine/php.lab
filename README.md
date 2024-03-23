@@ -24,3 +24,4 @@ Laboratory of PHP.
     6. [Higher order functions](./functions/higher_order_functions.php)
 3. [Classes](./classes/)
     1. [Classes](./classes/classes.php)
+    2. [Inheritance](./classes/inheritance.php)
