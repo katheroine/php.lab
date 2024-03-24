@@ -8,7 +8,8 @@ class SomeClass
 
     public static function someClassFunction(): void
     {
-        print(self::SOME_CLASS_CONSTANT . PHP_EOL
+        print(
+            self::SOME_CLASS_CONSTANT . PHP_EOL
             . self::$someClassVariable . PHP_EOL
             // . $this->someObjectVariable . PHP_EOL
             . PHP_EOL
@@ -19,7 +20,8 @@ class SomeClass
 
     public function someObjectFunction(): void
     {
-        print(self::SOME_CLASS_CONSTANT . PHP_EOL
+        print(
+            self::SOME_CLASS_CONSTANT . PHP_EOL
             . self::$someClassVariable . PHP_EOL
             // . $this->someClassVariable . PHP_EOL
             . $this->someObjectVariable . PHP_EOL
@@ -45,7 +47,8 @@ class SomeSubclass extends SomeClass
 {
     public function someObjectFunction(): void
     {
-        print(parent::SOME_CLASS_CONSTANT . PHP_EOL
+        print(
+            parent::SOME_CLASS_CONSTANT . PHP_EOL
             . self::SOME_CLASS_CONSTANT . PHP_EOL
             . parent::$someClassVariable . PHP_EOL
             . self::$someClassVariable . PHP_EOL

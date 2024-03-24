@@ -13,7 +13,8 @@ class SomeClass
 
     public function someFunction(): void
     {
-        print(self::SOME_CLASS_CONSTANT . PHP_EOL
+        print(
+            self::SOME_CLASS_CONSTANT . PHP_EOL
             . $this->someChangeableVariable . PHP_EOL
             . $this->someUnchengeableVariable . PHP_EOL
             . PHP_EOL
@@ -48,7 +49,8 @@ readonly class SomeUnchangeableClass
 
     public function someFunction(): void
     {
-        print(self::SOME_CLASS_CONSTANT . PHP_EOL
+        print(
+            self::SOME_CLASS_CONSTANT . PHP_EOL
             . $this->someVariable . PHP_EOL
             . $this->someUnchengeableVariable . PHP_EOL
             . PHP_EOL

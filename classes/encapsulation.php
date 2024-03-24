@@ -8,7 +8,8 @@ class SomeClass
 
     public function somePublicFunction(): void
     {
-        print($this->somePublicVariable . $this->somePrivateFunction()
+        print(
+            $this->somePublicVariable . $this->somePrivateFunction()
             . $this->someProtectedVariable . $this->somePrivateFunction()
             . $this->somePrivateVariable . $this->somePrivateFunction()
         );
