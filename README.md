@@ -28,3 +28,4 @@ Laboratory of PHP.
     3. [Encapsulation](./classes/encapsulation.php)
     4. [Static](./classes/static.php)
     5. [Readonly](./classes/readonly.php)
+    5. [Abstract](./classes/abstract.php)
