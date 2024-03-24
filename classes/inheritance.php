@@ -122,11 +122,3 @@ SomeOverridingSubclass::someClassFunction();
 
 $someSubobject2 = new SomeOverridingSubclass();
 $someSubobject2->someObjectFunction();
-
-final class SomeUnextendableClass
-{
-}
-
-// class SomeExtendingSubclass extends SomeUnextendableClass
-// {
-// }
