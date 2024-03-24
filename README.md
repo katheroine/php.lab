@@ -26,3 +26,4 @@ Laboratory of PHP.
     1. [Classes](./classes/classes.php)
     2. [Inheritance](./classes/inheritance.php)
     3. [Encapsulation](./classes/encapsulation.php)
+    4. [Static](./classes/static.php)
