@@ -30,5 +30,6 @@ Laboratory of PHP.
     5. [Readonly](./classes/readonly.php)
     6. [Abstract](./classes/abstract.php)
     7. [Final](./classes/final.php)
-    8. [Construction with static, self and parent](./classes/static_self_parent_construction.php)
+    8. [Construction ways](./classes/construction_ways.php)
+    9. [Construction with static, self and parent](./classes/static_self_parent_construction.php)
 
