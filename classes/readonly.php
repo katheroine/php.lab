@@ -38,6 +38,7 @@ $someObject->someUnexistentVariable = 10;
 readonly class SomeUnchangeableClass
 {
     public const SOME_CLASS_CONSTANT = 'nanana';
+    // public static string $someClassVariable;
     public string $someVariable;
     public readonly float $someUnchengeableVariable;
 
@@ -67,3 +68,7 @@ $someUnchengeableObject = new SomeUnchangeableClass();
 // $someUnchengeableObject->someUnchengeableVariable = 3;
 
 // $someUnchengeableObject->someUnexistentVariable = 20;
+
+readonly class SomeUnchangeableSubclass extends SomeUnchangeableClass
+{
+}
