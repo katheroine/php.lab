@@ -42,3 +42,4 @@ Laboratory of PHP.
         2. [__get](./classes/magic_methods/__get.php)
         3. [__call](./classes/magic_methods/__call.php)
         4. [__callStatic](./classes/magic_methods/__callStatic.php)
+        4. [__invoke](./classes/magic_methods/__invoke.php)
