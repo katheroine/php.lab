@@ -39,3 +39,4 @@ Laboratory of PHP.
     14. [Class name resolution](./classes/class_name_resolution.php)
     15. [Magic methods](./classes/magic_methods/)
         1. [__set](./classes/magic_methods/__set.php)
+        2. [__get](./classes/magic_methods/__get.php)
