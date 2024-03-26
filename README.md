@@ -35,3 +35,4 @@ Laboratory of PHP.
     10. [Construction with static, self and parent](./classes/static_self_parent_construction.php)
     11. [Construction object from array](./classes/construction_object_from_array.php)
     12. [Cloning objects](./classes/cloning.php)
+    13. [Signature compatibility in overriding](./classes/overriding_signature_compatibility.php)
