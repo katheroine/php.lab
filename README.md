@@ -40,3 +40,4 @@ Laboratory of PHP.
     15. [Magic methods](./classes/magic_methods/)
         1. [__set](./classes/magic_methods/__set.php)
         2. [__get](./classes/magic_methods/__get.php)
+        3. [__call](./classes/magic_methods/__call.php)
