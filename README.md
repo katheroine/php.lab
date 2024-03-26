@@ -33,4 +33,4 @@ Laboratory of PHP.
     8. [Final](./classes/final.php)
     9. [Construction ways](./classes/construction_ways.php)
     10. [Construction with static, self and parent](./classes/static_self_parent_construction.php)
-
+    11. [Construction object from array](./classes/construction_object_from_array.php)
