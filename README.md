@@ -53,5 +53,6 @@ Laboratory of PHP.
         13. [__debugInfo](./classes/magic_methods/__debugInfo.php)
         14. [__set_state](./classes/magic_methods/__set_state.php)
         15. [__clone](./classes/magic_methods/__clone.php)
-        15. [__construct](./classes/magic_methods/__construct.php)
+        16. [__construct](./classes/magic_methods/__construct.php)
+        17. [__destruct](./classes/magic_methods/__destruct.php)
 
