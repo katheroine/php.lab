@@ -45,3 +45,4 @@ Laboratory of PHP.
         5. [__invoke](./classes/magic_methods/__invoke.php)
         6. [__isset](./classes/magic_methods/__isset.php)
         7. [__unset](./classes/magic_methods/__unset.php)
+        8. [__sleep](./classes/magic_methods/__sleep.php)
