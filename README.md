@@ -36,3 +36,4 @@ Laboratory of PHP.
     11. [Construction object from array](./classes/construction_object_from_array.php)
     12. [Cloning objects](./classes/cloning.php)
     13. [Signature compatibility in overriding](./classes/overriding_signature_compatibility.php)
+    14. [Class name resolution](./classes/class_name_resolution.php)
