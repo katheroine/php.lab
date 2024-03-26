@@ -48,3 +48,4 @@ Laboratory of PHP.
         8. [__sleep](./classes/magic_methods/__sleep.php)
         9. [__wakeup](./classes/magic_methods/__wakeup.php)
         10. [__serialize](./classes/magic_methods/__serialize.php)
+        11. [__unserialize](./classes/magic_methods/__unserialize.php)
