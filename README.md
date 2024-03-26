@@ -49,4 +49,5 @@ Laboratory of PHP.
         9. [__wakeup](./classes/magic_methods/__wakeup.php)
         10. [__serialize](./classes/magic_methods/__serialize.php)
         11. [__unserialize](./classes/magic_methods/__unserialize.php)
-        12. [__toStrin](./classes/magic_methods/__toString.php)
+        12. [__toString](./classes/magic_methods/__toString.php)
+        13. [__debugInfo](./classes/magic_methods/__debugInfo.php)
