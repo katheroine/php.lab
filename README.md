@@ -51,5 +51,6 @@ Laboratory of PHP.
         11. [__unserialize](./classes/magic_methods/__unserialize.php)
         12. [__toString](./classes/magic_methods/__toString.php)
         13. [__debugInfo](./classes/magic_methods/__debugInfo.php)
-        13. [__set_state](./classes/magic_methods/__set_state.php)
+        14. [__set_state](./classes/magic_methods/__set_state.php)
+        15. [__clone](./classes/magic_methods/__clone.php)
 
