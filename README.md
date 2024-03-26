@@ -37,3 +37,5 @@ Laboratory of PHP.
     12. [Cloning objects](./classes/cloning.php)
     13. [Signature compatibility in overriding](./classes/overriding_signature_compatibility.php)
     14. [Class name resolution](./classes/class_name_resolution.php)
+    15. [Magic methods](./classes/magic_methods/)
+        1. [__set](./classes/magic_methods/__set.php)
