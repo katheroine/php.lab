@@ -55,4 +55,5 @@ Laboratory of PHP.
         15. [__clone](./classes/magic_methods/__clone.php)
         16. [__construct](./classes/magic_methods/__construct.php)
         17. [__destruct](./classes/magic_methods/__destruct.php)
+    16. [Constructor overriding](./classes/constructor_overriding.php)
 
