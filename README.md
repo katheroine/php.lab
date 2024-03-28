@@ -59,3 +59,4 @@ Laboratory of PHP.
 5. [Traits](./traits/)
     1. [Traits](./traits/traits.php)
     2. [Precedence](./traits/precedence.php)
+    3. [Conflicts resolution](./traits/conflicts_resolution.php)
