@@ -62,3 +62,4 @@ Laboratory of PHP.
     3. [Conflicts resolution](./traits/conflicts_resolution.php)
     4. [Methods visibility change](./traits/visibility_change.php)
     5. [Abstract methods](./traits/visibility_change.php)
+    6. [Composing traits](./traits/composing.php)
