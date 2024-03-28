@@ -2,6 +2,8 @@
 
 class SomeClass
 {
+    final public const SOME_CONST = 'lalala';
+
     public static function someClassFunction(): void
     {
         print("Base class: extendable\n");
@@ -34,6 +36,8 @@ print(PHP_EOL);
 
 class SomeSubclass extends SomeClass
 {
+    // final public const SOME_CONST = 'nanana';
+
     public static function someClassFunction(): void
     {
         print("Sublass: extendable\n");
