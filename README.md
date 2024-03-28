@@ -55,5 +55,6 @@ Laboratory of PHP.
     17. [Constructor promotion](./classes/constructor_promotion.php)
 5. [Interfaces](./interfaces/)
     1. [Interfaces](./interfaces/interfaces.php)
+    2. [Extending](./interfaces/extending.php)
 5. [Traits](./traits/)
     1. [Traits](./traits/traits.php)
