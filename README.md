@@ -50,7 +50,7 @@ Laboratory of PHP.
         10. [__serialize](./classes/magic_methods/__serialize.php)
         11. [__unserialize](./classes/magic_methods/__unserialize.php)
         12. [__toString](./classes/magic_methods/__toString.php)
-        13. [__debugInfo](./classes/magic_methods/All methods declared in an interface must be publicsses/magic_methods/__destruct.php)
+        13. [__debugInfo](./classes/magic_methods/_destruct.php)
     16. [Constructor overriding](./classes/constructor_overriding.php)
     17. [Constructor promotion](./classes/constructor_promotion.php)
 5. [Interfaces](./interfaces/)
@@ -58,3 +58,4 @@ Laboratory of PHP.
     2. [Extending](./interfaces/extending.php)
 5. [Traits](./traits/)
     1. [Traits](./traits/traits.php)
+    2. [Precedence](./traits/precedence.php)
