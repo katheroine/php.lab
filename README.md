@@ -60,3 +60,4 @@ Laboratory of PHP.
     1. [Traits](./traits/traits.php)
     2. [Precedence](./traits/precedence.php)
     3. [Conflicts resolution](./traits/conflicts_resolution.php)
+    4. [Methods visibility change](./traits/visibility_change.php)
