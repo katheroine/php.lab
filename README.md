@@ -66,3 +66,4 @@ Laboratory of PHP.
 7. [Errors and exceptions](./errors_and_exceptions/)
     1. [Exceptions](./errors_and_exceptions/exceptions/)
         1. [Exceptions](./errors_and_exceptions/exceptions/exceptions.php)
+        2. [Returning value inside try-catch-finally](./errors_and_exceptions/exceptions/return.php)
