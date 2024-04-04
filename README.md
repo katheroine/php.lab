@@ -64,6 +64,10 @@ Laboratory of PHP.
     5. [Abstract methods](./traits/visibility_change.php)
     6. [Composing traits](./traits/composing.php)
 7. [Errors and exceptions](./errors_and_exceptions/)
-    1. [Exceptions](./errors_and_exceptions/exceptions/)
+    1. [Errors](./errors_and_exceptions/errors/)
+        1. [Triggering and handling errors](./errors_and_exceptions/errors/triggering_and_handling_errors.php)
+        2. [Catching errors](./errors_and_exceptions/errors/catching_errors.php)
+    2. [Exceptions](./errors_and_exceptions/exceptions/)
         1. [Exceptions](./errors_and_exceptions/exceptions/exceptions.php)
         2. [Returning value inside try-catch-finally](./errors_and_exceptions/exceptions/return.php)
+
