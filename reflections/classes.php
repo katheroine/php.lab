@@ -142,8 +142,6 @@ print(PHP_EOL);
 print("Static properties:\n");
 var_dump($classReflection->getStaticProperties());
 print('Static property someClassVariable value: ' . $classReflection->getStaticPropertyValue('someClassVariable') . PHP_EOL);
-$classReflection->setStaticPropertyValue('someClassVariable', 2048);
-print('Static property someClassVariable value: ' . $classReflection->getStaticPropertyValue('someClassVariable') . PHP_EOL);
 
 print(PHP_EOL);
 
@@ -166,3 +164,8 @@ var_dump($classReflection->getDocComment());
 print(PHP_EOL);
 
 print("To string:\n" . $classReflection->__toString() . PHP_EOL);
+
+print(PHP_EOL);
+
+$classReflection->setStaticPropertyValue('someClassVariable', 2048);
+print('Static property someClassVariable value: ' . $classReflection->getStaticPropertyValue('someClassVariable') . PHP_EOL);
