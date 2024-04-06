@@ -49,13 +49,12 @@ print('Class identifier: ' . $classReflection->name . PHP_EOL);
 print(PHP_EOL);
 
 print('Class identifier: ' . $classReflection->getName() . PHP_EOL);
+print('Is in namespace? ' . $classReflection->inNamespace() . PHP_EOL);
 print('Namespace identifier: ' . $classReflection->getNamespaceName() . PHP_EOL);
 print('Parent class identifier: ' . $classReflection->getParentClass() . PHP_EOL);
-print('Class file name: ' . $classReflection->getFileName() . PHP_EOL);
 
 print(PHP_EOL);
 
-print('Is namespace? ' . $classReflection->inNamespace() . PHP_EOL);
 print('Is interface? ' . $classReflection->isInterface() . PHP_EOL);
 print('Is trait? ' . $classReflection->isTrait() . PHP_EOL);
 print('Is enum? ' . $classReflection->isEnum() . PHP_EOL);
@@ -70,7 +69,7 @@ print('Is cloneable? ' . $classReflection->isCloneable() . PHP_EOL);
 print('Is iterable? ' . $classReflection->isIterable() . PHP_EOL);
 
 print('Is internal? ' . $classReflection->isInternal() . PHP_EOL);
-print('Is user defined? ' . $classReflection->isUserDefined() . PHP_EOL);
+print('Is user-defined? ' . $classReflection->isUserDefined() . PHP_EOL);
 
 print(PHP_EOL);
 
@@ -90,6 +89,7 @@ print('End line: ' . $classReflection->getEndLine() . PHP_EOL);
 
 print(PHP_EOL);
 
+print('Class file name: ' . $classReflection->getFileName() . PHP_EOL);
 print("Class extension:\n");
 var_dump($classReflection->getExtension());
 print("Class extension name:\n");
