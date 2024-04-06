@@ -15,7 +15,7 @@ $constantValue = $classReflection->getConstant('SOME_CONSTANT');
 
 print("Constants:\n");
 var_dump($constants);
-print('Value: ' . $constantValue . PHP_EOL);
+print('Constant SOME_CONSTANT value: ' . $constantValue . PHP_EOL);
 
 print(PHP_EOL);
 
