@@ -73,4 +73,7 @@ Laboratory of PHP.
     2. [Exceptions](./errors_and_exceptions/exceptions/)
         1. [Exceptions](./errors_and_exceptions/exceptions/exceptions.php)
         2. [Returning value inside try-catch-finally](./errors_and_exceptions/exceptions/return.php)
+8. [Reflections](./reflections/)
+    1. [Class reflections](./reflections/classes.php)
+    2. [Class constant reflections](./reflections/class_constants.php)
 
