@@ -42,16 +42,22 @@ print('Class identifier: ' . $methodReflection->class . PHP_EOL);
 print(PHP_EOL);
 
 print('Method identifier: ' . $methodReflection->getName() . PHP_EOL);
+print('Short name: ' . $methodReflection->getShortName() . PHP_EOL);
 print('Is in namespace? ' . $classReflection->inNamespace() . PHP_EOL);
 print('Namespace identifier: ' . $methodReflection->getNamespaceName() . PHP_EOL);
 
 print(PHP_EOL);
 
-print('Method has return type? ' . $methodReflection->hasReturnType() . PHP_EOL);
-print('Method return type: ' . $methodReflection->getReturnType() . PHP_EOL);
-print('Method modifiers bit: ' . $methodReflection->getModifiers() . PHP_EOL);
+print("Declaring class:\n");
+var_dump($methodReflection->getDeclaringClass());
 
 print(PHP_EOL);
+
+print('Is internal? ' . $methodReflection->isInternal() . PHP_EOL);
+print('Is user-defined? ' . $methodReflection->isUserDefined() . PHP_EOL);
+
+print('Is variadic? ' . $methodReflection->isVariadic() . PHP_EOL);
+print('Is deprecated? ' . $methodReflection->isDeprecated() . PHP_EOL);
 
 print('Is public? ' . $methodReflection->isPublic() . PHP_EOL);
 print('Is protected? ' . $methodReflection->isProtected() . PHP_EOL);
@@ -59,12 +65,6 @@ print('Is private? ' . $methodReflection->isPrivate() . PHP_EOL);
 print('Is static? ' . $methodReflection->isStatic() . PHP_EOL);
 print('Is final? ' . $methodReflection->isFinal() . PHP_EOL);
 print('Is abstract? ' . $methodReflection->isAbstract() . PHP_EOL);
-
-print('Is internal? ' . $methodReflection->isInternal() . PHP_EOL);
-print('Is user-defined? ' . $methodReflection->isUserDefined() . PHP_EOL);
-
-print('Is variadic? ' . $methodReflection->isVariadic() . PHP_EOL);
-print('Is deprecated? ' . $methodReflection->isDeprecated() . PHP_EOL);
 
 print(PHP_EOL);
 
@@ -75,27 +75,30 @@ print('Is destructor? ' . $methodReflection->isDestructor() . PHP_EOL);
 
 print(PHP_EOL);
 
-print('Short name: ' . $methodReflection->getShortName() . PHP_EOL);
-print('Start line: ' . $methodReflection->getStartLine() . PHP_EOL);
-print('End line: ' . $methodReflection->getEndLine() . PHP_EOL);
+print('Method modifiers bit: ' . $methodReflection->getModifiers() . PHP_EOL);
 
 print(PHP_EOL);
 
 print('Class file name: ' . $methodReflection->getFileName() . PHP_EOL);
-print("Class extension:\n");
+print("File extension:\n");
 var_dump($methodReflection->getExtension());
 print("Class extension name:\n");
 var_dump($methodReflection->getExtensionName());
 
 print(PHP_EOL);
 
-print("Method attributes:\n");
-var_dump($methodReflection->getAttributes());
+print('Start line: ' . $methodReflection->getStartLine() . PHP_EOL);
+print('End line: ' . $methodReflection->getEndLine() . PHP_EOL);
 
 print(PHP_EOL);
 
 print("Doc comment:\n");
 var_dump($methodReflection->getDocComment());
+
+print(PHP_EOL);
+
+print("Method attributes:\n");
+var_dump($methodReflection->getAttributes());
 
 print(PHP_EOL);
 
@@ -106,15 +109,18 @@ var_dump($methodReflection->getParameters());
 
 print(PHP_EOL);
 
-print("Static variables:\n");
-var_dump($methodReflection->getStaticVariables());
-
-print(PHP_EOL);
+print('Method has return type? ' . $methodReflection->hasReturnType() . PHP_EOL);
+print('Method return type: ' . $methodReflection->getReturnType() . PHP_EOL);
 
 print('Has tentative return type?' . $methodReflection->hasTentativeReturnType() . PHP_EOL);
 print("Tentative return type:\n");
 var_dump($methodReflection->getTentativeReturnType());
 print('Returns reference?' . $methodReflection->returnsReference() . PHP_EOL);
+
+print(PHP_EOL);
+
+print("Static variables:\n");
+var_dump($methodReflection->getStaticVariables());
 
 print(PHP_EOL);
 
@@ -136,11 +142,6 @@ var_dump($methodReflection->getClosureUsedVariables());
 print(PHP_EOL);
 
 print("To string:\n" . $methodReflection->__toString() . PHP_EOL);
-
-print(PHP_EOL);
-
-print("Declaring class:\n");
-var_dump($methodReflection->getDeclaringClass());
 
 print(PHP_EOL);
 
