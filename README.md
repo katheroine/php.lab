@@ -75,6 +75,7 @@ Laboratory of PHP.
         2. [Returning value inside try-catch-finally](./errors_and_exceptions/exceptions/return.php)
 8. [Reflections](./reflections/)
     1. [Function reflections](./reflections/functions.php)
+    3. [Enum reflections](./reflections/enums.php)
     2. [Class reflections](./reflections/classes.php)
     3. [Class constant reflections](./reflections/class_constants.php)
     4. [Property reflections](./reflections/properties.php)
