@@ -49,11 +49,15 @@ print('Class identifier: ' . $classReflection->name . PHP_EOL);
 print(PHP_EOL);
 
 print('Class identifier: ' . $classReflection->getName() . PHP_EOL);
+print('Short name: ' . $classReflection->getShortName() . PHP_EOL);
 print('Is in namespace? ' . $classReflection->inNamespace() . PHP_EOL);
 print('Namespace identifier: ' . $classReflection->getNamespaceName() . PHP_EOL);
 print('Parent class identifier: ' . $classReflection->getParentClass() . PHP_EOL);
 
 print(PHP_EOL);
+
+print('Is internal? ' . $classReflection->isInternal() . PHP_EOL);
+print('Is user-defined? ' . $classReflection->isUserDefined() . PHP_EOL);
 
 print('Is interface? ' . $classReflection->isInterface() . PHP_EOL);
 print('Is trait? ' . $classReflection->isTrait() . PHP_EOL);
@@ -68,9 +72,6 @@ print('Is instantiable? ' . $classReflection->isInstantiable() . PHP_EOL);
 print('Is cloneable? ' . $classReflection->isCloneable() . PHP_EOL);
 print('Is iterable? ' . $classReflection->isIterable() . PHP_EOL);
 
-print('Is internal? ' . $classReflection->isInternal() . PHP_EOL);
-print('Is user-defined? ' . $classReflection->isUserDefined() . PHP_EOL);
-
 print(PHP_EOL);
 
 print('Class modifiers bit: ' . $classReflection->getModifiers() . PHP_EOL);
@@ -83,9 +84,16 @@ print('Implements interface SomeInterface? ' . $classReflection->implementsInter
 
 print(PHP_EOL);
 
-print('Short name: ' . $classReflection->getShortName() . PHP_EOL);
-print('Start line: ' . $classReflection->getStartLine() . PHP_EOL);
-print('End line: ' . $classReflection->getEndLine() . PHP_EOL);
+print("Interface names:\n");
+var_dump($classReflection->getInterfaceNames());
+print("Interfaces:\n");
+var_dump($classReflection->getInterfaces());
+print("Trait names:\n");
+var_dump($classReflection->getTraitNames());
+print("Traits:\n");
+var_dump($classReflection->getTraits());
+print("Trait aliases:\n");
+var_dump($classReflection->getTraitAliases());
 
 print(PHP_EOL);
 
@@ -97,21 +105,18 @@ var_dump($classReflection->getExtensionName());
 
 print(PHP_EOL);
 
-print("Constant attributes:\n");
-var_dump($classReflection->getAttributes());
+print('Start line: ' . $classReflection->getStartLine() . PHP_EOL);
+print('End line: ' . $classReflection->getEndLine() . PHP_EOL);
 
 print(PHP_EOL);
 
-print("Interface names:\n");
-var_dump($classReflection->getInterfaceNames());
-print("Interfaces:\n");
-var_dump($classReflection->getInterfaces());
-print("Trait names:\n");
-var_dump($classReflection->getTraitNames());
-print("InterfaceTraitss:\n");
-var_dump($classReflection->getTraits());
-print("Trait aliases:\n");
-var_dump($classReflection->getTraitAliases());
+print("Doc comment:\n");
+var_dump($classReflection->getDocComment());
+
+print(PHP_EOL);
+
+print("Constant attributes:\n");
+var_dump($classReflection->getAttributes());
 
 print(PHP_EOL);
 
@@ -155,11 +160,6 @@ print(PHP_EOL);
 
 print("Constructor:\n");
 var_dump($classReflection->getConstructor());
-
-print(PHP_EOL);
-
-print("Doc comment:\n");
-var_dump($classReflection->getDocComment());
 
 print(PHP_EOL);
 
