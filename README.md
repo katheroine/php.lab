@@ -80,4 +80,5 @@ Laboratory of PHP.
     3. [Class constant reflections](./reflections/class_constants.php)
     4. [Property reflections](./reflections/properties.php)
     5. [Method reflections](./reflections/methods.php)
+9. [Attributes](./attributes/attributes.php)
 
