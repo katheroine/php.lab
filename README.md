@@ -81,4 +81,7 @@ Laboratory of PHP.
     4. [Property reflections](./reflections/properties.php)
     5. [Method reflections](./reflections/methods.php)
 9. [Attributes](./attributes/attributes.php)
+10. [Standard PHP Library (SPL)](./spl/)
+    1. [Data structures](./spl/data_structures/)
+        1. [Doubly linked list](./spl/data_structures/doubly_linked_list.php)
 
