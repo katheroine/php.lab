@@ -1,5 +1,7 @@
 <?php
 
+// https://www.php.net/manual/en/class.spldoublylinkedlist.php
+
 $someList = new SplDoublyLinkedList();
 
 function display(ArrayAccess $iterable) {
