@@ -84,5 +84,6 @@ Laboratory of PHP.
 10. [Standard PHP Library (SPL)](./spl/)
     1. [Data structures](./spl/data_structures/)
         1. [Doubly linked list](./spl/data_structures/doubly_linked_list.php)
-        1. [Stack](./spl/data_structures/stack.php)
+        2. [Stack](./spl/data_structures/stack.php)
+        3. [Queue](./spl/data_structures/queue.php)
 
