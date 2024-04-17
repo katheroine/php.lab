@@ -90,4 +90,5 @@ Laboratory of PHP.
         5. [Max heap](./spl/data_structures/max_heap.php)
         6. [Min heap](./spl/data_structures/min_heap.php)
         7. [Fixed array](./spl/data_structures/fixed_array.php)
+        7. [Object storage](./spl/data_structures/object_storage.php)
 
