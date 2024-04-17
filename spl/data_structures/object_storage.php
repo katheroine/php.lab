@@ -69,8 +69,8 @@ print('Hash:' . $someStorage->getHash($object) . PHP_EOL);
 
 print(PHP_EOL);
 
-print('Offest exists [1]? ' . $someStorage->offsetExists($object) . PHP_EOL);
-print('Offest [1]? ' . $someStorage->offsetGet($object) . PHP_EOL);
+print('Offest exists [object apple]? ' . $someStorage->offsetExists($object) . PHP_EOL);
+print('Offest [object apple]? ' . $someStorage->offsetGet($object) . PHP_EOL);
 print(PHP_EOL);
 $someStorage->offsetSet($object, 'most popular European fruit');
 display($someStorage);
