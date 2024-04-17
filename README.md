@@ -86,4 +86,5 @@ Laboratory of PHP.
         1. [Doubly linked list](./spl/data_structures/doubly_linked_list.php)
         2. [Stack](./spl/data_structures/stack.php)
         3. [Queue](./spl/data_structures/queue.php)
+        4. [Priority queue](./spl/data_structures/priority_queue.php)
 
