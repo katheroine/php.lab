@@ -88,4 +88,5 @@ Laboratory of PHP.
         3. [Queue](./spl/data_structures/queue.php)
         4. [Priority queue](./spl/data_structures/priority_queue.php)
         5. [Max heap](./spl/data_structures/max_heap.php)
+        6. [Min heap](./spl/data_structures/min_heap.php)
 
