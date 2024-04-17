@@ -87,4 +87,5 @@ Laboratory of PHP.
         2. [Stack](./spl/data_structures/stack.php)
         3. [Queue](./spl/data_structures/queue.php)
         4. [Priority queue](./spl/data_structures/priority_queue.php)
+        5. [Max heap](./spl/data_structures/max_heap.php)
 
