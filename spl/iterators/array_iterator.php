@@ -31,7 +31,7 @@ print('Count: ' . $someIterator->count() . PHP_EOL);
 print(PHP_EOL);
 
 for ($someIterator->rewind(); $someIterator->valid(); $someIterator->next()) {
-    print('[' . $someIterator->key() . ']:' . $someIterator->current() . PHP_EOL);
+    print('[' . $someIterator->key() . ']: ' . $someIterator->current() . PHP_EOL);
 }
 
 print(PHP_EOL);
@@ -57,8 +57,6 @@ $someIterator->offsetUnset(1);
 display($someIterator);
 
 print(PHP_EOL);
-
-// public seek(int $offset): void
 
 $serialized = $someIterator->serialize();
 print("Serialized:\n");

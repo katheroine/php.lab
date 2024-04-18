@@ -37,7 +37,7 @@ print('Contains object grapefruit? ' . $someStorage->contains($object) . PHP_EOL
 print(PHP_EOL);
 
 for ($someStorage->rewind(); $someStorage->valid(); $someStorage->next()) {
-    print('[' . $someStorage->key() . ']:' . PHP_EOL);
+    print('[' . $someStorage->key() . ']: ' . PHP_EOL);
     var_dump($someStorage->current());
 }
 
