@@ -93,6 +93,7 @@ Laboratory of PHP.
         8. [Object storage](./spl/data_structures/object_storage.php)
     2. [Iterators](./spl/iterators/)
         1. [Array iterator](./spl/iterators/array_iterator.php)
-        2. [Append iterator](./spl/iterators/append_iterator.php)
-        3. [Iterator iterator](./spl/iterators/iterator_iterator.php)
+        2. [Iterator iterator](./spl/iterators/iterator_iterator.php)
+        3. [Append iterator](./spl/iterators/append_iterator.php)
+        4. [Empty iterator](./spl/iterators/empty_iterator.php)
 
