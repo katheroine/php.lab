@@ -94,4 +94,5 @@ Laboratory of PHP.
     2. [Iterators](./spl/iterators/)
         1. [Array iterator](./spl/iterators/array_iterator.php)
         2. [Append iterator](./spl/iterators/append_iterator.php)
+        3. [Iterator iterator](./spl/iterators/iterator_iterator.php)
 
