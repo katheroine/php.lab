@@ -102,4 +102,4 @@ Laboratory of PHP.
         8. [Infinite iterator](./spl/iterators/infinite_iterator.php)
         9. [Multiple iterator](./spl/iterators/multiple_iterator.php)
         10. [Callback filter iterator](./spl/iterators/callback_filter_iterator.php)
-
+        11. [Recursive callback filter iterator](./spl/iterators/recursive_callback_filter_iterator.php)
