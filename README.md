@@ -100,4 +100,5 @@ Laboratory of PHP.
         6. [No rewind iterator](./spl/iterators/no_rewind_iterator.php)
         7. [Infinite iterator](./spl/iterators/infinite_iterator.php)
         8. [Multiple iterator](./spl/iterators/multiple_iterator.php)
+        9. [Callback filter iterator](./spl/iterators/callback_filter_iterator.php)
 
