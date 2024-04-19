@@ -34,3 +34,11 @@ print('Iterator type: ' . gettype($innerIterator) . PHP_EOL);
 
 $arrayIterator = $someIterator->getArrayIterator();
 print('Iterator class: ' . get_class($arrayIterator) . PHP_EOL);
+
+for ($arrayIterator->rewind(); $arrayIterator->valid(); $arrayIterator->next()) {
+    print('[' . $arrayIterator->key() . ']: ' . PHP_EOL);
+    var_dump($arrayIterator->current());
+    print(PHP_EOL);
+}
+
+print(PHP_EOL);

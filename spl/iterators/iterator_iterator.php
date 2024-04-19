@@ -12,8 +12,14 @@ $someIterator = new IteratorIterator(
 );
 
 for ($someIterator->rewind(); $someIterator->valid(); $someIterator->next()) {
-    print('[' . $someIterator->key() . ']: ' . $someIterator->current() . ' ');
-    $innerIterator = $someIterator->getInnerIterator();
+    print('[' . $someIterator->key() . ']: ' . $someIterator->current() . PHP_EOL);
+}
+
+print(PHP_EOL);
+
+$innerIterator = $someIterator->getInnerIterator();
+
+for ($innerIterator->rewind(); $innerIterator->valid(); $innerIterator->next()) {
     print('[' . $innerIterator->key() . ']:' . $innerIterator->current() . PHP_EOL);
 }
 

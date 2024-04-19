@@ -9,8 +9,14 @@ $someIterator = new InfiniteIterator(
 );
 
 for ($someIterator->rewind(), $i = 0; $someIterator->valid() && $i < 10; $someIterator->next(), $i++) {
-    print('[' . $someIterator->key() . ']: ' . $someIterator->current() . ' ');
-    $innerIterator = $someIterator->getInnerIterator();
+    print('[' . $someIterator->key() . ']: ' . $someIterator->current() . PHP_EOL);
+}
+
+print(PHP_EOL);
+
+$innerIterator = $someIterator->getInnerIterator();
+
+for ($innerIterator->rewind(); $innerIterator->valid(); $innerIterator->next()) {
     print('[' . $innerIterator->key() . ']:' . $innerIterator->current() . PHP_EOL);
 }
 
