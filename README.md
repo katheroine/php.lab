@@ -106,4 +106,5 @@ Laboratory of PHP.
         12. [Recursive callback filter iterator](./spl/iterators/recursive_callback_filter_iterator.php)
         13. [Caching iterator](./spl/iterators/caching_iterator.php)
         14. [Recursive caching iterator](./spl/iterators/recursive_caching_iterator.php)
-        14. [Regex iterator](./spl/iterators/regex_iterator.php)
+        15. [Regex iterator](./spl/iterators/regex_iterator.php)
+        16. [Recursive regex iterator](./spl/iterators/recursive_regex_iterator.php)
