@@ -109,3 +109,4 @@ Laboratory of PHP.
         15. [Regex iterator](./spl/iterators/regex_iterator.php)
         16. [Recursive regex iterator](./spl/iterators/recursive_regex_iterator.php)
         17. [Filesystem iterator](./spl/iterators/filesystem_iterator.php)
+        18. [Directory iterator](./spl/iterators/directory_iterator.php)
