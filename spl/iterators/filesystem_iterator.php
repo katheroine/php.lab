@@ -6,7 +6,7 @@ mkdir('some_directory');
 mkdir('some_directory/other_directory');
 touch('some_directory/some_file.ext');
 touch('some_directory/other_directory/other_file.ext');
-touch('some_directory//other_directory/another_file.ext');
+touch('some_directory/other_directory/another_file.ext');
 
 $someIterator = new FilesystemIterator('some_directory/');
 
@@ -28,6 +28,6 @@ print(PHP_EOL);
 
 unlink('some_directory/some_file.ext');
 unlink('some_directory/other_directory/other_file.ext');
-unlink('some_directory//other_directory/another_file.ext');
+unlink('some_directory/other_directory/another_file.ext');
 rmdir('some_directory/other_directory');
 rmdir('some_directory');

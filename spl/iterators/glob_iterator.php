@@ -7,11 +7,11 @@ mkdir('some_directory');
 mkdir('some_directory/other_directory');
 touch('some_directory/some_file.ext');
 touch('some_directory/other_directory/other_file.ext');
-touch('some_directory/other_directory/another_file.ext');
+touch('some_directory/another_file.oth');
 
-$someIterator = new DirectoryIterator('some_directory/');
+$someIterator = new GlobIterator('some_directory/*.ext');
 
-function display(DirectoryIterator $iterator) {
+function display(GlobIterator $iterator) {
     foreach ($iterator as $key => $file) {
         print('[' . $key . ']: ' . $file->getFilename() . ' : ' . $file->getPathname() . PHP_EOL);
     }
@@ -29,6 +29,6 @@ print(PHP_EOL);
 
 unlink('some_directory/some_file.ext');
 unlink('some_directory/other_directory/other_file.ext');
-unlink('some_directory/other_directory/another_file.ext');
+unlink('some_directory/another_file.oth');
 rmdir('some_directory/other_directory');
 rmdir('some_directory');
