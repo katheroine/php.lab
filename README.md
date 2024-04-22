@@ -114,3 +114,5 @@ Laboratory of PHP.
         20. [Glob iterator](./spl/iterators/glob_iterator.php)
         21. [Recursive tree iterator](./spl/iterators/recursive_tree_iterator.php)
         22. [Parent iterator](./spl/iterators/parent_iterator.php)
+    3. [Exceptions](./spl/exceptions/)
+        1. [Unexpected value exception](./spl/exceptions/unexpected_value_exception.php)
