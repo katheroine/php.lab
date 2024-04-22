@@ -116,3 +116,4 @@ Laboratory of PHP.
         22. [Parent iterator](./spl/iterators/parent_iterator.php)
     3. [Exceptions](./spl/exceptions/)
         1. [Unexpected value exception](./spl/exceptions/unexpected_value_exception.php)
+        2. [Bad function call exception](./spl/exceptions/bad_function_call_exception.php)
