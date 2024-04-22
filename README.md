@@ -117,3 +117,4 @@ Laboratory of PHP.
     3. [Exceptions](./spl/exceptions/)
         1. [Unexpected value exception](./spl/exceptions/unexpected_value_exception.php)
         2. [Bad function call exception](./spl/exceptions/bad_function_call_exception.php)
+        3. [Bad method call exception](./spl/exceptions/bad_method_call_exception.php)

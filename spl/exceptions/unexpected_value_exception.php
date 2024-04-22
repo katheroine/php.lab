@@ -7,8 +7,6 @@ declare(strict_types=1);
 // to be of a certain type or value not including arithmetic or buffer related errors."
 // -- https://www.php.net/manual/en/class.unexpectedvalueexception.php
 
-$value = 'some string';
-
 function total($values)
 {
     $total = 0;

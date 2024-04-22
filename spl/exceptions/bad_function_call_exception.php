@@ -5,8 +5,6 @@ declare(strict_types=1);
 // "Exception thrown if a callback refers to an undefined function or if some arguments are missing."
 // -- https://www.php.net/manual/en/class.badfunctioncallexception.php
 
-$value = 'some string';
-
 function total($values, $adding)
 {
     $total = 0;
