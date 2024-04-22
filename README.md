@@ -113,3 +113,4 @@ Laboratory of PHP.
         19. [Recursive directory iterator](./spl/iterators/recursive_directory_iterator.php)
         20. [Glob iterator](./spl/iterators/glob_iterator.php)
         21. [Recursive tree iterator](./spl/iterators/recursive_tree_iterator.php)
+        22. [Parent iterator](./spl/iterators/parent_iterator.php)
