@@ -120,3 +120,4 @@ Laboratory of PHP.
         3. [Bad method call exception](./spl/exceptions/bad_method_call_exception.php)
         4. [Invalid arument exception](./spl/exceptions/invalid_argument_exception.php)
         5. [Logic exception](./spl/exceptions/logic_exception.php)
+        6. [Length exception](./spl/exceptions/length_exception.php)
