@@ -121,3 +121,4 @@ Laboratory of PHP.
         4. [Invalid arument exception](./spl/exceptions/invalid_argument_exception.php)
         5. [Logic exception](./spl/exceptions/logic_exception.php)
         6. [Length exception](./spl/exceptions/length_exception.php)
+        7. [Out of range exception](./spl/exceptions/out_of_range_exception.php)
