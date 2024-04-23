@@ -9,7 +9,8 @@ class Trio {
     const MAX_COUNT = 3;
     private array $items = [];
     private int $count = 0;
-    public function add($item): void {
+    public function add($item): void
+    {
         if ($this->count >= self::MAX_COUNT) {
             throw new OverflowException('Container is already full.');
         } else {
@@ -18,7 +19,7 @@ class Trio {
         }
     }
 
-    public function get(int $index)
+    public function get(int $index): string|bool
     {
         if ($index < self::MAX_COUNT) {
             return $this->items[$index];

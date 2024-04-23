@@ -127,3 +127,4 @@ Laboratory of PHP.
         10. [Range exception](./spl/exceptions/range_exception.php)
         11. [Out of bounds exception](./spl/exceptions/out_of_bounds_exception.php)
         12. [Overflow exception](./spl/exceptions/overflow_exception.php)
+        13. [Underflow exception](./spl/exceptions/underflow_exception.php)
