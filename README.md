@@ -122,3 +122,4 @@ Laboratory of PHP.
         5. [Logic exception](./spl/exceptions/logic_exception.php)
         6. [Length exception](./spl/exceptions/length_exception.php)
         7. [Out of range exception](./spl/exceptions/out_of_range_exception.php)
+        8. [Domain exception](./spl/exceptions/domain_exception.php)
