@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // "Exception thrown to indicate range errors during program execution.
 // Normally this means there was an arithmetic error other than under/overflow.
 // This is the runtime version of DomainException."

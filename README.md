@@ -126,3 +126,4 @@ Laboratory of PHP.
         9. [Runtime exception](./spl/exceptions/runtime_exception.php)
         10. [Range exception](./spl/exceptions/range_exception.php)
         11. [Out of bounds exception](./spl/exceptions/out_of_bounds_exception.php)
+        12. [Overflow exception](./spl/exceptions/overflow_exception.php)

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // "Exception thrown if a value is not a valid key. This represents errors that cannot be detected at compile time."
 // -- https://www.php.net/manual/en/class.outofboundsexception.php
 

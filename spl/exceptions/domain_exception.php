@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // "Exception thrown if a value does not adhere to a defined valid data domain."
 // -- https://www.php.net/manual/en/class.domainexception.php
 

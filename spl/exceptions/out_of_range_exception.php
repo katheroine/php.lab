@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // "Exception thrown when an illegal index was requested.
 // This represents errors that should be detected at compile time."
 // -- https://www.php.net/manual/en/class.outofrangeexception.php

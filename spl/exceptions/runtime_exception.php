@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // "Exception thrown if an error which can only be found on runtime occurs."
 // -- https://www.php.net/manual/en/class.runtimeexception.php
 
