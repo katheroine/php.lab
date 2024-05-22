@@ -136,5 +136,6 @@ Laboratory of PHP.
             2. [File object (SPL)](./library/classes/files/spl_file_object.php)
     2. [Interfaces](./library/interfaces/)
         1. [Collections](./library/interfaces/collections/)
-            1. [Countable](./library/interfaces/collections/spl_countable.php)
+            1. [Array access](./library/interfaces/collections/array_access.php)
+            1. [Countable (SPL)](./library/interfaces/collections/spl_countable.php)
             2. [Iterator](./library/interfaces/collections/iterators/iterator.php)
