@@ -3,7 +3,7 @@
 // "Interface to detect if a class is traversable using foreach."
 // -- https://www.php.net/manual/en/class.traversable.php
 
-class SomeContainer implements Iterator
+class SomeContainer implements Iterator // extends Traversable
 {
     private $storage = [];
     private bool $valid = true;

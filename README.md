@@ -137,5 +137,6 @@ Laboratory of PHP.
     2. [Interfaces](./library/interfaces/)
         1. [Collections](./library/interfaces/collections/)
             1. [Array access](./library/interfaces/collections/array_access.php)
-            1. [Countable (SPL)](./library/interfaces/collections/spl_countable.php)
-            2. [Iterator](./library/interfaces/collections/iterators/iterator.php)
+            2. [Countable (SPL)](./library/interfaces/collections/spl_countable.php)
+            3. [Traversable](./library/interfaces/collections/iterators/traversable.php)
+            4. [Iterator](./library/interfaces/collections/iterators/iterator.php)
