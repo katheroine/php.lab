@@ -134,3 +134,6 @@ Laboratory of PHP.
         5. [Files](./library/classes/files/)
             1. [File info (SPL)](./library/classes/files/spl_file_info.php)
             2. [File object (SPL)](./library/classes/files/spl_file_object.php)
+    2. [Interfaces](./library/interfaces/)
+        1. [Collections](./library/interfaces/collections/)
+            1. [Countable](./library/interfaces/collections/spl_countable.php)
