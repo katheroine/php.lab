@@ -137,3 +137,4 @@ Laboratory of PHP.
     2. [Interfaces](./library/interfaces/)
         1. [Collections](./library/interfaces/collections/)
             1. [Countable](./library/interfaces/collections/spl_countable.php)
+            2. [Iterator](./library/interfaces/collections/iterators/iterator.php)
