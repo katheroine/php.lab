@@ -144,3 +144,5 @@ Laboratory of PHP.
             3. [Traversable](./library/interfaces/collections/iterators/traversable.php)
             4. [Iterator](./library/interfaces/collections/iterators/iterator.php)
             5. [Iterator aggregate](./library/interfaces/collections/iterators/iterator_aggregate.php)
+        3. [Exceptions](./library/interfaces/exceptions/)
+            1. [Throwable](./library/interfaces/exceptions/throwable.php)
