@@ -140,3 +140,4 @@ Laboratory of PHP.
             2. [Countable (SPL)](./library/interfaces/collections/spl_countable.php)
             3. [Traversable](./library/interfaces/collections/iterators/traversable.php)
             4. [Iterator](./library/interfaces/collections/iterators/iterator.php)
+            5. [Iterator aggregate](./library/interfaces/collections/iterators/iterator_aggregate.php)
