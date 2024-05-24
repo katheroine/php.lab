@@ -89,6 +89,7 @@ Laboratory of PHP.
             3. [Array object (SPL)](./library/classes/constructs/spl_array_object.php)
             4. [Standard class](./library/classes/constructs/std_class.php)
             5. [Weak reference](./library/classes/constructs/weak_reference.php)
+            6. [Sensitive parameter value](./library/classes/constructs/sensitive_parameter_value.php)
         2. [Data structures](./library/classes/data_structures/)
             1. [Doubly linked list (SPL)](./library/classes/data_structures/spl_doubly_linked_list.php)
             2. [Stack (SPL)](./library/classes/data_structures/spl_stack.php)
