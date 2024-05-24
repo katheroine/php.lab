@@ -98,6 +98,7 @@ Laboratory of PHP.
             6. [Min heap (SPL)](./library/classes/data_structures/spl_min_heap.php)
             7. [Fixed array (SPL)](./library/classes/data_structures/spl_fixed_array.php)
             8. [Object storage (SPL)](./library/classes/data_structures/spl_object_storage.php)
+            9. [Weak map](./library/classes/data_structures/weak_map.php)
         3. [Iterators](./library/classes/iterators/)
             1. [Array iterator (SPL)](./library/classes/iterators/spl_array_iterator.php)
             2. [Recursive array iterator (SPL)](./library/classes/iterators/spl_recursive_array_iterator.php)
