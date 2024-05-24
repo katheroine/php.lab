@@ -128,6 +128,7 @@ Laboratory of PHP.
             1. [Error](./library/classes/exceptions/error.php)
             1. [Error exception](./library/classes/exceptions/error_exception.php)
             1. [Type error](./library/classes/exceptions/type_error.php)
+            1. [Value error](./library/classes/exceptions/value_error.php)
             1. [Unexpected value exception (SPL)](./library/classes/exceptions/spl_unexpected_value_exception.php)
             2. [Bad function call exception (SPL)](./library/classes/exceptions/spl_bad_function_call_exception.php)
             3. [Bad method call exception (SPL)](./library/classes/exceptions/spl_bad_method_call_exception.php)
