@@ -124,6 +124,7 @@ Laboratory of PHP.
             21. [Recursive tree iterator (SPL)](./library/classes/iterators/spl_recursive_tree_iterator.php)
             22. [Parent iterator](./library/classes/iterators/spl_parent_iterator.php)
         4. [Exceptions](./library/classes/exceptions/)
+            1. [Exception](./library/classes/exceptions/exception.php)
             1. [Unexpected value exception (SPL)](./library/classes/exceptions/spl_unexpected_value_exception.php)
             2. [Bad function call exception (SPL)](./library/classes/exceptions/spl_bad_function_call_exception.php)
             3. [Bad method call exception (SPL)](./library/classes/exceptions/spl_bad_method_call_exception.php)
