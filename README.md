@@ -135,6 +135,7 @@ Laboratory of PHP.
             1. [Unhandled match error](./library/classes/exceptions/unhandled_match_error.php)
             1. [Assertion error](./library/classes/exceptions/assertion_error.php)
             1. [Closed generator exception](./library/classes/exceptions/closed_generator_exception.php)
+            1. [Parse error](./library/classes/exceptions/parse_error.php)
             1. [Unexpected value exception (SPL)](./library/classes/exceptions/spl_unexpected_value_exception.php)
             2. [Bad function call exception (SPL)](./library/classes/exceptions/spl_bad_function_call_exception.php)
             3. [Bad method call exception (SPL)](./library/classes/exceptions/spl_bad_method_call_exception.php)
