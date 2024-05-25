@@ -132,6 +132,7 @@ Laboratory of PHP.
             1. [Argument count error](./library/classes/exceptions/argument_count_error.php)
             1. [Arithmetic error](./library/classes/exceptions/arithmetic_error.php)
             1. [Division by zero error](./library/classes/exceptions/division_by_zero_error.php)
+            1. [Unhandled match error](./library/classes/exceptions/unhandled_match_error.php)
             1. [Closed generator exception](./library/classes/exceptions/closed_generator_exception.php)
             1. [Unexpected value exception (SPL)](./library/classes/exceptions/spl_unexpected_value_exception.php)
             2. [Bad function call exception (SPL)](./library/classes/exceptions/spl_bad_function_call_exception.php)
