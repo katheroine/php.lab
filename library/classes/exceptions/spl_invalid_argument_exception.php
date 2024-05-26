@@ -12,6 +12,7 @@ function total($values)
     foreach($values as $value) {
         if (! is_numeric($value)) {
             throw new InvalidArgumentException('Each value is supposed to be numeric.');
+            // extends LogicException
         }
         $total += $value;
     }

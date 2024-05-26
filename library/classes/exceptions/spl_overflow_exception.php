@@ -13,6 +13,7 @@ class Trio {
     {
         if ($this->count >= self::MAX_COUNT) {
             throw new OverflowException('Container is already full.');
+            // extends RuntimeException
         } else {
             $this->items[] = $item;
             $this->count += 1;

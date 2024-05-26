@@ -10,6 +10,7 @@ function quotient($divident, $divisor)
 {
     if ($divisor == 0) {
         throw new LogicException('Divisor cannot be zero.');
+        // extends Exception
     }
 
     $quotient = $divident / $divisor;

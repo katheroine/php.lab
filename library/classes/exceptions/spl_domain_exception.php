@@ -11,6 +11,7 @@ function pickup($items, $index)
 
     if (! is_numeric($index) || ($index < 0)) {
         throw new DomainException('Index must be numeric conversable to integer greater than zero.');
+        // extends LogicException
     }
 
     $index = intval($index);

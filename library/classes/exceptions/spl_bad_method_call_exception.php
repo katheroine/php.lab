@@ -11,6 +11,7 @@ function total($values, $operations, $adding)
 
     if (! method_exists($operations, $adding)) {
         throw new BadMethodCallException('Adding method does not exist.');
+        // extends BadFunctionCallException
     }
 
     foreach($values as $value) {

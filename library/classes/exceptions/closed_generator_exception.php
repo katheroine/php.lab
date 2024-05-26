@@ -13,7 +13,7 @@ try {
     $generator = someGenerator(1, 3);
     $generator->throw(new ClosedGeneratorException());
 
-} catch (ClosedGeneratorException $exception) {
+} catch (ClosedGeneratorException $exception) { // extends Exception
     print('As string: ' . $exception . PHP_EOL . PHP_EOL);
     print('Message: ' . $exception->getMessage() . PHP_EOL . PHP_EOL);
     print('Code: ' . $exception->getCode() . PHP_EOL . PHP_EOL);

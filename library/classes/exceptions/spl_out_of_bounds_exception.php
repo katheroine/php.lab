@@ -11,6 +11,7 @@ function drawIndex($size) {
 
     if (! is_numeric($input) || $input >= $size || $input < 0) {
         throw new OutOfBoundsException('Index is not numeric or out of range.');
+        // extends RuntimeException
     }
 
     return $input;

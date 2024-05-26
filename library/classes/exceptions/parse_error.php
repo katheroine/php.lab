@@ -5,7 +5,7 @@
 
 try {
     eval('null = 0;');
-} catch (ParseError $exception) {
+} catch (ParseError $exception) { // extends CompileError
     print('As string: ' . $exception . PHP_EOL . PHP_EOL);
     print('Message: ' . $exception->getMessage() . PHP_EOL . PHP_EOL);
     print('Code: ' . $exception->getCode() . PHP_EOL . PHP_EOL);

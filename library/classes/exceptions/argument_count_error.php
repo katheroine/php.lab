@@ -11,7 +11,7 @@ function someFunction(string $someArgument): void
 
 try {
     someFunction();
-} catch (ArgumentCountError $exception) {
+} catch (ArgumentCountError $exception) { // extends TypeError
     print('As string: ' . $exception . PHP_EOL . PHP_EOL);
     print('Message: ' . $exception->getMessage() . PHP_EOL . PHP_EOL);
     print('Code: ' . $exception->getCode() . PHP_EOL . PHP_EOL);

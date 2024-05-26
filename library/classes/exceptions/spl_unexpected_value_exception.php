@@ -15,6 +15,7 @@ function total($values)
         $partial = add($total, $value);
         if (! (is_integer($partial) || is_float($partial))) {
             throw new UnexpectedValueException('Each value is supposed to be number.');
+            // extends RuntimeException
         }
         $total = $partial;
     }

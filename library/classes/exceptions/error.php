@@ -9,12 +9,12 @@ function someFunction(): void
         message: 'Here occured some error.',
         code: 2048,
         previous: null
-    ); // implements Throwable
+    );
 }
 
 try {
     someFunction();
-} catch (Error $exception) {
+} catch (Error $exception) { // implements Throwable
     print('As string: ' . $exception . PHP_EOL . PHP_EOL);
     print('Message: ' . $exception->getMessage() . PHP_EOL . PHP_EOL);
     print('Code: ' . $exception->getCode() . PHP_EOL . PHP_EOL);

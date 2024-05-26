@@ -9,6 +9,7 @@ function primeNumbers($length)
 {
     if ($length < 0) {
         throw new LengthException('Length cannot be less than zero.');
+        // extends LogicException
     }
 
     $numbers = [];

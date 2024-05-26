@@ -12,12 +12,12 @@ function someFunction(): void
         filename: __FILE__,
         line: 8,
         previous: null
-    ); // extends Exception
+    );
 }
 
 try {
     someFunction();
-} catch (ErrorException $exception) {
+} catch (ErrorException $exception) { // extends Exception
     print('As string: ' . $exception . PHP_EOL . PHP_EOL);
     print('Message: ' . $exception->getMessage() . PHP_EOL . PHP_EOL);
     print('Code: ' . $exception->getCode() . PHP_EOL . PHP_EOL);

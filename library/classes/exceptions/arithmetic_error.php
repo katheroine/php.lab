@@ -7,7 +7,7 @@
 
 try {
     8 >> -1;
-} catch (ArithmeticError $exception) {
+} catch (ArithmeticError $exception) { // extends Error
     print('As string: ' . $exception . PHP_EOL . PHP_EOL);
     print('Message: ' . $exception->getMessage() . PHP_EOL . PHP_EOL);
     print('Code: ' . $exception->getCode() . PHP_EOL . PHP_EOL);

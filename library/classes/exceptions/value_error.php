@@ -7,7 +7,7 @@
 
 try {
     json_decode('{}', true, -1);
-} catch (ValueError $exception) {
+} catch (ValueError $exception) { // extends Error
     print('As string: ' . $exception . PHP_EOL . PHP_EOL);
     print('Message: ' . $exception->getMessage() . PHP_EOL . PHP_EOL);
     print('Code: ' . $exception->getCode() . PHP_EOL . PHP_EOL);

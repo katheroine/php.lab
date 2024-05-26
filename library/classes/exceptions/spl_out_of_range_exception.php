@@ -12,6 +12,7 @@ function pickup($items, $index)
 
     if ($index >= $size) {
         throw new OutOfRangeException('Index is out of range.');
+        // extends LogicException
     }
 
     $item = $items[$index];

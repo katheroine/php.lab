@@ -34,6 +34,7 @@ class Trio {
     {
         if ($this->count == 0) {
             throw new UnderflowException('Container is already empty.');
+            // extends RuntimeException
         } else {
             unset($this->items[$this->count - 1]);
             $this->count -= 1;

@@ -18,6 +18,7 @@ function drawName() {
 
     if ($partialsNumber > 3 || $partialsNumber < 1) {
         throw new RuntimeException('Name should have from one to three parts.');
+        // extends Exception
     }
 
     $names = [];

@@ -11,6 +11,7 @@ function total($values, $adding)
 
     if (! function_exists($adding)) {
         throw new BadFunctionCallException('Adding function does not exist.');
+        // extends LogicException
     }
 
     foreach($values as $value) {

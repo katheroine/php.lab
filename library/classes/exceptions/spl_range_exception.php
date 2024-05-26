@@ -13,6 +13,7 @@ function drawIndex($size) {
 
     if ($input >= $size || $input < 0) {
         throw new RangeException('Index is out of range.');
+        // extends RuntimeException
     }
 
     return $input;
