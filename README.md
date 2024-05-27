@@ -69,6 +69,7 @@ Laboratory of PHP.
     1. [Functions & methods](./library/functions/)
         1. [Language constructs](./library/functions/constructs/)
             1. [SPL classes (SPL)](./library/functions/constructs/spl_classes.php)
+            1. [Object ID (SPL)](./library/functions/constructs/spl_object_id.php)
         2. [Magic methods](./library/functions/magic_methods/)
             1. [__set](./library/functions/magic_methods/__set.php)
             2. [__get](./library/functions/magic_methods/__get.php)
