@@ -69,6 +69,7 @@ Laboratory of PHP.
     1. [Functions & methods](./library/functions/)
         1. [Language constructs](./library/functions/constructs/)
             1. [Class parents (SPL)](./library/functions/constructs/spl_class_parents.php)
+            2. [Class implements (SPL)](./library/functions/constructs/spl_class_implements.php)
             4. [Object ID (SPL)](./library/functions/constructs/spl_object_id.php)
             5. [Object hash (SPL)](./library/functions/constructs/spl_object_hash.php)
             6. [SPL classes (SPL)](./library/functions/constructs/spl_classes.php)
