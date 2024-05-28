@@ -94,6 +94,8 @@ Laboratory of PHP.
             13. [__debugInfo](./library/functions/magic_methods/__debugInfo.php)
             14. [__construct](./library/functions/magic_methods/__construct.php)
             14. [__destruct](./library/functions/magic_methods/__destruct.php)
+        4. [Autoloadig](./library/functions/autoloading/)
+            1. [Autoload functions (SPL)](./library/functions/autoloading/spl_autoload_functions.php)
     2. [Classes](./library/classes/)
         1. [Language constructs](./library/classes/constructs/)
             1. [Closure](./library/classes/constructs/closure.php)
