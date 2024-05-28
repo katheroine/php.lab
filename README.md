@@ -77,6 +77,7 @@ Laboratory of PHP.
         2. [Iterators](./library/functions/iterators/)
             1. [Iterator count (SPL)](./library/functions/iterators/spl_iterator_count.php)
             2. [Iterator to array (SPL)](./library/functions/iterators/spl_iterator_to_array.php)
+            3. [Iterator apply (SPL)](./library/functions/iterators/spl_iterator_apply.php)
         3. [Magic methods](./library/functions/magic_methods/)
             1. [__set](./library/functions/magic_methods/__set.php)
             2. [__get](./library/functions/magic_methods/__get.php)
