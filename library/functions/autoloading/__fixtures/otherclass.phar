@@ -1,0 +1,9 @@
+<?php
+
+class OtherClass
+{
+    function otherFunction(): void
+    {
+        print("Other function\n");
+    }
+}

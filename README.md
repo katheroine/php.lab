@@ -99,6 +99,7 @@ Laboratory of PHP.
             2. [Autoload register (SPL)](./library/functions/autoloading/spl_autoload_register.php)
             3. [Autoload unregister (SPL)](./library/functions/autoloading/spl_autoload_unregister.php)
             4. [Autoload (SPL)](./library/functions/autoloading/spl_autoload.php)
+            5. [Autoload extensions (SPL)](./library/functions/autoloading/spl_autoload_extensions.php)
     2. [Classes](./library/classes/)
         1. [Language constructs](./library/classes/constructs/)
             1. [Closure](./library/classes/constructs/closure.php)
