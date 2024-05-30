@@ -186,3 +186,5 @@ Laboratory of PHP.
             6. [Recursive iterator (SPL)](./library/interfaces/iterators/spl_recursive_iterator.php)
         4. [Exceptions](./library/interfaces/exceptions/)
             1. [Throwable](./library/interfaces/exceptions/throwable.php)
+11. [Standards](./standards/)
+    1. [Basic coding standard (PSR-1)](./standards/basic_coding_standard_-_psr-1/)
