@@ -4,7 +4,7 @@
 
 ## Files
 
-### Character encoding
+#### ✤ Character encoding
 
 **Files MUST use only `UTF-8` without `BOM` for PHP code.**
 
@@ -18,7 +18,7 @@ The [byte-order mark (BOM)](https://en.wikipedia.org/wiki/Byte_order_mark) is a 
 
 BOM use is optional. Its presence interferes with the use of UTF-8 by software that does not expect non-ASCII bytes at the start of a file but that could otherwise handle the text stream.
 
-### PHP tag types
+#### ✤ PHP tag types
 
 **Files MUST use only `<?php` and `<?=` tags.**
 
@@ -77,7 +77,7 @@ require_once('view.php');
 
 ```
 
-### Files purpose
+#### ✤ Files purpose
 
 **A file SHOULD `declare new symbols` (classes, functions, constants, etc.) and cause no other `side effects`, or it SHOULD `execute logic` with side effects, but SHOULD NOT do both.**
 
@@ -159,7 +159,7 @@ require_once('view.php');
 
 ## Classes
 
-### Placing class definitions in the files
+#### ✤ Placing class definitions in the files
 
 **Each class is in a file by itself.**
 
@@ -205,7 +205,7 @@ class HtmlDocAuthor
 
 ```
 
-### Class names case
+#### ✤ Class names case
 
 **Class names MUST be declared in `StudlyCaps`.**
 
@@ -227,7 +227,9 @@ class HtmlDocAuthor
 
 ```
 
-### Class constants names case
+### Class constants
+
+#### ✤ Class constants names case
 
 **Class constants MUST be declared in all `UPPER_CASE_WITH_UNDERSCORE_SEPARATORS`.**
 
@@ -244,7 +246,9 @@ class HtmlDocAuthor
 
 ```
 
-### Properties names case
+### Class properties
+
+#### ✤ Properties names case
 
 **Whatever naming convention is used SHOULD be applied consistently within a reasonable scope. That scope may be vendor-level, package-level, class-level, or method-level.**
 
@@ -266,7 +270,9 @@ class HtmlDoc
 
 ```
 
-### Method names case
+### Class methods
+
+#### ✤ Method names case
 
 **Method names MUST be declared in `camelCase`.**
 
@@ -290,7 +296,7 @@ class HtmlDoc
 
 ## Namespaces
 
-### Namespaces requireness
+#### ✤ Namespaces requireness
 
 **Code written for `PHP 5.2.x` and before SHOULD use the pseudo-namespacing convention of Vendor_ prefixes on class names.**
 
@@ -316,7 +322,7 @@ class HtmlDoc
 
 ```
 
-### Placing class definitions in the namespaces
+#### ✤ Placing class definitions in the namespaces
 
 **Each class is in a namespace of at least one level: a top-level vendor name.**
 
@@ -342,7 +348,7 @@ class HtmlDocAuthor
 
 ```
 
-### Namespaces and class names autoloading convention
+#### ✤ Namespaces and class names autoloading convention
 
 **Namespaces and classes MUST follow an "autoloading" PSR: [[PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md), [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)].**
 
@@ -372,9 +378,9 @@ class HtmlDocAuthor
 
 ```
 
-#### Intro to the autoloading configuration
+##### Intro to the autoloading configuration
 
-The easiest way to introduce [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)] into the project is using the autoload mechanism built-in the [Composer](https://getcomposer.org) dependency manager.
+The easiest way to introduce [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) into the project is using the autoload mechanism built-in the [Composer](https://getcomposer.org) dependency manager.
 
 Let's say the project has the following files order:
 
