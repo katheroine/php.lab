@@ -1,7 +1,6 @@
 <?php
 
-include(__DIR__ . DIRECTORY_SEPARATOR . '../src/HtmlDoc.php');
-include(__DIR__ . DIRECTORY_SEPARATOR . '../src/HtmlDocAuthor.php');
+require_once (__DIR__ . '/../vendor/autoload.php');
 
 use PHPLab\StandardPSR1\HtmlDoc;
 use PHPLab\StandardPSR1\HtmlDocAuthor;
