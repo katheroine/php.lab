@@ -188,3 +188,4 @@ Laboratory of PHP.
             1. [Throwable](./library/interfaces/exceptions/throwable.php)
 11. [Standards](./standards/)
     1. [Basic coding standard (PSR-1)](./standards/basic_coding_standard_-_psr-1/)
+    2. [Extended coding style (PSR-12)](./standards/extended_coding_style_-_psr-12/)

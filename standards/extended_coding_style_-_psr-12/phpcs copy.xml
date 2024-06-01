@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ruleset name="PHPLab_PSR-1">
+ <description>The coding standard for PHPDataCoder.</description>
+
+ <file>./src</file>
+ <file>./public</file>
+
+ <arg name="report" value="full"/>
+ <arg value="np"/>
+
+ <rule ref="PSR1"/>
+</ruleset>
