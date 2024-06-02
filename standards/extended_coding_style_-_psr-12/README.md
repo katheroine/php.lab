@@ -442,3 +442,169 @@ class User
     public int $level = 10;
 }
 ```
+
+## Operators
+
+#### ✤ Multiple spaces around an operator
+
+**When space is permitted around an operator, multiple spaces MAY be used for readability purposes.**
+
+```php
+$this->email = 'author@'
+    . self::EMAIL_DOMAIN;
+```
+
+### Unary operators
+
+#### ✤ Space between the operator and operand in the increment & decrement operators
+
+**The increment/decrement operators MUST NOT have any space between the operator and operand.**
+
+```php
+$this->level++;
+```
+
+#### ✤ Space within the parentheses in type casting operators
+
+**Type casting operators MUST NOT have any space within the parentheses.**
+
+```php
+$isWorking = (bool) $this->level;
+```
+
+### Binary operators
+
+#### ✤ Spaces around the binary arithmetic, comparison, assignment, bitwise, logical, string, and type operators
+
+**All binary arithmetic, comparison, assignment, bitwise, logical, string, and type operators MUST be preceded and followed by at least one space.**
+
+```php
+$this->email = 'author@' . self::EMAIL_DOMAIN;
+```
+
+### Ternary operators
+
+#### ✤ Spaces around the characters of the conditional operator
+
+**The conditional operator, also known simply as the ternary operator, MUST be preceded and followed by at least one space around both the `?` and `:` characters.**
+
+```php
+$label = empty($this->nickname) ? $this->firstName : $this->nickname;
+```
+
+#### ✤ Spaces around the characters of the conditional operator when the middle operand is omitted
+
+**When the middle operand of the conditional operator is omitted, the operator MUST follow the same style rules as other binary comparison operators.**
+
+```php
+$isActive = $this->registered ?: (bool) $this->level;
+```
+
+## Control structures
+
+#### ✤ Space after control structure keyword
+
+**There MUST be one space after the control structure keyword.**
+
+#### ✤ Space after opening parethensis in control structure
+
+**There MUST NOT be a space after the opening parenthesis.**
+
+#### ✤ Space before closing parethensis in control structure
+
+**There MUST NOT be a space before the closing parenthesis.**
+
+`if (! $this->registered)`
+
+#### ✤ Space between closing parethensis and opening brace
+
+**There MUST be one space between the closing parenthesis and the opening brace.**
+
+#### ✤ Closing brace placement in control structure
+
+**The closing brace MUST be on the next line after the body.**
+
+```
+if (! $this->registered) {
+    $status = self::STATUS_HALTING;
+}
+```
+
+#### ✤ Control structure body indention
+
+**The structure body MUST be indented once.**
+
+#### ✤ Control structure body placement
+
+**The body MUST be on the next line after the opening brace.**
+
+#### ✤ Control structure body enclosed by braces to indicate control structure body regardless of the number of statements it contains
+
+**The body of each structure MUST be enclosed by braces.**
+
+*This standardizes how the structures look and reduces the likelihood of introducing errors as new lines get added to the body.*
+
+```php
+if (! $this->registered) {
+    $status = self::STATUS_HALTING;
+} elseif ($this->level > 10) {
+    $status = self::STATUS_INVOLVED;
+} else {
+    $status = self::STATUS_CERTAIN;
+}
+```
+
+## Control structure `if` - `elseif` - `else`
+
+#### ✤ Keywords `else if` or keyword `elseif`
+
+**The keyword `elseif` SHOULD be used instead of `else if` so that all control keywords look like single words.**
+
+* Wrong:
+
+```php
+if (! $this->registered) {
+    $status = self::STATUS_HALTING;
+} else if ($this->level > 10) {
+    $status = self::STATUS_INVOLVED;
+} else {
+    $status = self::STATUS_CERTAIN;
+}
+```
+
+* Right:
+
+```php
+if (! $this->registered) {
+    $status = self::STATUS_HALTING;
+} elseif ($this->level > 10) {
+    $status = self::STATUS_INVOLVED;
+} else {
+    $status = self::STATUS_CERTAIN;
+}
+```
+
+#### ✤ Splitting expression in parentheses across multiple lines
+
+**Expressions in parentheses MAY be split across multiple lines, where each subsequent line is indented at least once.**
+
+#### ✤ First condition placement when expression is split across multiple lines
+
+**When doing so, the first condition MUST be on the next line.**
+
+#### ✤ Closing parenthesis and opening brace placement when expression is split across multiple lines
+
+**The closing parenthesis and opening brace MUST be placed together on their own line with one space between them.**
+
+#### ✤ Boolean operators between conditions placement when expression is split across multiple lines
+
+**Boolean operators between conditions MUST always be at the beginning or at the end of the line, not a mix of both.**
+
+```php
+if (
+    $this->registered
+    && $this->level > 10
+) {
+    $status = self::STATUS_INVOLVED;
+}
+```
