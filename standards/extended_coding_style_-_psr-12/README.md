@@ -16,7 +16,7 @@ Like [PSR-2](https://www.php-fig.org/psr/psr-2/), the intent of this specificati
 
 ## Files
 
-#### ✤ File ending character
+##### ✤ File ending character
 
 **All PHP files MUST use the `Unix LF (linefeed)` line ending only.**
 
@@ -39,7 +39,7 @@ The Unicode standard defines a number of characters that conforming applications
 
 The line ending character can be set in the code editor or IDE settings (usually it is LF by default).
 
-#### ✤ File ending line
+##### ✤ File ending line
 
 **All PHP files MUST end with a non-blank line, terminated with a single `LF`.**
 
@@ -59,7 +59,7 @@ require_once('view.php');
 
 ```
 
-#### ✤ Omitting of the ending PHP tag `?>`
+##### ✤ Omitting of the ending PHP tag `?>`
 
 **The closing `?>` tag MUST be omitted from files containing only PHP.**
 
@@ -80,25 +80,25 @@ class HtmlDocAuthor
 
 ### Lines
 
-#### ✤ Line length hard limit
+##### ✤ Line length hard limit
 
 **There MUST NOT be a hard limit on line length.**
 
-#### ✤ Line lenght soft limit
+##### ✤ Line lenght soft limit
 
 **The soft limit on line length MUST be `120` characters.**
 
-#### ✤ Line length recomended limit
+##### ✤ Line length recomended limit
 
 **Lines SHOULD NOT be longer than `80` characters.**
 
 **Lines longer than that SHOULD be split into multiple subsequent lines of no more than `80` characters each.**
 
-#### ✤ Trailing whitespaces at the end of lines
+##### ✤ Trailing whitespaces at the end of lines
 
 **There MUST NOT be trailing whitespace at the end of lines**
 
-#### ✤ Blank lines for redability
+##### ✤ Blank lines for redability
 
 **Blank lines MAY be added to improve readability and to indicate related blocks of code except where explicitly forbidden.**
 
@@ -117,19 +117,19 @@ class HtmlDocAuthor
 
 ```
 
-#### ✤ Allowed number of statements per line
+##### ✤ Allowed number of statements per line
 
 **There MUST NOT be more than `1` statement per line.**
 
 ## Indenting
 
-#### ✤ Indenting character
+##### ✤ Indenting character
 
 **Code MUST use `spaces` for indenting.**
 
 **MUST NOT use tabs for indenting.**
 
-#### ✤ Indenting length
+##### ✤ Indenting length
 
 **Code MUST use an indent of `4` spaces for each indent level.**
 
@@ -164,15 +164,15 @@ class HtmlDoc
 
 ## Header of a PHP file
 
-#### ✤ Header of a PHP file contents
+##### ✤ Header of a PHP file contents
 
 **The header of a PHP file may consist of a number of different blocks.**
 
-#### ✤ Blank line separators of the blocks in a header of a PHP file
+##### ✤ Blank line separators of the blocks in a header of a PHP file
 
 **If present, each of the blocks MUST be separated by a single blank line and MUST not contain a blank line.**
 
-#### ✤ Order of the blocks in a header of a PHP file
+##### ✤ Order of the blocks in a header of a PHP file
 
 **Each block MUST be in the order listed below, although blocks that are not relevant may be omitted:**
 * **opening `<?php` tag**
@@ -208,7 +208,7 @@ class HtmlDoc
 
 ```
 
-#### ✤ Header of the files with mix of HTML and PHP
+##### ✤ Header of the files with mix of HTML and PHP
 
 **When a file contains a mix of HTML and PHP, any of the above sections may still be used.**
 
@@ -269,13 +269,13 @@ $htmlDoc->setAuthor($htmlDocAuthor);
 
 ```
 
-#### ✤ Opening `<?php` tag
+##### ✤ Opening `<?php` tag
 
 **When the opening `<?php` tag is on the first line of the file, it MUST be on its own line with no other statements unless it is a file containing markup outside of PHP opening and closing tags.**
 
 ## Directives
 
-#### ✤ Declare statements formatting
+##### ✤ Declare statements formatting
 
 **Declare statements MUST contain no spaces and MUST be exactly `declare(strict_types=1)` (with an optional semi-colon terminator).**
 
@@ -296,7 +296,7 @@ class HtmlDocAuthor
 
 ```
 
-#### ✤ Block declare statements formatting
+##### ✤ Block declare statements formatting
 
 **Block declare statements are allowed and MUST be formatted as below. Note position of braces and spacing:**
 ```
@@ -307,7 +307,7 @@ declare(ticks=1) {
 }
 ```
 
-#### ✤ Strict types declaration formatting in files containing markup outside PHP opening and closing tags
+##### ✤ Strict types declaration formatting in files containing markup outside PHP opening and closing tags
 
 **When wishing to declare strict types in files containing markup outside PHP opening and closing tags, the declaration MUST be on the first line of the file and include an opening PHP tag, the strict types declaration and closing tag:**
 ```
@@ -350,7 +350,7 @@ declare(ticks=1) {
 
 ## Imports
 
-#### ✤ Use declarations placement
+##### ✤ Use declarations placement
 
 **Import statements MUST never begin with a leading backslash.**
 
@@ -368,7 +368,7 @@ use PHPLab\StandardPSR12\HtmlDoc;
 use PHPLab\StandardPSR12\HtmlDocAuthor;
 ```
 
-#### ✤ Fully qualified import statements
+##### ✤ Fully qualified import statements
 
 **Import statements MUST always be fully qualified.**
 
@@ -386,7 +386,7 @@ use PHPLab\StandardPSR12\HtmlDoc;
 use PHPLab\StandardPSR12\HtmlDocAuthor;
 ```
 
-#### ✤ Import with compound namespaces
+##### ✤ Import with compound namespaces
 
 **Compound namespaces with a depth of more than two MUST NOT be used.**
 
@@ -421,17 +421,17 @@ use PHPLab\{
 
 ## Keywords, types & predefined constants
 
-#### ✤ Keywords case
+##### ✤ Keywords case
 
 **All PHP reserved keywords MUST be in `lower case`.**
 
 The PHP constants `true`, `false`, and `null` should be in `lower case` too.
 
-#### ✤ Types case
+##### ✤ Types case
 
 **All PHP reserved types MUST be in lower case.**
 
-#### ✤ Types short/log forms
+##### ✤ Types short/log forms
 
 **Short form of type keywords MUST be used i.e. `bool` instead of `boolean`, `int` instead of `integer` etc.**
 
@@ -445,7 +445,7 @@ class User
 
 ## Operators
 
-#### ✤ Multiple spaces around an operator
+##### ✤ Multiple spaces around an operator
 
 **When space is permitted around an operator, multiple spaces MAY be used for readability purposes.**
 
@@ -456,7 +456,7 @@ $this->email = 'author@'
 
 ### Unary operators
 
-#### ✤ Space between the operator and operand in the increment & decrement operators
+##### ✤ Space between the operator and operand in the increment & decrement operators
 
 **The increment/decrement operators MUST NOT have any space between the operator and operand.**
 
@@ -464,7 +464,7 @@ $this->email = 'author@'
 $this->level++;
 ```
 
-#### ✤ Space within the parentheses in type casting operators
+##### ✤ Space within the parentheses in type casting operators
 
 **Type casting operators MUST NOT have any space within the parentheses.**
 
@@ -474,7 +474,7 @@ $isWorking = (bool) $this->level;
 
 ### Binary operators
 
-#### ✤ Spaces around the binary arithmetic, comparison, assignment, bitwise, logical, string, and type operators
+##### ✤ Spaces around the binary arithmetic, comparison, assignment, bitwise, logical, string, and type operators
 
 **All binary arithmetic, comparison, assignment, bitwise, logical, string, and type operators MUST be preceded and followed by at least one space.**
 
@@ -484,7 +484,7 @@ $this->email = 'author@' . self::EMAIL_DOMAIN;
 
 ### Ternary operators
 
-#### ✤ Spaces around the characters of the conditional operator
+##### ✤ Spaces around the characters of the conditional operator
 
 **The conditional operator, also known simply as the ternary operator, MUST be preceded and followed by at least one space around both the `?` and `:` characters.**
 
@@ -492,60 +492,60 @@ $this->email = 'author@' . self::EMAIL_DOMAIN;
 $label = empty($this->nickname) ? $this->firstName : $this->nickname;
 ```
 
-#### ✤ Spaces around the characters of the conditional operator when the middle operand is omitted
+##### ✤ Spaces around the characters of the conditional operator when the middle operand is omitted
 
 **When the middle operand of the conditional operator is omitted, the operator MUST follow the same style rules as other binary comparison operators.**
 
 ```php
-$isActive = $this->registered ?: (bool) $this->level;
+$isActive = $this->isRegistered ?: (bool) $this->level;
 ```
 
 ## Control structures
 
-#### ✤ Space after control structure keyword
+##### ✤ Space after control structure keyword
 
 **There MUST be one space after the control structure keyword.**
 
-#### ✤ Space after opening parethensis in control structure
+##### ✤ Space after opening parethensis in control structure
 
 **There MUST NOT be a space after the opening parenthesis.**
 
-#### ✤ Space before closing parethensis in control structure
+##### ✤ Space before closing parethensis in control structure
 
 **There MUST NOT be a space before the closing parenthesis.**
 
-`if (! $this->registered)`
+`if (! $this->isRegistered)`
 
-#### ✤ Space between closing parethensis and opening brace
+##### ✤ Space between closing parethensis and opening brace
 
 **There MUST be one space between the closing parenthesis and the opening brace.**
 
-#### ✤ Closing brace placement in control structure
+##### ✤ Closing brace placement in control structure
 
 **The closing brace MUST be on the next line after the body.**
 
 ```
-if (! $this->registered) {
+if (! $this->isRegistered) {
     $status = self::STATUS_HALTING;
 }
 ```
 
-#### ✤ Control structure body indention
+##### ✤ Control structure body indention
 
 **The structure body MUST be indented once.**
 
-#### ✤ Control structure body placement
+##### ✤ Control structure body placement
 
 **The body MUST be on the next line after the opening brace.**
 
-#### ✤ Control structure body enclosed by braces to indicate control structure body regardless of the number of statements it contains
+##### ✤ Control structure body enclosed by braces to indicate control structure body regardless of the number of statements it contains
 
 **The body of each structure MUST be enclosed by braces.**
 
 *This standardizes how the structures look and reduces the likelihood of introducing errors as new lines get added to the body.*
 
 ```php
-if (! $this->registered) {
+if (! $this->isRegistered) {
     $status = self::STATUS_HALTING;
 } elseif ($this->level > 10) {
     $status = self::STATUS_INVOLVED;
@@ -556,14 +556,24 @@ if (! $this->registered) {
 
 ## Control structure `if` - `elseif` - `else`
 
-#### ✤ Keywords `else if` or keyword `elseif`
+```php
+if (! $this->isRegistered) {
+    $status = self::STATUS_HALTING;
+} elseif ($this->level > 10) {
+    $status = self::STATUS_INVOLVED;
+} else {
+    $status = self::STATUS_CERTAIN;
+}
+```
+
+##### ✤ Keywords `else if` or keyword `elseif`
 
 **The keyword `elseif` SHOULD be used instead of `else if` so that all control keywords look like single words.**
 
 * Wrong:
 
 ```php
-if (! $this->registered) {
+if (! $this->isRegistered) {
     $status = self::STATUS_HALTING;
 } else if ($this->level > 10) {
     $status = self::STATUS_INVOLVED;
@@ -575,7 +585,7 @@ if (! $this->registered) {
 * Right:
 
 ```php
-if (! $this->registered) {
+if (! $this->isRegistered) {
     $status = self::STATUS_HALTING;
 } elseif ($this->level > 10) {
     $status = self::STATUS_INVOLVED;
@@ -584,27 +594,196 @@ if (! $this->registered) {
 }
 ```
 
-#### ✤ Splitting expression in parentheses across multiple lines
+##### ✤ Splitting expression in parentheses across multiple lines
 
 **Expressions in parentheses MAY be split across multiple lines, where each subsequent line is indented at least once.**
 
-#### ✤ First condition placement when expression is split across multiple lines
+##### ✤ First condition placement when expression is split across multiple lines
 
 **When doing so, the first condition MUST be on the next line.**
 
-#### ✤ Closing parenthesis and opening brace placement when expression is split across multiple lines
+##### ✤ Closing parenthesis and opening brace placement when expression is split across multiple lines
 
 **The closing parenthesis and opening brace MUST be placed together on their own line with one space between them.**
 
-#### ✤ Boolean operators between conditions placement when expression is split across multiple lines
+##### ✤ Boolean operators between conditions placement when expression is split across multiple lines
 
 **Boolean operators between conditions MUST always be at the beginning or at the end of the line, not a mix of both.**
 
 ```php
 if (
-    $this->registered
+    $this->isRegistered
     && $this->level > 10
 ) {
     $status = self::STATUS_INVOLVED;
+}
+```
+
+### Control structure `switch` - `case`
+
+```php
+switch($status) {
+    case self::STATUS_HALTING:
+        $description = "Started to use the application.";
+        break;
+    case self::STATUS_CERTAIN:
+        $description = "Using the application.";
+        break;
+    case self::STATUS_INVOLVED:
+        $description = "Engeged in using the application";
+        break;
+    default:
+        $description = "";
+        break;
+}
+```
+
+##### ✤ Statement case indention
+
+**The `case` statement MUST be indented once from `switch`.**
+
+##### ✤ Keyword break indention
+
+**The `break` keyword (or other terminating keywords) MUST be indented at the same level as the `case` body.**
+
+##### ✤ Comment such as `//` no break when fall-through is intentional in a non-empty case body
+
+```
+switch($status) {
+    case self::STATUS_HALTING:
+        $description = "Started to use the application.";
+        break;
+}
+```
+
+**There MUST be a comment such as // no break when fall-through is intentional in a non-empty case body.**
+
+```
+switch($status) {
+    case self::STATUS_HALTING:
+        // the same as following;
+    case self::STATUS_CERTAIN:
+        $description = "Using the application.";
+        break;
+}
+```
+
+##### ✤ Splitting expression in parentheses across multiple lines
+
+**Expressions in parentheses MAY be split across multiple lines, where each subsequent line is indented at least once.**
+
+##### ✤ First condition placement when expression is split across multiple lines
+
+**When doing so, the first condition MUST be on the next line.**
+
+##### ✤ Closing parenthesis and opening brace placement when expression is split across multiple lines
+
+**The closing parenthesis and opening brace MUST be placed together on their own line with one space between them.**
+
+##### ✤ Boolean operators between conditions placement when expression is split across multiple lines
+
+**Boolean operators between conditions MUST always be at the beginning or at the end of the line, not a mix of both.**
+
+```
+switch(
+    (bool) $status
+    && $this->isRegistered
+) {
+}
+```
+
+### Control structure `while`, `do` - `while`
+
+#### Control structure `while`
+
+```php
+while ($quantity > 0) {
+    $visualisation .= '*';
+
+    $quantity--;
+}
+```
+
+##### ✤ Splitting expression in parentheses across multiple lines
+
+**Expressions in parentheses MAY be split across multiple lines, where each subsequent line is indented at least once.**
+
+##### ✤ First condition placement when expression is split across multiple lines
+
+**When doing so, the first condition MUST be on the next line.**
+
+##### ✤ Closing parenthesis and opening brace placement when expression is split across multiple lines
+
+**The closing parenthesis and opening brace MUST be placed together on their own line with one space between them.**
+
+##### ✤ Boolean operators between conditions placement when expression is split across multiple lines
+
+**Boolean operators between conditions MUST always be at the beginning or at the end of the line, not a mix of both.**
+
+```
+while (
+    $quantity > 0
+    && $this->isRegistered
+) {
+}
+```
+
+#### Control structure `do` - `while`
+
+```php
+do {
+    $visualisation .= '#';
+
+    $upgrade--;
+} while ($upgrade > 0);
+
+```
+
+##### ✤ Splitting expression in parentheses across multiple lines
+
+**Expressions in parentheses MAY be split across multiple lines, where each subsequent line is indented at least once.**
+
+##### ✤ First condition placement when expression is split across multiple lines
+
+**When doing so, the first expression MUST be on the next line.**
+
+##### ✤ Closing parenthesis and opening brace placement when expression is split across multiple lines
+
+**The closing parenthesis and opening brace MUST be placed together on their own line with one space between them.**
+
+```
+do {
+} while (
+    $upgrade > 0
+    && $this->isRegistered
+);
+
+```
+
+### Control structure `for`
+
+```php
+for ($i = 1; $i <= $skillsCount; $i++) {
+    $visualisation .= $i . '. ' . $this->skills[$i - 1] . ', ';
+}
+```
+
+##### ✤ Splitting expression in parentheses across multiple lines
+
+**Expressions in parentheses MAY be split across multiple lines, where each subsequent line is indented at least once.**
+
+##### ✤ First expression placement when expression is split across multiple lines
+
+**When doing so, the first expression MUST be on the next line.**
+
+##### ✤ Closing parenthesis and opening brace placement when expression is split across multiple lines
+
+**The closing parenthesis and opening brace MUST be placed together on their own line with one space between them.**
+
+```
+for (
+    $i = 1;
+    $i <= $skillsCount;
+    $i++) {
 }
 ```

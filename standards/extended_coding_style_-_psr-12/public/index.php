@@ -7,7 +7,17 @@ use PHPLab\StandardPSR12\{
     HtmlDocAuthor
 };
 
-use PHPLab\Language\EngGBLangTrait;
+use PHPLab\StandardPSR12\Language\EngGBLangTrait;
+use PHPLab\StandardPSR12\User;
+
+$user = new User();
+
+$user->level = 3;
+print('Level: ' . $user->getLevelVisualisation() . PHP_EOL);
+print('Upgrade: ' . $user->getLevelUpgradeVisualisation(5) . PHP_EOL);
+
+$user->skills = ['PHP', 'SQL', 'Git'];
+print('Skills: ' . $user->getSkillsVisualisation() . PHP_EOL);
 
 $htmlDoc = new HtmlDoc();
 $htmlDocAuthor = new HtmlDocAuthor();

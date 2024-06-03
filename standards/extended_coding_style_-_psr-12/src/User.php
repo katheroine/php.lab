@@ -19,12 +19,14 @@ class User
     public const STATUS_CERTAIN = 'certain';
     public const STATUS_INVOLVED = 'involved';
 
-    public bool $registered = true;
+    public bool $isRegistered = false;
     public int $level = 0;
     public string $firstName;
     public string $middleName;
     public string $lastName;
     public string $nickname = '';
+
+    public array $skills = [];
 
     public function levelUp()
     {
@@ -33,7 +35,7 @@ class User
 
     public function isActive()
     {
-        $isActive = $this->registered ?: (bool) $this->level;
+        $isActive = $this->isRegistered ?: (bool) $this->level;
 
         return $isActive;
     }
@@ -54,7 +56,7 @@ class User
 
     public function getStatus()
     {
-        if (! $this->registered) {
+        if (! $this->isRegistered) {
             $status = self::STATUS_HALTING;
         } elseif ($this->level > 10) {
             $status = self::STATUS_INVOLVED;
@@ -63,5 +65,70 @@ class User
         }
 
         return $status;
+    }
+
+    public function getStatusDescription()
+    {
+        $status = $this->getStatus();
+
+        switch($status) {
+            case self::STATUS_HALTING:
+                $description = "Started to use the application.";
+                break;
+            case self::STATUS_CERTAIN:
+                $description = "Using the application.";
+                break;
+            case self::STATUS_INVOLVED:
+                $description = "Engeged in using the application";
+                break;
+            default:
+                $description = "";
+                break;
+        }
+
+        return $description;
+    }
+
+    public function getLevelVisualisation()
+    {
+        $quantity = $this->level;
+        $visualisation = '';
+
+        while ($quantity > 0) {
+            $visualisation .= '*';
+
+            $quantity--;
+        }
+
+        return $visualisation;
+    }
+
+    public function getLevelUpgradeVisualisation($upgrade = 1)
+    {
+        if($upgrade <= 0) {
+            return;
+        }
+
+        $visualisation = '';
+
+        do {
+            $visualisation .= '#';
+
+            $upgrade--;
+        } while ($upgrade > 0);
+
+        return $visualisation;
+    }
+
+    public function getSkillsVisualisation()
+    {
+        $skillsCount = count($this->skills);
+        $visualisation = '';
+
+        for ($i = 1; $i <= $skillsCount; $i++) {
+            $visualisation .= $i . '. ' . $this->skills[$i - 1] . ', ';
+        }
+
+        return $visualisation;
     }
 }
