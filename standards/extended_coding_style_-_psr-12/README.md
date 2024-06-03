@@ -764,7 +764,7 @@ do {
 
 ```php
 for ($i = 1; $i <= $skillsCount; $i++) {
-    $visualisation .= $i . '. ' . $this->skills[$i - 1] . ', ';
+    $visualisation .= $i . '. ' . $skills[$i - 1] . ', ';
 }
 ```
 
@@ -787,3 +787,149 @@ for (
     $i++) {
 }
 ```
+
+## Closures & Functions
+
+```php
+$skillPresentation = function ($skillCodename, $skill) use ($levelMarkChar, $newLineSeq) {
+    print($skill['name'] . ': ' . $skill['level']. $newLineSeq);
+};
+```
+
+##### ✤ Space after `function` keyword in closure definition
+
+**Closures MUST be declared with a space after the `function` keyword.**
+
+### Argument list
+
+##### ✤ Space after opening parethensis of argument list in closure definition/call
+
+**There MUST NOT be a space after the opening parenthesis of the argument list.**
+
+##### ✤ Space before closing parethensis of argument list in closure definition/call
+
+**There MUST NOT be a space before the closing parenthesis of the argument.**
+
+##### ✤ Space before coma on argument list in closure definition/call
+
+**In the argument list there MUST NOT be a space before each comma.**
+
+##### ✤ Space after coma on argument list in closure definition/call
+
+**In the argument list there MUST NOT be a space after each comma.**
+
+`function ($skillCodename, $skill)`
+
+##### ✤ Closure arguments with default values placement in closure definition/call
+
+**Closure arguments with default values MUST go at the end of the argument list.**
+
+`function ($skillCodename = 'programming', $skill = ['name' => 'Programming', 'level' => 3])`
+
+##### ✤ List of function/closure arguments split acros multi lines in closure definition/call
+
+**Argument lists MAY be split across multiple lines, where each subsequent line is indented once.**
+
+##### ✤ Arguments placement on list of function/closure arguments split acros multi lines in closure definition/call
+
+**When doing so, the first item in the list MUST be on the next line.**
+
+##### ✤ Number of arguments per line on list of function/closure arguments split acros multi lines in closure definition/call
+
+**There MUST be only one argument per line.**
+
+##### ✤ Closing parenthesis and opening brace in closure with list of closure arguments split acros multi lines in closure definition/call
+
+**When the ending list of arguments is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them.**
+
+```
+function (
+    $skillCodename,
+    $skill
+) {
+}
+```
+
+### Keyword `use`
+
+##### ✤ Space before `use` keyword in closure definition
+
+**Closures MUST be declared with a space before the `use` keyword.**
+
+##### ✤ Space after `use` keyword in closure definition
+
+**Closures MUST be declared with a space after the `use` keyword.**
+
+##### ✤ Keyword `use` in closure declaration
+
+**If the `use` keyword is present, the colon MUST follow the use list closing parentheses with no spaces between the two characters.**
+
+### Variable list
+
+##### ✤ Space after opening parethensis of variable list in closure definition/call
+
+**There MUST NOT be a space after the opening parenthesis of the variable list.**
+
+##### ✤ Space before closing parethensis of variable list in closure definition/call
+
+**There MUST NOT be a space before the closing parenthesis of the variable list.**
+
+##### ✤ Space before coma on variable list in closure definition/call
+
+**In the variable list, there MUST NOT be a space before each comma.**
+
+##### ✤ Space after coma on variable list in closure definition/call
+
+**In the variable list, there MUST NOT be a space after each comma.**
+
+`function ($skillCodename, $skill) use ($levelMarkChar, $newLineSeq)`
+
+##### ✤ List of closure variables split acros multi lines in closure definition/call
+
+**Variable lists MAY be split across multiple lines, where each subsequent line is indented once.**
+
+##### ✤ Variables placement in list of closure variables split acros multi lines in closure definition/call
+
+**When doing so, the first item in the list MUST be on the next line.**
+
+##### ✤ Number of variables per line on list of closure variables split acros multi lines in closure definition/call
+
+**There MUST be only one variable per line.**
+
+##### ✤ Closing parenthesis and opening brace in closure with list of closure variables split acros multi lines in closure definition/call
+
+**When the ending list of variables is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them.**
+
+```
+function ($skillCodename, $skill) use (
+    $levelMarkChar,
+    $newLineSeq
+) {
+}
+```
+
+### Braces
+
+##### ✤ Opening brace placement in closure definition/call
+
+**The opening brace MUST go on the same line.**
+
+##### ✤ Closing brace placement in closure definition/call
+
+**Closing brace MUST go on the next line following the body.**
+
+```
+function ($skillCodename, $skill) use (
+    $levelMarkChar,
+    $newLineSeq
+) {
+}
+```
+
+### Keyword `return`
+
+##### ✤ Return type declaration in closure definition
+
+**If a return type is present, it MUST follow the same rules as with normal functions and methods.**
+
+`function ($skillCodename, $skill) use ($levelMarkChar, $newLineSeq): void`

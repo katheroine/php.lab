@@ -13,14 +13,41 @@ use PHPLab\StandardPSR12\User;
 $user = new User();
 
 $user->level = 3;
-print('Level: ' . $user->getLevelVisualisation() . PHP_EOL);
-print('Upgrade: ' . $user->getLevelUpgradeVisualisation(5) . PHP_EOL);
 
-$user->skills = ['PHP', 'SQL', 'Git'];
-print('Skills: ' . $user->getSkillsVisualisation() . PHP_EOL);
+$newLineSeq = '<br>';
+print('Level: ' . $user->getLevelVisualisation() . $newLineSeq);
+print('Upgrade: ' . $user->getLevelUpgradeVisualisation(5) . $newLineSeq);
+
+$user->skills = [
+    'php' => [
+        'name' => 'PHP',
+        'level' => 5
+    ],
+    'sql' => [
+        'name' => 'SQL',
+        'level' => 4
+    ],
+    'git' => [
+        'name' => 'Git',
+        'level' => 2
+    ]
+];
+print('Skills: ' . $user->getSkillsVisualisation() . $newLineSeq);
+
+$levelMarkChar = '#';
+
+$skillPresentation = function ($skillCodename, $skill) use ($levelMarkChar, $newLineSeq) {
+    print($skill['name'] . ': ' . $skill['level']. $newLineSeq);
+};
+
+print($newLineSeq);
+
+$user->makeSkillsPresentation($skillPresentation);
 
 $htmlDoc = new HtmlDoc();
 $htmlDocAuthor = new HtmlDocAuthor();
 $htmlDoc->setAuthor($htmlDocAuthor);
+
+print($newLineSeq);
 
 require_once('view.php');

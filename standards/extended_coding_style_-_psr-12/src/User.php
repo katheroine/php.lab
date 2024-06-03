@@ -123,12 +123,20 @@ class User
     public function getSkillsVisualisation()
     {
         $skillsCount = count($this->skills);
+        $skills = array_column($this->skills, 'name');
         $visualisation = '';
 
         for ($i = 1; $i <= $skillsCount; $i++) {
-            $visualisation .= $i . '. ' . $this->skills[$i - 1] . ', ';
+            $visualisation .= $i . '. ' . $skills[$i - 1] . ', ';
         }
 
         return $visualisation;
+    }
+
+    public function makeSkillsPresentation($skillPresentation)
+    {
+        foreach($this->skills as $skillCodename => $skill) {
+            $skillPresentation($skillCodename, $skill);
+        }
     }
 }
