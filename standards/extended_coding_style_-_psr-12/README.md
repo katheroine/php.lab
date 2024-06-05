@@ -235,8 +235,8 @@ use PHPLab\StandardPSR12\HtmlDocAuthor;
 $htmlDoc = new HtmlDoc();
 $htmlDocAuthor = new HtmlDocAuthor();
 $htmlDoc->setAuthor($htmlDocAuthor);
-?>
 
+?>
 <!doctype html>
 <html lang="<?= $htmlDoc->languageCode ?>">
   <head>
@@ -622,7 +622,7 @@ if (
 ### Control structure `switch` - `case`
 
 ```php
-switch($status) {
+switch ($status) {
     case self::STATUS_HALTING:
         $description = "Started to use the application.";
         break;
@@ -649,7 +649,7 @@ switch($status) {
 ##### ✤ Comment such as `//` no break when fall-through is intentional in a non-empty case body
 
 ```
-switch($status) {
+switch ($status) {
     case self::STATUS_HALTING:
         $description = "Started to use the application.";
         break;
@@ -659,7 +659,7 @@ switch($status) {
 **There MUST be a comment such as // no break when fall-through is intentional in a non-empty case body.**
 
 ```
-switch($status) {
+switch ($status) {
     case self::STATUS_HALTING:
         // the same as following;
     case self::STATUS_CERTAIN:
@@ -685,7 +685,7 @@ switch($status) {
 **Boolean operators between conditions MUST always be at the beginning or at the end of the line, not a mix of both.**
 
 ```
-switch(
+switch (
     (bool) $status
     && $this->isRegistered
 ) {
@@ -788,11 +788,19 @@ for (
 }
 ```
 
+### Control structure `foreach`
+
+```php
+foreach ($this->skills as $skillCodename => $skill) {
+    $skillPresentation($skillCodename, $skill);
+}
+```
+
 ## Closures & Functions
 
 ```php
 $skillPresentation = function ($skillCodename, $skill) use ($levelMarkChar, $newLineSeq) {
-    print($skill['name'] . ': ' . $skill['level']. $newLineSeq);
+    print($skill['name'] . ': ' . $skill['level'] . $newLineSeq);
 };
 ```
 
@@ -1076,13 +1084,11 @@ class Technician extends Person
 ```php
 class Technician extends Person
 {
-    use Educated
-    {
+    use Educated {
         Educated::isVirtual insteadof Skilled;
     }
 
-    use Skilled
-    {
+    use Skilled {
         Skilled::isVirtual as isSkilled;
     }
 }
@@ -1283,7 +1289,7 @@ public function getPesel()
 
 **There MUST NOT be a space between the variadic three dot operator and the argument name.**
 
-`public function addEducations(... $educations)`
+`public function addEducations(...$educations)`
 
 ##### ✤ List of method arguments with reference and variadic three dot operators
 

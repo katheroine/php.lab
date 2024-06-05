@@ -1,6 +1,6 @@
 <?php
 
-require_once (__DIR__ . '/../vendor/autoload.php');
+require_once(__DIR__ . '/../vendor/autoload.php');
 
 use PHPLab\StandardPSR12\{
     HtmlDoc,
@@ -31,7 +31,7 @@ separate();
 
 $user->addEducations('Automatic Controll', 'Economics');
 
-foreach($user->educations as $education) {
+foreach ($user->educations as $education) {
     print('Educated at ' . $education . $newLineSeq);
 }
 
@@ -56,7 +56,7 @@ print('Skills: ' . $user->getSkillsVisualisation() . $newLineSeq);
 $levelMarkChar = '#';
 
 $skillPresentation = function ($skillCodename, $skill) use ($levelMarkChar, $newLineSeq) {
-    print($skill['name'] . ': ' . $skill['level']. $newLineSeq);
+    print($skill['name'] . ': ' . $skill['level'] . $newLineSeq);
 };
 
 separate();

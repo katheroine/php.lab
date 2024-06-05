@@ -22,7 +22,7 @@ trait Educated
         return ! empty($this->educations);
     }
 
-    public function addEducations(... $educations)
+    public function addEducations(...$educations)
     {
         foreach ($educations as $education) {
             $this->educations[] = $education;

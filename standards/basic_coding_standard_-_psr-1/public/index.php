@@ -1,6 +1,6 @@
 <?php
 
-require_once (__DIR__ . '/../vendor/autoload.php');
+require_once(__DIR__ . '/../vendor/autoload.php');
 
 use PHPLab\StandardPSR1\HtmlDoc;
 use PHPLab\StandardPSR1\HtmlDocAuthor;

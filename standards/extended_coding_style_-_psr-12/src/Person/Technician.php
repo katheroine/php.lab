@@ -19,13 +19,11 @@ use PHPLab\StandardPSR12\Person\Educated;
 
 class Technician extends Person
 {
-    use Educated
-    {
+    use Educated {
         Educated::isVirtual as isEducated;
     }
 
-    use Skilled
-    {
+    use Skilled {
         Skilled::isVirtual as isSkilled;
     }
 

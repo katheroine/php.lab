@@ -425,7 +425,7 @@ and include the Composer autoload script to the application entry file `public/i
 ```php
 <?php
 
-require_once (__DIR__ . '/../vendor/autoload.php');
+require_once(__DIR__ . '/../vendor/autoload.php');
 
 use PHPLab\StandardPSR1\HtmlDoc;
 use PHPLab\StandardPSR1\HtmlDocAuthor;

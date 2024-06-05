@@ -80,7 +80,7 @@ class User extends Technician
     {
         $status = $this->getStatus();
 
-        switch($status) {
+        switch ($status) {
             case self::STATUS_HALTING:
                 $description = "Started to use the application.";
                 break;
@@ -114,7 +114,7 @@ class User extends Technician
 
     public function getLevelUpgradeVisualisation($upgrade = 1)
     {
-        if($upgrade <= 0) {
+        if ($upgrade <= 0) {
             return;
         }
 
@@ -144,7 +144,7 @@ class User extends Technician
 
     public function makeSkillsPresentation($skillPresentation)
     {
-        foreach($this->skills as $skillCodename => $skill) {
+        foreach ($this->skills as $skillCodename => $skill) {
             $skillPresentation($skillCodename, $skill);
         }
     }
