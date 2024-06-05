@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace PHPLab\StandardPSR12;
 
-class User
+use PHPLab\StandardPSR12\Person\Technician;
+
+class User extends Technician
 {
     public const STATUS_HALTING = 'halting';
     public const STATUS_CERTAIN = 'certain';
@@ -21,12 +23,18 @@ class User
 
     public bool $isRegistered = false;
     public int $level = 0;
-    public string $firstName;
-    public string $middleName;
-    public string $lastName;
-    public string $nickname = '';
 
-    public array $skills = [];
+    private static $count;
+
+    public function __construct()
+    {
+        self::$count++;
+    }
+
+    public static function getCount(): int
+    {
+        return self::$count;
+    }
 
     public function levelUp()
     {

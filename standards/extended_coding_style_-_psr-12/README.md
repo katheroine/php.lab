@@ -933,3 +933,320 @@ function ($skillCodename, $skill) use (
 **If a return type is present, it MUST follow the same rules as with normal functions and methods.**
 
 `function ($skillCodename, $skill) use ($levelMarkChar, $newLineSeq): void`
+
+## Classes
+
+##### ✤ Keyword `extends` placement in class definition
+
+**The `extends` keyword MUST be declared on the same line as the class name.**
+
+```
+class User extends Technician
+{
+}
+```
+
+##### ✤ List of extends split acros multi lines in class definition
+
+**Lists of extends (in the case of interfaces) MAY be split across multiple lines, where each subsequent line is indented once.**
+
+**When doing so, the first item in the list MUST be on the next line, and there MUST be only one interface per line.**
+
+```
+interface Evidentiable extends
+    Presentable,
+    Identifiable
+{
+}
+```
+
+##### ✤ Keyword `implements` placement in class definition
+
+**The `implements` keyword MUST be declared on the same line as the class name.**
+
+```
+class Person implements Presentable
+{
+}
+```
+
+##### ✤ List of `implements` split acros multi lines in class definition
+
+**Lists of implements MAY be split across multiple lines, where each subsequent line is indented once.**
+
+**When doing so, the first item in the list MUST be on the next line, and there MUST be only one interface per line.**
+
+```
+class Person implements
+    Presentable,
+    Identifiable
+{
+}
+```
+
+##### ✤ Opening brace placement in class definition
+
+**The opening brace for the class MUST go on its own line.**
+
+**Opening braces MUST be on their own line and MUST NOT be preceded or followed by a blank line.**
+
+##### ✤ Closing brace placement in class definition
+
+**The closing brace for the class MUST go on the next line after the body.**
+
+**Closing braces MUST be on their own line and MUST NOT be preceded by a blank line.**
+
+**Any closing brace MUST NOT be followed by any comment or statement on the same line.**
+
+```
+class Person
+{
+}
+```
+
+##### ✤ Keyword `use` placement in class definition
+
+**The `use` keyword used inside the classes to implement traits MUST be declared on the next line after the opening brace.**
+
+```
+class Technician
+{
+    use Skilled;
+}
+```
+
+##### ✤ Number of trait including per line in class definition
+
+**Each individual trait that is imported into a class MUST be included one-per-line and each inclusion MUST have its own use import statement.**
+
+```
+class Technician extends Person
+{
+    use Educated;
+    use Skilled;
+}
+```
+
+##### ✤ Closing brace after the use import placement in class definition
+
+**When the class has nothing after the use import statement, the class closing brace MUST be on the next line after the use import statement.**
+
+##### ✤ Blank line after the use import placement in class definition
+
+**Otherwise, it MUST have a blank line after the use import statement.**
+
+```
+class Technician extends Person
+{
+    use Educated;
+    use Skilled;
+
+    public function isVirtual(): bool
+    {
+        $isVirtual = ! empty($this->educations) && ! empty($this->skills);
+
+        return $isVirtual;
+    }
+}
+```
+
+##### ✤ Keywords `insteadof` and `as`
+
+**When using the `insteadof` and `as` operators they must be in separated lines with indentations.**
+
+```
+class Technician extends Person
+{
+    use Educated
+    {
+        Educated::isVirtual insteadof Skilled;
+    }
+
+    use Skilled
+    {
+        Skilled::isVirtual as isSkilled;
+    }
+}
+```
+
+### Keywords `abstract`, `final` & `static`
+
+##### ✤ Keyword `abstract` placement
+
+**When present, the `abstract` declarations MUST precede the visibility declaration.**
+
+`abstract protected function hasMiddleName(): bool;`
+
+##### ✤ Keyword `final` placement
+
+**When present, the `final` declarations MUST precede the visibility declaration.**
+
+`final public function isVirtual(): bool`
+
+##### ✤ Keyword `static` placement
+
+**When present, the `static` declaration MUST come after the visibility declaration.**
+
+`public static function getCount(): int`
+
+### Class constants
+
+##### ✤ Class constant visiblity declaration
+
+**Visibility MUST be declared on all constants if your project PHP minimum version supports constant visibilities (PHP 7.1 or later).**
+
+### Class properties
+
+##### ✤ Property visiblity declaration
+
+**Visibility MUST be declared on all properties.**
+
+##### ✤ Single underscore prefix in property names for indication of non-public visibility
+
+**Property names MUST NOT be prefixed with a single underscore to indicate protected or private visibility.**
+
+**That is, an underscore prefix explicitly has no meaning.**
+
+##### ✤ Keyword `var` (used to declare property)
+
+**The `var` keyword MUST NOT be used to declare a property.**
+
+##### ✤ Property type declaration
+
+**There MUST be a space between type declaration and property name.**
+
+##### ✤ Property declarations per statement
+
+**There MUST NOT be more than one property declared per statement.**
+
+### Class methods
+
+##### ✤ Single underscore prefix in method names for indication of non-public visibility
+
+**Method names MUST NOT be prefixed with a single underscore to indicate protected or private visibility.**
+
+**That is, an underscore prefix explicitly has no meaning.**
+
+##### ✤ Method visiblity declaration
+
+**Visibility MUST be declared on all methods.**
+
+##### ✤ Space after method name in method definition
+
+**Method and function names MUST NOT be declared with space after the method name.**
+
+##### ✤ Space after opening parethensis of argument list in method definition
+
+**There MUST NOT be a space after the opening parenthesis.**
+
+##### ✤ Space before closing parethensis of argument list in method definition
+
+**There MUST NOT be a space before the closing parenthesis.**
+
+##### ✤ Space before coma on argument list in method definition
+
+**In the argument list, there MUST NOT be a space before each comma.**
+
+##### ✤ Space after coma on argument list in method definition
+
+**In the argument list, there MUST be one space after each comma.**
+
+##### ✤ List of method arguments with reference operator
+
+**When using the reference operator & before an argument, there MUST NOT be a space after it.**
+
+##### ✤ List of method arguments with variadic three dot operator
+
+**There MUST NOT be a space between the variadic three dot operator and the argument name.**
+
+##### ✤ List of method arguments with reference and variadic three dot operators
+
+**When combining both the reference operator and the variadic three dot operator, there MUST NOT be any space between the two of them.**
+
+##### ✤ Method arguments with default values placement
+
+**Method and function arguments with default values MUST go at the end of the argument list.**
+
+##### ✤ List of method arguments split acros multi lines in method definition
+
+**Argument lists MAY be split across multiple lines, where each subsequent line is indented once.**
+
+##### ✤ Arguments placement on list of method arguments split acros multi lines in method definition
+
+**When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line.**
+
+##### ✤ Number of arguments per line on list of method arguments split acros multi lines in method definition
+
+**There MUST be only one argument per line.**
+
+##### ✤ Closing parenthesis and opening brace in method with list of method arguments split acros multi lines in method definition
+
+**When the argument list is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them.**
+
+##### ✤ Return type declaration in method definition
+
+**When you have a return type declaration present, there MUST be one space after the colon followed by the type declaration. The colon and declaration MUST be on the same line as the argument list closing parenthesis with no spaces between the two characters.**
+
+##### ✤ Return type declaration with nullable type in method definition
+
+**In nullable type declarations, there MUST NOT be a space between the question mark and the type.**
+
+##### ✤ Opening brace placement in method definition
+
+**The opening brace MUST go on its own line.**
+
+##### ✤ Closing brace placement in method definition
+
+**The closing brace MUST go on the next line following the body.**
+
+##### ✤ Comments or statements following closing brace in method definition
+
+**Any closing brace MUST NOT be followed by any comment or statement on the same line.**
+
+##### ✤ Space between method name and opening parenthesis in method call
+
+**When making a method or function call, there MUST NOT be a space between the method or function name and the opening parenthesis.**
+
+##### ✤ Space after opening parethensis of argument list in method call
+
+**There MUST NOT be a space after the opening parenthesis.**
+
+##### ✤ Space before closing parethensis  of argument list in method call
+
+**There MUST NOT be a space before the closing parenthesis.**
+
+##### ✤ Space before coma of argument list on argument list in method call
+
+**In the argument list, there MUST NOT be a space before each comma.**
+
+##### ✤ Space after coma of argument list on argument list in method call
+
+**In the argument list, there MUST be one space after each comma.**
+
+##### ✤ List of method arguments split acros multi lines in method call
+
+**Argument lists MAY be split across multiple lines, where each subsequent line is indented once.**
+
+##### ✤ Arguments placement on list of method arguments split acros multi lines in method call
+
+**When doing so, the first item in the list MUST be on the next line.**
+
+##### ✤ Number of arguments per line on list of method arguments split acros multi lines in method call
+
+**There MUST be only one argument per line.**
+
+##### ✤ Single argument being split across multiple lines in method call
+
+**A single argument being split across multiple lines (as might be the case with an anonymous function or array) does not constitute splitting the argument list itself.**
+
+### Class instantiating
+
+##### ✤ Parentheses in class instantiating
+
+**When instantiating a new class, parentheses MUST always be present even when there are no arguments passed to the constructor.**
+
+### Anonymous classes
+
+##### ✤ Opening brace, class keyword and list of implements placement
+
+**The opening brace MAY be on the same line as the class keyword so long as the list of implements interfaces does not wrap. If the list of interfaces wraps, the brace MUST be placed on the line immediately following the last interface.**

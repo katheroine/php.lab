@@ -50,4 +50,12 @@ $htmlDoc->setAuthor($htmlDocAuthor);
 
 print($newLineSeq);
 
+print('Is virtual: ' . ($user->isVirtual() ? 'yes' : 'no') . $newLineSeq);
+
+print($newLineSeq);
+
+print('Users count: ' . $user->getCount() . $newLineSeq);
+
+print($newLineSeq);
+
 require_once('view.php');
