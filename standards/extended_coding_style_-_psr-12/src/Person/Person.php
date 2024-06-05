@@ -22,9 +22,16 @@ abstract class Person implements Presentable, Identifiable
     protected string $middleName;
     protected string $lastName;
 
-    protected int $pesel;
+    protected ?int $pesel;
 
     abstract protected function hasMiddleName(): bool;
+
+    public function setName($firstName, $lastName, $middleName = '')
+    {
+        $this->firstName = $firstName;
+        $this->middleName = $middleName;
+        $this->lastName = $lastName;
+    }
 
     public function getName(): string
     {
@@ -35,8 +42,8 @@ abstract class Person implements Presentable, Identifiable
         return $name;
     }
 
-    public function getPesel(): string
+    public function getPesel(): ?int
     {
-        return ($firstName . ' ' . $lastName);
+        return $this->pesel;
     }
 }

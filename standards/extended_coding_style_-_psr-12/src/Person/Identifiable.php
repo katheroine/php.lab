@@ -15,5 +15,5 @@ namespace PHPLab\StandardPSR12\Person;
 
 interface Identifiable
 {
-    public function getPesel(): string;
+    public function getPesel(): ?int;
 }

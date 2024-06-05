@@ -28,7 +28,7 @@ class HtmlDoc
     public $footer = 'Copyright PHP.lab 2024';
     public $content = 'Hi, there!';
 
-    public function setAuthor(HTMLDocAuthor $htmlDocAuthor)
+    public function setAuthor(HTMLDocAuthor &$htmlDocAuthor)
     {
         $this->author = [
             'name' => $htmlDocAuthor->name,

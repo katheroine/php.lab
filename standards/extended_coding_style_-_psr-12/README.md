@@ -800,6 +800,12 @@ $skillPresentation = function ($skillCodename, $skill) use ($levelMarkChar, $new
 
 **Closures MUST be declared with a space after the `function` keyword.**
 
+##### ✤ Space after function name in function definition
+
+**Function names MUST NOT be declared with space after the method name.**
+
+#ToDo
+
 ### Argument list
 
 ##### ✤ Space after opening parethensis of argument list in closure definition/call
@@ -906,6 +912,14 @@ function ($skillCodename, $skill) use (
     $newLineSeq
 ) {
 }
+```
+
+##### ✤ Space between method name and opening parenthesis in function call
+
+**When making a function call, there MUST NOT be a space between the method or function name and the opening parenthesis.**
+
+```php
+$skillPresentation($skillCodename, $skill);
 ```
 
 ### Braces
@@ -1190,37 +1204,81 @@ public int $score = 5;
 
 **That is, an underscore prefix explicitly has no meaning.**
 
+* Wrong:
+
+```php
+protected function _hasMiddleName()
+{
+    return false;
+}
+```
+
+* Right:
+
+```php
+protected function hasMiddleName()
+{
+    return false;
+}
+```
+
 ##### ✤ Method visiblity declaration
 
 **Visibility MUST be declared on all methods.**
 
+```php
+abstract protected function hasMiddleName();
+
+public function getName()
+{
+    $name = $firstName
+        . $this->hasMiddleName() ? $this->middleName : ' '
+        . $lastName;
+
+    return $name;
+}
+
+public function getPesel()
+{
+    return $this->pesel;
+}
+```
+
 ##### ✤ Space after method name in method definition
 
-**Method and function names MUST NOT be declared with space after the method name.**
+**Method names MUST NOT be declared with space after the method name.**
 
-##### ✤ Space after opening parethensis of argument list in method definition
+`public function getPesel()`
+
+##### ✤ Space after opening parethensis of argument list in method definition/call
 
 **There MUST NOT be a space after the opening parenthesis.**
 
-##### ✤ Space before closing parethensis of argument list in method definition
+##### ✤ Space before closing parethensis of argument list in method definition/call
 
 **There MUST NOT be a space before the closing parenthesis.**
 
-##### ✤ Space before coma on argument list in method definition
+##### ✤ Space before coma on argument list in method definition/call
 
 **In the argument list, there MUST NOT be a space before each comma.**
 
-##### ✤ Space after coma on argument list in method definition
+##### ✤ Space after coma on argument list in method definition/call
 
 **In the argument list, there MUST be one space after each comma.**
+
+`public function setName($firstName, $middleName, $lastName)`
 
 ##### ✤ List of method arguments with reference operator
 
 **When using the reference operator & before an argument, there MUST NOT be a space after it.**
 
+`public function setAuthor(HTMLDocAuthor &$htmlDocAuthor)`
+
 ##### ✤ List of method arguments with variadic three dot operator
 
 **There MUST NOT be a space between the variadic three dot operator and the argument name.**
+
+`public function addEducations(... $educations)`
 
 ##### ✤ List of method arguments with reference and variadic three dot operators
 
@@ -1230,15 +1288,17 @@ public int $score = 5;
 
 **Method and function arguments with default values MUST go at the end of the argument list.**
 
-##### ✤ List of method arguments split acros multi lines in method definition
+`public function setName($firstName, $lastName, $middleName = '')`
+
+##### ✤ List of method arguments split acros multi lines in method definition/call
 
 **Argument lists MAY be split across multiple lines, where each subsequent line is indented once.**
 
-##### ✤ Arguments placement on list of method arguments split acros multi lines in method definition
+##### ✤ Arguments placement on list of method arguments split acros multi lines in method definition/call
 
 **When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line.**
 
-##### ✤ Number of arguments per line on list of method arguments split acros multi lines in method definition
+##### ✤ Number of arguments per line on list of method arguments split acros multi lines in method definition/call
 
 **There MUST be only one argument per line.**
 
@@ -1246,13 +1306,29 @@ public int $score = 5;
 
 **When the argument list is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them.**
 
+```php
+public function setName(
+    $firstName,
+    $lastName,
+    $middleName = '') {
+}
+```
+
+##### ✤ Single argument being split across multiple lines in method call
+
+**A single argument being split across multiple lines (as might be the case with an anonymous function or array) does not constitute splitting the argument list itself.**
+
 ##### ✤ Return type declaration in method definition
 
 **When you have a return type declaration present, there MUST be one space after the colon followed by the type declaration. The colon and declaration MUST be on the same line as the argument list closing parenthesis with no spaces between the two characters.**
 
+`public function getName(): string`
+
 ##### ✤ Return type declaration with nullable type in method definition
 
 **In nullable type declarations, there MUST NOT be a space between the question mark and the type.**
+
+`public function getPesel(): ?int`
 
 ##### ✤ Opening brace placement in method definition
 
@@ -1266,41 +1342,19 @@ public int $score = 5;
 
 **Any closing brace MUST NOT be followed by any comment or statement on the same line.**
 
+```php
+public function getName(): string
+{
+}
+```
+
 ##### ✤ Space between method name and opening parenthesis in method call
 
-**When making a method or function call, there MUST NOT be a space between the method or function name and the opening parenthesis.**
+**When making a method call, there MUST NOT be a space between the method or function name and the opening parenthesis.**
 
-##### ✤ Space after opening parethensis of argument list in method call
-
-**There MUST NOT be a space after the opening parenthesis.**
-
-##### ✤ Space before closing parethensis  of argument list in method call
-
-**There MUST NOT be a space before the closing parenthesis.**
-
-##### ✤ Space before coma of argument list on argument list in method call
-
-**In the argument list, there MUST NOT be a space before each comma.**
-
-##### ✤ Space after coma of argument list on argument list in method call
-
-**In the argument list, there MUST be one space after each comma.**
-
-##### ✤ List of method arguments split acros multi lines in method call
-
-**Argument lists MAY be split across multiple lines, where each subsequent line is indented once.**
-
-##### ✤ Arguments placement on list of method arguments split acros multi lines in method call
-
-**When doing so, the first item in the list MUST be on the next line.**
-
-##### ✤ Number of arguments per line on list of method arguments split acros multi lines in method call
-
-**There MUST be only one argument per line.**
-
-##### ✤ Single argument being split across multiple lines in method call
-
-**A single argument being split across multiple lines (as might be the case with an anonymous function or array) does not constitute splitting the argument list itself.**
+```php
+$htmlDoc->setAuthor($htmlDocAuthor);
+```
 
 ### Class instantiating
 

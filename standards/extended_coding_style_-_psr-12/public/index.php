@@ -18,6 +18,16 @@ $newLineSeq = '<br>';
 print('Level: ' . $user->getLevelVisualisation() . $newLineSeq);
 print('Upgrade: ' . $user->getLevelUpgradeVisualisation(5) . $newLineSeq);
 
+print($newLineSeq);
+
+$user->addEducations('Automatic Controll', 'Economics');
+
+foreach($user->educations as $education) {
+    print('Educated at ' . $education . $newLineSeq);
+}
+
+print($newLineSeq);
+
 $user->skills = [
     'php' => [
         'name' => 'PHP',
