@@ -10,15 +10,24 @@ use PHPLab\StandardPSR12\{
 use PHPLab\StandardPSR12\Language\EngGBLangTrait;
 use PHPLab\StandardPSR12\User;
 
+use PHPLab\StandardPSR12\Person\Identifiable;
+use PHPLab\StandardPSR12\Person\Presentable;
+
+$newLineSeq = '<br>';
+
+function separate()
+{
+    print('<br>');
+}
+
 $user = new User();
 
 $user->level = 3;
 
-$newLineSeq = '<br>';
 print('Level: ' . $user->getLevelVisualisation() . $newLineSeq);
 print('Upgrade: ' . $user->getLevelUpgradeVisualisation(5) . $newLineSeq);
 
-print($newLineSeq);
+separate();
 
 $user->addEducations('Automatic Controll', 'Economics');
 
@@ -26,7 +35,7 @@ foreach($user->educations as $education) {
     print('Educated at ' . $education . $newLineSeq);
 }
 
-print($newLineSeq);
+separate();
 
 $user->skills = [
     'php' => [
@@ -50,7 +59,7 @@ $skillPresentation = function ($skillCodename, $skill) use ($levelMarkChar, $new
     print($skill['name'] . ': ' . $skill['level']. $newLineSeq);
 };
 
-print($newLineSeq);
+separate();
 
 $user->makeSkillsPresentation($skillPresentation);
 
@@ -58,14 +67,42 @@ $htmlDoc = new HtmlDoc();
 $htmlDocAuthor = new HtmlDocAuthor();
 $htmlDoc->setAuthor($htmlDocAuthor);
 
-print($newLineSeq);
+separate();
 
 print('Is virtual: ' . ($user->isVirtual() ? 'yes' : 'no') . $newLineSeq);
 
-print($newLineSeq);
+separate();
 
 print('Users count: ' . $user->getCount() . $newLineSeq);
 
-print($newLineSeq);
+separate();
+
+$human = new class implements
+    Identifiable,
+    Presentable
+{
+    protected function hasMiddleName(): bool
+    {
+        return false;
+    }
+
+    public function setName($firstName, $lastName, $middleName = '')
+    {
+    }
+
+    public function getName(): string
+    {
+        return 'David Coder';
+    }
+
+    public function getPesel(): ?int
+    {
+        return '01234567890';
+    }
+};
+
+print('Guest name: ' . $human->getName() . $newLineSeq);
+
+separate();
 
 require_once('view.php');

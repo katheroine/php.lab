@@ -804,7 +804,12 @@ $skillPresentation = function ($skillCodename, $skill) use ($levelMarkChar, $new
 
 **Function names MUST NOT be declared with space after the method name.**
 
-#ToDo
+```php
+function separate()
+{
+    print('<br>');
+}
+```
 
 ### Argument list
 
@@ -1362,8 +1367,24 @@ $htmlDoc->setAuthor($htmlDocAuthor);
 
 **When instantiating a new class, parentheses MUST always be present even when there are no arguments passed to the constructor.**
 
+```php
+$user = new User();
+```
+
 ### Anonymous classes
 
 ##### ✤ Opening brace, class keyword and list of implements placement
 
 **The opening brace MAY be on the same line as the class keyword so long as the list of implements interfaces does not wrap. If the list of interfaces wraps, the brace MUST be placed on the line immediately following the last interface.**
+
+```php
+$human = new class {};
+```
+
+```php
+$human = new class implements
+    Identifiable,
+    Presentable
+{
+};
+```
