@@ -842,7 +842,7 @@ $skillPresentation = function ($skillCodename, $skill) use ($levelMarkChar, $new
 
 **When the ending list of arguments is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them.**
 
-```
+```php
 function (
     $skillCodename,
     $skill
@@ -900,7 +900,7 @@ function (
 
 **When the ending list of variables is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them.**
 
-```
+```php
 function ($skillCodename, $skill) use (
     $levelMarkChar,
     $newLineSeq
@@ -918,7 +918,7 @@ function ($skillCodename, $skill) use (
 
 **Closing brace MUST go on the next line following the body.**
 
-```
+```php
 function ($skillCodename, $skill) use (
     $levelMarkChar,
     $newLineSeq
@@ -940,7 +940,7 @@ function ($skillCodename, $skill) use (
 
 **The `extends` keyword MUST be declared on the same line as the class name.**
 
-```
+```php
 class User extends Technician
 {
 }
@@ -952,7 +952,7 @@ class User extends Technician
 
 **When doing so, the first item in the list MUST be on the next line, and there MUST be only one interface per line.**
 
-```
+```php
 interface Evidentiable extends
     Presentable,
     Identifiable
@@ -964,7 +964,7 @@ interface Evidentiable extends
 
 **The `implements` keyword MUST be declared on the same line as the class name.**
 
-```
+```php
 class Person implements Presentable
 {
 }
@@ -976,7 +976,7 @@ class Person implements Presentable
 
 **When doing so, the first item in the list MUST be on the next line, and there MUST be only one interface per line.**
 
-```
+```php
 class Person implements
     Presentable,
     Identifiable
@@ -998,7 +998,7 @@ class Person implements
 
 **Any closing brace MUST NOT be followed by any comment or statement on the same line.**
 
-```
+```php
 class Person
 {
 }
@@ -1008,7 +1008,7 @@ class Person
 
 **The `use` keyword used inside the classes to implement traits MUST be declared on the next line after the opening brace.**
 
-```
+```php
 class Technician
 {
     use Skilled;
@@ -1019,7 +1019,7 @@ class Technician
 
 **Each individual trait that is imported into a class MUST be included one-per-line and each inclusion MUST have its own use import statement.**
 
-```
+```php
 class Technician extends Person
 {
     use Educated;
@@ -1035,7 +1035,7 @@ class Technician extends Person
 
 **Otherwise, it MUST have a blank line after the use import statement.**
 
-```
+```php
 class Technician extends Person
 {
     use Educated;
@@ -1054,7 +1054,7 @@ class Technician extends Person
 
 **When using the `insteadof` and `as` operators they must be in separated lines with indentations.**
 
-```
+```php
 class Technician extends Person
 {
     use Educated
@@ -1095,11 +1095,23 @@ class Technician extends Person
 
 **Visibility MUST be declared on all constants if your project PHP minimum version supports constant visibilities (PHP 7.1 or later).**
 
+```php
+public const STATUS_HALTING = 'halting';
+public const STATUS_CERTAIN = 'certain';
+public const STATUS_INVOLVED = 'involved';
+```
+
 ### Class properties
 
 ##### ✤ Property visiblity declaration
 
 **Visibility MUST be declared on all properties.**
+
+```php
+private static $count;
+protected $isRegistered = false;
+public $level = 0;
+```
 
 ##### ✤ Single underscore prefix in property names for indication of non-public visibility
 
@@ -1107,17 +1119,68 @@ class Technician extends Person
 
 **That is, an underscore prefix explicitly has no meaning.**
 
+* Wrong:
+
+```php
+private static $_count = 0;
+protected $_isRegistered = false;
+public $level = 0;
+```
+
+* Right:
+
+```php
+private static $count = 0;
+protected $isRegistered = false;
+public $level = 0;
+```
+
 ##### ✤ Keyword `var` (used to declare property)
 
 **The `var` keyword MUST NOT be used to declare a property.**
+
+* Wrong:
+
+```php
+var static $count = 0;
+var $isRegistered = false;
+var $level = 0;
+```
+
+* Right:
+
+```php
+private static $count;
+protected $isRegistered = false;
+public $level = 0;
+```
 
 ##### ✤ Property type declaration
 
 **There MUST be a space between type declaration and property name.**
 
+```php
+private static int $count = 0;
+protected bool $isRegistered = false;
+public int $level = 0;
+```
+
 ##### ✤ Property declarations per statement
 
 **There MUST NOT be more than one property declared per statement.**
+
+* Wrong:
+
+```php
+public int $level = 0, $score = 5;
+```
+
+* Right:
+
+```php
+public int $level = 0;
+public int $score = 5;
+```
 
 ### Class methods
 

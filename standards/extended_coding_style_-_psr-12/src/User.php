@@ -21,10 +21,11 @@ class User extends Technician
     public const STATUS_CERTAIN = 'certain';
     public const STATUS_INVOLVED = 'involved';
 
-    public bool $isRegistered = false;
-    public int $level = 0;
+    private static int $count = 0;
 
-    private static $count;
+    protected bool $isRegistered = false;
+    public int $level = 0;
+    public int $score = 5;
 
     public function __construct()
     {
