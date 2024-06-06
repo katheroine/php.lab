@@ -1,0 +1,21 @@
+{
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.10",
+        "phpunit/phpunit": "^10.4",
+        "psr/log": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "PHPLab\\StandardPSR3\\": [
+                "src/"
+            ]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PHPLab\\StandardPSR3\\": [
+                "tests/unit_tests/"
+            ]
+        }
+    }
+}
