@@ -2,7 +2,6 @@
 <ruleset name="PHPLab_PSR-4">
  <file>./tests</file>
  <file>./src</file>
- <file>./public</file>
 
  <exclude-pattern>./tests/fixtures/*</exclude-pattern>
 

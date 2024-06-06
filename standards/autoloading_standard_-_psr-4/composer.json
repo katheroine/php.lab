@@ -13,8 +13,7 @@
     "autoload-dev": {
         "psr-4": {
             "PHPLab\\StandardPSR4\\": [
-                "tests/unit_tests/",
-                "tests/fixtures/classes/"
+                "tests/unit_tests/"
             ]
         }
     }
