@@ -189,3 +189,5 @@ Laboratory of PHP.
 11. [Standards](./standards/)
     1. [Basic coding standard (PSR-1)](./standards/basic_coding_standard_-_psr-1/)
     2. [Extended coding style (PSR-12)](./standards/extended_coding_style_-_psr-12/)
+    3. [Autoloading standard (PSR-4)](./standards/autoloading_standard_-_psr-4/)
+    4. [Logger interface (PSR-3)](./standards/logger_interface_-_psr-3/)
