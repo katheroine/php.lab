@@ -18,6 +18,18 @@ use Psr\Log\LoggerInterface;
 class Logger implements LoggerInterface
 {
     /**
+     * Logs file absolute path.
+     *
+     * @var string
+     */
+    private string $logsFilePath;
+
+    public function __construct(string $logsFilePath)
+    {
+        $this->logsFilePath = $logsFilePath;
+    }
+
+    /**
      * System is unusable.
      *
      * @param string|\Stringable $message
