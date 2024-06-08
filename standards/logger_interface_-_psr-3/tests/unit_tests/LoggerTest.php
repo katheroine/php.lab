@@ -228,8 +228,8 @@ class LoggerTest extends TestCase
 
     private function provideMessageWithContext(): array
     {
-        $message = 'Lorem ipsum dolor sit {amet}, consectetur adipiscing {elit}. '
-            . 'Donec {eget} maximus {eros}, non {maximus} est. Fusce non {posuere} nibh.';
+        $message = 'Lorem {ipsum} dolor {SIT} {amet}, {consectetur} {adipiscing} {elit}. '
+            . 'Donec {eget} maximus {eros}, {n_on} {maximus} {<est>}. Fusce {n.on} {posuere} {nibh0}.';
         $context = [
             'amet' => 'lament',
             'elit' => 'gumolit',
@@ -238,11 +238,16 @@ class LoggerTest extends TestCase
             'nonexistent' => 'lalala',
             'eget' => 1024,
             'ipsum' => 3.14,
-            'sit' => [],
-            'consectetur' => (object) [],
+            'consectetur' => [],
+            'adipiscing' => (object) [],
+            'SIT' => 'sit',
+            'nibh0' => 'nibh',
+            'n_on' => 'non',
+            'n.on' => 'non',
+            '<est>' => 'est'
         ];
-        $expectedMessage = 'Lorem ipsum dolor sit lament, consectetur adipiscing gumolit. '
-            . 'Donec 1024 maximus bomberos, non {maximus} est. Fusce non fofere nibh.';
+        $expectedMessage = 'Lorem 3.14 dolor sit lament, {consectetur} {adipiscing} gumolit. '
+            . 'Donec 1024 maximus bomberos, non {maximus} {<est>}. Fusce non fofere nibh.';
 
         return [$message, $context, $expectedMessage];
     }

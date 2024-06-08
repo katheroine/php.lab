@@ -177,7 +177,7 @@ class Logger implements LoggerInterface
     {
         $replacements = [];
         foreach ($context as $from => $to) {
-            if ($this->isStringable($to)) {
+            if ($this->isKeyable($from) && $this->isStringable($to)) {
                 $replacements['{' . $from . '}'] = $to;
             }
         }
@@ -186,14 +186,27 @@ class Logger implements LoggerInterface
     }
 
     /**
+     * Checks if the value is string
+     * and contains only large letters, small letters, digits,
+     * underscore characters and dot characters.
+     */
+    private function isKeyable(mixed $value): bool
+    {
+        $isKeyable = is_string($value)
+            && preg_match('/^[_.a-zA-Z0-9]+$/', $value);
+
+        return $isKeyable;
+    }
+
+    /**
      * Checks if the value can be casted to string.
      */
     private function isStringable(mixed $value): bool
     {
         $isStringable = ! is_array($value) && (
-                ! is_object($value)
-                || method_exists($value, '__toString')
-            );
+            ! is_object($value)
+            || method_exists($value, '__toString')
+        );
 
         return $isStringable;
     }
