@@ -177,12 +177,30 @@ class Logger implements LoggerInterface
     {
         $replacements = [];
         foreach ($context as $from => $to) {
-            $replacements['{' . $from . '}'] = $to;
+            if ($this->isStringable($to)) {
+                $replacements['{' . $from . '}'] = $to;
+            }
         }
 
         return strtr($message, $replacements);
     }
 
+    /**
+     * Checks if the value can be casted to string.
+     */
+    private function isStringable(mixed $value): bool
+    {
+        $isStringable = ! is_array($value) && (
+                ! is_object($value)
+                || method_exists($value, '__toString')
+            );
+
+        return $isStringable;
+    }
+
+    /**
+     * Writes down the log content to the log file.
+     */
     private function writeLogContent(string $logContent): void
     {
         file_put_contents($this->logsFilePath, $logContent);

@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<phpunit bootstrap="./vendor/autoload.php">
+<phpunit
+  bootstrap="./vendor/autoload.php"
+  displayDetailsOnTestsThatTriggerWarnings="true"
+  colors="true">
 </phpunit>

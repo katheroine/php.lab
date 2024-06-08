@@ -176,20 +176,12 @@ class LoggerTest extends TestCase
      */
     public function testMethodsLogsMessageWithContext(string $methodName)
     {
-        $message = 'Lorem ipsum dolor sit {amet}, consectetur adipiscing {elit}. '
-            . 'Donec eget maximus {eros}, non maximus est. Fusce non {posuere} nibh.';
-        $context = [
-            'amet' => 'lament',
-            'elit' => 'gumolit',
-            'eros' => 'bomberos',
-            'posuere' => 'fofere',
-        ];
+        list($message, $context, $expectedMessage) = $this->provideMessageWithContext();
 
         $this->logger->$methodName($message, $context);
 
         $expectedLog = strtoupper($methodName) . ': '
-            . 'Lorem ipsum dolor sit lament, consectetur adipiscing gumolit. '
-            . 'Donec eget maximus bomberos, non maximus est. Fusce non fofere nibh.'
+            . $expectedMessage
             . PHP_EOL;
         $actualLog = $this->getLoggedContent();
 
@@ -201,21 +193,13 @@ class LoggerTest extends TestCase
      */
     public function testLogLogsMessageWithContext(string $methodName)
     {
-        $message = 'Lorem ipsum dolor sit {amet}, consectetur adipiscing {elit}. '
-            . 'Donec eget maximus {eros}, non maximus est. Fusce non {posuere} nibh.';
-        $context = [
-            'amet' => 'lament',
-            'elit' => 'gumolit',
-            'eros' => 'bomberos',
-            'posuere' => 'fofere',
-        ];
+        list($message, $context, $expectedMessage) = $this->provideMessageWithContext();
         $logLevel = strtoupper($methodName);
 
         $this->logger->log($logLevel, $message, $context);
 
         $expectedLog = $logLevel . ': '
-            . 'Lorem ipsum dolor sit lament, consectetur adipiscing gumolit. '
-            . 'Donec eget maximus bomberos, non maximus est. Fusce non fofere nibh.'
+            . $expectedMessage
             . PHP_EOL;
         $actualLog = $this->getLoggedContent();
 
@@ -240,6 +224,27 @@ class LoggerTest extends TestCase
             ['info'],
             ['debug'],
         ];
+    }
+
+    private function provideMessageWithContext(): array
+    {
+        $message = 'Lorem ipsum dolor sit {amet}, consectetur adipiscing {elit}. '
+            . 'Donec {eget} maximus {eros}, non {maximus} est. Fusce non {posuere} nibh.';
+        $context = [
+            'amet' => 'lament',
+            'elit' => 'gumolit',
+            'eros' => 'bomberos',
+            'posuere' => 'fofere',
+            'nonexistent' => 'lalala',
+            'eget' => 1024,
+            'ipsum' => 3.14,
+            'sit' => [],
+            'consectetur' => (object) [],
+        ];
+        $expectedMessage = 'Lorem ipsum dolor sit lament, consectetur adipiscing gumolit. '
+            . 'Donec 1024 maximus bomberos, non {maximus} est. Fusce non fofere nibh.';
+
+        return [$message, $context, $expectedMessage];
     }
 
     /**
