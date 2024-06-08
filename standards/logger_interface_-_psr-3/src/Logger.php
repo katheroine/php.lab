@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace PHPLab\StandardPSR3;
 
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 class Logger implements LoggerInterface
 {
@@ -39,6 +40,7 @@ class Logger implements LoggerInterface
      */
     public function emergency(string|\Stringable $message, array $context = []): void
     {
+        $this->log(LogLevel::EMERGENCY, $message, $context);
     }
 
     /**
@@ -54,6 +56,7 @@ class Logger implements LoggerInterface
      */
     public function alert(string|\Stringable $message, array $context = []): void
     {
+        $this->log(LogLevel::ALERT, $message, $context);
     }
 
     /**
@@ -68,6 +71,7 @@ class Logger implements LoggerInterface
      */
     public function critical(string|\Stringable $message, array $context = []): void
     {
+        $this->log(LogLevel::CRITICAL, $message, $context);
     }
 
     /**
@@ -81,6 +85,7 @@ class Logger implements LoggerInterface
      */
     public function error(string|\Stringable $message, array $context = []): void
     {
+        $this->log(LogLevel::ERROR, $message, $context);
     }
 
     /**
@@ -96,6 +101,7 @@ class Logger implements LoggerInterface
      */
     public function warning(string|\Stringable $message, array $context = []): void
     {
+        $this->log(LogLevel::WARNING, $message, $context);
     }
 
     /**
@@ -108,6 +114,7 @@ class Logger implements LoggerInterface
      */
     public function notice(string|\Stringable $message, array $context = []): void
     {
+        $this->log(LogLevel::NOTICE, $message, $context);
     }
 
     /**
@@ -122,6 +129,7 @@ class Logger implements LoggerInterface
      */
     public function info(string|\Stringable $message, array $context = []): void
     {
+        $this->log(LogLevel::INFO, $message, $context);
     }
 
     /**
@@ -134,6 +142,7 @@ class Logger implements LoggerInterface
      */
     public function debug(string|\Stringable $message, array $context = []): void
     {
+        $this->log(LogLevel::DEBUG, $message, $context);
     }
 
     /**
@@ -149,5 +158,19 @@ class Logger implements LoggerInterface
      */
     public function log($level, string|\Stringable $message, array $context = []): void
     {
+        $logContent = $this->formatLogContent($level, $message, $context);
+        $this->writeLogContent($logContent);
+    }
+
+    private function formatLogContent(string $level, string|\Stringable $message, array $context = []): string
+    {
+        $logContent = strtoupper($level) . ': ' . $message . PHP_EOL;
+
+        return $logContent;
+    }
+
+    private function writeLogContent(string $logContent): void
+    {
+        file_put_contents($this->logsFilePath, $logContent);
     }
 }

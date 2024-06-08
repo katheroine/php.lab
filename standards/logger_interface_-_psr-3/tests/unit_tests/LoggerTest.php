@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace PHPLab\StandardPSR3;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LogLevel;
 
 class LoggerTest extends TestCase
 {
@@ -22,6 +23,8 @@ class LoggerTest extends TestCase
      */
     private const LOGGER_FULLY_QUALIFIED_CLASS_NAME = 'PHPLab\\StandardPSR3\\Logger';
     private const PSR_LOGGER_FULLY_QUALIFIED_INTERFACE_NAME = 'Psr\\Log\\LoggerInterface';
+    protected const LOG_FILE_ABSOLUTE_PATH = __DIR__
+        . DIRECTORY_SEPARATOR . '/../fixtures/var/log/psr3logger.log';
 
     /**
      * Instance of tested class.
@@ -138,6 +141,33 @@ class LoggerTest extends TestCase
     }
 
     /**
+     * @dataProvider loggerInterfaceMethodsProvider
+     */
+    public function testMethodsLogsMessageWithoutContext(string $methodName)
+    {
+        $message = 'Simple message.';
+
+        $this->logger->$methodName($message, []);
+
+        $expectedLog = strtoupper($methodName) . ': ' . $message . PHP_EOL;
+        $actualLog = $this->getLoggedContent();
+
+        $this->assertEquals($expectedLog, $actualLog);
+    }
+
+    public function testLogLogsMessageWithoutContext()
+    {
+        $message = 'Simple message.';
+
+        $this->logger->log(LogLevel::DEBUG, $message, []);
+
+        $expectedLog = 'DEBUG: ' . $message . PHP_EOL;
+        $actualLog = $this->getLoggedContent();
+
+        $this->assertEquals($expectedLog, $actualLog);
+    }
+
+    /**
      * Provide file paths
      * and appropriate extension.
      *
@@ -188,13 +218,18 @@ class LoggerTest extends TestCase
         return $messagePattern;
     }
 
+    private function getLoggedContent(): string
+    {
+        return file_get_contents(self::LOG_FILE_ABSOLUTE_PATH);
+    }
+
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp(): void
     {
-        $this->logger = new Logger('');
+        $this->logger = new Logger(self::LOG_FILE_ABSOLUTE_PATH);
     }
 
     /**
@@ -203,5 +238,6 @@ class LoggerTest extends TestCase
      */
     protected function tearDown(): void
     {
+        file_put_contents(self::LOG_FILE_ABSOLUTE_PATH, '');
     }
 }
