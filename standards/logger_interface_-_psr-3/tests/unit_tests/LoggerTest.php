@@ -155,13 +155,68 @@ class LoggerTest extends TestCase
         $this->assertEquals($expectedLog, $actualLog);
     }
 
-    public function testLogLogsMessageWithoutContext()
+    /**
+     * @dataProvider loggerInterfaceMethodsProvider
+     */
+    public function testLogLogsMessageWithoutContext(string $methodName)
     {
         $message = 'Simple message.';
+        $logLevel = strtoupper($methodName);
 
-        $this->logger->log(LogLevel::DEBUG, $message, []);
+        $this->logger->log($logLevel, $message, []);
 
-        $expectedLog = 'DEBUG: ' . $message . PHP_EOL;
+        $expectedLog = $logLevel . ': ' . $message . PHP_EOL;
+        $actualLog = $this->getLoggedContent();
+
+        $this->assertEquals($expectedLog, $actualLog);
+    }
+
+    /**
+     * @dataProvider loggerInterfaceMethodsProvider
+     */
+    public function testMethodsLogsMessageWithContext(string $methodName)
+    {
+        $message = 'Lorem ipsum dolor sit {amet}, consectetur adipiscing {elit}. '
+            . 'Donec eget maximus {eros}, non maximus est. Fusce non {posuere} nibh.';
+        $context = [
+            'amet' => 'lament',
+            'elit' => 'gumolit',
+            'eros' => 'bomberos',
+            'posuere' => 'fofere',
+        ];
+
+        $this->logger->$methodName($message, $context);
+
+        $expectedLog = strtoupper($methodName) . ': '
+            . 'Lorem ipsum dolor sit lament, consectetur adipiscing gumolit. '
+            . 'Donec eget maximus bomberos, non maximus est. Fusce non fofere nibh.'
+            . PHP_EOL;
+        $actualLog = $this->getLoggedContent();
+
+        $this->assertEquals($expectedLog, $actualLog);
+    }
+
+    /**
+     * @dataProvider loggerInterfaceMethodsProvider
+     */
+    public function testLogLogsMessageWithContext(string $methodName)
+    {
+        $message = 'Lorem ipsum dolor sit {amet}, consectetur adipiscing {elit}. '
+            . 'Donec eget maximus {eros}, non maximus est. Fusce non {posuere} nibh.';
+        $context = [
+            'amet' => 'lament',
+            'elit' => 'gumolit',
+            'eros' => 'bomberos',
+            'posuere' => 'fofere',
+        ];
+        $logLevel = strtoupper($methodName);
+
+        $this->logger->log($logLevel, $message, $context);
+
+        $expectedLog = $logLevel . ': '
+            . 'Lorem ipsum dolor sit lament, consectetur adipiscing gumolit. '
+            . 'Donec eget maximus bomberos, non maximus est. Fusce non fofere nibh.'
+            . PHP_EOL;
         $actualLog = $this->getLoggedContent();
 
         $this->assertEquals($expectedLog, $actualLog);

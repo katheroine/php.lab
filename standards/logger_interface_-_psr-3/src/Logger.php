@@ -164,9 +164,23 @@ class Logger implements LoggerInterface
 
     private function formatLogContent(string $level, string|\Stringable $message, array $context = []): string
     {
-        $logContent = strtoupper($level) . ': ' . $message . PHP_EOL;
+        $interpolatedMessage = $this->interpolateMessage($message, $context);
+        $logContent = strtoupper($level) . ': ' . $interpolatedMessage . PHP_EOL;
 
         return $logContent;
+    }
+
+    /**
+     * Interpolates context values into the message placeholders.
+     */
+    private function interpolateMessage(string $message, array $context): string
+    {
+        $replacements = [];
+        foreach ($context as $from => $to) {
+            $replacements['{' . $from . '}'] = $to;
+        }
+
+        return strtr($message, $replacements);
     }
 
     private function writeLogContent(string $logContent): void
