@@ -18,10 +18,32 @@ use Psr\SimpleCache\CacheInterface;
 class Cache implements CacheInterface
 {
     /**
+     * Storage file absolute path.
+     *
+     * @var string
+     */
+    private string $storageFilePath;
+
+    // /**
+    //  * Storage.
+    //  *
+    //  * @var array
+    //  */
+    // private array $storage;
+
+    /**
+     * @param string $storageFilePath
+     */
+    public function __construct(string $storageFilePath)
+    {
+        $this->storageFilePath = $storageFilePath;
+    }
+
+    /**
      * Fetches a value from the cache.
      *
      * @param string $key The unique key of this item in the cache.
-     * @param mixed  $default Default value to return if the key does not exist.
+     * @param mixed $default Default value to return if the key does not exist.
      *
      * @return mixed The value of the item from the cache, or $default in case of cache miss.
      *
@@ -30,13 +52,21 @@ class Cache implements CacheInterface
      */
     public function get(string $key, mixed $default = null): mixed
     {
+        $storage = unserialize(
+            file_get_contents($this->storageFilePath)
+        );
 
+        if (! $storage) {
+            return null;
+        }
+
+        return $storage[$key];
     }
 
     /**
      * Persists data in the cache, uniquely referenced by a key with an optional expiration TTL time.
      *
-     * @param string $key   The key of the item to store.
+     * @param string $key The key of the item to store.
      * @param mixed $value The value of the item to store, must be serializable.
      * @param null|int|\DateInterval $ttl Optional. The TTL value of this item. If no value is sent and
      * the driver supports TTL then the library may set a default value
@@ -49,7 +79,6 @@ class Cache implements CacheInterface
      */
     public function set(string $key, mixed $value, null|int|\DateInterval $ttl = null): bool
     {
-
     }
 
     /**
@@ -64,7 +93,6 @@ class Cache implements CacheInterface
      */
     public function delete(string $key): bool
     {
-
     }
 
     /**
@@ -74,7 +102,6 @@ class Cache implements CacheInterface
      */
     public function clear(): bool
     {
-
     }
 
     /**
@@ -91,7 +118,6 @@ class Cache implements CacheInterface
      */
     public function getMultiple(iterable $keys, mixed $default = null): iterable
     {
-
     }
 
     /**
@@ -110,7 +136,6 @@ class Cache implements CacheInterface
      */
     public function setMultiple(iterable $values, null|int|\DateInterval $ttl = null): bool
     {
-
     }
 
     /**
@@ -126,7 +151,6 @@ class Cache implements CacheInterface
      */
     public function deleteMultiple(iterable $keys): bool
     {
-
     }
 
     /**
@@ -146,6 +170,5 @@ class Cache implements CacheInterface
      */
     public function has(string $key): bool
     {
-
     }
 }

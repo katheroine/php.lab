@@ -22,6 +22,8 @@ class CacheTest extends TestCase
      */
     private const CACHE_FULLY_QUALIFIED_CLASS_NAME = 'PHPLab\\StandardPSR16\\Cache';
     private const PSR_SIMPLE_CACHE_FULLY_QUALIFIED_INTERFACE_NAME = 'Psr\\SimpleCache\\CacheInterface';
+    protected const STORAGE_FILE_ABSOLUTE_PATH = __DIR__
+        . DIRECTORY_SEPARATOR . '/../fixtures/var/psr16cache.storage';
 
     /**
      * Instance of tested class.
@@ -49,6 +51,86 @@ class CacheTest extends TestCase
         $this->assertImplements($this->cache, self::PSR_SIMPLE_CACHE_FULLY_QUALIFIED_INTERFACE_NAME);
     }
 
+    public function testConstructorWhenArgumentHasWrongType()
+    {
+        $cacheClassName = self::CACHE_FULLY_QUALIFIED_CLASS_NAME;
+
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: '__construct',
+            argumentName: 'storageFilePath',
+            argumentProperType: 'string',
+            argumentGivenType: 'null',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        new $cacheClassName(null);
+    }
+
+    public function testGetWhenKeyHasWrongType()
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'get',
+            argumentName: 'key',
+            argumentProperType: 'string',
+            argumentGivenType: 'null',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cache->get(null);
+    }
+
+    public function testGetWhenKeyHasNoValue()
+    {
+        $value = $this->cache->get('unexistent');
+
+        $this->assertEquals(null, $value);
+    }
+
+    public function testGet()
+    {
+        $key = 'some_key';
+        $expectedValue = 'Some value';
+
+        $this->setStoredContent(serialize([
+            $key => $expectedValue,
+        ]));
+
+        $actualValue = $this->cache->get($key);
+
+        $this->assertEquals($expectedValue, $actualValue);
+    }
+
+    public function testGetMultipleTimes()
+    {
+        $key1 = 'some_key';
+        $expectedValue1 = 'Some value';
+        $key2 = 'other.key';
+        $expectedValue2 = 87539;
+        $key3 = 'ANOTHERkey10';
+        $expectedValue3 = ['color' => 'orange'];
+
+        $this->setStoredContent(serialize([
+            $key1 => $expectedValue1,
+            $key2 => $expectedValue2,
+            $key3 => $expectedValue3,
+        ]));
+
+        $actualValue3 = $this->cache->get($key3);
+        $this->assertEquals($expectedValue3, $actualValue3);
+
+        $actualValue1 = $this->cache->get($key1);
+        $this->assertEquals($expectedValue1, $actualValue1);
+
+        $actualValue2 = $this->cache->get($key2);
+        $this->assertEquals($expectedValue2, $actualValue2);
+    }
+
     /**
      * Assert object class implements given interface.
      *
@@ -63,12 +145,48 @@ class CacheTest extends TestCase
         $this->assertTrue($implementsInterface);
     }
 
+    private function buildArgumentTypeErrorMessagePattern(
+        string $methodName,
+        string $argumentName,
+        string $argumentProperType,
+        string $argumentGivenType,
+        int $argumentNumber
+    ) {
+        $messagePattern = '/' . preg_quote(
+            "::{$methodName}(): "
+            . 'Argument #' . strval($argumentNumber)
+            . " (\${$argumentName}) must be of type {$argumentProperType}, "
+            . "{$argumentGivenType} given"
+        ) . '/';
+
+        return $messagePattern;
+    }
+
+    private function getStoredContent(): string
+    {
+        return file_get_contents(self::STORAGE_FILE_ABSOLUTE_PATH);
+    }
+
+    private function setStoredContent(string $content): void
+    {
+        file_put_contents(self::STORAGE_FILE_ABSOLUTE_PATH, $content);
+    }
+
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp(): void
     {
-        $this->cache = new Cache();
+        $this->cache = new Cache(self::STORAGE_FILE_ABSOLUTE_PATH);
+    }
+
+    /**
+     * Tears down the fixture, for example, close a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown(): void
+    {
+        file_put_contents(self::STORAGE_FILE_ABSOLUTE_PATH, '');
     }
 }
