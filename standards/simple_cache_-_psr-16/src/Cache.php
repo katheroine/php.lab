@@ -17,19 +17,13 @@ use Psr\SimpleCache\CacheInterface;
 
 class Cache implements CacheInterface
 {
+    private const FORBIDDEN_CHARACTERS = ['{', '}', '(', ')', '/', '\\', '@', ':'];
     /**
      * Storage file absolute path.
      *
      * @var string
      */
     private string $storageFilePath;
-
-    // /**
-    //  * Storage.
-    //  *
-    //  * @var array
-    //  */
-    // private array $storage;
 
     /**
      * @param string $storageFilePath
@@ -79,6 +73,20 @@ class Cache implements CacheInterface
      */
     public function set(string $key, mixed $value, null|int|\DateInterval $ttl = null): bool
     {
+        foreach (self::FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
+            if (str_contains($key, $forbiddenCharacter)) {
+                throw new \InvalidArgumentException("Argument key contains forbidden character {$forbiddenCharacter}");
+            }
+        }
+
+        $storage = unserialize(
+            file_get_contents($this->storageFilePath)
+        ) ?: [];
+        $storage[$key] = $value;
+
+        file_put_contents($this->storageFilePath, serialize($storage));
+
+        return true;
     }
 
     /**

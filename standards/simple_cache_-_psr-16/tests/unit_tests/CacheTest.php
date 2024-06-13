@@ -97,9 +97,9 @@ class CacheTest extends TestCase
         $key = 'some_key';
         $expectedValue = 'Some value';
 
-        $this->setStoredContent(serialize([
+        $this->setStoredContent([
             $key => $expectedValue,
-        ]));
+        ]);
 
         $actualValue = $this->cache->get($key);
 
@@ -115,11 +115,11 @@ class CacheTest extends TestCase
         $key3 = 'ANOTHERkey10';
         $expectedValue3 = ['color' => 'orange'];
 
-        $this->setStoredContent(serialize([
+        $this->setStoredContent([
             $key1 => $expectedValue1,
             $key2 => $expectedValue2,
             $key3 => $expectedValue3,
-        ]));
+        ]);
 
         $actualValue3 = $this->cache->get($key3);
         $this->assertEquals($expectedValue3, $actualValue3);
@@ -129,6 +129,103 @@ class CacheTest extends TestCase
 
         $actualValue2 = $this->cache->get($key2);
         $this->assertEquals($expectedValue2, $actualValue2);
+    }
+
+    public function testSetWhenKeyHasWrongType()
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'set',
+            argumentName: 'key',
+            argumentProperType: 'string',
+            argumentGivenType: 'null',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cache->set(null, 'Some value.');
+    }
+
+    /**
+     * @dataProvider keyNameForbiddenCharacters
+     */
+    public function testSetWhenKeyNameContainsForbiddenCharacters($character)
+    {
+        $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $key = $character . 'some_key';
+
+        $this->cache->set($key, 'Some value.');
+    }
+
+    public function testSet()
+    {
+        $key = 'some_key';
+        $expectedValue = 'Some value';
+
+        $result = $this->cache->set($key, $expectedValue);
+
+        $content = $this->getStoredContent();
+        $actualValue = $content[$key];
+
+        $this->assertEquals($expectedValue, $actualValue);
+    }
+
+    public function testSetMultipleTimes()
+    {
+        $key1 = 'some_key';
+        $expectedValue1 = 'Some value';
+        $key2 = 'other.key';
+        $expectedValue2 = 87539;
+        $key3 = 'ANOTHERkey10';
+        $expectedValue3 = ['color' => 'orange'];
+
+        $this->setStoredContent([
+            $key1 => $expectedValue1,
+            $key2 => $expectedValue2,
+            $key3 => $expectedValue3,
+        ]);
+
+        $result3 = $this->cache->set($key3, $expectedValue3);
+        $result1 = $this->cache->set($key1, $expectedValue1);
+        $result2 = $this->cache->get($key2, $expectedValue2);
+
+        $content = $this->getStoredContent();
+        $actualValue1 = $content[$key1];
+        $actualValue2 = $content[$key2];
+        $actualValue3 = $content[$key3];
+
+        $this->assertEquals($expectedValue1, $actualValue1);
+        $this->assertEquals($expectedValue2, $actualValue2);
+        $this->assertEquals($expectedValue3, $actualValue3);
+
+        $this->assertEquals(true, $result1);
+        $this->assertEquals(true, $result2);
+        $this->assertEquals(true, $result3);
+    }
+
+    /**
+     * Provide characters that aren't allowed
+     * to be placed into the key name.
+     *
+     * @return array
+     */
+    public static function keyNameForbiddenCharacters(): array
+    {
+        return [
+            ['{'],
+            ['}'],
+            ['('],
+            [')'],
+            ['/'],
+            ['\\'],
+            ['@'],
+            [':'],
+        ];
     }
 
     /**
@@ -162,14 +259,14 @@ class CacheTest extends TestCase
         return $messagePattern;
     }
 
-    private function getStoredContent(): string
+    private function setStoredContent(array $content): void
     {
-        return file_get_contents(self::STORAGE_FILE_ABSOLUTE_PATH);
+        file_put_contents(self::STORAGE_FILE_ABSOLUTE_PATH, serialize($content));
     }
 
-    private function setStoredContent(string $content): void
+    private function getStoredContent(): array
     {
-        file_put_contents(self::STORAGE_FILE_ABSOLUTE_PATH, $content);
+        return unserialize(file_get_contents(self::STORAGE_FILE_ABSOLUTE_PATH)) ?: [];
     }
 
     /**
