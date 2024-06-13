@@ -73,11 +73,7 @@ class Cache implements CacheInterface
      */
     public function set(string $key, mixed $value, null|int|\DateInterval $ttl = null): bool
     {
-        foreach (self::FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
-            if (str_contains($key, $forbiddenCharacter)) {
-                throw new \InvalidArgumentException("Argument key contains forbidden character {$forbiddenCharacter}");
-            }
-        }
+        $this->validateKey($key);
 
         $storage = unserialize(
             file_get_contents($this->storageFilePath)
@@ -101,6 +97,21 @@ class Cache implements CacheInterface
      */
     public function delete(string $key): bool
     {
+        $this->validateKey($key);
+
+        $storage = unserialize(
+            file_get_contents($this->storageFilePath)
+        ) ?: [];
+
+        if (! array_key_exists($key, $storage)) {
+            return false;
+        }
+
+        unset($storage[$key]);
+
+        file_put_contents($this->storageFilePath, serialize($storage));
+
+        return true;
     }
 
     /**
@@ -178,5 +189,23 @@ class Cache implements CacheInterface
      */
     public function has(string $key): bool
     {
+    }
+
+    /**
+     * Method validateKey
+     *
+     * @param string $key [explicite description]
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException
+     */
+    private function validateKey(string $key): void
+    {
+        foreach (self::FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
+            if (str_contains($key, $forbiddenCharacter)) {
+                throw new \InvalidArgumentException("Argument key contains forbidden character {$forbiddenCharacter}");
+            }
+        }
     }
 }

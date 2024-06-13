@@ -85,7 +85,7 @@ class CacheTest extends TestCase
         $this->cache->get(null);
     }
 
-    public function testGetWhenKeyHasNoValue()
+    public function testGetWhenKeyHasNoRelatedValue()
     {
         $value = $this->cache->get('unexistent');
 
@@ -208,6 +208,68 @@ class CacheTest extends TestCase
         $this->assertEquals(true, $result3);
     }
 
+    public function testDeleteWhenKeyHasWrongType()
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'delete',
+            argumentName: 'key',
+            argumentProperType: 'string',
+            argumentGivenType: 'null',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cache->delete(null);
+    }
+
+    /**
+     * @dataProvider keyNameForbiddenCharacters
+     */
+    public function testDeleteWhenKeyNameContainsForbiddenCharacters($character)
+    {
+        $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $key = $character . 'some_key';
+
+        $this->cache->delete($key);
+    }
+
+    /**
+     * @dataProvider deletionDataProvider
+     */
+    public function testDelete($situation, $key, $expectedResult)
+    {
+        $key1 = 'some_key';
+        $expectedValue1 = 'Some value';
+        $key2 = 'other.key';
+        $expectedValue2 = 87539;
+        $key3 = 'ANOTHERkey10';
+        $expectedValue3 = ['color' => 'orange'];
+
+        $expectedContent = [
+            $key1 => $expectedValue1,
+            $key2 => $expectedValue2,
+            $key3 => $expectedValue3,
+        ];
+
+        $this->setStoredContent($expectedContent);
+
+        $title = $situation . ' ' . $key;
+
+        $actualResult = $this->cache->delete($key);
+
+        unset($expectedContent[$key]);
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals($expectedResult, $actualResult, $title);
+        $this->assertEquals($expectedContent, $actualContent, $title);
+    }
+
     /**
      * Provide characters that aren't allowed
      * to be placed into the key name.
@@ -225,6 +287,42 @@ class CacheTest extends TestCase
             ['\\'],
             ['@'],
             [':'],
+        ];
+    }
+
+    public static function deletionDataProvider(): array
+    {
+        return [
+            [
+                'situation' => 'Unexistent key',
+                'key' => 'unexistent',
+                'expectedResult' => false,
+            ],
+            [
+                'situation' => 'Existent key',
+                'key' => 'other.key',
+                'expectedResult' => true,
+            ],
+            [
+                'situation' => 'Low caps version of existent key',
+                'key' => 'anotherkey10',
+                'expectedResult' => false,
+            ],
+            [
+                'situation' => 'Existent key',
+                'key' => 'ANOTHERkey10',
+                'expectedResult' => true,
+            ],
+            [
+                'situation' => 'High caps version of existent key',
+                'key' => 'SOME_key',
+                'expectedResult' => false,
+            ],
+            [
+                'situation' => 'Existent key',
+                'key' => 'some_key',
+                'expectedResult' => true,
+            ],
         ];
     }
 
