@@ -108,18 +108,11 @@ class CacheTest extends TestCase
 
     public function testGetMultipleTimes()
     {
-        $key1 = 'some_key';
-        $expectedValue1 = 'Some value';
-        $key2 = 'other.key';
-        $expectedValue2 = 87539;
-        $key3 = 'ANOTHERkey10';
-        $expectedValue3 = ['color' => 'orange'];
-
-        $this->setStoredContent([
-            $key1 => $expectedValue1,
-            $key2 => $expectedValue2,
-            $key3 => $expectedValue3,
-        ]);
+        list(
+            list($key1, $expectedValue1),
+            list($key2, $expectedValue2),
+            list($key3, $expectedValue3),
+        ) = $this->setUpStoredContent();
 
         $actualValue3 = $this->cache->get($key3);
         $this->assertEquals($expectedValue3, $actualValue3);
@@ -177,18 +170,11 @@ class CacheTest extends TestCase
 
     public function testSetMultipleTimes()
     {
-        $key1 = 'some_key';
-        $expectedValue1 = 'Some value';
-        $key2 = 'other.key';
-        $expectedValue2 = 87539;
-        $key3 = 'ANOTHERkey10';
-        $expectedValue3 = ['color' => 'orange'];
-
-        $this->setStoredContent([
-            $key1 => $expectedValue1,
-            $key2 => $expectedValue2,
-            $key3 => $expectedValue3,
-        ]);
+        list(
+            list($key1, $expectedValue1),
+            list($key2, $expectedValue2),
+            list($key3, $expectedValue3),
+        ) = $this->setUpStoredContent();
 
         $result3 = $this->cache->set($key3, $expectedValue3);
         $result1 = $this->cache->set($key1, $expectedValue1);
@@ -240,22 +226,16 @@ class CacheTest extends TestCase
     }
 
     /**
-     * @dataProvider deletionDataProvider
+     * @dataProvider keyValueDataProvider
      */
     public function testDelete($situation, $key, $expectedResult)
     {
-        $key1 = 'some_key';
-        $expectedValue1 = 'Some value';
-        $key2 = 'other.key';
-        $expectedValue2 = 87539;
-        $key3 = 'ANOTHERkey10';
-        $expectedValue3 = ['color' => 'orange'];
-
-        $expectedContent = [
-            $key1 => $expectedValue1,
-            $key2 => $expectedValue2,
-            $key3 => $expectedValue3,
-        ];
+        list(
+            list($key1, $expectedValue1),
+            list($key2, $expectedValue2),
+            list($key3, $expectedValue3),
+            $expectedContent
+        ) = $this->setUpStoredContent();
 
         $this->setStoredContent($expectedContent);
 
@@ -272,24 +252,50 @@ class CacheTest extends TestCase
 
     public function testClear()
     {
-        $key1 = 'some_key';
-        $expectedValue1 = 'Some value';
-        $key2 = 'other.key';
-        $expectedValue2 = 87539;
-        $key3 = 'ANOTHERkey10';
-        $expectedValue3 = ['color' => 'orange'];
-
-        $this->setStoredContent([
-            $key1 => $expectedValue1,
-            $key2 => $expectedValue2,
-            $key3 => $expectedValue3,
-        ]);
+        list(
+            list($key1, $expectedValue1),
+            list($key2, $expectedValue2),
+            list($key3, $expectedValue3),
+        ) = $this->setUpStoredContent();
 
         $this->cache->clear();
 
         $content = $this->getStoredContent();
 
         $this->assertEmpty($content);
+    }
+
+    /**
+     * @dataProvider keyNameForbiddenCharacters
+     */
+    public function testHasWhenKeyNameContainsForbiddenCharacters($character)
+    {
+        $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $key = $character . 'some_key';
+
+        $this->cache->has($key);
+    }
+
+    /**
+     * @dataProvider keyValueDataProvider
+     */
+    public function testHas($situation, $key, $expectedResult)
+    {
+        list(
+            list($key1, $expectedValue1),
+            list($key2, $expectedValue2),
+            list($key3, $expectedValue3),
+        ) = $this->setUpStoredContent();
+
+        $title = $situation . ' ' . $key;
+
+        $actualResult = $this->cache->has($key);
+
+        $this->assertEquals($expectedResult, $actualResult, $title);
     }
 
     /**
@@ -312,7 +318,7 @@ class CacheTest extends TestCase
         ];
     }
 
-    public static function deletionDataProvider(): array
+    public static function keyValueDataProvider(): array
     {
         return [
             [
@@ -377,6 +383,31 @@ class CacheTest extends TestCase
         ) . '/';
 
         return $messagePattern;
+    }
+
+    private function setUpStoredContent(): array
+    {
+        $key1 = 'some_key';
+        $expectedValue1 = 'Some value';
+        $key2 = 'other.key';
+        $expectedValue2 = 87539;
+        $key3 = 'ANOTHERkey10';
+        $expectedValue3 = ['color' => 'orange'];
+
+        $expectedContent = [
+            $key1 => $expectedValue1,
+            $key2 => $expectedValue2,
+            $key3 => $expectedValue3,
+        ];
+
+        $this->setStoredContent($expectedContent);
+
+        return [
+            [$key1, $expectedValue1],
+            [$key2, $expectedValue2],
+            [$key3, $expectedValue3],
+            $expectedContent
+        ];
     }
 
     private function setStoredContent(array $content): void

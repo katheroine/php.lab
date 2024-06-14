@@ -187,6 +187,12 @@ class Cache implements CacheInterface
      */
     public function has(string $key): bool
     {
+        $this->validateKey($key);
+
+        $storage = $this->retrieve();
+        $result = array_key_exists($key, $storage);
+
+        return $result;
     }
 
     /**
