@@ -86,11 +86,38 @@ class CacheTest extends TestCase
         $this->cache->get(null);
     }
 
+    /**
+     * @dataProvider keyNameForbiddenCharacters
+     */
+    public function testGetWhenKeyNameContainsForbiddenCharacters($character)
+    {
+        $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
+
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $key = $character . 'some_key';
+
+        $this->cache->get($key);
+    }
+
     public function testGetWhenKeyHasNoRelatedValue()
     {
+        $this->setUpStoredContent();
+
         $value = $this->cache->get('unexistent');
 
-        $this->assertEquals(null, $value);
+        $this->assertNull($value);
+    }
+
+    public function testGetWhenKayHasNoRelatedValueAndDefaultIsSet()
+    {
+        $this->setUpStoredContent();
+
+        $expectedValue = 'none';
+        $actualValue = $this->cache->get('unexistent', $expectedValue);
+
+        $this->assertEquals($expectedValue, $actualValue);
     }
 
     public function testGet()

@@ -46,10 +46,12 @@ class Cache implements CacheInterface
      */
     public function get(string $key, mixed $default = null): mixed
     {
+        $this->validateKey($key);
+
         $storage = $this->retrieve();
 
-        if (! $storage) {
-            return null;
+        if (! array_key_exists($key, $storage)) {
+            return $default;
         }
 
         return $storage[$key];
