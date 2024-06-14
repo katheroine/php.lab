@@ -22,6 +22,7 @@ class CacheTest extends TestCase
      */
     private const CACHE_FULLY_QUALIFIED_CLASS_NAME = 'PHPLab\\StandardPSR16\\Cache';
     private const PSR_SIMPLE_CACHE_FULLY_QUALIFIED_INTERFACE_NAME = 'Psr\\SimpleCache\\CacheInterface';
+    private const PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME = 'Psr\\SimpleCache\\InvalidArgumentException';
     protected const STORAGE_FILE_ABSOLUTE_PATH = __DIR__
         . DIRECTORY_SEPARATOR . '/../fixtures/var/psr16cache.storage';
 
@@ -147,7 +148,7 @@ class CacheTest extends TestCase
     {
         $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $key = $character . 'some_key';
@@ -217,7 +218,7 @@ class CacheTest extends TestCase
     {
         $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $key = $character . 'some_key';
@@ -272,7 +273,7 @@ class CacheTest extends TestCase
     {
         $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $key = $character . 'some_key';

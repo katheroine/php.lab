@@ -200,13 +200,13 @@ class Cache implements CacheInterface
      *
      * @return void
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function validateKey(string $key): void
     {
         foreach (self::FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
             if (str_contains($key, $forbiddenCharacter)) {
-                throw new \InvalidArgumentException("Argument key contains forbidden character {$forbiddenCharacter}");
+                throw new InvalidArgumentException("Argument key contains forbidden character {$forbiddenCharacter}");
             }
         }
     }
