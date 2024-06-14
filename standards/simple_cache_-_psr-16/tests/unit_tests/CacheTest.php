@@ -270,6 +270,28 @@ class CacheTest extends TestCase
         $this->assertEquals($expectedContent, $actualContent, $title);
     }
 
+    public function testClear()
+    {
+        $key1 = 'some_key';
+        $expectedValue1 = 'Some value';
+        $key2 = 'other.key';
+        $expectedValue2 = 87539;
+        $key3 = 'ANOTHERkey10';
+        $expectedValue3 = ['color' => 'orange'];
+
+        $this->setStoredContent([
+            $key1 => $expectedValue1,
+            $key2 => $expectedValue2,
+            $key3 => $expectedValue3,
+        ]);
+
+        $this->cache->clear();
+
+        $content = $this->getStoredContent();
+
+        $this->assertEmpty($content);
+    }
+
     /**
      * Provide characters that aren't allowed
      * to be placed into the key name.

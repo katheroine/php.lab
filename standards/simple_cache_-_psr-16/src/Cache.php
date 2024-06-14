@@ -46,9 +46,7 @@ class Cache implements CacheInterface
      */
     public function get(string $key, mixed $default = null): mixed
     {
-        $storage = unserialize(
-            file_get_contents($this->storageFilePath)
-        );
+        $storage = $this->retrieve();
 
         if (! $storage) {
             return null;
@@ -75,12 +73,11 @@ class Cache implements CacheInterface
     {
         $this->validateKey($key);
 
-        $storage = unserialize(
-            file_get_contents($this->storageFilePath)
-        ) ?: [];
+        $storage = $this->retrieve();
+
         $storage[$key] = $value;
 
-        file_put_contents($this->storageFilePath, serialize($storage));
+        $this->persist($storage);
 
         return true;
     }
@@ -99,9 +96,7 @@ class Cache implements CacheInterface
     {
         $this->validateKey($key);
 
-        $storage = unserialize(
-            file_get_contents($this->storageFilePath)
-        ) ?: [];
+        $storage = $this->retrieve();
 
         if (! array_key_exists($key, $storage)) {
             return false;
@@ -109,18 +104,9 @@ class Cache implements CacheInterface
 
         unset($storage[$key]);
 
-        file_put_contents($this->storageFilePath, serialize($storage));
+        $this->persist($storage);
 
         return true;
-    }
-
-    /**
-     * Wipes clean the entire cache's keys.
-     *
-     * @return bool True on success and false on failure.
-     */
-    public function clear(): bool
-    {
     }
 
     /**
@@ -173,6 +159,18 @@ class Cache implements CacheInterface
     }
 
     /**
+     * Wipes clean the entire cache's keys.
+     *
+     * @return bool True on success and false on failure.
+     */
+    public function clear(): bool
+    {
+        $this->persist([]);
+
+        return true;
+    }
+
+    /**
      * Determines whether an item is present in the cache.
      *
      * NOTE: It is recommended that has() is only to be used for cache warming type purposes
@@ -192,8 +190,6 @@ class Cache implements CacheInterface
     }
 
     /**
-     * Method validateKey
-     *
      * @param string $key [explicite description]
      *
      * @return void
@@ -207,5 +203,33 @@ class Cache implements CacheInterface
                 throw new \InvalidArgumentException("Argument key contains forbidden character {$forbiddenCharacter}");
             }
         }
+    }
+
+    /**
+     * Read from the persistance source.
+     *
+     * @return array
+     */
+    private function retrieve(): array
+    {
+        $storage = unserialize(
+            file_get_contents($this->storageFilePath)
+        ) ?: [];
+
+        return $storage;
+    }
+
+    /**
+     * Write to the persistance source.
+     *
+     * @param array $storage
+     *
+     * @return bool
+     */
+    private function persist(array $storage): int|false
+    {
+        $result = file_put_contents($this->storageFilePath, serialize($storage));
+
+        return $result;
     }
 }
