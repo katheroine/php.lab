@@ -110,7 +110,7 @@ class CacheTest extends TestCase
         $this->assertNull($value);
     }
 
-    public function testGetWhenKayHasNoRelatedValueAndDefaultIsSet()
+    public function testGetWhenKeyHasNoRelatedValueAndDefaultIsSet()
     {
         $this->setUpStoredContent();
 
@@ -122,8 +122,9 @@ class CacheTest extends TestCase
 
     public function testGet()
     {
-        $key = 'some_key';
-        $expectedValue = 'Some value';
+        list(
+            list($key, $expectedValue),
+        ) = $this->setUpStoredContent();
 
         $this->setStoredContent([
             $key => $expectedValue,
@@ -134,7 +135,7 @@ class CacheTest extends TestCase
         $this->assertEquals($expectedValue, $actualValue);
     }
 
-    public function testGetMultipleTimes()
+    public function testGetSeveralTimes()
     {
         list(
             list($key1, $expectedValue1),
@@ -197,7 +198,7 @@ class CacheTest extends TestCase
         $this->assertEquals(true, $result);
     }
 
-    public function testSetMultipleTimes()
+    public function testSetSeveralTimes()
     {
         list(
             list($key1, $expectedValue1),
@@ -325,6 +326,110 @@ class CacheTest extends TestCase
         $actualResult = $this->cache->has($key);
 
         $this->assertEquals($expectedResult, $actualResult, $title);
+    }
+
+    public function testGetMultipleWhenKeysHasWrongType()
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'getMultiple',
+            argumentName: 'keys',
+            argumentProperType: 'Traversable|array',
+            argumentGivenType: 'null',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cache->getMultiple(null);
+    }
+
+    public function testGetMultipleWhenKeysIsNotIterableAndNotTraversable()
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'getMultiple',
+            argumentName: 'keys',
+            argumentProperType: 'Traversable|array',
+            argumentGivenType: 'string',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cache->getMultiple('orange');
+    }
+
+    public function testGetMultipleWhenKeysIsIterableAndNotTraversable()
+    {
+        $result = $this->cache->getMultiple([]);
+
+        $this->assertTrue(is_iterable($result));
+    }
+
+    /**
+     * @dataProvider keyNameForbiddenCharacters
+     */
+    public function testGetMultipleWhenKeysNamesContainForbiddenCharacters($character)
+    {
+        $expectedExceptionMessage = "Argument keys item with index 0 contains forbidden character {$character}";
+
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $key = $character . 'some_key';
+
+        $keys = [
+            $key,
+        ];
+
+        $this->cache->getMultiple($keys);
+    }
+
+    public function testGetMultipleWhenKeyHasNoRelatedValue()
+    {
+        $this->setUpStoredContent();
+
+        $value = $this->cache->getMultiple(['unexistent']);
+
+        $this->assertEmpty($value);
+    }
+
+    public function testGetMultipleWhenKeyHasNoRelatedValueAndDefaultIsSet()
+    {
+        $this->setUpStoredContent();
+
+        $expectedValue = ['none'];
+        $actualValue = $this->cache->getMultiple(['unexistent'], $expectedValue);
+
+        $this->assertEquals($expectedValue, $actualValue);
+    }
+
+    public function testGetMultiple()
+    {
+        list(
+            list($key1, $expectedValue1),
+            list($key2, $expectedValue2),
+            list($key3, $expectedValue3),
+        ) = $this->setUpStoredContent();
+
+        $actualValues13 = $this->cache->getMultiple([$key1, $key3]);
+        $this->assertEquals([
+            $key1 => $expectedValue1,
+            $key3 => $expectedValue3
+        ], $actualValues13);
+
+        $actualValues21 = $this->cache->getMultiple([$key2, $key1]);
+        $this->assertEquals([
+            $key2 => $expectedValue2,
+            $key1 => $expectedValue1
+        ], $actualValues21);
+
+        $actualValues23 = $this->cache->getMultiple([$key2, $key3]);
+        $this->assertEquals([
+            $key2 => $expectedValue2,
+            $key3 => $expectedValue3
+        ], $actualValues23);
     }
 
     /**

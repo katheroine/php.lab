@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace PHPLab\StandardPSR16;
 
-use Psr\SimpleCache\CacheInterface;
+use Psr\SimpleCache\CacheInterface as CacheInterface;
 
 class Cache implements CacheInterface
 {
@@ -123,8 +123,22 @@ class Cache implements CacheInterface
      * MUST be thrown if $keys is neither an array nor a Traversable,
      * or if any of the $keys are not a legal value.
      */
-    public function getMultiple(iterable $keys, mixed $default = null): iterable
+    public function getMultiple(iterable $keys, mixed $default = []): iterable // Default value of $default differs from the interface (null).
     {
+        $this->validateKeys($keys);
+
+        $storage = $this->retrieve();
+        $values = [];
+
+        foreach ($keys as $key) {
+            if (! array_key_exists($key, $storage)) {
+                return $default;
+            }
+
+            $values[$key] = $storage[$key];
+        }
+
+        return $values;
     }
 
     /**
@@ -198,7 +212,7 @@ class Cache implements CacheInterface
     }
 
     /**
-     * @param string $key [explicite description]
+     * @param string $key
      *
      * @return void
      *
@@ -209,6 +223,24 @@ class Cache implements CacheInterface
         foreach (self::FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
             if (str_contains($key, $forbiddenCharacter)) {
                 throw new InvalidArgumentException("Argument key contains forbidden character {$forbiddenCharacter}");
+            }
+        }
+    }
+
+    /**
+     * @param array $keys
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException
+     */
+    private function validateKeys(iterable $keys): void
+    {
+        foreach ($keys as $index => $key) {
+            foreach (self::FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
+                if (str_contains($key, $forbiddenCharacter)) {
+                    throw new InvalidArgumentException("Argument keys item with index {$index} contains forbidden character {$forbiddenCharacter}");
+                }
             }
         }
     }
