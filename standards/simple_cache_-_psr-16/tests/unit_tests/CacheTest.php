@@ -194,6 +194,7 @@ class CacheTest extends TestCase
         $actualValue = $content[$key];
 
         $this->assertEquals($expectedValue, $actualValue);
+        $this->assertEquals(true, $result);
     }
 
     public function testSetMultipleTimes()

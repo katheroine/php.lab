@@ -79,9 +79,9 @@ class Cache implements CacheInterface
 
         $storage[$key] = $value;
 
-        $this->persist($storage);
+        $result = $this->persist($storage);
 
-        return true;
+        return $result;
     }
 
     /**
@@ -106,9 +106,9 @@ class Cache implements CacheInterface
 
         unset($storage[$key]);
 
-        $this->persist($storage);
+        $result = $this->persist($storage);
 
-        return true;
+        return $result;
     }
 
     /**
@@ -167,9 +167,9 @@ class Cache implements CacheInterface
      */
     public function clear(): bool
     {
-        $this->persist([]);
+        $result = $this->persist([]);
 
-        return true;
+        return $result;
     }
 
     /**
@@ -234,10 +234,10 @@ class Cache implements CacheInterface
      *
      * @return bool
      */
-    private function persist(array $storage): int|false
+    private function persist(array $storage): bool
     {
         $result = file_put_contents($this->storageFilePath, serialize($storage));
 
-        return $result;
+        return (bool) $result;
     }
 }
