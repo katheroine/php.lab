@@ -367,6 +367,17 @@ class CacheTest extends TestCase
         $this->assertTrue(is_iterable($result));
     }
 
+    public function testGetMultipleWhenKeysIsIterableAndTraversable()
+    {
+        $result = $this->cache->getMultiple(new \ArrayObject([]));
+
+        $this->assertTrue(is_iterable($result));
+
+        $result = $this->cache->getMultiple(new \ArrayIterator([]));
+
+        $this->assertTrue(is_iterable($result));
+    }
+
     /**
      * @dataProvider keyNameForbiddenCharacters
      */
@@ -430,6 +441,97 @@ class CacheTest extends TestCase
             $key2 => $expectedValue2,
             $key3 => $expectedValue3
         ], $actualValues23);
+    }
+
+    public function testSetMultipleWhenValuesHasWrongType()
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'setMultiple',
+            argumentName: 'values',
+            argumentProperType: 'Traversable|array',
+            argumentGivenType: 'null',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cache->setMultiple(null);
+    }
+
+    public function testSetMultipleWhenValuesIsNotIterableAndNotTraversable()
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'setMultiple',
+            argumentName: 'values',
+            argumentProperType: 'Traversable|array',
+            argumentGivenType: 'string',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cache->setMultiple('orange');
+    }
+
+    public function testSetMultipleWhenValuesIsIterableAndNotTraversable()
+    {
+        $result = $this->cache->setMultiple([]);
+
+        $this->assertTrue($result);
+    }
+
+    public function testSetMultipleWhenValuesIsIterableAndTraversable()
+    {
+        $result = $this->cache->setMultiple(new \ArrayObject([]));
+
+        $this->assertTrue($result);
+
+        $result = $this->cache->setMultiple(new \ArrayIterator([]));
+
+        $this->assertTrue($result);
+    }
+
+    public function testSetMultiple()
+    {
+        list(
+            list($key1, $expectedValue1),
+            list($key2, $expectedValue2),
+            list($key3, $expectedValue3),
+        ) = $this->setUpStoredContent();
+
+        $expectedValues = [
+            $key3 => $expectedValue3,
+            $key1 => $expectedValue1,
+            $key2 => $expectedValue2,
+        ];
+
+        $result = $this->cache->setMultiple($expectedValues);
+
+        $actualValues = $this->getStoredContent();
+
+        $this->assertEquals($expectedValues, $actualValues);
+        $this->assertEquals(true, $result);
+    }
+
+    /**
+     * @dataProvider keyNameForbiddenCharacters
+     */
+    public function testSetMultipleWhenKeysNamesContainForbiddenCharacters($character)
+    {
+        $expectedExceptionMessage = "Argument keys item with index 0 contains forbidden character {$character}";
+
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $key = $character . 'some_key';
+
+        $values = [
+            $key => 'Some value.',
+        ];
+
+        $this->cache->setMultiple($values);
     }
 
     /**

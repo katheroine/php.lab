@@ -23,6 +23,7 @@ class TypesHelpingTest extends TestCase
 {
     private string $exampleString = 'orange';
     private array $exampleArray = [1, 2, 3];
+    private \ArrayObject $exampleArrayObject;
     private \ArrayIterator $exampleArrayIterator;
 
     public function testStringIsNotIterable()
@@ -45,6 +46,16 @@ class TypesHelpingTest extends TestCase
         $this->assertFalse($this->exampleArray instanceof \Traversable);
     }
 
+    public function testArrayObjectIsIterable()
+    {
+        $this->assertTrue(is_iterable($this->exampleArrayObject));
+    }
+
+    public function testArrayObjectIsTraversable()
+    {
+        $this->assertTrue($this->exampleArrayObject instanceof \Traversable);
+    }
+
     public function testArrayIteratorIsIterable()
     {
         $this->assertTrue(is_iterable($this->exampleArrayIterator));
@@ -61,6 +72,7 @@ class TypesHelpingTest extends TestCase
      */
     protected function setUp(): void
     {
+        $this->exampleArrayObject = new \ArrayObject($this->exampleArray);
         $this->exampleArrayIterator = new \ArrayIterator($this->exampleArray);
     }
 }

@@ -157,6 +157,18 @@ class Cache implements CacheInterface
      */
     public function setMultiple(iterable $values, null|int|\DateInterval $ttl = null): bool
     {
+        $keys = array_keys((array) $values);
+        $this->validateKeys($keys);
+
+        $storage = $this->retrieve();
+
+        foreach ($values as $key => $value) {
+            $storage[$key] = $value;
+        }
+
+        $result = $this->persist($storage);
+
+        return $result;
     }
 
     /**
