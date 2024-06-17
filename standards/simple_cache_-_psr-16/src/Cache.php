@@ -123,7 +123,8 @@ class Cache implements CacheInterface
      * MUST be thrown if $keys is neither an array nor a Traversable,
      * or if any of the $keys are not a legal value.
      */
-    public function getMultiple(iterable $keys, mixed $default = []): iterable // Default value of $default differs from the interface (null).
+    // Default value of $default differs from the interface (null).
+    public function getMultiple(iterable $keys, mixed $default = []): iterable
     {
         $this->validateKeys($keys);
 
@@ -155,6 +156,8 @@ class Cache implements CacheInterface
      * MUST be thrown if $values is neither an array nor a Traversable,
      * or if any of the $values are not a legal value.
      */
+    // \InvalidArgumentException thrown when $values is neither an array nor a Traversable
+    // due to how the type declaration with strict_types works in PHP.
     public function setMultiple(iterable $values, null|int|\DateInterval $ttl = null): bool
     {
         $keys = array_keys((array) $values);
@@ -182,8 +185,21 @@ class Cache implements CacheInterface
      * MUST be thrown if $keys is neither an array nor a Traversable,
      * or if any of the $keys are not a legal value.
      */
+    // \InvalidArgumentException thrown when $keys is neither an array nor a Traversable
+    // due to how the type declaration with strict_types works in PHP.
     public function deleteMultiple(iterable $keys): bool
     {
+        $this->validateKeys($keys);
+
+        $storage = $this->retrieve();
+
+        foreach ($keys as $key) {
+            unset($storage[$key]);
+        }
+
+        $result = $this->persist($storage);
+
+        return $result;
     }
 
     /**

@@ -126,10 +126,6 @@ class CacheTest extends TestCase
             list($key, $expectedValue),
         ) = $this->setUpStoredContent();
 
-        $this->setStoredContent([
-            $key => $expectedValue,
-        ]);
-
         $actualValue = $this->cache->get($key);
 
         $this->assertEquals($expectedValue, $actualValue);
@@ -267,8 +263,6 @@ class CacheTest extends TestCase
             $expectedContent
         ) = $this->setUpStoredContent();
 
-        $this->setStoredContent($expectedContent);
-
         $title = $situation . ' ' . $key;
 
         $actualResult = $this->cache->delete($key);
@@ -315,11 +309,7 @@ class CacheTest extends TestCase
      */
     public function testHas($situation, $key, $expectedResult)
     {
-        list(
-            list($key1, $expectedValue1),
-            list($key2, $expectedValue2),
-            list($key3, $expectedValue3),
-        ) = $this->setUpStoredContent();
+        $this->setUpStoredContent();
 
         $title = $situation . ' ' . $key;
 
@@ -532,6 +522,97 @@ class CacheTest extends TestCase
         ];
 
         $this->cache->setMultiple($values);
+    }
+
+    public function testDeleteMultipleWhenKeysHasWrongType()
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'deleteMultiple',
+            argumentName: 'keys',
+            argumentProperType: 'Traversable|array',
+            argumentGivenType: 'null',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cache->deleteMultiple(null);
+    }
+
+    public function testDeleteMultipleWhenKeysIsNotIterableAndNotTraversable()
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'deleteMultiple',
+            argumentName: 'keys',
+            argumentProperType: 'Traversable|array',
+            argumentGivenType: 'string',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cache->deleteMultiple('orange');
+    }
+
+    public function testDeleteMultipleWhenKeysIsIterableAndNotTraversable()
+    {
+        $result = $this->cache->deleteMultiple([]);
+
+        $this->assertTrue($result);
+    }
+
+    public function testDeleteMultipleWhenKeysIsIterableAndTraversable()
+    {
+        $result = $this->cache->deleteMultiple(new \ArrayObject([]));
+
+        $this->assertTrue($result);
+
+        $result = $this->cache->deleteMultiple(new \ArrayIterator([]));
+
+        $this->assertTrue($result);
+    }
+
+    /**
+     * @dataProvider keyNameForbiddenCharacters
+     */
+    public function testDeleteMultipleWhenKeyNameContainsForbiddenCharacters($character)
+    {
+        $expectedExceptionMessage = "Argument keys item with index 0 contains forbidden character {$character}";
+
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $key = $character . 'some_key';
+
+        $keys = [
+            $key,
+        ];
+
+        $this->cache->deleteMultiple($keys);
+    }
+
+    public function testDeleteMultiple()
+    {
+        list(
+            list($key1),
+            ,
+            list($key3),
+            $expectedContent
+        ) = $this->setUpStoredContent();
+
+        $result = $this->cache->deleteMultiple([
+            $key3,
+            $key1
+        ]);
+
+        unset($expectedContent[$key1]);
+        unset($expectedContent[$key3]);
+        $actualContent = $this->getStoredContent();
+
+        $this->assertTrue($result);
+        $this->assertEquals($expectedContent, $actualContent);
     }
 
     /**
