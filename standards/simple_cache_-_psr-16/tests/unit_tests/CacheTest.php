@@ -120,24 +120,33 @@ class CacheTest extends TestCase
         $this->assertEquals($expectedValue, $actualValue);
     }
 
-    public function testGet()
+    public function testGetWhenStorgeDoesNotExist()
     {
+        $this->setUpStoredContent();
         list(
-            list($key, $expectedValue),
-        ) = $this->setUpStoredContent();
+            list($key1, $value1),
+            list($key2),
+        ) = $this->provideContentElements();
 
-        $actualValue = $this->cache->get($key);
+        $result = $this->cache->get($key1);
+        $this->assertEquals($value1, $result);
 
-        $this->assertEquals($expectedValue, $actualValue);
+        $this->deleteContentStorage();
+
+        $result = $this->cache->get($key2);
+        $this->assertFalse($result);
+
+        $this->createContentStorage();
     }
 
-    public function testGetSeveralTimes()
+    public function testGet()
     {
+        $this->setUpStoredContent();
         list(
             list($key1, $expectedValue1),
             list($key2, $expectedValue2),
             list($key3, $expectedValue3),
-        ) = $this->setUpStoredContent();
+        ) = $this->provideContentElements();
 
         $actualValue3 = $this->cache->get($key3);
         $this->assertEquals($expectedValue3, $actualValue3);
@@ -180,44 +189,64 @@ class CacheTest extends TestCase
         $this->cache->set($key, 'Some value.');
     }
 
-    public function testSet()
-    {
-        $key = 'some_key';
-        $expectedValue = 'Some value';
-
-        $result = $this->cache->set($key, $expectedValue);
-
-        $content = $this->getStoredContent();
-        $actualValue = $content[$key];
-
-        $this->assertEquals($expectedValue, $actualValue);
-        $this->assertEquals(true, $result);
-    }
-
-    public function testSetSeveralTimes()
+    public function testSetWhenStorgeDoesNotExist()
     {
         list(
-            list($key1, $expectedValue1),
-            list($key2, $expectedValue2),
-            list($key3, $expectedValue3),
-        ) = $this->setUpStoredContent();
+            list($key1, $value1),
+            list($key2, $value2),
+        ) = $this->provideContentElements();
 
-        $result3 = $this->cache->set($key3, $expectedValue3);
-        $result1 = $this->cache->set($key1, $expectedValue1);
-        $result2 = $this->cache->get($key2, $expectedValue2);
+        $result = $this->cache->set($key1, $value1);
+        $this->assertTrue($result);
 
-        $content = $this->getStoredContent();
-        $actualValue1 = $content[$key1];
-        $actualValue2 = $content[$key2];
-        $actualValue3 = $content[$key3];
+        $this->deleteContentStorage();
 
-        $this->assertEquals($expectedValue1, $actualValue1);
-        $this->assertEquals($expectedValue2, $actualValue2);
-        $this->assertEquals($expectedValue3, $actualValue3);
+        $result = $this->cache->set($key2, $value2);
+        $this->assertFalse($result);
 
-        $this->assertEquals(true, $result1);
-        $this->assertEquals(true, $result2);
-        $this->assertEquals(true, $result3);
+        $this->createContentStorage();
+    }
+
+    public function testSet()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideContentElements();
+
+        $result = $this->cache->set($key1, $value1);
+
+        $expectedContent = [
+            $key1 => $value1,
+        ];
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals($expectedContent, $actualContent);
+        $this->assertEquals(true, $result);
+
+        $result = $this->cache->set($key2, $value2);
+
+        $expectedContent = [
+            $key1 => $value1,
+            $key2 => $value2,
+        ];
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals($expectedContent, $actualContent);
+        $this->assertEquals(true, $result);
+
+        $result = $this->cache->set($key3, $value3);
+
+        $expectedContent = [
+            $key1 => $value1,
+            $key2 => $value2,
+            $key3 => $value3,
+        ];
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals($expectedContent, $actualContent);
+        $this->assertEquals(true, $result);
     }
 
     public function testDeleteWhenKeyHasWrongType()
@@ -251,17 +280,32 @@ class CacheTest extends TestCase
         $this->cache->delete($key);
     }
 
+    public function testDeleteWhenStorgeDoesNotExist()
+    {
+        $this->setUpStoredContent();
+        list(
+            list($key1),
+            list($key2),
+        ) = $this->provideContentElements();
+
+        $result = $this->cache->delete($key1);
+        $this->assertTrue($result);
+
+        $this->deleteContentStorage();
+
+        $result = $this->cache->delete($key2);
+        $this->assertFalse($result);
+
+        $this->createContentStorage();
+    }
+
     /**
      * @dataProvider keyValueDataProvider
      */
     public function testDelete($situation, $key, $expectedResult)
     {
-        list(
-            list($key1, $expectedValue1),
-            list($key2, $expectedValue2),
-            list($key3, $expectedValue3),
-            $expectedContent
-        ) = $this->setUpStoredContent();
+        $this->setUpStoredContent();
+        $expectedContent = $this->provideContent();
 
         $title = $situation . ' ' . $key;
 
@@ -276,17 +320,29 @@ class CacheTest extends TestCase
 
     public function testClear()
     {
-        list(
-            list($key1, $expectedValue1),
-            list($key2, $expectedValue2),
-            list($key3, $expectedValue3),
-        ) = $this->setUpStoredContent();
+        $this->setUpStoredContent();
 
         $this->cache->clear();
 
         $content = $this->getStoredContent();
 
         $this->assertEmpty($content);
+    }
+
+    public function testHasWhenKeyHasWrongType()
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'has',
+            argumentName: 'key',
+            argumentProperType: 'string',
+            argumentGivenType: 'null',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cache->has(null);
     }
 
     /**
@@ -368,6 +424,16 @@ class CacheTest extends TestCase
         $this->assertTrue(is_iterable($result));
     }
 
+    public function testGetMultipleWhenSingleKeyHasWrongType()
+    {
+        $expectedExceptionMessage = "Argument keys item with index 0 must be type of string, NULL given";
+
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $this->cache->getMultiple([null]);
+    }
+
     /**
      * @dataProvider keyNameForbiddenCharacters
      */
@@ -406,13 +472,37 @@ class CacheTest extends TestCase
         $this->assertEquals($expectedValue, $actualValue);
     }
 
+    public function testGetMultipleWhenStorgeDoesNotExist()
+    {
+        $this->setUpStoredContent();
+        list(
+            list($key1, $expectedValue1),
+            list($key2),
+            list($key3, $expectedValue3)
+        ) = $this->provideContentElements();
+
+        $actualValues13 = $this->cache->getMultiple([$key1, $key3]);
+        $this->assertEquals([
+            $key1 => $expectedValue1,
+            $key3 => $expectedValue3
+        ], $actualValues13);
+
+        $this->deleteContentStorage();
+
+        $result = $this->cache->getMultiple([$key2, $key1]);
+        $this->assertEmpty($result);
+
+        $this->createContentStorage();
+    }
+
     public function testGetMultiple()
     {
+        $this->setUpStoredContent();
         list(
             list($key1, $expectedValue1),
             list($key2, $expectedValue2),
-            list($key3, $expectedValue3),
-        ) = $this->setUpStoredContent();
+            list($key3, $expectedValue3)
+        ) = $this->provideContentElements();
 
         $actualValues13 = $this->cache->getMultiple([$key1, $key3]);
         $this->assertEquals([
@@ -483,26 +573,14 @@ class CacheTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testSetMultiple()
+    public function testSetMultipleWhenSingleKeyHasWrongType()
     {
-        list(
-            list($key1, $expectedValue1),
-            list($key2, $expectedValue2),
-            list($key3, $expectedValue3),
-        ) = $this->setUpStoredContent();
+        $expectedExceptionMessage = "Argument values item with index 0 key must be type of string, integer given";
 
-        $expectedValues = [
-            $key3 => $expectedValue3,
-            $key1 => $expectedValue1,
-            $key2 => $expectedValue2,
-        ];
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
 
-        $result = $this->cache->setMultiple($expectedValues);
-
-        $actualValues = $this->getStoredContent();
-
-        $this->assertEquals($expectedValues, $actualValues);
-        $this->assertEquals(true, $result);
+        $this->cache->setMultiple([1 => 'Some value.']);
     }
 
     /**
@@ -522,6 +600,61 @@ class CacheTest extends TestCase
         ];
 
         $this->cache->setMultiple($values);
+    }
+
+    public function testSetMultipleWhenStorgeDoesNotExist()
+    {
+        $this->setUpStoredContent();
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3)
+        ) = $this->provideContentElements();
+
+        $result = $this->cache->setMultiple([
+            $key1 => $value1,
+            $key2 => $value2,
+        ]);
+        $this->assertTrue($result);
+
+        $this->deleteContentStorage();
+
+        $result = $this->cache->setMultiple([
+            $key3 => $value3,
+        ]);
+        $this->assertFalse($result);
+
+        $this->createContentStorage();
+    }
+
+    public function testSetMultiple()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideContentElements();
+
+        $expectedValues = [
+            $key3 => $value3,
+            $key1 => $value1,
+        ];
+        $result = $this->cache->setMultiple($expectedValues);
+        $actualValues = $this->getStoredContent();
+        $this->assertEquals($expectedValues, $actualValues);
+        $this->assertEquals(true, $result);
+
+        $expectedValues = [
+            $key3 => $value3,
+            $key1 => $value1,
+            $key2 => $value2,
+        ];
+        $result = $this->cache->setMultiple([
+            $key2 => $value2,
+        ]);
+        $actualValues = $this->getStoredContent();
+        $this->assertEquals($expectedValues, $actualValues);
+        $this->assertEquals(true, $result);
     }
 
     public function testDeleteMultipleWhenKeysHasWrongType()
@@ -574,6 +707,16 @@ class CacheTest extends TestCase
         $this->assertTrue($result);
     }
 
+    public function testDeleteMultipleWhenSingleKeyHasWrongType()
+    {
+        $expectedExceptionMessage = "Argument keys item with index 0 must be type of string, NULL given";
+
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $this->cache->deleteMultiple([null]);
+    }
+
     /**
      * @dataProvider keyNameForbiddenCharacters
      */
@@ -593,26 +736,70 @@ class CacheTest extends TestCase
         $this->cache->deleteMultiple($keys);
     }
 
-    public function testDeleteMultiple()
+    public function testDeleteMultipleWhenKeyHasNoRelatedValue()
     {
+        $this->setUpStoredContent();
+
+        $expectedContent = $this->provideContent();
+
+        $result = $this->cache->deleteMultiple(['unexistent']);
+
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals($expectedContent, $actualContent);
+        $this->assertTrue($result);
+    }
+
+    public function testDeleteMultipleWhenStorgeDoesNotExist()
+    {
+        $this->setUpStoredContent();
         list(
             list($key1),
-            ,
+            list($key2, $value2),
             list($key3),
-            $expectedContent
-        ) = $this->setUpStoredContent();
+        ) = $this->provideContentElements();
 
         $result = $this->cache->deleteMultiple([
             $key3,
-            $key1
+            $key1,
         ]);
-
-        unset($expectedContent[$key1]);
-        unset($expectedContent[$key3]);
-        $actualContent = $this->getStoredContent();
-
         $this->assertTrue($result);
+
+        $this->deleteContentStorage();
+
+        $result = $this->cache->deleteMultiple([
+            $key2,
+        ]);
+        $this->assertFalse($result);
+    }
+
+    public function testDeleteMultiple()
+    {
+        $this->setUpStoredContent();
+        list(
+            list($key1),
+            list($key2, $value2),
+            list($key3),
+        ) = $this->provideContentElements();
+
+        $expectedContent = [
+            $key2 => $value2,
+        ];
+        $result = $this->cache->deleteMultiple([
+            $key3,
+            $key1,
+        ]);
+        $actualContent = $this->getStoredContent();
         $this->assertEquals($expectedContent, $actualContent);
+        $this->assertTrue($result);
+
+        $expectedContent = [];
+        $result = $this->cache->deleteMultiple([
+            $key2,
+        ]);
+        $actualContent = $this->getStoredContent();
+        $this->assertEquals($expectedContent, $actualContent);
+        $this->assertTrue($result);
     }
 
     /**
@@ -702,7 +889,31 @@ class CacheTest extends TestCase
         return $messagePattern;
     }
 
-    private function setUpStoredContent(): array
+    private function setUpStoredContent(): void
+    {
+        $content = $this->provideContent();
+
+        $this->setStoredContent($content);
+    }
+
+    private function provideContent(): array
+    {
+        list(
+            list($key1, $expectedValue1),
+            list($key2, $expectedValue2),
+            list($key3, $expectedValue3),
+        ) = $this->provideContentElements();
+
+        $content = [
+            $key1 => $expectedValue1,
+            $key2 => $expectedValue2,
+            $key3 => $expectedValue3,
+        ];
+
+        return $content;
+    }
+
+    private function provideContentElements(): array
     {
         $key1 = 'some_key';
         $expectedValue1 = 'Some value';
@@ -711,20 +922,13 @@ class CacheTest extends TestCase
         $key3 = 'ANOTHERkey10';
         $expectedValue3 = ['color' => 'orange'];
 
-        $expectedContent = [
-            $key1 => $expectedValue1,
-            $key2 => $expectedValue2,
-            $key3 => $expectedValue3,
-        ];
-
-        $this->setStoredContent($expectedContent);
-
-        return [
+        $contentElements = [
             [$key1, $expectedValue1],
             [$key2, $expectedValue2],
             [$key3, $expectedValue3],
-            $expectedContent
         ];
+
+        return $contentElements;
     }
 
     private function setStoredContent(array $content): void
@@ -737,6 +941,16 @@ class CacheTest extends TestCase
         return unserialize(file_get_contents(self::STORAGE_FILE_ABSOLUTE_PATH)) ?: [];
     }
 
+    private function createContentStorage(): void
+    {
+        file_put_contents(self::STORAGE_FILE_ABSOLUTE_PATH, '');
+    }
+
+    private function deleteContentStorage(): void
+    {
+        unlink(self::STORAGE_FILE_ABSOLUTE_PATH);
+    }
+
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
@@ -744,6 +958,7 @@ class CacheTest extends TestCase
     protected function setUp(): void
     {
         $this->cache = new Cache(self::STORAGE_FILE_ABSOLUTE_PATH);
+        $this->createContentStorage();
     }
 
     /**
@@ -752,6 +967,7 @@ class CacheTest extends TestCase
      */
     protected function tearDown(): void
     {
-        file_put_contents(self::STORAGE_FILE_ABSOLUTE_PATH, '');
+        // file_put_contents(self::STORAGE_FILE_ABSOLUTE_PATH, '');
+        $this->deleteContentStorage();
     }
 }

@@ -48,13 +48,17 @@ class Cache implements CacheInterface
     {
         $this->validateKey($key);
 
-        $storage = $this->retrieve();
+        try {
+            $storage = $this->retrieve();
 
-        if (! array_key_exists($key, $storage)) {
-            return $default;
+            if (! array_key_exists($key, $storage)) {
+                return $default;
+            }
+
+            return $storage[$key];
+        } catch (\RuntimeException) {
+            return false;
         }
-
-        return $storage[$key];
     }
 
     /**
@@ -75,13 +79,17 @@ class Cache implements CacheInterface
     {
         $this->validateKey($key);
 
-        $storage = $this->retrieve();
+        try {
+            $storage = $this->retrieve();
 
-        $storage[$key] = $value;
+            $storage[$key] = $value;
 
-        $result = $this->persist($storage);
+            $this->persist($storage);
 
-        return $result;
+            return true;
+        } catch (\RuntimeException) {
+            return false;
+        }
     }
 
     /**
@@ -98,17 +106,21 @@ class Cache implements CacheInterface
     {
         $this->validateKey($key);
 
-        $storage = $this->retrieve();
+        try {
+            $storage = $this->retrieve();
 
-        if (! array_key_exists($key, $storage)) {
+            if (! array_key_exists($key, $storage)) {
+                return false;
+            }
+
+            unset($storage[$key]);
+
+            $this->persist($storage);
+
+            return true;
+        } catch (\RuntimeException) {
             return false;
         }
-
-        unset($storage[$key]);
-
-        $result = $this->persist($storage);
-
-        return $result;
     }
 
     /**
@@ -128,18 +140,22 @@ class Cache implements CacheInterface
     {
         $this->validateKeys($keys);
 
-        $storage = $this->retrieve();
-        $values = [];
+        try {
+            $storage = $this->retrieve();
+            $values = [];
 
-        foreach ($keys as $key) {
-            if (! array_key_exists($key, $storage)) {
-                return $default;
+            foreach ($keys as $index => $key) {
+                if (! array_key_exists($key, $storage)) {
+                    return $default;
+                }
+
+                $values[$key] = $storage[$key];
             }
 
-            $values[$key] = $storage[$key];
+            return $values;
+        } catch (\RuntimeException) {
+            return [];
         }
-
-        return $values;
     }
 
     /**
@@ -160,18 +176,21 @@ class Cache implements CacheInterface
     // due to how the type declaration with strict_types works in PHP.
     public function setMultiple(iterable $values, null|int|\DateInterval $ttl = null): bool
     {
-        $keys = array_keys((array) $values);
-        $this->validateKeys($keys);
+        $this->validateValues($values);
 
-        $storage = $this->retrieve();
+        try {
+            $storage = $this->retrieve();
 
-        foreach ($values as $key => $value) {
-            $storage[$key] = $value;
+            foreach ($values as $key => $value) {
+                $storage[$key] = $value;
+            }
+
+            $this->persist($storage);
+
+            return true;
+        } catch (\RuntimeException) {
+            return false;
         }
-
-        $result = $this->persist($storage);
-
-        return $result;
     }
 
     /**
@@ -191,15 +210,21 @@ class Cache implements CacheInterface
     {
         $this->validateKeys($keys);
 
-        $storage = $this->retrieve();
+        try {
+            $this->validateKeys($keys);
 
-        foreach ($keys as $key) {
-            unset($storage[$key]);
+            $storage = $this->retrieve();
+
+            foreach ($keys as $key) {
+                unset($storage[$key]);
+            }
+
+            $this->persist($storage);
+
+            return true;
+        } catch (\RuntimeException) {
+            return false;
         }
-
-        $result = $this->persist($storage);
-
-        return $result;
     }
 
     /**
@@ -209,9 +234,13 @@ class Cache implements CacheInterface
      */
     public function clear(): bool
     {
-        $result = $this->persist([]);
+        try {
+            $storage = $this->persist([]);
 
-        return $result;
+            return true;
+        } catch (\RuntimeException) {
+            return false;
+        }
     }
 
     /**
@@ -265,10 +294,65 @@ class Cache implements CacheInterface
     private function validateKeys(iterable $keys): void
     {
         foreach ($keys as $index => $key) {
-            foreach (self::FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
-                if (str_contains($key, $forbiddenCharacter)) {
-                    throw new InvalidArgumentException("Argument keys item with index {$index} contains forbidden character {$forbiddenCharacter}");
-                }
+            $this->validateKeysItem($key, $index);
+        }
+    }
+
+    /**
+     * @param  mixed $values
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException
+     */
+    private function validateValues(iterable $values): void
+    {
+        $keys = array_keys((array) $values);
+        foreach ($keys as $index => $key) {
+            $this->validateValuesItemKey($key, $index);
+        }
+    }
+
+    /**
+     * @param mixed $keysItem
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException
+     */
+    private function validateKeysItem(mixed $keysItem, int $index): void
+    {
+        if (! is_string($keysItem)) {
+            $type = gettype($keysItem);
+
+            throw new InvalidArgumentException("Argument keys item with index {$index} must be type of string, {$type} given");
+        }
+
+        foreach (self::FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
+            if (str_contains((string) $keysItem, $forbiddenCharacter)) {
+                throw new InvalidArgumentException("Argument keys item with index {$index} contains forbidden character {$forbiddenCharacter}");
+            }
+        }
+    }
+
+    /**
+     * @param mixed $valuesItemKey
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException
+     */
+    private function validateValuesItemKey(mixed $valuesItemKey, int $index): void
+    {
+        if (! is_string($valuesItemKey)) {
+            $type = gettype($valuesItemKey);
+
+            throw new InvalidArgumentException("Argument values item with index {$index} key must be type of string, {$type} given");
+        }
+
+        foreach (self::FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
+            if (str_contains((string) $valuesItemKey, $forbiddenCharacter)) {
+                throw new InvalidArgumentException("Argument keys item with index {$index} contains forbidden character {$forbiddenCharacter}");
             }
         }
     }
@@ -277,11 +361,19 @@ class Cache implements CacheInterface
      * Read from the persistance source.
      *
      * @return array
+     *
+     * @throws \RuntimeException
      */
     private function retrieve(): array
     {
+        $result = file_get_contents($this->storageFilePath);
+
+        if ($result === false) {
+            throw new \RuntimeException('Content cannot be retrieved.');
+        }
+
         $storage = unserialize(
-            file_get_contents($this->storageFilePath)
+            $result
         ) ?: [];
 
         return $storage;
@@ -294,10 +386,12 @@ class Cache implements CacheInterface
      *
      * @return bool
      */
-    private function persist(array $storage): bool
+    private function persist(array $storage): void
     {
         $result = file_put_contents($this->storageFilePath, serialize($storage));
 
-        return (bool) $result;
+        if ($result === false) {
+            throw new \RuntimeException('Content cannot be persisted.');
+        }
     }
 }
