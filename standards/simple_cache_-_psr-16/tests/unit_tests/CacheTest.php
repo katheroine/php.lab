@@ -217,7 +217,10 @@ class CacheTest extends TestCase
         $result = $this->cache->set($key1, $value1);
 
         $expectedContent = [
-            $key1 => $value1,
+            $key1 => [
+                'value' => $value1,
+                'expires' => null,
+            ],
         ];
         $actualContent = $this->getStoredContent();
 
@@ -227,8 +230,14 @@ class CacheTest extends TestCase
         $result = $this->cache->set($key2, $value2);
 
         $expectedContent = [
-            $key1 => $value1,
-            $key2 => $value2,
+            $key1 => [
+                'value' => $value1,
+                'expires' => null,
+            ],
+            $key2 => [
+                'value' => $value2,
+                'expires' => null,
+            ],
         ];
         $actualContent = $this->getStoredContent();
 
@@ -238,9 +247,18 @@ class CacheTest extends TestCase
         $result = $this->cache->set($key3, $value3);
 
         $expectedContent = [
-            $key1 => $value1,
-            $key2 => $value2,
-            $key3 => $value3,
+            $key1 => [
+                'value' => $value1,
+                'expires' => null,
+            ],
+            $key2 => [
+                'value' => $value2,
+                'expires' => null,
+            ],
+            $key3 => [
+                'value' => $value3,
+                'expires' => null,
+            ],
         ];
         $actualContent = $this->getStoredContent();
 
@@ -456,19 +474,27 @@ class CacheTest extends TestCase
     {
         $this->setUpStoredContent();
 
-        $value = $this->cache->getMultiple(['unexistent']);
+        $key = 'unexistent';
+        $expectedValues = [
+            $key => null,
+        ];
+        $actualValues = $this->cache->getMultiple([$key]);
 
-        $this->assertEmpty($value);
+        $this->assertEquals($expectedValues, $actualValues);
     }
 
     public function testGetMultipleWhenKeyHasNoRelatedValueAndDefaultIsSet()
     {
         $this->setUpStoredContent();
 
-        $expectedValue = ['none'];
-        $actualValue = $this->cache->getMultiple(['unexistent'], $expectedValue);
+        $key = 'unexistent';
+        $default = 'none';
+        $expectedValues = [
+            $key => $default,
+        ];
+        $actualValues = $this->cache->getMultiple([$key], $default);
 
-        $this->assertEquals($expectedValue, $actualValue);
+        $this->assertEquals($expectedValues, $actualValues);
     }
 
     public function testGetMultipleWhenStorgeDoesNotExist()
@@ -635,18 +661,36 @@ class CacheTest extends TestCase
         ) = $this->provideContentElements();
 
         $expectedValues = [
-            $key3 => $value3,
-            $key1 => $value1,
+            $key3 => [
+                'value' => $value3,
+                'expires' => null,
+            ],
+            $key1 => [
+                'value' => $value1,
+                'expires' => null,
+            ],
         ];
-        $result = $this->cache->setMultiple($expectedValues);
+        $result = $this->cache->setMultiple([
+            $key3 => $value3,
+            $key1 => $value1
+        ]);
         $actualValues = $this->getStoredContent();
         $this->assertEquals($expectedValues, $actualValues);
         $this->assertEquals(true, $result);
 
         $expectedValues = [
-            $key3 => $value3,
-            $key1 => $value1,
-            $key2 => $value2,
+            $key3 => [
+                'value' => $value3,
+                'expires' => null,
+            ],
+            $key1 => [
+                'value' => $value1,
+                'expires' => null,
+            ],
+            $key2 => [
+                'value' => $value2,
+                'expires' => null,
+            ],
         ];
         $result = $this->cache->setMultiple([
             $key2 => $value2,
@@ -782,7 +826,10 @@ class CacheTest extends TestCase
         ) = $this->provideContentElements();
 
         $expectedContent = [
-            $key2 => $value2,
+            $key2 => [
+                'value' => $value2,
+                'expires' => null,
+            ],
         ];
         $result = $this->cache->deleteMultiple([
             $key3,
@@ -799,6 +846,58 @@ class CacheTest extends TestCase
         $actualContent = $this->getStoredContent();
         $this->assertEquals($expectedContent, $actualContent);
         $this->assertTrue($result);
+    }
+
+    public function testSetAndHasWithTTL()
+    {
+        $key = 'some_key';
+        $value = 'Some value';
+        $ttl = 2;
+
+        $this->cache->set($key, $value, $ttl);
+        $result = $this->cache->has($key);
+        $this->assertTrue($result);
+
+        sleep($ttl + 1);
+        $result = $this->cache->has($key);
+        $this->assertFalse($result);
+    }
+
+    public function testSetAndGetWithTTL()
+    {
+        $key = 'some_key';
+        $expectedValue = 'Some value';
+        $ttl = 2;
+
+        $this->cache->set($key, $expectedValue, $ttl);
+        $actualValue = $this->cache->get($key);
+        $this->assertSame($expectedValue, $actualValue);
+
+        sleep($ttl + 1);
+        $actualValue = $this->cache->get($key);
+        $this->assertNull($actualValue);
+    }
+
+    public function testSetAndGetMultipleWithTTL()
+    {
+        $key = 'some_key';
+        $expectedValue = 'Some value';
+        $keys = [$key];
+        $ttl = 2;
+
+        $this->cache->set($key, $expectedValue, $ttl);
+        $expectedValues = [
+            $key => $expectedValue,
+        ];
+        $actualValues = $this->cache->getMultiple($keys);
+        $this->assertSame($expectedValues, $actualValues);
+
+        sleep($ttl + 1);
+        $expectedValues = [
+            $key => null,
+        ];
+        $actualValues = $this->cache->getMultiple($keys);
+        $this->assertSame($expectedValues, $actualValues);
     }
 
     /**
@@ -931,9 +1030,18 @@ class CacheTest extends TestCase
         ) = $this->provideContentElements();
 
         $content = [
-            $key1 => $expectedValue1,
-            $key2 => $expectedValue2,
-            $key3 => $expectedValue3,
+            $key1 => [
+                'value' => $expectedValue1,
+                'expires' => null,
+            ],
+            $key2 => [
+                'value' => $expectedValue2,
+                'expires' => null,
+            ],
+            $key3 => [
+                'value' => $expectedValue3,
+                'expires' => null,
+            ]
         ];
 
         return $content;

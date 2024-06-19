@@ -57,11 +57,13 @@ class Cache implements CacheInterface
         try {
             $storage = $this->retrieve();
 
-            if (! array_key_exists($key, $storage)) {
+            if ($this->expired($key, $storage)) {
+                return null;
+            } elseif (! array_key_exists($key, $storage)) {
                 return $default;
             }
 
-            return $storage[$key];
+            return $storage[$key]['value'];
         } catch (\RuntimeException) {
             return false;
         }
@@ -88,7 +90,10 @@ class Cache implements CacheInterface
         try {
             $storage = $this->retrieve();
 
-            $storage[$key] = $value;
+            $storage[$key] = [
+                'value' => $value,
+                'expires' => $this->calculateExpiration($ttl),
+            ];
 
             $this->persist($storage);
 
@@ -141,8 +146,7 @@ class Cache implements CacheInterface
      * MUST be thrown if $keys is neither an array nor a Traversable,
      * or if any of the $keys are not a legal value.
      */
-    // Default value of $default differs from the interface (null).
-    public function getMultiple(iterable $keys, mixed $default = []): iterable
+    public function getMultiple(iterable $keys, mixed $default = null): iterable
     {
         $this->validateKeys($keys);
 
@@ -151,11 +155,13 @@ class Cache implements CacheInterface
             $values = [];
 
             foreach ($keys as $key) {
-                if (! array_key_exists($key, $storage)) {
-                    return $default;
+                if ($this->expired($key, $storage)) {
+                    $values[$key] = null;
+                } elseif (! array_key_exists($key, $storage)) {
+                    $values[$key] = $default;
+                } else {
+                    $values[$key] = $storage[$key]['value'];
                 }
-
-                $values[$key] = $storage[$key];
             }
 
             return $values;
@@ -188,7 +194,10 @@ class Cache implements CacheInterface
             $storage = $this->retrieve();
 
             foreach ($values as $key => $value) {
-                $storage[$key] = $value;
+                $storage[$key] = [
+                    'value' => $value,
+                    'expires' => $this->calculateExpiration($ttl),
+                ];
             }
 
             $this->persist($storage);
@@ -269,6 +278,11 @@ class Cache implements CacheInterface
         $this->validateKey($key);
 
         $storage = $this->retrieve();
+
+        if ($this->expired($key, $storage)) {
+            return false;
+        }
+
         $result = array_key_exists($key, $storage);
 
         return $result;
@@ -418,5 +432,34 @@ class Cache implements CacheInterface
         if ($result === false) {
             throw new \RuntimeException('Content cannot be persisted.');
         }
+    }
+
+    /**
+     * @param null|int|\DateInterval $ttl
+     *
+     * @return int
+     */
+    private function calculateExpiration(null|int|\DateInterval $ttl): ?int
+    {
+        if (is_null($ttl) || $ttl < 0) {
+            return null;
+        }
+
+        if (is_int($ttl) && $ttl > 0) {
+            return time() + $ttl;
+        }
+    }
+
+    /**
+     * @param mixed $ttl
+     *
+     * @return bool
+     */
+    private function expired(string $key, array $storage): bool
+    {
+        $expired = isset($storage[$key]['expires'])
+            && time() > $storage[$key]['expires'];
+
+        return $expired;
     }
 }
