@@ -34,8 +34,7 @@ class CacheTest extends TestCase
     private Cache $cache;
 
     /**
-     * Test if Cache class
-     * has been created.
+     * Test if Cache class has been created.
      */
     public function testCacheClassExists()
     {
@@ -755,7 +754,7 @@ class CacheTest extends TestCase
         $this->setUpStoredContent();
         list(
             list($key1),
-            list($key2, $value2),
+            list($key2),
             list($key3),
         ) = $this->provideContentElements();
 
@@ -822,6 +821,12 @@ class CacheTest extends TestCase
         ];
     }
 
+    /**
+     * Provide key - value pairs and the correct results
+     * of the value retrieving process for for each case.
+     *
+     * @return array
+     */
     public static function keyValueDataProvider(): array
     {
         return [
@@ -872,13 +877,24 @@ class CacheTest extends TestCase
         $this->assertTrue($implementsInterface);
     }
 
+    /**
+     * Build ArgumentTypeError exception message regular expression pattern.
+     *
+     * @param string $methodName
+     * @param string $argumentName
+     * @param string $argumentProperType
+     * @param string $argumentGivenType
+     * @param int $arguemntNumber Starts from 0
+     *
+     * @return string
+     */
     private function buildArgumentTypeErrorMessagePattern(
         string $methodName,
         string $argumentName,
         string $argumentProperType,
         string $argumentGivenType,
         int $argumentNumber
-    ) {
+    ): string {
         $messagePattern = '/' . preg_quote(
             "::{$methodName}(): "
             . 'Argument #' . strval($argumentNumber)
@@ -889,6 +905,11 @@ class CacheTest extends TestCase
         return $messagePattern;
     }
 
+    /**
+     * Save content fixture in the persistance source.
+     *
+     * @return void
+     */
     private function setUpStoredContent(): void
     {
         $content = $this->provideContent();
@@ -896,6 +917,11 @@ class CacheTest extends TestCase
         $this->setStoredContent($content);
     }
 
+    /**
+     * Read content fixture from the persistance source.
+     *
+     * @return array
+     */
     private function provideContent(): array
     {
         list(
@@ -913,6 +939,11 @@ class CacheTest extends TestCase
         return $content;
     }
 
+    /**
+     * Provide key - value pairs of the content fixture.
+     *
+     * @return array
+     */
     private function provideContentElements(): array
     {
         $key1 = 'some_key';
@@ -931,21 +962,37 @@ class CacheTest extends TestCase
         return $contentElements;
     }
 
+    /**
+     * Save content in the persistance source.
+     *
+     * @return void
+     */
     private function setStoredContent(array $content): void
     {
         file_put_contents(self::STORAGE_FILE_ABSOLUTE_PATH, serialize($content));
     }
 
+    /**
+     * Read content from the persistance source.
+     *
+     * @return array
+     */
     private function getStoredContent(): array
     {
         return unserialize(file_get_contents(self::STORAGE_FILE_ABSOLUTE_PATH)) ?: [];
     }
 
+    /**
+     * Create persistance source.
+     */
     private function createContentStorage(): void
     {
         file_put_contents(self::STORAGE_FILE_ABSOLUTE_PATH, '');
     }
 
+    /**
+     * Delete persistance source.
+     */
     private function deleteContentStorage(): void
     {
         unlink(self::STORAGE_FILE_ABSOLUTE_PATH);
@@ -967,7 +1014,6 @@ class CacheTest extends TestCase
      */
     protected function tearDown(): void
     {
-        // file_put_contents(self::STORAGE_FILE_ABSOLUTE_PATH, '');
         $this->deleteContentStorage();
     }
 }

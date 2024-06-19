@@ -17,7 +17,13 @@ use Psr\SimpleCache\CacheInterface as CacheInterface;
 
 class Cache implements CacheInterface
 {
-    private const FORBIDDEN_CHARACTERS = ['{', '}', '(', ')', '/', '\\', '@', ':'];
+    /**
+     * Characters that cannot be contained by the key name.
+     *
+     * @var array
+     */
+    private const KEY_FORBIDDEN_CHARACTERS = ['{', '}', '(', ')', '/', '\\', '@', ':'];
+
     /**
      * Storage file absolute path.
      *
@@ -144,7 +150,7 @@ class Cache implements CacheInterface
             $storage = $this->retrieve();
             $values = [];
 
-            foreach ($keys as $index => $key) {
+            foreach ($keys as $key) {
                 if (! array_key_exists($key, $storage)) {
                     return $default;
                 }
@@ -235,7 +241,7 @@ class Cache implements CacheInterface
     public function clear(): bool
     {
         try {
-            $storage = $this->persist([]);
+            $this->persist([]);
 
             return true;
         } catch (\RuntimeException) {
@@ -277,7 +283,7 @@ class Cache implements CacheInterface
      */
     private function validateKey(string $key): void
     {
-        foreach (self::FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
+        foreach (self::KEY_FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
             if (str_contains($key, $forbiddenCharacter)) {
                 throw new InvalidArgumentException("Argument key contains forbidden character {$forbiddenCharacter}");
             }
@@ -322,17 +328,12 @@ class Cache implements CacheInterface
      */
     private function validateKeysItem(mixed $keysItem, int $index): void
     {
-        if (! is_string($keysItem)) {
-            $type = gettype($keysItem);
-
-            throw new InvalidArgumentException("Argument keys item with index {$index} must be type of string, {$type} given");
-        }
-
-        foreach (self::FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
-            if (str_contains((string) $keysItem, $forbiddenCharacter)) {
-                throw new InvalidArgumentException("Argument keys item with index {$index} contains forbidden character {$forbiddenCharacter}");
-            }
-        }
+        $this->validateArgumentKey(
+            key: $keysItem,
+            index: $index,
+            messageInvalidType: "Argument keys item with index %s must be type of string, %s given",
+            messageForbiddenCharacter: "Argument keys item with index %s contains forbidden character %s"
+        );
     }
 
     /**
@@ -344,15 +345,37 @@ class Cache implements CacheInterface
      */
     private function validateValuesItemKey(mixed $valuesItemKey, int $index): void
     {
-        if (! is_string($valuesItemKey)) {
-            $type = gettype($valuesItemKey);
+        $this->validateArgumentKey(
+            key: $valuesItemKey,
+            index: $index,
+            messageInvalidType: "Argument values item with index %s key must be type of string, %s given",
+            messageForbiddenCharacter: "Argument keys item with index %s contains forbidden character %s"
+        );
+    }
 
-            throw new InvalidArgumentException("Argument values item with index {$index} key must be type of string, {$type} given");
+    /**
+     * @param mixed $key
+     * @param int $index
+     * @param string $messageInvalidType Message for the invalid key type exception
+     * with format for sprinft with index and type placeholders.
+     * @param string $messageForbiddenCharacter Message for the forbidden character in key exception
+     * with format for sprinft with index and forbidden character placeholders.
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException
+     */
+    private function validateArgumentKey(mixed $key, int $index, string $messageInvalidType, string $messageForbiddenCharacter): void
+    {
+        if (! is_string($key)) {
+            $type = gettype($key);
+
+            throw new InvalidArgumentException(sprintf($messageInvalidType, $index, $type));
         }
 
-        foreach (self::FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
-            if (str_contains((string) $valuesItemKey, $forbiddenCharacter)) {
-                throw new InvalidArgumentException("Argument keys item with index {$index} contains forbidden character {$forbiddenCharacter}");
+        foreach (self::KEY_FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
+            if (str_contains((string) $key, $forbiddenCharacter)) {
+                throw new InvalidArgumentException(sprintf($messageForbiddenCharacter, $index, $forbiddenCharacter));
             }
         }
     }
@@ -385,6 +408,8 @@ class Cache implements CacheInterface
      * @param array $storage
      *
      * @return bool
+     *
+     * @throws \RuntimeException
      */
     private function persist(array $storage): void
     {
