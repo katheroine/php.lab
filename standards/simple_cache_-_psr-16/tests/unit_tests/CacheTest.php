@@ -377,6 +377,26 @@ class CacheTest extends TestCase
         $this->cache->has($key);
     }
 
+    public function testHasWhenStorgeDoesNotExist()
+    {
+        $this->setUpStoredContent();
+        list(
+            list($key1),
+            list($key2),
+        ) = $this->provideContentElements();
+
+        $result = $this->cache->has($key1);
+        $this->assertTrue($result);
+
+        $this->deleteContentStorage();
+
+        $result = $this->cache->has($key2);
+        $this->assertFalse($result);
+
+        $this->createContentStorage();
+    }
+
+
     /**
      * @dataProvider keyValueDataProvider
      */
@@ -878,6 +898,22 @@ class CacheTest extends TestCase
         $this->assertNull($actualValue);
     }
 
+    public function testSetAndGetWithTTLAndDefault()
+    {
+        $key = 'some_key';
+        $expectedValue = 'Some value';
+        $ttl = 2;
+        $default = 'none';
+
+        $this->cache->set($key, $expectedValue, $ttl);
+        $actualValue = $this->cache->get($key);
+        $this->assertSame($expectedValue, $actualValue);
+
+        sleep($ttl + 1);
+        $actualValue = $this->cache->get($key, $default);
+        $this->assertSame($default, $actualValue);
+    }
+
     public function testSetAndGetMultipleWithTTL()
     {
         $key = 'some_key';
@@ -897,6 +933,130 @@ class CacheTest extends TestCase
             $key => null,
         ];
         $actualValues = $this->cache->getMultiple($keys);
+        $this->assertSame($expectedValues, $actualValues);
+    }
+
+    public function testSetAndGetMultipleWithTTLAndDefault()
+    {
+        $key = 'some_key';
+        $expectedValue = 'Some value';
+        $keys = [$key];
+        $ttl = 2;
+        $default = 'none';
+
+        $this->cache->set($key, $expectedValue, $ttl);
+        $expectedValues = [
+            $key => $expectedValue,
+        ];
+        $actualValues = $this->cache->getMultiple($keys);
+        $this->assertSame($expectedValues, $actualValues);
+
+        sleep($ttl + 1);
+        $expectedValues = [
+            $key => $default,
+        ];
+        $actualValues = $this->cache->getMultiple($keys, $default);
+        $this->assertSame($expectedValues, $actualValues);
+    }
+
+    public function testSetMultipleAndHasWithTTL()
+    {
+        $key = 'some_key';
+        $value = 'Some value';
+        $ttl = 2;
+
+        $this->cache->setMultiple([
+            $key => $value,
+        ], $ttl);
+        $result = $this->cache->has($key);
+        $this->assertTrue($result);
+
+        sleep($ttl + 1);
+        $result = $this->cache->has($key);
+        $this->assertFalse($result);
+    }
+
+    public function testSetMultipleAndGetWithTTL()
+    {
+        $key = 'some_key';
+        $expectedValue = 'Some value';
+        $ttl = 2;
+
+        $this->cache->setMultiple([
+            $key => $expectedValue,
+        ], $ttl);
+        $actualValue = $this->cache->get($key);
+        $this->assertSame($expectedValue, $actualValue);
+
+        sleep($ttl + 1);
+        $actualValue = $this->cache->get($key);
+        $this->assertNull($actualValue);
+    }
+
+    public function testSetMultipleAndGetWithTTLAndDefault()
+    {
+        $key = 'some_key';
+        $expectedValue = 'Some value';
+        $ttl = 2;
+        $default = 'none';
+
+        $this->cache->setMultiple([
+            $key => $expectedValue,
+        ], $ttl);
+        $actualValue = $this->cache->get($key);
+        $this->assertSame($expectedValue, $actualValue);
+
+        sleep($ttl + 1);
+        $actualValue = $this->cache->get($key, $default);
+        $this->assertSame($default, $actualValue);
+    }
+
+    public function testSetMultipleAndGetMultipleWithTTL()
+    {
+        $key = 'some_key';
+        $expectedValue = 'Some value';
+        $keys = [$key];
+        $ttl = 2;
+
+        $this->cache->setMultiple([
+            $key => $expectedValue,
+        ], $ttl);
+        $expectedValues = [
+            $key => $expectedValue,
+        ];
+        $actualValues = $this->cache->getMultiple($keys);
+        $this->assertSame($expectedValues, $actualValues);
+
+        sleep($ttl + 1);
+        $expectedValues = [
+            $key => null,
+        ];
+        $actualValues = $this->cache->getMultiple($keys);
+        $this->assertSame($expectedValues, $actualValues);
+    }
+
+    public function testSetMultipleAndGetMultipleWithTTLAndDefault()
+    {
+        $key = 'some_key';
+        $expectedValue = 'Some value';
+        $keys = [$key];
+        $ttl = 2;
+        $default = 'none';
+
+        $this->cache->setMultiple([
+            $key => $expectedValue,
+        ], $ttl);
+        $expectedValues = [
+            $key => $expectedValue,
+        ];
+        $actualValues = $this->cache->getMultiple($keys);
+        $this->assertSame($expectedValues, $actualValues);
+
+        sleep($ttl + 1);
+        $expectedValues = [
+            $key => $default,
+        ];
+        $actualValues = $this->cache->getMultiple($keys, $default);
         $this->assertSame($expectedValues, $actualValues);
     }
 

@@ -57,9 +57,7 @@ class Cache implements CacheInterface
         try {
             $storage = $this->retrieve();
 
-            if ($this->expired($key, $storage)) {
-                return null;
-            } elseif (! array_key_exists($key, $storage)) {
+            if ($this->valueDoesNotExist($key, $storage)) {
                 return $default;
             }
 
@@ -155,9 +153,7 @@ class Cache implements CacheInterface
             $values = [];
 
             foreach ($keys as $key) {
-                if ($this->expired($key, $storage)) {
-                    $values[$key] = null;
-                } elseif (! array_key_exists($key, $storage)) {
+                if ($this->valueDoesNotExist($key, $storage)) {
                     $values[$key] = $default;
                 } else {
                     $values[$key] = $storage[$key]['value'];
@@ -277,15 +273,19 @@ class Cache implements CacheInterface
     {
         $this->validateKey($key);
 
-        $storage = $this->retrieve();
+        try {
+            $storage = $this->retrieve();
 
-        if ($this->expired($key, $storage)) {
+            if ($this->expired($key, $storage)) {
+                return false;
+            }
+
+            $result = array_key_exists($key, $storage);
+
+            return $result;
+        } catch (\RuntimeException) {
             return false;
         }
-
-        $result = array_key_exists($key, $storage);
-
-        return $result;
     }
 
     /**
@@ -451,7 +451,8 @@ class Cache implements CacheInterface
     }
 
     /**
-     * @param mixed $ttl
+     * @param string $key
+     * @param array $storage
      *
      * @return bool
      */
@@ -461,5 +462,19 @@ class Cache implements CacheInterface
             && time() > $storage[$key]['expires'];
 
         return $expired;
+    }
+
+    /**
+     * @param string $key
+     * @param array $storage
+     *
+     * @return bool
+     */
+    private function valueDoesNotExist($key, $storage): bool
+    {
+        $valueDoesNotExisit = $this->expired($key, $storage)
+            || (! array_key_exists($key, $storage));
+
+        return $valueDoesNotExisit;
     }
 }
