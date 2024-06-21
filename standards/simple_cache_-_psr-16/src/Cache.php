@@ -54,7 +54,7 @@ class Cache implements CacheInterface
     {
         $this->validateKey($key);
 
-        return $this->getFromStorage($key, $default);
+        return $this->getFromStorageAndUpdate($key, $default);
     }
 
     /**
@@ -73,7 +73,7 @@ class Cache implements CacheInterface
     {
         $this->validateKeys($keys);
 
-        return $this->getMultipleFromStorage($keys, $default);
+        return $this->getMultipleFromStorageAndUpdate($keys, $default);
     }
 
     /**
@@ -176,7 +176,7 @@ class Cache implements CacheInterface
     {
         $this->validateKey($key);
 
-        return $this->existInStorage($key);
+        return $this->checkExistanceInStorageAndUpdate($key);
     }
 
     /**
@@ -203,12 +203,19 @@ class Cache implements CacheInterface
      *
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    private function getFromStorage(string $key, mixed $default): mixed
+    private function getFromStorageAndUpdate(string $key, mixed $default): mixed
     {
         try {
             $storage = $this->retrieve();
 
-            if ($this->valueDoesNotExist($key, $storage)) {
+            if ($this->notExistent($key, $storage)) {
+                return $default;
+            }
+
+            if ($this->expired($key, $storage)) {
+                unset($storage[$key]);
+                $this->persist($storage);
+
                 return $default;
             }
 
@@ -226,18 +233,28 @@ class Cache implements CacheInterface
      *
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    private function getMultipleFromStorage(iterable $keys, mixed $default): iterable
+    private function getMultipleFromStorageAndUpdate(iterable $keys, mixed $default): iterable
     {
         try {
             $storage = $this->retrieve();
             $values = [];
+            $updated = false;
 
             foreach ($keys as $key) {
-                if ($this->valueDoesNotExist($key, $storage)) {
+                if ($this->notExistent($key, $storage)) {
+                    $values[$key] = $default;
+                } elseif ($this->expired($key, $storage)) {
+                    unset($storage[$key]);
+                    $updated = true;
+
                     $values[$key] = $default;
                 } else {
                     $values[$key] = $storage[$key]['value'];
                 }
+            }
+
+            if ($updated) {
+                $this->persist($storage);
             }
 
             return $values;
@@ -360,12 +377,15 @@ class Cache implements CacheInterface
      *
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    private function existInStorage(string $key): bool
+    private function checkExistanceInStorageAndUpdate(string $key): bool
     {
         try {
             $storage = $this->retrieve();
 
             if ($this->expired($key, $storage)) {
+                unset($storage[$key]);
+                $this->persist($storage);
+
                 return false;
             }
 
@@ -379,7 +399,6 @@ class Cache implements CacheInterface
 
     /**
      * @param string $key
-     *
      * @return void
      *
      * @throws InvalidArgumentException
@@ -559,11 +578,10 @@ class Cache implements CacheInterface
      *
      * @return bool
      */
-    private function valueDoesNotExist($key, $storage): bool
+    private function notExistent($key, $storage): bool
     {
-        $valueDoesNotExisit = $this->expired($key, $storage)
-            || (! array_key_exists($key, $storage));
+        $notExistent = ! array_key_exists($key, $storage);
 
-        return $valueDoesNotExisit;
+        return $notExistent;
     }
 }

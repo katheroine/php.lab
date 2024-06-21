@@ -869,194 +869,450 @@ class CacheTest extends TestCase
 
     public function testSetAndHasWithTTL()
     {
-        $key = 'some_key';
-        $value = 'Some value';
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+        ) = $this->provideContentElements();
+
         $ttl = 2;
 
-        $this->cache->set($key, $value, $ttl);
-        $result = $this->cache->has($key);
-        $this->assertTrue($result);
+        $this->cache->set($key1, $value1);
+        $this->cache->set($key2, $value2, $ttl);
+
+        $result1 = $this->cache->has($key1);
+        $result2 = $this->cache->has($key2);
+        $this->assertTrue($result1);
+        $this->assertTrue($result2);
+
+        $expectedKeys = [$key1, $key2];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
 
         sleep($ttl + 1);
-        $result = $this->cache->has($key);
-        $this->assertFalse($result);
+
+        $result1 = $this->cache->has($key1);
+        $result2 = $this->cache->has($key2);
+        $this->assertTrue($result1);
+        $this->assertFalse($result2);
+
+        $expectedKeys = [$key1];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
     }
 
     public function testSetAndGetWithTTL()
     {
-        $key = 'some_key';
-        $expectedValue = 'Some value';
+        list(
+            list($key1, $expectedValue1),
+            list($key2, $expectedValue2),
+        ) = $this->provideContentElements();
+
         $ttl = 2;
 
-        $this->cache->set($key, $expectedValue, $ttl);
-        $actualValue = $this->cache->get($key);
-        $this->assertSame($expectedValue, $actualValue);
+        $this->cache->set($key1, $expectedValue1);
+        $this->cache->set($key2, $expectedValue2, $ttl);
+
+        $actualValue1 = $this->cache->get($key1);
+        $actualValue2 = $this->cache->get($key2);
+        $this->assertSame($expectedValue1, $actualValue1);
+        $this->assertSame($expectedValue2, $actualValue2);
+
+        $expectedKeys = [$key1, $key2];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
 
         sleep($ttl + 1);
-        $actualValue = $this->cache->get($key);
-        $this->assertNull($actualValue);
+
+        $actualValue1 = $this->cache->get($key1);
+        $actualValue2 = $this->cache->get($key2);
+        $this->assertSame($expectedValue1, $actualValue1);
+        $this->assertNull($actualValue2);
+
+        $expectedKeys = [$key1];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
     }
 
     public function testSetAndGetWithTTLAndDefault()
     {
-        $key = 'some_key';
-        $expectedValue = 'Some value';
+        list(
+            list($key1, $expectedValue1),
+            list($key2, $expectedValue2),
+        ) = $this->provideContentElements();
+
         $ttl = 2;
         $default = 'none';
 
-        $this->cache->set($key, $expectedValue, $ttl);
-        $actualValue = $this->cache->get($key);
-        $this->assertSame($expectedValue, $actualValue);
+        $this->cache->set($key1, $expectedValue1);
+        $this->cache->set($key2, $expectedValue2, $ttl);
+
+        $actualValue1 = $this->cache->get($key1, $default);
+        $actualValue2 = $this->cache->get($key2, $default);
+        $this->assertSame($expectedValue1, $actualValue1);
+        $this->assertSame($expectedValue2, $actualValue2);
+
+        $expectedKeys = [$key1, $key2];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
 
         sleep($ttl + 1);
-        $actualValue = $this->cache->get($key, $default);
-        $this->assertSame($default, $actualValue);
+
+        $actualValue1 = $this->cache->get($key1, $default);
+        $actualValue2 = $this->cache->get($key2, $default);
+        $this->assertSame($expectedValue1, $actualValue1);
+        $this->assertSame($default, $actualValue2);
+
+        $expectedKeys = [$key1];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
     }
 
     public function testSetAndGetMultipleWithTTL()
     {
-        $key = 'some_key';
-        $expectedValue = 'Some value';
-        $keys = [$key];
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+        ) = $this->provideContentElements();
+
+        $keys = [$key1, $key2];
         $ttl = 2;
 
-        $this->cache->set($key, $expectedValue, $ttl);
+        $this->cache->set($key1, $value1);
+        $this->cache->set($key2, $value2, $ttl);
+
         $expectedValues = [
-            $key => $expectedValue,
+            $key1 => $value1,
+            $key2 => $value2,
         ];
         $actualValues = $this->cache->getMultiple($keys);
         $this->assertSame($expectedValues, $actualValues);
 
+        $expectedKeys = [$key1, $key2];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
+
         sleep($ttl + 1);
+
         $expectedValues = [
-            $key => null,
+            $key1 => $value1,
+            $key2 => null,
         ];
         $actualValues = $this->cache->getMultiple($keys);
         $this->assertSame($expectedValues, $actualValues);
+
+        $expectedKeys = [$key1];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
     }
 
     public function testSetAndGetMultipleWithTTLAndDefault()
     {
-        $key = 'some_key';
-        $expectedValue = 'Some value';
-        $keys = [$key];
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+        ) = $this->provideContentElements();
+
+        $keys = [$key1, $key2];
         $ttl = 2;
         $default = 'none';
 
-        $this->cache->set($key, $expectedValue, $ttl);
-        $expectedValues = [
-            $key => $expectedValue,
-        ];
-        $actualValues = $this->cache->getMultiple($keys);
-        $this->assertSame($expectedValues, $actualValues);
+        $this->cache->set($key1, $value1);
+        $this->cache->set($key2, $value2, $ttl);
 
-        sleep($ttl + 1);
         $expectedValues = [
-            $key => $default,
+            $key1 => $value1,
+            $key2 => $value2,
         ];
         $actualValues = $this->cache->getMultiple($keys, $default);
         $this->assertSame($expectedValues, $actualValues);
+
+        $expectedKeys = [$key1, $key2];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
+
+        sleep($ttl + 1);
+
+        $expectedValues = [
+            $key1 => $value1,
+            $key2 => $default,
+        ];
+        $actualValues = $this->cache->getMultiple($keys, $default);
+        $this->assertSame($expectedValues, $actualValues);
+
+        $expectedKeys = [$key1];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
     }
 
     public function testSetMultipleAndHasWithTTL()
     {
-        $key = 'some_key';
-        $value = 'Some value';
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideContentElements();
+
+        $values1 = [
+            $key1 => $value1,
+        ];
+        $values2 = [
+            $key2 => $value2,
+            $key3 => $value3,
+        ];
         $ttl = 2;
 
-        $this->cache->setMultiple([
-            $key => $value,
-        ], $ttl);
-        $result = $this->cache->has($key);
-        $this->assertTrue($result);
+        $this->cache->setMultiple($values1);
+        $this->cache->setMultiple($values2, $ttl);
+
+        $result1 = $this->cache->has($key1);
+        $result2 = $this->cache->has($key2);
+        $result3 = $this->cache->has($key3);
+        $this->assertTrue($result1);
+        $this->assertTrue($result2);
+        $this->assertTrue($result3);
+
+        $expectedKeys = [$key1, $key2, $key3];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
 
         sleep($ttl + 1);
-        $result = $this->cache->has($key);
-        $this->assertFalse($result);
+
+        $result1 = $this->cache->has($key1);
+        $result2 = $this->cache->has($key2);
+        $result3 = $this->cache->has($key3);
+        $this->assertTrue($result1);
+        $this->assertFalse($result2);
+        $this->assertFalse($result3);
+
+        $expectedKeys = [$key1];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
     }
 
     public function testSetMultipleAndGetWithTTL()
     {
-        $key = 'some_key';
-        $expectedValue = 'Some value';
+        list(
+            list($key1, $expectedValue1),
+            list($key2, $expectedValue2),
+            list($key3, $expectedValue3),
+        ) = $this->provideContentElements();
+
+        $values1 = [
+            $key1 => $expectedValue1,
+        ];
+        $values2 = [
+            $key2 => $expectedValue2,
+            $key3 => $expectedValue3,
+        ];
         $ttl = 2;
 
-        $this->cache->setMultiple([
-            $key => $expectedValue,
-        ], $ttl);
-        $actualValue = $this->cache->get($key);
-        $this->assertSame($expectedValue, $actualValue);
+        $this->cache->setMultiple($values1);
+        $this->cache->setMultiple($values2, $ttl);
+
+        $actualValue1 = $this->cache->get($key1);
+        $actualValue2 = $this->cache->get($key2);
+        $actualValue3 = $this->cache->get($key3);
+        $this->assertSame($expectedValue1, $actualValue1);
+        $this->assertSame($expectedValue2, $actualValue2);
+        $this->assertSame($expectedValue3, $actualValue3);
+
+        $expectedKeys = [$key1, $key2, $key3];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
 
         sleep($ttl + 1);
-        $actualValue = $this->cache->get($key);
-        $this->assertNull($actualValue);
+
+        $actualValue1 = $this->cache->get($key1);
+        $actualValue2 = $this->cache->get($key2);
+        $actualValue3 = $this->cache->get($key3);
+        $this->assertSame($expectedValue1, $actualValue1);
+        $this->assertNull($actualValue2);
+        $this->assertNull($actualValue3);
+
+        $expectedKeys = [$key1];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
     }
 
     public function testSetMultipleAndGetWithTTLAndDefault()
     {
-        $key = 'some_key';
-        $expectedValue = 'Some value';
+        list(
+            list($key1, $expectedValue1),
+            list($key2, $expectedValue2),
+            list($key3, $expectedValue3),
+        ) = $this->provideContentElements();
+
+        $values1 = [
+            $key1 => $expectedValue1,
+        ];
+        $values2 = [
+            $key2 => $expectedValue2,
+            $key3 => $expectedValue3,
+        ];
         $ttl = 2;
         $default = 'none';
 
-        $this->cache->setMultiple([
-            $key => $expectedValue,
-        ], $ttl);
-        $actualValue = $this->cache->get($key);
-        $this->assertSame($expectedValue, $actualValue);
+        $this->cache->setMultiple($values1);
+        $this->cache->setMultiple($values2, $ttl);
+
+        $actualValue1 = $this->cache->get($key1, $default);
+        $actualValue2 = $this->cache->get($key2, $default);
+        $actualValue3 = $this->cache->get($key3, $default);
+        $this->assertSame($expectedValue1, $actualValue1);
+        $this->assertSame($expectedValue2, $actualValue2);
+        $this->assertSame($expectedValue3, $actualValue3);
+
+        $expectedKeys = [$key1, $key2, $key3];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
 
         sleep($ttl + 1);
-        $actualValue = $this->cache->get($key, $default);
-        $this->assertSame($default, $actualValue);
+
+        $actualValue1 = $this->cache->get($key1, $default);
+        $actualValue2 = $this->cache->get($key2, $default);
+        $actualValue3 = $this->cache->get($key3, $default);
+        $this->assertSame($expectedValue1, $actualValue1);
+        $this->assertSame($default, $actualValue2);
+        $this->assertSame($default, $actualValue3);
+
+        $expectedKeys = [$key1];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
     }
 
     public function testSetMultipleAndGetMultipleWithTTL()
     {
-        $key = 'some_key';
-        $expectedValue = 'Some value';
-        $keys = [$key];
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideContentElements();
+
+        $keys1 = [$key1, $key2];
+        $keys2 = [$key3];
+        $values1 = [
+            $key1 => $value1,
+        ];
+        $values2 = [
+            $key2 => $value2,
+            $key3 => $value3,
+        ];
         $ttl = 2;
 
-        $this->cache->setMultiple([
-            $key => $expectedValue,
-        ], $ttl);
-        $expectedValues = [
-            $key => $expectedValue,
+        $this->cache->setMultiple($values1);
+        $this->cache->setMultiple($values2, $ttl);
+
+        $expectedValues1 = [
+            $key1 => $value1,
+            $key2 => $value2,
         ];
-        $actualValues = $this->cache->getMultiple($keys);
-        $this->assertSame($expectedValues, $actualValues);
+        $expectedValues2 = [
+            $key3 => $value3,
+        ];
+        $actualValues1 = $this->cache->getMultiple($keys1);
+        $actualValues2 = $this->cache->getMultiple($keys2);
+        $this->assertSame($expectedValues1, $actualValues1);
+        $this->assertSame($expectedValues2, $actualValues2);
+
+        $expectedKeys = [$key1, $key2, $key3];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
 
         sleep($ttl + 1);
-        $expectedValues = [
-            $key => null,
+
+        $expectedValues1 = [
+            $key1 => $value1,
+            $key2 => null,
         ];
-        $actualValues = $this->cache->getMultiple($keys);
-        $this->assertSame($expectedValues, $actualValues);
+        $expectedValues2 = [
+            $key3 => null,
+        ];
+        $actualValues1 = $this->cache->getMultiple($keys1);
+        $actualValues2 = $this->cache->getMultiple($keys2);
+        $this->assertSame($expectedValues1, $actualValues1);
+        $this->assertSame($expectedValues2, $actualValues2);
+
+        $expectedKeys = [$key1];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
     }
 
     public function testSetMultipleAndGetMultipleWithTTLAndDefault()
     {
-        $key = 'some_key';
-        $expectedValue = 'Some value';
-        $keys = [$key];
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideContentElements();
+
+        $keys1 = [$key1, $key2];
+        $keys2 = [$key3];
+        $values1 = [
+            $key1 => $value1,
+        ];
+        $values2 = [
+            $key2 => $value2,
+            $key3 => $value3,
+        ];
         $ttl = 2;
         $default = 'none';
 
-        $this->cache->setMultiple([
-            $key => $expectedValue,
-        ], $ttl);
-        $expectedValues = [
-            $key => $expectedValue,
+        $this->cache->setMultiple($values1);
+        $this->cache->setMultiple($values2, $ttl);
+
+        $expectedValues1 = [
+            $key1 => $value1,
+            $key2 => $value2,
         ];
-        $actualValues = $this->cache->getMultiple($keys);
-        $this->assertSame($expectedValues, $actualValues);
+        $expectedValues2 = [
+            $key3 => $value3,
+        ];
+        $actualValues1 = $this->cache->getMultiple($keys1, $default);
+        $actualValues2 = $this->cache->getMultiple($keys2, $default);
+        $this->assertSame($expectedValues1, $actualValues1);
+        $this->assertSame($expectedValues2, $actualValues2);
+
+        $expectedKeys = [$key1, $key2, $key3];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
 
         sleep($ttl + 1);
-        $expectedValues = [
-            $key => $default,
+
+        $expectedValues1 = [
+            $key1 => $value1,
+            $key2 => $default,
         ];
-        $actualValues = $this->cache->getMultiple($keys, $default);
-        $this->assertSame($expectedValues, $actualValues);
+        $expectedValues2 = [
+            $key3 => $default,
+        ];
+        $actualValues1 = $this->cache->getMultiple($keys1, $default);
+        $actualValues2 = $this->cache->getMultiple($keys2, $default);
+        $this->assertSame($expectedValues1, $actualValues1);
+        $this->assertSame($expectedValues2, $actualValues2);
+
+        $expectedKeys = [$key1];
+        $content = $this->getStoredContent();
+        $actualKeys = array_keys($content);
+        $this->assertEquals($expectedKeys, $actualKeys);
     }
 
     /**
