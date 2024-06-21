@@ -54,17 +54,26 @@ class Cache implements CacheInterface
     {
         $this->validateKey($key);
 
-        try {
-            $storage = $this->retrieve();
+        return $this->getFromStorage($key, $default);
+    }
 
-            if ($this->valueDoesNotExist($key, $storage)) {
-                return $default;
-            }
+    /**
+     * Obtains multiple cache items by their unique keys.
+     *
+     * @param iterable<string> $keys A list of keys that can be obtained in a single operation.
+     * @param mixed $default Default value to return for keys that do not exist.
+     *
+     * @return iterable<string, mixed> A list of key => value pairs. Cache keys that do not exist or are stale will have $default as value.
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * MUST be thrown if $keys is neither an array nor a Traversable,
+     * or if any of the $keys are not a legal value.
+     */
+    public function getMultiple(iterable $keys, mixed $default = null): iterable
+    {
+        $this->validateKeys($keys);
 
-            return $storage[$key]['value'];
-        } catch (\RuntimeException) {
-            return false;
-        }
+        return $this->getMultipleFromStorage($keys, $default);
     }
 
     /**
@@ -85,85 +94,7 @@ class Cache implements CacheInterface
     {
         $this->validateKey($key);
 
-        try {
-            $storage = $this->retrieve();
-
-            $storage[$key] = [
-                'value' => $value,
-                'expires' => $this->calculateExpiration($ttl),
-            ];
-
-            $this->persist($storage);
-
-            return true;
-        } catch (\RuntimeException) {
-            return false;
-        }
-    }
-
-    /**
-     * Delete an item from the cache by its unique key.
-     *
-     * @param string $key The unique cache key of the item to delete.
-     *
-     * @return bool True if the item was successfully removed. False if there was an error.
-     *
-     * @throws \Psr\SimpleCache\InvalidArgumentException
-     * MUST be thrown if the $key string is not a legal value.
-     */
-    public function delete(string $key): bool
-    {
-        $this->validateKey($key);
-
-        try {
-            $storage = $this->retrieve();
-
-            if (! array_key_exists($key, $storage)) {
-                return false;
-            }
-
-            unset($storage[$key]);
-
-            $this->persist($storage);
-
-            return true;
-        } catch (\RuntimeException) {
-            return false;
-        }
-    }
-
-    /**
-     * Obtains multiple cache items by their unique keys.
-     *
-     * @param iterable<string> $keys A list of keys that can be obtained in a single operation.
-     * @param mixed $default Default value to return for keys that do not exist.
-     *
-     * @return iterable<string, mixed> A list of key => value pairs. Cache keys that do not exist or are stale will have $default as value.
-     *
-     * @throws \Psr\SimpleCache\InvalidArgumentException
-     * MUST be thrown if $keys is neither an array nor a Traversable,
-     * or if any of the $keys are not a legal value.
-     */
-    public function getMultiple(iterable $keys, mixed $default = null): iterable
-    {
-        $this->validateKeys($keys);
-
-        try {
-            $storage = $this->retrieve();
-            $values = [];
-
-            foreach ($keys as $key) {
-                if ($this->valueDoesNotExist($key, $storage)) {
-                    $values[$key] = $default;
-                } else {
-                    $values[$key] = $storage[$key]['value'];
-                }
-            }
-
-            return $values;
-        } catch (\RuntimeException) {
-            return [];
-        }
+        return $this->setInStorage($key, $value, $ttl);
     }
 
     /**
@@ -186,22 +117,24 @@ class Cache implements CacheInterface
     {
         $this->validateValues($values);
 
-        try {
-            $storage = $this->retrieve();
+        return $this->setMultipleInStorage($values, $ttl);
+    }
 
-            foreach ($values as $key => $value) {
-                $storage[$key] = [
-                    'value' => $value,
-                    'expires' => $this->calculateExpiration($ttl),
-                ];
-            }
+    /**
+     * Delete an item from the cache by its unique key.
+     *
+     * @param string $key The unique cache key of the item to delete.
+     *
+     * @return bool True if the item was successfully removed. False if there was an error.
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * MUST be thrown if the $key string is not a legal value.
+     */
+    public function delete(string $key): bool
+    {
+        $this->validateKey($key);
 
-            $this->persist($storage);
-
-            return true;
-        } catch (\RuntimeException) {
-            return false;
-        }
+        return $this->deleteFromStorage($key);
     }
 
     /**
@@ -221,37 +154,7 @@ class Cache implements CacheInterface
     {
         $this->validateKeys($keys);
 
-        try {
-            $this->validateKeys($keys);
-
-            $storage = $this->retrieve();
-
-            foreach ($keys as $key) {
-                unset($storage[$key]);
-            }
-
-            $this->persist($storage);
-
-            return true;
-        } catch (\RuntimeException) {
-            return false;
-        }
-    }
-
-    /**
-     * Wipes clean the entire cache's keys.
-     *
-     * @return bool True on success and false on failure.
-     */
-    public function clear(): bool
-    {
-        try {
-            $this->persist([]);
-
-            return true;
-        } catch (\RuntimeException) {
-            return false;
-        }
+        return $this->deleteMultipleFromStorage($keys);
     }
 
     /**
@@ -273,6 +176,192 @@ class Cache implements CacheInterface
     {
         $this->validateKey($key);
 
+        return $this->existInStorage($key);
+    }
+
+    /**
+     * Wipes clean the entire cache's keys.
+     *
+     * @return bool True on success and false on failure.
+     */
+    public function clear(): bool
+    {
+        try {
+            $this->persist([]);
+
+            return true;
+        } catch (\RuntimeException) {
+            return false;
+        }
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $default
+     *
+     * @return mixed
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    private function getFromStorage(string $key, mixed $default): mixed
+    {
+        try {
+            $storage = $this->retrieve();
+
+            if ($this->valueDoesNotExist($key, $storage)) {
+                return $default;
+            }
+
+            return $storage[$key]['value'];
+        } catch (\RuntimeException) {
+            return false;
+        }
+    }
+
+    /**
+     * @param iterable<string> $keys
+     * @param mixed $default
+     *
+     * @return iterable<string, mixed>
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    private function getMultipleFromStorage(iterable $keys, mixed $default): iterable
+    {
+        try {
+            $storage = $this->retrieve();
+            $values = [];
+
+            foreach ($keys as $key) {
+                if ($this->valueDoesNotExist($key, $storage)) {
+                    $values[$key] = $default;
+                } else {
+                    $values[$key] = $storage[$key]['value'];
+                }
+            }
+
+            return $values;
+        } catch (\RuntimeException) {
+            return [];
+        }
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @param null|int|\DateInterval $ttl
+     *
+     * @return bool
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    private function setInStorage(string $key, mixed $value, null|int|\DateInterval $ttl): bool
+    {
+        try {
+            $storage = $this->retrieve();
+
+            $storage[$key] = [
+                'value' => $value,
+                'expires' => $this->calculateExpiration($ttl),
+            ];
+
+            $this->persist($storage);
+
+            return true;
+        } catch (\RuntimeException) {
+            return false;
+        }
+    }
+
+    /**
+     * @param iterable $values
+     * @param null|int|\DateInterval $ttl
+     *
+     * @return bool
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    private function setMultipleInStorage(iterable $values, null|int|\DateInterval $ttl): bool
+    {
+        try {
+            $storage = $this->retrieve();
+
+            foreach ($values as $key => $value) {
+                $storage[$key] = [
+                    'value' => $value,
+                    'expires' => $this->calculateExpiration($ttl),
+                ];
+            }
+
+            $this->persist($storage);
+
+            return true;
+        } catch (\RuntimeException) {
+            return false;
+        }
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return bool
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    private function deleteFromStorage(string $key): bool
+    {
+        try {
+            $storage = $this->retrieve();
+
+            if (! array_key_exists($key, $storage)) {
+                return false;
+            }
+
+            unset($storage[$key]);
+
+            $this->persist($storage);
+
+            return true;
+        } catch (\RuntimeException) {
+            return false;
+        }
+    }
+
+    /**
+     * @param iterable<string> $keys
+     *
+     * @return bool
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    private function deleteMultipleFromStorage(iterable $keys): bool
+    {
+        try {
+            $this->validateKeys($keys);
+
+            $storage = $this->retrieve();
+
+            foreach ($keys as $key) {
+                unset($storage[$key]);
+            }
+
+            $this->persist($storage);
+
+            return true;
+        } catch (\RuntimeException) {
+            return false;
+        }
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return bool
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    private function existInStorage(string $key): bool
+    {
         try {
             $storage = $this->retrieve();
 

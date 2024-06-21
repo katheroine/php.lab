@@ -157,260 +157,6 @@ class CacheTest extends TestCase
         $this->assertEquals($expectedValue2, $actualValue2);
     }
 
-    public function testSetWhenKeyHasWrongType()
-    {
-        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
-            methodName: 'set',
-            argumentName: 'key',
-            argumentProperType: 'string',
-            argumentGivenType: 'null',
-            argumentNumber: 1
-        );
-
-        $this->expectException(\TypeError::class);
-        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
-
-        $this->cache->set(null, 'Some value.');
-    }
-
-    /**
-     * @dataProvider keyNameForbiddenCharacters
-     */
-    public function testSetWhenKeyNameContainsForbiddenCharacters($character)
-    {
-        $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
-
-        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
-        $this->expectExceptionMessage($expectedExceptionMessage);
-
-        $key = $character . 'some_key';
-
-        $this->cache->set($key, 'Some value.');
-    }
-
-    public function testSetWhenStorgeDoesNotExist()
-    {
-        list(
-            list($key1, $value1),
-            list($key2, $value2),
-        ) = $this->provideContentElements();
-
-        $result = $this->cache->set($key1, $value1);
-        $this->assertTrue($result);
-
-        $this->deleteContentStorage();
-
-        $result = $this->cache->set($key2, $value2);
-        $this->assertFalse($result);
-
-        $this->createContentStorage();
-    }
-
-    public function testSet()
-    {
-        list(
-            list($key1, $value1),
-            list($key2, $value2),
-            list($key3, $value3),
-        ) = $this->provideContentElements();
-
-        $result = $this->cache->set($key1, $value1);
-
-        $expectedContent = [
-            $key1 => [
-                'value' => $value1,
-                'expires' => null,
-            ],
-        ];
-        $actualContent = $this->getStoredContent();
-
-        $this->assertEquals($expectedContent, $actualContent);
-        $this->assertEquals(true, $result);
-
-        $result = $this->cache->set($key2, $value2);
-
-        $expectedContent = [
-            $key1 => [
-                'value' => $value1,
-                'expires' => null,
-            ],
-            $key2 => [
-                'value' => $value2,
-                'expires' => null,
-            ],
-        ];
-        $actualContent = $this->getStoredContent();
-
-        $this->assertEquals($expectedContent, $actualContent);
-        $this->assertEquals(true, $result);
-
-        $result = $this->cache->set($key3, $value3);
-
-        $expectedContent = [
-            $key1 => [
-                'value' => $value1,
-                'expires' => null,
-            ],
-            $key2 => [
-                'value' => $value2,
-                'expires' => null,
-            ],
-            $key3 => [
-                'value' => $value3,
-                'expires' => null,
-            ],
-        ];
-        $actualContent = $this->getStoredContent();
-
-        $this->assertEquals($expectedContent, $actualContent);
-        $this->assertEquals(true, $result);
-    }
-
-    public function testDeleteWhenKeyHasWrongType()
-    {
-        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
-            methodName: 'delete',
-            argumentName: 'key',
-            argumentProperType: 'string',
-            argumentGivenType: 'null',
-            argumentNumber: 1
-        );
-
-        $this->expectException(\TypeError::class);
-        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
-
-        $this->cache->delete(null);
-    }
-
-    /**
-     * @dataProvider keyNameForbiddenCharacters
-     */
-    public function testDeleteWhenKeyNameContainsForbiddenCharacters($character)
-    {
-        $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
-
-        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
-        $this->expectExceptionMessage($expectedExceptionMessage);
-
-        $key = $character . 'some_key';
-
-        $this->cache->delete($key);
-    }
-
-    public function testDeleteWhenStorgeDoesNotExist()
-    {
-        $this->setUpStoredContent();
-        list(
-            list($key1),
-            list($key2),
-        ) = $this->provideContentElements();
-
-        $result = $this->cache->delete($key1);
-        $this->assertTrue($result);
-
-        $this->deleteContentStorage();
-
-        $result = $this->cache->delete($key2);
-        $this->assertFalse($result);
-
-        $this->createContentStorage();
-    }
-
-    /**
-     * @dataProvider keyValueDataProvider
-     */
-    public function testDelete($situation, $key, $expectedResult)
-    {
-        $this->setUpStoredContent();
-        $expectedContent = $this->provideContent();
-
-        $title = $situation . ' ' . $key;
-
-        $actualResult = $this->cache->delete($key);
-
-        unset($expectedContent[$key]);
-        $actualContent = $this->getStoredContent();
-
-        $this->assertEquals($expectedResult, $actualResult, $title);
-        $this->assertEquals($expectedContent, $actualContent, $title);
-    }
-
-    public function testClear()
-    {
-        $this->setUpStoredContent();
-
-        $this->cache->clear();
-
-        $content = $this->getStoredContent();
-
-        $this->assertEmpty($content);
-    }
-
-    public function testHasWhenKeyHasWrongType()
-    {
-        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
-            methodName: 'has',
-            argumentName: 'key',
-            argumentProperType: 'string',
-            argumentGivenType: 'null',
-            argumentNumber: 1
-        );
-
-        $this->expectException(\TypeError::class);
-        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
-
-        $this->cache->has(null);
-    }
-
-    /**
-     * @dataProvider keyNameForbiddenCharacters
-     */
-    public function testHasWhenKeyNameContainsForbiddenCharacters($character)
-    {
-        $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
-
-        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
-        $this->expectExceptionMessage($expectedExceptionMessage);
-
-        $key = $character . 'some_key';
-
-        $this->cache->has($key);
-    }
-
-    public function testHasWhenStorgeDoesNotExist()
-    {
-        $this->setUpStoredContent();
-        list(
-            list($key1),
-            list($key2),
-        ) = $this->provideContentElements();
-
-        $result = $this->cache->has($key1);
-        $this->assertTrue($result);
-
-        $this->deleteContentStorage();
-
-        $result = $this->cache->has($key2);
-        $this->assertFalse($result);
-
-        $this->createContentStorage();
-    }
-
-
-    /**
-     * @dataProvider keyValueDataProvider
-     */
-    public function testHas($situation, $key, $expectedResult)
-    {
-        $this->setUpStoredContent();
-
-        $title = $situation . ' ' . $key;
-
-        $actualResult = $this->cache->has($key);
-
-        $this->assertEquals($expectedResult, $actualResult, $title);
-    }
-
     public function testGetMultipleWhenKeysHasWrongType()
     {
         $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
@@ -568,6 +314,115 @@ class CacheTest extends TestCase
         ], $actualValues23);
     }
 
+    public function testSetWhenKeyHasWrongType()
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'set',
+            argumentName: 'key',
+            argumentProperType: 'string',
+            argumentGivenType: 'null',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cache->set(null, 'Some value.');
+    }
+
+    /**
+     * @dataProvider keyNameForbiddenCharacters
+     */
+    public function testSetWhenKeyNameContainsForbiddenCharacters($character)
+    {
+        $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
+
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $key = $character . 'some_key';
+
+        $this->cache->set($key, 'Some value.');
+    }
+
+    public function testSetWhenStorgeDoesNotExist()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+        ) = $this->provideContentElements();
+
+        $result = $this->cache->set($key1, $value1);
+        $this->assertTrue($result);
+
+        $this->deleteContentStorage();
+
+        $result = $this->cache->set($key2, $value2);
+        $this->assertFalse($result);
+
+        $this->createContentStorage();
+    }
+
+    public function testSet()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideContentElements();
+
+        $result = $this->cache->set($key1, $value1);
+
+        $expectedContent = [
+            $key1 => [
+                'value' => $value1,
+                'expires' => null,
+            ],
+        ];
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals($expectedContent, $actualContent);
+        $this->assertEquals(true, $result);
+
+        $result = $this->cache->set($key2, $value2);
+
+        $expectedContent = [
+            $key1 => [
+                'value' => $value1,
+                'expires' => null,
+            ],
+            $key2 => [
+                'value' => $value2,
+                'expires' => null,
+            ],
+        ];
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals($expectedContent, $actualContent);
+        $this->assertEquals(true, $result);
+
+        $result = $this->cache->set($key3, $value3);
+
+        $expectedContent = [
+            $key1 => [
+                'value' => $value1,
+                'expires' => null,
+            ],
+            $key2 => [
+                'value' => $value2,
+                'expires' => null,
+            ],
+            $key3 => [
+                'value' => $value3,
+                'expires' => null,
+            ],
+        ];
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals($expectedContent, $actualContent);
+        $this->assertEquals(true, $result);
+    }
+
     public function testSetMultipleWhenValuesHasWrongType()
     {
         $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
@@ -720,6 +575,75 @@ class CacheTest extends TestCase
         $this->assertEquals(true, $result);
     }
 
+    public function testDeleteWhenKeyHasWrongType()
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'delete',
+            argumentName: 'key',
+            argumentProperType: 'string',
+            argumentGivenType: 'null',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cache->delete(null);
+    }
+
+    /**
+     * @dataProvider keyNameForbiddenCharacters
+     */
+    public function testDeleteWhenKeyNameContainsForbiddenCharacters($character)
+    {
+        $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
+
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $key = $character . 'some_key';
+
+        $this->cache->delete($key);
+    }
+
+    public function testDeleteWhenStorgeDoesNotExist()
+    {
+        $this->setUpStoredContent();
+        list(
+            list($key1),
+            list($key2),
+        ) = $this->provideContentElements();
+
+        $result = $this->cache->delete($key1);
+        $this->assertTrue($result);
+
+        $this->deleteContentStorage();
+
+        $result = $this->cache->delete($key2);
+        $this->assertFalse($result);
+
+        $this->createContentStorage();
+    }
+
+    /**
+     * @dataProvider keyValueDataProvider
+     */
+    public function testDelete($situation, $key, $expectedResult)
+    {
+        $this->setUpStoredContent();
+        $expectedContent = $this->provideContent();
+
+        $title = $situation . ' ' . $key;
+
+        $actualResult = $this->cache->delete($key);
+
+        unset($expectedContent[$key]);
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals($expectedResult, $actualResult, $title);
+        $this->assertEquals($expectedContent, $actualContent, $title);
+    }
+
     public function testDeleteMultipleWhenKeysHasWrongType()
     {
         $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
@@ -866,6 +790,81 @@ class CacheTest extends TestCase
         $actualContent = $this->getStoredContent();
         $this->assertEquals($expectedContent, $actualContent);
         $this->assertTrue($result);
+    }
+
+    public function testHasWhenKeyHasWrongType()
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'has',
+            argumentName: 'key',
+            argumentProperType: 'string',
+            argumentGivenType: 'null',
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cache->has(null);
+    }
+
+    /**
+     * @dataProvider keyNameForbiddenCharacters
+     */
+    public function testHasWhenKeyNameContainsForbiddenCharacters($character)
+    {
+        $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
+
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $key = $character . 'some_key';
+
+        $this->cache->has($key);
+    }
+
+    public function testHasWhenStorgeDoesNotExist()
+    {
+        $this->setUpStoredContent();
+        list(
+            list($key1),
+            list($key2),
+        ) = $this->provideContentElements();
+
+        $result = $this->cache->has($key1);
+        $this->assertTrue($result);
+
+        $this->deleteContentStorage();
+
+        $result = $this->cache->has($key2);
+        $this->assertFalse($result);
+
+        $this->createContentStorage();
+    }
+
+    /**
+     * @dataProvider keyValueDataProvider
+     */
+    public function testHas($situation, $key, $expectedResult)
+    {
+        $this->setUpStoredContent();
+
+        $title = $situation . ' ' . $key;
+
+        $actualResult = $this->cache->has($key);
+
+        $this->assertEquals($expectedResult, $actualResult, $title);
+    }
+
+    public function testClear()
+    {
+        $this->setUpStoredContent();
+
+        $this->cache->clear();
+
+        $content = $this->getStoredContent();
+
+        $this->assertEmpty($content);
     }
 
     public function testSetAndHasWithTTL()
