@@ -62,6 +62,10 @@ class CacheItem implements CacheItemInterface
      */
     public function isHit(): bool
     {
+        if ($this->expired()) {
+            $this->reset();
+        }
+
         return $this->isHit;
     }
 
@@ -131,6 +135,13 @@ class CacheItem implements CacheItemInterface
      */
     public function expiresAt(?\DateTimeInterface $expiration): static
     {
+        if (is_null($expiration)) {
+            return $this;
+        }
+
+        $this->expiresAt = $expiration->getTimestamp();
+
+        return $this;
     }
 
     /**
@@ -148,10 +159,24 @@ class CacheItem implements CacheItemInterface
      */
     public function expiresAfter(int|\DateInterval|null $time): static
     {
+        if (is_null($time)) {
+            return $this;
+        }
+
+        if ($time instanceof \DateInterval) {
+            $unifiedTime = $time->s;
+        } elseif (is_int($time)) {
+            $unifiedTime = $time;
+        }
+
+        $this->expiresAt = time() + $unifiedTime;
+
+        return $this;
     }
 
     /**
      * @param string $key
+     *
      * @return void
      *
      * @throws InvalidArgumentException
@@ -167,5 +192,22 @@ class CacheItem implements CacheItemInterface
                 throw new InvalidArgumentException("Argument key contains forbidden character {$forbiddenCharacter}");
             }
         }
+    }
+
+    /**
+     * @return bool
+     */
+    private function expired(): bool
+    {
+        $expired = ! is_null($this->expiresAt)
+            && (time() > $this->expiresAt);
+
+        return $expired;
+    }
+
+    private function reset(): void
+    {
+        $this->isHit = false;
+        $this->value = null;
     }
 }

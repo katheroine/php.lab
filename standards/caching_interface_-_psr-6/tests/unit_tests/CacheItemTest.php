@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace PHPLab\StandardPSR6;
 
+use DateInterval;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class CacheItemTest extends TestCase
@@ -186,6 +188,228 @@ class CacheItemTest extends TestCase
         $this->assertTrue($result);
     }
 
+    public function testExpiresAtReturnsSelf()
+    {
+        $result = $this->cacheItem->expiresAt(new DateTime());
+
+        $this->assertSame($this->cacheItem, $result);
+    }
+
+    public function testExpiresAtWhenExpirationIsNull()
+    {
+        $expectedValue = 'Some value';
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertFalse($hitResult);
+        $this->assertNull($actualValue);
+
+        $this->cacheItem->set($expectedValue);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertTrue($hitResult);
+        $this->assertSame($expectedValue, $actualValue);
+
+        $this->cacheItem->expiresAt(null);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertTrue($hitResult);
+        $this->assertSame($expectedValue, $actualValue);
+
+        sleep(1);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertTrue($hitResult);
+        $this->assertSame($expectedValue, $actualValue);
+    }
+
+    /**
+     * @dataProvider times
+     */
+    public function testExpiresAtWhenExpirationIsDateTime(int $time)
+    {
+        $expiration = new \DateTime('+' . $time . ' second');
+        $expectedValue = 'Some value';
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertFalse($hitResult);
+        $this->assertNull($actualValue);
+
+        $this->cacheItem->set($expectedValue);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertTrue($hitResult);
+        $this->assertSame($expectedValue, $actualValue);
+
+        $this->cacheItem->expiresAt($expiration);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertTrue($hitResult);
+        $this->assertSame($expectedValue, $actualValue);
+
+        sleep($time + 1);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertFalse($hitResult);
+        $this->assertNull($actualValue);
+    }
+
+    /**
+     * @dataProvider invalidTypeExpirations
+     */
+    public function testExpiresAtWhenExpirationHasWrongType(mixed $expiration, string $wrongExpirationType)
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'expiresAt',
+            argumentName: 'expiration',
+            argumentProperType: '?DateTimeInterface',
+            argumentGivenType: $wrongExpirationType,
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cacheItem->expiresAt($expiration);
+    }
+
+    public function testExpiresAfterReturnsSelf()
+    {
+        $result = $this->cacheItem->expiresAfter(1);
+
+        $this->assertSame($this->cacheItem, $result);
+
+        $result = $this->cacheItem->expiresAfter(new \DateInterval('PT1S'));
+
+        $this->assertSame($this->cacheItem, $result);
+    }
+
+    /**
+     * @dataProvider invalidTypeTimes
+     */
+    public function testExpiresAfterWhenExpirationHasWrongType(mixed $time, string $wrongTimeType)
+    {
+        $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
+            methodName: 'expiresAfter',
+            argumentName: 'time',
+            argumentProperType: 'DateInterval|int|null',
+            argumentGivenType: $wrongTimeType,
+            argumentNumber: 1
+        );
+
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
+
+        $this->cacheItem->expiresAfter($time);
+    }
+
+    public function testExpiresAfterWhenTimeIsNull()
+    {
+        $expectedValue = 'Some value';
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertFalse($hitResult);
+        $this->assertNull($actualValue);
+
+        $this->cacheItem->set($expectedValue);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertTrue($hitResult);
+        $this->assertSame($expectedValue, $actualValue);
+
+        $this->cacheItem->expiresAfter(null);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertTrue($hitResult);
+        $this->assertSame($expectedValue, $actualValue);
+
+        sleep(1);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertTrue($hitResult);
+        $this->assertSame($expectedValue, $actualValue);
+    }
+
+    /**
+     * @dataProvider times
+     */
+    public function testExpiresAfterWhenTimeIsInteger(int $timeAsInteger)
+    {
+        $expectedValue = 'Some value';
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertFalse($hitResult);
+        $this->assertNull($actualValue);
+
+        $this->cacheItem->set($expectedValue);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertTrue($hitResult);
+        $this->assertSame($expectedValue, $actualValue);
+
+        $this->cacheItem->expiresAfter($timeAsInteger);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertTrue($hitResult);
+        $this->assertSame($expectedValue, $actualValue);
+
+        sleep($timeAsInteger + 1);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertFalse($hitResult);
+        $this->assertNull($actualValue);
+    }
+
+    /**
+     * @dataProvider times
+     */
+    public function testExpiresAfterWhenTimeIsDateInterval(int $timeAsInteger)
+    {
+        $timeAsDateInterval = new \DateInterval('PT' . $timeAsInteger . 'S');
+        $expectedValue = 'Some value';
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertFalse($hitResult);
+        $this->assertNull($actualValue);
+
+        $this->cacheItem->set($expectedValue);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertTrue($hitResult);
+        $this->assertSame($expectedValue, $actualValue);
+
+        $this->cacheItem->expiresAfter($timeAsDateInterval);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertTrue($hitResult);
+        $this->assertSame($expectedValue, $actualValue);
+
+        sleep($timeAsInteger + 1);
+
+        $hitResult = $this->cacheItem->isHit();
+        $actualValue = $this->cacheItem->get();
+        $this->assertFalse($hitResult);
+        $this->assertNull($actualValue);
+    }
+
     /**
      * Provide characters that aren't allowed
      * to be placed into the key name.
@@ -251,6 +475,44 @@ class CacheItemTest extends TestCase
             ['Some value'],
             [[1, 2, 'three']],
             [(object) ['type' => 'fruit', 'name' => 'orange']],
+        ];
+    }
+
+    /**
+     * Provide expirations of invalid types.
+     *
+     * @return array
+     */
+    public static function invalidTypeExpirations(): array
+    {
+        return [
+            [10, 'int'],
+            [10.5, 'float'],
+            [[], 'array'],
+            [new \stdClass(), 'stdClass'],
+        ];
+    }
+
+    /**
+     * Provide times of invalid types.
+     *
+     * @return array
+     */
+    public static function invalidTypeTimes(): array
+    {
+        return [
+            [10.5, 'float'],
+            [[], 'array'],
+            [new \stdClass(), 'stdClass'],
+        ];
+    }
+
+    public static function times(): array
+    {
+        return [
+            [0],
+            [1],
+            [2],
         ];
     }
 
