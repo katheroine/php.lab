@@ -2,7 +2,7 @@
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.10",
         "phpunit/phpunit": "^10.4",
-        "psr/simple-cache": "*"
+        "psr/cache": "*"
     },
     "autoload": {
         "psr-4": {
