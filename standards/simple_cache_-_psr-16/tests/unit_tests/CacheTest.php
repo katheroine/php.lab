@@ -22,7 +22,7 @@ class CacheTest extends TestCase
      */
     private const CACHE_FULLY_QUALIFIED_CLASS_NAME = 'PHPLab\\StandardPSR16\\Cache';
     private const PSR_SIMPLE_CACHE_FULLY_QUALIFIED_INTERFACE_NAME = 'Psr\\SimpleCache\\CacheInterface';
-    private const PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME = 'Psr\\SimpleCache\\InvalidArgumentException';
+    private const PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME = 'Psr\\SimpleCache\\InvalidArgumentException';
     protected const STORAGE_FILE_ABSOLUTE_PATH = __DIR__
         . DIRECTORY_SEPARATOR . '/../fixtures/var/psr16cache.storage';
 
@@ -44,7 +44,7 @@ class CacheTest extends TestCase
     }
 
     /**
-     * Test Cache class implements Psr\SimpleCache.
+     * Test Cache class implements Psr\SimpleCache\CacheInterface.
      */
     public function testImplementsPsrSimpleCacheInterface()
     {
@@ -92,7 +92,7 @@ class CacheTest extends TestCase
     {
         $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
 
-        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $key = $character . 'some_key';
@@ -211,7 +211,7 @@ class CacheTest extends TestCase
     {
         $expectedExceptionMessage = "Argument keys item with index 0 must be type of string, NULL given";
 
-        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $this->cache->getMultiple([null]);
@@ -224,7 +224,7 @@ class CacheTest extends TestCase
     {
         $expectedExceptionMessage = "Argument keys item with index 0 contains forbidden character {$character}";
 
-        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $key = $character . 'some_key';
@@ -337,7 +337,7 @@ class CacheTest extends TestCase
     {
         $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
 
-        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $key = $character . 'some_key';
@@ -477,7 +477,7 @@ class CacheTest extends TestCase
     {
         $expectedExceptionMessage = "Argument values item with index 0 key must be type of string, integer given";
 
-        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $this->cache->setMultiple([1 => 'Some value.']);
@@ -490,7 +490,7 @@ class CacheTest extends TestCase
     {
         $expectedExceptionMessage = "Argument keys item with index 0 contains forbidden character {$character}";
 
-        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $key = $character . 'some_key';
@@ -598,7 +598,7 @@ class CacheTest extends TestCase
     {
         $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
 
-        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $key = $character . 'some_key';
@@ -698,7 +698,7 @@ class CacheTest extends TestCase
     {
         $expectedExceptionMessage = "Argument keys item with index 0 must be type of string, NULL given";
 
-        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $this->cache->deleteMultiple([null]);
@@ -711,7 +711,7 @@ class CacheTest extends TestCase
     {
         $expectedExceptionMessage = "Argument keys item with index 0 contains forbidden character {$character}";
 
-        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $key = $character . 'some_key';
@@ -815,7 +815,7 @@ class CacheTest extends TestCase
     {
         $expectedExceptionMessage = "Argument key contains forbidden character {$character}";
 
-        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_CLASS_NAME);
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $key = $character . 'some_key';
