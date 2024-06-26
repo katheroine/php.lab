@@ -13,11 +13,10 @@ declare(strict_types=1);
 
 namespace PHPLab\StandardPSR6;
 
-use DateInterval;
+use PHPLab\StandardPSR6\CacheTest;
 use DateTime;
-use PHPUnit\Framework\TestCase;
 
-class CacheItemTest extends TestCase
+class CacheItemTest extends CacheTest
 {
     /**
      * @var string
@@ -47,7 +46,7 @@ class CacheItemTest extends TestCase
     /**
      * Test CacheItem class implements Psr\Cache\CacheItem.
      */
-    public function testImplementsPsrSimpleCacheInterface()
+    public function testImplementsPsrCacheItemInterface()
     {
         $this->assertImplements($this->cacheItem, self::PSR_CACHING_FULLY_QUALIFIED_INTERFACE_NAME);
     }
@@ -408,154 +407,6 @@ class CacheItemTest extends TestCase
         $actualValue = $this->cacheItem->get();
         $this->assertFalse($hitResult);
         $this->assertNull($actualValue);
-    }
-
-    /**
-     * Provide characters that aren't allowed
-     * to be placed into the key name.
-     *
-     * @return array
-     */
-    public static function keyNameForbiddenCharacters(): array
-    {
-        return [
-            ['{'],
-            ['}'],
-            ['('],
-            [')'],
-            ['/'],
-            ['\\'],
-            ['@'],
-            [':'],
-        ];
-    }
-
-    /**
-     * Provide strings that can be used as the valid keys.
-     *
-     * @return array
-     */
-    public static function validKeys(): array
-    {
-        return [
-            ['some_key'],
-            ['other.key'],
-            ['ANOTHERkey10'],
-        ];
-    }
-
-    /**
-     * Provide keys of invalid types.
-     *
-     * @return array
-     */
-    public static function invalidTypeKeys(): array
-    {
-        return [
-            [null, 'null'],
-            [10, 'int'],
-            [10.5, 'float'],
-            [[], 'array'],
-            [new \stdClass(), 'stdClass'],
-        ];
-    }
-
-    /**
-     * Provide data that can be used as the valid values.
-     *
-     * @return array
-     */
-    public static function validValues(): array
-    {
-        return [
-            [null],
-            [true],
-            [10],
-            [10.5],
-            ['Some value'],
-            [[1, 2, 'three']],
-            [(object) ['type' => 'fruit', 'name' => 'orange']],
-        ];
-    }
-
-    /**
-     * Provide expirations of invalid types.
-     *
-     * @return array
-     */
-    public static function invalidTypeExpirations(): array
-    {
-        return [
-            [10, 'int'],
-            [10.5, 'float'],
-            [[], 'array'],
-            [new \stdClass(), 'stdClass'],
-        ];
-    }
-
-    /**
-     * Provide times of invalid types.
-     *
-     * @return array
-     */
-    public static function invalidTypeTimes(): array
-    {
-        return [
-            [10.5, 'float'],
-            [[], 'array'],
-            [new \stdClass(), 'stdClass'],
-        ];
-    }
-
-    public static function times(): array
-    {
-        return [
-            [0],
-            [1],
-            [2],
-        ];
-    }
-
-    /**
-     * Assert object class implements given interface.
-     *
-     * @param mixed  $object
-     * @param string $interface
-     */
-    private function assertImplements(mixed $object, string $interface): void
-    {
-        $implementedInterfaces = class_implements($object);
-        $implementsInterface = in_array($interface, $implementedInterfaces);
-
-        $this->assertTrue($implementsInterface);
-    }
-
-    /**
-     * Build ArgumentTypeError exception message regular expression pattern.
-     *
-     * @param string $methodName
-     * @param string $argumentName
-     * @param string $argumentProperType
-     * @param string $argumentGivenType
-     * @param int $arguemntNumber Starts from 0
-     *
-     * @return string
-     */
-    private function buildArgumentTypeErrorMessagePattern(
-        string $methodName,
-        string $argumentName,
-        string $argumentProperType,
-        string $argumentGivenType,
-        int $argumentNumber
-    ): string {
-        $messagePattern = '/' . preg_quote(
-            "::{$methodName}(): "
-            . 'Argument #' . strval($argumentNumber)
-            . " (\${$argumentName}) must be of type {$argumentProperType}, "
-            . "{$argumentGivenType} given"
-        ) . '/';
-
-        return $messagePattern;
     }
 
     /**

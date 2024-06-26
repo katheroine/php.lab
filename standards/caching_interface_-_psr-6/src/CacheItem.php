@@ -15,15 +15,8 @@ namespace PHPLab\StandardPSR6;
 
 use Psr\Cache\CacheItemInterface;
 
-class CacheItem implements CacheItemInterface
+class CacheItem extends Cache implements CacheItemInterface
 {
-    /**
-     * Characters that cannot be contained by the key name.
-     *
-     * @var array
-     */
-    private const KEY_FORBIDDEN_CHARACTERS = ['{', '}', '(', ')', '/', '\\', '@', ':'];
-
     /**
      * @var string
      */
@@ -172,26 +165,6 @@ class CacheItem implements CacheItemInterface
         $this->expiresAt = time() + $unifiedTime;
 
         return $this;
-    }
-
-    /**
-     * @param string $key
-     *
-     * @return void
-     *
-     * @throws InvalidArgumentException
-     */
-    private function validateKey(string $key): void
-    {
-        if (strlen($key) < 1) {
-            throw new InvalidArgumentException("Argument key should consist of at least one character");
-        }
-
-        foreach (self::KEY_FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
-            if (str_contains($key, $forbiddenCharacter)) {
-                throw new InvalidArgumentException("Argument key contains forbidden character {$forbiddenCharacter}");
-            }
-        }
     }
 
     /**
