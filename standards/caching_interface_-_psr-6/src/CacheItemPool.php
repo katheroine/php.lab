@@ -61,6 +61,8 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
     public function getItem(string $key): CacheItemInterface
     {
         $this->validateKey($key);
+
+        return new CacheItem('-');
     }
 
     /**
@@ -81,6 +83,9 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
      */
     public function getItems(array $keys = []): iterable
     {
+        $this->validateKeys($keys);
+
+        return [];
     }
 
     /**
@@ -99,6 +104,8 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
     public function deleteItem(string $key): bool
     {
         $this->validateKey($key);
+
+        return false;
     }
 
     /**
@@ -116,6 +123,9 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
      */
     public function deleteItems(array $keys): bool
     {
+        $this->validateKeys($keys);
+
+        return false;
     }
 
     /**
@@ -129,6 +139,7 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
      */
     public function save(CacheItemInterface $item): bool
     {
+        return false;
     }
 
     /**
@@ -142,6 +153,7 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
      */
     public function saveDeferred(CacheItemInterface $item): bool
     {
+        return false;
     }
 
     /**
@@ -152,6 +164,7 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
      */
     public function clear(): bool
     {
+        return false;
     }
 
     /**
@@ -162,5 +175,6 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
      */
     public function commit(): bool
     {
+        return false;
     }
 }

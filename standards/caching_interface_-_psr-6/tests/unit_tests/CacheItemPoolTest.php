@@ -50,6 +50,13 @@ class CacheItemPoolTest extends CacheTest
         $this->assertImplements($this->cacheItemPool, self::PSR_CACHE_ITEM_POOL_FULLY_QUALIFIED_INTERFACE_NAME);
     }
 
+    public function testHasItemReturnsBool()
+    {
+        $result = $this->cacheItemPool->hasItem('some_key');
+
+        $this->assertIsBool($result);
+    }
+
     /**
      * @dataProvider invalidTypeKeys
      */
@@ -94,6 +101,68 @@ class CacheItemPoolTest extends CacheTest
         $this->cacheItemPool->hasItem($key);
     }
 
+    public function testHasItemWhenPoolIsEmpty()
+    {
+        $result = $this->cacheItemPool->hasItem('some_key');
+
+        $this->assertFalse($result);
+    }
+
+    public function testHasItemWithSaveWhenKeyHasNoRelatedItem()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->save($item1);
+        $this->cacheItemPool->save($item2);
+        $this->cacheItemPool->save($item3);
+
+        $result = $this->cacheItemPool->hasItem('unexistent');
+
+        $this->assertFalse($result);
+    }
+
+    public function testHasItemWithSaveDeferredWhenKeyHasNoRelatedItem()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->saveDeferred($item1);
+        $this->cacheItemPool->saveDeferred($item2);
+        $this->cacheItemPool->saveDeferred($item3);
+
+        $result = $this->cacheItemPool->hasItem('unexistent');
+
+        $this->assertFalse($result);
+    }
+
+    public function testGetItemReturnsCacheItem()
+    {
+        $result = $this->cacheItemPool->getItem('some_key');
+
+        $this->assertInstanceOf(CacheItem::class, $result);
+    }
+
     /**
      * @dataProvider invalidTypeKeys
      */
@@ -111,20 +180,6 @@ class CacheItemPoolTest extends CacheTest
         $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
 
         $this->cacheItemPool->getItem($key);
-    }
-
-    public function testHasItemReturnsBool()
-    {
-        $result = $this->cacheItemPool->hasItem('some_key');
-
-        $this->assertTrue(is_bool($result));
-    }
-
-    public function testHasItemWhenPoolIsEmpty()
-    {
-        $result = $this->cacheItemPool->hasItem('some_key');
-
-        $this->assertFalse($result);
     }
 
     public function testGetItemWhenKeyIsShorterThanOneCharacter()
@@ -152,6 +207,71 @@ class CacheItemPoolTest extends CacheTest
         $this->cacheItemPool->getItem($key);
     }
 
+    public function testGetItemWhenPoolIsEmpty()
+    {
+        $result = $this->cacheItemPool->getItem('some_key');
+
+        $this->assertInstanceOf(CacheItem::class, $result);
+        $this->assertFalse($result->isHit());
+    }
+
+    public function testGetItemWithSaveWhenKeyHasNoRelatedItem()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->save($item1);
+        $this->cacheItemPool->save($item2);
+        $this->cacheItemPool->save($item3);
+
+        $result = $this->cacheItemPool->getItem('unexistent');
+
+        $this->assertInstanceOf(CacheItem::class, $result);
+        $this->assertFalse($result->isHit());
+    }
+
+    public function testGetItemWithSaveDeferredWhenKeyHasNoRelatedItem()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->saveDeferred($item1);
+        $this->cacheItemPool->saveDeferred($item2);
+        $this->cacheItemPool->saveDeferred($item3);
+
+        $result = $this->cacheItemPool->getItem('unexistent');
+
+        $this->assertInstanceOf(CacheItem::class, $result);
+        $this->assertFalse($result->isHit());
+    }
+
+    public function testGetItemsReturnsIterable()
+    {
+        $result = $this->cacheItemPool->getItems([]);
+
+        $this->assertIsIterable($result);
+    }
+
     /**
      * @dataProvider invalidTypeMultipleKeys
      */
@@ -169,6 +289,99 @@ class CacheItemPoolTest extends CacheTest
         $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
 
         $this->cacheItemPool->getItems($keys);
+    }
+
+    public function testGetItemsWhenKeysIsShorterThanOneCharacter()
+    {
+        $expectedExceptionMessage = "Argument keys item with index 0 should consist of at least one character";
+
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $this->cacheItemPool->getItems(['']);
+    }
+
+    /**
+     * @dataProvider keyNameForbiddenCharacters
+     */
+    public function testGetItemsWhenKeysContainForbiddenCharacters($character)
+    {
+        $expectedExceptionMessage = "Argument keys item with index 0 contains forbidden character {$character}";
+
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $key = $character . 'some_key';
+
+        $keys = [
+            $key,
+        ];
+
+        $this->cacheItemPool->getItems($keys);
+    }
+
+    public function testGetItemsWhenPoolIsEmpty()
+    {
+        $result = $this->cacheItemPool->getItems([]);
+
+        $this->assertEmpty($result);
+    }
+
+    public function testGetItemsWithSaveWhenKeyHasNoRelatedItem()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->save($item1);
+        $this->cacheItemPool->save($item2);
+        $this->cacheItemPool->save($item3);
+
+        $result = $this->cacheItemPool->getItems(['unexistent']);
+
+        $this->assertEmpty($result);
+    }
+
+    public function testGetItemsWithSaveDeferredWhenKeyHasNoRelatedItem()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->saveDeferred($item1);
+        $this->cacheItemPool->saveDeferred($item2);
+        $this->cacheItemPool->saveDeferred($item3);
+
+        $result = $this->cacheItemPool->getItem('unexistent');
+
+        $result = $this->cacheItemPool->getItems(['unexistent']);
+
+        $this->assertEmpty($result);
+    }
+
+    public function testDeleteItemReturnsBool()
+    {
+        $result = $this->cacheItemPool->deleteItem('some_key');
+
+        $this->assertIsBool($result);
     }
 
     /**
@@ -215,6 +428,68 @@ class CacheItemPoolTest extends CacheTest
         $this->cacheItemPool->deleteItem($key);
     }
 
+    public function testDeleteItemWhenPoolIsEmpty()
+    {
+        $result = $this->cacheItemPool->deleteItem('some_key');
+
+        $this->assertFalse($result);
+    }
+
+    public function testDeleteItemWithSaveWhenKeyHasNoRelatedItem()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->save($item1);
+        $this->cacheItemPool->save($item2);
+        $this->cacheItemPool->save($item3);
+
+        $result = $this->cacheItemPool->deleteItem('unexistent');
+
+        $this->assertFalse($result);
+    }
+
+    public function testDeleteItemWithSaveDeferredWhenKeyHasNoRelatedItem()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->saveDeferred($item1);
+        $this->cacheItemPool->saveDeferred($item2);
+        $this->cacheItemPool->saveDeferred($item3);
+
+        $result = $this->cacheItemPool->deleteItem('unexistent');
+
+        $this->assertFalse($result);
+    }
+
+    public function testDeleteItemsReturnsBool()
+    {
+        $result = $this->cacheItemPool->deleteItems([]);
+
+        $this->assertIsBool($result);
+    }
+
     /**
      * @dataProvider invalidTypeMultipleKeys
      */
@@ -234,6 +509,98 @@ class CacheItemPoolTest extends CacheTest
         $this->cacheItemPool->deleteItems($keys);
     }
 
+    public function testDeleteItemsWhenKeysIsShorterThanOneCharacter()
+    {
+        $expectedExceptionMessage = "Argument keys item with index 0 should consist of at least one character";
+
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $this->cacheItemPool->deleteItems(['']);
+    }
+
+    /**
+     * @dataProvider keyNameForbiddenCharacters
+     */
+    public function testDeleteItemsWhenKeysContainForbiddenCharacters($character)
+    {
+        $expectedExceptionMessage = "Argument keys item with index 0 contains forbidden character {$character}";
+
+        $this->expectException(self::PSR_INVALID_ARGUMENT_EXCEPTION_FULLY_QUALIFIED_INTERFACE_NAME);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $key = $character . 'some_key';
+
+        $keys = [
+            $key,
+        ];
+
+        $this->cacheItemPool->deleteItems($keys);
+    }
+
+    public function testDeleteItemsWhenPoolIsEmpty()
+    {
+        $result = $this->cacheItemPool->deleteItems(['some_key']);
+
+        $this->assertFalse($result);
+    }
+
+    public function testDeleteItemsWithSaveWhenKeyHasNoRelatedItem()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->save($item1);
+        $this->cacheItemPool->save($item2);
+        $this->cacheItemPool->save($item3);
+
+        $result = $this->cacheItemPool->deleteItems(['unexistent']);
+
+        $this->assertFalse($result);
+    }
+
+    public function testDeleteItemsWithSaveDeferredWhenKeyHasNoRelatedItem()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->saveDeferred($item1);
+        $this->cacheItemPool->saveDeferred($item2);
+        $this->cacheItemPool->saveDeferred($item3);
+
+        $result = $this->cacheItemPool->deleteItems(['unexistent']);
+
+        $this->assertFalse($result);
+    }
+
+    public function testSaveReturnsBool()
+    {
+        $item = new CacheItem('some_key');
+        $result = $this->cacheItemPool->save($item);
+
+        $this->assertIsBool($result);
+    }
+
     /**
      * @dataProvider invalidTypeItems
      */
@@ -251,6 +618,28 @@ class CacheItemPoolTest extends CacheTest
         $this->expectExceptionMessageMatches($expectedErrorMessagePattern);
 
         $this->cacheItemPool->save($item);
+    }
+
+    public function testSaveDeferredReturnsBool()
+    {
+        $item = new CacheItem('some_key');
+        $result = $this->cacheItemPool->saveDeferred($item);
+
+        $this->assertIsBool($result);
+    }
+
+    public function testClearReturnsBool()
+    {
+        $result = $this->cacheItemPool->clear();
+
+        $this->assertIsBool($result);
+    }
+
+    public function testCommitReturnsBool()
+    {
+        $result = $this->cacheItemPool->commit();
+
+        $this->assertIsBool($result);
     }
 
     /**
