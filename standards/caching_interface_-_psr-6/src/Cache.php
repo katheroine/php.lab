@@ -23,6 +23,19 @@ abstract class Cache
     protected const KEY_FORBIDDEN_CHARACTERS = ['{', '}', '(', ')', '/', '\\', '@', ':'];
 
     /**
+     * @param string $key
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function validateKey(string $key): void
+    {
+        $this->validateKeyAgainstLength($key);
+        $this->validateKeyAgainstForbiddenCharacters($key);
+    }
+
+    /**
      * @param array $keys
      *
      * @return void
@@ -32,74 +45,46 @@ abstract class Cache
     protected function validateKeys(iterable $keys): void
     {
         foreach ($keys as $index => $key) {
-            $this->validateKeysItem($key, $index);
+            $this->validateKeyAgainstType($key, $index);
+            $this->validateKeyAgainstLength($key, $index);
+            $this->validateKeyAgainstForbiddenCharacters($key, $index);
         }
     }
 
-    /**
-     * @param mixed $keysItem
-     *
-     * @return void
-     *
-     * @throws InvalidArgumentException
-     */
-    private function validateKeysItem(mixed $keysItem, int $index): void
-    {
-        $this->validateArgumentKey(
-            key: $keysItem,
-            index: $index,
-            messageInvalidType: "Argument keys item with index %s must be type of string, %s given",
-            messageForbiddenCharacter: "Argument keys item with index %s contains forbidden character %s"
-        );
-    }
-
-    /**
-     * @param mixed $key
-     * @param int $index
-     * @param string $messageInvalidType Message for the invalid key type exception
-     * with format for sprinft with index and type placeholders.
-     * @param string $messageForbiddenCharacter Message for the forbidden character in key exception
-     * with format for sprinft with index and forbidden character placeholders.
-     *
-     * @return void
-     *
-     * @throws InvalidArgumentException
-     */
-    private function validateArgumentKey(mixed $key, int $index, string $messageInvalidType, string $messageForbiddenCharacter): void
+    private function validateKeyAgainstType(mixed $key, int $index)
     {
         if (! is_string($key)) {
             $type = gettype($key);
+            $message = "Argument keys item with index %s must be type of string, %s given";
 
-            throw new InvalidArgumentException(sprintf($messageInvalidType, $index, $type));
-        }
-
-        if (strlen($key) < 1) {
-            throw new InvalidArgumentException("Argument keys item with index {$index} should consist of at least one character");
-        }
-
-        foreach (self::KEY_FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
-            if (str_contains((string) $key, $forbiddenCharacter)) {
-                throw new InvalidArgumentException(sprintf($messageForbiddenCharacter, $index, $forbiddenCharacter));
-            }
+            throw new InvalidArgumentException(sprintf($message, $index, $type));
         }
     }
 
-    /**
-     * @param string $key
-     *
-     * @return void
-     *
-     * @throws InvalidArgumentException
-     */
-    protected function validateKey(string $key): void
+    private function validateKeyAgainstLength(mixed $key, ?int $index = null)
     {
+        if (is_null($index)) {
+            $message = "Argument key should consist of at least one character";
+        } else {
+            $message = "Argument keys item with index {$index} should consist of at least one character";
+        }
+
         if (strlen($key) < 1) {
-            throw new InvalidArgumentException("Argument key should consist of at least one character");
+            throw new InvalidArgumentException($message);
+        }
+    }
+
+    private function validateKeyAgainstForbiddenCharacters(mixed $key, ?int $index = null)
+    {
+        if (is_null($index)) {
+            $message = "Argument key contains forbidden character %s";
+        } else {
+            $message = "Argument keys item with index {$index} contains forbidden character %s";
         }
 
         foreach (self::KEY_FORBIDDEN_CHARACTERS as $forbiddenCharacter) {
             if (str_contains($key, $forbiddenCharacter)) {
-                throw new InvalidArgumentException("Argument key contains forbidden character {$forbiddenCharacter}");
+                throw new InvalidArgumentException(sprintf($message, $forbiddenCharacter));
             }
         }
     }
