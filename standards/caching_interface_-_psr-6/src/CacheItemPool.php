@@ -19,6 +19,26 @@ use Psr\Cache\CacheItemInterface;
 class CacheItemPool extends Cache implements CacheItemPoolInterface
 {
     /**
+     * Storage file absolute path.
+     *
+     * @var string
+     */
+    private string $storageFilePath;
+
+    /**
+     * Deferred cache items
+     */
+    private array $cacheItems = [];
+
+    /**
+     * @param string $storageFilePath
+     */
+    public function __construct(string $storageFilePath)
+    {
+        $this->storageFilePath = $storageFilePath;
+    }
+
+    /**
      * Confirms if the cache contains specified cache item.
      *
      * Note: This method MAY avoid retrieving the cached value for performance reasons.
@@ -39,7 +59,9 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
     {
         $this->validateKey($key);
 
-        return false;
+        $hasItem = array_key_exists($key, $this->cacheItems);
+
+        return $hasItem;
     }
 
     /**
@@ -62,7 +84,11 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
     {
         $this->validateKey($key);
 
-        return new CacheItem('-');
+        if (! isset($this->cacheItems[$key])) {
+            return new CacheItem('-');
+        }
+
+        return $this->cacheItems[$key];
     }
 
     /**
@@ -85,7 +111,15 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
     {
         $this->validateKeys($keys);
 
-        return [];
+        $items = [];
+
+        foreach ($keys as $key) {
+            if (isset($this->cacheItems[$key])) {
+                $items[$key] = $this->cacheItems[$key];
+            }
+        }
+
+        return $items;
     }
 
     /**
@@ -105,7 +139,15 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
     {
         $this->validateKey($key);
 
-        return false;
+        if (! isset($this->cacheItems[$key])) {
+            return false;
+        }
+
+        unset($this->cacheItems[$key]);
+
+        $result = $this->commit();
+
+        return $result;
     }
 
     /**
@@ -125,7 +167,19 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
     {
         $this->validateKeys($keys);
 
-        return false;
+        $searchResult = true;
+
+        foreach ($keys as $key) {
+            if (! isset($this->cacheItems[$key])) {
+                $searchResult = false;
+            } else {
+                unset($this->cacheItems[$key]);
+            }
+        }
+
+        $commitResult = $this->commit();
+
+        return $searchResult && $commitResult;
     }
 
     /**
@@ -139,7 +193,11 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
      */
     public function save(CacheItemInterface $item): bool
     {
-        return false;
+        $this->cacheItems[$item->getKey()] = $item;
+
+        $result = $this->commit();
+
+        return $result;
     }
 
     /**
@@ -153,7 +211,9 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
      */
     public function saveDeferred(CacheItemInterface $item): bool
     {
-        return false;
+        $this->cacheItems[$item->getKey()] = $item;
+
+        return true;
     }
 
     /**
@@ -175,6 +235,8 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
      */
     public function commit(): bool
     {
-        return false;
+        $result = (bool) file_put_contents($this->storageFilePath, serialize($this->cacheItems));
+
+        return $result;
     }
 }
