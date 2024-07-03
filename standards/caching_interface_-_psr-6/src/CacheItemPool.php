@@ -224,7 +224,10 @@ class CacheItemPool extends Cache implements CacheItemPoolInterface
      */
     public function clear(): bool
     {
-        return false;
+        $this->cacheItems = [];
+        $result = file_put_contents($this->storageFilePath, '') === 0;
+
+        return $result;
     }
 
     /**

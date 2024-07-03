@@ -705,6 +705,84 @@ class CacheItemPoolTest extends CacheTest
         $this->assertFalse($result);
     }
 
+    public function testDeleteItemWhenStorageDoesNotExist()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+        ) = $this->provideItemElements();
+        $emptyItem = new CacheItem('-');
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+
+        $this->cacheItemPool->save($item1);
+        $this->cacheItemPool->save($item2);
+
+        $actualItem1 = $this->cacheItemPool->getItem($key1);
+        $actualItem2 = $this->cacheItemPool->getItem($key2);
+
+        $this->assertEquals($item1, $actualItem1);
+        $this->assertEquals($item2, $actualItem2);
+
+        $result = $this->cacheItemPool->deleteItem($key1);
+
+        $actualItem1 = $this->cacheItemPool->getItem($key1);
+
+        $this->assertTrue($result);
+        $this->assertEquals($emptyItem, $actualItem1);
+
+        $this->deleteContentStorage();
+
+        $result = $this->cacheItemPool->deleteItem($key2);
+
+        $actualItem2 = $this->cacheItemPool->getItem($key2);
+
+        $this->assertTrue($result);
+        $this->assertEquals($emptyItem, $actualItem2);
+    }
+
+    public function testDeleteItemWhenStorgeIsNotAccessible()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+        ) = $this->provideItemElements();
+        $emptyItem = new CacheItem('-');
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+
+        $this->cacheItemPool->save($item1);
+        $this->cacheItemPool->save($item2);
+
+        $actualItem1 = $this->cacheItemPool->getItem($key1);
+        $actualItem2 = $this->cacheItemPool->getItem($key2);
+
+        $this->assertEquals($item1, $actualItem1);
+        $this->assertEquals($item2, $actualItem2);
+
+        $result = $this->cacheItemPool->deleteItem($key1);
+
+        $actualItem1 = $this->cacheItemPool->getItem($key1);
+
+        $this->assertTrue($result);
+        $this->assertEquals($emptyItem, $actualItem1);
+
+        $this->makeUnaccessibleContentStorage();
+
+        $result = $this->cacheItemPool->deleteItem($key2);
+
+        $actualItem2 = $this->cacheItemPool->getItem($key2);
+
+        $this->assertFalse($result);
+        $this->assertEquals($emptyItem, $actualItem2);
+    }
+
     public function testDeleteItemWithSaveAndGetItems()
     {
         list(
@@ -915,6 +993,100 @@ class CacheItemPoolTest extends CacheTest
         $this->assertFalse($result);
     }
 
+    public function testDeleteItemsWhenStorageDoesNotExist()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->save($item1);
+        $this->cacheItemPool->save($item2);
+        $this->cacheItemPool->save($item3);
+
+        $result1 = $this->cacheItemPool->deleteItems([
+            $key1,
+        ]);
+
+        $expectedItems1 = [
+            $key2 => $item2,
+            $key3 => $item3,
+        ];
+        $actualItems1 = $this->cacheItemPool->getItems([$key1, $key2, $key3]);
+
+        $this->assertTrue($result1);
+        $this->assertSame($expectedItems1, $actualItems1);
+
+        $this->deleteContentStorage();
+
+        $result2 = $this->cacheItemPool->deleteItems([
+            $key2,
+        ]);
+
+        $expectedItems2 = [
+            $key3 => $item3,
+        ];
+        $actualItems2 = $this->cacheItemPool->getItems([$key1, $key2, $key3]);
+
+        $this->assertTrue($result2);
+        $this->assertSame($expectedItems2, $actualItems2);
+    }
+
+    public function testDeleteItemsWhenStorgeIsNotAccessible()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->save($item1);
+        $this->cacheItemPool->save($item2);
+        $this->cacheItemPool->save($item3);
+
+        $result1 = $this->cacheItemPool->deleteItems([
+            $key1,
+        ]);
+
+        $expectedItems1 = [
+            $key2 => $item2,
+            $key3 => $item3,
+        ];
+        $actualItems1 = $this->cacheItemPool->getItems([$key1, $key2, $key3]);
+
+        $this->assertTrue($result1);
+        $this->assertSame($expectedItems1, $actualItems1);
+
+        $this->makeUnaccessibleContentStorage();
+
+        $result2 = $this->cacheItemPool->deleteItems([
+            $key2,
+        ]);
+
+        $expectedItems2 = [
+            $key3 => $item3,
+        ];
+        $actualItems2 = $this->cacheItemPool->getItems([$key1, $key2, $key3]);
+
+        $this->assertFalse($result2);
+        $this->assertSame($expectedItems2, $actualItems2);
+    }
+
     public function testDeleteItemsWithSaveWhenOneKeyHasRelateItemAndOtherDoNot()
     {
         list(
@@ -1083,7 +1255,7 @@ class CacheItemPoolTest extends CacheTest
         $this->cacheItemPool->save($item);
     }
 
-    public function testSaveWhenStorgeDoesNotExist()
+    public function testSaveWhenStorageDoesNotExist()
     {
         list(
             list($key1, $value1),
@@ -1314,11 +1486,285 @@ class CacheItemPoolTest extends CacheTest
         $this->assertIsBool($result);
     }
 
+    public function testClearWhenStorageDoesNotExist()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->save($item1);
+        $this->cacheItemPool->save($item2);
+        $this->cacheItemPool->save($item3);
+
+        $result1 = $this->cacheItemPool->clear();
+
+        $actualItems1 = $this->cacheItemPool->getItems([$key1, $key2, $key3]);
+
+        $this->assertTrue($result1);
+        $this->assertSame([], $actualItems1);
+
+        $this->cacheItemPool->save($item1);
+        $this->cacheItemPool->save($item2);
+        $this->cacheItemPool->save($item3);
+
+        $this->deleteContentStorage();
+
+        $result2 = $this->cacheItemPool->clear();
+
+        $actualItems2 = $this->cacheItemPool->getItems([$key1, $key2, $key3]);
+
+        $this->assertTrue($result2);
+        $this->assertSame([], $actualItems2);
+    }
+
+    public function testClearWhenStorgeIsNotAccessible()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->save($item1);
+        $this->cacheItemPool->save($item2);
+        $this->cacheItemPool->save($item3);
+
+        $result1 = $this->cacheItemPool->clear();
+
+        $actualItems1 = $this->cacheItemPool->getItems([$key1, $key2, $key3]);
+
+        $this->assertTrue($result1);
+        $this->assertSame([], $actualItems1);
+
+        $this->cacheItemPool->save($item1);
+        $this->cacheItemPool->save($item2);
+        $this->cacheItemPool->save($item3);
+
+        $this->makeUnaccessibleContentStorage();
+
+        $result2 = $this->cacheItemPool->clear();
+
+        $actualItems2 = $this->cacheItemPool->getItems([$key1, $key2, $key3]);
+
+        $this->assertFalse($result2);
+        $this->assertSame([], $actualItems2);
+    }
+
+    public function testClear()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+        $initialItem = new CacheItem('-');
+
+        $expectedItem1 = new CacheItem($key1);
+        $expectedItem1->set($value1);
+        $expectedItem2 = new CacheItem($key2);
+        $expectedItem2->set($value2);
+        $expectedItem3 = new CacheItem($key3);
+        $expectedItem3->set($value3);
+
+        $this->cacheItemPool->save($expectedItem1);
+        $this->cacheItemPool->save($expectedItem2);
+        $this->cacheItemPool->save($expectedItem3);
+
+        $actualItem1 = $this->cacheItemPool->getItem($key1);
+        $actualItem2 = $this->cacheItemPool->getItem($key2);
+        $actualItem3 = $this->cacheItemPool->getItem($key3);
+
+        $expectedContent = [
+            $key1 => $expectedItem1,
+            $key2 => $expectedItem2,
+            $key3 => $expectedItem3,
+        ];
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals($expectedItem1, $actualItem1);
+        $this->assertEquals($expectedItem2, $actualItem2);
+        $this->assertEquals($expectedItem3, $actualItem3);
+        $this->assertEquals($expectedContent, $actualContent);
+
+        $result = $this->cacheItemPool->clear();
+
+        $actualItem1 = $this->cacheItemPool->getItem($key1);
+        $actualItem2 = $this->cacheItemPool->getItem($key2);
+        $actualItem3 = $this->cacheItemPool->getItem($key3);
+
+        $actualContent = $this->getStoredContent();
+
+        $this->assertTrue($result);
+        $this->assertEquals($initialItem, $actualItem1);
+        $this->assertEquals($initialItem, $actualItem2);
+        $this->assertEquals($initialItem, $actualItem3);
+        $this->assertEquals([], $actualContent);
+    }
+
     public function testCommitReturnsBool()
     {
         $result = $this->cacheItemPool->commit();
 
         $this->assertIsBool($result);
+    }
+
+    public function testCommitWhenStorageDoesNotExist()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->saveDeferred($item1);
+        $this->cacheItemPool->saveDeferred($item2);
+        $this->cacheItemPool->saveDeferred($item3);
+
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals([], $actualContent);
+
+        $result = $this->cacheItemPool->commit();
+
+        $expectedContent = [
+            $key1 => $item1,
+            $key2 => $item2,
+            $key3 => $item3,
+        ];
+        $actualContent = $this->getStoredContent();
+
+        $this->assertTrue($result);
+        $this->assertEquals($expectedContent, $actualContent);
+
+        $this->cacheItemPool->saveDeferred($item1);
+        $this->cacheItemPool->saveDeferred($item2);
+        $this->cacheItemPool->saveDeferred($item3);
+
+        $this->deleteContentStorage();
+
+        $result = $this->cacheItemPool->commit();
+
+        $expectedContent = [
+            $key1 => $item1,
+            $key2 => $item2,
+            $key3 => $item3,
+        ];
+        $actualContent = $this->getStoredContent();
+
+        $this->assertTrue($result);
+        $this->assertEquals($expectedContent, $actualContent);
+    }
+
+    public function testCommitWhenStorgeIsNotAccessible()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $item1 = new CacheItem($key1);
+        $item1->set($value1);
+        $item2 = new CacheItem($key2);
+        $item2->set($value2);
+        $item3 = new CacheItem($key3);
+        $item3->set($value3);
+
+        $this->cacheItemPool->saveDeferred($item1);
+        $this->cacheItemPool->saveDeferred($item2);
+
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals([], $actualContent);
+
+        $result = $this->cacheItemPool->commit();
+
+        $expectedContent = [
+            $key1 => $item1,
+            $key2 => $item2,
+        ];
+        $actualContent = $this->getStoredContent();
+
+        $this->assertTrue($result);
+        $this->assertEquals($expectedContent, $actualContent);
+
+        $this->cacheItemPool->saveDeferred($item3);
+
+        $this->makeUnaccessibleContentStorage();
+
+        $result = $this->cacheItemPool->commit();
+
+        $this->makeAccessibleContentStorage();
+
+        $actualContent = $this->getStoredContent();
+
+        $this->assertFalse($result);
+        $this->assertEquals($expectedContent, $actualContent);
+    }
+
+    public function testCommit()
+    {
+        list(
+            list($key1, $value1),
+            list($key2, $value2),
+            list($key3, $value3),
+        ) = $this->provideItemElements();
+
+        $expectedItem1 = new CacheItem($key1);
+        $expectedItem1->set($value1);
+        $expectedItem2 = new CacheItem($key2);
+        $expectedItem2->set($value2);
+        $expectedItem3 = new CacheItem($key3);
+        $expectedItem3->set($value3);
+
+        $this->cacheItemPool->saveDeferred($expectedItem1);
+        $this->cacheItemPool->saveDeferred($expectedItem2);
+        $this->cacheItemPool->saveDeferred($expectedItem3);
+
+        $actualItem1 = $this->cacheItemPool->getItem($key1);
+        $actualItem2 = $this->cacheItemPool->getItem($key2);
+        $actualItem3 = $this->cacheItemPool->getItem($key3);
+
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals($expectedItem1, $actualItem1);
+        $this->assertEquals($expectedItem2, $actualItem2);
+        $this->assertEquals($expectedItem3, $actualItem3);
+        $this->assertEquals([], $actualContent);
+
+        $this->cacheItemPool->commit();
+
+        $expectedContent = [
+            $key1 => $expectedItem1,
+            $key2 => $expectedItem2,
+            $key3 => $expectedItem3,
+        ];
+        $actualContent = $this->getStoredContent();
+
+        $this->assertEquals($expectedContent, $actualContent);
     }
 
     // /**
@@ -1363,6 +1809,14 @@ class CacheItemPoolTest extends CacheTest
     private function makeUnaccessibleContentStorage(): void
     {
         chmod(self::STORAGE_FILE_ABSOLUTE_PATH, 0000);
+    }
+
+    /**
+     * Make persistance source unaccessible due to permissions mode.
+     */
+    private function makeAccessibleContentStorage(): void
+    {
+        chmod(self::STORAGE_FILE_ABSOLUTE_PATH, 0777);
     }
 
     /**
