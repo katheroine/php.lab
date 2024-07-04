@@ -13,10 +13,9 @@ declare(strict_types=1);
 
 namespace PHPLab\StandardPSR6;
 
-use PHPLab\StandardPSR6\CacheTest;
 use DateTime;
 
-class CacheItemTest extends CacheTest
+class CacheItemTest extends CacheTestCase
 {
     /**
      * @var string

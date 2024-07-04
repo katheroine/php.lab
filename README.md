@@ -192,3 +192,4 @@ Laboratory of PHP.
     3. [Autoloading standard (PSR-4)](./standards/autoloading_standard_-_psr-4/)
     4. [Logger interface (PSR-3)](./standards/logger_interface_-_psr-3/)
     5. [Simple cache (PSR-16)](./standards/simple_cache_-_psr-16/)
+    6. [Caching interface (PSR-6)](./standards/caching_interface_-_psr-6/)

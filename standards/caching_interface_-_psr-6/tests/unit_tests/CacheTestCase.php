@@ -15,7 +15,7 @@ namespace PHPLab\StandardPSR6;
 
 use PHPUnit\Framework\TestCase;
 
-abstract class CacheTest extends TestCase
+abstract class CacheTestCase extends TestCase
 {
     use TestingImplementation;
     use TestingExceptions;

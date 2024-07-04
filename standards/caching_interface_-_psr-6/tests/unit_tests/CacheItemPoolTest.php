@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace PHPLab\StandardPSR6;
 
-use PHPLab\StandardPSR6\CacheTest;
-
-class CacheItemPoolTest extends CacheTest
+class CacheItemPoolTest extends CacheTestCase
 {
     /**
      * @var string
@@ -423,7 +421,7 @@ class CacheItemPoolTest extends CacheTest
         $this->cacheItemPool->getItems($keys);
     }
 
-    public function testGetItemsWhenKeysIsShorterThanOneCharacter()
+    public function testGetItemsWhenOneOfKeysIsShorterThanOneCharacter()
     {
         $expectedExceptionMessage = "Argument keys item with index 0 should consist of at least one character";
 
@@ -436,7 +434,7 @@ class CacheItemPoolTest extends CacheTest
     /**
      * @dataProvider keyNameForbiddenCharacters
      */
-    public function testGetItemsWhenKeysContainForbiddenCharacters($character)
+    public function testGetItemsWhenOneOfKeysContainForbiddenCharacter($character)
     {
         $expectedExceptionMessage = "Argument keys item with index 0 contains forbidden character {$character}";
 
@@ -893,7 +891,7 @@ class CacheItemPoolTest extends CacheTest
     /**
      * @dataProvider invalidTypeMultipleKeys
      */
-    public function testDeleteItemsWhenKeysHasWrongType(mixed $keys, string $wrongKeysType)
+    public function testDeleteItemsWhenOneOfKeysHasWrongType(mixed $keys, string $wrongKeysType)
     {
         $expectedErrorMessagePattern = $this->buildArgumentTypeErrorMessagePattern(
             methodName: 'deleteItems',
@@ -909,7 +907,7 @@ class CacheItemPoolTest extends CacheTest
         $this->cacheItemPool->deleteItems($keys);
     }
 
-    public function testDeleteItemsWhenKeysIsShorterThanOneCharacter()
+    public function testDeleteItemsWhenOneOfKeysIsShorterThanOneCharacter()
     {
         $expectedExceptionMessage = "Argument keys item with index 0 should consist of at least one character";
 
@@ -922,7 +920,7 @@ class CacheItemPoolTest extends CacheTest
     /**
      * @dataProvider keyNameForbiddenCharacters
      */
-    public function testDeleteItemsWhenKeysContainForbiddenCharacters($character)
+    public function testDeleteItemsWhenOneOfKeysContainForbiddenCharacter($character)
     {
         $expectedExceptionMessage = "Argument keys item with index 0 contains forbidden character {$character}";
 
@@ -945,7 +943,7 @@ class CacheItemPoolTest extends CacheTest
         $this->assertFalse($result);
     }
 
-    public function testDeleteItemsWithSaveWhenKeyHasNoRelatedItem()
+    public function testDeleteItemsWithSaveWhenOneOfKeysHasNoRelatedItem()
     {
         list(
             list($key1, $value1),
@@ -969,7 +967,7 @@ class CacheItemPoolTest extends CacheTest
         $this->assertFalse($result);
     }
 
-    public function testDeleteItemsWithSaveDeferredWhenKeyHasNoRelatedItem()
+    public function testDeleteItemsWithSaveDeferredWhenOneOfKeysHasNoRelatedItem()
     {
         list(
             list($key1, $value1),
@@ -1087,7 +1085,7 @@ class CacheItemPoolTest extends CacheTest
         $this->assertSame($expectedItems2, $actualItems2);
     }
 
-    public function testDeleteItemsWithSaveWhenOneKeyHasRelateItemAndOtherDoNot()
+    public function testDeleteItemsWithSaveWhenOneOfKeysHasRelateItemAndOtherDoNot()
     {
         list(
             list($key1, $value1),
@@ -1114,7 +1112,7 @@ class CacheItemPoolTest extends CacheTest
         $this->assertFalse($result);
     }
 
-    public function testDeleteItemsWithSaveDeferredWhenOneKeyHasRelateItemAndOtherDoNot()
+    public function testDeleteItemsWithSaveDeferredWhenOneOfKeysHasRelateItemAndOtherDoNot()
     {
         list(
             list($key1, $value1),
@@ -1510,7 +1508,7 @@ class CacheItemPoolTest extends CacheTest
         $actualItems1 = $this->cacheItemPool->getItems([$key1, $key2, $key3]);
 
         $this->assertTrue($result1);
-        $this->assertSame([], $actualItems1);
+        $this->assertEmpty($actualItems1);
 
         $this->cacheItemPool->save($item1);
         $this->cacheItemPool->save($item2);
@@ -1523,7 +1521,7 @@ class CacheItemPoolTest extends CacheTest
         $actualItems2 = $this->cacheItemPool->getItems([$key1, $key2, $key3]);
 
         $this->assertTrue($result2);
-        $this->assertSame([], $actualItems2);
+        $this->assertEmpty($actualItems2);
     }
 
     public function testClearWhenStorgeIsNotAccessible()
@@ -1550,7 +1548,7 @@ class CacheItemPoolTest extends CacheTest
         $actualItems1 = $this->cacheItemPool->getItems([$key1, $key2, $key3]);
 
         $this->assertTrue($result1);
-        $this->assertSame([], $actualItems1);
+        $this->assertEmpty($actualItems1);
 
         $this->cacheItemPool->save($item1);
         $this->cacheItemPool->save($item2);
@@ -1563,7 +1561,7 @@ class CacheItemPoolTest extends CacheTest
         $actualItems2 = $this->cacheItemPool->getItems([$key1, $key2, $key3]);
 
         $this->assertFalse($result2);
-        $this->assertSame([], $actualItems2);
+        $this->assertEmpty($actualItems2);
     }
 
     public function testClear()
@@ -1614,7 +1612,7 @@ class CacheItemPoolTest extends CacheTest
         $this->assertEquals($initialItem, $actualItem1);
         $this->assertEquals($initialItem, $actualItem2);
         $this->assertEquals($initialItem, $actualItem3);
-        $this->assertEquals([], $actualContent);
+        $this->assertEmpty($actualContent);
     }
 
     public function testCommitReturnsBool()
@@ -1766,16 +1764,6 @@ class CacheItemPoolTest extends CacheTest
 
         $this->assertEquals($expectedContent, $actualContent);
     }
-
-    // /**
-    //  * Save content in the persistance source.
-    //  *
-    //  * @return void
-    //  */
-    // private function setStoredContent(array $content): void
-    // {
-    //     file_put_contents(self::STORAGE_FILE_ABSOLUTE_PATH, serialize($content));
-    // }
 
     /**
      * Read content from the persistance source.
