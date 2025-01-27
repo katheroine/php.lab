@@ -354,8 +354,6 @@ class Cache implements CacheInterface
     private function deleteMultipleFromStorage(iterable $keys): bool
     {
         try {
-            $this->validateKeys($keys);
-
             $storage = $this->retrieve();
 
             foreach ($keys as $key) {
