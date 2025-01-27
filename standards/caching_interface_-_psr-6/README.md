@@ -61,7 +61,6 @@ An **Item** represents a single *key/value pair* within a *Pool*. The *key* is t
 
 While caching is often an important part of application performance, it should never be a critical part of application functionality. Thus, an error in a cache system SHOULD NOT result in application failure. For that reason, *Implementing Libraries* MUST NOT throw exceptions other than those defined by the interface, and SHOULD trap any errors or exceptions triggered by an underlying data store and not allow them to bubble.
 
-An Implementing Library SHOULD log such errors or otherwise report them to an administrator as appropriate.
+An *Implementing Library* SHOULD log such errors or otherwise report them to an administrator as appropriate.
 
-If a Calling Library requests that one or more Items be deleted, or that a pool be cleared, it MUST NOT be considered an error condition if the specified key does not exist. The post-condition is the same (the key does not exist, or the pool is empty), thus there is no error condition.
-
+If a *Calling Library* requests that one or more *Items* be deleted, or that a pool be cleared, it MUST NOT be considered an error condition if the specified key does not exist. The post-condition is the same (the key does not exist, or the pool is empty), thus there is no error condition.
