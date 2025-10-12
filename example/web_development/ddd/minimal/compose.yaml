@@ -1,0 +1,38 @@
+name: ddd-example
+
+services:
+
+  web:
+    container_name: ddd-example-web
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./backup/database:/backup/database
+      - ./resource/database:/resource/database
+    depends_on:
+      - db
+    networks:
+      - ddd-example-network
+
+  db:
+    container_name: ddd-example-db
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootdddexample
+      MYSQL_DATABASE: dddexample
+      MYSQL_USER: dddexample
+      MYSQL_PASSWORD: dddexample
+    ports:
+      - "3307:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - ddd-example-network
+
+volumes:
+  db-data:
+
+networks:
+  ddd-example-network:
