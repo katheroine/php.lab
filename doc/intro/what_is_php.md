@@ -1,6 +1,6 @@
 # What is PHP
 
-**PHP** is a general-purpose scripting language geared towards web development. It was originally created by Danish-Canadian programmer Rasmus Lerdorf in 1993 and released in 1995. The PHP reference implementation is now produced by the PHP Group. PHP was originally an abbreviation of *Personal Home Page*, but it now stands for the recursive acronym *PHP: Hypertext Preprocessor*.
+**PHP** is a general-purpose scripting language geared towards web development. It was originally created by Danish-Canadian programmer **Rasmus Lerdorf** in **1993** and released in 1995. The PHP reference implementation is now produced by the PHP Group. PHP was originally an abbreviation of *Personal Home Page*, but it now stands for the recursive acronym *PHP: Hypertext Preprocessor*.
 
 PHP code is usually processed on a web server by a PHP interpreter implemented as
 * a module,
@@ -14,5 +14,10 @@ The standard PHP interpreter, powered by the *Zend Engine*, is *free software* r
 The PHP language has evolved without a written formal specification or standard, with the original implementation acting as the de facto standard that other implementations aimed to follow.
 
 – [Wikipedia](https://en.wikipedia.org/wiki/PHP)
+
+
+**PHP** (recursive acronym for *PHP: Hypertext Preprocessor*) is a widely-used open source general-purpose scripting language that is especially suited for *web development* and can be embedded into HTML.
+
+-- [PHP Documentation](https://www.php.net/manual/en/introduction.php)
 
 **PHP is a general purpose programming language used mostly in the web development to build backend part of the web applications.**
