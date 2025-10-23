@@ -4,7 +4,11 @@ Laboratory of PHP.
 
 ## Index
 
-### Syntax
+### Description
+
+1. [What is PHP](./doc/intro/what_is_php.md)
+
+### Examples
 
 1. [Literals, constants, variables](./example/literals_constants_variables/)
     1. [Literals](./example/literals_constants_variables/literals.php)
