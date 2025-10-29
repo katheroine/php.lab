@@ -243,4 +243,88 @@ Other minor changes include
 * support for *named arguments*;
 * support for *trailing commas in parameter lists*, which adds consistency with support for trailing commas in other contexts, such as in arrays.
 
+#### PHP 8.0
+
+PHP 8.0 was released on 26 November 2020
+
+* Just-In-Time (JIT) compilation,
+* arrays starting with a negative index,
+* stricter/saner language semantics (validation for *abstract trait methods*),
+* saner string to number comparisons,
+* saner numeric strings,
+* `TypeError` on invalid arithmetic/bitwise operators,
+* reclassification of various engine errors,
+* consistent type errors for internal functions,
+* fatal error for incompatible method signatures,
+* locale-independent float to string conversion,
+* variable syntax tweaks,
+* attributes,
+* named arguments,
+* match expression,
+* constructor property promotion,
+* union types,
+* mixed type,
+* static return type,
+* nullsafe operator,
+* non-capturing catches,
+* throw expression,
+* JSON extension is always available.
+
+#### PHP 8.1
+
+PHP 8.1 was released on November 25, 2021.
+
+* support for *enumerations* (also called "enums"),
+* declaring properties as `readonly` (which prevents modification of the property after initialization),
+* array unpacking with string keys,
+* the new `never` type can be used to indicate that a function does not return,
+* explicit octal integer literal notation,
+* read-only properties,
+* first-class callable syntax,
+* `new` in initializers,
+* pure intersection types,
+* `final` class constraints,
+* fibers.
+
+#### PHP 8.2
+
+PHP 8.2 was released on December 8, 2022.
+
+* readonly classes (whose instance properties are implicitly readonly),
+* disjunctive normal form (DNF) types,
+* the random extension, which provides a pseudorandom number generator with an object-oriented API,
+* Sensitive Parameter value redaction,
+* `null`, `false`, and `true` as stand-alone types,
+* locale-independent case conversion,
+* constants in traits.
+
+#### PHP 8.3
+
+PHP 8.3 was released on November 23, 2023.
+
+* readonly array properties,
+* arrays allowed to be declared as immutable after initialization
+* support for class aliases for built-in PHP classes,
+* new methods for random float generation in the `Random` extension,
+* enhanced PHP INI settings with fallback value support,
+* the new `stream_context_set_options` function provides improved API for stream manipulation,
+* *typed class constants*,
+* dynamic class constant fetch,
+* `#[\Override]` attribute,
+* deep-cloning of read-only properties,
+* new `json_validate` function,
+* randomizer additions,
+* the command-line linter supports multiple files.
+
+#### PHP 8.4
+
+PHP 8.4 was released on 21 November 2024.
+
+* property hooks,
+* asymmetric visibility,
+* an updated DOM API,
+* performance improvements,
+* bug fixes,
+* general cleanup.
+
 -- [Wikipedia](https://en.wikipedia.org/wiki/PHP#History); [PHP Documentation](https://www.php.net/manual/en/history.php.php)
