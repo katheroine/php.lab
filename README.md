@@ -7,6 +7,7 @@ Laboratory of PHP.
 ### Description
 
 1. [What is PHP](./doc/intro/what_is_php.md)
+2. [PHP features](./doc/intro/php_features.md)
 
 ### Examples
 
