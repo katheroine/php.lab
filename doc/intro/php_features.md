@@ -11,6 +11,18 @@
 
 – https://www.interviewbit.com/blog/features-of-php/
 
+## Type safety
+
+> **Type safety** is the extent to which a programming language discourages or prevents *type errors*.
+>
+> Type-safe languages are sometimes also called *strongly* or *strictly typed*. The behaviors classified as *type errors* by a given programming language are usually those that result from attempts to perform operations on values that are not of the appropriate *data type*, e.g. trying to add a `string` to an `integer`.
+>
+> Type enforcement can be ***static*** (catching potential errors at *compile time*), ***dynamic*** (associating type information with values at *run-time* and consulting them as needed to detect imminent errors), or a combination of both. *Dynamic* type enforcement can often run programs that would be invalid under *static* enforcement, but at the cost of introducing errors at runtime.
+>
+> In the context of *static* (compile-time) type systems, type safety usually involves (among other things) a guarantee that the eventual value of any expression will be a legitimate member of that expression's *static* type. The precise requirement is more subtle than this — see, for example, subtyping and polymorphism for complications.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Type_safety)
+
 ### Is PHP statically or dynamically typed language?
 
 > **Dynamically-typed languages** are those (like JavaScript) where the interpreter assigns variables a type at runtime based on the variable's value at the time.
@@ -64,4 +76,3 @@ $myVariable = 44; // Assigning an integer value to the same variable
 ```
 
 PHP 7 introduced improved type declarations with features like *scalar type hints* and *return type declarations*. PHP 8 has a much more powerful and flexible type system.
-
