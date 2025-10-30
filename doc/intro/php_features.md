@@ -33,9 +33,11 @@
 
 -- https://developer.mozilla.org/en-US/docs/Glossary/Static_typing
 
-PHP is a ***dynamically typed language***. There is no need (but there is some limited possibility) of determining the type of the variables during declaration. PHP is able to establish the type of the variable guessing it from its value.
+**PHP is a dynamically typed language.**
 
-PHP does support *optional type declarations* for function parameters, return types, and properties, which can provide some static typing features, but the core execution model remains dynamic.
+There is no need (but there is some limited possibility) of determining the type of the variables during declaration. PHP is able to establish the type of the variable guessing it from its value.
+
+PHP does support *optional type declarations* for function parameters, return types, and properties, which can provide some *static typing* features, but the core execution model remains dynamic.
 
 ```php
 <?php
@@ -56,12 +58,27 @@ $s = "hello";
 echo "\$s = \"hello\"; // string: " . $s . " (" . gettype($s) . ")\n\n";
 
 $a = [3, 5, 7];
-echo "\$a = [3, 5, 7]; // array:\n";
+echo "\$a = [3, 5, 7]; // array:\n\n";
+
+```
+
+```console
+$n = null; // null:  (NULL)
+
+$b = true; // boolean: 1 (boolean)
+
+$i = 5; // integer: 5 (integer)
+
+$d = 2.4; // floating point double precision: 2.4 (double)
+
+$s = "hello"; // string: hello (string)
+
+$a = [3, 5, 7]; // array:
 
 ```
 
 **View**:
-[GitHub](https://github.com/katheroine/languagium/blob/main/php/types/types.php)
+[Example](../../example/features/dynamicaly_typed_language.php)
 
 **Execute**:
 * [OnlinePHP](https://onlinephp.io/c/a2017)
@@ -76,3 +93,71 @@ $myVariable = 44; // Assigning an integer value to the same variable
 ```
 
 PHP 7 introduced improved type declarations with features like *scalar type hints* and *return type declarations*. PHP 8 has a much more powerful and flexible type system.
+
+### Is PHP strongly or weakly (loosely) typed language?
+
+> Programming languages are often colloquially classified as ***strongly typed*** or ***weakly typed*** (also ***loosely typed***) to refer to certain aspects of type safety.
+>
+> In 1974, Liskov and Zilles defined a strongly-typed language as one in which *whenever an object is passed from a calling function to a called function, its type must be compatible with the type declared in the called function*.
+>
+> In 1977, Jackson wrote, *In a strongly typed language each data area will have a distinct type and each process will state its communication requirements in terms of these types*.
+>
+> In contrast, a ***weakly typed language*** may produce unpredictable results or may perform implicit type conversion.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Type_safety#Strong_and_weak_typing)
+
+A programming language that does not demand the definition of a variable is known as a ***loosely typed language***.
+
+For instance, Perl is a ***flexibly typed language*** that allows you to declare variables without having to specify the type of the variable.
+The C programming language is an example of a ***strongly typed language***, which is the opposite of a ***weakly typed language***.
+
+Strong and Loose/Weakly typed programming languages can be used to categorize all programming languages. Each of these classes has advantages and disadvantages in the realm of programming and defines how rigorous the programming language is.
+
+A programming language for computers that does not data type of a variable is referred to as being loosely typed language. In comparison to strongly typed languages, this language makes it simple to define variables with various data types. A data type essentially tells the compiler what kind of value and actions this specific variable may store.
+
+Strong bounds on the variable data type are not available in a loosely typed language. This kind of language's compiler executes the operation specified on it regardless of the data type it contains when doing compilation. The compiler ignores small errors depending on data types.
+
+– https://www.javatpoint.com/what-is-loosely-typed-language
+
+**PHP is a loosely typed language.**
+
+PHP automatically associates a data type to the variable, depending on its value. Since the data types are not set in a strict sense, you can do things like adding a string to an integer without causing an error.
+
+In PHP 7, type declarations were added. This gives an option to specify the data type expected when declaring a function, and by enabling the strict requirement, it will throw a "Fatal Error" on a type mismatch.
+
+– https://www.w3schools.com/php/php_variables.asp
+
+```php
+<?php
+
+$someVariable = 1024;
+print("\$someVariable = 1024; // " . $someVariable . " (" . gettype($someVariable) . ")\n\n");
+
+$otherVariable = "hello";
+print("\$otherVariable = \"hello\"; // " . $otherVariable . " (" . gettype($otherVariable) . ")\n\n");
+
+$anotherVariable = $someVariable . $otherVariable;
+print("\$anotherVariable = \$someVariable . \$otherVariable; // " . $anotherVariable . " (" . gettype($anotherVariable) . ")\n\n");
+
+$someVariable = "bye";
+print("\$someVariable = \"bye\"; // " . $someVariable . " (" . gettype($someVariable) . ")\n\n");
+
+```
+
+```console
+$someVariable = 1024; // 1024 (integer)
+
+$otherVariable = "hello"; // hello (string)
+
+$anotherVariable = $someVariable . $otherVariable; // 1024hello (string)
+
+$someVariable = "bye"; // bye (string)
+
+```
+
+**View**:
+[Example](../../example/features/loosely_typed_language.php)
+
+**Execute**:
+* [OnlinePHP](https://onlinephp.io/c/9c4c2)
+* [OneCompiler](https://onecompiler.com/php/4436y6tfy)

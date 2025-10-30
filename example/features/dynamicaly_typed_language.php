@@ -16,4 +16,4 @@ $s = "hello";
 echo "\$s = \"hello\"; // string: " . $s . " (" . gettype($s) . ")\n\n";
 
 $a = [3, 5, 7];
-echo "\$a = [3, 5, 7]; // array:\n";
+echo "\$a = [3, 5, 7]; // array:\n\n";
