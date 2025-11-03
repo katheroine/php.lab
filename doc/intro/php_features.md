@@ -1,3 +1,6 @@
+[⌂ Home](../../README.md)
+[▲ Previous: PHP history](php_history.md)
+
 # PHP features
 
 * It is easy to install and learn.
@@ -161,3 +164,7 @@ $someVariable = "bye"; // bye (string)
 **Execute**:
 * [OnlinePHP](https://onlinephp.io/c/9c4c2)
 * [OneCompiler](https://onecompiler.com/php/4436y6tfy)
+
+[▵ Up](#php-features)
+[⌂ Home](../../README.md)
+[▲ Previous: PHP history](php_history.md)

@@ -1,4 +1,8 @@
-# History
+[⌂ Home](../../README.md)
+[▲ Previous: What is PHP](what_is_php.md)
+[▼ Next: PHP features](php_features.md)
+
+# PHP history
 
 ## PHP 1
 
@@ -304,3 +308,8 @@ PHP 8.4 was released on 21 November 2024.
 * general cleanup.
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/PHP#History); [PHP Documentation](https://www.php.net/manual/en/history.php.php)
+
+[▵ Up](#php-history)
+[⌂ Home](../../README.md)
+[▲ Previous: What is PHP](what_is_php.md)
+[▼ Next: PHP features](php_features.md)

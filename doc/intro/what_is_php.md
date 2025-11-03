@@ -1,3 +1,6 @@
+[⌂ Home](../../README.md)
+[▼ Next: PHP history](php_history.md)
+
 # What is PHP
 
 **PHP** is a general-purpose scripting language geared towards web development. It was originally created by Danish-Canadian programmer **Rasmus Lerdorf** in **1993** and released in 1995. The PHP reference implementation is now produced by the PHP Group. PHP was originally an abbreviation of *Personal Home Page*, but it now stands for the recursive acronym *PHP: Hypertext Preprocessor*.
@@ -21,3 +24,7 @@ The PHP language has evolved without a written formal specification or standard,
 -- [PHP Documentation](https://www.php.net/manual/en/introduction.php)
 
 **PHP is a general purpose programming language used mostly in the web development to build backend part of the web applications.**
+
+[▵ Up](#what-is-php)
+[⌂ Home](../../README.md)
+[▼ Next: PHP history](php_history.md)
