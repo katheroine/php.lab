@@ -1,0 +1,38 @@
+name: sbm-example
+
+services:
+
+  web:
+    container_name: sbm-example-web
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./backup/database:/backup/database
+      - ./resource/database:/resource/database
+    depends_on:
+      - db
+    networks:
+      - sbm-example-network
+
+  db:
+    container_name: sbm-example-db
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootsbmexample
+      MYSQL_DATABASE: sbmexample
+      MYSQL_USER: sbmexample
+      MYSQL_PASSWORD: sbmexample
+    ports:
+      - "3307:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - sbm-example-network
+
+volumes:
+  db-data:
+
+networks:
+  sbm-example-network:
