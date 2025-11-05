@@ -34,7 +34,7 @@
 
         #intro
         {
-            padding: 4rem 2rem;
+            padding: 4rem 0;
             background-color: #14343D;
             color: #eee;
         }
@@ -149,9 +149,9 @@
                     echo('<samp class="param_value">' . ($param['value'] ?? INDICATOR_UNKNOWN) . '</samp>') . '<samp class="param_source badge">' . $param['source'] . '</samp>';
                 } elseif (! empty($param['value'])) {
                     echo('<ul>');
-                    foreach($param['value'] as $valueCodename => $value['value']) {
+                    foreach($param['value'] as $valueCodename => $valueValue) {
                         $valueLabel = ucfirst(strtolower(str_replace('_', ' ', $valueCodename)));
-                        echo('<li><b>' . $valueLabel . '</b>' . ': <samp>' . $value['value'] . '</samp></li>');
+                        echo('<li><b>' . $valueLabel . '</b>' . ': <samp>' . $valueValue . '</samp></li>');
                     }
 
                     echo('</ul><samp class="param_source badge">' . $param['source'] . '</samp>');
@@ -160,7 +160,6 @@
                 }
                 echo('</p>');
             }
-
             ?>
         </section>
     </aside>
