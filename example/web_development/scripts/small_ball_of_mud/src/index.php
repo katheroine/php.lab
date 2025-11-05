@@ -56,6 +56,24 @@
         {
             margin: 0.4rem 0;
         }
+
+        #devinfo .param_value
+        {
+            margin-right: 0.6rem;
+        }
+
+        #devinfo .param_source
+        {
+            padding: 0.2rem 0.2rem 0.1rem 0.2rem;
+            background-color: #eee;
+            color: #14343D;
+            font-weight: 600;
+        }
+
+        #devinfo ul
+        {
+            margin-bottom: 0.4rem;
+        }
     </style>
 </head>
 
@@ -82,9 +100,11 @@
             define('INDICATOR_UNKNOWN', '[unknown]');
             define('INDICATOR_EMPTY', '[empty]');
 
-
             function fetchFromServer(string $paramName) {
-                return ($_SERVER[$paramName] ?? INDICATOR_UNKNOWN);
+                return [
+                    'source' => '$_SERVER[\'' . $paramName . '\']',
+                    'value' => ($_SERVER[$paramName] ?? INDICATOR_UNKNOWN),
+                ];
             };
 
             $devInfo = [
@@ -122,21 +142,25 @@
                 'original_path_information_before_processed_by_PHP' => fetchFromServer('ORIG_PATH_INFO'),
             ];
 
-            foreach($devInfo as $paramCodename => $paramValue) {
+            foreach($devInfo as $paramCodename => $param) {
                 $paramLabel = ucfirst(str_replace('_', ' ', $paramCodename));
-                echo('<p><b>' . $paramLabel . '</b>' . ': <samp>');
-                if (! is_array($paramValue)) {
-                    echo($paramValue ?? INDICATOR_UNKNOWN);
-                } elseif (! empty($paramValue)) {
-                    foreach($paramValue as $valueCodename => $valueValue) {
+                echo('<p><b>' . $paramLabel . '</b>' . ': ');
+                if (! is_array($param['value'])) {
+                    echo('<samp class="param_value">' . ($param['value'] ?? INDICATOR_UNKNOWN) . '</samp>') . '<samp class="param_source badge">' . $param['source'] . '</samp>';
+                } elseif (! empty($param['value'])) {
+                    echo('<ul>');
+                    foreach($param['value'] as $valueCodename => $value['value']) {
                         $valueLabel = ucfirst(strtolower(str_replace('_', ' ', $valueCodename)));
-                        echo('<br><b>' . $valueLabel . '</b>' . ': <samp>' . $valueValue);
+                        echo('<li><b>' . $valueLabel . '</b>' . ': <samp>' . $value['value'] . '</samp></li>');
                     }
+
+                    echo('</ul><samp class="param_source badge">' . $param['source'] . '</samp>');
                 } else {
                     echo(INDICATOR_EMPTY);
                 }
-                echo('</samp></p>');
+                echo('</p>');
             }
+
             ?>
         </section>
     </aside>
