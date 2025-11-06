@@ -79,10 +79,6 @@
                             <label for="get_number" class="form-label">Some number</label>
                             <input type="number" name="some_number" id="get_number" class="form-control">
                         </div>
-                        <div class="my-2">
-                            <label for="get_telephone_number" class="form-label">Some telephone number</label>
-                            <input type="tel" name="some_telephone_number" id="get_telephone_number" class="form-control">
-                        </div>
                         <input type="submit" class="btn btn-primary mt-2">
                     </form>
                 </section>
