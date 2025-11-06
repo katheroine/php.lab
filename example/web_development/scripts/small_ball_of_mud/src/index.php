@@ -82,6 +82,20 @@
                         <input type="submit" class="btn btn-primary mt-2">
                     </form>
                 </section>
+                <section id="post_input" class="my-5">
+                    <h3 class="my-3">POST method input</h3>
+                    <form action="./index.php" method="POST">
+                        <div class="my-2">
+                            <label for="post_text" class="form-label">Some text</label>
+                            <input type="text" name="some_text" id="post_text" class="form-control">
+                        </div>
+                        <div class="my-2">
+                            <label for="post_number" class="form-label">Some number</label>
+                            <input type="number" name="some_number" id="post_number" class="form-control">
+                        </div>
+                        <input type="submit" class="btn btn-primary mt-2">
+                    </form>
+                </section>
             </section>
         </div>
         <div id="output" style="overflow: auto;">
@@ -96,6 +110,22 @@
                             echo('<ul>');
 
                             foreach($_GET as $label => $value) {
+                                echo('<li><b>' . $label . '</b>: ' . $value . '</li>');
+                            }
+
+                            echo('</ul>');
+                        }
+                    ?>
+                </section>
+                <section id="post_output" class="my-5">
+                    <h3 class="my-3"><samp>$_POST</samp> superglobal</h3>
+                    <pre><?php var_dump($_POST); ?></pre>
+                    <h3 class="my-3">POST method output</h3>
+                    <?php
+                        if (! empty($_POST)) {
+                            echo('<ul>');
+
+                            foreach($_POST as $label => $value) {
                                 echo('<li><b>' . $label . '</b>: ' . $value . '</li>');
                             }
 
