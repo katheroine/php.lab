@@ -15,114 +15,104 @@
 
         header
         {
-            padding: 2rem;
             background-color: #eee;
-        }
-
-        header h1,
-        header h2,
-        header h3
-        {
-            display: inline-block;
-        }
-
-        header h1,
-        header h2
-        {
-            margin-right: 2rem;
         }
 
         #intro
         {
-            padding: 4rem 0;
             background-color: #14343D;
             color: #eee;
         }
 
-        #output
+        #input
         {
-            padding: 2rem 0;
             background-color: #eee;
         }
 
-        #output h2
+        #output
         {
-            margin: 1.2rem 0;
+            background-color: #fefefe;
         }
 
         #devinfo
         {
-            padding: 2rem;
             background-color: #c9e3f1ff;
             color: #0f2430ff;
             font-size: small;
         }
 
-        #devinfo h3
-        {
-            margin: 1rem 0;
-        }
-
-        #devinfo p
-        {
-            margin: 0.4rem 0;
-        }
-
-        #devinfo .param_value
-        {
-            margin-right: 0.6rem;
-        }
-
         #devinfo .param_source
         {
-            padding: 0.2rem 0.2rem 0.1rem 0.2rem;
             background-color: #eee;
             color: #14343D;
             font-weight: 600;
-        }
-
-        #devinfo ul
-        {
-            margin-bottom: 0.4rem;
         }
     </style>
 </head>
 
 <body>
-    <header class="jumbotron">
-        <hgroup class="container">
-            <h1>PHP.lab</h1>
-            <h2>WebDev Example</h2>
-            <h3>Small Ball of Mud</h3>
+    <header>
+        <hgroup class="container py-3">
+            <h1 class="d-inline-block me-4">PHP.lab</h1>
+            <h2 class="d-inline-block me-4">WebDev Example</h2>
+            <h3 class="d-inline-block">Small Ball of Mud</h3>
         </hgroup>
     </header>
     <main>
-        <div id="intro" class="jumbotron">
+        <div id="intro" class="jumbotron py-5">
             <section id="introduction" class="container">
                 <h1 class="display-3">Hello, world!</h1>
                 <p>This is web page example in <strong>PHP <?php echo phpversion(); ?></strong> on <b>Apache</b>.</p>
             </section>
         </div>
-        <div id="output">
-            <section id="get" class="container">
-                <h2>GET method params</h2>
-                <?php
-                    if (! empty($_GET)) {
-                        echo('<ul>');
+        <div id="input" style="overflow: auto;">
+            <section id="inputs" class="container">
+                <h1 class="my-5">Input</h1>
+                <section id="get_input" class="my-5">
+                    <h3 class="my-3">GET method input</h3>
+                    <form action="./index.php" method="GET">
+                        <div class="my-2">
+                            <label for="get_text" class="form-label">Some text</label>
+                            <input type="text" name="some_text" id="get_text" class="form-control">
+                        </div>
+                        <div class="my-2">
+                            <label for="get_number" class="form-label">Some number</label>
+                            <input type="number" name="some_number" id="get_number" class="form-control">
+                        </div>
+                        <div class="my-2">
+                            <label for="get_telephone_number" class="form-label">Some telephone number</label>
+                            <input type="tel" name="some_telephone_number" id="get_telephone_number" class="form-control">
+                        </div>
+                        <input type="submit" class="btn btn-primary mt-2">
+                    </form>
+                </section>
+            </section>
+        </div>
+        <div id="output" style="overflow: auto;">
+            <section id="outputs" class="container">
+                <h1 class="my-5">Output</h1>
+                <section id="get_output" class="my-5">
+                    <h3 class="my-3"><samp>$_GET</samp> superglobal</h3>
+                    <pre><?php var_dump($_GET); ?></pre>
+                    <h3 class="my-3">GET method output</h3>
+                    <?php
+                        if (! empty($_GET)) {
+                            echo('<ul>');
 
-                        foreach($_GET as $label => $value) {
-                            echo('<li><b>' . $label . '</b>: ' . $value . '</li>');
+                            foreach($_GET as $label => $value) {
+                                echo('<li><b>' . $label . '</b>: ' . $value . '</li>');
+                            }
+
+                            echo('</ul>');
                         }
-
-                        echo('</ul>');
-                    }
-                ?>
+                    ?>
+                </section>
             </section>
         </div>
     </main>
     <aside id="devinfo" class="jumbotron">
         <section class="container">
-            <h3>Dev Info</h3>
+            <h3 class="my-4">Dev Info</h3>
             <?php
             define('INDICATOR_UNKNOWN', '[unknown]');
             define('INDICATOR_EMPTY', '[empty]');
@@ -173,7 +163,7 @@
                 $paramLabel = ucfirst(str_replace('_', ' ', $paramCodename));
                 echo('<p><b>' . $paramLabel . '</b>' . ': ');
                 if (! is_array($param['value'])) {
-                    echo('<samp class="param_value">' . ($param['value'] ?? INDICATOR_UNKNOWN) . '</samp>') . '<samp class="param_source badge">' . $param['source'] . '</samp>';
+                    echo('<samp class="param_value me-1">' . ($param['value'] ?? INDICATOR_UNKNOWN) . '</samp>') . '<samp class="param_source badge">' . $param['source'] . '</samp>';
                 } elseif (! empty($param['value'])) {
                     echo('<ul>');
                     foreach($param['value'] as $valueCodename => $valueValue) {
