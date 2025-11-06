@@ -39,6 +39,17 @@
             color: #eee;
         }
 
+        #output
+        {
+            padding: 2rem 0;
+            background-color: #eee;
+        }
+
+        #output h2
+        {
+            margin: 1.2rem 0;
+        }
+
         #devinfo
         {
             padding: 2rem;
@@ -90,6 +101,22 @@
             <section id="introduction" class="container">
                 <h1 class="display-3">Hello, world!</h1>
                 <p>This is web page example in <strong>PHP <?php echo phpversion(); ?></strong> on <b>Apache</b>.</p>
+            </section>
+        </div>
+        <div id="output">
+            <section id="get" class="container">
+                <h2>GET method params</h2>
+                <?php
+                    if (! empty($_GET)) {
+                        echo('<ul>');
+
+                        foreach($_GET as $label => $value) {
+                            echo('<li><b>' . $label . '</b>: ' . $value . '</li>');
+                        }
+
+                        echo('</ul>');
+                    }
+                ?>
             </section>
         </div>
     </main>
