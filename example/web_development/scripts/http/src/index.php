@@ -10,7 +10,7 @@
     <style>
         body
         {
-            background-color: #c9e3f1ff;
+            background-color: #c9e3f1;
         }
 
         header
@@ -26,17 +26,18 @@
 
         #input
         {
-            background-color: #eee;
+            background-color: #dce8f0ff;
         }
 
+        #info,
         #output
         {
-            background-color: #fefefe;
+            background-color: #f0f8fa;
         }
 
         #devinfo
         {
-            background-color: #c9e3f1ff;
+            background-color: #c9e3f1;
             color: #0f2430ff;
             font-size: small;
         }
@@ -63,6 +64,23 @@
             <section id="introduction" class="container">
                 <h1 class="display-3">Hello, world!</h1>
                 <p>This is web page example in <strong>PHP <?php echo phpversion(); ?></strong> on <b>Apache</b>.</p>
+            </section>
+        </div>
+        <div id="info" style="overflow: auto;">
+            <section id="http_info" class="container my-5">
+                <h3 class="my-4">HTTP info</h3>
+                <section id="http_info_method">
+                    <h5 class="d-inline-block">Method</h5>:
+                    <?php echo($_SERVER['REQUEST_METHOD']); ?>
+                </section>
+                <section id="http_info_get_superglobal">
+                    <h5 class="my-2"><samp>$_GET</samp> superglobal</h5>
+                    <pre><?php var_dump($_GET); ?></pre>
+                </section>
+                <section id="http_info_post_superglobal">
+                    <h5 class="my-2"><samp>$_POST</samp> superglobal</h5>
+                    <pre><?php var_dump($_POST); ?></pre>
+                </section>
             </section>
         </div>
         <div id="input" style="overflow: auto;">
@@ -102,8 +120,6 @@
             <section id="outputs" class="container">
                 <h1 class="my-5">Output</h1>
                 <section id="get_output" class="my-5">
-                    <h3 class="my-3"><samp>$_GET</samp> superglobal</h3>
-                    <pre><?php var_dump($_GET); ?></pre>
                     <h3 class="my-3">GET method output</h3>
                     <?php
                         if (! empty($_GET)) {
@@ -118,8 +134,6 @@
                     ?>
                 </section>
                 <section id="post_output" class="my-5">
-                    <h3 class="my-3"><samp>$_POST</samp> superglobal</h3>
-                    <pre><?php var_dump($_POST); ?></pre>
                     <h3 class="my-3">POST method output</h3>
                     <?php
                         if (! empty($_POST)) {
