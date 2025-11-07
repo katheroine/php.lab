@@ -60,24 +60,28 @@ function buildDevInfoContent(): string
     foreach(buildDevInfoData() as $paramCodename => $param) {
         $paramLabel = ucfirst(str_replace('_', ' ', $paramCodename));
 
-        $content .= '<p><b>' . $paramLabel . '</b>: ';
+        $content .= sprintf('<p><b>%s</b>: ', $paramLabel);
 
         if (! is_array($param['value'])) {
-            $content .= '<samp class="param_value me-1">'
-                . ($param['value'] ?? INDICATOR_UNKNOWN)
-                . '</samp><samp class="param_source badge">'
-                . $param['source']
-                . '</samp>';
+            $content .= sprintf('<samp class="param_value me-1">%s</samp><samp class="param_source badge">%s</samp>',
+                ($param['value'] ?? INDICATOR_UNKNOWN),
+                $param['source']
+            );
         } elseif (! empty($param['value'])) {
             $content .= '<ul>';
 
             foreach($param['value'] as $valueCodename => $valueValue) {
                 $valueLabel = ucfirst(strtolower(str_replace('_', ' ', $valueCodename)));
 
-                $content .= '<li><b>' . $valueLabel . '</b>: <samp>' . $valueValue . '</samp></li>';
+                $content .= sprintf('<li><b>%s</b>: <samp>%s</samp></li>',
+                    $valueLabel,
+                    $valueValue
+                );
             }
 
-            $content .= '</ul><samp class="param_source badge">' . $param['source'] . '</samp>';
+            $content .= sprintf('</ul><samp class="param_source badge">%s</samp>',
+                $param['source']
+            );
         } else {
             $content .= INDICATOR_EMPTY;
         }
