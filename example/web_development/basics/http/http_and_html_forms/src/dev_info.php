@@ -1,10 +1,13 @@
 <?php
 
-function devInfo()
-{
-    define('INDICATOR_UNKNOWN', '[unknown]');
-    define('INDICATOR_EMPTY', '[empty]');
+const INDICATOR_UNKNOWN = '[unknown]';
+const INDICATOR_EMPTY = '[empty]';
 
+/**
+ * @return array<string, array{source: string, value: string}>
+ */
+function buildDevInfoData(): array
+{
     function fetchFromServer(string $paramName) {
         return [
             'source' => '$_SERVER[\'' . $paramName . '\']',
@@ -47,22 +50,45 @@ function devInfo()
         'original_path_information_before_processed_by_PHP' => fetchFromServer('ORIG_PATH_INFO'),
     ];
 
-    foreach($devInfo as $paramCodename => $param) {
+    return $devInfo;
+}
+
+function buildDevInfoContent(): string
+{
+    $content = '';
+
+    foreach(buildDevInfoData() as $paramCodename => $param) {
         $paramLabel = ucfirst(str_replace('_', ' ', $paramCodename));
-        echo('<p><b>' . $paramLabel . '</b>' . ': ');
+
+        $content .= '<p><b>' . $paramLabel . '</b>: ';
+
         if (! is_array($param['value'])) {
-            echo('<samp class="param_value me-1">' . ($param['value'] ?? INDICATOR_UNKNOWN) . '</samp>') . '<samp class="param_source badge">' . $param['source'] . '</samp>';
+            $content .= '<samp class="param_value me-1">'
+                . ($param['value'] ?? INDICATOR_UNKNOWN)
+                . '</samp><samp class="param_source badge">'
+                . $param['source']
+                . '</samp>';
         } elseif (! empty($param['value'])) {
-            echo('<ul>');
+            $content .= '<ul>';
+
             foreach($param['value'] as $valueCodename => $valueValue) {
                 $valueLabel = ucfirst(strtolower(str_replace('_', ' ', $valueCodename)));
-                echo('<li><b>' . $valueLabel . '</b>' . ': <samp>' . $valueValue . '</samp></li>');
+
+                $content .= '<li><b>' . $valueLabel . '</b>: <samp>' . $valueValue . '</samp></li>';
             }
 
-            echo('</ul><samp class="param_source badge">' . $param['source'] . '</samp>');
+            $content .= '</ul><samp class="param_source badge">' . $param['source'] . '</samp>';
         } else {
-            echo(INDICATOR_EMPTY);
+            $content .= INDICATOR_EMPTY;
         }
-        echo('</p>');
+
+        $content .= '</p>';
     }
+
+    return $content;
+}
+
+function devInfo()
+{
+    echo(buildDevInfoContent());
 }
