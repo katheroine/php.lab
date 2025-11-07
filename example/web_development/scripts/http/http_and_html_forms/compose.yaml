@@ -1,9 +1,9 @@
-name: http-example
+name: http-forms-example
 
 services:
 
   web:
-    container_name: http-example-web
+    container_name: http-forms-example-web
     build: .
     ports:
       - "8080:80"

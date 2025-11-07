@@ -56,7 +56,7 @@
         <hgroup class="container py-3">
             <h1 class="d-inline-block me-4">PHP.lab</h1>
             <h2 class="d-inline-block me-4">WebDev Example</h2>
-            <h3 class="d-inline-block">HTTP</h3>
+            <h3 class="d-inline-block">HTTP & HTML forms</h3>
         </hgroup>
     </header>
     <main>
