@@ -55,10 +55,14 @@ function buildDevInfoData(): array
 
 function buildDevInfoContent(): string
 {
+    $formatLabel = function(string $codeName) {
+        return ucfirst(str_replace('_', ' ', $codeName));
+    };
+
     $content = '';
 
     foreach(buildDevInfoData() as $paramCodename => $param) {
-        $paramLabel = ucfirst(str_replace('_', ' ', $paramCodename));
+        $paramLabel = $formatLabel($paramCodename);
 
         $content .= sprintf('<p><b>%s</b>: ', $paramLabel);
 
@@ -71,7 +75,7 @@ function buildDevInfoContent(): string
             $content .= '<ul>';
 
             foreach($param['value'] as $valueCodename => $valueValue) {
-                $valueLabel = ucfirst(strtolower(str_replace('_', ' ', $valueCodename)));
+                $valueLabel = $formatLabel($valueCodename);
 
                 $content .= sprintf('<li><b>%s</b>: <samp>%s</samp></li>',
                     $valueLabel,
