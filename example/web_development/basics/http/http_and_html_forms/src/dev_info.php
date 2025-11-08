@@ -65,7 +65,7 @@ function buildLabelContent(string $label): string
 
 function buildScalarValueContent(string $value): string
 {
-    return sprintf('<samp class="param_value me-1">%s</samp>', $value);
+    return sprintf('<samp class="param_value me-1">%s</samp>', strip_tags($value));
 }
 
 function buildArrayValueContent(array $value): string
@@ -73,9 +73,7 @@ function buildArrayValueContent(array $value): string
     $content = '<ul class="my-1">';
 
     foreach($value as $valueItem) {
-        $content .= sprintf('<li class="my-1"><samp>%s</samp></li>',
-            $valueItem
-        );
+        $content .= sprintf('<li class="my-1"><samp>%s</samp></li>', strip_tags($valueItem));
     }
 
     $content .= '</ul>';
