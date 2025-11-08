@@ -60,25 +60,23 @@ function formatLabelFromCodename(string $codeName): string
 
 function buildLabelContent(string $label): string
 {
-    return sprintf('<b>%s</b>: ', $label);
+    return sprintf('<b>%s</b>', $label);
 }
 
 function buildScalarValueContent(string $value): string
 {
-    return sprintf('<samp class="param_value me-1">%s</samp>', strip_tags($value));
+    return sprintf('<samp class="param_value">%s</samp>', strip_tags($value));
 }
 
 function buildArrayValueContent(array $value): string
 {
-    $content = '<ul class="my-1">';
+    $valueItemsContent = '';
 
     foreach($value as $valueItem) {
-        $content .= sprintf('<li class="my-1"><samp>%s</samp></li>', strip_tags($valueItem));
+        $valueItemsContent .= sprintf('<li class="my-1"><samp>%s</samp></li>', strip_tags($valueItem));
     }
 
-    $content .= '</ul>';
-
-    return $content;
+    return sprintf('<ul class="my-1">%s</ul>', $valueItemsContent);
 }
 
 function buildSourceContent(string $source)
@@ -93,17 +91,23 @@ function buildDevInfoContent(): string
     foreach(buildDevInfoData() as $paramCodename => $param) {
         $paramLabel = formatLabelFromCodename($paramCodename);
 
-        $content .= '<div class="my-2">' . buildLabelContent($paramLabel);
+        $labelContent = buildLabelContent($paramLabel);
 
         if (! is_array($param['value'])) {
-            $content .= buildScalarValueContent($param['value'] ?? INDICATOR_UNKNOWN);
+            $valueContent = buildScalarValueContent($param['value'] ?? INDICATOR_UNKNOWN);
         } elseif (empty($param['value'])) {
-            $content .= buildScalarValueContent(INDICATOR_EMPTY);
+            $valueContent = buildScalarValueContent(INDICATOR_EMPTY);
         } else {
-            $content .= buildArrayValueContent($param['value']);
+            $valueContent = buildArrayValueContent($param['value']);
         }
 
-        $content .= buildSourceContent($param['source']) . '</div>';
+        $sourceContent = buildSourceContent($param['source']);
+
+        $content .= sprintf('<div class="my-2">%s: %s %s</div>',
+            $labelContent,
+            $valueContent,
+            $sourceContent
+        );
     }
 
     return $content;
