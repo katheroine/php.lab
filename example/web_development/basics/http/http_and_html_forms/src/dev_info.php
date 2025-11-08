@@ -70,12 +70,12 @@ function buildScalarValueContent(string $value): string
 
 function buildArrayValueContent(array $value): string
 {
-    $content = '<ul>';
+    $content = '<ul class="my-1">';
 
     foreach($value as $valueCodename => $valueValue) {
         $valueLabel = formatLabelFromCodename($valueCodename);
 
-        $content .= sprintf('<li><b>%s</b>: <samp>%s</samp></li>',
+        $content .= sprintf('<li class="my-1"><b>%s</b>: <samp>%s</samp></li>',
             $valueLabel,
             $valueValue
         );
@@ -98,7 +98,7 @@ function buildDevInfoContent(): string
     foreach(buildDevInfoData() as $paramCodename => $param) {
         $paramLabel = formatLabelFromCodename($paramCodename);
 
-        $content .= '<p>' . buildLabelContent($paramLabel);
+        $content .= '<div class="my-2">' . buildLabelContent($paramLabel);
 
         if (! is_array($param['value'])) {
             $content .= buildScalarValueContent($param['value'] ?? INDICATOR_UNKNOWN);
@@ -108,7 +108,7 @@ function buildDevInfoContent(): string
             $content .= buildArrayValueContent($param['value']);
         }
 
-        $content .= buildSourceContent($param['source']) . '</p>';
+        $content .= buildSourceContent($param['source']) . '</div>';
     }
 
     return $content;
