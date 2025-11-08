@@ -102,10 +102,10 @@ function buildDevInfoContent(): string
 
         if (! is_array($param['value'])) {
             $content .= buildScalarValueContent($param['value'] ?? INDICATOR_UNKNOWN);
-        } elseif (! empty($param['value'])) {
-            $content .= buildArrayValueContent($param['value']);
-        } else {
+        } elseif (empty($param['value'])) {
             $content .= buildScalarValueContent(INDICATOR_EMPTY);
+        } else {
+            $content .= buildArrayValueContent($param['value']);
         }
 
         $content .= buildSourceContent($param['source']) . '</p>';
