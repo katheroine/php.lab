@@ -72,12 +72,9 @@ function buildArrayValueContent(array $value): string
 {
     $content = '<ul class="my-1">';
 
-    foreach($value as $valueCodename => $valueValue) {
-        $valueLabel = formatLabelFromCodename($valueCodename);
-
-        $content .= sprintf('<li class="my-1"><b>%s</b>: <samp>%s</samp></li>',
-            $valueLabel,
-            $valueValue
+    foreach($value as $valueItem) {
+        $content .= sprintf('<li class="my-1"><samp>%s</samp></li>',
+            $valueItem
         );
     }
 
