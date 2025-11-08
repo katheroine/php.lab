@@ -64,12 +64,13 @@ function buildDevInfoContent(): string
     foreach(buildDevInfoData() as $paramCodename => $param) {
         $paramLabel = $formatLabel($paramCodename);
 
-        $content .= sprintf('<p><b>%s</b>: ', $paramLabel);
+        $content .= sprintf('<p><b>%s</b>: ',
+            $paramLabel
+        );
 
         if (! is_array($param['value'])) {
-            $content .= sprintf('<samp class="param_value me-1">%s</samp><samp class="param_source badge">%s</samp>',
-                ($param['value'] ?? INDICATOR_UNKNOWN),
-                $param['source']
+            $content .= sprintf('<samp class="param_value me-1">%s</samp>',
+                ($param['value'] ?? INDICATOR_UNKNOWN)
             );
         } elseif (! empty($param['value'])) {
             $content .= '<ul>';
@@ -83,14 +84,16 @@ function buildDevInfoContent(): string
                 );
             }
 
-            $content .= sprintf('</ul><samp class="param_source badge">%s</samp>',
-                $param['source']
-            );
+            $content .= '</ul>';
         } else {
-            $content .= INDICATOR_EMPTY;
+            $content .= sprintf('<samp class="param_value me-1">%s</samp>',
+                INDICATOR_EMPTY
+            );
         }
 
-        $content .= '</p>';
+        $content .= sprintf('<samp class="param_source badge">%s</samp></p>',
+            $param['source']
+        );
     }
 
     return $content;
