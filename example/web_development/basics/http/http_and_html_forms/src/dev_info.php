@@ -53,47 +53,62 @@ function buildDevInfoData(): array
     return $devInfo;
 }
 
+function formatLabelFromCodename(string $codeName): string
+{
+    return ucfirst(str_replace('_', ' ', $codeName));
+}
+
+function buildLabelContent(string $label): string
+{
+    return sprintf('<b>%s</b>: ', $label);
+}
+
+function buildScalarValueContent(string $value): string
+{
+    return sprintf('<samp class="param_value me-1">%s</samp>', $value);
+}
+
+function buildArrayValueContent(array $value): string
+{
+    $content = '<ul>';
+
+    foreach($value as $valueCodename => $valueValue) {
+        $valueLabel = formatLabelFromCodename($valueCodename);
+
+        $content .= sprintf('<li><b>%s</b>: <samp>%s</samp></li>',
+            $valueLabel,
+            $valueValue
+        );
+    }
+
+    $content .= '</ul>';
+
+    return $content;
+}
+
+function buildSourceContent(string $source)
+{
+    return sprintf('<samp class="param_source badge">%s</samp>', $source);
+}
+
 function buildDevInfoContent(): string
 {
-    $formatLabel = function(string $codeName) {
-        return ucfirst(str_replace('_', ' ', $codeName));
-    };
-
     $content = '';
 
     foreach(buildDevInfoData() as $paramCodename => $param) {
-        $paramLabel = $formatLabel($paramCodename);
+        $paramLabel = formatLabelFromCodename($paramCodename);
 
-        $content .= sprintf('<p><b>%s</b>: ',
-            $paramLabel
-        );
+        $content .= '<p>' . buildLabelContent($paramLabel);
 
         if (! is_array($param['value'])) {
-            $content .= sprintf('<samp class="param_value me-1">%s</samp>',
-                ($param['value'] ?? INDICATOR_UNKNOWN)
-            );
+            $content .= buildScalarValueContent($param['value'] ?? INDICATOR_UNKNOWN);
         } elseif (! empty($param['value'])) {
-            $content .= '<ul>';
-
-            foreach($param['value'] as $valueCodename => $valueValue) {
-                $valueLabel = $formatLabel($valueCodename);
-
-                $content .= sprintf('<li><b>%s</b>: <samp>%s</samp></li>',
-                    $valueLabel,
-                    $valueValue
-                );
-            }
-
-            $content .= '</ul>';
+            $content .= buildArrayValueContent($param['value']);
         } else {
-            $content .= sprintf('<samp class="param_value me-1">%s</samp>',
-                INDICATOR_EMPTY
-            );
+            $content .= buildScalarValueContent(INDICATOR_EMPTY);
         }
 
-        $content .= sprintf('<samp class="param_source badge">%s</samp></p>',
-            $param['source']
-        );
+        $content .= buildSourceContent($param['source']) . '</p>';
     }
 
     return $content;
