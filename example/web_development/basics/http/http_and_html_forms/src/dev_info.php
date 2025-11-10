@@ -41,9 +41,9 @@ function buildParamContent(string $codename, array $param): string
     );
 }
 
-function formatLabelFromCodename(string $codeName): string
+function formatLabelFromCodename(string $codename): string
 {
-    return ucfirst(str_replace('_', ' ', $codeName));
+    return ucfirst(str_replace('_', ' ', $codename));
 }
 
 function buildLabelContent(string $label): string
