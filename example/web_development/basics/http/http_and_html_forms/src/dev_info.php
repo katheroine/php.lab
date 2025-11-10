@@ -1,14 +1,76 @@
 <?php
 
+function devInfo()
+{
+    echo(buildDevInfoContent());
+}
+
+function buildDevInfoContent(): string
+{
+    $content = '';
+
+    foreach(buildDevInfoData() as $paramCodename => $param) {
+        $content .= buildParamContent($paramCodename, $param);
+    }
+
+    return $content;
+}
+
 const INDICATOR_UNKNOWN = '[unknown]';
 const INDICATOR_EMPTY = '[empty]';
 
-function fetchFromServer(string $paramName) {
-    return [
-        'source' => '$_SERVER[\'' . $paramName . '\']',
-        'value' => ($_SERVER[$paramName] ?? INDICATOR_UNKNOWN),
-    ];
-};
+function buildParamContent(string $codename, array $param): string
+{
+    $paramLabel = formatLabelFromCodename($codename);
+    $labelContent = buildLabelContent($paramLabel);
+
+    if (! is_array($param['value'])) {
+        $valueContent = buildScalarValueContent($param['value'] ?? INDICATOR_UNKNOWN);
+    } elseif (empty($param['value'])) {
+        $valueContent = buildScalarValueContent(INDICATOR_EMPTY);
+    } else {
+        $valueContent = buildArrayValueContent($param['value']);
+    }
+
+    $sourceContent = buildSourceContent($param['source']);
+
+    return sprintf('<div class="my-2">%s: %s %s</div>',
+        $labelContent,
+        $valueContent,
+        $sourceContent
+    );
+}
+
+function formatLabelFromCodename(string $codeName): string
+{
+    return ucfirst(str_replace('_', ' ', $codeName));
+}
+
+function buildLabelContent(string $label): string
+{
+    return sprintf('<b>%s</b>', $label);
+}
+
+function buildScalarValueContent(string $value): string
+{
+    return sprintf('<samp class="param_value">%s</samp>', strip_tags($value));
+}
+
+function buildArrayValueContent(array $value): string
+{
+    $valueItemsContent = '';
+
+    foreach($value as $valueItem) {
+        $valueItemsContent .= sprintf('<li class="my-1"><samp>%s</samp></li>', strip_tags($valueItem));
+    }
+
+    return sprintf('<ul class="my-1">%s</ul>', $valueItemsContent);
+}
+
+function buildSourceContent(string $source)
+{
+    return sprintf('<samp class="param_source badge">%s</samp>', $source);
+}
 
 /**
  * @return array<string, array{source: string, value: string}>
@@ -53,71 +115,9 @@ function buildDevInfoData(): array
     return $devInfo;
 }
 
-function formatLabelFromCodename(string $codeName): string
-{
-    return ucfirst(str_replace('_', ' ', $codeName));
-}
-
-function buildLabelContent(string $label): string
-{
-    return sprintf('<b>%s</b>', $label);
-}
-
-function buildScalarValueContent(string $value): string
-{
-    return sprintf('<samp class="param_value">%s</samp>', strip_tags($value));
-}
-
-function buildArrayValueContent(array $value): string
-{
-    $valueItemsContent = '';
-
-    foreach($value as $valueItem) {
-        $valueItemsContent .= sprintf('<li class="my-1"><samp>%s</samp></li>', strip_tags($valueItem));
-    }
-
-    return sprintf('<ul class="my-1">%s</ul>', $valueItemsContent);
-}
-
-function buildSourceContent(string $source)
-{
-    return sprintf('<samp class="param_source badge">%s</samp>', $source);
-}
-
-function buildParamContent(string $codename, array $param): string
-{
-    $paramLabel = formatLabelFromCodename($codename);
-    $labelContent = buildLabelContent($paramLabel);
-
-    if (! is_array($param['value'])) {
-        $valueContent = buildScalarValueContent($param['value'] ?? INDICATOR_UNKNOWN);
-    } elseif (empty($param['value'])) {
-        $valueContent = buildScalarValueContent(INDICATOR_EMPTY);
-    } else {
-        $valueContent = buildArrayValueContent($param['value']);
-    }
-
-    $sourceContent = buildSourceContent($param['source']);
-
-    return sprintf('<div class="my-2">%s: %s %s</div>',
-        $labelContent,
-        $valueContent,
-        $sourceContent
-    );
-}
-
-function buildDevInfoContent(): string
-{
-    $content = '';
-
-    foreach(buildDevInfoData() as $paramCodename => $param) {
-        $content .= buildParamContent($paramCodename, $param);
-    }
-
-    return $content;
-}
-
-function devInfo()
-{
-    echo(buildDevInfoContent());
-}
+function fetchFromServer(string $paramName) {
+    return [
+        'source' => '$_SERVER[\'' . $paramName . '\']',
+        'value' => ($_SERVER[$paramName] ?? INDICATOR_UNKNOWN),
+    ];
+};
