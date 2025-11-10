@@ -16,7 +16,7 @@ function buildParamsContent(array $data): string
 
     if (! empty($data)) {
         $paramItemsContent = buildParamItemsContent($data);
-        $content .= sprintf('<ul>%s</ul>', $paramItemsContent);
+        $content = sprintf('<ul>%s</ul>', $paramItemsContent);
     }
 
     return $content;
