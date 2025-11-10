@@ -10,7 +10,7 @@ require_once('./dev_info.php');
     <meta charset="utf-8">
     <meta name="language" content="english">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HTTP Example</title>
+    <title>HTTP & HTML Forms Example</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="styles.css" rel="stylesheet" type="text/css">
 </head>
