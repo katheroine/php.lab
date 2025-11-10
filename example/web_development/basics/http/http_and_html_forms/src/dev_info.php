@@ -118,6 +118,6 @@ function buildDevInfoData(): array
 function fetchFromServer(string $paramName) {
     return [
         'source' => '$_SERVER[\'' . $paramName . '\']',
-        'value' => ($_SERVER[$paramName] ?? INDICATOR_UNKNOWN),
+        'value' => $_SERVER[$paramName] ?? null,
     ];
 };
