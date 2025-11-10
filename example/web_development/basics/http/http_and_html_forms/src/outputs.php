@@ -2,26 +2,27 @@
 
 function requestGetParams()
 {
-    if (! empty($_GET)) {
-        echo('<ul>');
-
-        foreach($_GET as $label => $value) {
-            echo('<li><b>' . $label . '</b>: ' . $value . '</li>');
-        }
-
-        echo('</ul>');
-    }
+    echo(buildParamsContent($_GET));
 }
 
 function requestPostParams()
 {
-    if (! empty($_POST)) {
-        echo('<ul>');
+    echo(buildParamsContent($_POST));
+}
 
-        foreach($_POST as $label => $value) {
-            echo('<li><b>' . $label . '</b>: ' . $value . '</li>');
+function buildParamsContent(array $data): string
+{
+    $content = '';
+
+    if (! empty($data)) {
+        $content .= '<ul>';
+
+        foreach($data as $label => $value) {
+            $content .= '<li><b>' . $label . '</b>: ' . $value . '</li>';
         }
 
-        echo('</ul>');
+        $content .= '</ul>';
     }
+
+    return $content;
 }
