@@ -23,17 +23,7 @@ function buildParamContent(string $codename, array $param): string
 {
     $paramLabel = formatLabelFromCodename($codename);
     $labelContent = buildLabelContent($paramLabel);
-
-    if (is_null($param['value'])) {
-        $valueContent = buildScalarValueContent(INDICATOR_UNKNOWN);
-    } elseif (! is_array($param['value'])) {
-        $valueContent = buildScalarValueContent($param['value']);
-    } elseif (empty($param['value'])) {
-        $valueContent = buildScalarValueContent(INDICATOR_EMPTY);
-    } else {
-        $valueContent = buildArrayValueContent($param['value']);
-    }
-
+    $valueContent = buildValueContent($param['value']);
     $sourceContent = buildSourceContent($param['source']);
 
     return sprintf('<div class="my-2">%s: %s %s</div>',
@@ -51,6 +41,21 @@ function formatLabelFromCodename(string $codename): string
 function buildLabelContent(string $label): string
 {
     return sprintf('<b>%s</b>', $label);
+}
+
+function buildValueContent(null|string|array $paramValue): string
+{
+    if (is_null($paramValue)) {
+        $valueContent = buildScalarValueContent(INDICATOR_UNKNOWN);
+    } elseif (! is_array($paramValue)) {
+        $valueContent = buildScalarValueContent($paramValue);
+    } elseif (empty($paramValue)) {
+        $valueContent = buildScalarValueContent(INDICATOR_EMPTY);
+    } else {
+        $valueContent = buildArrayValueContent($paramValue);
+    }
+
+    return $valueContent;
 }
 
 function buildScalarValueContent(string $value): string
