@@ -24,8 +24,10 @@ function buildParamContent(string $codename, array $param): string
     $paramLabel = formatLabelFromCodename($codename);
     $labelContent = buildLabelContent($paramLabel);
 
-    if (! is_array($param['value'])) {
-        $valueContent = buildScalarValueContent($param['value'] ?? INDICATOR_UNKNOWN);
+    if (is_null($param['value'])) {
+        $valueContent = buildScalarValueContent(INDICATOR_UNKNOWN);
+    } elseif (! is_array($param['value'])) {
+        $valueContent = buildScalarValueContent($param['value']);
     } elseif (empty($param['value'])) {
         $valueContent = buildScalarValueContent(INDICATOR_EMPTY);
     } else {
