@@ -3,18 +3,18 @@
 const INDICATOR_UNKNOWN = '[unknown]';
 const INDICATOR_EMPTY = '[empty]';
 
+function fetchFromServer(string $paramName) {
+    return [
+        'source' => '$_SERVER[\'' . $paramName . '\']',
+        'value' => ($_SERVER[$paramName] ?? INDICATOR_UNKNOWN),
+    ];
+};
+
 /**
  * @return array<string, array{source: string, value: string}>
  */
 function buildDevInfoData(): array
 {
-    function fetchFromServer(string $paramName) {
-        return [
-            'source' => '$_SERVER[\'' . $paramName . '\']',
-            'value' => ($_SERVER[$paramName] ?? INDICATOR_UNKNOWN),
-        ];
-    };
-
     $devInfo = [
         'currently_executing_script' => fetchFromServer('PHP_SELF'),
         'script_arguments' => fetchFromServer('argv'),
@@ -84,30 +84,34 @@ function buildSourceContent(string $source)
     return sprintf('<samp class="param_source badge">%s</samp>', $source);
 }
 
+function buildParamContent(string $codename, array $param): string
+{
+    $paramLabel = formatLabelFromCodename($codename);
+    $labelContent = buildLabelContent($paramLabel);
+
+    if (! is_array($param['value'])) {
+        $valueContent = buildScalarValueContent($param['value'] ?? INDICATOR_UNKNOWN);
+    } elseif (empty($param['value'])) {
+        $valueContent = buildScalarValueContent(INDICATOR_EMPTY);
+    } else {
+        $valueContent = buildArrayValueContent($param['value']);
+    }
+
+    $sourceContent = buildSourceContent($param['source']);
+
+    return sprintf('<div class="my-2">%s: %s %s</div>',
+        $labelContent,
+        $valueContent,
+        $sourceContent
+    );
+}
+
 function buildDevInfoContent(): string
 {
     $content = '';
 
     foreach(buildDevInfoData() as $paramCodename => $param) {
-        $paramLabel = formatLabelFromCodename($paramCodename);
-
-        $labelContent = buildLabelContent($paramLabel);
-
-        if (! is_array($param['value'])) {
-            $valueContent = buildScalarValueContent($param['value'] ?? INDICATOR_UNKNOWN);
-        } elseif (empty($param['value'])) {
-            $valueContent = buildScalarValueContent(INDICATOR_EMPTY);
-        } else {
-            $valueContent = buildArrayValueContent($param['value']);
-        }
-
-        $sourceContent = buildSourceContent($param['source']);
-
-        $content .= sprintf('<div class="my-2">%s: %s %s</div>',
-            $labelContent,
-            $valueContent,
-            $sourceContent
-        );
+        $content .= buildParamContent($paramCodename, $param);
     }
 
     return $content;
