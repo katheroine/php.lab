@@ -24,13 +24,13 @@ require_once('./dev_info.php');
         </hgroup>
     </header>
     <main>
-        <div id="intro" class="jumbotron py-5">
+        <div id="intro" class="py-5">
             <section id="introduction" class="container">
                 <h1 class="display-3">Hello, world!</h1>
                 <p>This is web page example in <strong>PHP <?php echo phpversion(); ?></strong> on <b>Apache</b>.</p>
             </section>
         </div>
-        <div id="info" style="overflow: auto;">
+        <div id="info" class="overflow-auto">
             <section id="http_info" class="container my-5">
                 <h3 class="my-4">HTTP info</h3>
                 <section id="http_info_method">
@@ -51,7 +51,7 @@ require_once('./dev_info.php');
                 </section>
             </section>
         </div>
-        <div id="input" style="overflow: auto;">
+        <div id="input" class="overflow-auto">
             <section id="inputs" class="container">
                 <h1 class="my-5">Input</h1>
                 <section id="get_input" class="my-5">
@@ -84,7 +84,7 @@ require_once('./dev_info.php');
                 </section>
             </section>
         </div>
-        <div id="output" style="overflow: auto;">
+        <div id="output" class="overflow-auto">
             <section id="outputs" class="container">
                 <h1 class="my-5">Output</h1>
                 <section id="get_output" class="my-5">
@@ -98,8 +98,8 @@ require_once('./dev_info.php');
             </section>
         </div>
     </main>
-    <aside id="devinfo" class="jumbotron">
-        <section class="container">
+    <aside id="devinfo">
+        <section class="container my-5">
             <h3 class="my-4">Dev Info</h3>
             <?php devInfo(); ?>
         </section>
