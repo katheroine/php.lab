@@ -1,16 +1,16 @@
 :root
 {
-    --ultralight-blue: #f0f8fa;
-    --light-blue: #c9e3f1;
+    --ultralight-blue: #dfecf3;
+    --light-blue: #c2dceb;
     --medium-blue: #142d3d;
     --dark-blue: #0f2430;
-    --grey-blue: #dce8f0;
-    --white: #eee;
+    --grey: #bed0db;
+    --white: #e6ebee;
 }
 
 body
 {
-    background-color: var(--light-blue);
+    background-color: var(--grey);
 }
 
 header
@@ -26,7 +26,7 @@ header
 
 #input
 {
-    background-color: var(--white);
+    background-color: var(--light-blue);
 }
 
 #info,
@@ -37,7 +37,7 @@ header
 
 #devinfo
 {
-    background-color: var(--light-blue);
+    background-color: var(--grey);
     color: var(--dark-blue);
     font-size: small;
 }
