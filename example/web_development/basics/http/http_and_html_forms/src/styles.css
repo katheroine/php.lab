@@ -1,40 +1,50 @@
+:root
+{
+    --ultralight-blue: #f0f8fa;
+    --light-blue: #c9e3f1;
+    --medium-blue: #142d3d;
+    --dark-blue: #0f2430;
+    --grey-blue: #dce8f0;
+    --white: #eee;
+}
+
 body
 {
-    background-color: #c9e3f1;
+    background-color: var(--light-blue);
 }
 
 header
 {
-    background-color: #eee;
+    background-color: var(--white);
 }
 
 #intro
 {
-    background-color: #142d3d;
-    color: #eee;
+    background-color: var(--medium-blue);
+    color: var(--white);
 }
 
 #input
 {
-    background-color: #dce8f0ff;
+    background-color: var(--white);
 }
 
 #info,
 #output
 {
-    background-color: #f0f8fa;
+    background-color: var(--ultralight-blue);
 }
 
 #devinfo
 {
-    background-color: #c9e3f1;
-    color: #0f2430ff;
+    background-color: var(--light-blue);
+    color: var(--dark-blue);
     font-size: small;
 }
 
 #devinfo .param_source
 {
-    background-color: #eee;
-    color: #142d3d;
+    background-color: var(--white);
+    color: var(--medium-blue);
     font-weight: 600;
 }
