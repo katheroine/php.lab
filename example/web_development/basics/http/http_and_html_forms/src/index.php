@@ -12,48 +12,7 @@ require_once('./dev_info.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HTTP Example</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <style>
-        body
-        {
-            background-color: #c9e3f1;
-        }
-
-        header
-        {
-            background-color: #eee;
-        }
-
-        #intro
-        {
-            background-color: #142d3d;
-            color: #eee;
-        }
-
-        #input
-        {
-            background-color: #dce8f0ff;
-        }
-
-        #info,
-        #output
-        {
-            background-color: #f0f8fa;
-        }
-
-        #devinfo
-        {
-            background-color: #c9e3f1;
-            color: #0f2430ff;
-            font-size: small;
-        }
-
-        #devinfo .param_source
-        {
-            background-color: #eee;
-            color: #142d3d;
-            font-weight: 600;
-        }
-    </style>
+    <link href="styles.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>

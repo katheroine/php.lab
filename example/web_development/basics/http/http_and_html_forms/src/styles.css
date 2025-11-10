@@ -1,0 +1,40 @@
+body
+{
+    background-color: #c9e3f1;
+}
+
+header
+{
+    background-color: #eee;
+}
+
+#intro
+{
+    background-color: #142d3d;
+    color: #eee;
+}
+
+#input
+{
+    background-color: #dce8f0ff;
+}
+
+#info,
+#output
+{
+    background-color: #f0f8fa;
+}
+
+#devinfo
+{
+    background-color: #c9e3f1;
+    color: #0f2430ff;
+    font-size: small;
+}
+
+#devinfo .param_source
+{
+    background-color: #eee;
+    color: #142d3d;
+    font-weight: 600;
+}
