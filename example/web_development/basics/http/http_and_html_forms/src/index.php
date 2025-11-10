@@ -78,6 +78,10 @@ require_once('./dev_info.php');
                     <h5 class="d-inline-block">Method</h5>:
                     <?php requestMethod(); ?>
                 </section>
+                <section id="http_info_request_superglobal">
+                    <h5 class="my-2"><samp>$_REQUEST</samp> superglobal</h5>
+                    <pre><?php requestSuperglobal(); ?></pre>
+                </section>
                 <section id="http_info_get_superglobal">
                     <h5 class="my-2"><samp>$_GET</samp> superglobal</h5>
                     <pre><?php getSuperglobal(); ?></pre>

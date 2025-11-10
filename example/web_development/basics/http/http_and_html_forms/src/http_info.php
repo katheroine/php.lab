@@ -14,3 +14,8 @@ function postSuperglobal()
 {
     var_dump($_POST);
 }
+
+function requestSuperglobal()
+{
+    var_dump($_REQUEST);
+}
