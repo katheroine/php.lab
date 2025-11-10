@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en-GB">
-<?php require_once('./dev_info.php'); ?>
+<?php
+require_once('./http_info.php');
+require_once('./dev_info.php');
+?>
 
 <head>
     <meta charset="utf-8">
@@ -72,15 +75,15 @@
                 <h3 class="my-4">HTTP info</h3>
                 <section id="http_info_method">
                     <h5 class="d-inline-block">Method</h5>:
-                    <?php echo($_SERVER['REQUEST_METHOD']); ?>
+                    <?php requestMethod(); ?>
                 </section>
                 <section id="http_info_get_superglobal">
                     <h5 class="my-2"><samp>$_GET</samp> superglobal</h5>
-                    <pre><?php var_dump($_GET); ?></pre>
+                    <pre><?php getSuperglobal(); ?></pre>
                 </section>
                 <section id="http_info_post_superglobal">
                     <h5 class="my-2"><samp>$_POST</samp> superglobal</h5>
-                    <pre><?php var_dump($_POST); ?></pre>
+                    <pre><?php postSuperglobal(); ?></pre>
                 </section>
             </section>
         </div>
