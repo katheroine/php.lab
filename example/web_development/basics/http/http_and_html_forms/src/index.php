@@ -2,6 +2,7 @@
 <html lang="en-GB">
 <?php
 require_once('./http_info.php');
+require_once('./outputs.php');
 require_once('./dev_info.php');
 ?>
 
@@ -125,31 +126,11 @@ require_once('./dev_info.php');
                 <h1 class="my-5">Output</h1>
                 <section id="get_output" class="my-5">
                     <h3 class="my-3">GET method output</h3>
-                    <?php
-                        if (! empty($_GET)) {
-                            echo('<ul>');
-
-                            foreach($_GET as $label => $value) {
-                                echo('<li><b>' . $label . '</b>: ' . $value . '</li>');
-                            }
-
-                            echo('</ul>');
-                        }
-                    ?>
+                    <?php requestGetParams(); ?>
                 </section>
                 <section id="post_output" class="my-5">
                     <h3 class="my-3">POST method output</h3>
-                    <?php
-                        if (! empty($_POST)) {
-                            echo('<ul>');
-
-                            foreach($_POST as $label => $value) {
-                                echo('<li><b>' . $label . '</b>: ' . $value . '</li>');
-                            }
-
-                            echo('</ul>');
-                        }
-                    ?>
+                    <?php requestPostParams(); ?>
                 </section>
             </section>
         </div>
