@@ -33,59 +33,6 @@
                     <button class="btn btn-info" onclick="triggerPost();">POST</button>
                     <button class="btn btn-warning" onclick="triggerPut();">PUT</button>
                     <button class="btn btn-danger" onclick="triggerDelete();">DELETE</button>
-                    <script>
-                        function triggerGet() {
-                            $.ajax({
-                                url: 'http://localhost:8080/server.php',
-                                type: 'GET',
-                                dataType: 'json',
-                                success: function(data) {
-                                    $("#board").html("GET triggered");;
-                                    $("#content").html(data.method);
-                                }
-                            });
-                            console.log("GET triggered");
-                        }
-
-                        function triggerPost() {
-                            $.ajax({
-                                url: "http://localhost:8080/server.php",
-                                type: 'POST',
-                                dataType: 'json',
-                                success: function(data) {
-                                    $("#board").html("POST triggered");
-                                    $("#content").html(data.method);
-                                }
-                            });
-                            console.log("POST triggered");
-                        }
-
-                        function triggerPut() {
-                            $.ajax({
-                                url: 'http://localhost:8080/server.php',
-                                type: 'PUT',
-                                dataType: 'json',
-                                success: function(data) {
-                                    $("#board").html("PUT triggered");
-                                    $("#content").html(data.method);
-                                }
-                            });
-                            console.log("PUT triggered");
-                        }
-
-                        function triggerDelete() {
-                            $.ajax({
-                                url: "http://localhost:8080/server.php",
-                                type: 'DELETE',
-                                dataType: 'json',
-                                success: function(data) {
-                                    $("#board").html("DELETE triggered");;
-                                    $("#content").html(data.method);
-                                }
-                            });
-                            console.log("DELETE triggered");
-                        }
-                    </script>
                 </div>
                 <section id="request_status">
                     <h5 class="d-inline-block my-4">Request status</h5>:
@@ -102,8 +49,9 @@
             </section>
         </div>
     </main>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="http_methods.js"></script>
 </body>
 
 </html>
