@@ -4,9 +4,9 @@ $data = [
     'method' => $_SERVER['REQUEST_METHOD'],
 ];
 
+$json_data = json_encode($data);
+
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-
-$json_data = json_encode($data);
 
 echo $json_data;
