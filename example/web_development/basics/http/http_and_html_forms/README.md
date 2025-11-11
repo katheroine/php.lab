@@ -1,6 +1,6 @@
 # PHP.lab WebDev
 
-## Small ball of mud
+## HTTP & HTML forms
 
 ### Docker
 
