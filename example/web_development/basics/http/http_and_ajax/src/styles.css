@@ -1,0 +1,36 @@
+:root
+{
+    --ultralight-blue: #dfecf3;
+    --light-blue: #c2dceb;
+    --medium-blue: #142d3d;
+    --dark-blue: #0f2430;
+    --grey: #bed0db;
+    --white: #e6ebee;
+}
+
+body
+{
+    background-color: var(--grey);
+}
+
+header
+{
+    background-color: var(--white);
+}
+
+#intro
+{
+    background-color: var(--medium-blue);
+    color: var(--white);
+}
+
+#input
+{
+    background-color: var(--light-blue);
+}
+
+#output
+{
+    background-color: var(--ultralight-blue);
+}
+
