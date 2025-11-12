@@ -1,0 +1,11 @@
+name: http-php-example
+
+services:
+
+  web:
+    container_name: http-php-example-web
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
