@@ -1,16 +1,92 @@
 <?php
 if (isset($_REQUEST['method'])) {
+    $requestMethod = $_REQUEST['method'];
+
     $request = [
         'some_text' => $_REQUEST['some_text'],
         'some_number' => $_REQUEST['some_number'],
     ];
-    $ch = curl_init('http://localhost/server.php');
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $_REQUEST['method']);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
-    $response = json_decode(curl_exec($ch));
-    if(curl_error($ch)) { var_dump(curl_error($ch)); }
-    curl_close($ch);
+
+    $url = 'http://localhost/server.php';
+
+    switch($requestMethod) {
+        case 'GET':
+            $query = http_build_query($request);
+            $queryUrl = $url . '?' . $query;
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $queryUrl);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response = json_decode(
+                curl_exec($ch)
+            );
+            curl_close($ch);
+            break;
+        case 'POST':
+            $query = http_build_query($request);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response = json_decode(
+                curl_exec($ch)
+            );
+            curl_close($ch);
+            break;
+        case 'PUT':
+            $query = http_build_query($request);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/x-www-form-urlencoded',
+                'Content-Length: ' . strlen($query),
+            ]);
+            $response = json_decode(
+                curl_exec($ch)
+            );
+            curl_close($ch);
+            break;
+        case 'PATCH':
+            $headers = [
+                'X-HTTP-Method-Override: PATCH',
+            ];
+            $query = http_build_query($request);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response = json_decode(
+                curl_exec($ch)
+            );
+            curl_close($ch);
+            break;
+        case 'DELETE':
+            $headers = [
+                'X-HTTP-Method-Override: DELETE',
+            ];
+            $query = http_build_query($request);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response = json_decode(
+                curl_exec($ch)
+            );
+            curl_close($ch);
+            break;
+    }
+
+    // var_dump(curl_errno($ch));
+    // if(curl_error($ch)) {
+    //     var_dump(curl_error($ch));
+    // }
 }
 ?>
 <!DOCTYPE html>
@@ -53,12 +129,21 @@ if (isset($_REQUEST['method'])) {
                         <input type="number" name="some_number" id="get_number" class="form-control">
                     </div>
                     <div id="request_triggers" class="my-4">
-                        <input type="submit" name="method" value="GET" class="btn btn-success">
+                        <input type="submit" name="method" value="GET" class="btn btn-primary">
                         <input type="submit" name="method" value="POST" class="btn btn-info">
-                        <input type="submit" name="method" value="PUT" class="btn btn-warning">
+                        <input type="submit" name="method" value="PUT" class="btn btn-success">
+                        <input type="submit" name="method" value="PATCH" class="btn btn-warning">
                         <input type="submit" name="method" value="DELETE" class="btn btn-danger">
                     </div>
                 </form>
+                <section id="request_data">
+                    <h3 class="my-3">Request data</h3>
+                    <pre><?php var_dump($request); ?></pre>
+                </section>
+                <section id="request_method">
+                    <h3 class="my-3">Request method</h3>
+                    <pre><?php var_dump($_REQUEST['method']); ?></pre>
+                </section>
             </section>
         </div>
         <div id="output" class="overflow-auto">
@@ -71,6 +156,10 @@ if (isset($_REQUEST['method'])) {
                 <section id="response_result">
                     <h5 class="d-inline-block my-4">Result</h5>:
                     <div id="result" class="d-inline-block" style="height: 1rem;"><?php echo($response->result ?? ''); ?></div>
+                </section>
+                <section id="response_data">
+                    <h3 class="my-3">Response data</h3>
+                    <pre><?php var_dump($response); ?></pre>
                 </section>
             </section>
         </div>
