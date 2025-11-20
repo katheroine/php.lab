@@ -1,8 +1,13 @@
 <?php
 if (isset($_REQUEST['method'])) {
+    $request = [
+        'some_text' => $_REQUEST['some_text'],
+        'some_number' => $_REQUEST['some_number'],
+    ];
     $ch = curl_init('http://localhost/server.php');
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $_REQUEST['method']);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
     $response = json_decode(curl_exec($ch));
     if(curl_error($ch)) { var_dump(curl_error($ch)); }
     curl_close($ch);
@@ -60,8 +65,13 @@ if (isset($_REQUEST['method'])) {
             <section id="http_response" class="container my-5">
                 <h3 class="my-4">HTTP responses</h3>
                 <section id="response_method">
-                <h5 class="d-inline-block my-4">Method</h5>:
-                <div id="content" class="d-inline-block" style="height: 1rem;"><?php echo($response->method ?? ''); ?></div>
+                    <h5 class="d-inline-block my-4">Method</h5>:
+                    <div id="method" class="d-inline-block" style="height: 1rem;"><?php echo($response->method ?? ''); ?></div>
+                </section>
+                <section id="response_result">
+                    <h5 class="d-inline-block my-4">Result</h5>:
+                    <div id="result" class="d-inline-block" style="height: 1rem;"><?php echo($response->result ?? ''); ?></div>
+                </section>
             </section>
         </div>
     </main>
