@@ -145,11 +145,6 @@ if (isset($_REQUEST['method'])) {
                     <h3 class="my-3">Request method</h3>
                     <pre><?php var_dump($_REQUEST['method']); ?></pre>
                 </section>
-                <section id="request_headers">
-                    <h3 class="my-3">Request headers</h3>
-                    <pre><?php var_dump(apache_request_headers()); ?></pre>
-                    <!-- <pre><?php var_dump(getallheaders()); ?></pre> -->
-                </section>
             </section>
         </div>
         <div id="output" class="overflow-auto">
@@ -166,12 +161,6 @@ if (isset($_REQUEST['method'])) {
                 <section id="response_data">
                     <h3 class="my-3">Response data</h3>
                     <pre><?php var_dump($response); ?></pre>
-                </section>
-                <section id="response_headers">
-                    <h3 class="my-3">Response headers</h3>
-                    <pre><?php var_dump(apache_response_headers()); ?></pre>
-                    <pre><?php var_dump(headers_list()); ?></pre>
-                    <pre><?php var_dump(get_headers($url)); ?></pre>
                 </section>
             </section>
         </div>

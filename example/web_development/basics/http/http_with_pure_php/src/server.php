@@ -1,8 +1,6 @@
 <?php
 
 header('Content-Type: application/json');
-header('My-Very-Own-Server-Data: hi');
-header('My-Request-Method: ' . $_SERVER['REQUEST_METHOD']);
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
@@ -33,8 +31,6 @@ $result = buildResult($text, $number);
 
 $response = [
     'method' => $_SERVER['REQUEST_METHOD'],
-    'request_headers' => getallheaders(),
-    'response_headers' => headers_list(),
     'result' => $result,
 ];
 
