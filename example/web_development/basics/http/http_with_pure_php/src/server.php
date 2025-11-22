@@ -1,5 +1,8 @@
 <?php
 
+header('Content-Type: application/json');
+header('My-Very-Own-Server-Data: hi');
+
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
 function buildResult(string $text, int $number): string
@@ -29,12 +32,11 @@ $result = buildResult($text, $number);
 
 $response = [
     'method' => $_SERVER['REQUEST_METHOD'],
+    'request_headers' => getallheaders(),
+    'response_headers' => headers_list(),
     'result' => $result,
 ];
 
 $content = json_encode($response);
-
-// header('Access-Control-Allow-Origin: *');
-// header('Content-Type: application/json');
 
 echo $content;

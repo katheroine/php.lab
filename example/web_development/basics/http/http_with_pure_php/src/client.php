@@ -43,6 +43,7 @@ if (isset($_REQUEST['method'])) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
                 'Content-Type: application/x-www-form-urlencoded',
                 'Content-Length: ' . strlen($query),
+                'My-Very-Own-Client-Data: hello',
             ]);
             $response = json_decode(
                 curl_exec($ch)
@@ -118,7 +119,7 @@ if (isset($_REQUEST['method'])) {
         </div>
         <div id="input" class="overflow-auto">
             <section id="http_request" class="container my-5">
-                <h1 class="my-5">Input</h1>
+                <h1 class="my-5">Request</h1>
                 <form action="./client.php" method="POST">
                     <div class="my-2">
                         <label for="get_text" class="form-label">Some text</label>
@@ -144,11 +145,16 @@ if (isset($_REQUEST['method'])) {
                     <h3 class="my-3">Request method</h3>
                     <pre><?php var_dump($_REQUEST['method']); ?></pre>
                 </section>
+                <section id="request_headers">
+                    <h3 class="my-3">Request headers</h3>
+                    <pre><?php var_dump(apache_request_headers()); ?></pre>
+                    <!-- <pre><?php var_dump(getallheaders()); ?></pre> -->
+                </section>
             </section>
         </div>
         <div id="output" class="overflow-auto">
             <section id="http_response" class="container my-5">
-                <h3 class="my-4">HTTP responses</h3>
+                <h1 class="my-4">Response</h3>
                 <section id="response_method">
                     <h5 class="d-inline-block my-4">Method</h5>:
                     <div id="method" class="d-inline-block" style="height: 1rem;"><?php echo($response->method ?? ''); ?></div>
@@ -160,6 +166,12 @@ if (isset($_REQUEST['method'])) {
                 <section id="response_data">
                     <h3 class="my-3">Response data</h3>
                     <pre><?php var_dump($response); ?></pre>
+                </section>
+                <section id="response_headers">
+                    <h3 class="my-3">Response headers</h3>
+                    <pre><?php var_dump(apache_response_headers()); ?></pre>
+                    <pre><?php var_dump(headers_list()); ?></pre>
+                    <pre><?php var_dump(get_headers($url)); ?></pre>
                 </section>
             </section>
         </div>
