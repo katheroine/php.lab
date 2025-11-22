@@ -4,24 +4,34 @@ header('Content-Type: application/json');
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
+const INPUT_STREAM_ACCESS = 'php://input';
+
 const TEXT_DATA_KEY = 'some_text';
 const NUMBER_DATA_KEY = 'some_number';
 
+function fetchData(array $source): array
+{
+    return [
+        $source[TEXT_DATA_KEY] ?? '',
+        $source[NUMBER_DATA_KEY] ?? 1,
+    ];
+}
+
 switch($requestMethod) {
     case 'GET':
-        $text = $_GET[TEXT_DATA_KEY] ?? '';
-        $number = $_GET[NUMBER_DATA_KEY] ?? 1;
+        list($text, $number) = fetchData($_GET);
         break;
     case 'POST':
-        $text = $_POST[TEXT_DATA_KEY] ?? '';
-        $number = $_POST[NUMBER_DATA_KEY] ?? 1;
+        list($text, $number) = fetchData($_POST);
         break;
     case 'PUT':
     case 'PATCH':
     case 'DELETE':
-        parse_str(file_get_contents('php://input'), $input);
-        $text = $input[TEXT_DATA_KEY] ?? '';
-        $number = $input[NUMBER_DATA_KEY] ?? 1;
+        parse_str(
+            file_get_contents(INPUT_STREAM_ACCESS),
+            $input
+        );
+        list($text, $number) = fetchData($input);
         break;
 }
 
