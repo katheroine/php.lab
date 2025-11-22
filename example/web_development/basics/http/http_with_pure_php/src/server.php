@@ -4,33 +4,31 @@ header('Content-Type: application/json');
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
-function buildResult(string $text, int $number): string
-{
-    return str_repeat($text, $number);
-}
+const TEXT_DATA_KEY = 'some_text';
+const NUMBER_DATA_KEY = 'some_number';
 
 switch($requestMethod) {
     case 'GET':
-        $text = $_GET['some_text'] ?? '';
-        $number = $_GET['some_number'] ?? 1;
+        $text = $_GET[TEXT_DATA_KEY] ?? '';
+        $number = $_GET[NUMBER_DATA_KEY] ?? 1;
         break;
     case 'POST':
-        $text = $_POST['some_text'] ?? '';
-        $number = $_POST['some_number'] ?? 1;
+        $text = $_POST[TEXT_DATA_KEY] ?? '';
+        $number = $_POST[NUMBER_DATA_KEY] ?? 1;
         break;
     case 'PUT':
     case 'PATCH':
     case 'DELETE':
         parse_str(file_get_contents('php://input'), $input);
-        $text = $input['some_text'] ?? '';
-        $number = $input['some_number'] ?? 1;
+        $text = $input[TEXT_DATA_KEY] ?? '';
+        $number = $input[NUMBER_DATA_KEY] ?? 1;
         break;
 }
 
-$result = buildResult($text, $number);
+$result = str_repeat($text, $number);
 
 $response = [
-    'method' => $_SERVER['REQUEST_METHOD'],
+    'method' => $requestMethod,
     'result' => $result,
 ];
 
