@@ -2,6 +2,7 @@
 
 header('Content-Type: application/json');
 header('My-Very-Own-Server-Data: hi');
+header('My-Request-Method: ' . $_SERVER['REQUEST_METHOD']);
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
