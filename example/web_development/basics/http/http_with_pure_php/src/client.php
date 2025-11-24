@@ -30,6 +30,14 @@ runCommunication();
                 <p>This is web page example in <strong>PHP <?php echo phpversion(); ?></strong> on <b>Apache</b>.</p>
             </section>
         </div>
+        <div id="errors" class="overflow-auto">
+            <?php if(areErrors()): ?>
+            <section id="http_errors" class="container my-5">
+                <h1 class="my-5">Errors</h1>
+                <pre><?php errors(); ?></pre>
+            </section>
+            <?php endif; ?>
+        </div>
         <div id="input" class="overflow-auto">
             <section id="http_request" class="container my-5">
                 <h1 class="my-5">Request</h1>

@@ -7,14 +7,30 @@ const NUMBER_DATA_KEY = 'some_number';
 global $requestMethod;
 global $request;
 global $response;
+global $errors;
 
 function runCommunication(): void
 {
     global $requestMethod;
     global $request;
     global $response;
+    global $errors;
 
-    list($requestMethod, $request, $response) = communicate();
+    list($requestMethod, $request, $response, $errors) = communicate();
+}
+
+function areErrors(): bool
+{
+    global $errors;
+
+    return (! empty($errors));
+}
+
+function errors(): void
+{
+    global $errors;
+
+    var_dump($errors);
 }
 
 function request(): void
@@ -28,7 +44,7 @@ function requestMethod(): void
 {
     global $requestMethod;
 
-    var_dump($requestMethod);
+    echo($requestMethod);
 }
 
 function response(): void
@@ -65,21 +81,17 @@ function communicate(): array
         NUMBER_DATA_KEY => $_REQUEST[NUMBER_DATA_KEY],
     ];
 
-    $response = sendRequestAndGetResponse($requestMethod, $request);
-
-    // var_dump(curl_errno($ch));
-    // if(curl_error($ch)) {
-    //     var_dump(curl_error($ch));
-    // }
+    list($response, $errors) = sendRequestAndGetResponse($requestMethod, $request);
 
     return [
         $requestMethod,
         $request,
         $response,
+        $errors,
     ];
 }
 
-function sendRequestAndGetResponse(string $requestMethod, array $request): stdClass
+function sendRequestAndGetResponse(string $requestMethod, array $request): array
 {
     $url = 'http://localhost/server.php';
 
@@ -120,7 +132,12 @@ function sendRequestAndGetResponse(string $requestMethod, array $request): stdCl
         curl_exec($ch)
     );
 
+    $errors = curl_error($ch);
+
     curl_close($ch);
 
-    return $response;
+    return [
+        $response,
+        $errors
+    ];
 }
