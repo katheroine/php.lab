@@ -16,7 +16,12 @@ function runCommunication(): void
     global $response;
     global $errors;
 
-    list($requestMethod, $request, $response, $errors) = communicate();
+    list(
+        $requestMethod,
+        $request,
+        $response,
+        $errors
+    ) = communicate();
 }
 
 function areErrors(): bool
@@ -81,7 +86,10 @@ function communicate(): array
         NUMBER_DATA_KEY => $_REQUEST[NUMBER_DATA_KEY],
     ];
 
-    list($response, $errors) = sendRequestAndGetResponse($requestMethod, $request);
+    list(
+        $response,
+        $errors
+    ) = sendRequestAndGetResponse($requestMethod, $request);
 
     return [
         $requestMethod,
