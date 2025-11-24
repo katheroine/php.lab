@@ -6,10 +6,6 @@ const NUMBER_DATA_KEY = 'some_number';
 
 function communicate(): array
 {
-    $requestMethod = null;
-    $request = null;
-    $response = null;
-
     if (! isset($_REQUEST[METHOD_DATA_KEY])) {
         return [];
     }
@@ -21,6 +17,22 @@ function communicate(): array
         NUMBER_DATA_KEY => $_REQUEST[NUMBER_DATA_KEY],
     ];
 
+    $response = sendRequestAndGetResponse($requestMethod, $request);
+
+    // var_dump(curl_errno($ch));
+    // if(curl_error($ch)) {
+    //     var_dump(curl_error($ch));
+    // }
+
+    return [
+        $requestMethod,
+        $request,
+        $response,
+    ];
+}
+
+function sendRequestAndGetResponse(string $requestMethod, array $request): stdClass
+{
     $url = 'http://localhost/server.php';
 
     $query = http_build_query($request);
@@ -62,14 +74,5 @@ function communicate(): array
 
     curl_close($ch);
 
-    // var_dump(curl_errno($ch));
-    // if(curl_error($ch)) {
-    //     var_dump(curl_error($ch));
-    // }
-
-    return [
-        $requestMethod,
-        $request,
-        $response,
-    ];
+    return $response;
 }
