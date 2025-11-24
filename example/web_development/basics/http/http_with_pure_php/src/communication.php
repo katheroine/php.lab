@@ -4,6 +4,54 @@ const METHOD_DATA_KEY = 'method';
 const TEXT_DATA_KEY = 'some_text';
 const NUMBER_DATA_KEY = 'some_number';
 
+global $requestMethod;
+global $request;
+global $response;
+
+function runCommunication(): void
+{
+    global $requestMethod;
+    global $request;
+    global $response;
+
+    list($requestMethod, $request, $response) = communicate();
+}
+
+function request(): void
+{
+    global $request;
+
+    var_dump($request);
+}
+
+function requestMethod(): void
+{
+    global $requestMethod;
+
+    var_dump($requestMethod);
+}
+
+function response(): void
+{
+    global $response;
+
+    var_dump($response);
+}
+
+function responseMethod(): void
+{
+    global $response;
+
+    echo($response->method ?? '');
+}
+
+function responseResult(): void
+{
+    global $response;
+
+    echo($response->result ?? '');
+}
+
 function communicate(): array
 {
     if (! isset($_REQUEST[METHOD_DATA_KEY])) {

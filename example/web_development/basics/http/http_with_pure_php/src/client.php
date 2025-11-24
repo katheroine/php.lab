@@ -3,7 +3,7 @@
 <?php
 require_once('./communication.php');
 
-list($method, $request, $response) = communicate();
+runCommunication();
 ?>
 
 <head>
@@ -52,11 +52,11 @@ list($method, $request, $response) = communicate();
                 </form>
                 <section id="request_data">
                     <h3 class="my-3">Request data</h3>
-                    <pre><?php var_dump($request); ?></pre>
+                    <pre><?php request(); ?></pre>
                 </section>
                 <section id="request_method">
                     <h3 class="my-3">Request method</h3>
-                    <pre><?php var_dump($method); ?></pre>
+                    <pre><?php requestMethod(); ?></pre>
                 </section>
             </section>
         </div>
@@ -65,15 +65,15 @@ list($method, $request, $response) = communicate();
                 <h1 class="my-4">Response</h3>
                 <section id="response_method">
                     <h5 class="d-inline-block my-4">Method</h5>:
-                    <div id="method" class="d-inline-block" style="height: 1rem;"><?php echo($response->method ?? ''); ?></div>
+                    <div id="method" class="d-inline-block" style="height: 1rem;"><?php responseMethod(); ?></div>
                 </section>
                 <section id="response_result">
                     <h5 class="d-inline-block my-4">Result</h5>:
-                    <div id="result" class="d-inline-block" style="height: 1rem;"><?php echo($response->result ?? ''); ?></div>
+                    <div id="result" class="d-inline-block" style="height: 1rem;"><?php responseResult(); ?></div>
                 </section>
                 <section id="response_data">
                     <h3 class="my-3">Response data</h3>
-                    <pre><?php var_dump($response); ?></pre>
+                    <pre><?php response(); ?></pre>
                 </section>
             </section>
         </div>
