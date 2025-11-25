@@ -26,7 +26,7 @@
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Type_safety)
 
-### Dynamically & statically-typed languages
+### Dynamically & statically typed languages
 
 > **Dynamically-typed languages** are those (like JavaScript) where the interpreter assigns variables a type at runtime based on the variable's value at the time.
 
@@ -36,7 +36,7 @@
 
 -- https://developer.mozilla.org/en-US/docs/Glossary/Static_typing
 
-### Is PHP statically or dynamically typed language?
+#### Is PHP statically or dynamically typed language?
 
 **PHP is a dynamically typed language.**
 
@@ -99,7 +99,7 @@ $myVariable = 44; // Assigning an integer value to the same variable
 
 PHP 7 introduced improved type declarations with features like *scalar type hints* and *return type declarations*. PHP 8 has a much more powerful and flexible type system.
 
-### Is PHP strongly or weakly (loosely) typed language?
+### Strongly & weakly (loosely) typed languages
 
 > Programming languages are often colloquially classified as ***strongly typed*** or ***weakly typed*** (also ***loosely typed***) to refer to certain aspects of type safety.
 >
@@ -123,6 +123,8 @@ A programming language for computers that does not data type of a variable is re
 Strong bounds on the variable data type are not available in a loosely typed language. This kind of language's compiler executes the operation specified on it regardless of the data type it contains when doing compilation. The compiler ignores small errors depending on data types.
 
 – https://www.javatpoint.com/what-is-loosely-typed-language
+
+#### Is PHP strongly or weakly (loosely) typed language?
 
 **PHP is a loosely typed language.**
 
