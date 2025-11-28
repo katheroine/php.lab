@@ -215,7 +215,7 @@ $someVariable = "bye"; // bye (string)
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Scripting_language)
 
-### Is PHP programming or scripting language?
+#### Is PHP programming or scripting language?
 
 Both.
 
