@@ -231,6 +231,45 @@ PHP stands for hypertext preprocessor. The PHP programming language is a scripti
 
 – https://hackr.io/blog/what-is-php
 
+## Compiling and interpreting
+
+### Phases in creating an executable program
+
+In case of compiled programming languages there are following phases of creating an *executable* from the *source code*:
+
+* Preprocessing
+* Compilation
+* Linking
+
+#### Preprocessing
+
+Before the code is subjected to the compilation process, preprocessor operations are performed on it.
+
+> In computer science, a **preprocessor** (or **precompiler**) is a program that processes its input data to produce output that is used as input in another program. The output is said to be a preprocessed form of the input data, which is often used by some subsequent programs like compilers.
+>
+> The amount and kind of processing done depends on the nature of the preprocessor; some preprocessors are only capable of performing relatively simple *textual substitutions* and *macro expansions*, while others have the power of full-fledged *programming languages*.
+>
+> A common example from computer programming is the processing performed on source code before the next step of compilation. In some computer languages (e.g., C and PL/I) there is a phase of translation known as *preprocessing*. It can also include *macro processing*, *file inclusion* and *language extensions*.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Preprocessor)
+
+There is not something like *preprocessing* in PHP, but some tasks usually done by the preprocessor in the compiled languages are handled in PHP by the functions:
+
+* ***file inclusion*** performed by functions:
+    * [**`include`**]() - inserts file content; issues a warning if the file is missing but continues execution,
+    * [**`require`**]() - inserts file content; triggers a fatal error and halts execution if the file is missing,
+    * [**`include_once`**]() - inserts file content only once, even if called multiple times, preventing redefinition errors; issues a warning if the file is missing but continues execution,
+    * [**`require_once`**]() - inserts file content only once, even if called multiple times, preventing redefinition errors; triggers a fatal error and halts execution if the file is missing.;
+* ***constants definition*** peformed by:
+    * [**`define`**](https://www.php.net/manual/en/function.define.php) function;
+    * [**`const`**](https://www.w3schools.com/php/keyword_const.asp) keyword;
+* ***execution directive***: [**`declare`**](https://www.php.net/manual/en/control-structures.declare.php) - a construct used to set execution directives for a block of code
+* **macro expansions**: [**`eval`**](https://www.php.net/manual/en/function.eval.php) function - evaluates a string as PHP code;
+* **conditional logic**:
+    * [**`if`**](https://www.php.net/manual/en/control-structures.if.php) construct - allows for conditional execution of code fragments,
+    * [**`defined`**](https://www.php.net/manual/en/function.defined.php) function - checks whether a constant with the given name exists,
+    * [**`function_exists`**](https://www.php.net/manual/en/function.function-exists.php) function - checks if the given function has been defined.
+
 [▵ Up](#php-features)
 [⌂ Home](../../README.md)
 [▲ Previous: PHP history](php_history.md)
