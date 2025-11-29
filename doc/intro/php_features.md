@@ -36,7 +36,7 @@
 
 -- https://developer.mozilla.org/en-US/docs/Glossary/Static_typing
 
-#### Is PHP statically or dynamically typed language?
+#### ✻ Is PHP statically or dynamically typed language?
 
 **PHP is a dynamically typed language.**
 
@@ -124,7 +124,7 @@ Strong bounds on the variable data type are not available in a loosely typed lan
 
 – https://www.javatpoint.com/what-is-loosely-typed-language
 
-#### Is PHP strongly or weakly (loosely) typed language?
+#### ✻ Is PHP strongly or weakly (loosely) typed language?
 
 **PHP is a loosely typed language.**
 
@@ -215,7 +215,7 @@ $someVariable = "bye"; // bye (string)
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Scripting_language)
 
-#### Is PHP programming or scripting language?
+#### ✻ Is PHP programming or scripting language?
 
 Both.
 
@@ -252,6 +252,8 @@ Before the code is subjected to the compilation process, preprocessor operations
 > A common example from computer programming is the processing performed on source code before the next step of compilation. In some computer languages (e.g., C and PL/I) there is a phase of translation known as *preprocessing*. It can also include *macro processing*, *file inclusion* and *language extensions*.
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Preprocessor)
+
+#### ✻ Is there a preprosessing in the PHP?
 
 There is not something like *preprocessing* in PHP, but some tasks usually done by the preprocessor in the compiled languages are handled in PHP by the functions:
 
