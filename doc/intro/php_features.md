@@ -318,6 +318,22 @@ Aspects of the *front end* include:
 * ***Syntax analysis*** (also known as ***parsing***) involves parsing the *token* sequence to identify the syntactic structure of the program. This phase typically builds a *parse tree*, which replaces the linear sequence of tokens with a tree structure built according to the rules of a *formal grammar* which define the language's syntax. The *parse tree* is often analyzed, augmented, and transformed by later phases in the compiler.
 * ***Semantic analysis*** adds semantic information to the *parse tree* and builds the *symbol table*. This phase performs semantic checks such as *type checking* (checking for *type errors*), or *object binding* (associating variable and function references with their definitions), or *definite assignment* (requiring all local variables to be initialized before use), rejecting incorrect programs or issuing warnings. Semantic analysis usually requires a complete *parse tree*, meaning that this phase logically follows the parsing phase, and logically precedes the code generation phase, though it is often possible to fold multiple phases into one pass over the code in a compiler implementation.
 
+-- [Wikipedia](https://en.wikipedia.org/wiki/Compiler#Front_end)
+
+###### *Middle end*
+
+The ***middle end*** performs optimizations on the *IR* that are independent of the *CPU architecture* being targeted. This *source code*/*machine code* independence is intended to enable generic optimizations to be shared between versions of the compiler supporting different languages and target processors. Examples of *middle end optimizations* are removal of useless (*dead-code elimination*) or unreachable code (*reachability analysis*), discovery and propagation of constant values (*constant propagation*), relocation of computation to a less frequently executed place (e.g., out of a loop), or specialization of computation based on the context, eventually producing the "optimized" *IR* that is used by the *back end*.
+
+The middle end, also known as optimizer, performs optimizations on the intermediate representation in order to improve the performance and the quality of the produced machine code. The middle end contains those optimizations that are independent of the CPU architecture being targeted.
+
+The main phases of the middle end include the following:
+* ***Analysis***: This is the gathering of program information from the intermediate representation derived from the input; data-flow analysis is used to build use-define chains, together with *dependence analysis*, *alias analysis*, *pointer analysis*, *escape analysis*, etc. Accurate analysis is the basis for any compiler optimization. The *control-flow graph* of every compiled function and the *call graph* of the program are usually also built during the analysis phase.
+* ***Optimization***: the intermediate language representation is transformed into functionally equivalent but faster (or smaller) forms. Popular optimizations are *inline expansion*, *dead-code elimination*, *constant propagation*, *loop transformation* and even *automatic parallelization*.
+
+Compiler analysis is the prerequisite for any compiler optimization, and they tightly work together. For example, dependence analysis is crucial for loop transformation.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Compiler#Middle_end)
+
 [▵ Up](#php-features)
 [⌂ Home](../../README.md)
 [▲ Previous: PHP history](php_history.md)
