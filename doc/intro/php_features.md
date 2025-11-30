@@ -272,6 +272,48 @@ There is not something like *preprocessing* in PHP, but some tasks usually done 
     * [**`defined`**](https://www.php.net/manual/en/function.defined.php) function - checks whether a constant with the given name exists,
     * [**`function_exists`**](https://www.php.net/manual/en/function.function-exists.php) function - checks if the given function has been defined.
 
+#### Compilation
+
+Compilation, in its most popular meaning, is transforming the source code into the machine code.
+
+> In computing, a **compiler** is software that translates *computer code* written in one *programming language* (the *source language*) into another language (the *target language*). The name *compiler* is primarily used for programs that translate source code from a *high-level programming language* to a *low-level programming language* (e.g. *assembly language*, *object code*, or *machine code*) to create an executable program.
+>
+> There are many different types of compilers which produce output in different useful forms:
+> * a ***cross-compiler*** produces code for a different CPU or operating system than the one on which the cross-compiler itself runs;
+> * a ***bootstrap compiler*** is often a temporary compiler, used for compiling a more permanent or better optimized compiler for a language.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Compiler)
+
+##### Stages of compilation
+
+The stages include a *front end*, a *middle end*, and a *back end*.
+
+###### *Front end*
+
+The ***front end*** scans the input and verifies *syntax* and *semantics* according to a specific source language. For statically typed languages it performs *type checking* by collecting type information. If the input program is syntactically incorrect or has a type error, it generates error and/or warning messages, usually identifying the location in the source code where the problem was detected; in some cases the actual error may be (much) earlier in the program.
+
+> ***Syntax***
+> * In *linguistics*, ***syntax*** is the study of how words and *morphemes* (any of the smallest meaningful constituents within a linguistic expression and particularly within a word) combine to form larger units such as phrases and sentences. Central concerns of syntax include word order, grammatical relations, hierarchical sentence structure (constituency), agreement, the nature of crosslinguistic variation, and the relationship between form and meaning (semantics). Diverse approaches, such as generative grammar and functional grammar, offer unique perspectives on syntax, reflecting its complexity and centrality to understanding human language.
+> * In *logic*, ***syntax*** is an arrangement of well-structured entities in the formal languages or formal systems that express something. Syntax is concerned with the rules used for constructing or transforming the symbols and words of a language, as contrasted with the semantics of a language, which is concerned with its meaning.
+> * In *programming*, the ***syntax*** of computer source code is code structured and ordered restricted to computer language rules. Like a natural language, a computer language (i.e. a programming language) defines the syntax that is valid for that language. A syntax error occurs when syntactically invalid source code is processed by an tool such as a compiler or interpreter.
+
+-- Wikipedia: [1](https://en.wikipedia.org/wiki/Syntax), [2](https://en.wikipedia.org/wiki/Syntax_(logic)), [3](https://en.wikipedia.org/wiki/Syntax_(programming_languages))
+
+> ***Semantics***
+> * In linguistics, ***semantics*** is the study of linguistic meaning. It examines what meaning is, how words get their meaning, and how the meaning of a complex expression depends on its parts. Part of this process involves the distinction between *sense* and *reference*. *Sense* is given by the ideas and concepts associated with an expression while *reference* is the object to which an expression points. Semantics contrasts with *syntax*, which studies the rules that dictate how to create grammatically correct sentences, and *pragmatics*, which investigates how people use language in communication. Semantics, together with *syntactics* and *pragmatics*, is a part of *semiotics*.
+> * In *logic*, the ***semantics*** or *formal semantics* is the study of the meaning and interpretation of formal languages, formal systems, and (idealizations of) natural languages. This field seeks to provide precise mathematical models that capture the pre-theoretic notions of truth, validity, and logical consequence. While *logical syntax* concerns the formal rules for constructing well-formed expressions, logical semantics establishes frameworks for determining when these expressions are true and what follows from them.
+> * In *programming language theory*, ***semantics*** is the rigorous mathematical logic study of the meaning of programming languages. Semantics assigns computational meaning to valid strings in a programming language syntax. It is closely related to, and often crosses over with, the semantics of mathematical proofs.
+Semantics describes the processes a computer follows when executing a program in that specific language. This can be done by describing the relationship between the input and output of a program, or giving an explanation of how the program will be executed on a certain platform, thereby creating a model of computation.
+
+-- Wikipedia: [1](en.wikipedia.org/wiki/Semantics), [2](https://en.wikipedia.org/wiki/Semantics_(logic)), [3](https://en.wikipedia.org/wiki/Semantics_(computer_science))
+
+Aspects of the front end include:
+* lexical analysis,
+* syntax analysis,
+* semantic analysis.
+
+The front end transforms the input program into an intermediate representation (IR) for further processing by the middle end. This IR is usually a lower-level representation of the program with respect to the source code.
+
 [▵ Up](#php-features)
 [⌂ Home](../../README.md)
 [▲ Previous: PHP history](php_history.md)
