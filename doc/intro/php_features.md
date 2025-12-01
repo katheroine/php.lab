@@ -233,7 +233,7 @@ PHP stands for hypertext preprocessor. The PHP programming language is a scripti
 
 ## Compiling and interpreting
 
-### Phases in creating an executable program
+### Creating an executable program in compiled runtime environment
 
 In case of compiled programming languages there are following phases of creating an *executable* from the *source code*:
 
@@ -361,6 +361,18 @@ Linking allows to consolidate the previously compiled code into single executabl
 > A simpler version that writes its output directly to memory is called the *loader*, though loading is typically considered a separate process.
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Linker_(computing))
+
+### Creating an executable program in interpreted runtime environment
+
+#### Intepreting
+
+> In computing, an **interpreter** is software that executes *source code* without first *compiling* it to *machine code*. An interpreted runtime environment differs from one that processes *CPU-native executable code* which requires *translating* source code before *executing* it. An interpreter may translate the source code to an *intermediate format*, such as *bytecode*. A hybrid environment may translate the *bytecode* to *machine code* via *just-in-time compilation*, as in the case of .NET and Java, instead of interpreting the *bytecode* directly.
+>
+> Before the widespread adoption of interpreters, the execution of computer programs often relied on *compilers*, which translate and compile source code into *machine code*. Early runtime environments for Lisp and BASIC could parse source code directly. Thereafter, runtime environments were developed for languages (such as Perl, Raku, Python, MATLAB, and Ruby), which translated source code into an intermediate format before executing to enhance runtime performance.
+>
+> Code that runs in an interpreter can be run on any platform that has a compatible interpreter. The same code can be distributed to any such platform, instead of an executable having to be built for each platform. Although each programming language is usually associated with a particular runtime environment, a language can be used in different environments. Interpreters have been constructed for languages traditionally associated with compilation, such as ALGOL, Fortran, COBOL, C and C++.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Interpreter_(computing))
 
 [▵ Up](#php-features)
 [⌂ Home](../../README.md)
