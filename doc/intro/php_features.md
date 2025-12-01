@@ -352,6 +352,16 @@ The main phases of the back end include the following:
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Machine_code)
 
+#### Linking
+
+Linking allows to consolidate the previously compiled code into single executable or reusable library.
+
+> A ***linker*** or ***link editor*** is a computer program that combines intermediate software build files such as object and library files into a single *executable file* such as a *program* or *library*. A linker is often part of a toolchain that includes a *compiler* and/or *assembler* that generates *intermediate files* that the linker processes. The linker may be integrated with other toolchain tools such that the user does not interact with the linker directly.
+>
+> A simpler version that writes its output directly to memory is called the *loader*, though loading is typically considered a separate process.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Linker_(computing))
+
 [▵ Up](#php-features)
 [⌂ Home](../../README.md)
 [▲ Previous: PHP history](php_history.md)
