@@ -290,7 +290,24 @@ The stages include a *front end*, a *middle end*, and a *back end*.
 
 ###### *Front end*
 
-The ***front end*** scans the input and verifies *syntax* and *semantics* according to a specific source language. For statically typed languages it performs *type checking* by collecting type information. If the input program is syntactically incorrect or has a *type error*, it generates error and/or warning messages, usually identifying the location in the source code where the problem was detected; in some cases the actual error may be (much) earlier in the program.
+The ***front end*** analyzes the *source code* to build an internal representation of the program, called the *intermediate representation* (*IR*). It also manages the *symbol table*, a data structure mapping each symbol in the *source code* to associated information such as location, type and scope.
+
+While the front end can be a single monolithic function or program, as in a scannerless parser, it was traditionally implemented and analyzed as several phases, which may execute sequentially or concurrently. This method is favored due to its modularity and separation of concerns.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Compiler#Front_end)
+
+The *front end* transforms the input program into an  internal representation of the program, called the ***intermediate representation*** (***IR***) for further processing by the middle end. This *IR* is usually a lower-level representation of the program with respect to the *source code*. Ther *front end* manages the **symbol table**, a data structure mapping each symbol in the *source code* to associated information such as location, type and scope.
+
+> An **intermediate representation** (**IR**) is the *data structure* or *code* used internally by a *compiler* or *virtual machine* to represent *source code*. An *IR* is designed to be conducive to further processing, such as optimization and translation. A "good" IR must be accurate - capable of representing the source code without loss of information - and independent of any particular source or target language. An *IR* may take one of several forms: an *in-memory data structure*, or a special *tuple- or stack-based code* readable by the program. In the latter case it is also called an *intermediate language*.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Intermediate_representation)
+
+Aspects of the *front end* include:
+* ***Lexical analysis*** (also known as ***lexing*** or ***tokenization***) breaks the source code text into a sequence of small pieces called *lexical tokens*. This phase can be divided into two stages: the *scanning*, which segments the input text into syntactic units called *lexemes* and assigns them a category; and the *evaluating*, which converts *lexemes* into a processed value. A *token* is a pair consisting of a token name and an optional token value. Common token categories may include identifiers, keywords, separators, operators, literals and comments, although the set of token categories varies in different programming languages. The *lexeme* syntax is typically a *regular language*, so a finite-state automaton constructed from a *regular expression* can be used to recognize it. The software doing lexical analysis is called a *lexical analyzer*. This may not be a separate step - it can be combined with the parsing step in scannerless parsing, in which case parsing is done at the character level, not the token level.
+* ***Syntax analysis*** (also known as ***parsing***) involves parsing the *token* sequence to identify the syntactic structure of the program. This phase typically builds a *parse tree*, which replaces the linear sequence of tokens with a tree structure built according to the rules of a *formal grammar* which define the language's syntax. The *parse tree* is often analyzed, augmented, and transformed by later phases in the compiler.
+* ***Semantic analysis*** adds semantic information to the *parse tree* and builds the *symbol table*. This phase performs semantic checks such as *type checking* (checking for *type errors*), or *object binding* (associating variable and function references with their definitions), or *definite assignment* (requiring all local variables to be initialized before use), rejecting incorrect programs or issuing warnings. Semantic analysis usually requires a complete *parse tree*, meaning that this phase logically follows the parsing phase, and logically precedes the code generation phase, though it is often possible to fold multiple phases into one pass over the code in a compiler implementation.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Compiler#Front_end)
 
 > ***Syntax***
 > * In *linguistics*, ***syntax*** is the study of how words and *morphemes* (any of the smallest meaningful constituents within a linguistic expression and particularly within a word) combine to form larger units such as phrases and sentences. Central concerns of syntax include word order, grammatical relations, hierarchical sentence structure (constituency), agreement, the nature of crosslinguistic variation, and the relationship between form and meaning (semantics). Diverse approaches, such as generative grammar and functional grammar, offer unique perspectives on syntax, reflecting its complexity and centrality to understanding human language.
@@ -307,24 +324,9 @@ Semantics describes the processes a computer follows when executing a program in
 
 -- Wikipedia: [linguistics](en.wikipedia.org/wiki/Semantics), [logic](https://en.wikipedia.org/wiki/Semantics_(logic)), [programming](https://en.wikipedia.org/wiki/Semantics_(computer_science))
 
-The *front end* transforms the input program into an  internal representation of the program, called the ***intermediate representation*** (***IR***) for further processing by the middle end. This *IR* is usually a lower-level representation of the program with respect to the *source code*. Ther *front end* manages the **symbol table**, a data structure mapping each symbol in the *source code* to associated information such as location, type and scope.
-
-> An **intermediate representation** (**IR**) is the *data structure* or *code* used internally by a *compiler* or *virtual machine* to represent *source code*. An *IR* is designed to be conducive to further processing, such as optimization and translation. A "good" IR must be accurate - capable of representing the source code without loss of information - and independent of any particular source or target language. An *IR* may take one of several forms: an *in-memory data structure*, or a special *tuple- or stack-based code* readable by the program. In the latter case it is also called an *intermediate language*.
-
--- [Wikipedia](https://en.wikipedia.org/wiki/Intermediate_representation)
-
-Aspects of the *front end* include:
-* ***Lexical analysis*** (also known as ***lexing*** or ***tokenization***) breaks the source code text into a sequence of small pieces called *lexical tokens*. This phase can be divided into two stages: the *scanning*, which segments the input text into syntactic units called *lexemes* and assigns them a category; and the *evaluating*, which converts *lexemes* into a processed value. A *token* is a pair consisting of a token name and an optional token value. Common token categories may include identifiers, keywords, separators, operators, literals and comments, although the set of token categories varies in different programming languages. The *lexeme* syntax is typically a *regular language*, so a finite-state automaton constructed from a *regular expression* can be used to recognize it. The software doing lexical analysis is called a *lexical analyzer*. This may not be a separate step - it can be combined with the parsing step in scannerless parsing, in which case parsing is done at the character level, not the token level.
-* ***Syntax analysis*** (also known as ***parsing***) involves parsing the *token* sequence to identify the syntactic structure of the program. This phase typically builds a *parse tree*, which replaces the linear sequence of tokens with a tree structure built according to the rules of a *formal grammar* which define the language's syntax. The *parse tree* is often analyzed, augmented, and transformed by later phases in the compiler.
-* ***Semantic analysis*** adds semantic information to the *parse tree* and builds the *symbol table*. This phase performs semantic checks such as *type checking* (checking for *type errors*), or *object binding* (associating variable and function references with their definitions), or *definite assignment* (requiring all local variables to be initialized before use), rejecting incorrect programs or issuing warnings. Semantic analysis usually requires a complete *parse tree*, meaning that this phase logically follows the parsing phase, and logically precedes the code generation phase, though it is often possible to fold multiple phases into one pass over the code in a compiler implementation.
-
--- [Wikipedia](https://en.wikipedia.org/wiki/Compiler#Front_end)
-
 ###### *Middle end*
 
-The ***middle end*** performs optimizations on the *IR* that are independent of the *CPU architecture* being targeted. This *source code*/*machine code* independence is intended to enable generic optimizations to be shared between versions of the compiler supporting different languages and target processors. Examples of *middle end optimizations* are removal of useless (*dead-code elimination*) or unreachable code (*reachability analysis*), discovery and propagation of constant values (*constant propagation*), relocation of computation to a less frequently executed place (e.g., out of a loop), or specialization of computation based on the context, eventually producing the "optimized" *IR* that is used by the *back end*.
-
-The middle end, also known as optimizer, performs optimizations on the intermediate representation in order to improve the performance and the quality of the produced machine code. The middle end contains those optimizations that are independent of the CPU architecture being targeted.
+The ***middle end***, also known as optimizer, performs optimizations on the intermediate representation in order to improve the performance and the quality of the produced machine code. The middle end contains those optimizations that are independent of the CPU architecture being targeted.
 
 The main phases of the middle end include the following:
 * ***Analysis***: This is the gathering of program information from the intermediate representation derived from the input; data-flow analysis is used to build use-define chains, together with *dependence analysis*, *alias analysis*, *pointer analysis*, *escape analysis*, etc. Accurate analysis is the basis for any compiler optimization. The *control-flow graph* of every compiled function and the *call graph* of the program are usually also built during the analysis phase.
@@ -333,6 +335,22 @@ The main phases of the middle end include the following:
 Compiler analysis is the prerequisite for any compiler optimization, and they tightly work together. For example, dependence analysis is crucial for loop transformation.
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Compiler#Middle_end)
+
+###### *Back end*
+
+The ***back end*** is responsible for the CPU architecture specific optimizations and for code generation.
+
+The main phases of the back end include the following:
+* ***Machine dependent optimizations***: optimizations that depend on the details of the *CPU architecture* that the compiler targets. A prominent example is peephole optimizations, which rewrites short sequences of assembler instructions into more efficient instructions.
+* ***Code generation***: the transformed intermediate language is translated into the output language, usually the native *machine language* of the system. This involves resource and storage decisions, such as deciding which variables to fit into registers and memory and the selection and scheduling of appropriate machine instructions along with their associated addressing modes (see also Sethi–Ullman algorithm). Debug data may also need to be generated to facilitate debugging.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Compiler#Back_end)
+
+> **Machine code** is data encoded and structured to control a computer's *central processing unit* (*CPU*) via its programmable interface. A computer program consists primarily of sequences of machine-code instructions.
+> Machine code is classified as *native* with respect to its host CPU since it is the language that the CPU interprets directly.
+> A *software interpreter* is a virtual machine that processes *virtual* machine code.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Machine_code)
 
 [▵ Up](#php-features)
 [⌂ Home](../../README.md)
