@@ -352,6 +352,10 @@ The main phases of the back end include the following:
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Machine_code)
 
+#### ✻ Is there a compliation in the PHP?
+
+**Yes, PHP has a compilation process.** But it is not a traditional, fully compiled language like C++. Instead, PHP scripts undergo a multi-step execution process that involves compiling PHP *source code* into an *intermediate format* called *opcodes*. Since PHP 8.0, this process also includes a *Just-In-Time (JIT) compiler* to further improve performance.
+
 #### Linking
 
 Linking allows to consolidate the previously compiled code into single executable or reusable library.
@@ -361,6 +365,18 @@ Linking allows to consolidate the previously compiled code into single executabl
 > A simpler version that writes its output directly to memory is called the *loader*, though loading is typically considered a separate process.
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Linker_(computing))
+
+#### ✻ Is there a linking in the PHP?
+
+**Yes, there are multiple forms of "linking" in PHP.** But it is not a traditional linker like in compiled languages such as C++. The process happens at runtime rather than at compile time. The forms of linking in PHP:
+* *Runtime dynamic linking*: When the PHP engine runs a script, it performs a type of dynamic linking to use extensions.
+* *Linking to external PHP files*: A common form of "linking" in PHP is to include other PHP files within the script. This is not the same as a compiler's linker but serves a similar purpose by making code from other files available. ￼
+* *Linking the source code files*: Done by the `include`, `include_once`, `require` and `require_once` functions - used to bring code from another file into the current one.
+* *Filesystem linking*: PHP can interact with the operating system to create and manage hard and symbolic links, just like command-line tools such as `ln`; done by functions: ￼
+    * `link`: Creates a hard link to a file.
+    * `symlink`: Creates a symbolic link to a file or directory.
+    * `readlink`: Returns the target of a symbolic link.
+* *Composer Linker* (for development): For managing dependencies, especially during local development, there is a *Composer* plugin called *Composer Linker* that mimics the functionality of *npm link*; It uses symbolic links to connect a local package's code directly into the vendor directory of another project, allowing for easier real-time testing and development.
 
 ### Creating an executable program in interpreted runtime environment
 
@@ -374,6 +390,14 @@ Linking allows to consolidate the previously compiled code into single executabl
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Interpreter_(computing))
 
+#### ✻ Is there an interpreting in the PHP?
+
+**Yes, PHP has an interpreting process.** Its code is processed and executed by a PHP *interpreter* (like the *Zend Engine*) at runtime, rather than being compiled into machine code beforehand. This makes it flexible and easier to develop with, but newer versions of PHP use optimizations like *Just-In-Time (JIT) compilation* to improve performance, blurring the line between purely interpreted and compiled languages. ￼
+
+When a PHP script is run, the interpreter goes through several stages: tokenizing the code, parsing it, compiling it into an intermediate format (like bytecode), and finally executing it.
+
+Modern PHP versions include features like *OPcache* and *JIT compilation* to speed up execution by storing compiled bytecode or compiling frequently used parts of the code on the fly.
+
 ### Creating an executable program in JIT compiled runtime environment
 
 #### JIT compilation
@@ -383,6 +407,47 @@ Linking allows to consolidate the previously compiled code into single executabl
 > JIT compilation is a combination of the two traditional approaches to translation to machine code: *ahead-of-time compilation* (*AOT*), and *interpretation*, which combines some advantages and drawbacks of both. Roughly, JIT compilation combines the speed of compiled code with the flexibility of interpretation, with the overhead of an interpreter and the additional overhead of compiling and linking (not just interpreting). JIT compilation is a form of dynamic compilation, and allows adaptive optimization such as dynamic recompilation and microarchitecture-specific speedups. Interpretation and JIT compilation are particularly suited for dynamic programming languages, as the runtime system can handle late-bound data types and enforce security guarantees.
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Just-in-time_compilation)
+
+#### ✻ Is there an JIT compilation in the PHP?
+
+**Yes, PHP has is a JIT compilation process.**
+
+Pure interpreted programming languages has no compilation step, and directly executes the code in a virtual machine. Most of the interpreted languages including PHP, in fact, has a light-weight compilation step to improve its performance.
+
+Programming languages with *Ahead-Of-Time (AOT) compilation*, on other hand requires the code to be compiled first before it runs.
+
+*Just-In-Time compilation* is a hybrid model of *interpreter* and *Ahead-of-Time compilation*, that some or all of the code is compiled, often at run-time, without requiring the developer to manually compile it.
+
+PHP was historically an *interpreted language*, that all of the code was interpreted by a *virtual machine* (*Zend VM*). This was changed with the introduction of *Opcache* and *Opcodes*, which were generated from the PHP code, and can be cached in memory. PHP 7.0 added the concept of *AST* (*Abstract Syntax Tree*), that further separated the parser from the compiler.
+
+PHP's JIT internally uses *DynASM* from LuaJIT, and as implemented as part of the *Opcache*.
+
+-- [PHP Watch](https://php.watch/versions/8.0/JIT)
+
+#### ✻ Is PHP compiled or interpreted language?
+
+**Both.**
+
+Basically, PHP is interpreted but PHP is compiled down to an intermediate *bytecode* that is then interpreted by the runtime *Zend engine*.
+
+-- [Tutorialspoint](https://www.tutorialspoint.com/is-php-compiled-or-interpreted)
+
+PHP is an interpreted language. The *Zend Engine* that is bundled with the PHP distribution is a scripting engine that interprets PHP scripts as a user has developed them. The *Zend Engine* internally compiles the PHP scripts into Zend *opcodes* or instruction machine code. The Zend Engine is also the runtime engine, and it runs the compiled code. Compiling PHP scripts is transparent to the user, and the user does not directly perform any compilation.
+
+-- [Techwell](https://www.techwell.com/techwell-insights/2020/07/comparing-php-and-java)
+
+Both. PHP is compiled down to an intermediate bytecode that is then interpreted by the runtime engine.
+The PHP compiler's job is to parse your PHP code and convert it into a form suitable for the runtime engine. Among its tasks:
+* Ignore comments
+* Resolve variables, function names, and so forth and create the symbol table
+* Construct the abstract syntax tree of your program
+* Write the bytecode
+
+Depending on your PHP setup, this step is typically done just once, the first time the script is called. The compiler output is cached to speed up access on subsequent uses. If the script is modified, however, the compilation step is done again.
+The runtime engine walks the AST and bytecode when the script is called. The symbol table is used to store the values of variables and provide the bytecode addresses for functions.
+This process of compiling to bytecode and interpreting it at runtime is typical for languages that run on some kind of virtual runtime machine including Perl, Java, Ruby, Smalltalk, and others.
+
+-- [Stackoverflow](https://stackoverflow.com/questions/1514676/is-php-compiled-or-interpreted)
 
 [▵ Up](#php-features)
 [⌂ Home](../../README.md)
