@@ -449,6 +449,28 @@ This process of compiling to bytecode and interpreting it at runtime is typical 
 
 -- [Stackoverflow](https://stackoverflow.com/questions/1514676/is-php-compiled-or-interpreted)
 
+## Clients & servers
+
+> The **client–server model** is a distributed application structure that partitions tasks or workloads between the providers of a resource or service, called ***servers***, and service requesters, called ***clients***. Often clients and servers communicate over a *computer network* on separate hardware, but both client and server may be on the same device. A server host runs one or more server programs, which share their resources with clients. A client usually does not share its computing resources, but it requests content or service from a server and may share its own content as part of the request. Clients, therefore, initiate communication sessions with servers, which await incoming requests. Examples of computer applications that use the client–server model are email, network printing, and the *World Wide Web*.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Client–server_model)
+
+> A **client** is a computer that gets information from another computer called *server* in the context of *client–server model* of *computer networks*. The server is often (but not always) on another computer system, in which case the client accesses the service by way of a network.
+>
+> A client is a program that, as part of its operation, relies on sending a request to another program or a computer hardware or software that accesses a service made available by a server (which may or may not be located on another computer). For example, web browsers are clients that connect to web servers and retrieve web pages for display. Email clients retrieve email from mail servers.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Client_(computing))
+
+> A **server** is a computer that provides information to other computers called *clients* on a *computer network*. This architecture is called the *client–server model*. Servers can provide various functionalities, often called *services*, such as sharing data or resources among multiple clients or performing computations for a client. A single server can serve multiple clients, and a single client can use multiple servers. A client process may run on the same device or may connect over a network to a server on a different device. Typical servers are *database servers*, *file servers*, *mail servers*, *print servers*, *web servers*, *game servers*, and *application servers*.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Server_(computing))
+
+#### ✻ Is PHP server-side or client-side language?
+
+**PHP is server-side**, whereas other programming languages like JavaScript are client-side. The major difference between the two is that PHP code is executed on the server that generates HTML, and is sent directly to the client. While the client can see the results by running the script, they cannot access the underlying code.
+
+-- https://hackr.io/blog/what-is-php
+
 [▵ Up](#php-features)
 [⌂ Home](../../README.md)
 [▲ Previous: PHP history](php_history.md)
