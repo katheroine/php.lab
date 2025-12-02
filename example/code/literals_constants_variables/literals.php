@@ -3,4 +3,5 @@
 $number = 15.5;
 $text = "Hello, there!";
 
-print("Number: {$number}\nText: {$text}\n");
+print("There is some data.");
+print("\nNumber: {$number}\nText: {$text}\n");
