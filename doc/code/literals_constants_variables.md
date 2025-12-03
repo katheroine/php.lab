@@ -44,7 +44,34 @@ In the asbove example `15.5` and `"Hello, there!"` are literals. They are used t
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Constant_(computer_programming))
 
+```php
+<?php
+
+define('NUMBER', 15.5);
+const TEXT = "Hello, there!";
+
+print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
+
+// TEXT = "Hi, everyone!"; // Error
+
+```
+
+**View**:
+[Example](../../example/code/literals_constants_variables/constants.php)
+
+**Execute**:
+* [OnlinePHP](https://onlinephp.io/c/d3636)
+* [OneCompiler](https://onecompiler.com/php/446e5mnu9)
+
+In the asbove example `NUMBER` and `TEXT` are constants. They can represent some values, like `15.5` and `"Hello, there!"`, but after the *initialisation*, their values cannot be changed. If a programmer tries to *assign* a value to a constant, the PHP parser will report an error, even if the assigned value is exactly the same as the initialization value.
+
+### Constant as an identifier for a value
+
 A *constant* is an *identifier* (*name*) for a simple *value*. As the *name* suggests, that *value* cannot change during the execution of the script (except for *magic constants*, which aren't actually constants). Constants are case-sensitive. By convention, constant identifiers are always uppercase.
+
+– [PHP Reference](https://www.php.net/manual/en/language.constants.php)
+
+### `define` function
 
 Prior to PHP 8.0.0, constants defined using the `define()` function may be case-insensitive.
 
@@ -74,6 +101,10 @@ define("__FOO__", "something");
 ```
 
 For our purposes here, a letter is `a-z, A-Z`, and the ASCII characters from `128` through `255` (`0x80-0xff`).
+
+– [PHP Reference](https://www.php.net/manual/en/language.constants.php)
+
+### Scope of the constants
 
 **Like *superglobals*, the *scope* of a constant is `global`.** Constants can be accessed from anywhere in a script without regard to scope.
 
