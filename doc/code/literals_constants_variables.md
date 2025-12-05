@@ -71,7 +71,43 @@ A *constant* is an *identifier* (*name*) for a simple *value*. As the *name* sug
 
 – [PHP Reference](https://www.php.net/manual/en/language.constants.php)
 
-### `define` function
+
+### Ways of defining constants
+
+In the given example there were presented two ways of defining constants:
+* by `define` function,
+* by `const` keyword.
+
+Historically original way of defining constants in PHP is the `define` funcion.
+
+```php
+<?php
+
+define('SOME_CONSTANT', 1024);
+
+```
+
+The `const` keyword (by the way, very common in the other programming languages) has been introduced in PHP 8.0.0.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.constants.php)
+
+While `define` allows a constant to be defined to an arbitrary expression, the `const` keyword has restrictions [...]
+
+When using the `const` keyword, only scalar (`bool`, `int`, `float` and `string`) expressions and constant arrays containing only scalar expressions are accepted. It is possible to define constants as a resource, but it should be avoided, as it can cause unexpected results [...]
+
+As opposed to defining constants using `define`, constants defined using the `const` keyword must be declared at the top-level scope because they are defined at compile-time. This means that they cannot be declared inside functions, loops, if statements or `try/catch` blocks.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.constants.syntax.php)
+
+### Ways of accessing constants
+
+The value of a constant is accessed simply by specifying its name. Unlike variables, a constant is not prepended with a `$`. It is also possible to use the `constant` function to read a constant's value if the constant's name is obtained dynamically. Use `get_defined_constants` to get a list of all defined constants.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.constants.syntax.php)
+
+### Functions handling constants
+
+#### `define` function
 
 Prior to PHP 8.0.0, constants defined using the `define()` function may be case-insensitive.
 
@@ -105,6 +141,10 @@ For our purposes here, a letter is `a-z, A-Z`, and the ASCII characters from `12
 – [PHP Reference](https://www.php.net/manual/en/language.constants.php)
 
 ### Scope of the constants
+
+Constants and (global) variables are in a different namespace. This implies that for example true and $TRUE are generally different.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.constants.syntax.php)
 
 **Like *superglobals*, the *scope* of a constant is `global`.** Constants can be accessed from anywhere in a script without regard to scope.
 
