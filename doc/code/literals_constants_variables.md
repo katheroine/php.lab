@@ -20,7 +20,7 @@ print("\nNumber: {$number}\nText: {$text}\n");
 ```
 
 **View**:
-[Example](../../example/code/literals_constants_variables/literals.php)
+[Example](../../../../example/code/literals_constants_variables/literals/literals.php)
 
 **Execute**:
 * [OnlinePHP](https://onlinephp.io/c/e808b)
@@ -61,7 +61,7 @@ print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
 ```
 
 **View**:
-[Example](../../example/code/literals_constants_variables/constants.php)
+[Example](../../../../example/code/literals_constants_variables/constants/constants.php)
 
 **Execute**:
 * [OnlinePHP](https://onlinephp.io/c/d3636)
@@ -101,7 +101,7 @@ As opposed to defining constants using `define`, constants defined using the `co
 
 -- [PHP Reference](https://www.php.net/manual/en/language.constants.syntax.php)
 
-##### Types of the constant value
+##### Types in constant definitions
 
 Constants defined by `define` function can be *boolean*, *integer*, *float (decimal)*, *string (text)*, *callable (function)* or *object (class instance)*. Constants defined by the `const` keyword can be all above except *functions*.
 
@@ -167,13 +167,13 @@ print("\n");
 ```
 
 **View**:
-[Example](../../example/code/literals_constants_variables/constant_value_types.php)
+[Example](../../../../example/code/literals_constants_variables/constants/constant_definition_types.php)
 
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
 
-##### Building of the constant value
+##### Expressions in constant definitions
 
 While `define` allows a constant to be defined to an arbitrary expression, the `const` keyword has restrictions [...] When using the `const` keyword, only scalar (`bool`, `int`, `float` and `string`) expressions and constant arrays containing only scalar expressions are accepted. It is possible to define constants as a resource, but it should be avoided, as it can cause unexpected results [...]
 
@@ -241,7 +241,7 @@ print("\n");
 ```
 
 **View**:
-[Example](../../example/code/literals_constants_variables/constant_value_building.php)
+[Example](../../../../example/code/literals_constants_variables/constants/constant_definition_expressions.php)
 
 **Execute**:
 * [OnlinePHP]()
