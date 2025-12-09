@@ -44,6 +44,10 @@ In the asbove example `15.5` and `"Hello, there!"` are literals. They are used t
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Constant_(computer_programming))
 
+A *constant* is an *identifier* (*name*) for a simple *value*. As the name suggests, that *value* cannot change during the execution of the script (except for *magic constants*, which aren't actually constants). Constants are case-sensitive. By convention, constant identifiers are always uppercase.
+
+– [PHP Reference](https://www.php.net/manual/en/language.constants.php)
+
 ```php
 <?php
 
@@ -65,13 +69,6 @@ print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
 
 In the asbove example `NUMBER` and `TEXT` are constants. They can represent some values, like `15.5` and `"Hello, there!"`, but after the *initialisation*, their values cannot be changed. If a programmer tries to *assign* a value to a constant, the PHP parser will report an error, even if the assigned value is exactly the same as the initialization value.
 
-### Constant as an identifier for a value
-
-A *constant* is an *identifier* (*name*) for a simple *value*. As the *name* suggests, that *value* cannot change during the execution of the script (except for *magic constants*, which aren't actually constants). Constants are case-sensitive. By convention, constant identifiers are always uppercase.
-
-– [PHP Reference](https://www.php.net/manual/en/language.constants.php)
-
-
 ### Ways of defining constants
 
 In the given example there were presented two ways of defining constants:
@@ -87,17 +84,168 @@ define('SOME_CONSTANT', 1024);
 
 ```
 
-The `const` keyword (by the way, very common in the other programming languages) has been introduced in PHP 8.0.0.
+The `const` keyword (by the way, very common in the other programming languages) has been introduced in PHP 5.3.
 
--- [PHP Reference](https://www.php.net/manual/en/language.constants.php)
+```php
+<?php
 
-While `define` allows a constant to be defined to an arbitrary expression, the `const` keyword has restrictions [...]
+const SOME_CONSTANT = 1024;
 
-When using the `const` keyword, only scalar (`bool`, `int`, `float` and `string`) expressions and constant arrays containing only scalar expressions are accepted. It is possible to define constants as a resource, but it should be avoided, as it can cause unexpected results [...]
+```
+
+#### Differences between `define` function and `const` keyword usage
+
+##### Constant definition placement
 
 As opposed to defining constants using `define`, constants defined using the `const` keyword must be declared at the top-level scope because they are defined at compile-time. This means that they cannot be declared inside functions, loops, if statements or `try/catch` blocks.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.constants.syntax.php)
+
+##### Types of the constant value
+
+Constants defined by `define` function can be *boolean*, *integer*, *float (decimal)*, *string (text)*, *callable (function)* or *object (class instance)*. Constants defined by the `const` keyword can be all above except *functions*.
+
+```php
+<?php
+
+define('SOME_BOOL_VALUE', true);
+const OTHER_BOOL_VALUE = false;
+
+print("Some logical value: " . SOME_BOOL_VALUE . "\nOther logical value: " . OTHER_BOOL_VALUE . "\n\n");
+
+define('SOME_INT_NUMBER', 15);
+const OTHER_INT_NUMBER = 10;
+
+print("Some integer number: " . SOME_INT_NUMBER . "\nOther integer number: " . OTHER_INT_NUMBER . "\n\n");
+
+define('SOME_DEC_NUMBER', 15.5);
+const OTHER_DEC_NUMBER = 10.24;
+
+print("Some decimal number: " . SOME_DEC_NUMBER . "\nOther decimal number: " . OTHER_DEC_NUMBER . "\n\n");
+
+define('SOME_TEXT', 'orange');
+const OTHER_TEXT = 'multimeter';
+
+print("Some text: " . SOME_TEXT . "\nOther text: " . OTHER_TEXT . "\n\n");
+
+define('SOME_ARRAY', [
+    'nickname' => 'pumpkinette',
+    'os' => 'linux',
+    'browser' => 'opera',
+]);
+const OTHER_ARRAY = [
+    'nickname' => 'nikologist',
+    'os' => 'chromeos',
+    'browser' => 'chrome',
+];
+
+print("Some array:\n");
+print_r(SOME_ARRAY);
+print("Other array:\n");
+print_r(OTHER_ARRAY);
+print("\n");
+
+define('SOME_FUNCTION', function() {
+    return 'some_function';
+});
+// const OTHER_FUNCTION = function() {
+//     return 'other_function';
+// };
+// PHP Fatal error:  Constant expression contains invalid operations
+
+print("Some function: " . (SOME_FUNCTION)() . "\n\n");
+
+define('SOME_OBJECT', new stdClass());
+const OTHER_OBJECT = new stdClass();
+
+print("Some object:\n");
+print_r(SOME_OBJECT);
+print("Other object:\n");
+print_r(OTHER_OBJECT);
+print("\n");
+
+```
+
+**View**:
+[Example](../../example/code/literals_constants_variables/constant_value_types.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+##### Building of the constant value
+
+While `define` allows a constant to be defined to an arbitrary expression, the `const` keyword has restrictions [...] When using the `const` keyword, only scalar (`bool`, `int`, `float` and `string`) expressions and constant arrays containing only scalar expressions are accepted. It is possible to define constants as a resource, but it should be avoided, as it can cause unexpected results [...]
+
+-- [PHP Reference](https://www.php.net/manual/en/language.constants.syntax.php)
+
+```php
+<?php
+
+// Using a function call
+define('SOME_DATE', date('Y-m-d H:i:s'));
+// const OTHER_DATE = date('Y-m-d H:i:s');
+// PHP Fatal error:  Constant expression contains invalid operations
+
+print('Some date: ' . SOME_DATE . "\n\n");
+
+// Using concatenation with runtime values
+$hostName = 'localhost'; // gethostname();
+define('SOME_FILE_PATH', '/var/log/app_' . $hostName . '.log');
+// const OTHER_FILE_PATH = '/var/log/app_' . $hostName . '.log';
+// PHP Fatal error:  Constant expression contains invalid operations
+
+print('Some date: ' . SOME_DATE . "\n\n");
+
+// Using superglobals variables
+define('SOME_FILE_NAME', $_SERVER['PHP_SELF']);
+// const OTHER_FILE_NAME = $_SERVER['PHP_SELF'];
+// PHP Fatal error:  Constant expression contains invalid operations
+
+print('Some file name: ' . SOME_FILE_NAME . "\n\n");
+
+// Using a non-constant array element
+$prefix = 'app_';
+define('SOME_SERVICE_INFO', [
+    'version' => '1.0.0',
+    'last_release_date' => '06.12.2025',
+    'prefixed_name' => $prefix . 'service',
+]);
+// const OTHER_SERVICE_INFO = [
+//     'version' => '1.0.0',
+//     'last_release_date' => '06.12.2025',
+//     'prefixed_name' => $prefix . 'service',
+// ];
+// PHP Fatal error:  Constant expression contains invalid operations
+
+print("Some service info:\n");
+print_r(SOME_SERVICE_INFO);
+print("\n");
+
+// Using non-scalar (e.g. object or resource) array element
+define('SOME_TEST_INFO', [
+    'type' => 'unit',
+    'object'  => new stdClass(),
+]);
+const OTHER_TEST_INFO = [
+    'type' => 'unit',
+    'object'  => new stdClass(),
+];
+
+print("Some test info:\n");
+print_r(SOME_TEST_INFO);
+print("Other test info:\n");
+print_r(OTHER_TEST_INFO);
+print("\n");
+
+```
+
+**View**:
+[Example](../../example/code/literals_constants_variables/constant_value_building.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
 
 ### Ways of accessing constants
 
