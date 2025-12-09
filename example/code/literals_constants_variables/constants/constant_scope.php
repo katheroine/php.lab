@@ -4,25 +4,6 @@ define("WEATHER", "windy");
 const COLOR = "orange";
 const NUMBER = 3;
 
-printf("Weather defined? %s\n", defined('WEATHER'));
-printf("Color defined? %s\n", defined('COLOR'));
-printf("Number defined? %s\n", defined('NUMBER'));
-printf("Item defined? %s\n", defined('ITEM'));
-print(PHP_EOL);
-
-printf("Weather: %s\n", constant('WEATHER'));
-printf("Color: %s\n", constant('COLOR'));
-printf("Number: %s\n", constant('NUMBER'));
-// printf("Item: %s\n", constant('ITEM'));
-print(PHP_EOL);
-
-$constants = get_defined_constants();
-printf("Weather: %s\n", $constants['WEATHER']);
-printf("Color: %s\n", $constants['COLOR']);
-printf("Number: %s\n", $constants['NUMBER']);
-// printf("Item: %s\n", $constants['ITEM']);
-print(PHP_EOL);
-
 printf("GLOBAL SCOPE: Weather: %s\n", WEATHER);
 printf("GLOBAL SCOPE: Color: %s\n", COLOR);
 printf("GLOBAL SCOPE: Number: %s\n", NUMBER);
@@ -32,6 +13,7 @@ function someFunction()
 {
     define("FLOWER", "rose");
     // const TREE = "pine";
+    // PHP Parse error:  syntax error, unexpected token "const"
 
     printf("FUNCTION SCOPE: Weather: %s\n", WEATHER);
     printf("FUNCTION SCOPE: Color: %s\n", COLOR);
@@ -81,11 +63,6 @@ SomeClass::someClassFunction();
 $someObject = new SomeClass();
 $someObject->someObjectFunction();
 
-printf("Vegetable defined? %s\n", defined('SomeClass::VEGETABLE'));
-printf("Utensil defined? %s\n", defined('UTENSIL'));
-printf("Furniture defined? %s\n", defined('FURNITURE'));
-print(PHP_EOL);
-
 printf("GLOBAL SCOPE: Vegetable: %s\n", SomeClass::VEGETABLE);
 printf("GLOBAL SCOPE: Utensil: %s\n", UTENSIL);
 printf("GLOBAL SCOPE: Furniture: %s\n", FURNITURE);
@@ -96,8 +73,8 @@ interface SomeInterface
     const TREE = 'pine';
 }
 
-printf("Tree defined? %s\n", defined('SomeInterface::TREE'));
-print(PHP_EOL);
+// printf("Tree defined? %s\n", defined('SomeInterface::TREE'));
+// print(PHP_EOL);
 
 printf("GLOBAL SCOPE: Tree: %s\n", SomeInterface::TREE);
 print(PHP_EOL);
@@ -119,6 +96,7 @@ trait SomeTrait
         printf("TRAIT SCOPE: Tool: %s\n", TOOL);
         print(PHP_EOL);
     }
+
     static function someClassFunction()
     {
         define('DEVICE', 'calculator');
@@ -149,11 +127,6 @@ trait SomeTrait
 }
 
 SomeTrait::someTraitFunction();
-
-printf("Fruit defined? %s\n", defined('SomeTrait::FRUIT'));
-printf("Tool defined? %s\n", defined('TOOL'));
-printf("DECOR defined? %s\n", defined('DECOR'));
-print(PHP_EOL);
 
 // printf("GLOBAL SCOPE: Fruit: %s\n", SomeTrait::FRUIT);
 printf("GLOBAL SCOPE: Tool: %s\n", TOOL);

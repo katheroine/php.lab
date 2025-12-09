@@ -20,7 +20,7 @@ print("\nNumber: {$number}\nText: {$text}\n");
 ```
 
 **View**:
-[Example](../../../../example/code/literals_constants_variables/literals/literals.php)
+[Example](../../example/code/literals_constants_variables/literals/literals.php)
 
 **Execute**:
 * [OnlinePHP](https://onlinephp.io/c/e808b)
@@ -61,7 +61,7 @@ print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
 ```
 
 **View**:
-[Example](../../../../example/code/literals_constants_variables/constants/constants.php)
+[Example](../../example/code/literals_constants_variables/constants/constants.php)
 
 **Execute**:
 * [OnlinePHP](https://onlinephp.io/c/d3636)
@@ -71,9 +71,11 @@ In the asbove example `NUMBER` and `TEXT` are constants. They can represent some
 
 ### Ways of defining constants
 
-In the given example there were presented two ways of defining constants:
+There are two ways of defining constants:
 * by `define` function,
 * by `const` keyword.
+
+**Defining constant by `define` function**
 
 Historically original way of defining constants in PHP is the `define` funcion.
 
@@ -84,6 +86,8 @@ define('SOME_CONSTANT', 1024);
 
 ```
 
+**Defining constnt by `const` keyword**
+
 The `const` keyword (by the way, very common in the other programming languages) has been introduced in PHP 5.3.
 
 ```php
@@ -92,6 +96,25 @@ The `const` keyword (by the way, very common in the other programming languages)
 const SOME_CONSTANT = 1024;
 
 ```
+
+The below example shows both ways of defining constants.
+
+```php
+<?php
+
+define('NUMBER', 15);
+const TEXT = "Hello, there!";
+
+print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
+
+```
+
+**View**:
+[Example](../../example/code/literals_constants_variables/constants/constant_definition.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
 
 #### Differences between `define` function and `const` keyword usage
 
@@ -167,7 +190,7 @@ print("\n");
 ```
 
 **View**:
-[Example](../../../../example/code/literals_constants_variables/constants/constant_definition_types.php)
+[Example](../../example/code/literals_constants_variables/constants/constant_definition_types.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -241,13 +264,65 @@ print("\n");
 ```
 
 **View**:
-[Example](../../../../example/code/literals_constants_variables/constants/constant_definition_expressions.php)
+[Example](../../example/code/literals_constants_variables/constants/constant_definition_expressions.php)
 
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
 
 ### Ways of accessing constants
+
+There are three ways of accessing constants:
+* by constant name,
+* by `constant` function,
+* by `get_defined_constants` function.
+
+**Accessing constant by its name**
+
+```php
+<?php
+
+echo 'SOME_CONSTANT';
+
+```
+
+**Accessing constnt by `constant` function**
+
+```php
+<?php
+
+echo const('SOME_CONSTANT');
+
+```
+
+**Accessing constnt by `get_defined_constants` function**
+
+```php
+<?php
+
+echo (get_defined_constants())['SOME_CONSTANT'];
+
+```
+
+The below example shows all the ways of accessing the contant.
+
+```php
+<?php
+
+define('NUMBER', 15);
+const VALUE = 12.4;
+const TEXT = "Hello, there!";
+
+print("Number: " . NUMBER . "\nValue: " . constant('VALUE') . "\nText: " . (get_defined_constants())['TEXT'] . "\n");
+
+```
+
+**View**:
+[Example](../../example/code/literals_constants_variables/constants/constant_access.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
 
 The value of a constant is accessed simply by specifying its name. Unlike variables, a constant is not prepended with a `$`. It is also possible to use the `constant` function to read a constant's value if the constant's name is obtained dynamically. Use `get_defined_constants` to get a list of all defined constants.
 
@@ -290,7 +365,7 @@ For our purposes here, a letter is `a-z, A-Z`, and the ASCII characters from `12
 
 ### Scope of the constants
 
-Constants and (global) variables are in a different namespace. This implies that for example true and $TRUE are generally different.
+Constants and (global) variables are in a different namespace. This implies that for example `true` and `$TRUE` are generally different.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.constants.syntax.php)
 
