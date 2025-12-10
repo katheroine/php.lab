@@ -1,5 +1,5 @@
 [⌂ Home](../../README.md)
-[▲ Previous: What is PHP](what_is_php.md)
+[▲ Previous: What is PHP?](what_is_php.md)
 [▼ Next: PHP features](php_features.md)
 
 # PHP history
@@ -311,5 +311,5 @@ PHP 8.4 was released on 21 November 2024.
 
 [▵ Up](#php-history)
 [⌂ Home](../../README.md)
-[▲ Previous: What is PHP](what_is_php.md)
+[▲ Previous: What is PHP?](what_is_php.md)
 [▼ Next: PHP features](php_features.md)

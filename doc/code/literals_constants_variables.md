@@ -1,3 +1,6 @@
+[⌂ Home](../../README.md)
+[▲ Previous: PHP features](../intro/php_features.md)
+
 # Literals, constants, variables
 
 ## Literals
@@ -330,7 +333,45 @@ The value of a constant is accessed simply by specifying its name. Unlike variab
 
 ### Functions handling constants
 
-#### `define` function
+#### [`define`](https://www.php.net/manual/en/function.define.php) function
+
+**Syntax**
+
+```
+define(string $constant_name, mixed $value, bool $case_insensitive = false): bool
+```
+
+**Description**
+
+Defines a named constant at runtime in the global scope.
+
+**Arguments**
+
+* **`constant_name`**
+
+The name of the constant.
+
+It is possible to define constants with reserved or even invalid names, whose value can (only) be retrieved with `constant` function. However, doing so is not recommended.
+
+* **`value`**
+
+The value of the constant.
+
+While it is possible to define resource constants, it is not recommended and may cause unpredictable behavior.
+
+* **`case_insensitive`**
+
+If set to `true`, the constant will be defined *case-insensitive*. The default behavior is *case-sensitive*; i.e. `CONSTANT` and `Constant` represent different values.
+
+Defining case-insensitive constants is deprecated as of PHP 7.3.0. As of PHP 8.0.0, only false is an acceptable value, passing true will produce a warning.
+
+Case-insensitive constants are stored as lower-case.
+
+**Return value**
+
+Returns `true` on success or `false` on failure.
+
+-- [PHP Reference](https://www.php.net/manual/en/function.define.php)
 
 Prior to PHP 8.0.0, constants defined using the `define()` function may be case-insensitive.
 
@@ -362,6 +403,107 @@ define("__FOO__", "something");
 For our purposes here, a letter is `a-z, A-Z`, and the ASCII characters from `128` through `255` (`0x80-0xff`).
 
 – [PHP Reference](https://www.php.net/manual/en/language.constants.php)
+
+#### [`constant`](https://www.php.net/manual/en/function.constant.php) function
+
+**Syntax**
+
+```
+constant(string $name): mixed
+```
+
+**Description**
+
+Return the value of the constant indicated by the constant name.
+
+`constant` is useful if you need to retrieve the value of a constant, but do not know its name. I.e. it is stored in a variable or returned by a function.
+
+This function works also with *class constants* and *enum cases*.
+
+**Arguments**
+
+* **`name`**
+
+The constant name.
+
+**Return value**
+
+Returns the value of the constant.
+
+**Errors or exceptions**
+
+If the constant is not defined, an `Error` exception is thrown. Prior to PHP 8.0.0, an `E_WARNING` level error was generated in that case.
+
+– [PHP Reference](https://www.php.net/manual/en/function.constant.php)
+
+#### [`get_defined_constants`](https://www.php.net/manual/en/function.get-defined-constants.php) function
+
+**Syntax**
+
+```
+get_defined_constants(bool $categorize = false): array
+```
+
+**Description**
+
+Returns the names and values of all the constants currently defined. This includes those created by extensions as well as those created with the `define` function.
+
+**Arguments**
+
+* **`categorize`**
+
+Causing this function to return a multi-dimensional array with categories in the keys of the first dimension and constants and their values in the second dimension.
+
+```php
+<?php
+define("MY_CONSTANT", 1);
+print_r(get_defined_constants(true));
+?>
+The above example will output something similar to:
+
+Array
+(
+    [Core] => Array
+        (
+            [E_ERROR] => 1
+            [E_WARNING] => 2
+            [E_PARSE] => 4
+            [E_NOTICE] => 8
+            [E_CORE_ERROR] => 16
+            [E_CORE_WARNING] => 32
+            [E_COMPILE_ERROR] => 64
+            [E_COMPILE_WARNING] => 128
+            [E_USER_ERROR] => 256
+            [E_USER_WARNING] => 512
+            [E_USER_NOTICE] => 1024
+            [E_ALL] => 2047
+            [TRUE] => 1
+        )
+
+    [pcre] => Array
+        (
+            [PREG_PATTERN_ORDER] => 1
+            [PREG_SET_ORDER] => 2
+            [PREG_OFFSET_CAPTURE] => 256
+            [PREG_SPLIT_NO_EMPTY] => 1
+            [PREG_SPLIT_DELIM_CAPTURE] => 2
+            [PREG_SPLIT_OFFSET_CAPTURE] => 4
+            [PREG_GREP_INVERT] => 1
+        )
+
+    [user] => Array
+        (
+            [MY_CONSTANT] => 1
+        )
+
+)
+```
+
+**Return value**
+
+Returns an array of `constant name => constant value` array, optionally groupped by extension name registering the constant.
+
+– [PHP Reference](https://www.php.net/manual/en/function.get-defined-constants.php)
 
 ### Scope of the constants
 
@@ -537,3 +679,7 @@ print(PHP_EOL);
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
+
+[▵ Up](#literals-constants-variables)
+[⌂ Home](../../README.md)
+[▲ Previous: PHP features](../intro/php_features.md)
