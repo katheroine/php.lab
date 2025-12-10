@@ -373,6 +373,25 @@ Returns `true` on success or `false` on failure.
 
 -- [PHP Reference](https://www.php.net/manual/en/function.define.php)
 
+**Example**
+
+```php
+<?php
+
+define('NUMBER', 15);
+define('TEXT', 'Hello, there!');
+
+print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
+
+```
+
+**View**:
+[Example](../../example/code/literals_constants_variables/constants/functions/function_define.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
 Prior to PHP 8.0.0, constants defined using the `define()` function may be case-insensitive.
 
 The *name* of a constant follows the same rules as any *label* in PHP. A valid constant name starts with a letter or underscore, followed by any number of letters, numbers, or underscores. As a regular expression, it would be expressed thusly: `^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$`
@@ -436,6 +455,26 @@ If the constant is not defined, an `Error` exception is thrown. Prior to PHP 8.0
 
 – [PHP Reference](https://www.php.net/manual/en/function.constant.php)
 
+**Example**
+
+```php
+<?php
+// PHP Reference: https://www.php.net/manual/en/function.constant.php
+
+define('NUMBER', 15);
+const TEXT = 'Hello, there!';
+
+print("Number: " . constant('NUMBER') . "\nText: " . constant('TEXT') . "\n");
+
+```
+
+**View**:
+[Example](../../example/code/literals_constants_variables/constants/functions/function_constant.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
 #### [`get_defined_constants`](https://www.php.net/manual/en/function.get-defined-constants.php) function
 
 **Syntax**
@@ -459,8 +498,12 @@ Causing this function to return a multi-dimensional array with categories in the
 define("MY_CONSTANT", 1);
 print_r(get_defined_constants(true));
 ?>
+
+```
+
 The above example will output something similar to:
 
+```
 Array
 (
     [Core] => Array
@@ -504,6 +547,26 @@ Array
 Returns an array of `constant name => constant value` array, optionally groupped by extension name registering the constant.
 
 – [PHP Reference](https://www.php.net/manual/en/function.get-defined-constants.php)
+
+**Example**
+
+```php
+<?php
+// PHP Reference: https://www.php.net/manual/en/function.get-defined-constants.php
+
+define('NUMBER', 15);
+const TEXT = 'Hello, there!';
+
+print("Number: " . (get_defined_constants())['NUMBER'] . "\nText: " . (get_defined_constants())['TEXT'] . "\n");
+
+```
+
+**View**:
+[Example](../../example/code/literals_constants_variables/constants/functions/function_get_defined_constants.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
 
 ### Scope of the constants
 

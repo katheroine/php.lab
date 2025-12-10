@@ -21,7 +21,11 @@ Laboratory of PHP.
         2. [Types in constant definitions](./example/code/literals_constants_variables/constants/constant_definition_types.php)
         3. [Expressions in constant definitions](./example/code/literals_constants_variables/constants/constant_definition_expressions.php)
         4. [Ways of accessing constants](./example/code/literals_constants_variables/constants/constant_access.php)
-        5. [Scope of the constants](./example/code/literals_constants_variables/constants/constant_scope.php)
+        5. Functions handling constants
+            1. [`define` function](./example/code/literals_constants_variables/constants/functions/function_define.php)
+            2. [`constant` function](./example/code/literals_constants_variables/constants/functions/function_constant.php)
+            3. [`get_defined_constants` function](./example/code/literals_constants_variables/constants/functions/function_get_defined_constants.php)
+        6. [Scope of the constants](./example/code/literals_constants_variables/constants/constant_scope.php)
     3. [Variables](./example/code/literals_constants_variables/variables.php)
     4. [Static variables](./example/code/literals_constants_variables/static_variables.php)
 2. [Operators](./example/code/operators/)
