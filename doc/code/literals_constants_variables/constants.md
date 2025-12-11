@@ -1,37 +1,9 @@
-[⌂ Home](../../README.md)
-[▲ Previous: PHP features](../intro/php_features.md)
+[⌂ Home](../../../README.md)
+[▲ Previous: Literals](./literals.md)
 
-# Literals, constants, variables
+# Constants
 
-## Literals
-
-> In computer science, a **literal** is a textual representation (notation) of a value as it is written in source code. Almost all programming languages have notations for atomic values such as integers, floating-point numbers, and strings, and usually for Booleans and characters; some also have notations for elements of enumerated types and compound values such as arrays, records, and objects. An anonymous function is a literal for the function type.
->
-> In contrast to literals, variables or constants are symbols that can take on one of a class of fixed values, the constant being constrained not to change. Literals are often used to initialize variables.
-
--- [Wikipedia](https://en.wikipedia.org/wiki/Literal_(computer_programming))
-
-```php
-<?php
-
-$number = 15.5;
-$text = "Hello, there!";
-
-print("There is some data.");
-print("\nNumber: {$number}\nText: {$text}\n");
-
-```
-
-**View**:
-[Example](../../example/code/literals_constants_variables/literals/literals.php)
-
-**Execute**:
-* [OnlinePHP](https://onlinephp.io/c/e808b)
-* [OneCompiler](https://onecompiler.com/php/446d4ey5g)
-
-In the asbove example `15.5` and `"Hello, there!"` are literals. They are used to initialize (assign a value in the creation process to) two variables. Another literal is `"There are some data."` used just to be displayed on the output.
-
-## Constants
+## Definition
 
 > In computer programming, a **constant** is a value that is not altered by the program during normal execution. When associated with an identifier, a constant is said to be *named*, although the terms *constant* and *named constant* are often used interchangeably. This is contrasted with a *variable*, which is an identifier with a value that can be changed during normal execution. To simplify, *constants*' values remains, while the values of *variables* varies, hence both their names.
 >
@@ -50,6 +22,8 @@ In the asbove example `15.5` and `"Hello, there!"` are literals. They are used t
 A *constant* is an *identifier* (*name*) for a simple *value*. As the name suggests, that *value* cannot change during the execution of the script (except for *magic constants*, which aren't actually constants). Constants are case-sensitive. By convention, constant identifiers are always uppercase.
 
 – [PHP Reference](https://www.php.net/manual/en/language.constants.php)
+
+## Example
 
 ```php
 <?php
@@ -72,7 +46,7 @@ print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
 
 In the asbove example `NUMBER` and `TEXT` are constants. They can represent some values, like `15.5` and `"Hello, there!"`, but after the *initialisation*, their values cannot be changed. If a programmer tries to *assign* a value to a constant, the PHP parser will report an error, even if the assigned value is exactly the same as the initialization value.
 
-### Ways of defining constants
+## Ways of defining constants
 
 There are two ways of defining constants:
 * by `define` function,
@@ -119,15 +93,15 @@ print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
 * [OnlinePHP]()
 * [OneCompiler]()
 
-#### Differences between `define` function and `const` keyword usage
+### Differences between `define` function and `const` keyword usage
 
-##### Constant definition placement
+#### Constant definition placement
 
 As opposed to defining constants using `define`, constants defined using the `const` keyword must be declared at the top-level scope because they are defined at compile-time. This means that they cannot be declared inside functions, loops, if statements or `try/catch` blocks.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.constants.syntax.php)
 
-##### Types in constant definitions
+#### Types in constant definitions
 
 Constants defined by `define` function can be *boolean*, *integer*, *float (decimal)*, *string (text)*, *callable (function)* or *object (class instance)*. Constants defined by the `const` keyword can be all above except *functions*.
 
@@ -199,7 +173,7 @@ print("\n");
 * [OnlinePHP]()
 * [OneCompiler]()
 
-##### Expressions in constant definitions
+#### Expressions in constant definitions
 
 While `define` allows a constant to be defined to an arbitrary expression, the `const` keyword has restrictions [...] When using the `const` keyword, only scalar (`bool`, `int`, `float` and `string`) expressions and constant arrays containing only scalar expressions are accepted. It is possible to define constants as a resource, but it should be avoided, as it can cause unexpected results [...]
 
@@ -273,7 +247,7 @@ print("\n");
 * [OnlinePHP]()
 * [OneCompiler]()
 
-### Ways of accessing constants
+## Ways of accessing constants
 
 There are three ways of accessing constants:
 * by constant name,
@@ -331,9 +305,9 @@ The value of a constant is accessed simply by specifying its name. Unlike variab
 
 -- [PHP Reference](https://www.php.net/manual/en/language.constants.syntax.php)
 
-### Functions handling constants
+## Functions handling constants
 
-#### [`define`](https://www.php.net/manual/en/function.define.php) function
+### [`define`](https://www.php.net/manual/en/function.define.php) function
 
 **Syntax**
 
@@ -423,7 +397,7 @@ For our purposes here, a letter is `a-z, A-Z`, and the ASCII characters from `12
 
 – [PHP Reference](https://www.php.net/manual/en/language.constants.php)
 
-#### [`constant`](https://www.php.net/manual/en/function.constant.php) function
+### [`constant`](https://www.php.net/manual/en/function.constant.php) function
 
 **Syntax**
 
@@ -475,7 +449,7 @@ print("Number: " . constant('NUMBER') . "\nText: " . constant('TEXT') . "\n");
 * [OnlinePHP]()
 * [OneCompiler]()
 
-#### [`get_defined_constants`](https://www.php.net/manual/en/function.get-defined-constants.php) function
+### [`get_defined_constants`](https://www.php.net/manual/en/function.get-defined-constants.php) function
 
 **Syntax**
 
@@ -568,7 +542,7 @@ print("Number: " . (get_defined_constants())['NUMBER'] . "\nText: " . (get_defin
 * [OnlinePHP]()
 * [OneCompiler]()
 
-### Scope of the constants
+## Scope of the constants
 
 Constants and (global) variables are in a different namespace. This implies that for example `true` and `$TRUE` are generally different.
 
@@ -743,6 +717,6 @@ print(PHP_EOL);
 * [OnlinePHP]()
 * [OneCompiler]()
 
-[▵ Up](#literals-constants-variables)
-[⌂ Home](../../README.md)
-[▲ Previous: PHP features](../intro/php_features.md)
+[▵ Up](#constants)
+[⌂ Home](../../../README.md)
+[▲ Previous: Literals](./literals.md)

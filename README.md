@@ -10,8 +10,9 @@ Laboratory of PHP.
 2. [PHP history](./doc/intro/php_history.md)
 3. [PHP features](./doc/intro/php_features.md)
 4. PHP code
-    1. [Literals, constants, variables](./doc/code/literals_constants_variables.md)
-
+    1. Literals, constants, variables
+        1. [Literals](./doc/code/literals_constants_variables/literals.md)
+        2. [Constants](./doc/code/literals_constants_variables/constants.md)
 ### Examples
 
 1. [Literals, constants, variables](./example/code/literals_constants_variables/)
