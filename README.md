@@ -13,6 +13,7 @@ Laboratory of PHP.
     1. Literals, constants, variables
         1. [Literals](./doc/code/literals_constants_variables/literals.md)
         2. [Constants](./doc/code/literals_constants_variables/constants.md)
+        3. [Variables](./doc/code/literals_constants_variables/variables.md)
 ### Examples
 
 1. [Literals, constants, variables](./example/code/literals_constants_variables/)
