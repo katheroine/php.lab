@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Literals](./literals.md)
+[▼ Next: Variables](./variables.md)
 
 # Constants
 
@@ -522,7 +523,7 @@ Returns `true` on success or `false` on failure.
 
 -- [PHP Reference](https://www.php.net/manual/en/function.define.php)
 
-**Example**
+**Examples**
 
 ```php
 <?php
@@ -568,9 +569,55 @@ define("__FOO__", "something");
 ?>
 ```
 
+– [PHP Reference](https://www.php.net/manual/en/language.constants.php)
+
 For our purposes here, a letter is `a-z, A-Z`, and the ASCII characters from `128` through `255` (`0x80-0xff`).
 
-– [PHP Reference](https://www.php.net/manual/en/language.constants.php)
+*Example #1 Defining Constants*
+
+```php
+define("CONSTANT", "Hello world.");
+echo CONSTANT; // outputs "Hello world."
+echo Constant; // outputs "Constant" and issues a notice.
+
+define("GREETING", "Hello you.", true);
+echo GREETING; // outputs "Hello you."
+echo Greeting; // outputs "Hello you."
+
+// Works as of PHP 7
+define('ANIMALS', array(
+    'dog',
+    'cat',
+    'bird'
+));
+echo ANIMALS[1]; // outputs "cat"
+
+?>
+```
+
+*Example #2 Constants with Reserved Names*
+
+This example illustrates the possibility to define a constant with the same name as a magic constant. Since the resulting behavior is obviously confusing, it is not recommended to do this in practise, though.
+
+```php
+<?php
+var_dump(defined('__LINE__'));
+var_dump(define('__LINE__', 'test'));
+var_dump(constant('__LINE__'));
+var_dump(__LINE__);
+?>
+```
+
+The above example will output:
+
+```
+bool(false)
+bool(true)
+string(4) "test"
+int(5)
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/function.define.php)
 
 ### [`constant`](https://www.php.net/manual/en/function.constant.php) function
 
@@ -604,7 +651,7 @@ If the constant is not defined, an `Error` exception is thrown. Prior to PHP 8.0
 
 – [PHP Reference](https://www.php.net/manual/en/function.constant.php)
 
-**Example**
+**Examples**
 
 ```php
 <?php
@@ -623,6 +670,55 @@ print("Number: " . constant('NUMBER') . "\nText: " . constant('TEXT') . "\n");
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
+
+*Example #1 Using `constant()` with Constants*
+
+```php
+<?php
+
+define("MAXSIZE", 100);
+
+echo MAXSIZE;
+echo constant("MAXSIZE"); // same thing as the previous line
+
+
+interface bar {
+    const test = 'foobar!';
+}
+
+class foo {
+    const test = 'foobar!';
+}
+
+$const = 'test';
+
+var_dump(constant('bar::'. $const)); // string(7) "foobar!"
+var_dump(constant('foo::'. $const)); // string(7) "foobar!"
+
+?>
+```
+
+*Example #2 Using `constant()` with Enum Cases (as of PHP 8.1.0)*
+
+```php
+<?php
+
+enum Suit
+{
+    case Hearts;
+    case Diamonds;
+    case Clubs;
+    case Spades;
+}
+
+$case = 'Hearts';
+
+var_dump(constant('Suit::'. $case)); // enum(Suit::Hearts)
+
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/function.constant.php)
 
 ### [`get_defined_constants`](https://www.php.net/manual/en/function.get-defined-constants.php) function
 
@@ -697,7 +793,7 @@ Returns an array of `constant name => constant value` array, optionally groupped
 
 – [PHP Reference](https://www.php.net/manual/en/function.get-defined-constants.php)
 
-**Example**
+**Examples**
 
 ```php
 <?php
@@ -717,6 +813,38 @@ print("Number: " . (get_defined_constants())['NUMBER'] . "\nText: " . (get_defin
 * [OnlinePHP]()
 * [OneCompiler]()
 
+*Example #1 `get_defined_constants()` Example*
+
+```php
+<?php
+print_r(get_defined_constants());
+?>
+```
+
+The above example will output something similar to:
+
+```
+Array
+(
+    [E_ERROR] => 1
+    [E_WARNING] => 2
+    [E_PARSE] => 4
+    [E_NOTICE] => 8
+    [E_CORE_ERROR] => 16
+    [E_CORE_WARNING] => 32
+    [E_COMPILE_ERROR] => 64
+    [E_COMPILE_WARNING] => 128
+    [E_USER_ERROR] => 256
+    [E_USER_WARNING] => 512
+    [E_USER_NOTICE] => 1024
+    [E_ALL] => 2047
+    [TRUE] => 1
+)
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/function.get-defined-constants.php)
+
 [▵ Up](#constants)
 [⌂ Home](../../../README.md)
 [▲ Previous: Literals](./literals.md)
+[▼ Next: Variables](./variables.md)
