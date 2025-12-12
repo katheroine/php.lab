@@ -26,7 +26,7 @@ print("\nNumber: {$number}\nText: {$text}\n");
 ```
 
 **View**:
-[Example](../../example/code/literals_constants_variables/literals/literals.php)
+[Example](../../../example/code/literals_constants_variables/literals/literals.php)
 
 **Execute**:
 * [OnlinePHP](https://onlinephp.io/c/e808b)
