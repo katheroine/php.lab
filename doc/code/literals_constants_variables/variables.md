@@ -17,6 +17,53 @@
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Variable_(high-level_programming))
 
+## Variable names
+
+Variables in PHP are represented by a dollar sign followed by the name of the variable. The variable name is case-sensitive.
+
+A valid variable *name* starts with a letter (`A-Z`, `a-z`, or the bytes from `128` through `255`) or underscore, followed by any number of letters, numbers, or underscores. As a regular expression, it would be expressed thus: `^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$`
+
+PHP doesn't support Unicode variable names, however, some character encodings (such as UTF-8) encode characters in such a way that all bytes of a multi-byte character fall within the allowed range, thus making it a valid variable name.
+
+`$this` is a special variable that can't be assigned. Prior to PHP 7.1.0, indirect assignment (e.g. by using variable variables) was possible.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.variables.basics.php)
+
+Rules for PHP variables:
+
+* A variable starts with the $ sign, followed by the name of the variable
+* A variable name must start with a letter or the underscore character
+* A variable name cannot start with a number
+* A variable name can only contain alpha-numeric characters and underscores (`A-z`, `0-9`, and `_` )
+* Variable names are case-sensitive ($age and $AGE are two different variables)
+
+-- [W3Schools](https://www.w3schools.com/php/php_variables.asp)
+
+*Example: Valid variable names*
+
+```php
+<?php
+$var = 'Bob';
+$Var = 'Joe';
+echo "$var, $Var";      // outputs "Bob, Joe"
+
+$_4site = 'not yet';    // valid; starts with an underscore
+$täyte = 'mansikka';    // valid; 'ä' is (Extended) ASCII 228.
+?>
+```
+
+*Example: Invalid variable names*
+
+```php
+<?php
+$4site = 'not yet';     // invalid; starts with a number
+?>
+```
+
+PHP accepts a sequence of any bytes as a variable name. Variable names that do not follow the above-mentioned naming rules can only be accessed dynamically at runtime.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.variables.basics.php)
+
 [▵ Up](#variables)
 [⌂ Home](../../../README.md)
 [▲ Previous: Constants](./constants.md)

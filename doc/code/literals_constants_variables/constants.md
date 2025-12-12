@@ -24,6 +24,37 @@ A *constant* is an *identifier* (*name*) for a simple *value*. As the name sugge
 
 – [PHP Reference](https://www.php.net/manual/en/language.constants.php)
 
+## Constant names
+
+Prior to PHP 8.0.0, constants defined using the `define()` function may be case-insensitive.
+
+The *name* of a constant follows the same rules as any *label* in PHP. A valid constant name starts with a letter or underscore, followed by any number of letters, numbers, or underscores. As a regular expression, it would be expressed thusly: `^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$`
+
+It is possible to `define()` constants with reserved or even invalid names, whose value can only be retrieved with the `constant()` function. However, doing so is not recommended.
+
+*Example: Valid and invalid constant names*
+
+```php
+<?php
+
+// Valid constant names
+define("FOO", "something");
+define("FOO2", "something else");
+define("FOO_BAR", "something more");
+
+// Invalid constant names
+define("2FOO", "something");
+
+// This is valid, but should be avoided:
+// PHP may one day provide a magical constant
+// that will break your script
+define("__FOO__", "something");
+
+?>
+```
+
+– [PHP Reference](https://www.php.net/manual/en/language.constants.php)
+
 ## Example
 
 ```php
@@ -547,35 +578,6 @@ print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
-
-Prior to PHP 8.0.0, constants defined using the `define()` function may be case-insensitive.
-
-The *name* of a constant follows the same rules as any *label* in PHP. A valid constant name starts with a letter or underscore, followed by any number of letters, numbers, or underscores. As a regular expression, it would be expressed thusly: `^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$`
-
-It is possible to `define()` constants with reserved or even invalid names, whose value can only be retrieved with the `constant()` function. However, doing so is not recommended.
-
-*Example: Valid and invalid constant names*
-
-```php
-<?php
-
-// Valid constant names
-define("FOO", "something");
-define("FOO2", "something else");
-define("FOO_BAR", "something more");
-
-// Invalid constant names
-define("2FOO", "something");
-
-// This is valid, but should be avoided:
-// PHP may one day provide a magical constant
-// that will break your script
-define("__FOO__", "something");
-
-?>
-```
-
-– [PHP Reference](https://www.php.net/manual/en/language.constants.php)
 
 For our purposes here, a letter is `a-z, A-Z`, and the ASCII characters from `128` through `255` (`0x80-0xff`).
 
