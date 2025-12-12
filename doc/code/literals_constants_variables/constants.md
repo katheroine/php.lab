@@ -78,7 +78,7 @@ print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
 
 In the asbove example `NUMBER` and `TEXT` are constants. They can represent some values, like `15.5` and `"Hello, there!"`, but after the *initialisation*, their values cannot be changed. If a programmer tries to *assign* a value to a constant, the PHP parser will report an error, even if the assigned value is exactly the same as the initialization value.
 
-## Ways of defining constants
+## Defining constants
 
 There are two ways of defining constants:
 * by `define` function,
@@ -279,7 +279,7 @@ print("\n");
 * [OnlinePHP]()
 * [OneCompiler]()
 
-## Ways of accessing constants
+## Accessing constants
 
 There are three ways of accessing constants:
 * by constant name,
