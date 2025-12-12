@@ -485,17 +485,21 @@ print(PHP_EOL);
 
 ### [`define`](https://www.php.net/manual/en/function.define.php) function
 
-**Syntax**
+#### Availability
+
+PHP 4, PHP 5, PHP 7, PHP 8
+
+#### Syntax
 
 ```
 define(string $constant_name, mixed $value, bool $case_insensitive = false): bool
 ```
 
-**Description**
+#### Description
 
 Defines a named constant at runtime in the global scope.
 
-**Arguments**
+#### Arguments
 
 * **`constant_name`**
 
@@ -517,13 +521,15 @@ Defining case-insensitive constants is deprecated as of PHP 7.3.0. As of PHP 8.0
 
 Case-insensitive constants are stored as lower-case.
 
-**Return value**
+#### Return value
 
 Returns `true` on success or `false` on failure.
 
 -- [PHP Reference](https://www.php.net/manual/en/function.define.php)
 
-**Examples**
+#### Examples
+
+*Example: Basic usage*
 
 ```php
 <?php
@@ -548,7 +554,7 @@ The *name* of a constant follows the same rules as any *label* in PHP. A valid c
 
 It is possible to `define()` constants with reserved or even invalid names, whose value can only be retrieved with the `constant()` function. However, doing so is not recommended.
 
-*Example #1 Valid and invalid constant names*
+*Example: Valid and invalid constant names*
 
 ```php
 <?php
@@ -573,7 +579,7 @@ define("__FOO__", "something");
 
 For our purposes here, a letter is `a-z, A-Z`, and the ASCII characters from `128` through `255` (`0x80-0xff`).
 
-*Example #1 Defining Constants*
+*Example: Defining Constants*
 
 ```php
 define("CONSTANT", "Hello world.");
@@ -595,7 +601,7 @@ echo ANIMALS[1]; // outputs "cat"
 ?>
 ```
 
-*Example #2 Constants with Reserved Names*
+*Example: Constants with Reserved Names*
 
 This example illustrates the possibility to define a constant with the same name as a magic constant. Since the resulting behavior is obviously confusing, it is not recommended to do this in practise, though.
 
@@ -619,15 +625,121 @@ int(5)
 
 -- [PHP Reference](https://www.php.net/manual/en/function.define.php)
 
+### [`defined`](https://www.php.net/manual/en/function.defined.php) function
+
+#### Availability
+
+PHP 4, PHP 5, PHP 7, PHP 8
+
+#### Syntax
+
+```
+defined(string $constant_name): bool
+```
+
+#### Description
+
+Checks whether a constant with the given name exists
+
+#### Description
+
+Checks whether a constant with the given `constant_name` is defined.
+
+This function works also with *class constants* and *enum cases*.
+
+If you want to see if a variable exists, use *isset* as *defined* only applies to constants. If you want to see if a function exists, use *function_exists*.
+
+#### Arguments
+
+##### **`constant_name`**
+
+The constant name.
+
+#### Return values
+
+Returns `true` if the named constant given by `constant_name` has been defined, `false` otherwise.
+
+#### Examples
+
+*Example: Basic usage*
+
+```php
+<?php
+// PHP Reference: www.php.net/manual/en/function.defined.php
+
+define('NUMBER', 15);
+const TEXT = "Hello, there!";
+
+print("Is number defined: " . (defined('NUMBER') ? 'yes' : 'no') . "\nIs text defined: " . (defined('TEXT') ? 'yes' : 'no') . "\n");
+
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/constants/functions/function_defined.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+*Example: Checking Constants*
+
+```php
+<?php
+
+/* Note the use of quotes, this is important. This example is checking
+ * if the string 'TEST' is the name of a constant named TEST */
+if (defined('TEST')) {
+    echo TEST;
+}
+
+
+interface bar {
+    const test = 'foobar!';
+}
+
+class foo {
+    const test = 'foobar!';
+}
+
+var_dump(defined('bar::test')); // bool(true)
+var_dump(defined('foo::test')); // bool(true)
+
+?>
+```
+
+*Example: Checking Enum Cases (as of PHP 8.1.0)*
+
+```php
+<?php
+
+enum Suit
+{
+    case Hearts;
+    case Diamonds;
+    case Clubs;
+    case Spades;
+}
+
+var_dump(defined('Suit::Hearts')); // bool(true)
+
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/function.defined.php)
+
 ### [`constant`](https://www.php.net/manual/en/function.constant.php) function
 
-**Syntax**
+#### Availability
+
+PHP 4 >= 4.0.4, PHP 5, PHP 7, PHP 8
+
+#### Syntax
 
 ```
 constant(string $name): mixed
 ```
 
-**Description**
+#### Description
 
 Return the value of the constant indicated by the constant name.
 
@@ -635,23 +747,25 @@ Return the value of the constant indicated by the constant name.
 
 This function works also with *class constants* and *enum cases*.
 
-**Arguments**
+#### Arguments
 
 * **`name`**
 
 The constant name.
 
-**Return value**
+#### Return value
 
 Returns the value of the constant.
 
-**Errors or exceptions**
+#### Errors or exceptions
 
 If the constant is not defined, an `Error` exception is thrown. Prior to PHP 8.0.0, an `E_WARNING` level error was generated in that case.
 
 – [PHP Reference](https://www.php.net/manual/en/function.constant.php)
 
-**Examples**
+#### Examples
+
+*Example: Basic usage*
 
 ```php
 <?php
@@ -671,7 +785,7 @@ print("Number: " . constant('NUMBER') . "\nText: " . constant('TEXT') . "\n");
 * [OnlinePHP]()
 * [OneCompiler]()
 
-*Example #1 Using `constant()` with Constants*
+*Example: Using `constant` with constants*
 
 ```php
 <?php
@@ -698,7 +812,7 @@ var_dump(constant('foo::'. $const)); // string(7) "foobar!"
 ?>
 ```
 
-*Example #2 Using `constant()` with Enum Cases (as of PHP 8.1.0)*
+*Example: Using `constant` with enum cases (as of PHP 8.1.0)*
 
 ```php
 <?php
@@ -722,17 +836,21 @@ var_dump(constant('Suit::'. $case)); // enum(Suit::Hearts)
 
 ### [`get_defined_constants`](https://www.php.net/manual/en/function.get-defined-constants.php) function
 
-**Syntax**
+#### Availability
+
+PHP 4 >= 4.1.0, PHP 5, PHP 7, PHP 8
+
+#### Syntax
 
 ```
 get_defined_constants(bool $categorize = false): array
 ```
 
-**Description**
+#### Description
 
 Returns the names and values of all the constants currently defined. This includes those created by extensions as well as those created with the `define` function.
 
-**Arguments**
+#### Arguments
 
 * **`categorize`**
 
@@ -787,13 +905,15 @@ Array
 )
 ```
 
-**Return value**
+#### Return value
 
 Returns an array of `constant name => constant value` array, optionally groupped by extension name registering the constant.
 
 – [PHP Reference](https://www.php.net/manual/en/function.get-defined-constants.php)
 
-**Examples**
+#### Examples
+
+*Example: Basic usage*
 
 ```php
 <?php
@@ -813,7 +933,7 @@ print("Number: " . (get_defined_constants())['NUMBER'] . "\nText: " . (get_defin
 * [OnlinePHP]()
 * [OneCompiler]()
 
-*Example #1 `get_defined_constants()` Example*
+*Example: `get_defined_constants` example*
 
 ```php
 <?php
