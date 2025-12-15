@@ -88,6 +88,17 @@ print("Number: {$number}\nText: " . $text . "\n\n");
 * [OnlinePHP]()
 * [OneCompiler]()
 
+**Result**:
+
+```
+Number: 15
+Text: Hello, there!
+
+Number: 12.4
+Text: Hi, everyone!
+
+```
+
 In the asbove example `$number$` and `$text` are variables. They can represent some values, like `15.5` and `"Hello, there!"`, and after the *initialisation*, their values can be changed.
 
 The example shows two ways of combining variables with strings (in the `print` function). One is realised by the *concatenation operator* `.` (the dot sign), and the second one is called *string interpolation*.
@@ -112,6 +123,14 @@ print("Number: {$number}\nText: {$text}\n");
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
+
+**Result**:
+
+```
+Number: 15
+Text: Hello, there!
+
+```
 
 The act of creating a variable is called a *definition* and the act of setting up the value of just creating variable is called *initialisation*. Not every language requires the initialisation be done at the moment of definition. In meny strongly-typed languages, the definition consist setting up the name of the variable and its *type* and its initial value is setting automatically as for example `0` or an empty text string. Loosely-typed PHP doesn't allow to define a variable without initialisation.
 
@@ -168,7 +187,7 @@ print("Some logical value: {$someBoolValue}\n\n");
 
 $someIntNumber = 15;
 
-print("Some integer number: {$someIntegerNumber}\n\n");
+print("Some integer number: {$someIntNumber}\n\n");
 
 $someDecNumber = 15.5;
 
@@ -209,6 +228,34 @@ print("\n");
 * [OnlinePHP]()
 * [OneCompiler]()
 
+**Result**:
+
+```
+Some logical value: 1
+
+Some integer number: 15
+
+Some decimal number: 15.5
+
+Some text string: orange
+
+Some array:
+Array
+(
+    [nickname] => pumpkinette
+    [os] => linux
+    [browser] => opera
+)
+
+Some function: some_function
+
+Some object:
+stdClass Object
+(
+)
+
+```
+
 ### Autovivification
 
 PHP allows array *autovivification* (automatic creation of new arrays) from an undefined variable. Appending an element to an undefined variable will create a new array and will not generate a warning.
@@ -244,6 +291,14 @@ print("Number: " . $number . "\nText: {$text}\n\n");
 * [OnlinePHP]()
 * [OneCompiler]()
 
+**Result**:
+
+```
+Number: 15
+Text: Hello, there!
+
+```
+
 *Example: Accessing obscure variable names*
 
 ```php
@@ -262,7 +317,7 @@ bar bar
 
 -- [PHP Reference](https://www.php.net/manual/en/language.variables.basics.php)
 
-## Assigning values to the variables
+## Assigning to the variables
 
 By default, variables are always assigned by *value*. That is to say, when an *expression* is assigned to a variable, the entire value of the original expression is copied into the destination variable. This means, for instance, that after assigning one variable's value to another, changing one of those variables will have no effect on the other.
 
@@ -299,6 +354,51 @@ $bar = &test();    // Invalid because test() doesn't return a variable by refere
 
 -- [PHP Reference](https://www.php.net/manual/en/language.variables.basics.php)
 
+```php
+<?php
+
+$someVariable = 15;
+$otherVariable = "Hello, there!";
+
+print("Some variable: {$someVariable}\nOther variable: {$otherVariable}\n\n");
+
+$byValue = $someVariable;
+$byReference = &$otherVariable;
+
+print("Assinged by value: {$byValue}\nAssigned by reference: {$byReference}\n\n");
+
+$someVariable = 1024;
+$otherVariable = "Fly me to the moon.";
+
+print("Some variable: {$someVariable}\nOther variable: {$otherVariable}\n\n");
+print("Assinged by value: {$byValue}\nAssigned by reference: {$byReference}\n\n");
+
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/variables/variable_assignment.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Some variable: 15
+Other variable: Hello, there!
+
+Assinged by value: 15
+Assigned by reference: Hello, there!
+
+Some variable: 1024
+Other variable: Fly me to the moon.
+
+Assinged by value: 15
+Assigned by reference: Fly me to the moon.
+
+```
+
 ## Destroying variables
 
 A variable can be destroyed by using the `unset()` language construct.
@@ -326,6 +426,17 @@ print("Does number exist: " . (isset($number) ? 'yes' : 'no') . "\nDoes number e
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
+
+**Result**:
+
+```
+Does number exist: yes
+Does number exist: yes
+
+Does number exist: no
+Does number exist: no
+
+```
 
 [▵ Up](#variables)
 [⌂ Home](../../../README.md)

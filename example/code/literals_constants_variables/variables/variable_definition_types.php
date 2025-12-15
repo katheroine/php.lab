@@ -6,7 +6,7 @@ print("Some logical value: {$someBoolValue}\n\n");
 
 $someIntNumber = 15;
 
-print("Some integer number: {$someIntegerNumber}\n\n");
+print("Some integer number: {$someIntNumber}\n\n");
 
 $someDecNumber = 15.5;
 
