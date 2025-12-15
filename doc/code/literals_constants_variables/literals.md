@@ -32,6 +32,14 @@ print("\nNumber: {$number}\nText: {$text}\n");
 * [OnlinePHP](https://onlinephp.io/c/e808b)
 * [OneCompiler](https://onecompiler.com/php/446d4ey5g)
 
+**Result**:
+
+```
+There is some data.
+Number: 15.5
+Text: Hello, there!
+```
+
 In the asbove example `15.5` and `"Hello, there!"` are literals. They are used to initialize (assign a value in the creation process to) two variables. Another literal is `"There are some data."` used just to be displayed on the output.
 
 [▵ Up](#literals)
