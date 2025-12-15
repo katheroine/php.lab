@@ -76,6 +76,13 @@ print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
 * [OnlinePHP](https://onlinephp.io/c/d3636)
 * [OneCompiler](https://onecompiler.com/php/446e5mnu9)
 
+**Result**:
+
+```
+Number: 15.5
+Text: Hello, there!
+```
+
 In the asbove example `NUMBER` and `TEXT` are constants. They can represent some values, like `15.5` and `"Hello, there!"`, but after the *initialisation*, their values cannot be changed. If a programmer tries to *assign* a value to a constant, the PHP parser will report an error, even if the assigned value is exactly the same as the initialization value.
 
 ## Defining constants
@@ -124,6 +131,13 @@ print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
+
+**Result**:
+
+```
+Number: 15
+Text: Hello, there!
+```
 
 ### Differences between `define` function and `const` keyword usage
 
@@ -205,6 +219,49 @@ print("\n");
 * [OnlinePHP]()
 * [OneCompiler]()
 
+**Result**:
+
+```
+Some logical value: 1
+Other logical value:
+
+Some integer number: 15
+Other integer number: 10
+
+Some decimal number: 15.5
+Other decimal number: 10.24
+
+Some text: orange
+Other text: multimeter
+
+Some array:
+Array
+(
+    [nickname] => pumpkinette
+    [os] => linux
+    [browser] => opera
+)
+Other array:
+Array
+(
+    [nickname] => nikologist
+    [os] => chromeos
+    [browser] => chrome
+)
+
+Some function: some_function
+
+Some object:
+stdClass Object
+(
+)
+Other object:
+stdClass Object
+(
+)
+
+```
+
 #### Expressions in constant definitions
 
 While `define` allows a constant to be defined to an arbitrary expression, the `const` keyword has restrictions [...] When using the `const` keyword, only scalar (`bool`, `int`, `float` and `string`) expressions and constant arrays containing only scalar expressions are accepted. It is possible to define constants as a resource, but it should be avoided, as it can cause unexpected results [...]
@@ -279,6 +336,44 @@ print("\n");
 * [OnlinePHP]()
 * [OneCompiler]()
 
+**Result**:
+
+```
+Some date: 2025-12-15 22:51:02
+
+Some date: 2025-12-15 22:51:02
+
+Some file name: constant_definition_expressions.php
+
+Some service info:
+Array
+(
+    [version] => 1.0.0
+    [last_release_date] => 06.12.2025
+    [prefixed_name] => app_service
+)
+
+Some test info:
+Array
+(
+    [type] => unit
+    [object] => stdClass Object
+        (
+        )
+
+)
+Other test info:
+Array
+(
+    [type] => unit
+    [object] => stdClass Object
+        (
+        )
+
+)
+
+```
+
 ## Accessing constants
 
 There are three ways of accessing constants:
@@ -332,6 +427,14 @@ print("Number: " . NUMBER . "\nValue: " . constant('VALUE') . "\nText: " . (get_
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
+
+**Result**:
+
+```
+Number: 15
+Value: 12.4
+Text: Hello, there!
+```
 
 The value of a constant is accessed simply by specifying its name. Unlike variables, a constant is not prepended with a `$`. It is also possible to use the `constant` function to read a constant's value if the constant's name is obtained dynamically. Use `get_defined_constants` to get a list of all defined constants.
 
@@ -512,6 +615,63 @@ print(PHP_EOL);
 * [OnlinePHP]()
 * [OneCompiler]()
 
+**Result**:
+
+```
+GLOBAL SCOPE: Weather: windy
+GLOBAL SCOPE: Color: orange
+GLOBAL SCOPE: Number: 3
+
+FUNCTION SCOPE: Weather: windy
+FUNCTION SCOPE: Color: orange
+FUNCTION SCOPE: Number: 3
+FUNCTION SCOPE: Flower: rose
+
+GLOBAL SCOPE: Flower: rose
+
+CLASS SCOPE: Weather: windy
+CLASS SCOPE: Color: orange
+CLASS SCOPE: Number: 3
+CLASS SCOPE: Vegetable: pumpkin
+CLASS SCOPE: Utensil: cup
+
+OBJECT SCOPE: Weather: windy
+OBJECT SCOPE: Color: orange
+OBJECT SCOPE: Number: 3
+OBJECT SCOPE: Vegetable: pumpkin
+OBJECT SCOPE: Furniture: armchair
+
+GLOBAL SCOPE: Vegetable: pumpkin
+GLOBAL SCOPE: Utensil: cup
+GLOBAL SCOPE: Furniture: armchair
+
+GLOBAL SCOPE: Tree: pine
+
+TRAIT SCOPE: Weather: windy
+TRAIT SCOPE: Color: orange
+TRAIT SCOPE: Number: 3
+TRAIT SCOPE: Tool: axe
+
+GLOBAL SCOPE: Tool: axe
+
+CLASS SCOPE: Weather: windy
+CLASS SCOPE: Color: orange
+CLASS SCOPE: Number: 3
+CLASS SCOPE: Fruit: orange
+CLASS SCOPE: Device: calculator
+
+OBJECT SCOPE: Weather: windy
+OBJECT SCOPE: Color: orange
+OBJECT SCOPE: Number: 3
+OBJECT SCOPE: Decor: vase
+
+GLOBAL SCOPE: Fruit: orange
+GLOBAL SCOPE: Tool: axe
+GLOBAL SCOPE: Device: calculator
+GLOBAL SCOPE: Decor: vase
+
+```
+
 ## Functions handling constants
 
 ### [`define`](https://www.php.net/manual/en/function.define.php) function
@@ -578,6 +738,13 @@ print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
+
+**Result**:
+
+```
+Number: 15
+Text: Hello, there!
+```
 
 For our purposes here, a letter is `a-z, A-Z`, and the ASCII characters from `128` through `255` (`0x80-0xff`).
 
@@ -683,6 +850,13 @@ print("Is number defined: " . (defined('NUMBER') ? 'yes' : 'no') . "\nIs text de
 * [OnlinePHP]()
 * [OneCompiler]()
 
+**Result**:
+
+```
+Is number defined: yes
+Is text defined: yes
+```
+
 *Example: Checking Constants*
 
 ```php
@@ -786,6 +960,13 @@ print("Number: " . constant('NUMBER') . "\nText: " . constant('TEXT') . "\n");
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
+
+**Result**:
+
+```
+Number: 15
+Text: Hello, there!
+```
 
 *Example: Using `constant` with constants*
 
@@ -934,6 +1115,13 @@ print("Number: " . (get_defined_constants())['NUMBER'] . "\nText: " . (get_defin
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
+
+**Result**:
+
+```
+Number: 15
+Text: Hello, there!
+```
 
 *Example: `get_defined_constants` example*
 
