@@ -157,7 +157,59 @@ Relying on the default value of an uninitialized variable is problematic when in
 
 -- [PHP Reference](https://www.php.net/manual/en/language.variables.basics.php)
 
-## Autovivification
+### Types in constant definitions
+
+```php
+<?php
+
+$someBoolValue = true;
+
+print("Some logical value: {$someBoolValue}\n\n");
+
+$someIntNumber = 15;
+
+print("Some integer number: {$someIntegerNumber}\n\n");
+
+$someDecNumber = 15.5;
+
+print("Some decimal number: {$someDecNumber}\n\n");
+
+$someText = 'orange';
+
+print("Some text string: {$someText}\n\n");
+
+$someArray = [
+    'nickname' => 'pumpkinette',
+    'os' => 'linux',
+    'browser' => 'opera',
+];
+
+print("Some array:\n");
+print_r($someArray);
+print("\n");
+
+$someFunction = function() {
+    return 'some_function';
+};
+
+print("Some function: " . $someFunction() . "\n\n");
+
+$someObject = new stdClass();
+
+print("Some object:\n");
+print_r($someObject);
+print("\n");
+
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/variables/variable_definition_types.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+### Autovivification
 
 PHP allows array *autovivification* (automatic creation of new arrays) from an undefined variable. Appending an element to an undefined variable will create a new array and will not generate a warning.
 
@@ -252,6 +304,28 @@ $bar = &test();    // Invalid because test() doesn't return a variable by refere
 A variable can be destroyed by using the `unset()` language construct.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.variables.basics.php)
+
+```php
+<?php
+
+$number = 15;
+$text = "Hello, there!";
+
+print("Does number exist: " . (isset($number) ? 'yes' : 'no') . "\nDoes number exist: " . (isset($text) ? 'yes' : 'no') . "\n\n");
+
+unset($number);
+unset($text);
+
+print("Does number exist: " . (isset($number) ? 'yes' : 'no') . "\nDoes number exist: " . (isset($text) ? 'yes' : 'no') . "\n\n");
+
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/variables/variable_destroying.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
 
 [▵ Up](#variables)
 [⌂ Home](../../../README.md)
