@@ -58,4 +58,3 @@ $someSubobject->someObjectFunction();
 
 $anotherSubobject = new SomeSubclass();
 $anotherSubobject->someObjectFunction();
-

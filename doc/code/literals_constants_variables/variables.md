@@ -440,6 +440,199 @@ Does number exist: no
 
 ## Scope of the variables
 
+The scope of a variable is the context within which it is defined. PHP has a *function scope* and a *global scope*. Any variable defined outside a function is limited to the *global scope*. When a file is included, the code it contains inherits the variable scope of the line on which the include occurs.
+
+*Example: Example of global variable scope*
+
+```php
+<?php
+$a = 1;
+include 'b.inc'; // Variable $a will be available within b.inc
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php)
+
+*Example: Global variable accessibility in an included file*
+
+```php
+<?php
+
+global $globalVariable;
+$globalVariable = 1024;
+
+include('included_file_with_function.php');
+
+show();
+
+```
+
+Included file `included_file_with_function.php`:
+
+```php
+<?php
+
+function show()
+{
+    global $globalVariable;
+
+    print("Global variable: {$globalVariable}\n");
+}
+
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/variables/global_variable_in_included_file.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Global variable: 1024
+```
+
+Any variable created inside a *named function* or an *anonymous function* is limited to the scope of the function body. However, *arrow functions* [in PHP it's the special name for the *closures* defined in the simplified way using the arrow `=>` -- Katheroine] bind variables from the parent scope to make them available inside the body. If a file include occurs inside a function within the calling file, the variables contained in the called file will be available as if they had been defined inside the calling function.
+
+*Example: Example of local variable scope*
+
+```php
+<?php
+$a = 1; // global scope
+
+function test()
+{
+    echo $a; // Variable $a is undefined as it refers to a local version of $a
+}
+?>
+```
+
+The example above will generate an undefined variable `E_WARNING` (or an `E_NOTICE` prior to PHP 8.0.0). This is because the echo statement refers to a local version of the $a variable, and it has not been assigned a value within this scope. Note that this is a little bit different from the C language in that global variables in C are automatically available to functions unless specifically overridden by a local definition. This can cause some problems in that people may inadvertently change a global variable. In PHP global variables must be declared global inside a function if they are going to be used in that function.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php)
+
+*Example: Variable binding to a closure*
+
+```php
+<?php
+
+$someVariable = 15;
+$otherVariable = 1024;
+
+// Regular closure:
+$someClosure = function() use ($someVariable) {
+    print('Is some variable defined? ' . (isset($someVariable) ? 'yes' : 'no') . "\n");
+    print('Is other variable defined? ' . (isset($otherVariable) ? 'yes' : 'no') . "\n");
+
+    print("Some variable: {$someVariable}\n");
+    // print("Other variable: {$otherVariable}\n");
+    // PHP Warning:  Undefined variable $otherVariable
+};
+
+$someClosure();
+
+// Arrow function:
+$otherClosure = fn() => $someVariable + $otherVariable;
+
+$result = $otherClosure();
+
+print("Arrow function result: {$result}\n");
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/variables/variable_binding_to_closure.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Is some variable defined? yes
+Is other variable defined? no
+Some variable: 15
+Arrow function result: 1039
+```
+
+*Example: Variables from the file included withing a function*
+
+```php
+<?php
+
+function someFunction()
+{
+    print('Is some variable defined? ' . (isset($someVariable) ? 'yes' : 'no') . "\n");
+    print('Is other variable defined? ' . (isset($otherVariable) ? 'yes' : 'no') . "\n");
+    print('Is another variable defined? ' . (isset($anotherVariable) ? 'yes' : 'no') . "\n");
+    print(PHP_EOL);
+
+    $someVariable = 15;
+    include('included_file_with_variables.php');
+
+    print('Is some variable defined? ' . (isset($someVariable) ? 'yes' : 'no') . "\n");
+    print('Is other variable defined? ' . (isset($otherVariable) ? 'yes' : 'no') . "\n");
+    print('Is another variable defined? ' . (isset($anotherVariable) ? 'yes' : 'no') . "\n");
+
+    print("Some variable: {$someVariable}\n");
+    print("Other variable: {$otherVariable}\n");
+    print("Another variable: {$anotherVariable}\n");
+    print(PHP_EOL);
+}
+
+someFunction();
+
+print('Is some variable defined? ' . (isset($someVariable) ? 'yes' : 'no') . "\n");
+print('Is other variable defined? ' . (isset($otherVariable) ? 'yes' : 'no') . "\n");
+print('Is another variable defined? ' . (isset($anotherVariable) ? 'yes' : 'no') . "\n");
+print(PHP_EOL);
+
+// print("Other variable: {$otherVariable}\n");
+// PHP Warning:  Undefined variable $otherVariable
+
+```
+
+Included file `included_file_with_variables.php`:
+
+```php
+<?php
+
+$otherVariable = 1024;
+$anotherVariable = 20000;
+
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/variables/variable_from_file_included_within_function.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Is some variable defined? no
+Is other variable defined? no
+Is another variable defined? no
+
+Is some variable defined? yes
+Is other variable defined? yes
+Is another variable defined? yes
+Some variable: 15
+Other variable: 1024
+Another variable: 20000
+
+Is some variable defined? no
+Is other variable defined? no
+Is another variable defined? no
+
+```
+
+*Example: Variable scope*
+
 ```php
 <?php
 
