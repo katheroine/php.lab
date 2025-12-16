@@ -804,7 +804,7 @@ GLOBAL SCOPE: Plant: polypodium
 
 ### Global variables
 
-The `global` keyword is used to bind a variable from a *global scope* into a *local scope*. The keyword can be used with a list of variables or a single variable. A *local variable* will be created referencing the *global variable* of the same name. If the *global variable* does not exist, the variable will be created in *global scope* and assigned `null`.
+The `global` keyword is used to bind a variable from a *global scope* into a *local scope*. The keyword can be used with a list of variables or a single variable. A **local variable** will be created referencing the *global variable* of the same name. If the **global variable** does not exist, the variable will be created in *global scope* and assigned `null`.
 
 *Example: Using global*
 
@@ -833,7 +833,7 @@ The above example will output:
 
 By declaring `$a` and `$b` *global* within the function, all references to either variable will refer to the *global* version. There is no limit to the number of *global variables* that can be manipulated by a function.
 
--- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php)
+-- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php#language.variables.scope.global)
 
 *Example: Global variables*
 
@@ -921,7 +921,245 @@ function test_superglobal()
 
 Using `global` keyword outside a function is not an error. It can be used if the file is included from inside a function.
 
--- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php)
+-- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php#language.variables.scope.global)
+
+### Static variables
+
+Another important feature of variable scoping is the **static variable**. A *static variable* exists only in a local function scope, but it does not lose its value when program execution leaves this scope. Consider the following example:
+
+*Example: Example demonstrating need for static variables*
+
+```php
+<?php
+function test()
+{
+    $a = 0;
+    echo $a;
+    $a++;
+}
+?>
+```
+
+This function is quite useless since every time it is called it sets `$a` to `0` and prints `0`. The `$a++` which increments the variable serves no purpose since as soon as the function exits the `$a` variable disappears. To make a useful counting function which will not lose track of the current count, the `$a` variable is declared *static*:
+
+*Example: Example use of static variables*
+
+```php
+<?php
+function test()
+{
+    static $a = 0;
+    echo $a;
+    $a++;
+}
+?>
+```
+
+Now, `$a` is initialized only in first call of function and every time the `test()` function is called it will print the value of `$a` and increment it.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php#language.variables.scope.static)
+
+*Example: Static variables*
+
+```php
+<?php
+
+function someFunction()
+{
+    static $quantity = 6 / (1 + 2);
+    static $level = sqrt(9); // Correct from 8.3
+
+    print("Quantity: {$quantity}\n");
+    print("Level: {$level}\n\n");
+
+    $quantity++;
+    $level--;
+}
+
+someFunction();
+someFunction();
+someFunction();
+
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/variables/static_variables.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Quantity: 2
+Level: 3
+
+Quantity: 3
+Level: 2
+
+Quantity: 4
+Level: 1
+
+```
+
+*Static variables* also provide one way to deal with *recursive functions*. The following simple function recursively counts to `10`, using the static variable `$count` to know when to stop:
+
+*Example: Static variables with recursive functions*
+
+```php
+<?php
+function test()
+{
+    static $count = 0;
+
+    $count++;
+    echo $count;
+    if ($count < 10) {
+        test();
+    }
+    $count--;
+}
+?>
+```
+
+Prior to PHP 8.3.0, *static variables* could only be *initialized* using a *constant expression*. As of PHP 8.3.0, *dynamic expressions* (e.g. function calls) are also allowed:
+
+*Example: Declaring static variables*
+
+```php
+<?php
+function foo(){
+    static $int = 0;          // correct
+    static $int = 1+2;        // correct
+    static $int = sqrt(121);  // correct as of PHP 8.3.0
+
+    $int++;
+    echo $int;
+}
+?>
+```
+
+*Static variables* inside *anonymous functions* persist only within that specific function instance. If the anonymous function is recreated on each call, the static variable will be reinitialized.
+
+*Example: Static variables in anonymous functions*
+
+```php
+<?php
+function exampleFunction($input) {
+    $result = (static function () use ($input) {
+        static $counter = 0;
+        $counter++;
+        return "Input: $input, Counter: $counter\n";
+    });
+
+    return $result();
+}
+
+// Calls to exampleFunction will recreate the anonymous function, so the static
+// variable does not retain its value.
+echo exampleFunction('A'); // Outputs: Input: A, Counter: 1
+echo exampleFunction('B'); // Outputs: Input: B, Counter: 1
+?>
+```
+
+As of PHP 8.1.0, when a method using *static variables* is *inherited* (but not *overridden*), the inherited method will now share static variables with the parent method. This means that *static variables in methods* now behave the same way as *static properties*[...]
+
+*Example: Usage of static Variables in Inherited Methods*
+
+```php
+<?php
+class Foo {
+    public static function counter() {
+        static $counter = 0;
+        $counter++;
+        return $counter;
+    }
+}
+class Bar extends Foo {}
+var_dump(Foo::counter()); // int(1)
+var_dump(Foo::counter()); // int(2)
+var_dump(Bar::counter()); // int(3), prior to PHP 8.1.0 int(1)
+var_dump(Bar::counter()); // int(4), prior to PHP 8.1.0 int(2)
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php#language.variables.scope.static)
+
+*Example: Static variables of class methods and the inheritance*
+
+```php
+<?php
+
+class SomeClass
+{
+    function someFunction()
+    {
+        static $number = 0;
+
+        printf("Number: %d\n", $number);
+
+        $number++;
+    }
+}
+
+$someObject = new SomeClass();
+
+$someObject->someFunction();
+$someObject->someFunction();
+$someObject->someFunction();
+
+print(PHP_EOL);
+
+$otherObject = new SomeClass();
+
+$otherObject->someFunction();
+$otherObject->someFunction();
+$otherObject->someFunction();
+
+print(PHP_EOL);
+
+class SomeSubclass extends SomeClass
+{
+}
+
+$anotherObject = new SomeSubclass();
+
+$anotherObject->someFunction();
+$anotherObject->someFunction();
+$anotherObject->someFunction();
+
+print(PHP_EOL);
+
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/variables/static_variables_and_inheritance.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Number: 0
+Number: 1
+Number: 2
+
+Number: 3
+Number: 4
+Number: 5
+
+Number: 6
+Number: 7
+Number: 8
+
+```
+
+As of PHP 8.3.0, static variables can be initialized with arbitrary expressions. This means that method calls, for example, can be used to initialize static variables.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php#language.variables.scope.static)
 
 [▵ Up](#variables)
 [⌂ Home](../../../README.md)
