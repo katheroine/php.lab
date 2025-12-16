@@ -1161,6 +1161,104 @@ As of PHP 8.3.0, static variables can be initialized with arbitrary expressions.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php#language.variables.scope.static)
 
+### References with global and static variables
+
+PHP implements the `static` and `global` modifier for variables in terms of *references*. For example, a true global variable imported inside a function scope with the global statement actually creates a reference to the global variable. This can lead to unexpected behaviour which the following example addresses:
+
+```php
+<?php
+function test_global_ref() {
+    global $obj;
+    $new = new stdClass;
+    $obj = &$new;
+}
+
+function test_global_noref() {
+    global $obj;
+    $new = new stdClass;
+    $obj = $new;
+}
+
+test_global_ref();
+var_dump($obj);
+test_global_noref();
+var_dump($obj);
+?>
+```
+
+The above example will output:
+
+```
+NULL
+object(stdClass)#1 (0) {
+}
+```
+
+A similar behaviour applies to the static statement. References are not stored statically:
+
+```php
+<?php
+function &get_instance_ref() {
+    static $obj;
+
+    echo 'Static object: ';
+    var_dump($obj);
+    if (!isset($obj)) {
+        $new = new stdClass;
+        // Assign a reference to the static variable
+        $obj = &$new;
+    }
+    if (!isset($obj->property)) {
+        $obj->property = 1;
+    } else {
+        $obj->property++;
+    }
+    return $obj;
+}
+
+function &get_instance_noref() {
+    static $obj;
+
+    echo 'Static object: ';
+    var_dump($obj);
+    if (!isset($obj)) {
+        $new = new stdClass;
+        // Assign the object to the static variable
+        $obj = $new;
+    }
+    if (!isset($obj->property)) {
+        $obj->property = 1;
+    } else {
+        $obj->property++;
+    }
+    return $obj;
+}
+
+$obj1 = get_instance_ref();
+$still_obj1 = get_instance_ref();
+echo "\n";
+$obj2 = get_instance_noref();
+$still_obj2 = get_instance_noref();
+?>
+```
+
+The above example will output:
+
+```
+Static object: NULL
+Static object: NULL
+
+Static object: NULL
+Static object: object(stdClass)#3 (1) {
+  ["property"]=>
+  int(1)
+}
+```
+
+This example demonstrates that when assigning a reference to a static variable, it is not remembered when the `&get_instance_ref()` function is called a second time.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php)
+
 [▵ Up](#variables)
 [⌂ Home](../../../README.md)
 [▲ Previous: Constants](./constants.md)
