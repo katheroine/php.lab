@@ -458,7 +458,6 @@ include 'b.inc'; // Variable $a will be available within b.inc
 ```php
 <?php
 
-global $globalVariable;
 $globalVariable = 1024;
 
 include('included_file_with_function.php');
@@ -802,6 +801,127 @@ OBJECT SCOPE: Decor: vase
 GLOBAL SCOPE: Plant: polypodium
 
 ```
+
+### Global variables
+
+The `global` keyword is used to bind a variable from a *global scope* into a *local scope*. The keyword can be used with a list of variables or a single variable. A *local variable* will be created referencing the *global variable* of the same name. If the *global variable* does not exist, the variable will be created in *global scope* and assigned `null`.
+
+*Example: Using global*
+
+```php
+<?php
+$a = 1;
+$b = 2;
+
+function Sum()
+{
+    global $a, $b;
+
+    $b = $a + $b;
+}
+
+Sum();
+echo $b;
+?>
+```
+
+The above example will output:
+
+```
+3
+```
+
+By declaring `$a` and `$b` *global* within the function, all references to either variable will refer to the *global* version. There is no limit to the number of *global variables* that can be manipulated by a function.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php)
+
+*Example: Global variables*
+
+```php
+<?php
+
+$globalVariable = 1024;
+
+print('Is global variable defined? ' . (isset($globalVariable) ? 'yes' : 'no') . "\n\n");
+
+function someFunction()
+{
+    print('Is global variable defined? ' . (isset($globalVariable) ? 'yes' : 'no') . "\n\n");
+
+    global $globalVariable;
+
+    print('Is global variable defined? ' . (isset($globalVariable) ? 'yes' : 'no') . "\n");
+    print("Global variable: {$globalVariable}\n\n");
+
+    $globalVariable = 2048;
+
+    print("Global variable: {$globalVariable}\n\n");
+}
+
+someFunction();
+
+print("Global variable: {$globalVariable}\n\n");
+
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/variables/global_variables.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Is global variable defined? yes
+
+Is global variable defined? no
+
+Is global variable defined? yes
+Global variable: 1024
+
+Global variable: 2048
+
+Global variable: 2048
+
+```
+
+A second way to access variables from the *global scope* is to use the special PHP-defined `$GLOBALS` array. The previous example can be rewritten as:
+
+*Example: Using `$GLOBALS` instead of `global`*
+
+```php
+<?php
+$a = 1;
+$b = 2;
+
+function Sum()
+{
+    $GLOBALS['b'] = $GLOBALS['a'] + $GLOBALS['b'];
+}
+
+Sum();
+echo $b;
+?>
+```
+
+The `$GLOBALS` array is an associative array with the name of the *global variable* being the key and the contents of that variable being the value of the array element. Notice how `$GLOBALS` exists in any scope, this is because `$GLOBALS` is a *superglobal*. Here's an example demonstrating the power of *superglobals*:
+
+*Example: Example demonstrating superglobals and scope*
+
+```php
+<?php
+function test_superglobal()
+{
+    echo $_POST['name'];
+}
+?>
+```
+
+Using `global` keyword outside a function is not an error. It can be used if the file is included from inside a function.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php)
 
 [▵ Up](#variables)
 [⌂ Home](../../../README.md)
