@@ -42,6 +42,8 @@ Laboratory of PHP.
             4. [Variable binding to a closure](./example/code/literals_constants_variables/variables/variable_binding_to_closure.php)
             5. [Static variables](./example/code/literals_constants_variables/variables/static_variables.php)
             6. [Static variables and an inheritance](./example/code/literals_constants_variables/variables/static_variables_and_inheritance.php)
+        7. Functions handling variables
+            1. [`isset` function](./example/code/literals_constants_variables/variables/functions/function_isset.php)
 2. [Operators](./example/code/operators/)
     1. [Spaceship operator](./example/code/operators/spaceship_operator.php)
     2. [Ternary operator](./example/code/operators/ternary_operator.php)

@@ -1299,6 +1299,40 @@ Returns `true` if var exists and has any value other than `null`. `false` otherw
 
 #### Examples
 
+*Example: Basic example*
+
+```php
+<?php
+// PHP Reference: https://www.php.net/manual/en/function.isset.php
+
+$number = 15;
+$text = "Hello, there!";
+
+print("Is number defined: "
+    . (isset($number) ? 'yes' : 'no')
+    . "\nIs text defined: "
+    . (isset($text) ? 'yes' : 'no')
+    . "\nIs answer defined: "
+    . (isset($answer) ? 'yes' : 'no')
+    . "\n");
+
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/variables/functions/function_isset.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Is number defined: yes
+Is text defined: yes
+Is answer defined: no
+```
+
 *Example: isset() Examples*
 
 ```php

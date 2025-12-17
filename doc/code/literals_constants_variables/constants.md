@@ -839,7 +839,13 @@ Returns `true` if the named constant given by `constant_name` has been defined, 
 define('NUMBER', 15);
 const TEXT = "Hello, there!";
 
-print("Is number defined: " . (defined('NUMBER') ? 'yes' : 'no') . "\nIs text defined: " . (defined('TEXT') ? 'yes' : 'no') . "\n");
+print("Is number defined: "
+    . (defined('NUMBER') ? 'yes' : 'no')
+    . "\nIs text defined: "
+    . (defined('TEXT') ? 'yes' : 'no')
+    . "\nIs answer definer: "
+    . (defined('ANSWER')? 'yes' : 'no')
+    . "\n");
 
 ```
 
@@ -855,6 +861,7 @@ print("Is number defined: " . (defined('NUMBER') ? 'yes' : 'no') . "\nIs text de
 ```
 Is number defined: yes
 Is text defined: yes
+Is answer definer: no
 ```
 
 *Example: Checking Constants*
