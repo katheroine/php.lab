@@ -1259,6 +1259,136 @@ This example demonstrates that when assigning a reference to a static variable, 
 
 -- [PHP Reference](https://www.php.net/manual/en/language.variables.scope.php)
 
+## Functions handling variables
+
+### [`isset`](https://www.php.net/manual/en/function.isset.php) function
+
+#### Availability
+
+PHP 4, PHP 5, PHP 7, PHP 8
+
+#### Syntax
+
+```
+isset(mixed $var, mixed ...$vars): bool
+```
+
+#### Description
+
+Determine if a variable is considered set, this means if a variable is *declared* and is different than `null`.
+
+If a variable has been unset with the `unset()` function, it is no longer considered to be set.
+
+`isset()` will return `false` when checking a variable that has been assigned to `null`. Also note that a `null` character (`\0`) is not equivalent to the PHP `null` constant.
+
+If multiple parameters are supplied then `isset()` will return `true` only if all of the parameters are considered set. Evaluation goes from left to right and stops as soon as an unset variable is encountered.
+
+#### Attributes
+
+* **`var`**
+
+The variable to be checked.
+
+* **`vars`**
+
+Further variables.
+
+#### Return value
+
+Returns `true` if var exists and has any value other than `null`. `false` otherwise.
+
+#### Examples
+
+*Example: isset() Examples*
+
+```php
+<?php
+
+$var = '';
+
+// This will evaluate to TRUE so the text will be printed.
+if (isset($var)) {
+    echo "This var is set so I will print.", PHP_EOL;
+}
+
+// In the next examples we'll use var_dump to output
+// the return value of isset().
+
+$a = "test";
+$b = "anothertest";
+
+var_dump(isset($a));     // TRUE
+var_dump(isset($a, $b)); // TRUE
+
+unset ($a);
+
+var_dump(isset($a));     // FALSE
+var_dump(isset($a, $b)); // FALSE
+
+$foo = NULL;
+var_dump(isset($foo));   // FALSE
+
+?>
+```
+
+This also work for elements in arrays:
+
+*Example: Example of isset() with array elements*
+
+```php
+<?php
+
+$a = array ('test' => 1, 'hello' => NULL, 'pie' => array('a' => 'apple'));
+
+var_dump(isset($a['test']));            // TRUE
+var_dump(isset($a['foo']));             // FALSE
+var_dump(isset($a['hello']));           // FALSE
+
+// The key 'hello' equals NULL so is considered unset
+// If you want to check for NULL key values then try:
+var_dump(array_key_exists('hello', $a)); // TRUE
+
+// Checking deeper array values
+var_dump(isset($a['pie']['a']));        // TRUE
+var_dump(isset($a['pie']['b']));        // FALSE
+var_dump(isset($a['cake']['a']['b']));  // FALSE
+
+?>
+```
+
+*Example: isset() on String Offsets*
+
+```php
+<?php
+$expected_array_got_string = 'somestring';
+var_dump(isset($expected_array_got_string['some_key']));
+var_dump(isset($expected_array_got_string[0]));
+var_dump(isset($expected_array_got_string['0']));
+var_dump(isset($expected_array_got_string[0.5]));
+var_dump(isset($expected_array_got_string['0.5']));
+var_dump(isset($expected_array_got_string['0 Mostel']));
+?>
+```
+
+The above example will output:
+
+```
+bool(false)
+bool(true)
+bool(true)
+bool(true)
+bool(false)
+bool(false)
+```
+
+`isset()` only works with *variables* as passing anything else will result in a parse error. For checking if *constants* are set use the `defined()` function.
+
+Because `this` is a language construct and not a function, it cannot be called using variable functions, or named arguments.
+
+When using `isset()` on inaccessible object properties, the `__isset()` overloading method will be called, if declared.
+
+-- [PHP Reference](https://www.php.net/manual/en/function.isset.php)
+
 [▵ Up](#variables)
 [⌂ Home](../../../README.md)
 [▲ Previous: Constants](./constants.md)
