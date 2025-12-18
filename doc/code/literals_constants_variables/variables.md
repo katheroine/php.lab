@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Constants](./constants.md)
+[▼ Next: Types](../types/types.md)
 
 # Variables
 
@@ -1660,3 +1661,4 @@ print_r(array_keys(get_defined_vars()));
 [▵ Up](#variables)
 [⌂ Home](../../../README.md)
 [▲ Previous: Constants](./constants.md)
+[▼ Next: Types](../types/types.md)
