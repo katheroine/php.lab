@@ -1423,6 +1423,89 @@ When using `isset()` on inaccessible object properties, the `__isset()` overload
 
 -- [PHP Reference](https://www.php.net/manual/en/function.isset.php)
 
+### [`get_defined_vars`](https://www.php.net/manual/en/function.get-defined-vars.php) function
+
+#### Availability
+
+PHP 4 >= 4.0.4, PHP 5, PHP 7, PHP 8
+
+#### Syntax
+
+```
+get_defined_vars(): array
+```
+
+#### Description
+
+This function returns a multidimensional array containing a list of all defined variables, be them environment, server or user-defined variables, within the scope that `get_defined_vars()` is called.
+
+#### Arguments
+
+This function has no arguments.
+
+#### Return values
+
+A multidimensional array with all the variables.
+
+-- [PHP Reference](https://www.php.net/manual/en/function.get-defined-vars.php)
+
+#### Examples
+
+*Example: Basic usage*
+
+```php
+<?php
+// PHP Reference: https://www.php.net/manual/en/function.get-defined-vars.php
+
+$number = 15;
+$text = "Hello, there!";
+
+print("Number: " . (get_defined_vars())['number'] . "\nText: " . (get_defined_vars())['text'] . "\n");
+
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/variables/functions/function_get_defined_vars.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Number: 15
+Text: Hello, there!
+```
+
+*Example: `get_defined_vars()` Example*
+
+```php
+<?php
+$b = array(1, 1, 2, 3, 5, 8);
+
+$arr = get_defined_vars();
+
+// print $b
+print_r($arr["b"]);
+
+/* print path to the PHP interpreter (if used as a CGI)
+ * e.g. /usr/local/bin/php */
+echo $arr["_"];
+
+// print the command-line parameters if any
+print_r($arr["argv"]);
+
+// print all the server vars
+print_r($arr["_SERVER"]);
+
+// print all the available keys for the arrays of variables
+print_r(array_keys(get_defined_vars()));
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/function.get-defined-vars.php)
+
 [▵ Up](#variables)
 [⌂ Home](../../../README.md)
 [▲ Previous: Constants](./constants.md)
