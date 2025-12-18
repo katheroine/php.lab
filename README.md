@@ -27,8 +27,9 @@ Laboratory of PHP.
         5. [Scope of the constants](./example/code/literals_constants_variables/constants/constant_scope.php)
         6. Functions handling constants
             1. [`define` function](./example/code/literals_constants_variables/constants/functions/function_define.php)
-            2. [`constant` function](./example/code/literals_constants_variables/constants/functions/function_constant.php)
-            3. [`get_defined_constants` function](./example/code/literals_constants_variables/constants/functions/function_get_defined_constants.php)
+            2. [`defined` function](./example/code/literals_constants_variables/constants/functions/function_defined.php)
+            3. [`constant` function](./example/code/literals_constants_variables/constants/functions/function_constant.php)
+            4. [`get_defined_constants` function](./example/code/literals_constants_variables/constants/functions/function_get_defined_constants.php)
     3. [Variables](./example/code/literals_constants_variables/variables/variables.php)
         1. [Defining variables](./example/code/literals_constants_variables/variables/variable_definition.php)
         2. [Types in variable definitions](./example/code/literals_constants_variables/variables/variable_definition_types.php)
@@ -44,6 +45,8 @@ Laboratory of PHP.
             6. [Static variables and an inheritance](./example/code/literals_constants_variables/variables/static_variables_and_inheritance.php)
         7. Functions handling variables
             1. [`isset` function](./example/code/literals_constants_variables/variables/functions/function_isset.php)
+            2. [`unset` function](./example/code/literals_constants_variables/variables/functions/function_unset.php)
+            3. [`get_defined_vars` function](./example/code/literals_constants_variables/variables/functions/function_get_defined_vars.php)
 2. [Operators](./example/code/operators/)
     1. [Spaceship operator](./example/code/operators/spaceship_operator.php)
     2. [Ternary operator](./example/code/operators/ternary_operator.php)

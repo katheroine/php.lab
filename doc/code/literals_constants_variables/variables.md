@@ -1423,6 +1423,157 @@ When using `isset()` on inaccessible object properties, the `__isset()` overload
 
 -- [PHP Reference](https://www.php.net/manual/en/function.isset.php)
 
+### [`unset`](https://www.php.net/manual/en/function.unset.php)
+
+#### Availability
+
+PHP 4, PHP 5, PHP 7, PHP 8
+
+#### Syntax
+
+```
+unset(mixed $var, mixed ...$vars): void
+```
+
+#### Description
+
+`unset()` destroys the specified variables.
+
+The behavior of `unset()` inside of a function can vary depending on what type of variable you are attempting to destroy.
+
+If a *globalized variable* is `unset()` inside of a function, only the *local variable* is destroyed. The variable in the calling environment will retain the same value as before `unset()` was called.
+
+-- [PHP Reference](www.php.net/manual/en/function.unset.php)
+
+#### Arguments
+
+This function has no arguments.
+
+#### Return values
+
+This function does not return anything.
+
+#### Examples
+
+*Example: Basic usage*
+
+```php
+<?php
+// PHP Reference: https://www.php.net/manual/en/function.unset.php
+
+$number = 15;
+$text = "Hello, there!";
+
+print("Is number defined: "
+    . (isset($number) ? 'yes' : 'no')
+    . "\nIs text defined: "
+    . (isset($text) ? 'yes' : 'no')
+    . "\n\n");
+
+unset($text);
+
+print("Is number defined: "
+    . (isset($number) ? 'yes' : 'no')
+    . "\nIs text defined: "
+    . (isset($text) ? 'yes' : 'no')
+    . "\n\n");
+
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/variables/functions/function_unset.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Is number defined: yes
+Is text defined: yes
+
+Is number defined: yes
+Is text defined: no
+
+```
+
+*Example: Using unset()*
+
+```php
+<?php
+function destroy_foo()
+{
+    global $foo;
+    unset($foo);
+}
+
+$foo = 'bar';
+destroy_foo();
+echo $foo;
+?>
+```
+
+To `unset()` a global variable inside of a function, then use the `$GLOBALS` array to do so:
+
+*Example: `unset()` a Global Variable*
+
+```php
+<?php
+function foo()
+{
+    unset($GLOBALS['bar']);
+}
+
+$bar = "something";
+foo();
+?>
+```
+
+If a variable that is PASSED BY REFERENCE is `unset()` inside of a function, only the local variable is destroyed. The variable in the calling environment will retain the same value as before `unset()` was called.
+
+*Example: unset() with Reference*
+
+```php
+<?php
+function foo(&$bar)
+{
+    unset($bar);
+    $bar = "blah";
+}
+
+$bar = 'something';
+echo "$bar\n";
+
+foo($bar);
+echo "$bar\n";
+?>
+```
+
+If a static variable is `unset()` inside of a function, `unset()` destroys the variable only in the context of the rest of a function. Following calls will restore the previous value of a variable.
+
+*Example: `unset()` with Static Variable*
+
+```php
+<?php
+function foo()
+{
+    static $bar;
+    $bar++;
+    echo "Before unset: $bar, ";
+    unset($bar);
+    $bar = 23;
+    echo "after unset: $bar\n";
+}
+
+foo();
+foo();
+foo();
+?>
+```
+
+-- [PHP Reference](www.php.net/manual/en/function.unset.php)
+
 ### [`get_defined_vars`](https://www.php.net/manual/en/function.get-defined-vars.php) function
 
 #### Availability
