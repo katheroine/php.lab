@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Variables](../literals_constants_variables/variables.md)
+[▼ Next: Type system](../types/type_system.md)
 
 # Types
 
@@ -91,6 +92,169 @@ Every single *expression* in PHP has one of the following *built-in types* depen
 
 PHP is a *dynamically typed language*, which means that by default there is no need to specify the type of a variable, as this will be determined at runtime. However, it is possible to statically type some aspect of the language via the use of type declarations. Different types that are supported by PHP's type system can be found at the type system page.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.types.intro.php)
+
+The example below uses `gettype` function, which displays the type of its argument.
+
+*Example: Dynmically typed language*
+
+```php
+<?php
+
+$n = null;
+$b = true;
+$i = 5;
+$d = 2.4;
+$s = "hello";
+$a = [3, 5, 7];
+$h = [
+  2 => "Hello, there!",
+  'color' => 'orange',
+  3.14 => 'PI',
+];
+$u = function(int $number) {
+  return $number * 3;
+};
+$o = (object) [
+  2 => "Hello, there!",
+  'color' => 'orange',
+  3.14 => 'PI',
+];
+$co = new class {
+  private int $number;
+  public function set_number(int $number): void {
+    $this->number = $number;
+  }
+  public function get_number(): int {
+    return $this->number;
+  }
+};
+
+echo "\$n = null; // null: " . $n . " (" . gettype($n) . ")\n\n";
+
+echo "\$b = true; // boolean: " . $b . " (" . gettype($b) . ")\n\n";
+
+echo "\$i = 5; // integer: " . $i . " (" . gettype($i) . ")\n\n";
+
+echo "\$d = 2.4; // floating point double precision: " . $d . " (" . gettype($d) . ")\n\n";
+
+echo "\$s = \"hello\"; // string: " . $s . " (" . gettype($s) . ")\n\n";
+
+echo "\$a = [3, 5, 7]; // array:\n";
+print_r($a);
+echo "(" . gettype($a) . ")\n\n";
+
+echo "\$h = [\n  2 => \"Hello, there!\",\n  'color' => 'orange',\n  3.14 => 'PI',\n];\n// hash:\n";
+print_r($h);
+echo "(" . gettype($h) . ")\n\n";
+
+echo "\$u = function(int \$number) {\n  return number * 3;\n};\n// function:\n";
+print_r($u);
+echo "(" . gettype($u) . ")\n\n";
+
+echo "\$o = (object) [  2 => \"Hello, there!\",\n  'color' => 'orange',\n  3.14 => 'PI',\n];\n// object (created from hash):\n";
+print_r($o);
+echo "(" . gettype($o) . ")\n\n";
+
+echo "\$co = new class {\n  private int \$number;
+  public function set_number(int \$number): void {\n    \$this->number = \$number;\n  }
+  public function get_number(): int {\n    return \$number;\n  }\n};
+// object (created from anonymous class):\n";
+print_r($co);
+echo "(" . gettype($co) . ")\n\n";
+
+```
+
+**View**:
+[Example](../../../example/code/literals_constants_variables/variables/variable_definition.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+$n = null; // null:  (NULL)
+
+$b = true; // boolean: 1 (boolean)
+
+$i = 5; // integer: 5 (integer)
+
+$d = 2.4; // floating point double precision: 2.4 (double)
+
+$s = "hello"; // string: hello (string)
+
+$a = [3, 5, 7]; // array:
+Array
+(
+    [0] => 3
+    [1] => 5
+    [2] => 7
+)
+(array)
+
+$h = [
+  2 => "Hello, there!",
+  'color' => 'orange',
+  3.14 => 'PI',
+];
+// hash:
+Array
+(
+    [2] => Hello, there!
+    [color] => orange
+    [3] => PI
+)
+(array)
+
+$u = function(int $number) {
+  return number * 3;
+};
+// function:
+Closure Object
+(
+    [name] => {closure:/media/storage/repository/php/php.lab/example/code/types/types.php:14}
+    [file] => /media/storage/repository/php/php.lab/example/code/types/types.php
+    [line] => 14
+    [parameter] => Array
+        (
+            [$number] => <required>
+        )
+
+)
+(object)
+
+$o = (object) [  2 => "Hello, there!",
+  'color' => 'orange',
+  3.14 => 'PI',
+];
+// object (created from hash):
+stdClass Object
+(
+    [2] => Hello, there!
+    [color] => orange
+    [3] => PI
+)
+(object)
+
+$co = new class {
+  private int $number;
+  public function set_number(int $number): void {
+    $this->number = $number;
+  }
+  public function get_number(): int {
+    return $number;
+  }
+};
+// object (created from anonymous class):
+class@anonymous Object
+(
+)
+(object)
+
+```
+
 Types restrict the kind of operations that can be performed on them. However, if an expression/variable is used in an operation which its type does not support, PHP will attempt to ***type juggle*** the value into a type that supports the operation. This process depends on the context in which the value is used.
 
 The *type comparison tables* may also be useful, as various examples of comparison between values of different types are present.
@@ -138,3 +302,4 @@ Prior to PHP 8.0.0, where the `get_debug_type()` is not available, the `gettype(
 
 [▵ Up](#types)
 [▲ Previous: Variables](../literals_constants_variables/variables.md)
+[▼ Next: Type system](../types/type_system.md)

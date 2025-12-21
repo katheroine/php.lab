@@ -15,6 +15,7 @@ Laboratory of PHP.
         2. [Constants](./doc/code/literals_constants_variables/constants.md)
         3. [Variables](./doc/code/literals_constants_variables/variables.md)
     2. [Types](./doc/code/types/types.md)
+        1. [Type system](./doc/code/types/type_system.md)
 
 ### Examples
 
