@@ -166,7 +166,7 @@ echo "(" . gettype($co) . ")\n\n";
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/variable_definition.php)
+[Example](../../../example/code/types/types.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -299,6 +299,106 @@ int(16)
 Prior to PHP 8.0.0, where the `get_debug_type()` is not available, the `gettype()` function can be used instead. However, it doesn't use the *canonical type names*.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.intro.php)
+
+## Functions hangling types
+
+### [`gettype`](https://www.php.net/manual/en/function.gettype.php) function
+
+#### Availability
+
+PHP 4, PHP 5, PHP 7, PHP 8
+
+#### Syntax
+
+```
+gettype(mixed $value): string
+```
+
+#### Description
+
+Returns the type of the PHP variable value. For type checking, use `is_*` functions.
+
+#### Attributes
+
+* **`value`**
+
+The variable being type checked.
+
+#### Return value
+
+Possible values for the returned string are:
+
+* "boolean"
+* "integer"
+* "double" (for historical reasons "double" is returned in case of a float, and not simply "float")
+* "string"
+* "array"
+* "object"
+* "resource"
+* "resource (closed)" as of PHP 7.2.0
+* "NULL"
+* "unknown type"
+
+-- [PHP Reference](https://www.php.net/manual/en/function.gettype.php)
+
+#### Examples
+
+*Example: Basic usage*
+
+```php
+<?php
+// PHP Reference: https://www.php.net/manual/en/function.gettype.php
+
+$answer = true;
+$number = 15;
+$text = "Hello, there!";
+
+print("Answer: " . gettype($answer)
+    . "\nNumber: " . gettype($number)
+    . "\nText: " . gettype($text) . "\n");
+
+```
+
+**View**:
+[Example](../../../example/code/types/functions/function_gettype.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Answer: boolean
+Number: integer
+Text: string
+```
+
+*Example: `gettype()` example*
+
+```php
+<?php
+
+$data = array(1, 1., NULL, new stdClass, 'foo');
+
+foreach ($data as $value) {
+    echo gettype($value), "\n";
+}
+
+?>
+```
+
+The above example will output something similar to:
+
+```
+integer
+double
+NULL
+object
+string
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/function.gettype.php)
 
 [▵ Up](#types)
 [▲ Previous: Variables](../literals_constants_variables/variables.md)
