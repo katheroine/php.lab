@@ -52,6 +52,7 @@ Laboratory of PHP.
 2. [Types](./example/code/types/types.php)
     1. [Functions handling types](./example/code/types/functions/)
         1. [`gettype` function](./example/code/types/functions/function_gettype.php)
+        2. [`settype` function](./example/code/types/functions/function_settype.php)
 3. [Operators](./example/code/operators/)
     1. [Spaceship operator](./example/code/operators/spaceship_operator.php)
     2. [Ternary operator](./example/code/operators/ternary_operator.php)

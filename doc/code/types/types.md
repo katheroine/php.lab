@@ -400,6 +400,99 @@ string
 
 -- [PHP Reference](https://www.php.net/manual/en/function.gettype.php)
 
+### [`settype`](https://www.php.net/manual/en/function.settype.php) function
+
+#### Availability
+
+PHP 4, PHP 5, PHP 7, PHP 8
+
+#### Syntax
+
+```
+settype(mixed &$var, string $type): bool
+```
+
+#### Description
+
+Set the type of variable var to type.
+
+#### Attributes
+
+* **`var`**
+
+The variable being converted.
+
+* **`type`**
+
+Possibles values of type are:
+
+* "boolean" or "bool"
+* "integer" or "int"
+* "float" or "double"
+* "string"
+* "array"
+* "object"
+* "null"
+
+#### Return value
+
+Returns `true` on success or `false` on failure.
+
+-- [PHP Reference](https://www.php.net/manual/en/function.settype.php)
+
+#### Examples
+
+*Example: Basic usage*
+
+```php
+<?php
+// PHP Reference: https://www.php.net/manual/en/function.settype.php
+
+$someVariable = "15";
+
+print("Some variable: " . $someVariable . ": " . gettype($someVariable) . "\n");
+
+settype($someVariable, 'integer');
+
+print("Some variable: " . $someVariable . ": " . gettype($someVariable) . "\n");
+
+settype($someVariable, 'boolean');
+
+print("Some variable: " . $someVariable . ": " . gettype($someVariable) . "\n");
+
+```
+
+**View**:
+[Example](../../../example/code/types/functions/function_settype.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+```
+Some variable: 15: string
+Some variable: 15: integer
+Some variable: 1: boolean
+```
+
+*Example: `settype()` example*
+
+```php
+<?php
+$foo = "5bar"; // string
+$bar = true;   // boolean
+
+settype($foo, "integer"); // $foo is now 5   (integer)
+settype($bar, "string");  // $bar is now "1" (string)
+
+var_dump($foo, $bar);
+?>
+```
+
+Maximum value for "int" is `PHP_INT_MAX`.
+
+-- [PHP Reference](https://www.php.net/manual/en/function.settype.php)
+
 [▵ Up](#types)
 [▲ Previous: Variables](../literals_constants_variables/variables.md)
 [▼ Next: Type system](../types/type_system.md)
