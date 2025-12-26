@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Types](../types/types.md)
-[▼ Next: Type declarations](../types/type_declarations.md)
+[▲ Previous: Types](./types.md)
+[▼ Next: Type declarations](./type_declarations.md)
 
 # Type system
 
@@ -26,5 +26,5 @@ Type systems have other purposes as well, such as expressing business rules, ena
 
 [▵ Up](#type-system)
 [⌂ Home](../../../README.md)
-[▲ Previous: Types](../types/types.md)
-[▼ Next: Type declarations](../types/type_declarations.md)
+[▲ Previous: Types](./types.md)
+[▼ Next: Type declarations](./type_declarations.md)

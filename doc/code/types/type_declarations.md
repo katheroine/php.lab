@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Type system](../types/type_system.md)
+[▲ Previous: Type system](./type_system.md)
+[▼ Next: Type juggling](./type_juggling.md)
 
 # Type declarations
 
@@ -475,4 +476,5 @@ Stack trace:
 
 [▵ Up](#type-declarations)
 [⌂ Home](../../../README.md)
-[▲ Previous: Type system](../types/type_system.md)
+[▲ Previous: Type system](./type_system.md)
+[▼ Next: Type juggling](./type_juggling.md)
