@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Type juggling](../types/type_juggling.md)
+[▼ Next: Operators](../operators/operators.md)
 
 # Expressions
 
@@ -92,3 +93,4 @@ One last thing worth mentioning is the truth value of *expressions*. In many eve
 [▵ Up](#expressions)
 [⌂ Home](../../../README.md)
 [▲ Previous: Type juggling](../types/type_juggling.md)
+[▼ Next: Operators](../operators/operators.md)
