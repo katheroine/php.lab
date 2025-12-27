@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Type declarations](./type_declarations.md)
+[▼ Next: Expressions](../expressions/expressions.md)
 
 # Type juggling
 
@@ -218,4 +219,7 @@ echo $a;       // bar
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.type-juggling.php)
 
+[▵ Up](#type-juggling)
+[⌂ Home](../../../README.md)
 [▲ Previous: Type declarations](./type_declarations.md)
+[▼ Next: Expressions](../expressions/expressions.md)

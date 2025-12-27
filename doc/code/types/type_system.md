@@ -76,7 +76,7 @@ It is possible to define custom types with `interfaces`, `classes` and `enumerat
 
 It is possible to combine multiple *atomic types* into *composite types*. PHP allows types to be combined in the following ways:
 
-* Intersection of class-types (interfaces and class names).
+* Intersection of class-types (*interfaces* and *class* names).
 * Union of types.
 
 #### Intersection types

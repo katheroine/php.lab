@@ -18,6 +18,7 @@ Laboratory of PHP.
         1. [Type system](./doc/code/types/type_system.md)
         2. [Type declarations](./doc/code/types/type_declarations.md)
         3. [Type juggling](./doc/code/types/type_juggling.md)
+    3. [Expressions](./doc/code/expressions/expressions.md)
 
 ### Examples
 
