@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Operators](./operators.md)
-[▼ Next: Increment & decrement operators](../operators/increment_decrement_operators.md)
+[▼ Next: Increment & decrement operators](./increment_decrement_operators.md)
 
 # Arithmetic operators
 
@@ -147,4 +147,4 @@ print("{$f1} % {$f2} = " . ($f1 % $f2) . "\n");
 [▵ Up](#arithmetic-operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: Operators](./operators.md)
-[▼ Next: Increment & decrement operators](../operators/increment_decrement_operators.md)
+[▼ Next: Increment & decrement operators](./increment_decrement_operators.md)

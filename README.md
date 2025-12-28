@@ -20,6 +20,9 @@ Laboratory of PHP.
         3. [Type juggling](./doc/code/types/type_juggling.md)
     3. [Expressions](./doc/code/expressions/expressions.md)
     4. [Operators](./doc/code/operators/operators.md)
+        1. [Arithmetic operators](./doc/code/operators/arithmetic_operators.md)
+        2. [Increment & decrement operators](./doc/code/operators/increment_decrement_operators.md)
+        3. [Assignment operators](./doc/code/operators/assignment_operators.md)
 
 ### Examples
 
@@ -61,6 +64,11 @@ Laboratory of PHP.
         1. [`gettype` function](./example/code/types/functions/function_gettype.php)
         2. [`settype` function](./example/code/types/functions/function_settype.php)
 3. [Operators](./example/code/operators/)
+    1. [Arithmetic operators](./example/code/operators/arithmetic_operators.php)
+        1. [Modulo operator](./example/code/operators/modulo_operator.php)
+    2. [Increment & decrement operators](./example/code/operators/increment_decrement_operators.php)
+    3. [Assignment operators](./example/code/operators/assignment_operators.php)
+        1. [Basic assignment operator](./example/code/operators/basic_assignment_operator.php)
     1. [Spaceship operator](./example/code/operators/spaceship_operator.php)
     2. [Ternary operator](./example/code/operators/ternary_operator.php)
     3. [Null coalescing operator](./example/code/operators/null_coalescing_operator.php)

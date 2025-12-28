@@ -37,8 +37,8 @@ An **operator** is something that takes one or more values (or *expressions*, in
 PHP distinguish the following types of the operators:
 
 - [Arithmetic](./arithmetic_operators.md)
-- [Increment and Decrement]()
-- [Assignment]()
+- [Increment and Decrement](./increment_decrement_operators.md)
+- [Assignment](./assignment_operators.md)
 - [Bitwise]()
 - [Comparison]()
 
