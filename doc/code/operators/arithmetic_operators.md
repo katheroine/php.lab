@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Operators](./operators.md)
+[▼ Next: Increment & decrement operators](../operators/increment_decrement_operators.md)
 
 # Arithmetic operators
 
@@ -9,14 +10,14 @@ Remember basic arithmetic from school? These work just like those.
 
 | Example | Name | Result |
 |---------|------|--------|
-| +$a | Identity | Conversion of $a to int or float as appropriate. |
-| -$a | Negation | Opposite of $a. |
-| $a + $b | Addition | Sum of $a and $b. |
-| $a - $b | Subtraction | Difference of $a and $b. |
-| $a * $b | Multiplication | Product of $a and $b. |
-| $a / $b | Division | Quotient of $a and $b. |
-| $a % $b | Modulo | Remainder of $a divided by $b. |
-| $a ** $b | Exponentiation | Result of raising $a to the $b'th power. |
+| `+$a` | Identity | Conversion of `$a` to `int` or `float` as appropriate. |
+| `-$a` | Negation | Opposite of `$a`. |
+| `$a + $b` | Addition | Sum of `$a` and `$b`. |
+| `$a - $b` | Subtraction | Difference of `$a` and `$b`. |
+| `$a * $b` | Multiplication | Product of `$a` and `$b`. |
+| `$a / $b` | Division | Quotient of `$a` and `$b`. |
+| `$a % $b` | Modulo | Remainder of `$a` divided by `$b`. |
+| `$a ** $b` | Exponentiation | Result of raising `$a` to the `$b`'th power. |
 
 -- [PHP Reference](https://www.php.net/manual/en/language.operators.arithmetic.php)
 
@@ -146,3 +147,4 @@ print("{$f1} % {$f2} = " . ($f1 % $f2) . "\n");
 [▵ Up](#arithmetic-operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: Operators](./operators.md)
+[▼ Next: Increment & decrement operators](../operators/increment_decrement_operators.md)
