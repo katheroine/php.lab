@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Expressions](../expressions/expressions.md)
+[▼ Next: Arithmetic operators](../operators/arithmetic_operators.md)
 
 # Operators
 
@@ -25,6 +26,23 @@ Operators may also differ semantically from functions. For example, short-circui
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Operator_(computer_programming))
 
+## Operators in PHP
+
+An **operator** is something that takes one or more values (or *expressions*, in programming jargon) and yields another value (so that the construction itself becomes an expression).
+
+*Operators* can be grouped according to the number of values they take. ***Unary operators*** take only one value, for example `!` (the *logical not operator*) or `++` (the *increment operator*). ***Binary operators*** take two values, such as the familiar arithmetical operators `+` (plus) and - (minus), and the majority of PHP operators fall into this category. Finally, there is a single ***ternary operator***, `? :`, which takes three values; this is usually referred to simply as "the ternary operator" (although it could perhaps more properly be called the *conditional operator*).
+
+-- [PHP Reference](https://www.php.net/manual/en/language.operators.php)
+
+PHP distinguish the following types of the operators:
+
+- [Arithmetic](./arithmetic_operators.md)
+- [Increment and Decrement]()
+- [Assignment]()
+- [Bitwise]()
+- [Comparison]()
+
 [▵ Up](#operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: Expressions](../expressions/expressions.md)
+[▼ Next: Arithmetic operators](../operators/arithmetic_operators.md)
