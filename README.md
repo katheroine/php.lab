@@ -23,6 +23,7 @@ Laboratory of PHP.
         1. [Arithmetic operators](./doc/code/operators/arithmetic_operators.md)
         2. [Increment & decrement operators](./doc/code/operators/increment_decrement_operators.md)
         3. [Assignment operators](./doc/code/operators/assignment_operators.md)
+        4. [Bitwise operators](./doc/code/operators/bitwise_operators.md)
 
 ### Examples
 
@@ -69,11 +70,12 @@ Laboratory of PHP.
     2. [Increment & decrement operators](./example/code/operators/increment_decrement_operators.php)
     3. [Assignment operators](./example/code/operators/assignment_operators.php)
         1. [Basic assignment operator](./example/code/operators/basic_assignment_operator.php)
-    1. [Spaceship operator](./example/code/operators/spaceship_operator.php)
-    2. [Ternary operator](./example/code/operators/ternary_operator.php)
-    3. [Null coalescing operator](./example/code/operators/null_coalescing_operator.php)
-    4. [Null coalescing assignment operator](./example/code/operators/null_coalescing_assignment_operator.php)
-    5. [Nullsafe operator](./example/code/operators/nullsafe_operator.php)
+    4. [Bitwise operators](./example/code/operators/bitwise_operators.php)
+    5. [Spaceship operator](./example/code/operators/spaceship_operator.php)
+    6. [Ternary operator](./example/code/operators/ternary_operator.php)
+    7. [Null coalescing operator](./example/code/operators/null_coalescing_operator.php)
+    8. [Null coalescing assignment operator](./example/code/operators/null_coalescing_assignment_operator.php)
+    9. [Nullsafe operator](./example/code/operators/nullsafe_operator.php)
 4. [Functions](./example/code/functions/)
     1. [Functions](./example/code/functions/functions.php)
     2. [Passing arguments](./example/code/functions/passing_arguments.php)

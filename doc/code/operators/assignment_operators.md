@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Increment & decrement operators](./increment_decrement_operators.md)
+[▼ Next: Bitwise operators](./bitwise_operators.md)
 
 # Assignment operators
 
@@ -248,6 +249,6 @@ Parse error: syntax error, unexpected token ";", expecting "("
 
 -- [PHP Reference](https://www.php.net/manual/en/language.operators.assignment.php)
 
-[▵ Up](#arithmetic-operators)
+[▵ Up](#assignment-operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: Increment & decrement operators](./increment_decrement_operators.md)

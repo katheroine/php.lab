@@ -2,7 +2,7 @@
 [▲ Previous: Arithmetic operators](./arithmetic_operators.md)
 [▼ Next: Assignment operators](./assignment_operators.md)
 
-# Increment & decrement operators
+# Increment and decrement operators
 
 PHP supports *pre-* and *post-increment* and *decrement* operators. Those unary operators allow to *increment* or *decrement* the value by one.
 
@@ -197,7 +197,7 @@ This is because the value `5e0` is interpreted as a `float` and cast to the valu
 
 -- [PHP Reference](https://www.php.net/manual/en/language.operators.increment.php)
 
-[▵ Up](#arithmetic-operators)
+[▵ Up](#increment-and-decrement-operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: Arithmetic operators](./arithmetic_operators.md)
 [▼ Next: Assignment operators](./assignment_operators.md)
