@@ -72,7 +72,7 @@ $otherValue: 5
 | `$a <<= $b` | `$a = $a << $b` | Left Shift |
 | `$a >>= $b` | `$a = $a >> $b` | Right Shift |
 
-#### Other Assignment Operators
+#### Other assignment operators
 
 | Example | Equivalent | Operation |
 |---------|-----------|-----------|
@@ -184,6 +184,35 @@ $a ^= 3; $a: 5
 $a = ($b = 4) + 5; // $a is equal to 9 now, and $b has been set to 4.
 var_dump($a);
 ?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.operators.assignment.php)
+
+*Example: Assignment expression value*
+
+```php
+<?php
+
+$iv = ($i = 3);
+print("(\$i = 3) = {$iv}\n");
+
+$fv = ($f = 2.5);
+print("(\$f = 2.5) = {$fv}\n");
+
+```
+
+**View**:
+[Example](../../../example/code/operators/assignment_operator_expression_value.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+($i = 3) = 3
+($f = 2.5) = 2.5
 ```
 
 In addition to the basic assignment operator, there are "combined operators" for all of the binary arithmetic, array union and string operators that allow you to use a value in an expression and then set its value to the result of that expression. For example:

@@ -71,6 +71,7 @@ Laboratory of PHP.
     2. [Increment & decrement operators](./example/code/operators/increment_decrement_operators.php)
     3. [Assignment operators](./example/code/operators/assignment_operators.php)
         1. [Basic assignment operator](./example/code/operators/basic_assignment_operator.php)
+        2. [Assignment expression value](./example/code/operators/assignment_operator_expression_value.php)
     4. [Comparison operators](./example/code/operators/comparison_operators.php)
         1. [Strict equality & inequality operators](./example/code/operators/strict_equality_inequality_operators.php)
         2. [Three-way comparison (spaceship) operator](./example/code/operators/three_way_comparison_operator.php)
