@@ -39,8 +39,8 @@ PHP distinguish the following types of the operators:
 - [Arithmetic](./arithmetic_operators.md)
 - [Increment and Decrement](./increment_decrement_operators.md)
 - [Assignment](./assignment_operators.md)
-- [Bitwise]()
-- [Comparison]()
+- [Bitwise](./bitwise_operators.md)
+- [Comparison](./comparison_operators.md)
 
 [▵ Up](#operators)
 [⌂ Home](../../../README.md)

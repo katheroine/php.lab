@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Assignment operators](./assignment_operators.md)
+[▼ Next: Comparison operators](./comparison_operators.md)
 
 # Bitwise operators
 
@@ -582,3 +583,4 @@ Use functions from the `gmp` extension for bitwise manipulation on numbers beyon
 [▵ Up](#bitwise-operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: Assignment operators](./assignment_operators.md)
+[▼ Next: Comparison operators](./comparison_operators.md)

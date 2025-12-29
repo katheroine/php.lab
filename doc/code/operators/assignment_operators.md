@@ -252,3 +252,4 @@ Parse error: syntax error, unexpected token ";", expecting "("
 [▵ Up](#assignment-operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: Increment & decrement operators](./increment_decrement_operators.md)
+[▼ Next: Bitwise operators](./bitwise_operators.md)

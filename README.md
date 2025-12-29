@@ -24,6 +24,7 @@ Laboratory of PHP.
         2. [Increment & decrement operators](./doc/code/operators/increment_decrement_operators.md)
         3. [Assignment operators](./doc/code/operators/assignment_operators.md)
         4. [Bitwise operators](./doc/code/operators/bitwise_operators.md)
+        5. [Comparison operators](./doc/code/operators/comparison_operators.md)
 
 ### Examples
 
