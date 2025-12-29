@@ -345,9 +345,47 @@ Note: Be aware that PHP's *type juggling* is not always obvious when comparing v
 
 While *identity comparison* (`===` and `!==`) can be applied to arbitrary values, the other *comparison operators* should only be applied to *comparable values*. The result of comparing *incomparable values* is undefined, and should not be relied upon.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.operators.comparison.php#language.operators.comparison.incomparable)
+
 ## Ternary operator
 
 Another conditional operator is the *`?:` (or ternary) operator*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.operators.comparison.php#language.operators.comparison.ternary)
+
+*Example: Ternary operator*
+
+```php
+<?php
+
+$value = readline("Give some value: ");
+
+$state = ($value < 10) ? "low" : "high";
+
+print("Value is {$state}. ");
+
+($value < 10) ? print("Cool!\n") : print("Woah!\n");
+
+```
+
+**View**:
+[Example](../../../example/code/operators/ternary_operator.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Give some value: 1
+Value is low. Cool!
+```
+
+```
+Give some value: 100
+Value is high. Woah!
+```
 
 *Example: Assigning a default value*
 
@@ -365,8 +403,95 @@ if (empty($_POST['action'])) {
 ?>
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.operators.comparison.php#language.operators.comparison.ternary)
+
 The expression `(expr1) ? (expr2) : (expr3)` evaluates to `expr2` if `expr1` evaluates to `true`, and `expr3` if `expr1` evaluates to `false`.
 It is possible to leave out the middle part of the ternary operator. Expression `expr1 ?: expr3` evaluates to the result of `expr1` if `expr1` evaluates to `true`, and `expr3` otherwise. `expr1` is only evaluated once in this case.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.operators.comparison.php#language.operators.comparison.ternary)
+
+*Example: Ternary operator shorthand (short-ternary operator)*
+
+```php
+<?php
+
+$value = readline("Give your nickname: ");
+
+$nickname = $value ?: "unknown";
+
+print("Your nickname is: {$nickname}\n");
+
+```
+
+**View**:
+[Example](../../../example/code/operators/ternary_operator.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Give your nickname: katheroine
+Your nickname is: katheroine
+```
+
+```
+Give your nickname:
+Your nickname is: unknown
+```
+
+*Example: Ternary operator and conversions*
+
+```php
+<?php
+
+$result = false ? "yes" : "no";
+print("false: {$result}\n");
+
+$result = true ? "yes" : "no";
+print("true: {$result}\n");
+
+$result = 0 ? "yes" : "no";
+print("0: {$result}\n");
+
+$result = 2 ? "yes" : "no";
+print("2: {$result}\n");
+
+$result = "0" ? "yes" : "no";
+print("\"0\": {$result}\n");
+
+$result = "2" ? "yes" : "no";
+print("\"2\": {$result}\n");
+
+$result = "a" ? "yes" : "no";
+print("\"a\": {$result}\n");
+
+$result = null ? "yes" : "no";
+print("null: {$result}\n");
+
+```
+
+**View**:
+[Example](../../../example/code/operators/ternary_operator_conversions.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+false: no
+true: yes
+0: no
+2: yes
+"0": no
+"2": yes
+"a": yes
+null: no
+```
 
 Note: Please note that the *ternary operator* is an *expression*, and that it doesn't evaluate to a variable, but to the result of an expression. This is important to know if you want to return a variable by reference. The statement `return $var == 42 ? $a : $b;` in a return-by-reference function will therefore not work and a warning is issued.
 
@@ -393,6 +518,33 @@ echo ((true ? 'true' : false) ? 't' : 'f');
 ?>
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.operators.comparison.php#language.operators.comparison.ternary)
+
+*Example: Nested (stacked) ternary operators*
+
+```php
+<?php
+
+$number = 3;
+// $vaule = ($number < 2) ? "Number is less than 2." : ($number > 2) ? "Number is more than 2." : "Number is 2.";
+$result = ($number < 2) ? "Number is less than 2." : (($number > 2) ? "Number is more than 2." : "Number is 2.");
+print($result . PHP_EOL);
+
+```
+
+**View**:
+[Example](../../../example/code/operators/nested_ternary_operators.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Number is more than 2.
+```
+
 Note:
 
 Chaining of short-ternaries (`?:`), however, is stable and behaves reasonably. It will evaluate to the first argument that evaluates to a non-falsy value. Note that undefined values will still raise a warning.
@@ -406,6 +558,8 @@ echo 0 ?: 0 ?: 2 ?: 3, PHP_EOL; //2
 echo 0 ?: 0 ?: 0 ?: 3, PHP_EOL; //3
 ?>
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.operators.comparison.php#language.operators.comparison.ternary)
 
 ## Null coalescing operator
 
