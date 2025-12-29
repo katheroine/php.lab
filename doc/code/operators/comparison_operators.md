@@ -6,6 +6,7 @@
 **Comparison operators**, as their name implies, allow you to compare two values. You may also be interested in viewing the type comparison tables, as they show examples of various type related comparisons.
 
 **Comparison operators**
+
 | Example | Name | Result |
 |---------|------|--------|
 | `$a == $b` | Equal | true if `$a` is equal to `$b` after type juggling. |
@@ -19,7 +20,175 @@
 | `$a >= $b` | Greater than or equal to | true if `$a` is greater than or equal to `$b`. |
 | `$a <=> $b` | Spaceship | An int less than, equal to, or greater than zero when `$a` is less than, equal to, or greater than `$b`, respectively. |
 
-If both operands are *numeric strings*, or one operand is a *number* and the other one is a *numeric string*, then the comparison is done numerically. These rules also apply to the `switch` statement. The type conversion does not take place when the comparison is `===` or `!==` as this involves comparing the type as well as the value.
+-- [PHP Reference](https://www.php.net/manual/en/language.operators.comparison.php)
+
+*Example: Basic usage*
+
+```php
+<?php
+
+$a = 1; $b = 2; $c = false;
+
+// Less than
+$c = $a < $b;
+print("{$a} < {$b} = {$c}\n");
+// Greater than
+$c = $a > $b;
+print("{$a} > {$b} = {$c}\n");
+// Less than or equal to
+$c = $a <= $b;
+print("{$a} <= {$b} = {$c}\n");
+// Greater than or equal to
+$c = $a >= $b;
+print("{$a} >= {$b} = {$c}\n");
+// Equal
+$c = $a == $b;
+print("{$a} == {$b} = {$c}\n");
+// Not equal
+$c = $a != $b;
+print("{$a} != {$b} = {$c}\n");
+$c = $a <> $b;
+print("{$a} != {$b} = {$c}\n");
+
+// Identical
+$c = $a === $b;
+print("{$a} === {$b} = {$c}\n");
+// Not identical
+$c = $a !== $b;
+print("{$a} !== {$b} = {$c}\n");
+
+// Three-way comparison
+$c = $a <=> $b; // "Spaceship operator"
+print("{$a} <=> {$b} = {$c}\n");
+
+```
+
+**View**:
+[Example](../../../example/code/operators/comparison_operators.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+1 < 2 = 1
+1 > 2 =
+1 <= 2 = 1
+1 >= 2 =
+1 == 2 =
+1 != 2 = 1
+1 != 2 = 1
+1 === 2 =
+1 !== 2 = 1
+1 <=> 2 = -1
+```
+
+*Example: Strict exquality and inequality operators*
+
+```php
+<?php
+
+$i1 = 1; $i2 = 2;
+print("(integer) {$i1} == (integer) {$i2} = " . ($i1 == $i2) . "\n");
+print("(integer) {$i1} === (integer) {$i2} = " . ($i1 === $i2) . "\n");
+print("(integer) {$i1} != (integer) {$i2} = " . ($i1 != $i2) . "\n");
+print("(integer) {$i1} !== (integer) {$i2} = " . ($i1 !== $i2) . "\n\n");
+
+$i1 = 2; $i2 = 2;
+print("(integer) {$i1} == (integer) {$i2} = " . ($i1 == $i2) . "\n");
+print("(integer) {$i1} === (integer) {$i2} = " . ($i1 === $i2) . "\n");
+print("(integer) {$i1} != (integer) {$i2} = " . ($i1 != $i2) . "\n");
+print("(integer) {$i1} !== (integer) {$i2} = " . ($i1 !== $i2) . "\n\n");
+
+$i1 = 2; $s1 = "2";
+print("(integer) {$i1} == (string) {$s1} = " . ($i1 == $s1) . "\n");
+print("(integer) {$i1} === (string) {$s1} = " . ($i1 === $s1) . "\n");
+print("(integer) {$i1} != (string) {$s1} = " . ($i1 != $s1) . "\n");
+print("(integer) {$i1} !== (string) {$s1} = " . ($i1 !== $s1) . "\n\n");
+
+$s1 = "2"; $s2 = "2";
+print("(string) {$s1} == (string) {$s2} = " . ($s1 == $s2) . "\n");
+print("(string) {$s1} === (string) {$s2} = " . ($s1 === $s2) . "\n");
+print("(string) {$s1} != (string) {$s2} = " . ($s1 != $s2) . "\n");
+print("(string) {$s1} !== (string) {$s2} = " . ($s1 !== $s2) . "\n\n");
+
+$s1 = "1"; $s2 = "2";
+print("(string) {$s1} == (string) {$s2} = " . ($s1 == $s2) . "\n");
+print("(string) {$s1} === (string) {$s2} = " . ($s1 === $s2) . "\n");
+print("(string) {$s1} != (string) {$s2} = " . ($s1 != $s2) . "\n");
+print("(string) {$s1} !== (string) {$s2} = " . ($s1 !== $s2) . "\n\n");
+
+```
+
+**View**:
+[Example](../../../example/code/operators/strict_equality_inequality_operators.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+(integer) 1 == (integer) 2 =
+(integer) 1 === (integer) 2 =
+(integer) 1 != (integer) 2 = 1
+(integer) 1 !== (integer) 2 = 1
+
+(integer) 2 == (integer) 2 = 1
+(integer) 2 === (integer) 2 = 1
+(integer) 2 != (integer) 2 =
+(integer) 2 !== (integer) 2 =
+
+(integer) 2 == (string) 2 = 1
+(integer) 2 === (string) 2 =
+(integer) 2 != (string) 2 =
+(integer) 2 !== (string) 2 = 1
+
+(string) 2 == (string) 2 = 1
+(string) 2 === (string) 2 = 1
+(string) 2 != (string) 2 =
+(string) 2 !== (string) 2 =
+
+(string) 1 == (string) 2 =
+(string) 1 === (string) 2 =
+(string) 1 != (string) 2 = 1
+(string) 1 !== (string) 2 = 1
+
+```
+
+*Example: Three-way comparison (spaceship) operator*
+
+```php
+<?php
+
+$a = 1; $b = 2;
+print("{$a} <=> {$b} = " . ($a <=> $b) . "\n");
+$a = 2; $b = 1;
+print("{$a} <=> {$b} = " . ($a <=> $b) . "\n");
+$a = 2; $b = 2;
+print("{$a} <=> {$b} = " . ($a <=> $b) . "\n");
+
+```
+
+**View**:
+[Example](../../../example/code/operators/three_way_comparison_operator.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+1 <=> 2 = -1
+2 <=> 1 = 1
+2 <=> 2 = 0
+```
+
+If both operands are *numeric strings*, or one operand is a *number* and the other one is a *numeric string*, then the comparison is done numerically. These rules also apply to the `switch` statement. The *type conversion* does not take place when the comparison is `===` or `!==` as this involves comparing the type as well as the value.
 
 Warning
 
@@ -63,7 +232,7 @@ bool(true)
 a
 ```
 
-*Example: Comparison Operators*
+*Example: Comparison operators*
 
 ```php
 <?php
@@ -115,7 +284,7 @@ echo $a <=> $b, ' '; // 1
 
 For various types, comparison is done according to the following table (in order).
 
-*Comparison with Various Types*
+*Comparison with various types*
 
 | Type of Operand 1 | Type of Operand 2 | Result |
 |---|---|---|
@@ -140,7 +309,7 @@ var_dump(min(-100, -10, NULL, 10, 100)); // NULL - (bool) NULL < (bool) -100 is 
 ?>
 ```
 
-*Example #3 Transcription of standard array comparison*
+*Example: Transcription of standard array comparison*
 
 ```php
 <?php
@@ -168,15 +337,13 @@ function standard_array_compare($op1, $op2)
 
 ## Comparison of floating point numbers
 
-Because of the way floats are represented internally, you should not test two floats for equality.
+Because of the way *floats* are represented internally, you *should not test two floats for equality*.
 
-See the documentation for float for more information.
-
-Note: Be aware that PHP's type juggling is not always obvious when comparing values of different types, particularly comparing ints to bools or ints to strings. It is therefore generally advisable to use === and !== comparisons rather than == and != in most cases.
+Note: Be aware that PHP's *type juggling* is not always obvious when comparing values of different types, particularly comparing *ints* to *bools* or *ints* to *strings*. It is therefore generally advisable to use `===` and `!==` comparisons rather than `==` and `!=` in most cases.
 
 ## Incomparable values
 
-While identity comparison (`===` and `!==`) can be applied to arbitrary values, the other comparison operators should only be applied to comparable values. The result of comparing incomparable values is undefined, and should not be relied upon.
+While *identity comparison* (`===` and `!==`) can be applied to arbitrary values, the other *comparison operators* should only be applied to *comparable values*. The result of comparing *incomparable values* is undefined, and should not be relied upon.
 
 ## Ternary operator
 

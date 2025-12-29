@@ -45,7 +45,7 @@ print("~{$b} = {$c}\n"); // 1111 1111 1111 1111 1111 1111 1111 0011 // -13
 ```
 
 **View**:
-[Example](../../../example/code/operators/assignment_operators.php)
+[Example](../../../example/code/operators/bitwise_operators.php)
 
 **Execute**:
 * [OnlinePHP]()
