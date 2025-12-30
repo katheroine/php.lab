@@ -25,6 +25,7 @@ Laboratory of PHP.
         3. [Assignment operators](./doc/code/operators/assignment_operators.md)
         4. [Bitwise operators](./doc/code/operators/bitwise_operators.md)
         5. [Comparison operators](./doc/code/operators/comparison_operators.md)
+        6. [Error control operators](./doc/code/operators/error_control_operators.md:)
 
 ### Examples
 

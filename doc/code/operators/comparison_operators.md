@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Bitwise operators](./bitwise_operators.md)
+[▼ Next: Error control operators](./error_control_operators.md)
 
 # Comparison operators
 
@@ -625,3 +626,4 @@ echo $foo ?? $bar ?? $baz ?? $qux; // outputs 1
 [▵ Up](#comparison-operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: Bitwise operators](./bitwise_operators.md)
+[▼ Next: Error control operators](./error_control_operators.md)

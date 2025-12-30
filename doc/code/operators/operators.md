@@ -41,6 +41,7 @@ PHP distinguish the following types of the operators:
 - [Assignment](./assignment_operators.md)
 - [Bitwise](./bitwise_operators.md)
 - [Comparison](./comparison_operators.md)
+- [Error control](./error_control_operators.md)
 
 [▵ Up](#operators)
 [⌂ Home](../../../README.md)
