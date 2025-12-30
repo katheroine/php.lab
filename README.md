@@ -28,6 +28,7 @@ Laboratory of PHP.
         6. [Error control operators](./doc/code/operators/error_control_operators.md)
         7. [Execution operators](./doc/code/operators/execution_operators.md)
         8. [Logical operators](./doc/code/operators/logical_operators.md)
+        9. [String operators](./doc/code/operators/string_operators.md)
 
 ### Examples
 

@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Execution operators](./execution_operators.md)
+[▼ Next: String operators](./string_operators.md)
 
 # Logical operators
 
@@ -159,3 +160,4 @@ bool(true)
 [▵ Up](#logical-operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: Execution operators](./execution_operators.md)
+[▼ Next: String operators](./string_operators.md)
