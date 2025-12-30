@@ -29,6 +29,7 @@ Laboratory of PHP.
         7. [Execution operators](./doc/code/operators/execution_operators.md)
         8. [Logical operators](./doc/code/operators/logical_operators.md)
         9. [String operators](./doc/code/operators/string_operators.md)
+        10. [Array operators](./doc/code/operators/array_operators.md)
 
 ### Examples
 

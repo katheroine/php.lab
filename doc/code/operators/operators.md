@@ -45,6 +45,7 @@ PHP distinguish the following types of the operators:
 - [Execution](./execution_operators.md)
 - [Logical](./logical_operators.md)
 - [String](./string_operators.md)
+- [Array](./array_operators.md)
 
 [▵ Up](#operators)
 [⌂ Home](../../../README.md)
