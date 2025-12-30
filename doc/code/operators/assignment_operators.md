@@ -173,6 +173,99 @@ $a ^= 3; $a: 5
 
 ```
 
+*Example: Null coalescing assignment operator*
+
+```php
+<?php
+
+$value = null;
+$value ??= 'hello';
+print("Value: {$value}\n");
+
+$value = true;
+$value ??= 'hello';
+print("Value: {$value}\n");
+
+$value = false;
+$value ??= 'hello';
+print("Value: {$value}\n");
+
+print(PHP_EOL);
+
+$items = [
+    2 => "Hello, there!",
+    'details' =>
+    [
+        'color' => 'orange',
+        3.14 => 'PI',
+    ]
+];
+
+$items[2] ??= '-';
+print("Value: {$items[2]}\n");
+
+$items[3] ??= '-';
+print("Value: {$items[3]}\n");
+
+$items['details']['color'] ??= '-';
+print("Value: {$items['details']['color']}\n");
+
+$items['details']['weather'] ??= '-';
+print("Value: {$items['details']['weather']}\n");
+
+print(PHP_EOL);
+
+$object = (object) [
+    'text' => "Hello, there!",
+    'details' => (object)
+    [
+        'color' => 'orange',
+        'value' => 'PI',
+    ]
+];
+
+$object->text ??= '-';
+print("Value: {$object->text}\n");
+
+$object->content ??= '-';
+print("Value: {$object->content}\n");
+
+$object->details->color ??= '-';
+print("Value: {$object->details->color}\n");
+
+$object->details->weather ??= '-';
+print("Value: {$object->details->weather}\n");
+
+print(PHP_EOL);
+
+```
+
+**View**:
+[Example](../../../example/code/operators/assignment_operators.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Value: hello
+Value: 1
+Value:
+
+Value: Hello, there!
+Value: -
+Value: orange
+Value: -
+
+Value: Hello, there!
+Value: -
+Value: orange
+Value: -
+
+```
+
 ### The value of the assignment expression
 
 *The value of an assignment expression is the value assigned.* That is, the value of `$a = 3` is `3`. This allows you to do some tricky things:

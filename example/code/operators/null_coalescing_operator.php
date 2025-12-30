@@ -1,15 +1,9 @@
 <?php
 
+$value = 'hi' ?? 'hello';
+print("Value: {$value}\n");
+
 $value = null ?? 'hello';
-print("Value: {$value}\n");
-
-$value = true ?? 'hello';
-print("Value: {$value}\n");
-
-$value = false ?? 'hello';
-print("Value: {$value}\n");
-
-$value = 'whatever' ?? 'hello';
 print("Value: {$value}\n");
 
 print(PHP_EOL);
@@ -56,13 +50,6 @@ $value = $object->details->color ?? '-';
 print("Value: {$value}\n");
 
 $value = $object->details->weather ?? '-';
-print("Value: {$value}\n");
-
-print(PHP_EOL);
-
-$text = "Text is set.";
-$number = 3;
-$value = $text ?? $number ?? "Either text and number aren't set.";
 print("Value: {$value}\n");
 
 print(PHP_EOL);

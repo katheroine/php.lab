@@ -566,6 +566,94 @@ echo 0 ?: 0 ?: 0 ?: 3, PHP_EOL; //3
 
 Another useful shorthand operator is the *`??` (or null coalescing) operator*.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.operators.comparison.php)
+
+*Example: Null coalescing operator*
+
+```php
+<?php
+
+$value = 'hi' ?? 'hello';
+print("Value: {$value}\n");
+
+$value = null ?? 'hello';
+print("Value: {$value}\n");
+
+print(PHP_EOL);
+
+$items = [
+    2 => "Hello, there!",
+    'details' =>
+    [
+        'color' => 'orange',
+        3.14 => 'PI',
+    ]
+];
+
+$value = $items[2] ?? '-';
+print("Value: {$value}\n");
+
+$value = $items[3] ?? '-';
+print("Value: {$value}\n");
+
+$value = $items['details']['color'] ?? '-';
+print("Value: {$value}\n");
+
+$value = $items['details']['weather'] ?? '-';
+print("Value: {$value}\n");
+
+print(PHP_EOL);
+
+$object = (object) [
+    'text' => "Hello, there!",
+    'details' => (object)
+    [
+        'color' => 'orange',
+        'value' => 'PI',
+    ]
+];
+
+$value = $object->text ?? '-';
+print("Value: {$value}\n");
+
+$value = $object->content ?? '-';
+print("Value: {$value}\n");
+
+$value = $object->details->color ?? '-';
+print("Value: {$value}\n");
+
+$value = $object->details->weather ?? '-';
+print("Value: {$value}\n");
+
+print(PHP_EOL);
+
+```
+
+**View**:
+[Example](../../../example/code/operators/null_coalescing_operator.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Value: hi
+Value: hello
+
+Value: Hello, there!
+Value: -
+Value: orange
+Value: -
+
+Value: Hello, there!
+Value: -
+Value: orange
+Value: -
+
+```
+
 *Example: Assigning a default value*
 
 ```php
@@ -622,6 +710,66 @@ echo $foo ?? $bar ?? $baz ?? $qux; // outputs 1
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.operators.comparison.php)
+
+*Example: Nested null coalescing operator*
+
+```php
+<?php
+
+$text = "Text is set.";
+$number = 3;
+$result = $text ?? $number ?? "Either text and number aren't set.";
+print($result . PHP_EOL);
+
+```
+
+**View**:
+[Example](../../../example/code/operators/nested_null_coalescing_operator.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Text is set.
+```
+
+*Example: Null coalescing operator and conversions*
+
+```php
+<?php
+
+$value = null ?? 'hello';
+print("Value: {$value}\n");
+
+$value = true ?? 'hello';
+print("Value: {$value}\n");
+
+$value = false ?? 'hello';
+print("Value: {$value}\n");
+
+$value = 'whatever' ?? 'hello';
+print("Value: {$value}\n");
+
+```
+
+**View**:
+[Example](../../../example/code/operators/null_coalescing_operator_conversions.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Value: hello
+Value: 1
+Value:
+Value: whatever
+```
 
 [▵ Up](#comparison-operators)
 [⌂ Home](../../../README.md)
