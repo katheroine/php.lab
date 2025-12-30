@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Error control operators](./error_control_operators.md)
+[▼ Next: Logical operators](./logical_operators.md)
 
 # Execution operators
 
@@ -25,3 +26,4 @@ Unlike some other languages, backticks have no special meaning within double-quo
 [▵ Up](#execution-operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: Error control operators](./error_control_operators.md)
+[▼ Next: Logical operators](./logical_operators.md)

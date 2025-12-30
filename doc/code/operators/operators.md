@@ -43,6 +43,7 @@ PHP distinguish the following types of the operators:
 - [Comparison](./comparison_operators.md)
 - [Error control](./error_control_operators.md)
 - [Execution](./execution_operators.md)
+- [Logical](./logical_operators.md)
 
 [▵ Up](#operators)
 [⌂ Home](../../../README.md)
