@@ -30,6 +30,7 @@ Laboratory of PHP.
         8. [Logical operators](./doc/code/operators/logical_operators.md)
         9. [String operators](./doc/code/operators/string_operators.md)
         10. [Array operators](./doc/code/operators/array_operators.md)
+        11. [Type operators](./doc/code/operators/type_operators.md)
 
 ### Examples
 
@@ -91,7 +92,8 @@ Laboratory of PHP.
             1. [Null coalescing operator and conversions](./example/code/operators/null_coalescing_operator_conversions.php)
             2. [Nested null coalescing operator](./example/code/operators/nested_null_coalescing_operator.php)
     6. [Logical operators](./example/code/operators/logical_operators.php)
-    7. [Nullsafe operator](./example/code/operators/nullsafe_operator.php)
+    7. [Type operator](./example/code/operators/instanceof_operator.php)
+    8. [Nullsafe operator](./example/code/operators/nullsafe_operator.php)
 4. [Functions](./example/code/functions/)
     1. [Functions](./example/code/functions/functions.php)
     2. [Passing arguments](./example/code/functions/passing_arguments.php)

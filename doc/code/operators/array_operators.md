@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: String operators](./string_operators.md)
+[▼ Next: Type operators](./type_operators.md)
 
 # Array operators
 
@@ -88,3 +89,4 @@ var_dump($a === $b); // bool(false)
 [▵ Up](#array-operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: String operators](./string_operators.md)
+[▼ Next: Type operators](./type_operators.md)
