@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Comparison operators](./comparison_operators.md)
+[▼ Next: Execution operators](./execution_operators.md)
 
 # Error control operators
 
@@ -40,6 +41,7 @@ Prior to PHP 8.0.0, it was possible for the *@ operator* to disable critical err
 
 -- [PHP Reference](https://www.php.net/manual/en/language.operators.errorcontrol.php)
 
-[▵ Up](#comparison-operators)
+[▵ Up](#error-control-operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: Comparison operators](./comparison_operators.md)
+[▼ Next: Execution operators](./execution_operators.md)
