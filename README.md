@@ -31,6 +31,7 @@ Laboratory of PHP.
         9. [String operators](./doc/code/operators/string_operators.md)
         10. [Array operators](./doc/code/operators/array_operators.md)
         11. [Type operators](./doc/code/operators/type_operators.md)
+        12. [Functional operator](./doc/code/operators/functional_operators.md)
 
 ### Examples
 
