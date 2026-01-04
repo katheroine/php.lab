@@ -67,6 +67,87 @@ If the operand for the ~ operator is a *string*, the operation will be performed
 
 Both operands and the result for the `<<` and `>>` operators are always treated as *integers*.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.operators.bitwise.php)
+
+*Example: Bitwise shift and conversions*
+
+```php
+<?php
+
+$i = 3;
+$d = 2.5;
+$s = "abc";
+$c = new stdClass;
+class dClass extends stdClass {}
+$e = new dClass;
+class nClass {}
+$n = new nClass;
+
+echo "\$i:";
+var_dump($i);
+$is_stdclass = ($i instanceof stdClass);
+print("\$i instanceof stdClass: " . ($is_stdclass ? "true" : "false") . "\n\n");
+
+echo "\$d:";
+var_dump($d);
+$is_stdclass = ($d instanceof stdClass);
+print("\$d instanceof stdClass: " . ($is_stdclass ? "true" : "false") . "\n\n");
+
+echo "\$s:";
+var_dump($s);
+$is_stdclass = ($s instanceof stdClass);
+print("\$s instanceof stdClass: " . ($is_stdclass ? "true" : "false") . "\n\n");
+
+echo "\$c:";
+var_dump($c);
+$is_stdclass = ($c instanceof stdClass);
+print("\$c instanceof stdClass: " . ($is_stdclass ? "true" : "false") . "\n\n");
+
+echo "\$e:";
+var_dump($e);
+$is_stdclass = ($e instanceof stdClass);
+print("\$e instanceof stdClass: " . ($is_stdclass ? "true" : "false") . "\n\n");
+
+echo "\$n:";
+var_dump($n);
+$is_stdclass = ($n instanceof stdClass);
+print("\$n instanceof stdClass: " . ($is_stdclass ? "true" : "false") . "\n\n");
+
+```
+
+**View**:
+[Example](../../../example/code/operators/bitwise_operators.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+$i:int(3)
+$i instanceof stdClass: false
+
+$d:float(2.5)
+$d instanceof stdClass: false
+
+$s:string(3) "abc"
+$s instanceof stdClass: false
+
+$c:object(stdClass)#1 (0) {
+}
+$c instanceof stdClass: true
+
+$e:object(dClass)#2 (0) {
+}
+$e instanceof stdClass: true
+
+$n:object(nClass)#3 (0) {
+}
+$n instanceof stdClass: false
+
+```
+
 PHP's `error_reporting` *`ini`* setting uses bitwise values, providing a real-world demonstration of turning bits off. To show all errors, except for notices, the `php.ini` file instructions say to use: `E_ALL & ~E_NOTICE`
 
 
@@ -578,7 +659,7 @@ Warning
 
 Use functions from the `gmp` extension for bitwise manipulation on numbers beyond `PHP_INT_MAX`.
 
--- [PHP Reference](https://www.php.net/manual/en/langref.php)
+-- [PHP Reference](https://www.php.net/manual/en/language.operators.bitwise.php)
 
 [▵ Up](#bitwise-operators)
 [⌂ Home](../../../README.md)

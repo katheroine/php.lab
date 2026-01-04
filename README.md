@@ -82,6 +82,7 @@ Laboratory of PHP.
         2. [Null coalescing assignment operator](./example/code/operators/null_coalescing_assignment_operator.php)
         3. [Assignment expression value](./example/code/operators/assignment_operator_expression_value.php)
     4. [Bitwise operators](./example/code/operators/bitwise_operators.php)
+        1. [Bitwise shift operators and conversions](./example/code/operators/bitwise_shift_operators_conversions.php)
     5. [Comparison operators](./example/code/operators/comparison_operators.php)
         1. [Strict equality & inequality operators](./example/code/operators/strict_equality_inequality_operators.php)
         2. [Three-way comparison (spaceship) operator](./example/code/operators/three_way_comparison_operator.php)
