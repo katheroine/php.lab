@@ -35,6 +35,7 @@ Laboratory of PHP.
         13. [Error control operators](./doc/code/operators/error_control_operators.md)
     5. [Control flow](./doc/code/control_flow/control_flow.md)
         1. [`if` conditional statement](./doc/code/control_flow/if.md)
+        2. [`if`-`else` conditional statement](./doc/code/control_flow/if_else.md)
 
 ### Examples
 
@@ -104,6 +105,9 @@ Laboratory of PHP.
         1. [`if` conditional statement](./example/code/control_flow/if/if.php)
         2. [`if` formatting](./example/code/control_flow/if/if_formatting.php)
         3. [`if` alternative syntax](./example/code/control_flow/if/if_alternative_syntax.php)
+        4. [`if`-`else` conditional statement](./example/code/control_flow/if/if_else.php)
+        5. [`if`-`else` formatting](./example/code/control_flow/if/if_else_formatting.php)
+        6. [`if`-`else` alternative syntax](./example/code/control_flow/if/if_else_alternative_syntax.php)
 5. [Functions](./example/code/functions/)
     1. [Functions](./example/code/functions/functions.php)
     2. [Passing arguments](./example/code/functions/passing_arguments.php)

@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Control flow](../control_flow/control_flow.md)
+[▼ Next: `if`-`else` conditional statement](./if_else.md)
 
 # `if` conditional statement
 
@@ -188,3 +189,4 @@ endif;
 [▵ Up](#if-conditional-statement)
 [⌂ Home](../../../README.md)
 [▲ Previous: Control flow](../control_flow/control_flow.md)
+[▼ Next: `if`-`else` conditional statement](./if_else.md)
