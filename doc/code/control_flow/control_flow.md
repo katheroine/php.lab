@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Error control operators](./error_control_operators.md)
+[▼ Next: `if` conditional statement](./if.md)
 
 # Control flow
 
@@ -17,7 +18,7 @@ One way to attack software is to redirect the flow of execution. A variety of co
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Control_flow)
 
-There are two basic types of the control flow constructs: *conditionals* and *loops*.
+There are two basic types of the control flow constructs: *conditional statements* and *loop statements*.
 
 ## Control flow in PHP
 
@@ -28,3 +29,4 @@ Any PHP script is built out of a series of *statements*. A *statement* can be an
 [▵ Up](#control-flow)
 [⌂ Home](../../../README.md)
 [▲ Previous: Error control operators](./error_control_operators.md)
+[▼ Next: `if` conditional statement](./if.md)
