@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Execution operators](./execution_operators.md)
+[▼ Next: Control flow](../control_flow/control_flow.md)
 
 # Error control operators
 
@@ -43,3 +44,4 @@ Prior to PHP 8.0.0, it was possible for the *@ operator* to disable critical err
 [▵ Up](#error-control-operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: Execution operators](./execution_operators.md)
+[▼ Next: Control flow](../control_flow/control_flow.md)

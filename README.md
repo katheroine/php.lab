@@ -33,6 +33,7 @@ Laboratory of PHP.
         11. [Functional operator](./doc/code/operators/functional_operators.md)
         12. [Execution operators](./doc/code/operators/execution_operators.md)
         13. [Error control operators](./doc/code/operators/error_control_operators.md)
+    5. [Control flow](./doc/code/control_flow/control_flow.md)
 
 ### Examples
 
