@@ -95,7 +95,7 @@ Laboratory of PHP.
             1. [Null coalescing operator and conversions](./example/code/operators/null_coalescing_operator_conversions.php)
             2. [Nested null coalescing operator](./example/code/operators/nested_null_coalescing_operator.php)
     6. [Logical operators](./example/code/operators/logical_operators.php)
-    7. [Type operator](./example/code/operators/instanceof_operator.php)
+    7. [Type operator conversions](./example/code/operators/instanceof_operator_conversions.php)
     8. [Nullsafe operator](./example/code/operators/nullsafe_operator.php)
 4. [Functions](./example/code/functions/)
     1. [Functions](./example/code/functions/functions.php)

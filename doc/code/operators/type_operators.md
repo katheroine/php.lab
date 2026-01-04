@@ -8,7 +8,7 @@
 
 -- [PHP Reference](https://www.php.net/manual/en/language.operators.type.php)
 
-*Example: instanceof operator*
+*Example: instanceof operator and conversions*
 
 ```php
 <?php
@@ -55,7 +55,7 @@ print("\$n instanceof stdClass: " . ($is_stdclass ? "true" : "false") . "\n\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/instanceof_operator.php)
+[Example](../../../example/code/operators/instanceof_operator_conversions.php)
 
 **Execute**:
 * [OnlinePHP]()
