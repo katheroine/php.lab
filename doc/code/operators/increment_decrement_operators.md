@@ -1,5 +1,5 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Arithmetic operators](./arithmetic_operators.md)
+[▲ Previous: Comparison operators](./comparison_operators.md)
 [▼ Next: Assignment operators](./assignment_operators.md)
 
 # Increment and decrement operators
@@ -199,5 +199,5 @@ This is because the value `5e0` is interpreted as a `float` and cast to the valu
 
 [▵ Up](#increment-and-decrement-operators)
 [⌂ Home](../../../README.md)
-[▲ Previous: Arithmetic operators](./arithmetic_operators.md)
+[▲ Previous: Comparison operators](./comparison_operators.md)
 [▼ Next: Assignment operators](./assignment_operators.md)

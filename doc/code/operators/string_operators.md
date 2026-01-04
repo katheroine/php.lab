@@ -1,5 +1,5 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Logical operators](./logical_operators.md)
+[▲ Previous: Assignment operators](./assignment_operators.md)
 [▼ Next: Array operators](./array_operators.md)
 
 # String operators
@@ -22,5 +22,5 @@ var_dump($a);
 
 [▵ Up](#string-operators)
 [⌂ Home](../../../README.md)
-[▲ Previous: Logical operators](./logical_operators.md)
+[▲ Previous: Assignment operators](./assignment_operators.md)
 [▼ Next: Array operators](./array_operators.md)
