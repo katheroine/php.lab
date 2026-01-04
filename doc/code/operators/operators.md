@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Expressions](../expressions/expressions.md)
-[▼ Next: Arithmetic operators](../operators/arithmetic_operators.md)
+[▼ Next: Operator precedence](./operator_precedence.md)
 
 # Operators
 
@@ -52,4 +52,4 @@ PHP distinguish the following types of the operators:
 [▵ Up](#operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: Expressions](../expressions/expressions.md)
-[▼ Next: Arithmetic operators](../operators/arithmetic_operators.md)
+[▼ Next: Operator precedence](./operator_precedence.md)
