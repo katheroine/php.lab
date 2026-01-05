@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: `if`-`elseif`-`else` conditional statement](./if_elseif_else.md)
+[▼ Next: `do`-`while` loop statement](./do_while.md)
 
 # `while` loop statement
 
@@ -224,3 +225,5 @@ print("\n");
 
 [▵ Up](#while-loop-statement)
 [⌂ Home](../../../README.md)
+[▲ Previous: `if`-`elseif`-`else` conditional statement](./if_elseif_else.md)
+[▼ Next: `do`-`while` loop statement](./do_while.md)

@@ -38,6 +38,7 @@ Laboratory of PHP.
         2. [`if`-`else` conditional statement](./doc/code/control_flow/if_else.md)
         3. [`if`-`elseif`-`else` conditional statement](./doc/code/control_flow/if_elseif_else.md)
         4. [`while` loop statement](./doc/code/control_flow/while.md)
+        5. [`do`-`while` loop statement](./doc/code/control_flow/do_while.md)
 
 ### Examples
 
@@ -115,6 +116,8 @@ Laboratory of PHP.
     2. [`while` loop statements](./example/code/control_flow/while/)
         1. [`while` loop statement](./example/code/control_flow/while/while.php)
         2. [`while` formatting](./example/code/control_flow/while/while_formatting.php)
+        3. [`do`-`while` loop statement](./example/code/control_flow/while/do_while.php)
+        4. [`do`-`while` formatting](./example/code/control_flow/while/do_while_formatting.php)
 5. [Functions](./example/code/functions/)
     1. [Functions](./example/code/functions/functions.php)
     2. [Passing arguments](./example/code/functions/passing_arguments.php)
