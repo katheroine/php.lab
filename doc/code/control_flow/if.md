@@ -69,6 +69,36 @@ if (2 > 1)
 2 > 1
 ```
 
+## Alternative syntax
+
+The following example shows the shortened form for HTML templates.
+
+```php
+<?php
+
+if (1 > 2):
+  print("1 > 2\n");
+endif;
+
+if (2 > 1):
+  print("2 > 1\n");
+endif;
+
+```
+
+**View**:
+[Example](../../../example/code/control_flow/if/if_formatting.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+2 > 1
+```
+
 ## Formatting
 
 The following example shows the all possible formating of the statement (but not all are compliant with the official PHP formatting standards).
@@ -154,36 +184,6 @@ print("\n");
 
 2 > 1
 
-```
-
-## Alternative syntax
-
-The following example shows the shortened form for HTML templates.
-
-```php
-<?php
-
-if (1 > 2):
-  print("1 > 2\n");
-endif;
-
-if (2 > 1):
-  print("2 > 1\n");
-endif;
-
-```
-
-**View**:
-[Example](../../../example/code/control_flow/if/if_formatting.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-2 > 1
 ```
 
 [▵ Up](#if-conditional-statement)
