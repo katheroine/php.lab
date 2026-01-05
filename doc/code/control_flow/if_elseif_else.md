@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: `if`-`else` conditional statement](./if_else.md)
+[▼ Next: `while` conditional statement](./while.md)
 
 # `if`-`elseif`-`else` multiple conditional statement
 
@@ -147,3 +148,4 @@ endif;
 [▵ Up](#if---elseif---else-conditional-statement)
 [⌂ Home](../../../README.md)
 [▲ Previous: `if`-`else` conditional statement](./if_else.md)
+[▼ Next: `while` conditional statement](./while.md)
