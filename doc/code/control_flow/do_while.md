@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: `while` loop statement](./while.md)
+[▼ Next: `for` loop statement](./for.md)
 
 # `do`-`while` loop statement
 
@@ -9,7 +10,7 @@ PHP 4, PHP 5, PHP 7, PHP 8
 
 ## Usage
 
-*`do`-`while` loops* are very similar to *`while` loops*, except *the truth expression is checked at the end of each iteration* instead of in the beginning. The main difference from regular *`while` loops* is that the first iteration of a *`do`-`while` loop* is guaranteed to run (the truth expression is only checked at the end of the iteration), whereas it may not necessarily run with a regular *`while` loop* (the truth expression is checked at the beginning of each iteration, if it evaluates to false right from the beginning, the loop execution would end immediately).
+**`do`-`while` loops** are very similar to *`while` loops*, except *the truth expression is checked at the end of each iteration* instead of in the beginning. The main difference from regular *`while` loops* is that the first iteration of a *`do`-`while` loop* is guaranteed to run (the truth expression is only checked at the end of the iteration), whereas it may not necessarily run with a regular *`while` loop* (the truth expression is checked at the beginning of each iteration, if it evaluates to false right from the beginning, the loop execution would end immediately).
 
 There is just one syntax for *`do`-`while` loops*:
 
@@ -184,3 +185,4 @@ print "\n";
 [▵ Up](#do---while-loop-statement)
 [⌂ Home](../../../README.md)
 [▲ Previous: `while` loop statement](./while.md)
+[▼ Next: `for` loop statement](./for.md)
