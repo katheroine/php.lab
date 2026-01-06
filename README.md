@@ -45,6 +45,7 @@ Laboratory of PHP.
         9. [`foreach` loop statement](./doc/code/control_flow/foreach.md)
         10. [`break` instruction](./doc/code/control_flow/break.md)
         11. [`continue` instruction](./doc/code/control_flow/continue.md)
+        12. [`goto` instruction](./doc/code/control_flow/goto.md)
 
 ### Examples
 
@@ -138,6 +139,7 @@ Laboratory of PHP.
         3. ['foreach` formatting](./example/code/control_flow/foreach/foreach_formatting.php)
     7. [`break` instruction](./example/code/control_flow/break/break.php)
     8. [`continue` instruction](./example/code/control_flow/continue/continue.php)
+    9. [`goto` instruction](./example/code/control_flow/goto/goto.php)
 5. [Functions](./example/code/functions/)
     1. [Functions](./example/code/functions/functions.php)
     2. [Passing arguments](./example/code/functions/passing_arguments.php)
