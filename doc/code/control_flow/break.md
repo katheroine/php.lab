@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: `for` loop statement](./for.md)
+[▼ Next: `continue` instruction](./continue.md)
 
 # `break` instruction
 
@@ -78,3 +79,5 @@ while ($i < 10)
 
 [▵ Up](#break-instruction)
 [⌂ Home](../../../README.md)
+[▲ Previous: `for` loop statement](./for.md)
+[▼ Next: `continue` instruction](./continue.md)
