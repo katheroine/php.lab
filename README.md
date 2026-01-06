@@ -42,6 +42,7 @@ Laboratory of PHP.
         6. [`while` loop statement](./doc/code/control_flow/while.md)
         7. [`do`-`while` loop statement](./doc/code/control_flow/do_while.md)
         8. [`for` loop statement](./doc/code/control_flow/for.md)
+        9. [`foreach` loop statement](./doc/code/control_flow/foreach.md)
 
 ### Examples
 
@@ -129,6 +130,10 @@ Laboratory of PHP.
         1. [`for` loop statement](./example/code/control_flow/for/for.php)
         2. [`for` alternative syntax](./example/code/control_flow/for/for_alternative_syntax.php)
         3. [`for` formatting](./example/code/control_flow/for/for_formatting.php)
+    6. ['foreach` loop statement](./example/code/control_flow/foreach/)
+        1. ['foreach` loop statement](./example/code/control_flow/foreach/foreach.php)
+        2. ['foreach` alternative syntax](./example/code/control_flow/foreach/foreach_alternative_syntax.php)
+        3. ['foreach` formatting](./example/code/control_flow/foreach/foreach_formatting.php)
 5. [Functions](./example/code/functions/)
     1. [Functions](./example/code/functions/functions.php)
     2. [Passing arguments](./example/code/functions/passing_arguments.php)
