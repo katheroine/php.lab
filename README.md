@@ -46,7 +46,8 @@ Laboratory of PHP.
         10. [`break` instruction](./doc/code/control_flow/break.md)
         11. [`continue` instruction](./doc/code/control_flow/continue.md)
         12. [`goto` instruction](./doc/code/control_flow/goto.md)
-    6. [`null`](./doc/code/null/null.md)
+    6. [Null](./doc/code/null/null.md)
+    7. [Booleans](./doc/code/booleans/booleans.md)
 
 ### Examples
 
@@ -141,7 +142,11 @@ Laboratory of PHP.
     7. [`break` instruction](./example/code/control_flow/break/break.php)
     8. [`continue` instruction](./example/code/control_flow/continue/continue.php)
     9. [`goto` instruction](./example/code/control_flow/goto/goto.php)
-5. [`null`](./example/code/null/null.php)
+5. [Null](./example/code/null/null.php)
+6. [Booleans](./example/code/booleans/bool.php)
+    1. [Boolean definition](./example/code/booleans/bool_definition.php)
+    2. [Boolean notation](./example/code/booleans/bool_notation.php)
+    3. [Boolean automatic conversion](./example/code/booleans/bool_automatic_conversion.php)
 6. [Functions](./example/code/functions/)
     1. [Functions](./example/code/functions/functions.php)
     2. [Passing arguments](./example/code/functions/passing_arguments.php)

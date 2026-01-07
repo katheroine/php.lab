@@ -1,9 +1,10 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: `goto` instruction](../control_flow/goto.md)
+[▼ Next: Booleans](../booleans/booleans.md)
 
-# `null`
+# Null
 
-The `null` type is PHP's *unit type*, i.e. it has only one value: `null`.
+The **`null` type** is PHP's *unit type*, i.e. it has only one value: `null`.
 
 Undefined, and `unset()` variables will resolve to the value `null`.
 
@@ -23,7 +24,7 @@ Warning
 
 This feature has been DEPRECATED as of PHP 7.2.0, and REMOVED as of PHP 8.0.0. Relying on this feature is highly discouraged.
 
-Casting a variable to `null` using (`unset`) `$var` will not remove the variable or unset its value. It will only return a `null` value.
+Casting a variable to `null` using `(unset) $var` will not remove the variable or unset its value. It will only return a `null` value.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.null.php)
 
@@ -60,3 +61,4 @@ NULL
 [▵ Up](#null)
 [⌂ Home](../../../README.md)
 [▲ Previous: `goto` instruction](../control_flow/goto.md)
+[▼ Next: Booleans](../booleans/booleans.md)
