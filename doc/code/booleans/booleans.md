@@ -116,6 +116,8 @@ var_dump($otherAnswer);
 * [OnlinePHP]()
 * [OneCompiler]()
 
+**Result**:
+
 ```
 Some answer: 1
 bool(true)
@@ -164,6 +166,8 @@ echo PHP_EOL;
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
+
+**Result**:
 
 ```
 $a = true; // 1 (boolean)
@@ -285,6 +289,8 @@ print PHP_EOL;
 * [OnlinePHP]()
 * [OneCompiler]()
 
+**Result**:
+
 ```
 $i = 0; // (integer)
 casted to false
@@ -328,3 +334,4 @@ casted to true
 [▵ Up](#booleans)
 [⌂ Home](../../../README.md)
 [▲ Previous: Null](../null/null.md)
+[▼ Next: Integers](../integers/integers.md)

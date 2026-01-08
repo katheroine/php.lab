@@ -51,6 +51,8 @@ var_dump($otherNothing);
 * [OnlinePHP]()
 * [OneCompiler]()
 
+**Result**:
+
 ```
 Some nothing:
 NULL

@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Booleans](../booleans/booleans.md)
+[▼ Next: Floating point](../floating_point/floating_point.md)
 
 # Integers
 
@@ -165,6 +166,8 @@ var_dump($otherNumber);
 * [OnlinePHP]()
 * [OneCompiler]()
 
+**Result**:
+
 ```
 Some number: 3
 int(3)
@@ -234,6 +237,8 @@ print(PHP_EOL);
 * [OnlinePHP]()
 * [OneCompiler]()
 
+**Result**:
+
 ```
 is_int(0): 1
 is_int(1): 1
@@ -292,11 +297,13 @@ print "The size of an integer in bytes: PHP_INT_SIZE = " . PHP_INT_SIZE . " (" .
 ```
 
 **View**:
-[Example](../../../example/code/integers/checking_if_is_integer.php)
+[Example](../../../example/code/integers/integer_value_limits.php)
 
 **Execute**:
 * [OnlinePHP]()
 * [OneCompiler]()
+
+**Result**:
 
 ```
 The largest integer supported: PHP_INT_MAX = 9223372036854775807 (integer)
@@ -330,6 +337,8 @@ print "0xf / 0Xf / 0xF / 0XF : " . 0xf . " / " . 0Xf . " / " . 0xF . " / " . 0XF
 * [OnlinePHP]()
 * [OneCompiler]()
 
+**Result**:
+
 ```
 15: 15
 017: 15
@@ -339,3 +348,4 @@ print "0xf / 0Xf / 0xF / 0XF : " . 0xf . " / " . 0Xf . " / " . 0xF . " / " . 0XF
 [▵ Up](#integers)
 [⌂ Home](../../../README.md)
 [▲ Previous: Booleans](../booleans/booleans.md)
+[▼ Next: Floating point](../floating_point/floating_point.md)
