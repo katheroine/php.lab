@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Null](../null/null.md)
+[▼ Next: Integers](../integers/integers.md)
 
 # Booleans
 
