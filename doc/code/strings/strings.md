@@ -866,6 +866,328 @@ $foo = "10.0 pigs " + 1.0;        // $foo is float (11) and an E_WARNING is rais
 
 -- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
 
+## Examples
+
+*Example: Basic `string` example*
+
+```php
+<?php
+
+$someText = 'Hi, there!';
+$otherText = "Hello.";
+
+print("Some text: {$someText}\n");
+var_dump($someText);
+
+print("Other text: {$otherText}\n");
+var_dump($otherText);
+
+```
+
+**View**:
+[Example](../../../example/code/strings/strings.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Some text: Hi, there!
+string(10) "Hi, there!"
+Other text: Hello.
+string(6) "Hello."
+```
+
+*Example: String definition*
+
+```php
+<?php
+
+$s = "hello";
+print("string \"hello\": {$s} (" . gettype($s) . ")\n");
+
+$s = 'hello';
+print("string 'hello': {$s} (" . gettype($s) . ")\n");
+
+$s = <<<EOS
+  Videmus nunc
+  per speculum
+  et in aenigmate.
+EOS;
+
+print "string from heredoc:\n{$s}\n\n";
+
+```
+
+**View**:
+[Example](../../../example/code/strings/string_definition.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+string "hello": hello (string)
+string 'hello': hello (string)
+string from heredoc:
+  Videmus nunc
+  per speculum
+  et in aenigmate.
+
+```
+
+*Example: String notation*
+
+```php
+<?php
+
+print("\"hello\": " . "hello" . "\n");
+print("'hello': " . 'hello' . "\n");
+
+```
+
+**View**:
+[Example](../../../example/code/strings/string_notation.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+"hello": hello
+'hello': hello
+```
+
+*Example: String interpolation*
+
+```php
+<?php
+
+$i = 1; $f = 2.3; $s = "apple";
+
+// Wanrning!
+// Placing interpolated variables inside strings without {} is not recommended.
+// Quoted keys cannot be parsed.
+
+echo "\$i = $i, \$f = {$f}, \$s = ${s}\n\n";
+
+$a = [
+  "orange",
+  "blue",
+  "green",
+];
+
+echo "\$a[0] = $a[0], \$a[1] = {$a[1]}, \$a[2] = ${a[2]}\n\n";
+
+$g = [
+  'text_0' => "Stat rosa pristina nomine, nomina nuda tenemus.",
+  'text_1' => "Omnis mundi creatura quasi liber et pictura nobis est in speculum.",
+  'text_2' => "Videmus nunc per speculum et in aenigmate.",
+];
+
+// Warning!
+// Using associative array keys without quotes is not recommended.
+// This syntax is proper but for defined constants.
+// But if it is used inside the interpolated string without {} it is proper.
+
+echo "\$g['text_0']: $g[text_0]\n";
+echo "\$g['text_1']: {$g['text_1']}\n";
+echo "\$g['text_2']: ${g['text_2']}\n\n";
+
+$o = new class {
+  public string $nickname = "katheroine";
+  public string $profession = "programmer";
+  public string $os = "Linux";
+};
+
+echo "\$o->nickname: $o->nickname\n";
+echo "\$o->profession: {$o->profession}\n";
+//echo "\$o->os: ${o->os}\n"; // error
+echo "\n";
+
+```
+
+**View**:
+[Example](../../../example/code/strings/string_interpolation.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+$i = 1, $f = 2.3, $s = apple
+
+$a[0] = orange, $a[1] = blue, $a[2] = green
+
+$g['text_0']: Stat rosa pristina nomine, nomina nuda tenemus.
+$g['text_1']: Omnis mundi creatura quasi liber et pictura nobis est in speculum.
+$g['text_2']: Videmus nunc per speculum et in aenigmate.
+
+$o->nickname: katheroine
+$o->profession: programmer
+
+```
+
+*Example: String float interpolation*
+
+```php
+<?php
+
+$f = 235.846279302548003;
+
+print "\$f = ${f}\n";
+print "\$f = " . sprintf("%.3f", $f) . "\n";
+print "\$f = " . sprintf("%7.2f", $f) . "\n";
+print "\$f = " . sprintf("%08.1f", $f) . "\n";
+
+```
+
+**View**:
+[Example](../../../example/code/strings/string_float_interpolation.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+$f = 235.84627930255
+$f = 235.846
+$f =  235.85
+$f = 000235.8
+```
+
+*Example: String length and word count*
+
+```php
+<?php
+
+$word = "hello";
+print("word = " . $word . "\n");
+print("length: " . strlen($word) . "\n\n");
+
+$cite = "Stat rosa pristina nomine, nomina nuda tenemus.";
+print("cite = " . $cite . "\n");
+print("length: " . strlen($cite) . "\n");
+print("words quantity: " . str_word_count($cite) . "\n\n");
+
+```
+
+**View**:
+[Example](../../../example/code/strings/string_length_and_word_count.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+word = hello
+length: 5
+
+cite = Stat rosa pristina nomine, nomina nuda tenemus.
+length: 47
+words quantity: 7
+
+```
+
+*Example: String cases*
+
+```php
+<?php
+
+$cite = "Stat rosa pristina nomine, nomina nuda tenemus.";
+print("cite = {$cite}\n\n");
+
+$upper_case_cite = strtoupper($cite);
+print("upper case: {$upper_case_cite}\n");
+
+$lower_case_cite = strtolower($cite);
+print("lower case: {$lower_case_cite}\n");
+
+```
+
+**View**:
+[Example](../../../example/code/strings/string_cases.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+cite = Stat rosa pristina nomine, nomina nuda tenemus.
+
+upper case: STAT ROSA PRISTINA NOMINE, NOMINA NUDA TENEMUS.
+lower case: stat rosa pristina nomine, nomina nuda tenemus.
+```
+
+*Example: String concatenation*
+
+```php
+<?php
+
+$s1 = "abc";
+$s2 = "def";
+$s3 = $s1 . $s2;
+print("$s1 . $s2 = $s3\n");
+
+```
+
+**View**:
+[Example](../../../example/code/strings/string_concatenation.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+abc . def = abcdef
+```
+
+*Example: String trimming*
+
+```php
+<?php
+
+$sententia = "   Sapere aude.   ";
+print("sententia = <{$sententia}>\n\n");
+
+$trimmed_sententia = trim($sententia);
+
+print("trimmed sententia = <{$trimmed_sententia}>\n\n");
+
+```
+
+**View**:
+[Example](../../../example/code/strings/string_trimming.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+sententia = <   Sapere aude.   >
+
+trimmed sententia = <Sapere aude.>
+
+```
+
 [▵ Up](#strings)
 [⌂ Home](../../../README.md)
 [▲ Previous: Floating point](../floating_point/floating_point.md)
