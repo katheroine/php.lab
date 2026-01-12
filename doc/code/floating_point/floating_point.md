@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Integers](../integers/integers.md)
+[▼ Next: String](../strings/strings.md)
 
 # Floating point
 
@@ -340,3 +341,4 @@ type of 1.5e-3: double
 [▵ Up](#floating-point)
 [⌂ Home](../../../README.md)
 [▲ Previous: Integers](../integers/integers.md)
+[▼ Next: String](../strings/strings.md)
