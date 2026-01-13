@@ -885,7 +885,7 @@ var_dump($otherText);
 ```
 
 **View**:
-[Example](../../../example/code/strings/strings.php)
+[Example](../../../example/code/strings/string.php)
 
 **Execute**:
 * [OnlinePHP]()

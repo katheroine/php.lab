@@ -162,7 +162,7 @@ Laboratory of PHP.
         3. [Floating point and infinity](./example/code/floating_point/infinity.php)
         4. [Floating point becoming not a number](./example/code/floating_point/not_a_number.php)
         5. [Example: Floating point exponential notation](./example/code/floating_point/floating_point_exponential_notation.php)
-    9. [Strings](./example/code/strings/strings.php)
+    9. [Strings](./example/code/strings/string.php)
         1. [String definition](./example/code/strings/string_definition.php)
         2. [String notation](./example/code/strings/string_notation.php)
         3. [String interpolation](./example/code/strings/string_interpolation.php)
