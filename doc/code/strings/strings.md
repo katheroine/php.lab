@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Floating point](../floating_point/floating_point.md)
+[▼ Next: Arrays](../arrays/arrays.md)
 
 # Strings
 
@@ -1191,3 +1192,4 @@ trimmed sententia = <Sapere aude.>
 [▵ Up](#strings)
 [⌂ Home](../../../README.md)
 [▲ Previous: Floating point](../floating_point/floating_point.md)
+[▼ Next: Arrays](../arrays/arrays.md)

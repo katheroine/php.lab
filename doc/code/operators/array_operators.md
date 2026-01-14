@@ -86,6 +86,8 @@ var_dump($a === $b); // bool(false)
 
 -- [PHP Reference](https://www.php.net/manual/en/language.operators.array.php)
 
+[The spread operator is missing here. -- KK]
+
 [▵ Up](#array-operators)
 [⌂ Home](../../../README.md)
 [▲ Previous: String operators](./string_operators.md)
