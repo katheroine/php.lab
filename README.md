@@ -50,6 +50,7 @@ Laboratory of PHP.
     7. [Booleans](./doc/code/booleans/booleans.md)
     8. [Integers](./doc/code/integers/integers.md)
     9. [Strings](./doc/code/strings/strings.md)
+    10. [Arrays](./doc/code/arrays/arrays.md)
 
 ### Examples
 
