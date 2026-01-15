@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Strings](../strings/strings.md)
+[▼ Next: Objects](../objects/objects.md)
 
 # Arrays
 
@@ -2788,3 +2789,4 @@ AFTER: $result_values = [ 18 16 14 ]
 [▵ Up](#arrays)
 [⌂ Home](../../../README.md)
 [▲ Previous: Strings](../strings/strings.md)
+[▼ Next: Objects](../objects/objects.md)

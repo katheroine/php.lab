@@ -51,6 +51,7 @@ Laboratory of PHP.
     8. [Integers](./doc/code/integers/integers.md)
     9. [Strings](./doc/code/strings/strings.md)
     10. [Arrays](./doc/code/arrays/arrays.md)
+    11. [Objects](./doc/code/objects/objects.md)
 
 ### Examples
 
