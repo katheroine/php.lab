@@ -198,6 +198,336 @@ Manually defining a `from()` or `tryFrom()` method on a Backed Enum will result 
 
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.backed.php)
 
+## Enumeration methods
+
+*Enums* (both *pure enums* and *backed enums*) may contain *methods*, and may *implement* *interfaces*. If an *enum* *implements* an *interface*, then any *type check* for that *interface* will also accept all *cases* of that *enum*.
+
+```php
+<?php
+
+interface Colorful
+{
+    public function color(): string;
+}
+
+enum Suit implements Colorful
+{
+    case Hearts;
+    case Diamonds;
+    case Clubs;
+    case Spades;
+
+    // Fulfills the interface contract.
+    public function color(): string
+    {
+        return match($this) {
+            Suit::Hearts, Suit::Diamonds => 'Red',
+            Suit::Clubs, Suit::Spades => 'Black',
+        };
+    }
+
+    // Not part of an interface; that's fine.
+    public function shape(): string
+    {
+        return "Rectangle";
+    }
+}
+
+function paint(Colorful $c)
+{
+   /* ... */
+}
+
+paint(Suit::Clubs);  // Works
+
+print Suit::Diamonds->shape(); // prints "Rectangle"
+?>
+```
+
+In this example, all four *instances* of `Suit` have two *methods*, `color()` and `shape()`. As far as calling code and *type checks* are concerned, they behave exactly the same as any other *object instance*.
+
+On a *backed enum*, the *interface* declaration goes after the *backing type declaration*.
+
+```php
+<?php
+
+interface Colorful
+{
+    public function color(): string;
+}
+
+enum Suit: string implements Colorful
+{
+    case Hearts = 'H';
+    case Diamonds = 'D';
+    case Clubs = 'C';
+    case Spades = 'S';
+
+    // Fulfills the interface contract.
+    public function color(): string
+    {
+        return match($this) {
+            Suit::Hearts, Suit::Diamonds => 'Red',
+            Suit::Clubs, Suit::Spades => 'Black',
+        };
+    }
+}
+?>
+```
+
+Inside a *method*, the `$this` *variable* is *defined* and refers to the *case instance*.
+
+*Methods* may be arbitrarily complex, but in practice will usually return a *static value* or *match* on `$this` to provide different results for different *cases*.
+
+Note that in this case it would be a better data modeling practice to also define a `SuitColor` *enum type* with values `Red` and `Black` and return that instead. However, that would complicate this example.
+
+The above hierarchy is logically similar to the following *class* structure (although this is not the actual code that runs):
+
+```php
+<?php
+
+interface Colorful
+{
+    public function color(): string;
+}
+
+final class Suit implements UnitEnum, Colorful
+{
+    public const Hearts = new self('Hearts');
+    public const Diamonds = new self('Diamonds');
+    public const Clubs = new self('Clubs');
+    public const Spades = new self('Spades');
+
+    private function __construct(public readonly string $name) {}
+
+    public function color(): string
+    {
+        return match($this) {
+            Suit::Hearts, Suit::Diamonds => 'Red',
+            Suit::Clubs, Suit::Spades => 'Black',
+        };
+    }
+
+    public function shape(): string
+    {
+        return "Rectangle";
+    }
+
+    public static function cases(): array
+    {
+        // Illegal method, because manually defining a cases() method on an Enum is disallowed.
+        // See also "Value listing" section.
+    }
+}
+?>
+```
+
+Methods may be *public*, *private*, or *protected*, although in practice *private* and *protected* are equivalent as *inheritance* is not allowed.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.methods.php)
+
+## Enumeration static methods
+
+*Enumerations* may also have *static methods*. The use for *static methods* on the *enumeration* itself is primarily for *alternative constructors*. E.g.:
+
+```php
+<?php
+
+enum Size
+{
+    case Small;
+    case Medium;
+    case Large;
+
+    public static function fromLength(int $cm): self
+    {
+        return match(true) {
+            $cm < 50 => self::Small,
+            $cm < 100 => self::Medium,
+            default => self::Large,
+        };
+    }
+}
+?>
+```
+
+*Static methods* may be *public*, *private*, or *protected*, although in practice *private* and *protected* are equivalent as *inheritance* is not allowed.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.static-methods.php)
+
+## Enumeration constants
+
+*Enumerations* may include *constants*, which may be *public*, *private*, or *protected*, although in practice *private* and *protected* are equivalent as *inheritance* is not allowed.
+
+An *enum constant* may refer to an *enum case*:
+
+```php
+<?php
+
+enum Size
+{
+    case Small;
+    case Medium;
+    case Large;
+
+    public const Huge = self::Large;
+}
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.constants.php)
+
+## Traits
+
+*Enumerations* may leverage *traits*, which will behave the same as on *classes*. The caveat is that *traits* used in an *enum* must not contain *properties*. They may only include *methods*, *static methods*, and *constants*. A *trait* with *properties* will result in a fatal error.
+
+```php
+<?php
+
+interface Colorful
+{
+    public function color(): string;
+}
+
+trait Rectangle
+{
+    public function shape(): string {
+        return "Rectangle";
+    }
+}
+
+enum Suit implements Colorful
+{
+    use Rectangle;
+
+    case Hearts;
+    case Diamonds;
+    case Clubs;
+    case Spades;
+
+    public function color(): string
+    {
+        return match($this) {
+            Suit::Hearts, Suit::Diamonds => 'Red',
+            Suit::Clubs, Suit::Spades => 'Black',
+        };
+    }
+}
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.traits.php)
+
+## Enum values in constant expressions
+
+Because *cases* are represented as *constants* on the *enum* itself, they may be used as *static values* in most *constant expressions*: *property defaults*, *static variable defaults*, *parameter defaults*, *global* and *class constant values*. They may not be used in other *enum case values*, but normal *constants* may refer to an *enum case*.
+
+However, implicit *magic method calls* such as `ArrayAccess` on *enums* are not allowed in *static* or *constant definitions* as we cannot absolutely guarantee that the resulting value is *deterministic* or that the *method invocation* is free of side effects. *Function calls*, *method calls*, and *property access* continue to be invalid operations in *constant expressions*.
+
+```php
+<?php
+
+// This is an entirely legal Enum definition.
+enum Direction implements ArrayAccess
+{
+    case Up;
+    case Down;
+
+    public function offsetExists($offset): bool
+    {
+        return false;
+    }
+
+    public function offsetGet($offset): mixed
+    {
+        return null;
+    }
+
+    public function offsetSet($offset, $value): void
+    {
+        throw new Exception();
+    }
+
+    public function offsetUnset($offset): void
+    {
+        throw new Exception();
+    }
+}
+
+class Foo
+{
+    // This is allowed.
+    const DOWN = Direction::Down;
+
+    // This is disallowed, as it may not be deterministic.
+    const UP = Direction::Up['short'];
+    // Fatal error: Cannot use [] on enums in constant expression
+}
+
+// This is entirely legal, because it's not a constant expression.
+$x = Direction::Up['short'];
+var_dump("\$x is " . var_export($x, true));
+
+$foo = new Foo();
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.expressions.php)
+
+## Differences from objects
+
+Although *enums* are built on *classes* and *objects*, they do not support all object-related functionality. In particular, *enum cases* are forbidden from having *state*.
+
+* *Constructors* and *destructors* are forbidden.
+* *Inheritance* is not supported. *Enums* may not *extend* or be *extended*.
+* *Static* or *object properties* are not allowed.
+* *Cloning* an *enum case* is not supported, as *cases* must be *singleton instances*.
+* *Magic methods*, except for those listed below, are disallowed.
+* *Enums* must always be declared before they are used.
+
+The following *object* functionality is available, and behaves just as it does on any other *object*:
+
+* *Public*, *private*, and *protected methods*.
+* *Public*, *private*, and *protected static methods*.
+* *Public*, *private*, and *protected constants*.
+* *Enums* may *implement* any number of *interfaces*.
+* *Enums* and *cases* may have *attributes* attached to them. The `TARGET_CLASS` target filter includes *enums* themselves. The *TARGET_CLASS_CONST* target filter includes *enum cases*.
+* `__call`, `__callStatic`, and `__invoke` *magic methods*.
+* `__CLASS__` and `__FUNCTION__` *constants* behave as normal.
+
+The `::class` *magic constant* on an *enum type* evaluates to the *type* name including any *namespace*, exactly the same as an *object*. The `::class` *magic constant* on a `case` instance also evaluates to the *enum type*, as it is an *instance* of that *type*.
+
+Additionally, *enum cases* may not be *instantiated* directly with `new`, nor with `ReflectionClass::newInstanceWithoutConstructor()` in *reflection*. Both will result in an error.
+
+```php
+<?php
+
+$clovers = new Suit();
+// Error: Cannot instantiate enum Suit
+
+$horseshoes = (new ReflectionClass(Suit::class))->newInstanceWithoutConstructor()
+// Error: Cannot instantiate enum Suit
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.object-differences.php)
+
+## Value listing
+
+Both *pure enums* and *backed enums* implement an *internal interface* named `UnitEnum`. `UnitEnum` includes a *static method* `cases()`. `cases()` returns a *packed array* of all defined *cases* in the order of *declaration*.
+
+```php
+<?php
+
+Suit::cases();
+// Produces: [Suit::Hearts, Suit::Diamonds, Suit::Clubs, Suit::Spades]
+?>
+```
+
+Manually defining a `cases()` method on an *enum* will result in a fatal error.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.listing.php)
+
 ## Serialization
 
 *Enumerations* are *serialized* differently from *objects*. Specifically, they have a new *serialization code*, `"E"`, that specifies the name of the *enum case*. The *deserialization* routine is then able to use that to set a *variable* to the existing *singleton value*. That ensures that:
@@ -378,6 +708,116 @@ foreach (UserStatus::cases() as $case) {
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.examples.php)
+
+## Examples
+
+*Example: Basic usage*
+
+```php
+<?php
+
+enum status
+{
+  case draft;
+  case pending;
+  case published;
+  case soft_deleted;
+  case restored;
+  case deleted;
+  case testing;
+  case revising;
+  case accepted;
+}
+
+print("status draft: ");
+print_r(status::draft);
+print("status pending: ");
+print_r(status::pending);
+print("status published: ");
+print_r(status::published);
+print("status soft_deleted: ");
+print_r(status::soft_deleted);
+print("status restored: ");
+print_r(status::restored);
+print("status deleted: ");
+print_r(status::deleted);
+print("status testing: ");
+print_r(status::testing);
+print("status revising: ");
+print_r(status::revising);
+print("status accepted: ");
+print_r(status::accepted);
+
+print("\n");
+
+$post_status = status::published;
+print("post_status: ");
+print_r($post_status);
+$post_status = status::testing;
+print("post_status: ");
+print_r($post_status);
+
+print("\n");
+
+```
+
+**View**:
+[Example](../../../example/code/enums/enum.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+status draft: status Enum
+(
+    [name] => draft
+)
+status pending: status Enum
+(
+    [name] => pending
+)
+status published: status Enum
+(
+    [name] => published
+)
+status soft_deleted: status Enum
+(
+    [name] => soft_deleted
+)
+status restored: status Enum
+(
+    [name] => restored
+)
+status deleted: status Enum
+(
+    [name] => deleted
+)
+status testing: status Enum
+(
+    [name] => testing
+)
+status revising: status Enum
+(
+    [name] => revising
+)
+status accepted: status Enum
+(
+    [name] => accepted
+)
+
+post_status: status Enum
+(
+    [name] => published
+)
+post_status: status Enum
+(
+    [name] => testing
+)
+
+```
 
 [▵ Up](#enumerations)
 [⌂ Home](../../../README.md)
