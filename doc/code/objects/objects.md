@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Arrays](../arrays/arrays.md)
+[▼ Next: Enumerations](../enumerations/enumerations.md)
 
 # Objects
 
@@ -56,3 +57,4 @@ echo $obj->scalar;  // outputs 'ciao'
 [▵ Up](#objects)
 [⌂ Home](../../../README.md)
 [▲ Previous: Arrays](../arrays/arrays.md)
+[▼ Next: Enumerations](../enumerations/enumerations.md)
