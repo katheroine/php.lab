@@ -1,4 +1,4 @@
-[⌂ Home](../../../README.md)
+[⌂ Home](../../../../../README.md)
 [▲ Previous: Arrays](../arrays/arrays.md)
 [▼ Next: Enumerations](../enumerations/enumerations.md)
 
@@ -55,6 +55,6 @@ echo $obj->scalar;  // outputs 'ciao'
 -- [PHP Reference](https://www.php.net/manual/en/language.types.object.php)
 
 [▵ Up](#objects)
-[⌂ Home](../../../README.md)
+[⌂ Home](../../../../../README.md)
 [▲ Previous: Arrays](../arrays/arrays.md)
 [▼ Next: Enumerations](../enumerations/enumerations.md)

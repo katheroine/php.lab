@@ -1,6 +1,6 @@
-[⌂ Home](../../../README.md)
+[⌂ Home](../../../../../README.md)
 [▲ Previous: Floating point](../floating_point/floating_point.md)
-[▼ Next: Arrays](../arrays/arrays.md)
+[▼ Next: Arrays](../../compound/arrays/arrays.md)
 
 # Strings
 
@@ -886,7 +886,7 @@ var_dump($otherText);
 ```
 
 **View**:
-[Example](../../../example/code/strings/string.php)
+[Example](../../../../../example/code/builtin_types/scalar/strings/string.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -923,7 +923,7 @@ print "string from heredoc:\n{$s}\n\n";
 ```
 
 **View**:
-[Example](../../../example/code/strings/string_definition.php)
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_definition.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -952,7 +952,7 @@ print("'hello': " . 'hello' . "\n");
 ```
 
 **View**:
-[Example](../../../example/code/strings/string_notation.php)
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_notation.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1015,7 +1015,7 @@ echo "\n";
 ```
 
 **View**:
-[Example](../../../example/code/strings/string_interpolation.php)
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_interpolation.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1052,7 +1052,7 @@ print "\$f = " . sprintf("%08.1f", $f) . "\n";
 ```
 
 **View**:
-[Example](../../../example/code/strings/string_float_interpolation.php)
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_float_interpolation.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1084,7 +1084,7 @@ print("words quantity: " . str_word_count($cite) . "\n\n");
 ```
 
 **View**:
-[Example](../../../example/code/strings/string_length_and_word_count.php)
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_length_and_word_count.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1119,7 +1119,7 @@ print("lower case: {$lower_case_cite}\n");
 ```
 
 **View**:
-[Example](../../../example/code/strings/string_cases.php)
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_cases.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1147,7 +1147,7 @@ print("$s1 . $s2 = $s3\n");
 ```
 
 **View**:
-[Example](../../../example/code/strings/string_concatenation.php)
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_concatenation.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1174,7 +1174,7 @@ print("trimmed sententia = <{$trimmed_sententia}>\n\n");
 ```
 
 **View**:
-[Example](../../../example/code/strings/string_trimming.php)
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_trimming.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1190,6 +1190,6 @@ trimmed sententia = <Sapere aude.>
 ```
 
 [▵ Up](#strings)
-[⌂ Home](../../../README.md)
+[⌂ Home](../../../../../README.md)
 [▲ Previous: Floating point](../floating_point/floating_point.md)
-[▼ Next: Arrays](../arrays/arrays.md)
+[▼ Next: Arrays](../../compound/arrays/arrays.md)

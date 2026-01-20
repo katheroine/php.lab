@@ -1,5 +1,5 @@
-[⌂ Home](../../../README.md)
-[▲ Previous: Strings](../strings/strings.md)
+[⌂ Home](../../../../../README.md)
+[▲ Previous: Strings](../../scalar/strings/strings.md)
 [▼ Next: Objects](../objects/objects.md)
 
 # Arrays
@@ -1188,7 +1188,7 @@ var_dump($words); print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/array.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/array.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1360,7 +1360,7 @@ print_r($array_8); print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/array_definition_and_initialisation.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_definition_and_initialisation.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1471,7 +1471,7 @@ print_r($array); print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/array_assignment_and_overwriting.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_assignment_and_overwriting.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1580,7 +1580,7 @@ print("\$items[3.14]: {$items[3.14]}\n\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/array_elements_access.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_elements_access.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1645,7 +1645,7 @@ print("Length of values: {$size} (the same: {$count})\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/array_size.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_size.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1680,7 +1680,7 @@ print("Length of values: {$size} (the same: {$count})\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/array_size.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_size.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1741,7 +1741,7 @@ print("Flat number: $flat_no\n\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/nested_arrays_php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/nested_arrays_php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1842,7 +1842,7 @@ var_dump($items); print("\n\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/array_element_examples.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_element_examples.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1959,7 +1959,7 @@ print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/array_key_type_casting_and_overwriting.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_key_type_casting_and_overwriting.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -2081,7 +2081,7 @@ print("Third property: $species\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/array_dereferencing.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_dereferencing.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -2166,7 +2166,7 @@ print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/array_merging.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_merging.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -2268,7 +2268,7 @@ print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/iterating_over_array_and_reading_elements.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/iterating_over_array_and_reading_elements.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -2438,7 +2438,7 @@ print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/iterating_over_array_and_updating_elements.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/iterating_over_array_and_updating_elements.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -2668,7 +2668,7 @@ print("next(\$array): $element(" . gettype($element) . ")\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/array_internal_pointer.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_internal_pointer.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -2760,7 +2760,7 @@ print("]\n");
 ```
 
 **View**:
-[Example](../../../example/code/arrays/passing_array_to_function.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/passing_array_to_function.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -2787,6 +2787,6 @@ AFTER: $result_values = [ 18 16 14 ]
 ```
 
 [▵ Up](#arrays)
-[⌂ Home](../../../README.md)
-[▲ Previous: Strings](../strings/strings.md)
+[⌂ Home](../../../../../README.md)
+[▲ Previous: Strings](../../scalar/strings/strings.md)
 [▼ Next: Objects](../objects/objects.md)

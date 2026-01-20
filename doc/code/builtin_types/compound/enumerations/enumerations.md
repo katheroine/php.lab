@@ -762,7 +762,7 @@ print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/enums/enum.php)
+[Example](../../../../../example/code/builtin_types/compound/enums/enum.php)
 
 **Execute**:
 * [OnlinePHP]()

@@ -1,4 +1,4 @@
-[⌂ Home](../../../README.md)
+[⌂ Home](../../../../../README.md)
 [▲ Previous: Booleans](../booleans/booleans.md)
 [▼ Next: Floating point](../floating_point/floating_point.md)
 
@@ -160,7 +160,7 @@ var_dump($otherNumber);
 ```
 
 **View**:
-[Example](../../../example/code/integers/integer.php)
+[Example](../../../../../example/code/builtin_types/scalar/integers/integer.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -231,7 +231,7 @@ print(PHP_EOL);
 ```
 
 **View**:
-[Example](../../../example/code/integers/checking_if_is_integer.php)
+[Example](../../../../../example/code/builtin_types/scalar/integers/checking_if_is_integer.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -297,7 +297,7 @@ print "The size of an integer in bytes: PHP_INT_SIZE = " . PHP_INT_SIZE . " (" .
 ```
 
 **View**:
-[Example](../../../example/code/integers/integer_value_limits.php)
+[Example](../../../../../example/code/builtin_types/scalar/integers/integer_value_limits.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -331,7 +331,7 @@ print "0xf / 0Xf / 0xF / 0XF : " . 0xf . " / " . 0Xf . " / " . 0xF . " / " . 0XF
 ```
 
 **View**:
-[Example](../../../example/code/integers/integer_oct_dec_hex_notations.php)
+[Example](../../../../../example/code/builtin_types/scalar/integers/integer_oct_dec_hex_notations.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -346,6 +346,6 @@ print "0xf / 0Xf / 0xF / 0XF : " . 0xf . " / " . 0Xf . " / " . 0xF . " / " . 0XF
 ```
 
 [▵ Up](#integers)
-[⌂ Home](../../../README.md)
+[⌂ Home](../../../../../README.md)
 [▲ Previous: Booleans](../booleans/booleans.md)
 [▼ Next: Floating point](../floating_point/floating_point.md)

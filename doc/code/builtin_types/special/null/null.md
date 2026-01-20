@@ -1,6 +1,6 @@
-[⌂ Home](../../../README.md)
-[▲ Previous: `goto` instruction](../control_flow/goto.md)
-[▼ Next: Booleans](../booleans/booleans.md)
+[⌂ Home](../../../../../README.md)
+[▲ Previous: `goto` instruction](../../../control_flow/goto.md)
+[▼ Next: Booleans](../../scalar/booleans/booleans.md)
 
 # Null
 
@@ -45,7 +45,7 @@ var_dump($otherNothing);
 ```
 
 **View**:
-[Example](../../../example/code/null/null.php)
+[Example](../../../../../example/code/builtin_types/special/null/null.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -61,6 +61,6 @@ NULL
 ```
 
 [▵ Up](#null)
-[⌂ Home](../../../README.md)
-[▲ Previous: `goto` instruction](../control_flow/goto.md)
-[▼ Next: Booleans](../booleans/booleans.md)
+[⌂ Home](../../../../../README.md)
+[▲ Previous: `goto` instruction](../../../control_flow/goto.md)
+[▼ Next: Booleans](../../scalar/booleans/booleans.md)

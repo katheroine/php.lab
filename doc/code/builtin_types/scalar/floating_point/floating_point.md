@@ -1,4 +1,4 @@
-[⌂ Home](../../../README.md)
+[⌂ Home](../../../../../README.md)
 [▲ Previous: Integers](../integers/integers.md)
 [▼ Next: Strings](../strings/strings.md)
 
@@ -98,7 +98,7 @@ var_dump($otherValue);
 ```
 
 **View**:
-[Example](../../../example/code/floating_point/float.php)
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/float.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -153,7 +153,7 @@ print(PHP_EOL);
 ```
 
 **View**:
-[Example](../../../example/code/floating_point/checking_if_is_floating_point.php)
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/checking_if_is_floating_point.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -207,7 +207,7 @@ print "The smallest representable positive number x, so that x + 1.0 != 1.0: PHP
 ```
 
 **View**:
-[Example](../../../example/code/floating_point/floating_point_value_limits.php)
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/floating_point_value_limits.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -250,7 +250,7 @@ print PHP_EOL;
 ```
 
 **View**:
-[Example](../../../example/code/floating_point/infinity.php)
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/infinity.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -284,7 +284,7 @@ print PHP_EOL;
 ```
 
 **View**:
-[Example](../../../example/code/floating_point/not_a_number.php)
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/not_a_number.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -317,7 +317,7 @@ print "type of 1.5e-3: " . gettype(1.5e-3) . "\n\n";
 ```
 
 **View**:
-[Example](../../../example/code/floating_point/floating_point_exponential_notation.php)
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/floating_point_exponential_notation.php)
 
 **Execute**:
 * [OnlinePHP]()

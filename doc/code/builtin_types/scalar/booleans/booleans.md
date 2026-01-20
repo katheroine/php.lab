@@ -1,5 +1,5 @@
-[⌂ Home](../../../README.md)
-[▲ Previous: Null](../null/null.md)
+[⌂ Home](../../../../../README.md)
+[▲ Previous: Null](../../special/null/null.md)
 [▼ Next: Integers](../integers/integers.md)
 
 # Booleans
@@ -110,7 +110,7 @@ var_dump($otherAnswer);
 ```
 
 **View**:
-[Example](../../../example/code/booleans/bool.php)
+[Example](../../../../../example/code/builtin_types/scalar/booleans/bool.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -161,7 +161,7 @@ echo PHP_EOL;
 ```
 
 **View**:
-[Example](../../../example/code/booleans/bool_definition.php)
+[Example](../../../../../example/code/builtin_types/scalar/booleans/bool_definition.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -283,7 +283,7 @@ print PHP_EOL;
 ```
 
 **View**:
-[Example](../../../example/code/booleans/bool_automatic_conversion.php)
+[Example](../../../../../example/code/builtin_types/scalar/booleans/bool_automatic_conversion.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -332,6 +332,6 @@ casted to true
 ```
 
 [▵ Up](#booleans)
-[⌂ Home](../../../README.md)
-[▲ Previous: Null](../null/null.md)
+[⌂ Home](../../../../../README.md)
+[▲ Previous: Null](../../special/null/null.md)
 [▼ Next: Integers](../integers/integers.md)
