@@ -219,7 +219,7 @@ object(Test)#1 (0) {
 
 When declared in the *context of a class*, the current class is automatically bound to it, making `$this` available inside of the function's scope. If this *automatic binding* of the current class is not wanted, then *static anonymous functions* may be used instead.
 
-## Static anonymous functions
+### Static anonymous functions
 
 *Anonymous functions* may be declared *statically*. This prevents them from having the current class automatically bound to them. Objects may also not be bound to them at runtime.
 
@@ -270,7 +270,7 @@ The above example will output:
 Warning: Cannot bind an instance to a static closure in %s on line %d
 ```
 
-## Changelog
+### Changelog
 
 | Version | Description |
 |---------|-------------|
@@ -282,6 +282,454 @@ Notes
 Note: It is possible to use func_num_args(), func_get_arg(), and func_get_args() from within a closure.
 
 -- [PHP Reference](https://www.php.net/manual/en/functions.anonymous.php)
+
+## Arrow functions
+
+**Arrow functions** were introduced in PHP 7.4 as a *more concise syntax for anonymous functions*.
+
+Both *anonymous functions* and *arrow functions* are implemented using the `Closure` class.
+
+*Arrow functions* have the basic form `fn (argument_list) => expr`.
+
+*Arrow functions* support the same features as *anonymous functions*, except that *using variables from the parent scope is always automatic*.
+
+When a *variable* used in the *expression* is defined in the *parent scope* it will be *implicitly captured by-value*. In the following example, the functions `$fn1` and `$fn2` behave the same way.
+
+*Example: Arrow functions capture variables by value automatically*
+
+```php
+<?php
+
+$y = 1;
+
+$fn1 = fn($x) => $x + $y;
+// equivalent to using $y by value:
+$fn2 = function ($x) use ($y) {
+    return $x + $y;
+};
+
+var_export($fn1(3));
+?>
+```
+
+The above example will output:
+
+```
+4
+```
+
+This also works if the *arrow functions* are *nested*:
+
+*Example: Arrow functions capture variables by value automatically, even when nested*
+
+```php
+<?php
+
+$z = 1;
+$fn = fn($x) => fn($y) => $x * $y + $z;
+// Outputs 51
+var_export($fn(5)(10));
+?>
+```
+
+Similarly to *anonymous functions*, the *arrow function syntax* allows *arbitrary function signatures*, including *parameter* and *return types*, *default values*, *variadics*, as well as *by-reference passing* and *returning*. All of the following are valid examples of *arrow functions*:
+
+*Example: Examples of arrow functions*
+
+```php
+<?php
+
+fn(array $x) => $x;
+static fn($x): int => $x;
+fn($x = 42) => $x;
+fn(&$x) => $x;
+fn&($x) => $x;
+fn($x, ...$rest) => $rest;
+
+?>
+```
+
+*Arrow functions* use *by-value variable binding*. This is roughly equivalent to performing a `use($x)` for every variable `$x` used inside the arrow function. A *by-value binding* means that it is not possible to modify any values from the outer scope. Anonymous functions can be used instead for by-ref bindings.
+
+*Example: Values from the outer scope cannot be modified by arrow functions*
+
+```php
+<?php
+
+$x = 1;
+$fn = fn() => $x++; // Has no effect
+$fn();
+var_export($x);  // Outputs 1
+
+?>
+```
+
+### Changelog
+
+| Version | Description |
+|---------|-------------|
+| `7.4.0` | Arrow functions became available. |
+
+Notes
+
+Note: It is possible to use func_num_args(), func_get_arg(), and func_get_args() from within an arrow function.
+
+-- [PHP Reference](https://www.php.net/manual/en/functions.arrow.php)
+
+## Examples
+
+*Example: Anonymous functions*
+
+```php
+<?php
+
+$simpleFunction = function (): void {
+    print("Simple function.\n");
+};
+
+$simpleFunction();
+
+print(PHP_EOL);
+
+$functionWithLocalVariable = function (): void {
+    $i = 4;
+    print("A function with a local variable: {$i}\n");
+};
+
+$functionWithLocalVariable();
+
+print(PHP_EOL);
+
+$functionReturningValue = function (): int {
+    print("A function returning value.\n");
+    return 9;
+};
+
+$i = $functionReturningValue();
+print("returned value: {$i}\n");
+
+print(PHP_EOL);
+
+$functionWithArguments = function (int $number, string $text): void {
+    print("A function with some arguments:\nnumber: {$number}\ntext: {$text}\n");
+};
+
+$functionWithArguments(6, "orange");
+
+print(PHP_EOL);
+
+```
+
+**View**:
+[Example](../../../example/code/functions/anonymous_functions.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Simple function.
+
+A function with a local variable: 4
+
+A function returning value.
+returned value: 9
+
+A function with some arguments:
+number: 6
+text: orange
+
+```
+
+*Example: Closures*
+
+```php
+<?php
+
+$quantity = 4;
+$message = "Hello, there!";
+
+$simpleFunction = function () use ($quantity, $message): void {
+    print("Simple function.\n"
+        . "Quantity: {$quantity}\n"
+        . "Message: {$message}\n"
+    );
+};
+
+$simpleFunction();
+
+print(PHP_EOL);
+
+$functionWithLocalVariable = function () use ($quantity, $message): void {
+    $i = 4;
+    print("A function with a local variable: {$i}\n"
+        . "Quantity: {$quantity}\n"
+        . "Message: {$message}\n"
+    );
+};
+
+$functionWithLocalVariable();
+
+print(PHP_EOL);
+
+$functionReturningValue = function () use ($quantity, $message): int {
+    print("A function returning value.\n"
+        . "Quantity: {$quantity}\n"
+        . "Message: {$message}\n"
+    );
+    return 9;
+};
+
+$i = $functionReturningValue();
+print("returned value: {$i}\n");
+
+print(PHP_EOL);
+
+$functionWithArguments = function (int $number, string $text) use ($quantity, $message): void {
+    print("A function with some arguments:\nnumber: {$number}\ntext: {$text}\n"
+        . "Quantity: {$quantity}\n"
+        . "Message: {$message}\n"
+    );
+};
+
+$functionWithArguments(6, "orange");
+
+print(PHP_EOL);
+
+```
+
+**View**:
+[Example](../../../example/code/functions/closures.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Simple function.
+Quantity: 4
+Message: Hello, there!
+
+A function with a local variable: 4
+Quantity: 4
+Message: Hello, there!
+
+A function returning value.
+Quantity: 4
+Message: Hello, there!
+returned value: 9
+
+A function with some arguments:
+number: 6
+text: orange
+Quantity: 4
+Message: Hello, there!
+
+```
+
+*Example: Callbacks*
+
+```php
+<?php
+
+function sourceValue($prompt, $validate)
+{
+    do {
+        $value = (string)readline($prompt);
+        $validation_message = $validate($value);
+
+        if (empty($validation_message))
+            break;
+
+        print($validation_message . "\nTry again.\n");
+    } while (true);
+
+    return $value;
+}
+
+function validateTemperatureInCelsius($value)
+{
+    $message = "";
+
+    if ($value > 26) {
+        $message = "Temperature is to high for human health.";
+    } else if ($value < 22) {
+        $message = "Temperature is to low for human health.";
+    }
+
+    return $message;
+}
+
+$temperature = sourceValue("Give the ambient temperature in degrees Celsius: ", "validateTemperatureInCelsius");
+print("Tempetature has been set to " . $temperature . " degree Celsius.\n");
+
+```
+
+**View**:
+[Example](../../../example/code/functions/callbacks.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Give the ambient temperature in degrees Celsius: 20
+Temperature is to low for human health.
+Try again.
+Give the ambient temperature in degrees Celsius: 30
+Temperature is to high for human health.
+Try again.
+Give the ambient temperature in degrees Celsius: 23
+Tempetature has been set to 23 degree Celsius.
+```
+
+*Example: Callbacks formatting*
+
+```php
+<?php
+
+function sourceValue($prompt, $validate)
+{
+    do {
+        $value = (string)readline($prompt);
+        $validation_message = $validate($value);
+
+        if (empty($validation_message))
+        break;
+
+        print($validation_message . "\nTry again.\n");
+    } while (true);
+
+    return $value;
+}
+
+function validateTemperatureInCelsius($value)
+{
+    $message = "";
+
+    if ($value > 26) {
+        $message = "Temperature is to high for human health.";
+    } else if ($value < 22) {
+        $message = "Temperature is to low for human health.";
+    }
+
+    return $message;
+}
+
+$validateHumidityInPercents = function(float $value): string {
+    if ($value > 60) {
+        return "Humidity is to high for human health.";
+    } else if ($value < 40) {
+        return "Humidity is to low for human health.";
+    }
+
+    return '';
+};
+
+$temperature = sourceValue("Give the ambient temperature in degrees Celsius: ", "validateTemperatureInCelsius");
+print("Tempetature has been set to " . $temperature . " degree Celsius.\n");
+
+$humidity = sourceValue("Give the air humidity in percents: ", $validateHumidityInPercents);
+print("Humidity has been set to " . $humidity . " percent.\n");
+
+$pressure = sourceValue("Give the atmospheric pressure in hectopascals: ", function($value) {
+  if ($value != 1013.25) {
+    return "Pressure is not perfect.";
+  }
+
+  return '';
+});
+print("Pressure has been set to " . $pressure . " hectopascals.\n");
+
+```
+
+**View**:
+[Example](../../../example/code/functions/callbacks_formatting.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Give the ambient temperature in degrees Celsius: 20
+Temperature is to low for human health.
+Try again.
+Give the ambient temperature in degrees Celsius: 30
+Temperature is to high for human health.
+Try again.
+Give the ambient temperature in degrees Celsius: 23
+Tempetature has been set to 23 degree Celsius.
+Give the air humidity in percents: 15
+Humidity is to low for human health.
+Try again.
+Give the air humidity in percents: 90
+Humidity is to high for human health.
+Try again.
+Give the air humidity in percents: 56
+Humidity has been set to 56 percent.
+Give the atmospheric pressure in hectopascals: 1000
+Pressure is not perfect.
+Try again.
+Give the atmospheric pressure in hectopascals: 1013.25
+Pressure has been set to 1013.25 hectopascals.
+```
+
+*Example: Higher order functions*
+
+```php
+<?php
+
+function someFunctionTakingFunction(mixed $value, int $quantity, callable $algorithm): mixed
+{
+    foreach (range(1, $quantity) as $i) {
+        $value = $algorithm($value);
+    }
+
+    return $value;
+}
+
+$result = someFunctionTakingFunction(2, 3, function (mixed $value): mixed {
+    return $value + 5;
+});
+
+print($result . PHP_EOL);
+
+function someFunctionReturningFunction(): callable
+{
+    return function(string $name) {
+        print("Hello, {$name}!\n");
+    };
+}
+
+$function = someFunctionReturningFunction();
+$result = $function("Kate");
+
+print($result . PHP_EOL);
+
+```
+
+**View**:
+[Example](../../../example/code/functions/higher_order_functions.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+17
+Hello, Kate!
+
+```
 
 [▵ Up](#anonymous-functions)
 [⌂ Home](../../../README.md)
