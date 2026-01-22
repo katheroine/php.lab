@@ -61,6 +61,7 @@ Laboratory of PHP.
     7. [Functions](./doc/code/functions/)
         1. [Functions](./doc/code/functions/functions.md)
         2. [Anonymous functions](./doc/code/functions/anonymous_functions.md)
+        3. [First class callable syntax](./doc/code/functions/first_class_callable_syntax.md)
 
 ### Examples
 

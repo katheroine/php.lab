@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Functions](./functions.md)
+[▼ Next: First class callable syntax](./first_class_callable_syntax.md)
 
 # Anonymous functions
 
@@ -734,3 +735,4 @@ Hello, Kate!
 [▵ Up](#anonymous-functions)
 [⌂ Home](../../../README.md)
 [▲ Previous: Functions](./functions.md)
+[▼ Next: First class callable syntax](./first_class_callable_syntax.md)
