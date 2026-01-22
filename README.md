@@ -60,6 +60,7 @@ Laboratory of PHP.
             3. [Enumerations](./doc/code/builtin_types/compound/enumerations/enumerations.md)
     7. [Functions](./doc/code/functions/)
         1. [Functions](./doc/code/functions/functions.md)
+        2. [Anonymous functions](./doc/code/functions/anonymous_functions.md)
 
 ### Examples
 
