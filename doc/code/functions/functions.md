@@ -849,6 +849,393 @@ text: pencil
 
 ```
 
+*Example: Functions formatting*
+
+```php
+<?php
+
+function explicit_function(int $number, string $text): int
+{
+  print("An explicit function with some arguments:\nnumber: $number\ntext: $text\n");
+  return 2 * $number;
+}
+
+$result_1 = explicit_function(1, "apple");
+print("returned value: $result_1\n\n");
+
+$anonymous_function = function(int $number, string $text): int
+{
+  print("A function with some arguments:\nnumber: $number\ntext: $text\n");
+  return 3 * $number;
+};
+
+$result_2 = $anonymous_function(2, "pear");
+print("returned value: $result_2\n\n");
+
+```
+
+**View**:
+[Example](../../../example/code/functions/functions_formatting.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+An explicit function with some arguments:
+number: 1
+text: apple
+returned value: 2
+
+A function with some arguments:
+number: 2
+text: pear
+returned value: 6
+
+```
+
+*Example: Passing arguments*
+
+```php
+<?php
+
+$value = 5;
+$array = [2, 3, 6];
+$object = (object)[ "value" => 7 ];
+
+function functionReceivingValueByValue($argument)
+{
+    print("Function receiving value by value\n"
+    . "-- begin:\n"
+    . "before: \$argument = {$argument}\n"
+    . "\$argument = \$argument * 2\n");
+
+    $argument *= 2;
+
+    print("after: \$argument = {$argument}\n"
+    . "-- end.\n");
+}
+
+print("BEFORE: \$value = {$value}\n");
+functionReceivingValueByValue($value);
+print("AFTER: \$value = {$value}\n\n");
+
+function functionReceivingValueByReference(&$argument)
+{
+  print("Function receiving value by reference\n"
+    . "-- begin:\n"
+    . "before: \$argument = {$argument}\n"
+    . "\$argument = \$argument * 2\n");
+
+  $argument *= 2;
+
+  print("after: \$argument = {$argument}\n"
+    . "-- end.\n");
+}
+
+print("BEFORE: \$value = {$value}\n");
+functionReceivingValueByReference($value);
+print("AFTER: \$value = {$value}\n\n");
+
+function functionReceivingArrayByValue($argument)
+{
+  print("Function receiving array by value\n"
+    . "-- begin:\n"
+    . "before: \$argument[0] = {$argument[0]}\n"
+    . "\$argument[0] *= 2\n");
+
+  $argument[0] *= 2;
+
+  print("after: \$argument[0] = {$argument[0]}\n"
+    . "-- end.\n");
+}
+
+print("BEFORE: \$array[0] = {$array[0]}\n");
+functionReceivingArrayByValue($array);
+print("AFTER: \$array[0] = {$array[0]}\n\n");
+
+function functionReceivingArrayByReference(&$argument)
+{
+  print("Function receiving array by reference\n"
+    . "-- begin:\n"
+    . "before: \$argument[0] = {$argument[0]}\n"
+    . "\$argument[0] *= 2\n");
+
+  $argument[0] *= 2;
+
+  print("after: \$argument[0] = {$argument[0]}\n"
+    . "-- end.\n");
+}
+
+print("BEFORE: \$array[0] = {$array[0]}\n");
+functionReceivingArrayByReference($array);
+print("AFTER: \$array[0] = {$array[0]}\n\n");
+
+function functionReceivingObject($argument)
+{
+  print("Function receiving object\n"
+    . "-- begin:\n"
+    . "before: \$argument->value = {$argument->value}\n"
+    . "\$argument = \$argument * 2\n");
+
+  $argument->value *= 2;
+
+  print("after: \$argument->value = {$argument->value}\n"
+    . "-- end.\n");
+}
+
+print("BEFORE: object->value = {$object->value}\n");
+functionReceivingObject($object);
+print("AFTER: object->value = {$object->value}\n\n");
+
+```
+
+**View**:
+[Example](../../../example/code/functions/passing_arguments.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+BEFORE: $value = 5
+Function receiving value by value
+-- begin:
+before: $argument = 5
+$argument = $argument * 2
+after: $argument = 10
+-- end.
+AFTER: $value = 5
+
+BEFORE: $value = 5
+Function receiving value by reference
+-- begin:
+before: $argument = 5
+$argument = $argument * 2
+after: $argument = 10
+-- end.
+AFTER: $value = 10
+
+BEFORE: $array[0] = 2
+Function receiving array by value
+-- begin:
+before: $argument[0] = 2
+$argument[0] *= 2
+after: $argument[0] = 4
+-- end.
+AFTER: $array[0] = 2
+
+BEFORE: $array[0] = 2
+Function receiving array by reference
+-- begin:
+before: $argument[0] = 2
+$argument[0] *= 2
+after: $argument[0] = 4
+-- end.
+AFTER: $array[0] = 4
+
+BEFORE: object->value = 7
+Function receiving object
+-- begin:
+before: $argument->value = 7
+$argument = $argument * 2
+after: $argument->value = 14
+-- end.
+AFTER: object->value = 14
+
+```
+
+*Example: Returning value*
+
+```php
+<?php
+
+function returning_boolean(): bool
+{
+  return true;
+}
+
+function returning_integer(): int
+{
+  return 7;
+}
+
+function returning_string(): string
+{
+  return "hello";
+}
+
+$b = returning_boolean();
+print("boolean:\n"
+  . "b = {$b}\n\n");
+
+$i = returning_integer();
+print("integer:\n"
+  . "i = {$i}\n\n");
+
+$s = returning_string();
+print("string:\n"
+  . "s = {$s}\n\n");
+
+```
+
+**View**:
+[Example](../../../example/code/functions/returning_value.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+boolean:
+b = 1
+
+integer:
+i = 7
+
+string:
+s = hello
+
+```
+
+*Example: Default arguments*
+
+```php
+<?php
+
+function function_with_default_argument(int $argument = 3): int
+{
+  return $argument * 2;
+}
+
+$result = function_with_default_argument();
+print("Result of calling function with default argument: {$result}\n");
+
+$result = function_with_default_argument(4);
+print("Result of calling function with provided argument: {$result}\n");
+
+```
+
+**View**:
+[Example](../../../example/code/functions/default_arguments.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Result of calling function with default argument: 6
+Result of calling function with provided argument: 8
+```
+
+*Example: Function with static variable*
+
+```php
+<?php
+
+function function_with_static_variable(): void
+{
+  $i = 0;
+  static $n = 0;
+
+  print("A regular local variable: {$i}\n"
+    . "A static local variable: {$n}\n");
+
+  $i++;
+  $n++;
+}
+
+print("Function first call:\n");
+function_with_static_variable();
+print("\n");
+
+print("Function second call:\n");
+function_with_static_variable();
+print("\n");
+
+print("Function third call:\n");
+function_with_static_variable();
+print("\n");
+
+```
+
+**View**:
+[Example](../../../example/code/functions/function_with_static_variable.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Function first call:
+A regular local variable: 0
+A static local variable: 0
+
+Function second call:
+A regular local variable: 0
+A static local variable: 1
+
+Function third call:
+A regular local variable: 0
+A static local variable: 2
+
+```
+
+*Example: Function calling function*
+
+```php
+<?php
+
+function inside(): string
+{
+  print("* Inside.\n");
+  return "IN";
+}
+
+function outside(): string
+{
+  print("# Outside:\n"
+    . "# Calling function from function...\n");
+  $result = inside();
+  print("# result: {$result}\n");
+  return "OUT";
+}
+
+print("Calling function...\n");
+$result = outside();
+print("result: {$result}\n");
+
+```
+
+**View**:
+[Example](../../../example/code/functions/function_calling_function.php)
+
+**Execute**:
+* [OnlinePHP]()
+* [OneCompiler]()
+
+**Result**:
+
+```
+Calling function...
+# Outside:
+# Calling function from function...
+* Inside.
+# result: IN
+result: OUT
+
+```
+
 [▵ Up](#functions)
 [⌂ Home](../../../README.md)
 [▲ Previous: Enumerations](../builtin_types/compound/enumerations/enumerations.md)

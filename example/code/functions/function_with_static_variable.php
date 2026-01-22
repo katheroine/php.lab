@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 
 function function_with_static_variable(): void
