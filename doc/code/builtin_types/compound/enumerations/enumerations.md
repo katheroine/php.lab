@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Objects](../objects/objects.md)
+[▼ Next: Functions](../../../functions/functions.md)
 
 # Enumerations
 
@@ -822,3 +823,4 @@ post_status: status Enum
 [▵ Up](#enumerations)
 [⌂ Home](../../../README.md)
 [▲ Previous: Objects](../objects/objects.md)
+[▼ Next: Functions](../../../functions/functions.md)
