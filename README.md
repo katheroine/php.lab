@@ -62,6 +62,7 @@ Laboratory of PHP.
         1. [Functions](./doc/code/functions/functions.md)
         2. [Anonymous functions](./doc/code/functions/anonymous_functions.md)
         3. [First class callable syntax](./doc/code/functions/first_class_callable_syntax.md)
+    8. [Generators](./doc/code/generators/generators.md)
 
 ### Examples
 
@@ -217,7 +218,7 @@ Laboratory of PHP.
         10. [Callbacks](./example/code/functions/callbacks.php)
         11. [Callbacks formatting](./example/code/functions/callbacks_formatting.php)
         12. [Higher order functions](./example/code/example/functions/higher_order_functions.php)
-    7. [Generators](./example/code/functions/generators.php)
+    7. [Generators](./example/code/generators/generators.php)
     8. [Classes, interfaces, traits](./example/code/classes_interfaces_traits/)
         1. [Classes](./example/code/classes_interfaces_traits/classes/)
             1. [Classes](./example/code/classes_interfaces_traits/classes/classes.php)

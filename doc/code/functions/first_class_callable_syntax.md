@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Anonymous functions](./anonymous_functions.md)
+[▼ Next: Generators](../generators/generators.md)
 
 # First class callable syntax
 
@@ -102,3 +103,4 @@ $obj?->prop->method(...);
 [▵ Up](#first-class-callable-syntax)
 [⌂ Home](../../../README.md)
 [▲ Previous: Anonymous functions](./anonymous_functions.md)
+[▼ Next: Generators](../generators/generators.md)
