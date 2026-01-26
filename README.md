@@ -63,6 +63,8 @@ Laboratory of PHP.
         2. [Anonymous functions](./doc/code/functions/anonymous_functions.md)
         3. [First class callable syntax](./doc/code/functions/first_class_callable_syntax.md)
     8. [Generators](./doc/code/generators/generators.md)
+    9. [Classes, interfaces, traits](./doc/code/classes_interfaces_traits/)
+        1. [Classes](./doc/code/classes_interfaces_traits/classes/classes.md)
 
 ### Examples
 
