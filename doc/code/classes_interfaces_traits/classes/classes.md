@@ -1,11 +1,12 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Generators](../../generators/generators.md)
+[▼ Next: Classe components](./class_components.md)
 
 # Classes
 
 ## Definition
 
-> In programming, a **class** is a *syntactic entity structure* used to create objects.  The capabilities of a class differ between programming languages, but generally the shared aspects consist of *state* (*variables*) and *behavior* (*methods*) that are each either associated with a particular *object* or with all *objects* of that *class*.
+> In programming, a **class** is a *syntactic entity structure* used to create *objects*.  The capabilities of a class differ between programming languages, but generally the shared aspects consist of *state* (*variables*) and *behavior* (*methods*) that are each either associated with a particular *object* or with all *objects* of that *class*.
 >
 > *Object state* can differ between each *instance* of the *class* whereas the *class state* is shared by all of them. The *object methods* include access to the *object state* (via an implicit or explicit parameter that references the *object*) whereas *class methods* do not.
 
@@ -119,7 +120,7 @@ Stack trace:
 
 ## Readonly classes
 
-As of PHP 8.2.0, a class can be marked with the `readonly` *modifier*. Marking a class as *readonly* will add the `readonly` modifier to every declared *property*, and prevent the creation of *dynamic properties*. Moreover, it is impossible to add support for them by using the `AllowDynamicProperties` *attribute*. Attempting to do so will trigger a compile-time error.
+As of PHP 8.2.0, a *class* can be marked with the `readonly` *modifier*. Marking a class as *readonly* will add the `readonly` modifier to every declared *property*, and prevent the creation of *dynamic properties*. Moreover, it is impossible to add support for them by using the `AllowDynamicProperties` *attribute*. Attempting to do so will trigger a compile-time error.
 
 ```php
 <?php
@@ -157,7 +158,7 @@ readonly class Foo
 
 A *readonly class* can be extended if, and only if, the *child class* is also a *readonly class*.
 
-## new
+## `new`
 
 To create an *instance of a class*, the `new` *keyword* must be used. An *object* will always be created unless the *object* has a *constructor* defined that throws an *exception* on error. *Classes* should be *defined* before *instantiation* (and in some cases this is a requirement).
 
@@ -773,3 +774,4 @@ SomeNamespace\SomeClass
 [▵ Up](#classes)
 [⌂ Home](../../../README.md)
 [▲ Previous: Generators](../../generators/generators.md)
+[▼ Next: Classe components](./class_components.md)
