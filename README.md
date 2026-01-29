@@ -66,6 +66,7 @@ Laboratory of PHP.
     9. [Classes, interfaces, traits](./doc/code/classes_interfaces_traits/)
         1. [Classes](./doc/code/classes_interfaces_traits/classes/classes.md)
             1. [Class components](./doc/code/classes_interfaces_traits/classes/class_components.md)
+            2. [Magic methods](./doc/code/classes_interfaces_traits/classes/magic_methods.md)
 
 ### Examples
 
