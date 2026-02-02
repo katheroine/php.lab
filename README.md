@@ -68,6 +68,7 @@ Laboratory of PHP.
             1. [Class components](./doc/code/classes_interfaces_traits/classes/class_components.md)
             2. [Magic methods](./doc/code/classes_interfaces_traits/classes/magic_methods.md)
             3. [Constructors and destructors](./doc/code/classes_interfaces_traits/classes/constructors_and_destructors.md)
+            4. [Objects](./doc/code/classes_interfaces_traits/classes/objects.md)
 
 ### Examples
 

@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Magic methods](./magic_methods.md)
+[▼ Next: Objects](./objects.md)
 
 # Constructors and destructors
 
@@ -259,3 +260,4 @@ Attempting to throw an *exception* from a *destructor* (called in the time of sc
 [▵ Up](#constructors_and_destructors)
 [⌂ Home](../../../README.md)
 [▲ Previous: Magic methods](./magic_methods.md)
+[▼ Next: Objects](./objects.md)
