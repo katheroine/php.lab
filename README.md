@@ -71,6 +71,7 @@ Laboratory of PHP.
             4. [Objects](./doc/code/classes_interfaces_traits/classes/objects.md)
             5. [Inheritance](./doc/code/classes_interfaces_traits/classes/inheritance.md)
             6. [Anonymous classes](./doc/code/classes_interfaces_traits/classes/anonymous_classes.md)
+            7. [Late static bindings](./doc/code/classes_interfaces_traits/classes/late_static_bindings.md)
 
 ### Examples
 
