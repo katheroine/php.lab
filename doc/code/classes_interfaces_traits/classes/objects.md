@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Constructors and destructors](./constructors_and_destructors.md)
+[▼ Next: Inheritance](./inheritance.md)
 
 # Objects
 
@@ -589,3 +590,4 @@ The `ReflectionClass::resetAsLazyGhost()` and `ReflectionClass::resetAsLazyProxy
 [▵ Up](#objects)
 [⌂ Home](../../../README.md)
 [▲ Previous: Constructors and destructors](./constructors_and_destructors.md)
+[▼ Next: Inheritance](./inheritance.md)

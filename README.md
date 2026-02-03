@@ -69,6 +69,7 @@ Laboratory of PHP.
             2. [Magic methods](./doc/code/classes_interfaces_traits/classes/magic_methods.md)
             3. [Constructors and destructors](./doc/code/classes_interfaces_traits/classes/constructors_and_destructors.md)
             4. [Objects](./doc/code/classes_interfaces_traits/classes/objects.md)
+            5. [Inheritance](./doc/code/classes_interfaces_traits/classes/inheritance.md)
 
 ### Examples
 
@@ -253,8 +254,15 @@ Laboratory of PHP.
                 6. [Construction with static, self and parent](./example/code/classes_interfaces_traits/classes/constructors_and_destructors/static_self_parent_construction.php)
                 7. [Constructor overriding](./example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_overriding.php)
                 8. [Constructor promotion](./example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion.php)
-            4. [Cloning objects](./example/code/classes_interfaces_traits/classes/cloning.php)
-            5. [Inheriting classes](./example/code/classes_interfaces_traits/classes/inheritance.php)
+            4. [Objects](./example/code/classes_interfaces_traits/classes/)
+                1. [Cloning objects](./example/code/classes_interfaces_traits/classes/objects/cloning.php)
+            5. [Inheritance](./example/code/classes_interfaces_traits/classes/inheritance/inheritance.php)
+                1. [Base and derived class](./example/code/classes_interfaces_traits/classes/inheritance/base_and_derived_class.php)
+                2. [Class access specifiers](./example/code/classes_interfaces_traits/classes/inheritance/class_access_specifiers.php)
+                3. [Base class components access](./example/code/classes_interfaces_traits/classes/inheritance/base_class_components_access.php)
+                4. [Base class constructor & destructor](./example/code/classes_interfaces_traits/classes/inheritance/base_class_constructor_and_destructor.php)
+                5. [Multilevel inheritance](./example/code/classes_interfaces_traits/classes/inheritance/multilevel_inheritance.php)
+                6. [Standard conversions within class hierarchy](./example/code/classes_interfaces_traits/classes/inheritance/standard_conversions_within_class_hierarchy.php)
             6. [Abstract methods and classes](./example/code/classes_interfaces_traits/classes/abstract.php)
             7. [Class name resolution](./example/code/classes_interfaces_traits/classes/class_name_resolution.php)
         2. [Interfaces](./example/code/classes_interfaces_traits/interfaces/)
