@@ -70,6 +70,7 @@ Laboratory of PHP.
             3. [Constructors and destructors](./doc/code/classes_interfaces_traits/classes/constructors_and_destructors.md)
             4. [Objects](./doc/code/classes_interfaces_traits/classes/objects.md)
             5. [Inheritance](./doc/code/classes_interfaces_traits/classes/inheritance.md)
+            6. [Anonymous classes](./doc/code/classes_interfaces_traits/classes/anonymous_classes.md)
 
 ### Examples
 

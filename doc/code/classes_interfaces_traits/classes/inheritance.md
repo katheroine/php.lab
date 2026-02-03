@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Objects](./objects.md)
+[▼ Next: Anonymous classes](./anonymous_classes.md)
 
 # Inheritance
 
@@ -325,3 +326,4 @@ Calling static method 'runTest' in static context
 [▵ Up](#inheritance)
 [⌂ Home](../../../README.md)
 [▲ Previous: Objects](./objects.md)
+[▼ Next: Anonymous classes](./anonymous_classes.md)
