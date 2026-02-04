@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Late static binding](./late_static_bindings.md)
+[▼ Next: Autoloading classes](./autoloading_classes.md)
 
 # Covariance and contravariance
 
@@ -210,3 +211,4 @@ class PoodleOwner extends DogOwner
 [▵ Up](#covariance-and-contravariance)
 [⌂ Home](../../../README.md)
 [▲ Previous: Late static binding](./late_static_bindings.md)
+[▼ Next: Autoloading classes](./autoloading_classes.md)

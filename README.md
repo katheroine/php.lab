@@ -73,6 +73,7 @@ Laboratory of PHP.
             6. [Anonymous classes](./doc/code/classes_interfaces_traits/classes/anonymous_classes.md)
             7. [Late static bindings](./doc/code/classes_interfaces_traits/classes/late_static_bindings.md)
             8. [Covariance and contravariance](./doc/code/classes_interfaces_traits/classes/covariance_and_contravariance.md)
+            9. [Autoloading classes](./doc/code/classes_interfaces_traits/classes/autoloading_classes.md)
 
 ### Examples
 
