@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Anonymous classes](./anonymous_classes.md)
+[▼ Next: Covariance and contravariance](./covariance_and_contravariance.md)
 
 # Late static bindings
 
@@ -213,3 +214,4 @@ C
 [▵ Up](#late-static-bindings)
 [⌂ Home](../../../README.md)
 [▲ Previous: Anonymous classes](./anonymous_classes.md)
+[▼ Next: Covariance and contravariance](./covariance_and_contravariance.md)
