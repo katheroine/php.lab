@@ -1,5 +1,6 @@
-[⌂ Home](../../../README.md)
+[⌂ Home](../../../../README.md)
 [▲ Previous: Covariance and contravariance](./covariance_and_contravariance.md)
+[▼ Next: Abstract classes](../abstract_classes/abstract_classes.md)
 
 # Autoloading classes
 
@@ -79,5 +80,6 @@ See Also
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.autoload.php)
 
 [▵ Up](#autoloading-classes)
-[⌂ Home](../../../README.md)
+[⌂ Home](../../../../README.md)
 [▲ Previous: Covariance and contravariance](./covariance_and_contravariance.md)
+[▼ Next: Abstract classes](../abstract_classes/abstract_classes.md)

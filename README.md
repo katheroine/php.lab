@@ -74,6 +74,7 @@ Laboratory of PHP.
             7. [Late static bindings](./doc/code/classes_interfaces_traits/classes/late_static_bindings.md)
             8. [Covariance and contravariance](./doc/code/classes_interfaces_traits/classes/covariance_and_contravariance.md)
             9. [Autoloading classes](./doc/code/classes_interfaces_traits/classes/autoloading_classes.md)
+        2. [Abstract classes](./doc/code/classes_interfaces_traits/abstract_classes/abstract_classes.md)
 
 ### Examples
 
@@ -267,12 +268,14 @@ Laboratory of PHP.
                 4. [Base class constructor & destructor](./example/code/classes_interfaces_traits/classes/inheritance/base_class_constructor_and_destructor.php)
                 5. [Multilevel inheritance](./example/code/classes_interfaces_traits/classes/inheritance/multilevel_inheritance.php)
                 6. [Standard conversions within class hierarchy](./example/code/classes_interfaces_traits/classes/inheritance/standard_conversions_within_class_hierarchy.php)
-            6. [Abstract methods and classes](./example/code/classes_interfaces_traits/classes/abstract.php)
             7. [Class name resolution](./example/code/classes_interfaces_traits/classes/class_name_resolution.php)
-        2. [Interfaces](./example/code/classes_interfaces_traits/interfaces/)
+        2. [Abstract classes](./example/code/classes_interfaces_traits/abstract_classes/abstract.php)
+            1. [Abstract class](./example/code/classes_interfaces_traits/abstract_classes/abstract_class.php)
+            2. [Abstract method](./example/code/classes_interfaces_traits/abstract_classes/abstract_functions.php)
+        3. [Interfaces](./example/code/classes_interfaces_traits/interfaces/)
             1. [Interfaces](./example/code/classes_interfaces_traits/interfaces/interfaces.php)
             2. [Extending interfaces](./example/code/classes_interfaces_traits/interfaces/extending.php)
-        3. [Traits](./example/code/classes_interfaces_traits/traits/)
+        4. [Traits](./example/code/classes_interfaces_traits/traits/)
             1. [Traits](./example/code/classes_interfaces_traits/traits/traits.php)
             2. [Precedence](./example/code/classes_interfaces_traits/traits/precedence.php)
             3. [Conflicts resolution](./example/code/classes_interfaces_traits/traits/conflicts_resolution.php)
