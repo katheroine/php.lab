@@ -1,4 +1,4 @@
-# PHP.lab
+# PHP.lab 🐘
 
 Laboratory of PHP.
 
@@ -75,6 +75,7 @@ Laboratory of PHP.
             8. [Covariance and contravariance](./doc/code/classes_interfaces_traits/classes/covariance_and_contravariance.md)
             9. [Autoloading classes](./doc/code/classes_interfaces_traits/classes/autoloading_classes.md)
         2. [Abstract classes](./doc/code/classes_interfaces_traits/abstract_classes/abstract_classes.md)
+        3. [Interfaces](./doc/code/classes_interfaces_traits/interfaces/interfaces.md)
 
 ### Examples
 
@@ -272,9 +273,12 @@ Laboratory of PHP.
         2. [Abstract classes](./example/code/classes_interfaces_traits/abstract_classes/abstract.php)
             1. [Abstract class](./example/code/classes_interfaces_traits/abstract_classes/abstract_class.php)
             2. [Abstract method](./example/code/classes_interfaces_traits/abstract_classes/abstract_functions.php)
-        3. [Interfaces](./example/code/classes_interfaces_traits/interfaces/)
+        3. [Interfaces](./example/code/classes_interfaces_traits/interfaces/interface.php)
             1. [Interfaces](./example/code/classes_interfaces_traits/interfaces/interfaces.php)
-            2. [Extending interfaces](./example/code/classes_interfaces_traits/interfaces/extending.php)
+            2. [Implementing multiple interfaces](./example/code/classes_interfaces_traits/interfaces/implementing_multiple_interfaces.php)
+            3. [Interface and abstract class](./example/code/classes_interfaces_traits/interfaces/interface_and_abstract_class.php)
+            4. [Extending interfaces](./example/code/classes_interfaces_traits/interfaces/extending.php)
+            5. [Interface extending interface](./example/code/classes_interfaces_traits/interfaces/interface_extending_interface.php)
         4. [Traits](./example/code/classes_interfaces_traits/traits/)
             1. [Traits](./example/code/classes_interfaces_traits/traits/traits.php)
             2. [Precedence](./example/code/classes_interfaces_traits/traits/precedence.php)

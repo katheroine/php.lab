@@ -1,5 +1,6 @@
 [⌂ Home](../../../../README.md)
 [▲ Previous: Autoloading classes](../classes/autoloading_classes.md)
+[▼ Next: Interfaces](../interfaces/interfaces.md)
 
 # Abstract classes
 
@@ -190,3 +191,4 @@ abstract class A
 [▵ Up](#abstract-classes)
 [⌂ Home](../../../../README.md)
 [▲ Previous: Autoloading classes](../classes/autoloading_classes.md)
+[▼ Next: Interfaces](../interfaces/interfaces.md)
