@@ -1,5 +1,6 @@
 [⌂ Home](../../../../README.md)
 [▲ Previous: Abstract classes](../abstract_classes/abstract_classes.md)
+[▼ Next: Traits](../traits/traits.md)
 
 # Interfaces
 
@@ -11,8 +12,9 @@ All *methods* *declared* in an *interface* must be *public*; this is the nature 
 
 In practice, interfaces serve two complementary purposes:
 
-To allow *developers* to create *objects* of different *classes* that may be used interchangeably because they *implement* the same *interface* or *interfaces*. A common example is multiple database access services, multiple payment gateways, or different caching strategies. Different *implementations* may be swapped out without requiring any changes to the code that uses them.
-To allow a *function* or *method* to accept and operate on a *parameter* that conforms to an *interface*, while not caring what else the *object* may do or how it is *implemented*. These *interfaces* are often named like `Iterable`, `Cacheable`, `Renderable`, or so on to describe the significance of the behavior.
+* To allow *developers* to create *objects* of different *classes* that may be used interchangeably because they *implement* the same *interface* or *interfaces*. A common example is multiple database access services, multiple payment gateways, or different caching strategies. Different *implementations* may be swapped out without requiring any changes to the code that uses them.
+* To allow a *function* or *method* to accept and operate on a *parameter* that conforms to an *interface*, while not caring what else the *object* may do or how it is *implemented*. These *interfaces* are often named like `Iterable`, `Cacheable`, `Renderable`, or so on to describe the significance of the behavior.
+
 *Interfaces* may define *magic methods* to require *implementing* *classes* to *implement* those *methods*.
 
 Note:
@@ -352,3 +354,4 @@ An *interface*, together with *type declarations*, provides a good way to make s
 [▵ Up](#interfaces)
 [⌂ Home](../../../../README.md)
 [▲ Previous: Abstract classes](../abstract_classes/abstract_classes.md)
+[▼ Next: Traits](../traits/traits.md)

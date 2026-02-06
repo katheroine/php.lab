@@ -76,6 +76,7 @@ Laboratory of PHP.
             9. [Autoloading classes](./doc/code/classes_interfaces_traits/classes/autoloading_classes.md)
         2. [Abstract classes](./doc/code/classes_interfaces_traits/abstract_classes/abstract_classes.md)
         3. [Interfaces](./doc/code/classes_interfaces_traits/interfaces/interfaces.md)
+        4. [Traits](./doc/code/classes_interfaces_traits/traits/traits.md)
 
 ### Examples
 
@@ -279,13 +280,19 @@ Laboratory of PHP.
             3. [Interface and abstract class](./example/code/classes_interfaces_traits/interfaces/interface_and_abstract_class.php)
             4. [Extending interfaces](./example/code/classes_interfaces_traits/interfaces/extending.php)
             5. [Interface extending interface](./example/code/classes_interfaces_traits/interfaces/interface_extending_interface.php)
-        4. [Traits](./example/code/classes_interfaces_traits/traits/)
+        4. [Traits](./example/code/classes_interfaces_traits/traits/trait.php)
             1. [Traits](./example/code/classes_interfaces_traits/traits/traits.php)
             2. [Precedence](./example/code/classes_interfaces_traits/traits/precedence.php)
-            3. [Conflicts resolution](./example/code/classes_interfaces_traits/traits/conflicts_resolution.php)
+            3. [Methods access level changing](./example/code/classes_interfaces_traits/traits/functions_access_level_changing.php)
             4. [Methods visibility change](./example/code/classes_interfaces_traits/traits/visibility_change.php)
-            5. [Abstract methods](./example/code/classes_interfaces_traits/traits/visibility_change.php)
-            6. [Composing traits](./example/code/classes_interfaces_traits/traits/composing.php)
+            5. [Abstract trait components](./example/code/classes_interfaces_traits/traits/abstract.php)
+            6. [Abstract methods](./example/code/classes_interfaces_traits/traits/visibility_change.php)
+            7. [Using multiple traits](./example/code/classes_interfaces_traits/traits/using_multiple_traits.php)
+            8. [Trait using trait](./example/code/classes_interfaces_traits/traits/trait_using_trait.php)
+            9. [Composing traits](./example/code/classes_interfaces_traits/traits/composing.php)
+            10. [Diamond problem in traits](./example/code/classes_interfaces_traits/traits/diamond_problem.php)
+            11. [Conflicts resolution](./example/code/classes_interfaces_traits/traits/conflicts_resolution.php)
+
     9. [Errors and exceptions](./example/code/errors_and_exceptions/)
         1. [Errors](./example/code/errors_and_exceptions/errors/)
             1. [Triggering and handling errors](./example/code/errors_and_exceptions/errors/triggering_and_handling_errors.php)
