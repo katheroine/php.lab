@@ -1,6 +1,6 @@
 [⌂ Home](../../../../../README.md)
 [▲ Previous: `goto` instruction](../../../control_flow/goto.md)
-[▼ Next: Booleans](../../scalar/booleans/booleans.md)
+[▼ Next: Resources](../../special/resources/resources.md)
 
 # Null
 
@@ -63,4 +63,4 @@ NULL
 [▵ Up](#null)
 [⌂ Home](../../../../../README.md)
 [▲ Previous: `goto` instruction](../../../control_flow/goto.md)
-[▼ Next: Booleans](../../scalar/booleans/booleans.md)
+[▼ Next: Resources](../../special/resources/resources.md)

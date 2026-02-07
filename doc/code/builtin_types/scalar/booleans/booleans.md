@@ -1,5 +1,5 @@
 [⌂ Home](../../../../../README.md)
-[▲ Previous: Null](../../special/null/null.md)
+[▲ Previous: Resources](../../special/resources/resources.md)
 [▼ Next: Integers](../integers/integers.md)
 
 # Booleans
@@ -333,5 +333,5 @@ casted to true
 
 [▵ Up](#booleans)
 [⌂ Home](../../../../../README.md)
-[▲ Previous: Null](../../special/null/null.md)
+[▲ Previous: Resources](../../special/resources/resources.md)
 [▼ Next: Integers](../integers/integers.md)

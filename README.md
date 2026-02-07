@@ -50,6 +50,7 @@ Laboratory of PHP.
     7. [Built-in types](./doc/code/builtin_types/)
         1. [Special](./doc/code/builtin_types/special/)
             1. [Null](./doc/code/builtin_types/special/null/null.md)
+            2. [Resources](./doc/code/builtin_types/special/resources/resources.md)
         2. [Scalar](./doc/code/builtin_types/scalar/)
             1. [Booleans](./doc/code/builtin_types/scalar/booleans/booleans.md)
             2. [Integers](./doc/code/builtin_types/scalar/integers/integers.md)
