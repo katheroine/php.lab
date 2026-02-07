@@ -80,6 +80,7 @@ Laboratory of PHP.
     10. [Errors and exceptions](./doc/code/errors_and_exceptions/)
         1. [Errors](./doc/code/errors_and_exceptions/errors/errors.md)
         2. [Exceptions](./doc/code/errors_and_exceptions/exceptions/exceptions.md)
+    11. [Attributes](./doc/code/attributes/attributes.md)
 
 ### Examples
 
@@ -308,7 +309,7 @@ Laboratory of PHP.
             6. [Nesting `try`-`catch` in `try`](./example/code/errors_and_exceptions/exceptions/nesting_try_catch_in_try.php)
             7. [Nesting `try`-`catch` in `catch`](./example/code/errors_and_exceptions/exceptions/nesting_try_catch_in_catch.php)
             8. [Retrowing exception](./example/code/errors_and_exceptions/exceptions/rethrowing_exception.php)
-            9. [Returning value inside try-catch-finally](./example/code/errors_and_exceptions/exceptions/return.php)
+            9. [Returning value inside `try`-`catch`-`finally`](./example/code/errors_and_exceptions/exceptions/return.php)
     10. [Reflections](./example/code/reflections/)
         1. [Function reflections](./example/code/reflections/functions.php)
         3. [Enum reflections](./example/code/reflections/enums.php)

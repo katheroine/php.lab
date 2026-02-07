@@ -1,5 +1,6 @@
 [⌂ Home](../../../../README.md)
 [▲ Previous: Errors](../../errors_and_exceptions/errors/errors.md)
+[▼ Next: Attributes](../../attributes/attributes.md)
 
 # Exceptions
 
@@ -473,3 +474,4 @@ echo "\n\n";
 [▵ Up](#exceptions)
 [⌂ Home](../../../../README.md)
 [▲ Previous: Errors](../../errors_and_exceptions/errors/errors.md)
+[▼ Next: Attributes](../../attributes/attributes.md)
