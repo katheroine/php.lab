@@ -1,5 +1,5 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Variables](../literals_constants_variables/variables.md)
+[▲ Previous: References](../references/references.md)
 [▼ Next: Type system](./type_system.md)
 
 # Types
@@ -494,5 +494,5 @@ Maximum value for "int" is `PHP_INT_MAX`.
 -- [PHP Reference](https://www.php.net/manual/en/function.settype.php)
 
 [▵ Up](#types)
-[▲ Previous: Variables](../literals_constants_variables/variables.md)
+[▲ Previous: References](../references/references.md)
 [▼ Next: Type system](./type_system.md)
