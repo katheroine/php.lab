@@ -79,6 +79,7 @@ Laboratory of PHP.
         4. [Traits](./doc/code/classes_interfaces_traits/traits/traits.md)
     10. [Errors and exceptions](./doc/code/errors_and_exceptions/)
         1. [Errors](./doc/code/errors_and_exceptions/errors/errors.md)
+        2. [Exceptions](./doc/code/errors_and_exceptions/exceptions/exceptions.md)
 
 ### Examples
 

@@ -1,5 +1,6 @@
 [⌂ Home](../../../../README.md)
 [▲ Previous: Traits](../../classes_interfaces_traits/traits/traits.md)
+[▼ Next: Exceptions](../exceptions/exceptions.md)
 
 # Errors
 
@@ -50,3 +51,8 @@ As the `Error` hierarchy does not inherit from `Exception`, code that uses `catc
 ...
 
 -- [PHP Reference](https://www.php.net/manual/en/language.errors.php7.php)
+
+[▵ Up](#errors)
+[⌂ Home](../../../../README.md)
+[▲ Previous: Traits](../../classes_interfaces_traits/traits/traits.md)
+[▼ Next: Exceptions](../exceptions/exceptions.md)
