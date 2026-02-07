@@ -54,6 +54,8 @@ try {
     print("CASE 2: " . $e->getMessage() . " (" . $e->number . ")\n");
 } catch (ThousandException $e) {
     print("CASE 3: " . $e->getMessage() . " (" . $e->number . ")\n");
+} catch (Exception) {
+    print("Exception of unknown type catched.\n");
 }
 
 print("Program end...\n");

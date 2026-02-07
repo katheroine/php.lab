@@ -1,5 +1,6 @@
 [⌂ Home](../../../../README.md)
 [▲ Previous: Interfaces](../interfaces/interfaces.md)
+[▼ Next: Errors](../../errors_and_exceptions/errors/errors.md)
 
 # Traits
 
@@ -564,3 +565,4 @@ Fatal error: Cannot override final method FinalExampleA::method() in ...
 [▵ Up](#traits)
 [⌂ Home](../../../../README.md)
 [▲ Previous: Interfaces](../interfaces/interfaces.md)
+[▼ Next: Errors](../../errors_and_exceptions/errors/errors.md)

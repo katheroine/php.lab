@@ -43,13 +43,15 @@ function draw_number() {
 print("Program begin...\n");
 
 try {
-    print("Risky code...\n");
+    try {
+        print("Risky code...\n");
 
-    $number = draw_number();
+        $number = draw_number();
 
-    print("Given number " . $number . " didn't case exception throwing.\n");
-} catch (ZeroException $e) {
-    print("CASE 1: " . $e->getMessage() . " (" . $e->number . ")\n");
+        print("Given number " . $number . " didn't case exception throwing.\n");
+    } catch (ZeroException $e) {
+        print("CASE 1: " . $e->getMessage() . " (" . $e->number . ")\n");
+    }
 } catch (OneException $e) {
     print("CASE 2: " . $e->getMessage() . " (" . $e->number . ")\n");
 } catch (ThousandException $e) {

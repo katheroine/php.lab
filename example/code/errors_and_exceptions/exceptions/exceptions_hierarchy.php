@@ -3,6 +3,11 @@
 class NumberValueException extends Exception {
     public int $number;
     // public string $message;
+
+    function __construct(int $number) {
+        $this->number = $number;
+        $this->message = "Some number has beign given.";
+    }
 }
 
 class ZeroException extends NumberValueException {
@@ -33,10 +38,10 @@ function draw_number() {
         throw new ZeroException($number);
     } else if ($number == 1) {
         throw new OneException($number);
+    } else if ($number == 10) {
+        throw new NumberValueException($number);
     } else if ($number == 1000) {
         throw new ThousandException($number);
-    } else if ($number == 10000) { // Unhandled exception.
-        throw new NumberValueException();
     }
 }
 
@@ -52,7 +57,9 @@ try {
     print("CASE 1: " . $e->getMessage() . " (" . $e->number . ")\n");
 } catch (OneException $e) {
     print("CASE 2: " . $e->getMessage() . " (" . $e->number . ")\n");
-} catch (ThousandException $e) {
+} catch (NumberValueException $e) {
+    print("CASE 0: " . $e->getMessage() . " (" . $e->number . ")\n");
+} catch (ThousandException $e) { // Will be never catched.
     print("CASE 3: " . $e->getMessage() . " (" . $e->number . ")\n");
 }
 

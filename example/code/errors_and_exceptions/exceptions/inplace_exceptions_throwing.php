@@ -26,7 +26,11 @@ class ThousandException extends NumberValueException {
     }
 }
 
-function draw_number() {
+print("Program begin...\n");
+
+try {
+    print("Risky code...\n");
+
     $number = readline("Give some number: ");
 
     if ($number == 0) {
@@ -38,14 +42,6 @@ function draw_number() {
     } else if ($number == 10000) { // Unhandled exception.
         throw new NumberValueException();
     }
-}
-
-print("Program begin...\n");
-
-try {
-    print("Risky code...\n");
-
-    $number = draw_number();
 
     print("Given number " . $number . " didn't case exception throwing.\n");
 } catch (ZeroException $e) {

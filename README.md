@@ -77,6 +77,8 @@ Laboratory of PHP.
         2. [Abstract classes](./doc/code/classes_interfaces_traits/abstract_classes/abstract_classes.md)
         3. [Interfaces](./doc/code/classes_interfaces_traits/interfaces/interfaces.md)
         4. [Traits](./doc/code/classes_interfaces_traits/traits/traits.md)
+    10. [Errors and exceptions](./doc/code/errors_and_exceptions/)
+        1. [Errors](./doc/code/errors_and_exceptions/errors/errors.md)
 
 ### Examples
 
@@ -292,14 +294,20 @@ Laboratory of PHP.
             9. [Composing traits](./example/code/classes_interfaces_traits/traits/composing.php)
             10. [Diamond problem in traits](./example/code/classes_interfaces_traits/traits/diamond_problem.php)
             11. [Conflicts resolution](./example/code/classes_interfaces_traits/traits/conflicts_resolution.php)
-
     9. [Errors and exceptions](./example/code/errors_and_exceptions/)
         1. [Errors](./example/code/errors_and_exceptions/errors/)
             1. [Triggering and handling errors](./example/code/errors_and_exceptions/errors/triggering_and_handling_errors.php)
             2. [Catching errors](./example/code/errors_and_exceptions/errors/catching_errors.php)
-        2. [Exceptions](./example/code/errors_and_exceptions/exceptions/)
+        2. [Exceptions](./example/code/errors_and_exceptions/exceptions/exception.php)
             1. [Exceptions](./example/code/errors_and_exceptions/exceptions/exceptions.php)
-            2. [Returning value inside try-catch-finally](./example/code/errors_and_exceptions/exceptions/return.php)
+            2. [`try`-`catch`-`finally`](./example/code/errors_and_exceptions/exceptions/try_catch_finally.php)
+            3. [In-place exceptions throwing](./example/code/errors_and_exceptions/exceptions/inplace_exceptions_throwing.php)
+            4. [Exceptions hierarchy](./example/code/errors_and_exceptions/exceptions/exceptions_hierarchy.php)
+            5. [Catching all exceptions](./example/code/errors_and_exceptions/exceptions/catching_all_exceptions.php)
+            6. [Nesting `try`-`catch` in `try`](./example/code/errors_and_exceptions/exceptions/nesting_try_catch_in_try.php)
+            7. [Nesting `try`-`catch` in `catch`](./example/code/errors_and_exceptions/exceptions/nesting_try_catch_in_catch.php)
+            8. [Retrowing exception](./example/code/errors_and_exceptions/exceptions/rethrowing_exception.php)
+            9. [Returning value inside try-catch-finally](./example/code/errors_and_exceptions/exceptions/return.php)
     10. [Reflections](./example/code/reflections/)
         1. [Function reflections](./example/code/reflections/functions.php)
         3. [Enum reflections](./example/code/reflections/enums.php)

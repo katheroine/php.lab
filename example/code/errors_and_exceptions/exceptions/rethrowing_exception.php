@@ -52,6 +52,7 @@ try {
     print("CASE 1: " . $e->getMessage() . " (" . $e->number . ")\n");
 } catch (OneException $e) {
     print("CASE 2: " . $e->getMessage() . " (" . $e->number . ")\n");
+    throw $e;
 } catch (ThousandException $e) {
     print("CASE 3: " . $e->getMessage() . " (" . $e->number . ")\n");
 }

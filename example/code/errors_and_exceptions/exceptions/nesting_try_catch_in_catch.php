@@ -52,6 +52,18 @@ try {
     print("CASE 1: " . $e->getMessage() . " (" . $e->number . ")\n");
 } catch (OneException $e) {
     print("CASE 2: " . $e->getMessage() . " (" . $e->number . ")\n");
+
+    try {
+        print("Another risky code...\n");
+
+        $number = draw_number();
+
+        print("Another given number " . $number . " didn't case exception throwing.\n");
+    } catch (ZeroException $e) {
+        print("CASE 1: " . $e->getMessage() . " (" . $e->number . ")\n");
+    } catch (OneException $e) {
+        print("CASE 2: " . $e->getMessage() . " (" . $e->number . ")\n");
+    }
 } catch (ThousandException $e) {
     print("CASE 3: " . $e->getMessage() . " (" . $e->number . ")\n");
 }
