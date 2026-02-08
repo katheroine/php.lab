@@ -84,6 +84,7 @@ Laboratory of PHP.
         1. [Errors](./doc/code/errors_and_exceptions/errors/errors.md)
         2. [Exceptions](./doc/code/errors_and_exceptions/exceptions/exceptions.md)
     13. [Attributes](./doc/code/attributes/attributes.md)
+    14. [Reflections](./doc/code/reflections/reflections.md)
 
 ### Examples
 
@@ -313,14 +314,14 @@ Laboratory of PHP.
             7. [Nesting `try`-`catch` in `catch`](./example/code/errors_and_exceptions/exceptions/nesting_try_catch_in_catch.php)
             8. [Retrowing exception](./example/code/errors_and_exceptions/exceptions/rethrowing_exception.php)
             9. [Returning value inside `try`-`catch`-`finally`](./example/code/errors_and_exceptions/exceptions/return.php)
-    10. [Reflections](./example/code/reflections/)
+    10. [Attributes](./example/code/attributes/attributes.php)
+    11. [Reflections](./example/code/reflections/)
         1. [Function reflections](./example/code/reflections/functions.php)
         3. [Enum reflections](./example/code/reflections/enums.php)
         2. [Class reflections](./example/code/reflections/classes.php)
         3. [Class constant reflections](./example/code/reflections/class_constants.php)
         4. [Property reflections](./example/code/reflections/properties.php)
         5. [Method reflections](./example/code/reflections/methods.php)
-    11. [Attributes](./example/code/attributes/attributes.php)
 3. [Built-in constructs & library](./example/library/)
     1. [Functions & methods](./example/library/functions/)
         1. [Language constructs](./example/library/functions/constructs/)
