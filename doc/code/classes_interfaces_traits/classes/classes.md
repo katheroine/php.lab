@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Generators](../../generators/generators.md)
-[▼ Next: Classe components](./class_components.md)
+[▲ Previous: Fibers](../../fibers/fibers.md)
+[▼ Next: Class components](./class_components.md)
 
 # Classes
 
@@ -858,5 +858,5 @@ SomeNamespace\SomeClass
 
 [▵ Up](#classes)
 [⌂ Home](../../../README.md)
-[▲ Previous: Generators](../../generators/generators.md)
-[▼ Next: Classe components](./class_components.md)
+[▲ Previous: Fibers](../../fibers/fibers.md)
+[▼ Next: Class components](./class_components.md)

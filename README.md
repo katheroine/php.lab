@@ -65,7 +65,8 @@ Laboratory of PHP.
         2. [Anonymous functions](./doc/code/functions/anonymous_functions.md)
         3. [First class callable syntax](./doc/code/functions/first_class_callable_syntax.md)
     9. [Generators](./doc/code/generators/generators.md)
-    10. [Classes, interfaces, traits](./doc/code/classes_interfaces_traits/)
+    10. [Fibers](./doc/code/fibers/fibers.md)
+    11. [Classes, interfaces, traits](./doc/code/classes_interfaces_traits/)
         1. [Classes](./doc/code/classes_interfaces_traits/classes/classes.md)
             1. [Class components](./doc/code/classes_interfaces_traits/classes/class_components.md)
             2. [Magic methods](./doc/code/classes_interfaces_traits/classes/magic_methods.md)
@@ -79,10 +80,10 @@ Laboratory of PHP.
         2. [Abstract classes](./doc/code/classes_interfaces_traits/abstract_classes/abstract_classes.md)
         3. [Interfaces](./doc/code/classes_interfaces_traits/interfaces/interfaces.md)
         4. [Traits](./doc/code/classes_interfaces_traits/traits/traits.md)
-    11. [Errors and exceptions](./doc/code/errors_and_exceptions/)
+    12. [Errors and exceptions](./doc/code/errors_and_exceptions/)
         1. [Errors](./doc/code/errors_and_exceptions/errors/errors.md)
         2. [Exceptions](./doc/code/errors_and_exceptions/exceptions/exceptions.md)
-    12. [Attributes](./doc/code/attributes/attributes.md)
+    13. [Attributes](./doc/code/attributes/attributes.md)
 
 ### Examples
 

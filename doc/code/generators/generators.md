@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: First class callable syntax](../functions/first_class_callable_syntax.md)
-[▼ Next: Classes](../classes_interfaces_traits/classes/classes.md)
+[▼ Next: Fibers](../fibers/fibers.md)
 
 # Generators
 
@@ -466,5 +466,5 @@ print(PHP_EOL);
 
 [▵ Up](#generators)
 [⌂ Home](../../../README.md)
-[▲ Previous: First class callable syntax](../functions/first_class_callable_syntax.md)
+[▲ Previous: Fibers](../fibers/fibers.md)
 [▼ Next: Classes](../classes_interfaces_traits/classes/classes.md)
