@@ -1,5 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Attributes](../attributes/attributes.md)
+[▼ Next: Namespaces](../namespaces/namespaces.md)
 
 # Reflections
 
@@ -247,3 +248,4 @@ public static getModifierNames(int $modifiers): array
 [▵ Up](#reflections)
 [⌂ Home](../../../README.md)
 [▲ Previous: Attributes](../attributes/attributes.md)
+[▼ Next: Namespaces](../namespaces/namespaces.md)

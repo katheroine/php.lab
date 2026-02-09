@@ -85,6 +85,7 @@ Laboratory of PHP.
         2. [Exceptions](./doc/code/errors_and_exceptions/exceptions/exceptions.md)
     13. [Attributes](./doc/code/attributes/attributes.md)
     14. [Reflections](./doc/code/reflections/reflections.md)
+    15. [Namespaces](./doc/code/namespaces/namespaces.md)
 
 ### Examples
 
