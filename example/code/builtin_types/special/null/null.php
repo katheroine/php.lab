@@ -1,10 +1,8 @@
 <?php
 
 $someNothing = null;
-$otherNothing = NULL;
 
-print("Some nothing: {$someNothing}\n");
+print("Information:\n");
 var_dump($someNothing);
-
-print("Other nothing: {$otherNothing}\n");
-var_dump($otherNothing);
+print('Type: ' . gettype($someNothing) . PHP_EOL);
+print("As string: {$someNothing}\n");
