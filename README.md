@@ -195,6 +195,8 @@ Laboratory of PHP.
                 2. [Testing for null](./example/code/builtin_types/special/null/testing_for_null.php)
                 3. [Null as unset effect](./example/code/builtin_types/special/null/null_as_unset_effect.php)
                 4. [Casting from null](./example/code/builtin_types/special/null/casting_from_null.php)
+            2. [Resource](./example/code/builtin_types/special/resource/)
+                1. [Resource](./example/code/builtin_types/special/resource/resource.php)
         2. [Scalar](./example/code/builtin_types/scalar/)
             1. [Booleans](./example/code/builtin_types/scalar/booleans/bool.php)
                 1. [Boolean definition](./example/code/builtin_types/scalar/booleans/bool_definition.php)
