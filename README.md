@@ -197,6 +197,7 @@ Laboratory of PHP.
                 4. [Casting from null](./example/code/builtin_types/special/null/casting_from_null.php)
             2. [Resource](./example/code/builtin_types/special/resource/)
                 1. [Resource](./example/code/builtin_types/special/resource/resource.php)
+                2. [Checking resource type](./example/code/builtin_types/special/resource/checking_resource_type.php)
         2. [Scalar](./example/code/builtin_types/scalar/)
             1. [Booleans](./example/code/builtin_types/scalar/booleans/bool.php)
                 1. [Boolean definition](./example/code/builtin_types/scalar/booleans/bool_definition.php)

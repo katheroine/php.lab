@@ -15,7 +15,8 @@ See also the `get_resource_type()` *function*.
 ```php
 <?php
 
-$someFile = fopen('file.txt', 'r');
+$filePath = __DIR__ . DIRECTORY_SEPARATOR . 'file.txt';
+$someFile = fopen($filePath, 'r');
 
 if ($someFile === false) {
     die('Unable to open file');
@@ -26,7 +27,7 @@ var_dump($someFile);
 print('Type: ' . gettype($someFile) . PHP_EOL);
 print("As string: {$someFile}\n\n");
 
-$content = fread($someFile, filesize('file.txt'));
+$content = fread($someFile, filesize($filePath));
 print("Content: {$content}\n");
 
 fclose($someFile);
@@ -81,6 +82,34 @@ Thanks to the reference-counting system being part of Zend Engine, a *resource* 
 Note: *Persistent database links* are an exception to this rule. They are not destroyed by the *garbage collector*.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.resource.php)
+
+## Resource type
+
+```php
+<?php
+
+$someFile = fopen(__DIR__ . DIRECTORY_SEPARATOR . 'file.txt', 'r');
+
+if ($someFile === false) {
+    die('Unable to open file');
+}
+
+print('Type: ' . get_resource_id($someFile) . PHP_EOL);
+print('Type: ' . get_resource_type($someFile) . PHP_EOL);
+
+fclose($someFile);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Type: 5
+Type: stream
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/special/resource/checking_resource_type.php)
 
 [▵ Up](#resources)
 [⌂ Home](../../../../../README.md)

@@ -1,6 +1,7 @@
 <?php
 
-$someFile = fopen('file.txt', 'r');
+$filePath = __DIR__ . DIRECTORY_SEPARATOR . 'file.txt';
+$someFile = fopen($filePath, 'r');
 
 if ($someFile === false) {
     die('Unable to open file');
@@ -11,7 +12,7 @@ var_dump($someFile);
 print('Type: ' . gettype($someFile) . PHP_EOL);
 print("As string: {$someFile}\n\n");
 
-$content = fread($someFile, filesize('file.txt'));
+$content = fread($someFile, filesize($filePath));
 print("Content: {$content}\n");
 
 fclose($someFile);
