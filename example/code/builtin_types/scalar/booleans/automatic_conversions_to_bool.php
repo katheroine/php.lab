@@ -27,6 +27,11 @@ print("\$d = 0.0; // (" . gettype($d) . ")\n");
 if ($d) print "casted to true\n";
 else print "casted to false\n";
 
+$d = -0.0;
+print("\$d = -0.0; // (" . gettype($d) . ")\n");
+if ($d) print "casted to true\n";
+else print "casted to false\n";
+
 $d = 1.0;
 print("\$d = 1.0; // (" . gettype($d) . ")\n");
 if ($d) print "casted to true\n";
@@ -59,11 +64,6 @@ else print "casted to false\n";
 
 print PHP_EOL;
 
-$s = "\0";
-print("\$s = \"\\0\"; // null (\\0) character (" . gettype($s) . ")\n");
-if ($s) print "casted to true\n";
-else print "casted to false\n";
-
 $s = "";
 print("\$s = \"\"; // empty string (" . gettype($s) . ")\n");
 if ($s) print "casted to true\n";
@@ -71,6 +71,16 @@ else print "casted to false\n";
 
 $s = " ";
 print("\$s = \" \"; // space (" . gettype($s) . ")\n");
+if ($s) print "casted to true\n";
+else print "casted to false\n";
+
+$s = "0";
+print("\$s = \"0\"; // empty string (" . gettype($s) . ")\n");
+if ($s) print "casted to true\n";
+else print "casted to false\n";
+
+$s = "\0";
+print("\$s = \"\\0\"; // null (\\0) character (" . gettype($s) . ")\n");
 if ($s) print "casted to true\n";
 else print "casted to false\n";
 
@@ -90,3 +100,18 @@ if ($s) print "casted to true\n";
 else print "casted to false\n";
 
 print PHP_EOL;
+
+$a = [];
+print("\$a = []; // (" . gettype($a) . ")\n");
+if ($a) print "casted to true\n";
+else print "casted to false\n";
+
+$a = [0];
+print("\$a = [0]; // (" . gettype($a) . ")\n");
+if ($a) print "casted to true\n";
+else print "casted to false\n";
+
+$a = [null];
+print("\$a = [null]; // (" . gettype($a) . ")\n");
+if ($a) print "casted to true\n";
+else print "casted to false\n";

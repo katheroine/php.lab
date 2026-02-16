@@ -158,9 +158,11 @@ User not found.
 **Source code**:
 [Example](../../../../../example/code/builtin_types/special/null/use_cases/null_use_case_database_query_no_result.php)
 
-## Testing for null
+## Testing for `null`
 
 To check if a variable is null or not, you use the `is_null()` function. The `is_null()` function returns `true` if a variable is `null`; otherwise, it returns `false`. For example:
+
+*Example: Testing for `null`*
 
 ```php
 <?php
