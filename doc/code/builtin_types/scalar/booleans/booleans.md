@@ -8,27 +8,39 @@
 
 The **`bool` type** only has two values, and is used to express a truth value. It can be either `true` or `false`.
 
+*Example: Bool type*
+
 ```php
 <?php
 
-$someAnswer = true;
-$otherAnswer = false;
+$someRight = true;
+$someWrong = false;
 
-print("Some answer: {$someAnswer}\n");
-var_dump($someAnswer);
+print("Information:\n");
+var_dump($someRight);
+print('Type: ' . gettype($someRight) . PHP_EOL);
+print("As string: {$someRight}\n\n");
 
-print("Other answer: {$otherAnswer}\n");
-var_dump($otherAnswer);
+print("Information:\n");
+var_dump($someWrong);
+print('Type: ' . gettype($someWrong) . PHP_EOL);
+print("As string: {$someWrong}\n\n");
 
 ```
 
 **Result (PHP 8.4)**:
 
 ```
-Some answer: 1
+Information:
 bool(true)
-Other answer:
+Type: boolean
+As string: 1
+
+Information:
 bool(false)
+Type: boolean
+As string:
+
 ```
 
 **Source code**:

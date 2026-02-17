@@ -4,11 +4,57 @@
 
 # Integers
 
+## Description
+
 An `int` is a number of the set `ℤ = {..., -2, -1, 0, 1, 2, ...}`.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.integer.php)
+
+Integers are whole numbers such as `-3`, `-2`, `-1`, `0`, `1`, `2`, `3`... PHP uses the int type to represent the integers.
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-int/#introduction-to-the-php-int-type)
+
+*Example: Int type*
+
+```php
+<?php
+
+$someNumber = 3;
+$otherNumber = -9;
+
+print("Information:\n");
+var_dump($someNumber);
+print('Type: ' . gettype($someNumber) . PHP_EOL);
+print("As string: {$someNumber}\n\n");
+
+print("Information:\n");
+var_dump($otherNumber);
+print('Type: ' . gettype($otherNumber) . PHP_EOL);
+print("As string: {$otherNumber}\n\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Information:
+int(3)
+Type: integer
+As string: 3
+
+Information:
+int(-9)
+Type: integer
+As string: -9
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/integers/int.php)
 
 ## Syntax
 
-**Ints** can be specified in *decimal* (base 10), *hexadecimal* (base 16), *octal* (base 8) or *binary* (base 2) notation. The *negation operator* can be used to denote a negative `int`.
+**Ints** can be specified in *decimal* (`base 10`), *hexadecimal* (`base 16`), *octal* (`base 8`) or *binary* (`base 2`) notation. The *negation operator* can be used to denote a negative `int`.
 
 To use *octal notation*, precede the number with a `0` (zero). As of PHP 8.1.0, octal notation can also be preceded with `0o` or `0O`. To use *hexadecimal notation* precede the number with `0x`. To use *binary notation* precede the number with `0b`.
 
@@ -26,6 +72,102 @@ $a = 0b11111111; // binary number (equivalent to 255 decimal)
 $a = 1_234_567; // decimal number (as of PHP 7.4.0)
 ?>
 ```
+
+*Example: Int syntax*
+
+```php
+<?php
+
+$someNumber = 10;
+$otherNumber = +3;
+$anotherNumber = -9;
+$yetAnotherNumber = 10_000_1024;
+
+print("10: ");
+var_dump($someNumber);
+print("+3: ");
+var_dump($otherNumber);
+print("-9: ");
+var_dump($anotherNumber);
+print("10_000_1024: ");
+var_dump($yetAnotherNumber);
+
+print(PHP_EOL);
+
+$someBinary = 0b1111;
+$otherBinary = 0B1111;
+
+print("0b1111: ");
+var_dump($someBinary);
+print("0B1111: ");
+var_dump($otherBinary);
+
+print(PHP_EOL);
+
+$someOctal = 017;
+$otherOctal = 0o17;
+$anotherOctal = 0O17;
+
+print("017: ");
+var_dump($someOctal);
+print("0o17: ");
+var_dump($otherOctal);
+print("0O17: ");
+var_dump($anotherOctal);
+
+print(PHP_EOL);
+
+$someDecimal = 15;
+
+print("15: ");
+var_dump($someDecimal);
+
+print(PHP_EOL);
+
+$someHaxadecimal = 0xf;
+$otherHexadecimal = 0Xf;
+$anotherHexadecimal = 0xF;
+$yetAnotherHexadecimal = 0XF;
+
+print("0xf: ");
+var_dump($someHaxadecimal);
+print("0Xf: ");
+var_dump($otherHexadecimal);
+print("0xF: ");
+var_dump($anotherHexadecimal);
+print("0XF:");
+var_dump($yetAnotherHexadecimal);
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+10: int(10)
++3: int(3)
+-9: int(-9)
+10_000_1024: int(100001024)
+
+0b1111: int(15)
+0B1111: int(15)
+
+017: int(15)
+0o17: int(15)
+0O17: int(15)
+
+15: int(15)
+
+0xf: int(15)
+0Xf: int(15)
+0xF: int(15)
+0XF:int(15)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/integers/int_syntax.php)
 
 Formally, the structure for *`int` literals* is as of PHP 8.1.0 (previously, the `0o` or `0O` octal prefixes were not allowed, and prior to PHP 7.4.0 the underscores were not allowed):
 
@@ -45,9 +187,145 @@ integer     : decimal
             | binary
 ```
 
-The size of an `int` is platform-dependent, although a maximum value of about two billion is the usual value (that's 32 bits signed). 64-bit platforms usually have a maximum value of about `9E18`. PHP does not support *unsigned ints*. `int` size can be determined using the constant `PHP_INT_SIZE`, maximum value using the constant `PHP_INT_MAX`, and minimum value using the constant PHP_INT_MIN.
+-- [PHP Reference](https://www.php.net/manual/en/language.types.integer.php)
 
-## Integer overflow
+### Decimal numbers
+
+PHP uses a sequence of digits without leading zeros to represent *decimal values*. The sequence may begin with a plus or minus sign. If it has no sign, then the integer is positive. For example:
+
+* `2000`
+* `-100`
+* `12345`
+
+From PHP 7.4, you can use the underscores (`_`) to group digits in an integer to make it easier to read. For example, instead of using the following number:
+
+`1000000`
+
+you can use the underscores (`_`) to group digits like this:
+
+`1_000_000`
+
+### Octal numbers
+
+*Octal numbers* consist of a leading zero and a sequence of digits from `0` to `7`. Like decimal numbers, octal numbers can have a plus (`+`) or minus (`-`) sign. For example:
+
+* `+010 // decimal 8`
+
+### Hexadecimal numbers
+
+*Hexadecimal numbers* consist of a leading `0x` and a sequence of digits (`0-9`) or letters (`A-F`). The letters can be lowercase or uppercase. By convention, letters are written in uppercase.
+
+Like decimal numbers, hexadecimal numbers can include a sign, plus (`+`) or minus(`-`). For example:
+
+* `0x10 // decimal 16`
+* `0xFF // decimal 255`
+
+## Binary numbers
+
+*Binary numbers* begin with `0b` are followed by a sequence of digits `0` and `1`. The binary numbers can include a sign. For example:
+
+* `0b10 // decimal 2`
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-int/#introduction-to-the-php-int-type)
+
+*Example: Int in binary, octal, decimal and hexagonal notation*
+
+```php
+<?php
+
+// Binary
+
+print("0b1111: " . 0b1111 . PHP_EOL);
+print("0B1111: " . 0B1111 . PHP_EOL);
+
+print(PHP_EOL);
+
+// Octal
+print("017: " . 017 . PHP_EOL);
+print("0o17: " . 0o17 . PHP_EOL);
+print("0O17: " . 0O17 . PHP_EOL);
+
+print(PHP_EOL);
+
+// Decimal
+print("15: " . 15 . PHP_EOL);
+
+print(PHP_EOL);
+
+// Hexadecimal
+print("0xf: " . 0xf . PHP_EOL);
+print("0Xf: " . 0Xf . PHP_EOL);
+print("0xF: " . 0xF . PHP_EOL);
+print("0XF: " . 0XF . PHP_EOL);
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+0b1111: 15
+0B1111: 15
+
+017: 15
+0o17: 15
+0O17: 15
+
+15: 15
+
+0xf: 15
+0Xf: 15
+0xF: 15
+0XF: 15
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/integers/int_bin_oct_dec_hex_notation.php)
+
+## Values range
+
+The range of integers depends on the platform where PHP runs. Typically, integers has a range from `-2,147,438,648` to `2,147,483,647`. It’s equivalent to `32 bits signed`.
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-int/#introduction-to-the-php-int-type)
+
+The size of an `int` is platform-dependent, although a maximum value of about two billion is the usual value (that's 32 bits signed). 64-bit platforms usually have a maximum value of about `9E18`. PHP does not support *unsigned ints*. `int` size can be determined using the constant `PHP_INT_SIZE`, maximum value using the constant `PHP_INT_MAX`, and minimum value using the constant `PHP_INT_MIN`.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.integer.php)
+
+*Example: Int values range*
+
+```php
+<?php
+
+print "The largest integer supported: PHP_INT_MAX = " . PHP_INT_MAX . " (" . gettype(PHP_INT_MAX) . ")\n";
+$bigger = PHP_INT_MAX + 1;
+print "Bigger than maximal integer: PHP_INT_MAX + 1 = {$bigger} (" . gettype($bigger) . ")\n\n";
+print "The smallest integer supported: PHP_INT_MIN = " . PHP_INT_MIN . " (" . gettype(PHP_INT_MIN) . ")\n";
+$smaller = PHP_INT_MIN - 1;
+print "Smaller than minimal integer: PHP_INT_MIN - 1 = {$smaller} (" . gettype($smaller) . ")\n\n";
+print "The size of an integer in bytes: PHP_INT_SIZE = " . PHP_INT_SIZE . " (" . gettype(PHP_INT_SIZE) . ")\n\n";
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+The largest integer supported: PHP_INT_MAX = 9223372036854775807 (integer)
+Bigger than maximal integer: PHP_INT_MAX + 1 = 9.2233720368548E+18 (double)
+
+The smallest integer supported: PHP_INT_MIN = -9223372036854775808 (integer)
+Smaller than minimal integer: PHP_INT_MIN - 1 = -9.2233720368548E+18 (double)
+
+The size of an integer in bytes: PHP_INT_SIZE = 8 (integer)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/integers/int_values_range.php)
+
+### Integer overflow
 
 If PHP encounters a number beyond the bounds of the *`int` type*, it will be interpreted as a `float` instead. Also, an operation which results in a number beyond the bounds of the `int` type will return a `float` instead.
 
@@ -142,38 +420,6 @@ The behaviour of converting to `int` is `undefined` for other types. Do not rely
 -- [PHP Reference](https://www.php.net/manual/en/language.types.integer.php)
 
 ## Examples
-
-*Example: Basic `int` usage*
-
-```php
-<?php
-
-$someNumber = 3;
-$otherNumber = -9;
-
-print("Some number: {$someNumber}\n");
-var_dump($someNumber);
-
-print("Other number: {$otherNumber}\n");
-var_dump($otherNumber);
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/integers/integer.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-Some number: 3
-int(3)
-Other number: -9
-int(-9)
-```
 
 *Example: Checking if a value is an integer*
 
@@ -279,70 +525,6 @@ is_long(acos(2)):  // not-a-number
 is_long(null):
 is_long('1'):
 
-```
-
-*Example: Integer value limits*
-
-```php
-<?php
-
-print "The largest integer supported: PHP_INT_MAX = " . PHP_INT_MAX . " (" . gettype(PHP_INT_MAX) . ")\n";
-$i = PHP_INT_MAX + 1;
-print "Bigger than maximal integer: PHP_INT_MAX + 1 = (" . gettype($i) . ")\n\n";
-print "The smallest integer supported: PHP_INT_MIN = " . PHP_INT_MIN . " (" . gettype(PHP_INT_MIN) . ")\n";
-$i = PHP_INT_MIN - 1;
-print "Smaller than minimal integer: PHP_INT_MIN - 1 = $i (" . gettype($i) . ")\n\n";
-print "The size of an integer in bytes: PHP_INT_SIZE = " . PHP_INT_SIZE . " (" . gettype(PHP_INT_SIZE) . ")\n\n";
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/integers/integer_value_limits.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-The largest integer supported: PHP_INT_MAX = 9223372036854775807 (integer)
-Bigger than maximal integer: PHP_INT_MAX + 1 = (double)
-
-The smallest integer supported: PHP_INT_MIN = -9223372036854775808 (integer)
-Smaller than minimal integer: PHP_INT_MIN - 1 = -9.2233720368548E+18 (double)
-
-The size of an integer in bytes: PHP_INT_SIZE = 8 (integer)
-
-```
-
-*Example: Integer octal, decimal and hexadecimal notation*
-
-```php
-<?php
-
-// Decimal
-print "15: " . 15 . "\n";
-// Octal
-print "017: " . 017 . "\n";
-// Hexadecimal
-print "0xf / 0Xf / 0xF / 0XF : " . 0xf . " / " . 0Xf . " / " . 0xF . " / " . 0XF . "\n";
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/integers/integer_oct_dec_hex_notations.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-15: 15
-017: 15
-0xf / 0Xf / 0xF / 0XF : 15 / 15 / 15 / 15
 ```
 
 [▵ Up](#integers)

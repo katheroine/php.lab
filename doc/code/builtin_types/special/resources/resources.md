@@ -12,6 +12,8 @@ See also the `get_resource_type()` *function*.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.resource.php)
 
+*Example: Resource type*
+
 ```php
 <?php
 
