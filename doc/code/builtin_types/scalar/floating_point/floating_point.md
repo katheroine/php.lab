@@ -4,6 +4,70 @@
 
 # Floating point
 
+## Description
+
+**Floating-point numbers** represent *numeric values* with *decimal digits*.
+
+Floating-point numbers are often called *floats*, *doubles*, or *real numbers*. Like *integers*, the range of the floats depends on the platform where PHP runs.
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-float/#introduction-to-the-php-float)
+
+*Example: `float` type*
+
+```php
+<?php
+
+$someValue = 3.0;
+$otherValue = -9.2;
+
+print("Information:\n");
+var_dump($someValue);
+print('Type: ' . gettype($someValue) . PHP_EOL);
+print("As string: {$someValue}\n\n");
+
+print("Information:\n");
+var_dump($otherValue);
+print('Type: ' . gettype($otherValue) . PHP_EOL);
+print("As string: {$otherValue}\n\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Information:
+float(3)
+Type: double
+As string: 3
+
+Information:
+float(-9.2)
+Type: double
+As string: -9.2
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/float.php)
+
+## Syntax
+
+PHP recognizes *floating-point numbers* in the following common formats:
+
+* `1.25`
+* `3.14`
+* `-0.1`
+
+PHP also supports the *floating-point numbers* in *scientific notation*:
+
+`0.125E1 // 0.125 * 10^1 or 1.25`
+
+Since PHP 7.4, you can use the underscores in floats to make long numbers more readable. For example:
+
+`1_234_457.89`
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-float/#introduction-to-the-php-float)
+
 **Floating point numbers** (also known as *floats*, *doubles*, or *real numbers*) can be specified using any of the following syntaxes:
 
 ```php
@@ -23,31 +87,282 @@ DNUM          ({LNUM}?"."{LNUM}) | ({LNUM}"."{LNUM}?)
 EXPONENT_DNUM (({LNUM} | {DNUM}) [eE][+-]? {LNUM})
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.types.float.php)
+
+*Example: `float` syntax*
+
+```php
+<?php
+
+$someValue= 10.5;
+$somePositiveValue = +3.2;
+$someNegativeValue = -9.3;
+$someValueInUnderscoredNotation = 10_000_1024.0;
+$someValueInScientificNotationWithPositiveExponent = 0.125e1;
+$someValueInScientificNotationWithNegativeExponent = 5e-8;
+$otherValueInScientificNotationWithPositiveExponent = 0.25E2;
+$otherValueInScientificNotationWithNegativeExponent = 3E-6;
+
+print("10.5: ");
+var_dump($someValue);
+print("+3.2: ");
+var_dump($somePositiveValue);
+print("-9.3: ");
+var_dump($someNegativeValue);
+print("10_000_1024.0: ");
+var_dump($someValueInUnderscoredNotation);
+print("0.125e1: ");
+var_dump($someValueInScientificNotationWithPositiveExponent);
+print("5e-8: ");
+var_dump($someValueInScientificNotationWithNegativeExponent);
+print("0.25E2: ");
+var_dump($otherValueInScientificNotationWithPositiveExponent);
+print("3E-6: ");
+var_dump($otherValueInScientificNotationWithNegativeExponent);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+10.5: float(10.5)
++3.2: float(3.2)
+-9.3: float(-9.3)
+10_000_1024.0: float(100001024)
+0.125e1: float(1.25)
+5e-8: float(5.0E-8)
+0.25E2: float(25)
+3E-6: float(3.0E-6)
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/float_syntax.php)
+
+*Example: Float exponential_notation*
+
+```php
+<?php
+
+$scientificNotationWithoutSign = 5e3;
+print("5e3: ");
+var_dump($scientificNotationWithoutSign);
+
+$scientificNotationWithoutSign = 5E3;
+print("5E3: ");
+var_dump($scientificNotationWithoutSign);
+
+print(PHP_EOL);
+
+$scinetifictNotificationPlusSign = 5e+3;
+print("5e+3: ");
+var_dump($scinetifictNotificationPlusSign);
+
+$scinetifictNotificationPlusSign = 5E+3;
+print("5E+3: ");
+var_dump($scinetifictNotificationPlusSign);
+
+print(PHP_EOL);
+
+$scientificNotificationMinusSign = 5e-3;
+print("5e-3: ");
+var_dump($scientificNotificationMinusSign);
+
+$scientificNotificationMinusSign = 5E-3;
+print("5E-3: ");
+var_dump($scientificNotificationMinusSign);
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+5e3: float(5000)
+5E3: float(5000)
+
+5e+3: float(5000)
+5E+3: float(5000)
+
+5e-3: float(0.005)
+5E-3: float(0.005)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/float_exponential_notation.php)
+
+## Size
+
 The size of a `float` is platform-dependent, although a maximum of approximately `1.8e308` with a precision of roughly 14 decimal digits is a common value (the 64 bit IEEE format).
 
-Warning
+-- [PHP Reference](https://www.php.net/manual/en/language.types.float.php)
 
-## Floating point precision
+## Precision
 
 Floating point numbers have *limited precision*. Although it depends on the system, PHP typically uses the IEEE 754 double precision format, which will give a maximum relative error due to rounding in the order of `1.11e-16`. Non elementary arithmetic operations may give larger errors, and, of course, error propagation must be considered when several operations are compounded.
 
-Additionally, rational numbers that are exactly representable as *floating point* numbers in base 10, like `0.1` or `0.7`, do not have an exact representation as *floating point* numbers in base 2, which is used internally, no matter the size of the mantissa. Hence, they cannot be converted into their internal binary counterparts without a small loss of precision. This can lead to confusing results: for example, *floor((0.1+0.7)*10)* will usually return `7` instead of the expected `8`, since the internal representation will be something like `7.9999999999999991118...`.
+Additionally, rational numbers that are exactly representable as *floating point* numbers in base 10, like `0.1` or `0.7`, do not have an exact representation as *floating point* numbers in base 2, which is used internally, no matter the size of the `mantissa`. Hence, they cannot be converted into their internal binary counterparts without a small loss of precision. This can lead to confusing results: for example, *floor((0.1+0.7)*10)* will usually return `7` instead of the expected `8`, since the internal representation will be something like `7.9999999999999991118...`.
 
 So never trust *floating number* results to the last digit, and do not compare *floating point* numbers directly for equality. If higher precision is necessary, the arbitrary precision `math` functions and `gmp` functions are available.
 
-## Converting to float
+-- [PHP Reference](https://www.php.net/manual/en/language.types.float.php)
 
-### From strings
+## Number accuracy
 
-If the string is numeric or leading numeric then it will resolve to the corresponding float value, otherwise it is converted to zero (0).
+Since the computer cannot represent exact floating-point numbers, it can only use approximate representations.
 
-### From other types
+For example, the result of 0.1 + 0.1 + 0.1 is 0.299999999…, not 0.3. When comparing two floating-point numbers using the == operator, you must be careful.
 
-For values of other types, the conversion is performed by converting the value to `int` first and then to `float`.
+The following example returns false, which may not be what you expected:
 
-Note:
+```php
+<?php
 
-As certain types have undefined behavior when converting to `int`, this is also the case when converting to `float`.
+$total = 0.1 + 0.1 + 0.1;
+echo $total == 0.3; // return false
+```
+
+-- [PHP tutorial](https://www.phptutorial.net/php-tutorial/php-float/#floating-point-number-accuracy)
+
+## Values range
+
+```php
+<?php
+
+print "The largest float supported: PHP_FLOAT_MAX = " . PHP_FLOAT_MAX . " (" . gettype(PHP_FLOAT_MAX) . ")\n";
+$bigger = PHP_FLOAT_MAX + 1;
+print "Bigger than maximal float: PHP_FLOAT_MAX + 1 = {$bigger} (" . gettype($bigger) . ")\n\n";
+print "The smallest float supported: PHP_FLOAT_MIN = " . PHP_FLOAT_MIN . " (" . gettype(PHP_FLOAT_MIN) . ")\n";
+$smaller = PHP_FLOAT_MIN - 1;
+print "Smaller than minimal float: PHP_FLOAT_MIN - 1 = {$smaller} (" . gettype($smaller) . ")\n\n";
+print "Number of decimal digits that can be rounded into a float and back without precision loss: PHP_FLOAT_DIG = " . PHP_FLOAT_DIG . " (" . gettype(PHP_FLOAT_DIG) . ")\n\n";
+print "Smallest representable positive number x, so that x + 1.0 != 1.0" . PHP_FLOAT_EPSILON . " (" . gettype(PHP_FLOAT_EPSILON) . ")\n\n";
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+The largest float supported: PHP_FLOAT_MAX = 1.7976931348623E+308 (double)
+Bigger than maximal float: PHP_FLOAT_MAX + 1 = 1.7976931348623E+308 (double)
+
+The smallest float supported: PHP_FLOAT_MIN = 2.2250738585072E-308 (double)
+Smaller than minimal float: PHP_FLOAT_MIN - 1 = -1 (double)
+
+Number of decimal digits that can be rounded into a float and back without precision loss: PHP_FLOAT_DIG = 15 (integer)
+
+Smallest representable positive number x, so that x + 1.0 != 1.02.2204460492503E-16 (double)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/float_values_range.php)
+
+## Usage
+
+*Example: Measure use case*
+
+```php
+<?php
+
+$priceInDolars = 19.99;
+print("Price: \${$priceInDolars}\n");
+
+$temperatureInDegreeCelsius = -3.5;
+print("Temperature: {$temperatureInDegreeCelsius} °C\n");
+
+$distanceInKilometers = 1.2e3;
+print("Distance: {$distanceInKilometers} km\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Price: $19.99
+Temperature: -3.5 °C
+Distance: 1200 km
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/use_cases/float_use_case_measure.php)
+
+*Example: Calculation use case*
+
+```php
+<?php
+
+$a = 5.5;
+$b = 2.2;
+
+echo "Sum: " . ($a + $b) . "\n";
+echo "Product: " . ($a * $b) . "\n";
+echo "Circle area (r=5.5): " . (M_PI * $a * $a) . "\n";
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Sum: 7.7
+Product: 12.1
+Circle area (r=5.5): 95.033177771091
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/use_cases/float_use_case_calculation.php)
+
+## Testing for `float`
+
+To check if a value is a *floating-point number*, you use the `is_float()` or `is_real()` function. The `is_float()` returns `true` if its argument is a *floating-point number*; otherwise, it returns `false`. For example:
+
+```php
+<?php
+
+echo is_float(0.5);
+```
+
+Output:
+
+```
+1
+```
+
+*Example: Testing for `float`*
+
+```php
+<?php
+
+$someValue = 10.0;
+
+print('Type of number: ' . gettype($someValue) . PHP_EOL);
+print('Is float? ' . (is_float($someValue) ? 'yes' : 'no') . PHP_EOL);
+print('Is float? ' . (is_double($someValue) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
+
+$someNumber = 10;
+
+print('Type of number: ' . gettype($someNumber) . PHP_EOL);
+print('Is float? ' . (is_float($someNumber) ? 'yes' : 'no') . PHP_EOL);
+print('Is float? ' . (is_double($someNumber) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Type of number: double
+Is float? yes
+Is float? yes
+
+Type of number: integer
+Is float? no
+Is float? no
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/testing_for_float.php)
 
 ## Comparing floats
 
@@ -73,45 +388,92 @@ if (abs($a - $b) < $epsilon) {
 
 ## `NaN`
 
-Some numeric operations can result in a value represented by the constant `NAN`. This result represents an undefined or unrepresentable value in floating-point calculations. Any loose or strict comparisons of this value against any other value, including itself, but except `true`, will have a result of `false`.
+Some *numeric operations* can result in a value represented by the *constant* `NAN`. This result represents an undefined or unrepresentable value in floating-point calculations. Any loose or strict comparisons of this value against any other value, including itself, but except `true`, will have a result of `false`.
 
 Because `NAN` represents any number of different values, `NAN` should not be compared to other values, including itself, and instead should be checked for using `is_nan()`.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.float.php)
 
-## Examples
-
-*Example: Basic `float` usage*
+*Example: NaN*
 
 ```php
 <?php
 
-$someValue = 3.0;
-$otherValue = -9.2;
+$notANumber = acos(2);
 
-print("Some value: {$someValue}\n");
-var_dump($someValue);
-
-print("Other value: {$otherValue}\n");
-var_dump($otherValue);
+print("acos(2) value: {$notANumber} (" . gettype($notANumber) . ")\n");
+print("Not a number: " . (is_nan($notANumber) ? 'yes' : 'no') . "\n");
 
 ```
 
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/float.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
+**Result (PHP 8.4)**:
 
 ```
-Some value: 3
-float(3)
-Other value: -9.2
-float(-9.2)
+acos(2) value: NAN (double)
+Not a number: yes
 ```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/nan.php)
+
+## Infinity
+
+```php
+<?php
+
+$positiveInfinity = 1.9e411;
+print("1.9e411: {$positiveInfinity} (" . gettype($positiveInfinity) . ")\n");
+print("Is {$positiveInfinity} finite? " . (is_finite($positiveInfinity) ? 'yes' : 'no') . PHP_EOL);
+print("Is {$positiveInfinity} inifinite? " . (is_infinite($positiveInfinity) ? 'yes' : 'no') . PHP_EOL);
+$bigger = $positiveInfinity + 1;
+print("1.9e411 + 1: {$bigger} (" . gettype($bigger) . ")\n");
+
+print PHP_EOL;
+
+$negativeInfinity = -1.9e411;
+print "-1.9e411; // {$negativeInfinity} (" . gettype($negativeInfinity) . ")\n";
+print("Is {$negativeInfinity} finite? " . (is_finite($negativeInfinity) ? 'yes' : 'no') . PHP_EOL);
+print("Is {$negativeInfinity} inifinite? " . (is_infinite($negativeInfinity) ? 'yes' : 'no') . PHP_EOL);
+$smaller = $negativeInfinity - 1;
+print("-1.9e411 - 1: {$smaller} (" . gettype($smaller) . ")\n");
+
+print PHP_EOL;
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+1.9e411: INF (double)
+Is INF finite? no
+Is INF inifinite? yes
+1.9e411 + 1: INF (double)
+
+-1.9e411; // -INF (double)
+Is -INF finite? no
+Is -INF inifinite? yes
+-1.9e411 - 1: -INF (double)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/infinity.php)
+
+## Casting to `float`
+
+### From strings
+
+If the *string* is *numeric* or *leading numeric* then it will resolve to the corresponding *float value*, otherwise it is converted to zero (`0`).
+
+### From other types
+
+For values of other *types*, the conversion is performed by converting the value to `int` first and then to `float`.
+
+Note:
+
+As certain types have undefined behavior when converting to `int`, this is also the case when converting to `float`.
+
+## Examples
 
 *Example: Checking if a value is floating point*
 
@@ -187,154 +549,6 @@ is_double(-1.9e411): 1 // -infinity
 is_double(acos(2)): 1 // not-a-number
 is_double(null):
 is_double('1.1'):
-
-```
-
-*Example: Floating point value limits*
-
-```php
-<?php
-
-print "The largest (positive) floating point supported: PHP_FLOAT_MAX = " . PHP_FLOAT_MAX . " (" . gettype(PHP_FLOAT_MAX) . ")\n";
-$f = PHP_FLOAT_MAX + 0.1;
-print "Trying to make bigger than maximal floating point: PHP_FLOAT_MAX + 0.1 = $f (" . gettype($f) . ")\n\n";
-print "The smallest (positive) floating point supported: PHP_FLOAT_MIN = " . PHP_FLOAT_MIN . " (" . gettype(PHP_FLOAT_MIN) . ")\n";
-$f = PHP_FLOAT_MIN - 0.1;
-print "Trying to make smaller than minimal floating point: PHP_FLOAT_MIN - 0.1 = $f (" . gettype($f) . ")\n\n";
-print "The number of decimal digits that can be rounded into a float and back without precision loss: PHP_FLOAT_DIG = " . PHP_FLOAT_DIG . " (" . gettype(PHP_FLOAT_DIG) . ")\n\n";
-print "The smallest representable positive number x, so that x + 1.0 != 1.0: PHP_FLOAT_EPSILON = " . PHP_FLOAT_EPSILON . " (" . gettype(PHP_FLOAT_EPSILON) . ")\n\n";
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/floating_point_value_limits.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-```
-The largest (positive) floating point supported: PHP_FLOAT_MAX = 1.7976931348623E+308 (double)
-Trying to make bigger than maximal floating point: PHP_FLOAT_MAX + 0.1 = 1.7976931348623E+308 (double)
-
-The smallest (positive) floating point supported: PHP_FLOAT_MIN = 2.2250738585072E-308 (double)
-Trying to make smaller than minimal floating point: PHP_FLOAT_MIN - 0.1 = -0.1 (double)
-
-The number of decimal digits that can be rounded into a float and back without precision loss: PHP_FLOAT_DIG = 15 (integer)
-
-The smallest representable positive number x, so that x + 1.0 != 1.0: PHP_FLOAT_EPSILON = 2.2204460492503E-16 (double)
-
-```
-
-*Example: Floating point and infinity*
-
-```php
-<?php
-
-$positive_infinity = 1.9e411;
-print "\$positive_infinity = 1.9e411; // {$positive_infinity} (" . gettype($positive_infinity) . ")\n";
-
-$negative_infinity = -1.9e411;
-print "\$negative_infinity = 1.9e411; // {$negative_infinity} (" . gettype($negative_infinity) . ")\n";
-
-print PHP_EOL;
-
-print "is_finite($positive_infinity): " . is_finite($positive_infinity) . "\n";
-print "is_infinite($positive_infinity): " . is_infinite($positive_infinity) . "\n";
-
-print "is_finite($negative_infinity): " . is_finite($negative_infinity) . "\n";
-print "is_infinite($negative_infinity): " . is_infinite($negative_infinity) . "\n";
-
-print PHP_EOL;
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/infinity.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-```
-$positive_infinity = 1.9e411; // INF (double)
-$negative_infinity = 1.9e411; // -INF (double)
-
-is_finite(INF):
-is_infinite(INF): 1
-is_finite(-INF):
-is_infinite(-INF): 1
-
-```
-
-*Example: Floating point becoming not a number*
-
-```php
-<?php
-
-$not_a_number = acos(2);
-print "\$not_a_number = acos(2); // {$not_a_number} (" . gettype($not_a_number) . ")\n";
-
-print PHP_EOL;
-
-print "is_nan(\$not_a_number): " . is_nan($not_a_number) . "\n";
-
-print PHP_EOL;
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/not_a_number.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-```
-$not_a_number = acos(2); // NAN (double)
-
-is_nan($not_a_number): 1
-
-```
-
-*Example: Floating point exponential notation*
-
-```php
-<?php
-
-print "5e3 / 5E3: " . 5e3 . " / " . 5E3 . "\n";
-print "5e+3 / 5E+3: " . 5e+3 . " / " . 5E+3 . "\n";
-print "5e-3 / 5E-3: " . 5e-3 . " / " . 5E-3 . "\n\n";
-
-print "type of 5e3: " . gettype(5e3) . "\n\n";
-
-print "1.5e3 / 1.5E3: " . 1.5e3 . " / " . 1.5E3 . "\n";
-print "1.5e+3 / 1.5E+3: " . 1.5e+3 . " / " . 1.5E+3 . "\n";
-print "1.5e-3 / 1.5E-3: " . 1.5e-3 . " / " . 1.5E-3 . "\n\n";
-
-print "type of 1.5e-3: " . gettype(1.5e-3) . "\n\n";
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/floating_point_exponential_notation.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-```
-5e3 / 5E3: 5000 / 5000
-5e+3 / 5E+3: 5000 / 5000
-5e-3 / 5E-3: 0.005 / 0.005
-
-type of 5e3: double
-
-1.5e3 / 1.5E3: 1500 / 1500
-1.5e+3 / 1.5E+3: 1500 / 1500
-1.5e-3 / 1.5E-3: 0.0015 / 0.0015
-
-type of 1.5e-3: double
 
 ```
 

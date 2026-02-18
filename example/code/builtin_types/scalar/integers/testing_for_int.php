@@ -7,7 +7,7 @@ print('Is int? ' . (is_int($someNumber) ? 'yes' : 'no') . PHP_EOL);
 print('Is int? ' . (is_integer($someNumber) ? 'yes' : 'no') . PHP_EOL);
 print('Is int? ' . (is_long($someNumber) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
 
-$someValue = 10;
+$someValue = 10.0;
 
 print('Type of number: ' . gettype($someValue) . PHP_EOL);
 print('Is int? ' . (is_int($someValue) ? 'yes' : 'no') . PHP_EOL);

@@ -1,17 +1,19 @@
 <?php
 
-$positive_infinity = 1.9e411;
-print "\$positive_infinity = 1.9e411; // {$positive_infinity} (" . gettype($positive_infinity) . ")\n";
-
-$negative_infinity = -1.9e411;
-print "\$negative_infinity = 1.9e411; // {$negative_infinity} (" . gettype($negative_infinity) . ")\n";
+$positiveInfinity = 1.9e411;
+print("1.9e411: {$positiveInfinity} (" . gettype($positiveInfinity) . ")\n");
+print("Is {$positiveInfinity} finite? " . (is_finite($positiveInfinity) ? 'yes' : 'no') . PHP_EOL);
+print("Is {$positiveInfinity} inifinite? " . (is_infinite($positiveInfinity) ? 'yes' : 'no') . PHP_EOL);
+$bigger = $positiveInfinity + 1;
+print("1.9e411 + 1: {$bigger} (" . gettype($bigger) . ")\n");
 
 print PHP_EOL;
 
-print "is_finite($positive_infinity): " . is_finite($positive_infinity) . "\n";
-print "is_infinite($positive_infinity): " . is_infinite($positive_infinity) . "\n";
-
-print "is_finite($negative_infinity): " . is_finite($negative_infinity) . "\n";
-print "is_infinite($negative_infinity): " . is_infinite($negative_infinity) . "\n";
+$negativeInfinity = -1.9e411;
+print "-1.9e411; // {$negativeInfinity} (" . gettype($negativeInfinity) . ")\n";
+print("Is {$negativeInfinity} finite? " . (is_finite($negativeInfinity) ? 'yes' : 'no') . PHP_EOL);
+print("Is {$negativeInfinity} inifinite? " . (is_infinite($negativeInfinity) ? 'yes' : 'no') . PHP_EOL);
+$smaller = $negativeInfinity - 1;
+print("-1.9e411 - 1: {$smaller} (" . gettype($smaller) . ")\n");
 
 print PHP_EOL;

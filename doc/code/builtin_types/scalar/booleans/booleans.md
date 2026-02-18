@@ -8,7 +8,7 @@
 
 The **`bool` type** only has two values, and is used to express a truth value. It can be either `true` or `false`.
 
-*Example: Bool type*
+*Example: `bool` type*
 
 ```php
 <?php
@@ -93,7 +93,7 @@ if ($show_separators) {
 ?>
 ```
 
-*Example: Bool syntax and case sensitivity*
+*Example: `bool` syntax and case sensitivity*
 
 ```php
 <?php

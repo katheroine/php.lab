@@ -14,7 +14,7 @@ Integers are whole numbers such as `-3`, `-2`, `-1`, `0`, `1`, `2`, `3`... PHP u
 
 -- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-int/#introduction-to-the-php-int-type)
 
-*Example: Int type*
+*Example: `int` type*
 
 ```php
 <?php
@@ -73,7 +73,7 @@ $a = 1_234_567; // decimal number (as of PHP 7.4.0)
 ?>
 ```
 
-*Example: Int syntax*
+*Example: `int` syntax*
 
 ```php
 <?php
@@ -433,7 +433,7 @@ print('Is int? ' . (is_int($someNumber) ? 'yes' : 'no') . PHP_EOL);
 print('Is int? ' . (is_integer($someNumber) ? 'yes' : 'no') . PHP_EOL);
 print('Is int? ' . (is_long($someNumber) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
 
-$someValue = 10;
+$someValue = 10.0;
 
 print('Type of number: ' . gettype($someValue) . PHP_EOL);
 print('Is int? ' . (is_int($someValue) ? 'yes' : 'no') . PHP_EOL);
@@ -450,10 +450,10 @@ Is int? yes
 Is int? yes
 Is int? yes
 
-Type of number: integer
-Is int? yes
-Is int? yes
-Is int? yes
+Type of number: double
+Is int? no
+Is int? no
+Is int? no
 
 ```
 
@@ -753,6 +753,8 @@ false to int: int(0)
 
 **Source code**:
 [Example](../../../../../example/code/builtin_types/scalar/integers/casting_to_int.php)
+
+## Casting from `int`
 
 *Example: Casting from `int`*
 

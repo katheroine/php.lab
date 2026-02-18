@@ -12,7 +12,7 @@ Undefined, and `unset()` variables will resolve to the value `null`.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.null.php)
 
-*Example: Null type*
+*Example: `null` type*
 
 ```php
 <?php
