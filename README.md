@@ -222,7 +222,6 @@ Laboratory of PHP.
                 5. [Integer values range](./example/code/builtin_types/scalar/integers/int_values_range.php)
                 6. [Casting to int](./example/code/builtin_types/scalar/integers/casting_to_int.php)
                 7. [Casting from int](./example/code/builtin_types/scalar/integers/casting_from_int.php)
-                8. [Checking if a value is an integer](./example/code/builtin_types/scalar/integers/checking_if_is_integer.php)
             3. [Floating point](./example/code/builtin_types/scalar/floating_point/float.php)
                 1. [Checking if a value is floating point](./example/code/builtin_types/scalar/floating_point/checking_if_is_floating_point.php)
                 2. [Floating point value limits](./example/code/builtin_types/scalar/floating_point/floating_point_value_limits.php)
