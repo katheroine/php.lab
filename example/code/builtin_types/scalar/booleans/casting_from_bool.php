@@ -3,12 +3,12 @@
 $someRight = true;
 $someWrong = false;
 
-$trueToInteger = (int) $someRight;
-print("True to integer: ");
-var_dump($trueToInteger);
-$falseToInteger = (int) $someWrong;
-print("False to integer: ");
-var_dump($falseToInteger);
+$trueToInt = (int) $someRight;
+print("True to int: ");
+var_dump($trueToInt);
+$falseToInt = (int) $someWrong;
+print("False to int: ");
+var_dump($falseToInt);
 print(PHP_EOL);
 
 $trueToFloat = (float) $someRight;
@@ -31,7 +31,7 @@ $trueToArray = (array) $someRight;
 print("True to array: ");
 var_dump($trueToArray);
 $falseToArray = (array) $someWrong;
-print("False to string: ");
+print("False to array: ");
 var_dump($falseToArray);
 print(PHP_EOL);
 

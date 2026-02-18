@@ -564,12 +564,12 @@ null to bool: bool(false)
 $someRight = true;
 $someWrong = false;
 
-$trueToInteger = (int) $someRight;
-print("True to integer: ");
-var_dump($trueToInteger);
-$falseToInteger = (int) $someWrong;
-print("False to integer: ");
-var_dump($falseToInteger);
+$trueToInt = (int) $someRight;
+print("True to int: ");
+var_dump($trueToInt);
+$falseToInt = (int) $someWrong;
+print("False to int: ");
+var_dump($falseToInt);
 print(PHP_EOL);
 
 $trueToFloat = (float) $someRight;
@@ -592,7 +592,7 @@ $trueToArray = (array) $someRight;
 print("True to array: ");
 var_dump($trueToArray);
 $falseToArray = (array) $someWrong;
-print("False to string: ");
+print("False to array: ");
 var_dump($falseToArray);
 print(PHP_EOL);
 
@@ -609,8 +609,8 @@ print(PHP_EOL);
 **Result (PHP 8.4)**:
 
 ```
-True to integer: int(1)
-False to integer: int(0)
+True to int: int(1)
+False to int: int(0)
 
 True to float: float(1)
 False to float: float(0)
@@ -622,7 +622,7 @@ True to array: array(1) {
   [0]=>
   bool(true)
 }
-False to string: array(1) {
+False to array: array(1) {
   [0]=>
   bool(false)
 }

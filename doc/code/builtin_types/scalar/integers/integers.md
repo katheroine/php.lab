@@ -220,7 +220,7 @@ Like decimal numbers, hexadecimal numbers can include a sign, plus (`+`) or minu
 * `0x10 // decimal 16`
 * `0xFF // decimal 255`
 
-## Binary numbers
+### Binary numbers
 
 *Binary numbers* begin with `0b` are followed by a sequence of digits `0` and `1`. The binary numbers can include a sign. For example:
 
@@ -341,6 +341,125 @@ var_dump(PHP_INT_MAX + 1);       // 32-bit system: float(2147483648)
 ?>
 ```
 
+## Usage
+
+*Example: Quantity use case*
+
+```php
+<?php
+
+$skills = [
+    'HTML + CSS',
+    'JavaScript (client side)',
+    'PHP',
+    'Python',
+    'MySQL / MariaDB',
+    'SQLite',
+    'PostgreSQL',
+    'MongoDB',
+    'Redis',
+    'RabbitMQ',
+    'Docker',
+    'Linux',
+    'Git',
+    'SOLID',
+    'TDD',
+    'Design patterns',
+    'DDD',
+    'Hexagonal Architecture',
+    'CQRS',
+    'REST',
+    'Symfony',
+];
+
+$skillsNumber = count($skills);
+
+print("Developer has {$skillsNumber} skills.\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Developer has 21 skills.
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/integers/use_cases/int_use_case_quantity.php)
+
+*Example: Index use case*
+
+```php
+<?php
+
+$roles = [
+    'PHP backend developer with Symfony',
+    'JavaScript frontend developer with React',
+    'Automatic tester with Python',
+    'Manual tester',
+    'DevOps engineer with AWS',
+];
+
+$rolesNumber = count($roles);
+
+for ($i = 0; $i < $rolesNumber; $i++) {
+    print('Role no. ' . ($i + 1) . ': ' . $roles[$i] . PHP_EOL);
+}
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Role no. 1: PHP backend developer with Symfony
+Role no. 2: JavaScript frontend developer with React
+Role no. 3: Automatic tester with Python
+Role no. 4: Manual tester
+Role no. 5: DevOps engineer with AWS
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/integers/use_cases/int_use_case_index.php)
+
+## Testing for `int`
+
+```php
+<?php
+
+$someNumber = 10;
+
+print('Type of number: ' . gettype($someNumber) . PHP_EOL);
+print('Is int? ' . (is_int($someNumber) ? 'yes' : 'no') . PHP_EOL);
+print('Is int? ' . (is_integer($someNumber) ? 'yes' : 'no') . PHP_EOL);
+print('Is int? ' . (is_long($someNumber) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
+
+$someValue = 10;
+
+print('Type of number: ' . gettype($someValue) . PHP_EOL);
+print('Is int? ' . (is_int($someValue) ? 'yes' : 'no') . PHP_EOL);
+print('Is int? ' . (is_integer($someValue) ? 'yes' : 'no') . PHP_EOL);
+print('Is int? ' . (is_long($someValue) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Type of number: integer
+Is int? yes
+Is int? yes
+Is int? yes
+
+Type of number: integer
+Is int? yes
+Is int? yes
+Is int? yes
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/integers/testing_for_int.php)
+
 ## Integer division
 
 There is no `int` division operator in PHP, to achieve this use the `intdiv()` function. `1/2` yields the `float` `0.5`. The value can be cast to an `int` to round it towards zero, or the `round()` function provides finer control over rounding.
@@ -355,7 +474,7 @@ var_dump(round(25/7));  // float(4)
 ?>
 ```
 
-## Converting to integer
+## Casting to `int`
 
 To explicitly convert a value to `int`, use either the `(int)` or `(integer)` casts. However, in most cases the cast is not needed, since a value will be automatically converted if an operator, function or control structure requires an `int` argument. A value can also be converted to `int` with the `intval()` function.
 
@@ -419,113 +538,333 @@ The behaviour of converting to `int` is `undefined` for other types. Do not rely
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.integer.php)
 
-## Examples
-
-*Example: Checking if a value is an integer*
+*Example: Casting to `int`*
 
 ```php
 <?php
 
-// is_int:
-print "is_int(0): " . is_int(0) . "\n";
-print "is_int(1): " . is_int(1) . "\n";
-print "is_int(-1): " . is_int(-1) . "\n";
-print "is_int(1.0): " . is_int(1.0) . "\n";
-print "is_int(-1.0): " . is_int(-1.0) . "\n";
-print "is_int(1.1): " . is_int(1.1) . "\n";
-print "is_int(-1.1): " . is_int(-1.1) . "\n";
-print "is_int(1.9e411): " . is_int(1.9e411) . " // infinity\n";
-print "is_int(-1.9e411): " . is_int(-1.9e411) . " // -infinity\n";
-print "is_int(acos(2)): " . is_int(acos(2)) . " // not-a-number\n";
-print "is_int(null): " . is_int(null) . "\n";
-print "is_int('1'): " . is_int('1') . "\n";
+$someNothing = null;
+$nullToInt = (int) $someNothing;
+print("null to int: ");
+var_dump($nullToInt);
 
 print(PHP_EOL);
 
-// is_int alias:
-print "is_integer(0): " . is_integer(0) . "\n";
-print "is_integer(1): " . is_integer(1) . "\n";
-print "is_integer(-1): " . is_integer(-1) . "\n";
-print "is_integer(1.0): " . is_integer(1.0) . "\n";
-print "is_integer(-1.0): " . is_integer(-1.0) . "\n";
-print "is_integer(1.1): " . is_integer(1.1) . "\n";
-print "is_integer(-1.1): " . is_integer(-1.1) . "\n";
-print "is_integer(1.9e411): " . is_integer(1.9e411) . " // infinity\n";
-print "is_integer(-1.9e411): " . is_integer(-1.9e411) . " // -infinity\n";
-print "is_integer(acos(2)): " . is_integer(acos(2)) . " // not-a-number\n";
-print "is_integer(null): " . is_integer(null) . "\n";
-print "is_integer('1'): " . is_integer('1') . "\n";
+$someRight = true;
+$intToInt = (int) $someRight;
+print("true to int: ");
+var_dump($intToInt);
+
+$someWrong = false;
+$intToInt = (int) $someWrong;
+print("false to int: ");
+var_dump($intToInt);
 
 print(PHP_EOL);
 
-// is_int alias:
-print "is_long(0): " . is_long(0) . "\n";
-print "is_long(1): " . is_long(1) . "\n";
-print "is_long(-1): " . is_long(-1) . "\n";
-print "is_long(1.0): " . is_long(1.0) . "\n";
-print "is_long(-1.0): " . is_long(-1.0) . "\n";
-print "is_long(1.1): " . is_long(1.1) . "\n";
-print "is_long(-1.1): " . is_long(-1.1) . "\n";
-print "is_long(1.9e411): " . is_long(1.9e411) . " // infinity\n";
-print "is_long(-1.9e411): " . is_long(-1.9e411) . " // -infinity\n";
-print "is_long(acos(2)): " . is_long(acos(2)) . " // not-a-number\n";
-print "is_long(null): " . is_long(null) . "\n";
-print "is_long('1'): " . is_long('1') . "\n";
+$someMeasure = 0.0;
+$floatToInt = (int) $someMeasure;
+print("0.0 to int: ");
+var_dump($floatToInt);
+
+$someMeasure = 0.1;
+$floatToInt = (int) $someMeasure;
+print("{$someMeasure} to int: ");
+var_dump($floatToInt);
+
+$someMeasure = 0.6;
+$floatToInt = (int) $someMeasure;
+print("{$someMeasure} to int: ");
+var_dump($floatToInt);
+
+$someMeasure = 1.0;
+$floatToInt = (int) $someMeasure;
+print("1.0 to int: ");
+var_dump($floatToInt);
+
+$someMeasure = 3.0;
+$floatToInt = (int) $someMeasure;
+print("3.0 to int: ");
+var_dump($floatToInt);
+
+$someMeasure = -3.0;
+$floatToInt = (int) $someMeasure;
+print("-3.0 to int: ");
+var_dump($floatToInt);
+
+print(PHP_EOL);
+
+$someText = "";
+$stringToInt = (int) $someText;
+print("\"{$someText}\" to int: ");
+var_dump($stringToInt);
+
+$someText = " ";
+$stringToInt = (int) $someText;
+print("\"{$someText}\" to int: ");
+var_dump($stringToInt);
+
+$someText = "false";
+$stringToInt = (int) $someText;
+print("\"{$someText}\" to int: ");
+var_dump($stringToInt);
+
+$someText = "true";
+$stringToInt = (int) $someText;
+print("\"{$someText}\" to int: ");
+var_dump($stringToInt);
+
+$someText = "0";
+$stringToInt = (int) $someText;
+print("\"{$someText}\" to int: ");
+var_dump($stringToInt);
+
+$someText = "1";
+$stringToInt = (int) $someText;
+print("\"{$someText}\" to int: ");
+var_dump($stringToInt);
+
+$someText = "3";
+$stringToInt = (int) $someText;
+print("\"{$someText}\" to int: ");
+var_dump($stringToInt);
+
+$someText = "-3";
+$stringToInt = (int) $someText;
+print("\"{$someText}\" to int: ");
+var_dump($stringToInt);
+
+$someText = "3.6";
+$stringToInt = (int) $someText;
+print("\"{$someText}\" to int: ");
+var_dump($stringToInt);
+
+$someText = "-3.6";
+$stringToInt = (int) $someText;
+print("\"{$someText}\" to int: ");
+var_dump($stringToInt);
+
+$someText = "null";
+$stringToInt = (int) $someText;
+print("\"{$someText}\" to int: ");
+var_dump($stringToInt);
+
+$someText = "a";
+$stringToInt = (int) $someText;
+print("\"{$someText}\" to int: ");
+var_dump($stringToInt);
+
+$someText = "three";
+$stringToInt = (int) $someText;
+print("\"{$someText}\" to int: ");
+var_dump($stringToInt);
+
+print(PHP_EOL);
+
+$someCollection = [];
+$arrayToInt = (int) $someCollection;
+print("[] to int: ");
+var_dump($arrayToInt);
+
+$someCollection = [true];
+$arrayToInt = (int) $someCollection;
+print("[true] to int: ");
+var_dump($arrayToInt);
+
+$someCollection = [false];
+$arrayToInt = (int) $someCollection;
+print("[false] to int: ");
+var_dump($arrayToInt);
+
+$someCollection = [0];
+$arrayToInt = (int) $someCollection;
+print("[0] to int: ");
+var_dump($arrayToInt);
+
+$someCollection = [1];
+$arrayToInt = (int) $someCollection;
+print("[1] to int: ");
+var_dump($arrayToInt);
+
+$someCollection = [''];
+$arrayToInt = (int) $someCollection;
+print("[''] to int: ");
+var_dump($arrayToInt);
+
+$someCollection = [null];
+$arrayToInt = (int) $someCollection;
+print("[null] to int: ");
+var_dump($arrayToInt);
+
+$someCollection = [null, true, 2];
+$arrayToInt = (int) $someCollection;
+print("[null, true, 2] to int: ");
+var_dump($arrayToInt);
+
+$someCollection = [null, true, 2];
+$arrayToInt = (int) $someCollection;
+print("[1, 2, 3] to int: ");
+var_dump($arrayToInt);
 
 print(PHP_EOL);
 
 ```
 
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/integers/checking_if_is_integer.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
+**Result (PHP 8.4)**:
 
 ```
-is_int(0): 1
-is_int(1): 1
-is_int(-1): 1
-is_int(1.0):
-is_int(-1.0):
-is_int(1.1):
-is_int(-1.1):
-is_int(1.9e411):  // infinity
-is_int(-1.9e411):  // -infinity
-is_int(acos(2)):  // not-a-number
-is_int(null):
-is_int('1'):
+null to int: int(0)
 
-is_integer(0): 1
-is_integer(1): 1
-is_integer(-1): 1
-is_integer(1.0):
-is_integer(-1.0):
-is_integer(1.1):
-is_integer(-1.1):
-is_integer(1.9e411):  // infinity
-is_integer(-1.9e411):  // -infinity
-is_integer(acos(2)):  // not-a-number
-is_integer(null):
-is_integer('1'):
+true to int: int(1)
+false to int: int(0)
 
-is_long(0): 1
-is_long(1): 1
-is_long(-1): 1
-is_long(1.0):
-is_long(-1.0):
-is_long(1.1):
-is_long(-1.1):
-is_long(1.9e411):  // infinity
-is_long(-1.9e411):  // -infinity
-is_long(acos(2)):  // not-a-number
-is_long(null):
-is_long('1'):
+0.0 to int: int(0)
+0.1 to int: int(0)
+0.6 to int: int(0)
+1.0 to int: int(1)
+3.0 to int: int(3)
+-3.0 to int: int(-3)
+
+"" to int: int(0)
+" " to int: int(0)
+"false" to int: int(0)
+"true" to int: int(0)
+"0" to int: int(0)
+"1" to int: int(1)
+"3" to int: int(3)
+"-3" to int: int(-3)
+"3.6" to int: int(3)
+"-3.6" to int: int(-3)
+"null" to int: int(0)
+"a" to int: int(0)
+"three" to int: int(0)
+
+[] to int: int(0)
+[true] to int: int(1)
+[false] to int: int(1)
+[0] to int: int(1)
+[1] to int: int(1)
+[''] to int: int(1)
+[null] to int: int(1)
+[null, true, 2] to int: int(1)
+[1, 2, 3] to int: int(1)
 
 ```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/integers/casting_to_int.php)
+
+*Example: Casting from `int`*
+
+```php
+<?php
+
+$zero = 0;
+$somePositive = 5;
+$someNegative = -5;
+
+$zeroToBool = (bool) $zero;
+print("Zero to bool: ");
+var_dump($zeroToBool);
+$positiveToBool = (bool) $somePositive;
+print("Positive to bool: ");
+var_dump($positiveToBool);
+$negativeToBool = (bool) $someNegative;
+print("Negative to bool: ");
+var_dump($negativeToBool);
+print(PHP_EOL);
+
+$zeroToFloat = (float) $zero;
+print("Zero to float: ");
+var_dump($zeroToFloat);
+$positiveToFloat = (float) $somePositive;
+print("Positive to float: ");
+var_dump($positiveToFloat);
+$negativeToFloat = (float) $someNegative;
+print("Negative to float: ");
+var_dump($negativeToFloat);
+print(PHP_EOL);
+
+$zeroToString = (string) $zero;
+print("Zero to string: ");
+var_dump($zeroToString);
+$positiveToString = (string) $somePositive;
+print("Positive to string: ");
+var_dump($positiveToString);
+$negativeToString = (string) $someNegative;
+print("Negative to string: ");
+var_dump($negativeToString);
+print(PHP_EOL);
+
+$zeroToArray = (array) $zero;
+print("Zero to array: ");
+var_dump($zeroToArray);
+$positiveToArray = (array) $somePositive;
+print("Positive to array: ");
+var_dump($positiveToArray);
+$negativeToArray = (array) $someNegative;
+print("Negative to array: ");
+var_dump($negativeToArray);
+print(PHP_EOL);
+
+$zeroToObject = (object) $zero;
+print("Zero to object: ");
+var_dump($zeroToObject);
+$positiveToObject = (object) $somePositive;
+print("Positive to object: ");
+var_dump($positiveToObject);
+$negativeToObject = (object) $someNegative;
+print("Negative to object: ");
+var_dump($negativeToObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Zero to bool: bool(false)
+Positive to bool: bool(true)
+Negative to bool: bool(true)
+
+Zero to float: float(0)
+Positive to float: float(5)
+Negative to float: float(-5)
+
+Zero to string: string(1) "0"
+Positive to string: string(1) "5"
+Negative to string: string(2) "-5"
+
+Zero to array: array(1) {
+  [0]=>
+  int(0)
+}
+Positive to array: array(1) {
+  [0]=>
+  int(5)
+}
+Negative to array: array(1) {
+  [0]=>
+  int(-5)
+}
+
+Zero to object: object(stdClass)#1 (1) {
+  ["scalar"]=>
+  int(0)
+}
+Positive to object: object(stdClass)#2 (1) {
+  ["scalar"]=>
+  int(5)
+}
+Negative to object: object(stdClass)#3 (1) {
+  ["scalar"]=>
+  int(-5)
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/integers/casting_from_int.php)
 
 [▵ Up](#integers)
 [⌂ Home](../../../../../README.md)
