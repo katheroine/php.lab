@@ -473,6 +473,322 @@ Note:
 
 As certain types have undefined behavior when converting to `int`, this is also the case when converting to `float`.
 
+*Example: Casting to `float`*
+
+```php
+<?php
+
+$someNothing = null;
+$nullToFloat = (float) $someNothing;
+print("null to float: ");
+var_dump($nullToFloat);
+
+print(PHP_EOL);
+
+$someRight = true;
+$intToFloat = (float) $someRight;
+print("true to float: ");
+var_dump($intToFloat);
+
+$someWrong = false;
+$intToFloat = (float) $someWrong;
+print("false to float: ");
+var_dump($intToFloat);
+
+print(PHP_EOL);
+
+$someNumber = 0;
+$floatToFloat = (float) $someNumber;
+print("0 to float: ");
+var_dump($floatToFloat);
+
+$someNumber = 1;
+$floatToFloat = (float) $someNumber;
+print("1 to float: ");
+var_dump($floatToFloat);
+
+$someNumber = 3;
+$floatToFloat = (float) $someNumber;
+print("3 to float: ");
+var_dump($floatToFloat);
+
+$someNumber = -3;
+$floatToFloat = (float) $someNumber;
+print("-3 to float: ");
+var_dump($floatToFloat);
+
+print(PHP_EOL);
+
+$someText = "";
+$stringToFloat = (float) $someText;
+print("\"{$someText}\" to float: ");
+var_dump($stringToFloat);
+
+$someText = " ";
+$stringToFloat = (float) $someText;
+print("\"{$someText}\" to float: ");
+var_dump($stringToFloat);
+
+$someText = "false";
+$stringToFloat = (float) $someText;
+print("\"{$someText}\" to float: ");
+var_dump($stringToFloat);
+
+$someText = "true";
+$stringToFloat = (float) $someText;
+print("\"{$someText}\" to float: ");
+var_dump($stringToFloat);
+
+$someText = "0";
+$stringToFloat = (float) $someText;
+print("\"{$someText}\" to float: ");
+var_dump($stringToFloat);
+
+$someText = "1";
+$stringToFloat = (float) $someText;
+print("\"{$someText}\" to float: ");
+var_dump($stringToFloat);
+
+$someText = "3";
+$stringToFloat = (float) $someText;
+print("\"{$someText}\" to float: ");
+var_dump($stringToFloat);
+
+$someText = "-3";
+$stringToFloat = (float) $someText;
+print("\"{$someText}\" to float: ");
+var_dump($stringToFloat);
+
+$someText = "3.6";
+$stringToFloat = (float) $someText;
+print("\"{$someText}\" to float: ");
+var_dump($stringToFloat);
+
+$someText = "-3.6";
+$stringToFloat = (float) $someText;
+print("\"{$someText}\" to float: ");
+var_dump($stringToFloat);
+
+$someText = "null";
+$stringToFloat = (float) $someText;
+print("\"{$someText}\" to float: ");
+var_dump($stringToFloat);
+
+$someText = "a";
+$stringToFloat = (float) $someText;
+print("\"{$someText}\" to float: ");
+var_dump($stringToFloat);
+
+$someText = "three";
+$stringToFloat = (float) $someText;
+print("\"{$someText}\" to float: ");
+var_dump($stringToFloat);
+
+print(PHP_EOL);
+
+$someCollection = [];
+$arrayToFloat = (float) $someCollection;
+print("[] to float: ");
+var_dump($arrayToFloat);
+
+$someCollection = [true];
+$arrayToFloat = (float) $someCollection;
+print("[true] to float: ");
+var_dump($arrayToFloat);
+
+$someCollection = [false];
+$arrayToFloat = (float) $someCollection;
+print("[false] to float: ");
+var_dump($arrayToFloat);
+
+$someCollection = [0];
+$arrayToFloat = (float) $someCollection;
+print("[0] to float: ");
+var_dump($arrayToFloat);
+
+$someCollection = [1];
+$arrayToFloat = (float) $someCollection;
+print("[1] to float: ");
+var_dump($arrayToFloat);
+
+$someCollection = [''];
+$arrayToFloat = (float) $someCollection;
+print("[''] to float: ");
+var_dump($arrayToFloat);
+
+$someCollection = [null];
+$arrayToFloat = (float) $someCollection;
+print("[null] to float: ");
+var_dump($arrayToFloat);
+
+$someCollection = [null, true, 2];
+$arrayToFloat = (float) $someCollection;
+print("[null, true, 2] to float: ");
+var_dump($arrayToFloat);
+
+$someCollection = [null, true, 2];
+$arrayToFloat = (float) $someCollection;
+print("[1, 2, 3] to float: ");
+var_dump($arrayToFloat);
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+null to float: float(0)
+
+true to float: float(1)
+false to float: float(0)
+
+0 to float: float(0)
+1 to float: float(1)
+3 to float: float(3)
+-3 to float: float(-3)
+
+"" to float: float(0)
+" " to float: float(0)
+"false" to float: float(0)
+"true" to float: float(0)
+"0" to float: float(0)
+"1" to float: float(1)
+"3" to float: float(3)
+"-3" to float: float(-3)
+"3.6" to float: float(3.6)
+"-3.6" to float: float(-3.6)
+"null" to float: float(0)
+"a" to float: float(0)
+"three" to float: float(0)
+
+[] to float: float(0)
+[true] to float: float(1)
+[false] to float: float(1)
+[0] to float: float(1)
+[1] to float: float(1)
+[''] to float: float(1)
+[null] to float: float(1)
+[null, true, 2] to float: float(1)
+[1, 2, 3] to float: float(1)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/casting_to_float.php)
+
+## Casting from `float`
+
+```php
+<?php
+
+$zero = 0.0;
+$somePositive = 5.1;
+$someNegative = -5.1;
+
+$zeroToBool = (bool) $zero;
+print("Zero to bool: ");
+var_dump($zeroToBool);
+$positiveToBool = (bool) $somePositive;
+print("Positive to bool: ");
+var_dump($positiveToBool);
+$negativeToBool = (bool) $someNegative;
+print("Negative to bool: ");
+var_dump($negativeToBool);
+print(PHP_EOL);
+
+$zeroToFloat = (float) $zero;
+print("Zero to float: ");
+var_dump($zeroToFloat);
+$positiveToFloat = (float) $somePositive;
+print("Positive to float: ");
+var_dump($positiveToFloat);
+$negativeToFloat = (float) $someNegative;
+print("Negative to float: ");
+var_dump($negativeToFloat);
+print(PHP_EOL);
+
+$zeroToString = (string) $zero;
+print("Zero to string: ");
+var_dump($zeroToString);
+$positiveToString = (string) $somePositive;
+print("Positive to string: ");
+var_dump($positiveToString);
+$negativeToString = (string) $someNegative;
+print("Negative to string: ");
+var_dump($negativeToString);
+print(PHP_EOL);
+
+$zeroToArray = (array) $zero;
+print("Zero to array: ");
+var_dump($zeroToArray);
+$positiveToArray = (array) $somePositive;
+print("Positive to array: ");
+var_dump($positiveToArray);
+$negativeToArray = (array) $someNegative;
+print("Negative to array: ");
+var_dump($negativeToArray);
+print(PHP_EOL);
+
+$zeroToObject = (object) $zero;
+print("Zero to object: ");
+var_dump($zeroToObject);
+$positiveToObject = (object) $somePositive;
+print("Positive to object: ");
+var_dump($positiveToObject);
+$negativeToObject = (object) $someNegative;
+print("Negative to object: ");
+var_dump($negativeToObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Zero to bool: bool(false)
+Positive to bool: bool(true)
+Negative to bool: bool(true)
+
+Zero to float: float(0)
+Positive to float: float(5.1)
+Negative to float: float(-5.1)
+
+Zero to string: string(1) "0"
+Positive to string: string(3) "5.1"
+Negative to string: string(4) "-5.1"
+
+Zero to array: array(1) {
+  [0]=>
+  float(0)
+}
+Positive to array: array(1) {
+  [0]=>
+  float(5.1)
+}
+Negative to array: array(1) {
+  [0]=>
+  float(-5.1)
+}
+
+Zero to object: object(stdClass)#1 (1) {
+  ["scalar"]=>
+  float(0)
+}
+Positive to object: object(stdClass)#2 (1) {
+  ["scalar"]=>
+  float(5.1)
+}
+Negative to object: object(stdClass)#3 (1) {
+  ["scalar"]=>
+  float(-5.1)
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/floating_point/casting_from_float.php)
+
 ## Examples
 
 *Example: Checking if a value is floating point*
