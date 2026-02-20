@@ -138,7 +138,7 @@ var_dump($otherValueInScientificNotationWithNegativeExponent);
 **Source code**:
 [Example](../../../../../example/code/builtin_types/scalar/floating_point/float_syntax.php)
 
-*Example: Float exponential_notation*
+*Example: Float exponential notation*
 
 ```php
 <?php
@@ -336,7 +336,7 @@ Output:
 
 $someValue = 10.0;
 
-print('Type of number: ' . gettype($someValue) . PHP_EOL);
+print('Type of value: ' . gettype($someValue) . PHP_EOL);
 print('Is float? ' . (is_float($someValue) ? 'yes' : 'no') . PHP_EOL);
 print('Is float? ' . (is_double($someValue) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
 
@@ -351,7 +351,7 @@ print('Is float? ' . (is_double($someNumber) ? 'yes' : 'no') . PHP_EOL . PHP_EOL
 **Result (PHP 8.4)**:
 
 ```
-Type of number: double
+Type of value: double
 Is float? yes
 Is float? yes
 

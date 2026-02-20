@@ -2,7 +2,7 @@
 
 $someValue = 10.0;
 
-print('Type of number: ' . gettype($someValue) . PHP_EOL);
+print('Type of value: ' . gettype($someValue) . PHP_EOL);
 print('Is float? ' . (is_float($someValue) ? 'yes' : 'no') . PHP_EOL);
 print('Is float? ' . (is_double($someValue) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
 

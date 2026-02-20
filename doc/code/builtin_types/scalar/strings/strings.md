@@ -4,9 +4,49 @@
 
 # Strings
 
+## Description
+
 A **string** is a *series of characters*, where a *character* is the same as a *byte*. This means that PHP only supports a *256-character set*, and hence does not offer native *Unicode* support.
 
 Note: On 32-bit builds, a `string` can be as large as up to 2GB (2147483647 bytes maximum)
+
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
+
+In PHP, a *string* is a sequence of characters.
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-string/#introduction-to-php-strings)
+
+*Example: `string` type*
+
+```php
+<?php
+
+$someText = 'Hi, there!';
+$otherText = "Hello.";
+
+print("Information:\n");
+var_dump($someText);
+print('Type: ' . gettype($someText) . PHP_EOL);
+
+print("Information:\n");
+var_dump($otherText);
+print('Type: ' . gettype($otherText) . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Information:
+string(10) "Hi, there!"
+Type: string
+Information:
+string(6) "Hello."
+Type: string
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/string.php)
 
 ## Syntax
 
@@ -16,6 +56,30 @@ A `string` literal can be specified in four different ways:
 * double quoted
 * heredoc syntax
 * nowdoc syntax
+
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
+
+PHP provides four ways to define a literal string: *single-quoted*, *double-quoted*, *heredoc syntax*, and *nowdoc syntax*.
+
+To define a string, you wrap the text within single quotes like this:
+
+```php
+<?php
+
+$title = 'PHP string is awesome';
+```
+
+Or you can use double quotes:
+
+```
+<?php
+
+$title = "PHP string is awesome";
+```
+
+However, you cannot start a string with a single quote and end it with a double quote and vice versa. The quotes must be consistent.
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-string/#introduction-to-php-strings)
 
 ### Single quoted
 
@@ -52,7 +116,9 @@ echo 'Variables do not $expand $either', PHP_EOL;
 ?>
 ```
 
-## Double quoted
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
+
+### Double quoted
 
 If the string is enclosed in double-quotes (`"`), PHP will interpret the following escape sequences for special characters:
 
@@ -76,7 +142,9 @@ As in single quoted strings, escaping any other character will result in the bac
 
 The most important feature of double-quoted strings is the fact that variable names will be expanded.
 
-## Heredoc
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
+
+### Heredoc
 
 A third way to delimit strings is the *heredoc syntax*: `<<<`. After this operator, an identifier is provided, then a newline. The string itself follows, and then the same identifier again to close the quotation.
 
@@ -351,7 +419,9 @@ FOOBAR;
 ?>
 ```
 
-## Nowdoc
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
+
+### Nowdoc
 
 *Nowdocs* are to *single-quoted strings* what *heredocs* are to *double-quoted strings*. A no*wdoc is specified similarly to a *heredoc*, but no *string interpolation* is done inside a *nowdoc*. The construct is ideal for embedding PHP code or other large blocks of text without the need for escaping. It shares some features in common with the *SGML* `<![CDATA[ ]]>` construct, in that it declares a *block of text which is not for parsing*.
 
@@ -423,6 +493,161 @@ EOT;
 ?>
 ```
 
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
+
+*Example: `string` syntax*
+
+```php
+<?php
+
+$someTextSingleQuoted = 'Videmus nunc per speculum et in aenigmate.';
+$someTextDoubleQuoted = "Omnis mundi creatura,\nquasi liber et pictura,\nnobis est in speculum.";
+$someTextNowdoc = <<<'EndOfDictum'
+    Actus me invito factus
+    non est meus actus
+EndOfDictum;
+$someTextHereDoc = <<<EndOfLyrics
+Foulës in the frith,
+The fishës in the flod,
+And I mon waxë wod;\n
+Much sorwe I walkë with
+For beste of bon and blod.
+EndOfLyrics;
+
+print($someTextSingleQuoted);
+print(PHP_EOL . PHP_EOL);
+print($someTextDoubleQuoted);
+print(PHP_EOL . PHP_EOL);
+print($someTextNowdoc);
+print(PHP_EOL . PHP_EOL);
+print($someTextHereDoc);
+print(PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Videmus nunc per speculum et in aenigmate.
+
+Omnis mundi creatura,
+quasi liber et pictura,
+nobis est in speculum.
+
+    Actus me invito factus
+    non est meus actus
+
+Foulës in the frith,
+The fishës in the flod,
+And I mon waxë wod;
+
+Much sorwe I walkë with
+For beste of bon and blod.
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_syntax.php)
+
+## Usage
+
+*Example: Text processing use case*
+
+```php
+<?php
+
+$input = "  Hello, World!  ";
+$clean = trim($input);
+$upper = strtoupper($clean);
+$replaced = str_replace("WORLD", "PHP", $upper);
+
+print($replaced . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+HELLO, PHP!
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/use_cases/string_use_case_text_processing.php)
+
+*Example: Text statistics use case*
+
+```php
+<?php
+
+$text = "Omnis mundi creatura\n
+quasi liber et pictura\n
+nobis est in speculum:\n
+nostrae vitae, nostrae mortis,\n
+nostri status, nostrae sortis\n
+fidele signaculum.\n";
+
+$charactersNumber = strlen($text);
+$wordsNumber = str_word_count($text);
+$sentencesNumber = substr_count($text, '.') + substr_count($text, '!') + substr_count($text, '?');
+
+printf("Length: %d, Words: %d, Sentences: %d\n", $charactersNumber, $wordsNumber, $sentencesNumber);
+
+$words = str_word_count($text, 1); // array of words
+$uniqueWordsNumber = count(array_unique($words));
+
+printf("Unique words: %d\n", $uniqueWordsNumber);
+
+$vowelsNumber = strlen(preg_replace('/[^aeiouAEIOU]/', '', $text));
+$consonantsNumber = strlen(preg_replace('/[aeiouAEIOU\s]/', '', $text));
+$spacesNumber = substr_count($text, ' ');
+printf("Vowels: %d, Consonants: %d, Spaces: %d\n", $vowelsNumber, $consonantsNumber, $spacesNumber);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Length: 152, Words: 21, Sentences: 1
+Unique words: 19
+Vowels: 51, Consonants: 75, Spaces: 15
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/use_cases/string_use_case_text_statistics.php)
+
+## Testing for `string`
+
+*Example: Testing for `string`*
+
+```php
+<?php
+
+$someText = 'rabbit';
+
+print('Type of text: ' . gettype($someText) . PHP_EOL);
+print('Is string? ' . (is_string($someText) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
+
+$someNumber = 10;
+
+print('Type of number: ' . gettype($someNumber) . PHP_EOL);
+print('Is string? ' . (is_string($someNumber) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Type of text: string
+Is string? yes
+
+Type of number: integer
+Is string? no
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/testing_for_string.php)
+
 ## String interpolation
 
 When a `string` is specified in *double quotes* or with *heredoc*, variables can be substituted within it.
@@ -433,7 +658,7 @@ There are two types of syntax: a *basic one* and an *advanced one*. The *basic s
 
 If a dollar sign (`$`) is encountered, the characters that follow it which can be used in a variable name will be interpreted as such and substituted.
 
-*Example: String Interpolation*
+*Example: String interpolation*
 
 ```php
 <?php
@@ -586,7 +811,7 @@ Changing the character at index -3 to o gives strong.
 
 For anything more complex, the *advanced syntax* must be used.
 
-## Advanced (curly) syntax
+### Advanced (curly) syntax
 
 The *advanced syntax* permits the interpolation of variables with arbitrary accessors.
 
@@ -652,6 +877,82 @@ echo "C:\\directory\\{$great}.txt";
 ```
 
 Note: As this syntax allows arbitrary expressions it is possible to use *variable variables* within the advanced syntax.
+
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
+
+*Example: String interpolation*
+
+```php
+<?php
+
+$someNumber = 1; $someValue = 2.3; $someText = 'apple';
+
+// Wanrning!
+// Placing interpolated variables inside strings without {} is not recommended.
+// Using ${variable} instead of {$variable} is deprecated.
+// Quoted keys cannot be parsed.
+
+print("Some number: $someNumber\nSome value: {$someValue}\nSome text: ${someText}\n\n");
+
+$someArray = [
+  'orange',
+  'blue',
+  'green',
+];
+
+print("First array element: $someArray[0]\nSecond array element: {$someArray[1]}\nThird array element: ${someArray[2]}\n\n");
+
+$otherArray = [
+  'text_0' => "Stat rosa pristina nomine, nomina nuda tenemus.",
+  'text_1' => "Omnis mundi creatura quasi liber et pictura nobis est in speculum.",
+  'text_2' => "Videmus nunc per speculum et in aenigmate.",
+];
+
+// Warning!
+// Using associative array keys without quotes is not recommended.
+// This syntax is proper but for defined constants.
+// But if it is used inside the interpolated string without {} it is proper.
+
+print("First associative array element: $otherArray[text_0]\n");
+print("Second associative array element: {$otherArray['text_1']}\n");
+print("Third associative array element: ${otherArray['text_2']}\n\n");
+
+$someObject = new class {
+  public string $someProperty = "fruit";
+  public string $otherProperty = "flower";
+  public string $anotherProperty = "animal";
+};
+
+print("Some object property: $someObject->someProperty\n");
+print("Other object property: {$someObject->otherProperty}\n");
+// print("Another object property: ${someObject->anotherProperty}\n");
+// PHP Fatal error:  Uncaught Error: Undefined constant "someObject"
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some number: 1
+Some value: 2.3
+Some text: apple
+
+First array element: orange
+Second array element: blue
+Third array element: green
+
+First associative array element: Stat rosa pristina nomine, nomina nuda tenemus.
+Second associative array element: Omnis mundi creatura quasi liber et pictura nobis est in speculum.
+Third associative array element: Videmus nunc per speculum et in aenigmate.
+
+Some object property: fruit
+Other object property: flower
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_interpolation.php)
 
 ## String access and modification by character
 
@@ -750,6 +1051,8 @@ Note:
 
 Accessing characters within string literals using the `{}` syntax has been deprecated in PHP 7.4. This has been removed in PHP 8.0.
 
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
+
 ## Useful functions and operators
 
 Strings may be concatenated using the *`.` (dot) operator*. Note that the *`+` (addition) operator* will not work for this.
@@ -757,6 +1060,8 @@ Strings may be concatenated using the *`.` (dot) operator*. Note that the *`+` (
 There are a number of useful functions for string manipulation [...] and the Perl-compatible regular expression functions for advanced find & replace functionality.
 
 There are also functions for *URL strings*, and functions to *encrypt/decrypt* strings (`Sodium` and `Hash`).
+
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
 
 ## Converting to string
 
@@ -781,6 +1086,8 @@ In order to convert *objects* to `string`, the *magic method* `__toString` must 
 As stated above, directly converting an *array*, *object*, or *resource* to a *string* does not provide any useful information about the value beyond its type. See the functions `print_r()` and `var_dump()` for more effective means of inspecting the contents of these types.
 
 Most PHP values can also be converted to strings for permanent storage. This method is called *serialization*, and is performed by the `serialize()` function.
+
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
 
 ## Details of the `string` type
 
@@ -833,6 +1140,8 @@ var_dump("2E1" == "020"); // true, "2E1" is 2 * (10 ^ 1), or 20
 ?>
 ```
 
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
+
 ### Strings used in numeric contexts
 
 When a `string` needs to be evaluated as *number* (e.g. *arithmetic operations*, *`int` type declaration*, etc.) the following steps are taken to determine the outcome:
@@ -840,6 +1149,8 @@ When a `string` needs to be evaluated as *number* (e.g. *arithmetic operations*,
 * If the `string` is *numeric*, resolve to an `int` if the *string* is an *integer numeric string* and fits into the limits of the int type limits (as defined by `PHP_INT_MAX`), otherwise resolve to a `float`.
 * If the context allows *leading numeric strings* and the `string` is one, resolve to an `int` if the leading part of the `string` is an *integer numeric string* and fits into the limits of the int type limits (as defined by `PHP_INT_MAX`), otherwise resolve to a `float`. Additionally an error of level E_WARNING is raised.
 * The `string` is not *numeric*, throw a `TypeError`.
+
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
 
 ### Behavior prior to PHP 8.0.0
 
@@ -868,204 +1179,6 @@ $foo = "10.0 pigs " + 1.0;        // $foo is float (11) and an E_WARNING is rais
 -- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
 
 ## Examples
-
-*Example: Basic `string` example*
-
-```php
-<?php
-
-$someText = 'Hi, there!';
-$otherText = "Hello.";
-
-print("Some text: {$someText}\n");
-var_dump($someText);
-
-print("Other text: {$otherText}\n");
-var_dump($otherText);
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-Some text: Hi, there!
-string(10) "Hi, there!"
-Other text: Hello.
-string(6) "Hello."
-```
-
-*Example: String definition*
-
-```php
-<?php
-
-$s = "hello";
-print("string \"hello\": {$s} (" . gettype($s) . ")\n");
-
-$s = 'hello';
-print("string 'hello': {$s} (" . gettype($s) . ")\n");
-
-$s = <<<EOS
-  Videmus nunc
-  per speculum
-  et in aenigmate.
-EOS;
-
-print "string from heredoc:\n{$s}\n\n";
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_definition.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-string "hello": hello (string)
-string 'hello': hello (string)
-string from heredoc:
-  Videmus nunc
-  per speculum
-  et in aenigmate.
-
-```
-
-*Example: String notation*
-
-```php
-<?php
-
-print("\"hello\": " . "hello" . "\n");
-print("'hello': " . 'hello' . "\n");
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_notation.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-"hello": hello
-'hello': hello
-```
-
-*Example: String interpolation*
-
-```php
-<?php
-
-$i = 1; $f = 2.3; $s = "apple";
-
-// Wanrning!
-// Placing interpolated variables inside strings without {} is not recommended.
-// Quoted keys cannot be parsed.
-
-echo "\$i = $i, \$f = {$f}, \$s = ${s}\n\n";
-
-$a = [
-  "orange",
-  "blue",
-  "green",
-];
-
-echo "\$a[0] = $a[0], \$a[1] = {$a[1]}, \$a[2] = ${a[2]}\n\n";
-
-$g = [
-  'text_0' => "Stat rosa pristina nomine, nomina nuda tenemus.",
-  'text_1' => "Omnis mundi creatura quasi liber et pictura nobis est in speculum.",
-  'text_2' => "Videmus nunc per speculum et in aenigmate.",
-];
-
-// Warning!
-// Using associative array keys without quotes is not recommended.
-// This syntax is proper but for defined constants.
-// But if it is used inside the interpolated string without {} it is proper.
-
-echo "\$g['text_0']: $g[text_0]\n";
-echo "\$g['text_1']: {$g['text_1']}\n";
-echo "\$g['text_2']: ${g['text_2']}\n\n";
-
-$o = new class {
-  public string $nickname = "katheroine";
-  public string $profession = "programmer";
-  public string $os = "Linux";
-};
-
-echo "\$o->nickname: $o->nickname\n";
-echo "\$o->profession: {$o->profession}\n";
-//echo "\$o->os: ${o->os}\n"; // error
-echo "\n";
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_interpolation.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-$i = 1, $f = 2.3, $s = apple
-
-$a[0] = orange, $a[1] = blue, $a[2] = green
-
-$g['text_0']: Stat rosa pristina nomine, nomina nuda tenemus.
-$g['text_1']: Omnis mundi creatura quasi liber et pictura nobis est in speculum.
-$g['text_2']: Videmus nunc per speculum et in aenigmate.
-
-$o->nickname: katheroine
-$o->profession: programmer
-
-```
-
-*Example: String float interpolation*
-
-```php
-<?php
-
-$f = 235.846279302548003;
-
-print "\$f = ${f}\n";
-print "\$f = " . sprintf("%.3f", $f) . "\n";
-print "\$f = " . sprintf("%7.2f", $f) . "\n";
-print "\$f = " . sprintf("%08.1f", $f) . "\n";
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_float_interpolation.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-$f = 235.84627930255
-$f = 235.846
-$f =  235.85
-$f = 000235.8
-```
 
 *Example: String length and word count*
 

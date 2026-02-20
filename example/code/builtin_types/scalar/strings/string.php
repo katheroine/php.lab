@@ -3,8 +3,10 @@
 $someText = 'Hi, there!';
 $otherText = "Hello.";
 
-print("Some text: {$someText}\n");
+print("Information:\n");
 var_dump($someText);
+print('Type: ' . gettype($someText) . PHP_EOL);
 
-print("Other text: {$otherText}\n");
+print("Information:\n");
 var_dump($otherText);
+print('Type: ' . gettype($otherText) . PHP_EOL);
