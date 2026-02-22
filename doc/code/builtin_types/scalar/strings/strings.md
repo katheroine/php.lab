@@ -8,7 +8,7 @@
 
 A **string** is a *series of characters*, where a *character* is the same as a *byte*. This means that PHP only supports a *256-character set*, and hence does not offer native *Unicode* support.
 
-Note: On 32-bit builds, a `string` can be as large as up to 2GB (2147483647 bytes maximum)
+Note: On `32-bit` builds, a `string` can be as large as up to `2GB` (`2147483647` bytes maximum)
 
 -- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
 
@@ -71,13 +71,13 @@ $title = 'PHP string is awesome';
 
 Or you can use double quotes:
 
-```
+```php
 <?php
 
 $title = "PHP string is awesome";
 ```
 
-However, you cannot start a string with a single quote and end it with a double quote and vice versa. The quotes must be consistent.
+However, you cannot start a *string* with a single quote and end it with a double quote and vice versa. The quotes must be consistent.
 
 -- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-string/#introduction-to-php-strings)
 
@@ -120,9 +120,10 @@ echo 'Variables do not $expand $either', PHP_EOL;
 
 ### Double quoted
 
-If the string is enclosed in double-quotes (`"`), PHP will interpret the following escape sequences for special characters:
+If the string is enclosed in double-quotes (`"`), PHP will interpret the following *escape sequences* for special characters:
 
 **Escaped characters**
+
 | Sequence | Meaning |
 |----------|---------|
 | `\n` | linefeed (`LF` or `0x0A` (`10`) in ASCII) |
@@ -322,7 +323,7 @@ EOT;
 
 *Heredocs* containing variables can not be used for initializing class properties.
 
-*Heredoc text* behaves just like a *double-quoted string*, without the double quotes. This means that quotes in a *heredoc* do not need to be escaped, but the escape codes listed above can still be used. *Variables* are expanded, but the same care must be taken when expressing complex variables inside a heredoc as with strings.
+*Heredoc text* behaves just like a *double-quoted string*, without the double quotes. This means that quotes in a *heredoc* do not need to be escaped, but the escape codes listed above can still be used. *Variables* are expanded, but the same care must be taken when expressing complex variables inside a *heredoc* as with strings.
 
 *Example: Heredoc string quoting example*
 
@@ -366,7 +367,7 @@ Now, I am printing some Bar2.
 This should print a capital 'A': A
 ```
 
-It is also possible to use the heredoc syntax to pass data to function arguments:
+It is also possible to use the *heredoc* syntax to pass data to function arguments:
 
 *Example: Heredoc in arguments example*
 
@@ -423,7 +424,7 @@ FOOBAR;
 
 ### Nowdoc
 
-*Nowdocs* are to *single-quoted strings* what *heredocs* are to *double-quoted strings*. A no*wdoc is specified similarly to a *heredoc*, but no *string interpolation* is done inside a *nowdoc*. The construct is ideal for embedding PHP code or other large blocks of text without the need for escaping. It shares some features in common with the *SGML* `<![CDATA[ ]]>` construct, in that it declares a *block of text which is not for parsing*.
+*Nowdocs* are to *single-quoted strings* what *heredocs* are to *double-quoted strings*. A *nowdoc* is specified similarly to a *heredoc*, but no *string interpolation* is done inside a *nowdoc*. The construct is ideal for embedding PHP code or other large blocks of text without the need for escaping. It shares some features in common with the *SGML* `<![CDATA[ ]]>` construct, in that it declares a *block of text which is not for parsing*.
 
 A *nowdoc* is identified with the same `<<<` sequence used for *heredocs*, but the identifier which follows is enclosed in single quotes, e.g. `<<<'EOT'`. All the rules for *heredoc identifiers* also apply to *nowdoc identifiers*, especially those regarding the appearance of the closing identifier.
 
@@ -549,6 +550,72 @@ For beste of bon and blod.
 **Source code**:
 [Example](../../../../../example/code/builtin_types/scalar/strings/string_syntax.php)
 
+*Example: Escape sequences*
+
+```php
+<?php
+
+print('Single-quoted strings:' . PHP_EOL . PHP_EOL);
+
+print('Backslash: \\' . PHP_EOL);
+print('Single quote character: \'' . PHP_EOL);
+print(PHP_EOL);
+
+print("Double-quoted strings:\n\n");
+
+print("Backslash: \\" . PHP_EOL);
+print("Dollar sign: \$" . PHP_EOL);
+print("Double quote character: \"" . PHP_EOL);
+print("Backslash: \\" . PHP_EOL);
+print(PHP_EOL);
+print("Octal sequence: \101" . PHP_EOL);
+print("Hexadecimal sequence: \x41" . PHP_EOL);
+print("Unicode sequence: \u{41}" . PHP_EOL);
+print(PHP_EOL);
+print("Linefeed (new line): \n." . PHP_EOL);
+print("Carriage return: \r." . PHP_EOL);
+print("Horrizontal tab: \t." . PHP_EOL);
+print("Vertical tab: \v." . PHP_EOL);
+print("Form feed: \f." . PHP_EOL);
+print("Escape: \e..." . PHP_EOL);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Single-quoted strings:
+
+Backslash: \
+Single quote character: '
+
+Double-quoted strings:
+
+Backslash: \
+Dollar sign: $
+Double quote character: "
+Backslash: \
+
+Octal sequence: A
+Hexadecimal sequence: A
+Unicode sequence: A
+
+Linefeed (new line):
+.
+.arriage return:
+Horrizontal tab: 	.
+Vertical tab:
+              .
+Form feed:
+           .
+Escape:
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/escape_sequences.php)
+
 ## Usage
 
 *Example: Text processing use case*
@@ -614,6 +681,25 @@ Vowels: 51, Consonants: 75, Spaces: 15
 
 **Source code**:
 [Example](../../../../../example/code/builtin_types/scalar/strings/use_cases/string_use_case_text_statistics.php)
+
+## Details of the `string` type
+
+The `string` in PHP is implemented as *an array of bytes and an integer indicating the length of the buffer*. It has no information about how those *bytes* translate to *characters*, leaving that task to the programmer. There are no limitations on the *values* the string can be composed of; in particular, bytes with value `0` (*NUL bytes*) are allowed anywhere in the `string` (however, a few functions, said in this manual not to be *binary safe*, may hand off the *strings* to libraries that ignore data after a *NUL byte*.)
+
+This nature of the `string` type explains why there is no separate *byte* type in PHP – *strings* take this role. Functions that return no textual data – for instance, arbitrary data read from a network socket – will still return *strings*.
+
+Given that PHP does not dictate a specific encoding for *strings*, one might wonder how *string literals* are encoded. For instance, is the string `"á"` equivalent to `"\xE1"` (`ISO-8859-1`), `"\xC3\xA1"` (`UTF-8, C form`), `"\x61\xCC\x81"` (`UTF-8, D form`) or any other possible representation? The answer is that string will be encoded in whatever fashion it is encoded in the script file. Thus, if the script is written in `ISO-8859-1`, the string will be encoded in `ISO-8859-1` and so on. However, this does not apply if `Zend Multibyte` is enabled; in that case, the script may be written in an arbitrary encoding (which is explicitly declared or is detected) and then converted to a certain internal encoding, which is then the encoding that will be used for the string literals. Note that there are some constraints on the encoding of the script (or on the internal encoding, should `Zend Multibyte` be enabled) – this almost always means that this encoding should be a compatible superset of `ASCII`, such as `UTF-8` or `ISO-8859-1`. Note, however, that state-dependent encodings where the same byte values can be used in initial and non-initial shift states may be problematic.
+
+Of course, in order to be useful, functions that operate on text may have to make some assumptions about how the string is encoded. Unfortunately, there is much variation on this matter throughout PHP’s functions:
+
+* Some functions assume that the string is encoded in some (any) *single-byte encoding*, but they do not need to interpret those bytes as specific characters. This is case of, for instance, `substr()`, `strpos()`, `strlen()` or `strcmp()`. Another way to think of these functions is that operate on memory buffers, i.e., they work with *bytes* and *byte offsets*.
+* Other functions are passed the encoding of the string, possibly they also assume a default if no such information is given. This is the case of `htmlentities()` and the majority of the functions in the *`mbstring` extension*.
+* Others use the current *locale*, but operate byte-by-byte.
+* Finally, they may just assume the string is using a specific encoding, usually `UTF-8`. This is the case of most functions in the *`intl` extension* and in the *`PCRE` extension* (in the last case, only when the `u` modifier is used).
+
+Ultimately, this means writing correct programs using *Unicode* depends on carefully avoiding functions that will not work and that most likely will corrupt the data and using instead the functions that do behave correctly, generally from the `intl` and `mbstring` extensions. However, using functions that can handle *Unicode encodings* is just the beginning. No matter the functions the language provides, it is essential to know the *Unicode* specification. For instance, a program that assumes there is only *uppercase* and *lowercase* is making a wrong assumption.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.string.php)
 
 ## Testing for `string`
 
@@ -954,6 +1040,41 @@ Other object property: flower
 **Source code**:
 [Example](../../../../../example/code/builtin_types/scalar/strings/string_interpolation.php)
 
+## String length and word count
+
+*Example: String length and word count*
+
+```php
+<?php
+
+$someWord = 'hello';
+
+print('Some word: ' . $someWord . PHP_EOL);
+print('length: ' . strlen($someWord) . PHP_EOL . PHP_EOL);
+
+$someQuote = 'Stat rosa pristina nomine, nomina nuda tenemus.';
+
+print('Some quote: ' . $someQuote . PHP_EOL);
+print('Length: ' . strlen($someQuote) . PHP_EOL);
+print('Words quantity: ' . str_word_count($someQuote) . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some word: hello
+length: 5
+
+Some quote: Stat rosa pristina nomine, nomina nuda tenemus.
+Length: 47
+Words quantity: 7
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_length_and_word_count.php)
+
 ## String access and modification by character
 
 Characters within strings may be accessed and modified by specifying the *zero-based offset* of the desired character after the string using *square array brackets*, as in `$str[42]`. Think of a string as an *array of characters* for this purpose. The functions `substr()` and `substr_replace()` can be used when you want to extract or replace more than 1 character.
@@ -1053,60 +1174,41 @@ Accessing characters within string literals using the `{}` syntax has been depre
 
 -- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
 
-## Useful functions and operators
+*Example: String and array access*
 
-Strings may be concatenated using the *`.` (dot) operator*. Note that the *`+` (addition) operator* will not work for this.
+```php
+<?php
 
-There are a number of useful functions for string manipulation [...] and the Perl-compatible regular expression functions for advanced find & replace functionality.
+$someText = 'Welcome to the jungle!';
+$textLenght = strlen($someText);
 
-There are also functions for *URL strings*, and functions to *encrypt/decrypt* strings (`Sodium` and `Hash`).
+for($i = 0; $i < $textLenght; $i++) {
+    print($someText[$i]);
+}
 
--- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
+print(PHP_EOL);
 
-## Converting to string
+$someWord = 'bundle';
+$textStartIndex = strpos($someText, 'jungle');
+$wordLength = strlen($someWord);
 
-A value can be converted to a string using the `(string)` cast or the `strval()` function. *String conversion* is automatically done in the scope of an expression where a string is needed. This happens when using the `echo` or `print` functions, or when a variable is compared to a string.
+for($i = $textStartIndex, $j = 0; ($i < $textLenght && $j < $wordLength); $i++, $j++) {
+    $someText[$i] = $someWord[$j];
+}
 
-A `bool` `true` value is converted to the `string` `"1"`. `bool` `false` is converted to `""` (the *empty string*). This allows conversion back and forth between `bool` and `string` values.
+print($someText . PHP_EOL);
 
-An `int` or `float` is converted to a `string` representing the number textually (including the exponent part for floats). Floating point numbers can be converted using exponential notation (`4.1E+6`).
+```
 
-Note:
+**Result (PHP 8.4)**:
 
-As of PHP 8.0.0, the decimal point character is always a period (`"."`). Prior to PHP 8.0.0, the decimal point character is defined in the script's *locale* (category `LC_NUMERIC`).
+```
+Welcome to the jungle!
+Welcome to the bundle!
+```
 
-*Arrays* are always converted to the `string` `"Array"`; because of this, `echo` and `print` can not by themselves show the contents of an array. To view a single element, use a construction such as `echo $arr['foo']`.
-
-In order to convert *objects* to `string`, the *magic method* `__toString` must be used.
-
-*Resources* are always converted to strings with the structure `"Resource id #1"`, where `1` is the resource number assigned to the resource by PHP at runtime. While the exact structure of this string should not be relied on and is subject to change, it will always be unique for a given resource within the lifetime of a script being executed (ie a Web request or CLI process) and won't be reused. To get a resource's type, use the `get_resource_type()` function.
-
-`null` is always converted to an *empty string*.
-
-As stated above, directly converting an *array*, *object*, or *resource* to a *string* does not provide any useful information about the value beyond its type. See the functions `print_r()` and `var_dump()` for more effective means of inspecting the contents of these types.
-
-Most PHP values can also be converted to strings for permanent storage. This method is called *serialization*, and is performed by the `serialize()` function.
-
--- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
-
-## Details of the `string` type
-
-The `string` in PHP is implemented as *an array of bytes and an integer indicating the length of the buffer*. It has no information about how those *bytes* translate to *characters*, leaving that task to the programmer. There are no limitations on the *values* the string can be composed of; in particular, bytes with value `0` (*NUL bytes*) are allowed anywhere in the `string` (however, a few functions, said in this manual not to be *binary safe*, may hand off the strings to libraries that ignore data after a *NUL byte*.)
-
-This nature of the `string` type explains why there is no separate *byte* type in PHP – strings take this role. Functions that return no textual data – for instance, arbitrary data read from a network socket – will still return strings.
-
-Given that PHP does not dictate a specific encoding for strings, one might wonder how *string literals* are encoded. For instance, is the string `"á"` equivalent to `"\xE1"` (`ISO-8859-1`), `"\xC3\xA1"` (`UTF-8, C form`), `"\x61\xCC\x81"` (`UTF-8, D form`) or any other possible representation? The answer is that string will be encoded in whatever fashion it is encoded in the script file. Thus, if the script is written in `ISO-8859-1`, the string will be encoded in `ISO-8859-1` and so on. However, this does not apply if `Zend Multibyte` is enabled; in that case, the script may be written in an arbitrary encoding (which is explicitly declared or is detected) and then converted to a certain internal encoding, which is then the encoding that will be used for the string literals. Note that there are some constraints on the encoding of the script (or on the internal encoding, should `Zend Multibyte` be enabled) – this almost always means that this encoding should be a compatible superset of `ASCII`, such as `UTF-8` or `ISO-8859-1`. Note, however, that state-dependent encodings where the same byte values can be used in initial and non-initial shift states may be problematic.
-
-Of course, in order to be useful, functions that operate on text may have to make some assumptions about how the string is encoded. Unfortunately, there is much variation on this matter throughout PHP’s functions:
-
-* Some functions assume that the string is encoded in some (any) *single-byte encoding*, but they do not need to interpret those bytes as specific characters. This is case of, for instance, `substr()`, `strpos()`, `strlen()` or `strcmp()`. Another way to think of these functions is that operate on memory buffers, i.e., they work with bytes and byte offsets.
-* Other functions are passed the encoding of the string, possibly they also assume a default if no such information is given. This is the case of `htmlentities()` and the majority of the functions in the *`mbstring` extension*.
-* Others use the current *locale*, but operate byte-by-byte.
-* Finally, they may just assume the string is using a specific encoding, usually `UTF-8`. This is the case of most functions in the *`intl` extension* and in the *`PCRE` extension* (in the last case, only when the `u` modifier is used).
-
-Ultimately, this means writing correct programs using *Unicode* depends on carefully avoiding functions that will not work and that most likely will corrupt the data and using instead the functions that do behave correctly, generally from the `intl` and `mbstring` extensions. However, using functions that can handle *Unicode encodings* is just the beginning. No matter the functions the language provides, it is essential to know the *Unicode* specification. For instance, a program that assumes there is only *uppercase* and *lowercase* is making a wrong assumption.
-
--- [PHP Reference](https://www.php.net/manual/en/language.types.string.php)
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_array_access.php)
 
 ## Numeric strings
 
@@ -1178,42 +1280,154 @@ $foo = "10.0 pigs " + 1.0;        // $foo is float (11) and an E_WARNING is rais
 
 -- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
 
-## Examples
-
-*Example: String length and word count*
+*Example: Numeric strings*
 
 ```php
 <?php
 
-$word = "hello";
-print("word = " . $word . "\n");
-print("length: " . strlen($word) . "\n\n");
+$someNumericText = '15';
+$arithmeticOperationResult = 2 * $someNumericText;
 
-$cite = "Stat rosa pristina nomine, nomina nuda tenemus.";
-print("cite = " . $cite . "\n");
-print("length: " . strlen($cite) . "\n");
-print("words quantity: " . str_word_count($cite) . "\n\n");
+print($arithmeticOperationResult. PHP_EOL);
+
+$anotherNumericText = '10.24E2';
+$arithmeticOperationResult = sqrt($anotherNumericText);
+
+print($arithmeticOperationResult . PHP_EOL);
+
+// $otherNumericText = '9xoxo';
+// $arithmeticOperationResult = $otherNumericText / 3;
+// PHP Warning:  A non-numeric value encountered
+
+// print($arithmeticOperationResult . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+30
+32
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/numeric_strings.php)
+
+## Operations on strings
+
+### Useful functions and operators
+
+Strings may be concatenated using the *`.` (dot) operator*. Note that the *`+` (addition) operator* will not work for this.
+
+There are a number of useful functions for string manipulation [...] and the Perl-compatible regular expression functions for advanced find & replace functionality.
+
+There are also functions for *URL strings*, and functions to *encrypt/decrypt* strings (`Sodium` and `Hash`).
+
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
+
+### String concatenation
+
+*Example: String concatenation*
+
+```php
+<?php
+
+$someText = "ex nihilo";
+$otherText = "nihil fit";
+
+$someDictum = $someText . ' ' . $otherText;
+
+print($someDictum);
+print(PHP_EOL);
 
 ```
 
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_length_and_word_count.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
+**Result (PHP 8.4)**:
 
 ```
-word = hello
-length: 5
+ex nihilo nihil fit
+```
 
-cite = Stat rosa pristina nomine, nomina nuda tenemus.
-length: 47
-words quantity: 7
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_concatenation.php)
+
+### String trimming
+
+```php
+<?php
+
+$someSententia = "   Sapere aude.   ";
+$trimmedSententia = trim($someSententia);
+
+print("Original: <<{$someSententia}>>\n");
+print("Trimmed: <<{$trimmedSententia}>>\n");
 
 ```
+
+**Result (PHP 8.4)**:
+
+```
+Original: <<   Sapere aude.   >>
+Trimmed: <<Sapere aude.>>
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_trimming.php)
+
+### Case change
+
+```php
+<?php
+
+$someCite = "Stat rosa pristina nomine, nomina nuda tenemus.";
+print("Original: {$someCite}\n");
+
+$upperCaseCite = strtoupper($someCite);
+print("Upper case: {$upperCaseCite}\n");
+
+$lowerCaseCite = strtolower($someCite);
+print("Lower case: {$lowerCaseCite}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Original: Stat rosa pristina nomine, nomina nuda tenemus.
+Upper case: STAT ROSA PRISTINA NOMINE, NOMINA NUDA TENEMUS.
+Lower case: stat rosa pristina nomine, nomina nuda tenemus.
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/string_cases.php)
+
+## Converting to string
+
+A value can be converted to a string using the `(string)` cast or the `strval()` function. *String conversion* is automatically done in the scope of an expression where a string is needed. This happens when using the `echo` or `print` functions, or when a variable is compared to a string.
+
+A `bool` `true` value is converted to the `string` `"1"`. `bool` `false` is converted to `""` (the *empty string*). This allows conversion back and forth between `bool` and `string` values.
+
+An `int` or `float` is converted to a `string` representing the number textually (including the exponent part for floats). Floating point numbers can be converted using exponential notation (`4.1E+6`).
+
+Note:
+
+As of PHP 8.0.0, the decimal point character is always a period (`"."`). Prior to PHP 8.0.0, the decimal point character is defined in the script's *locale* (category `LC_NUMERIC`).
+
+*Arrays* are always converted to the `string` `"Array"`; because of this, `echo` and `print` can not by themselves show the contents of an array. To view a single element, use a construction such as `echo $arr['foo']`.
+
+In order to convert *objects* to `string`, the *magic method* `__toString` must be used.
+
+*Resources* are always converted to strings with the structure `"Resource id #1"`, where `1` is the resource number assigned to the resource by PHP at runtime. While the exact structure of this string should not be relied on and is subject to change, it will always be unique for a given resource within the lifetime of a script being executed (ie a Web request or CLI process) and won't be reused. To get a resource's type, use the `get_resource_type()` function.
+
+`null` is always converted to an *empty string*.
+
+As stated above, directly converting an *array*, *object*, or *resource* to a *string* does not provide any useful information about the value beyond its type. See the functions `print_r()` and `var_dump()` for more effective means of inspecting the contents of these types.
+
+Most PHP values can also be converted to strings for permanent storage. This method is called *serialization*, and is performed by the `serialize()` function.
+
+-- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
+
+## Examples
 
 *Example: String cases*
 
@@ -1245,61 +1459,6 @@ cite = Stat rosa pristina nomine, nomina nuda tenemus.
 
 upper case: STAT ROSA PRISTINA NOMINE, NOMINA NUDA TENEMUS.
 lower case: stat rosa pristina nomine, nomina nuda tenemus.
-```
-
-*Example: String concatenation*
-
-```php
-<?php
-
-$s1 = "abc";
-$s2 = "def";
-$s3 = $s1 . $s2;
-print("$s1 . $s2 = $s3\n");
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_concatenation.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-abc . def = abcdef
-```
-
-*Example: String trimming*
-
-```php
-<?php
-
-$sententia = "   Sapere aude.   ";
-print("sententia = <{$sententia}>\n\n");
-
-$trimmed_sententia = trim($sententia);
-
-print("trimmed sententia = <{$trimmed_sententia}>\n\n");
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_trimming.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-sententia = <   Sapere aude.   >
-
-trimmed sententia = <Sapere aude.>
-
 ```
 
 [▵ Up](#strings)

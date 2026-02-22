@@ -1,8 +1,7 @@
 <?php
 
-$sententia = "   Sapere aude.   ";
-print("sententia = <{$sententia}>\n\n");
+$someSententia = "   Sapere aude.   ";
+$trimmedSententia = trim($someSententia);
 
-$trimmed_sententia = trim($sententia);
-
-print("trimmed sententia = <{$trimmed_sententia}>\n\n");
+print("Original: <<{$someSententia}>>\n");
+print("Trimmed: <<{$trimmedSententia}>>\n");

@@ -1,10 +1,10 @@
 <?php
 
-$cite = "Stat rosa pristina nomine, nomina nuda tenemus.";
-print("cite = {$cite}\n\n");
+$someCite = "Stat rosa pristina nomine, nomina nuda tenemus.";
+print("Original: {$someCite}\n");
 
-$upper_case_cite = strtoupper($cite);
-print("upper case: {$upper_case_cite}\n");
+$upperCaseCite = strtoupper($someCite);
+print("Upper case: {$upperCaseCite}\n");
 
-$lower_case_cite = strtolower($cite);
-print("lower case: {$lower_case_cite}\n");
+$lowerCaseCite = strtolower($someCite);
+print("Lower case: {$lowerCaseCite}\n");

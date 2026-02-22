@@ -1,10 +1,12 @@
 <?php
 
-$word = "hello";
-print("word = " . $word . "\n");
-print("length: " . strlen($word) . "\n\n");
+$someWord = 'hello';
 
-$cite = "Stat rosa pristina nomine, nomina nuda tenemus.";
-print("cite = " . $cite . "\n");
-print("length: " . strlen($cite) . "\n");
-print("words quantity: " . str_word_count($cite) . "\n\n");
+print('Some word: ' . $someWord . PHP_EOL);
+print('length: ' . strlen($someWord) . PHP_EOL . PHP_EOL);
+
+$someQuote = 'Stat rosa pristina nomine, nomina nuda tenemus.';
+
+print('Some quote: ' . $someQuote . PHP_EOL);
+print('Length: ' . strlen($someQuote) . PHP_EOL);
+print('Words quantity: ' . str_word_count($someQuote) . PHP_EOL . PHP_EOL);
