@@ -1,0 +1,120 @@
+<?php
+
+$someNothing = NULL;
+
+print('Type/value: ' . var_export($someNothing, true) . PHP_EOL . PHP_EOL);
+printf("in general format: %g\n", $someNothing);
+printf("as string: %s\n", $someNothing);
+printf("as integer in decimal notation: %d\n", $someNothing);
+print(PHP_EOL);
+
+$someRight = true;
+$someWrong = false;
+
+print("Type bool\n\n");
+print('Value: ' . var_export($someRight, true) . PHP_EOL . PHP_EOL);
+printf("in general format: %g\n", $someRight);
+printf("as string: %s\n", $someRight);
+printf("as integer in decimal notation: %d\n", $someRight);
+print(PHP_EOL);
+print('Value: ' . var_export($someWrong, true) . PHP_EOL . PHP_EOL);
+printf("in general format: %g\n", $someWrong);
+printf("as string: %s\n", $someWrong);
+printf("as integer in decimal notation: %d\n", $someWrong);
+print(PHP_EOL);
+
+$someNumber = 10;
+$somePositiveNumber = +3;
+$someNegativeNumber = -9;
+
+print("Type int\n\n");
+print('Value: ' . var_export($someNumber, true) . PHP_EOL . PHP_EOL);
+printf("in general format: %g\n", $someNumber);
+printf("as string: %s\n", $someNumber);
+printf("as floating point: %f\n", $someNumber);
+printf("as integer in binary notation: %b\n", $someNumber);
+printf("as integer in octal notation: %o\n", $someNumber);
+printf("as integer in decimal notation: %d\n", $someNumber);
+printf("as integer in hexadecimal notation (lowercase): %x\n", $someNumber);
+printf("as integer in hexadecimal notation (uppercase): %X\n", $someNumber);
+printf("as integer in decimal notation signed: %+d\n", $someNumber);
+printf("as integer in decimal notation unsigned: %u\n", $someNumber);
+printf("as integer in decimal notation with fixed length: %6d\n", $someNumber);
+printf("as integer in decimal notation with fixed length zero-padded: %06d\n", $someNumber);
+printf("as integer in decimal notation signed: %+d\n", $someNumber);
+print(PHP_EOL);
+print('Value: ' . var_export($somePositiveNumber, true) . PHP_EOL . PHP_EOL);
+printf("in general format: %g\n", $somePositiveNumber);
+printf("as string: %s\n", $somePositiveNumber);
+printf("as floating point: %f\n", $somePositiveNumber);
+printf("as integer in binary notation: %b\n", $somePositiveNumber);
+printf("as integer in octal notation: %o\n", $somePositiveNumber);
+printf("as integer in decimal notation: %d\n", $somePositiveNumber);
+printf("as integer in hexadecimal notation (lowercase): %x\n", $somePositiveNumber);
+printf("as integer in hexadecimal notation (uppercase): %X\n", $somePositiveNumber);
+printf("as integer in decimal notation signed: %+d\n", $somePositiveNumber);
+printf("as integer in decimal notation unsigned: %u\n", $somePositiveNumber);
+printf("as integer in decimal notation with fixed length: %6d\n", $somePositiveNumber);
+printf("as integer in decimal notation with fixed length zero-padded: %06d\n", $somePositiveNumber);
+printf("as integer in decimal notation signed: %+d\n", $somePositiveNumber);
+print(PHP_EOL);
+print('Value: ' . var_export($someNegativeNumber, true) . PHP_EOL . PHP_EOL);
+printf("in general format: %g\n", $someNegativeNumber);
+printf("as string: %s\n", $someNegativeNumber);
+printf("as floating point: %f\n", $someNegativeNumber);
+printf("as integer in binary notation: %b\n", $someNegativeNumber);
+printf("as integer in octal notation: %o\n", $someNegativeNumber);
+printf("as integer in decimal notation: %d\n", $someNegativeNumber);
+printf("as integer in hexadecimal notation (lowercase): %x\n", $someNegativeNumber);
+printf("as integer in hexadecimal notation (uppercase): %X\n", $someNegativeNumber);
+printf("as integer in decimal notation signed: %+d\n", $someNegativeNumber);
+printf("as integer in decimal notation unsigned: %u\n", $someNegativeNumber);
+printf("as integer in decimal notation with fixed length: %6d\n", $someNegativeNumber);
+printf("as integer in decimal notation with fixed length zero-padded: %06d\n", $someNegativeNumber);
+printf("as integer in decimal notation signed: %+d\n", $someNegativeNumber);
+print(PHP_EOL);
+
+$someValue = 10.5;
+$somePositiveValue = +3.2;
+$someNegativeValue = -9.3;
+
+print("Type float\n\n");
+print('Value: ' . var_export($someValue, true) . PHP_EOL . PHP_EOL);
+printf("in general format: %g\n", $someValue);
+printf("as string: %s\n", $someValue);
+printf("as integer: %d\n", $someValue);
+printf("as floating point: %f\n", $someValue);
+printf("as floating point with defined precision: %.2f\n", $someValue);
+printf("as floating point inscientific: %e\n", $someValue);
+print(PHP_EOL);
+print('Value: ' . var_export($somePositiveValue, true) . PHP_EOL . PHP_EOL);
+printf("in general format: %g\n", $somePositiveValue);
+printf("as string: %s\n", $somePositiveValue);
+printf("as integer: %d\n", $somePositiveValue);
+printf("as floating point: %f\n", $somePositiveValue);
+printf("as floating point with defined precision: %.2f\n", $somePositiveValue);
+printf("as floating point inscientific: %e\n", $somePositiveValue);
+print(PHP_EOL);
+print('Value: ' . var_export($someNegativeValue, true) . PHP_EOL . PHP_EOL);
+printf("in general format: %g\n", $someNegativeValue);
+printf("as string: %s\n", $someNegativeValue);
+printf("as integer: %d\n", $someNegativeValue);
+printf("as floating point: %f\n", $someNegativeValue);
+printf("as floating point with defined precision: %.2f\n", $someNegativeValue);
+printf("as floating point inscientific: %e\n", $someNegativeValue);
+print(PHP_EOL);
+
+$someString = 'Videmus nunc per speculum et in aenigmate.';
+$otherString = "Omnis mundi creatura,\nquasi liber et pictura,\nnobis est in speculum.";
+
+print("Type string\n\n");
+print('Value: ' . var_export($someString, true) . PHP_EOL . PHP_EOL);
+printf("in general format: %g\n", $someString);
+printf("as string: %s\n", $someString);
+printf("as string with fixed length: %70s\n", $someString);
+print(PHP_EOL);
+print('Value: ' . var_export($otherString, true) . PHP_EOL . PHP_EOL);
+printf("in general format: %g\n", $otherString);
+printf("as string: %s\n", $otherString);
+printf("as string with fixed length: %70s\n", $otherString);
+print(PHP_EOL);

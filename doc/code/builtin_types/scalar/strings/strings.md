@@ -1401,7 +1401,7 @@ Lower case: stat rosa pristina nomine, nomina nuda tenemus.
 **Source code**:
 [Example](../../../../../example/code/builtin_types/scalar/strings/string_cases.php)
 
-## Converting to string
+## Casting to `string`
 
 A value can be converted to a string using the `(string)` cast or the `strval()` function. *String conversion* is automatically done in the scope of an expression where a string is needed. This happens when using the `echo` or `print` functions, or when a variable is compared to a string.
 
@@ -1427,39 +1427,278 @@ Most PHP values can also be converted to strings for permanent storage. This met
 
 -- [PHP Reference](www.php.net/manual/en/language.types.numeric-strings.php)
 
-## Examples
-
-*Example: String cases*
+*Example: Casting to `string`*
 
 ```php
 <?php
 
-$cite = "Stat rosa pristina nomine, nomina nuda tenemus.";
-print("cite = {$cite}\n\n");
+$someNothing = null;
+$nulltoString = (string) $someNothing;
+print("null to string: ");
+var_dump($nulltoString);
 
-$upper_case_cite = strtoupper($cite);
-print("upper case: {$upper_case_cite}\n");
+print(PHP_EOL);
 
-$lower_case_cite = strtolower($cite);
-print("lower case: {$lower_case_cite}\n");
+$someRight = true;
+$inttoString = (string) $someRight;
+print("true to string: ");
+var_dump($inttoString);
+
+$someWrong = false;
+$inttoString = (string) $someWrong;
+print("false to string: ");
+var_dump($inttoString);
+
+print(PHP_EOL);
+
+$someNumber = 0;
+$inttoString = (string) $someNumber;
+print("{$someNumber} to string: ");
+var_dump($inttoString);
+
+$someNumber = -0;
+$inttoString = (string) $someNumber;
+print("-0 to string: ");
+var_dump($inttoString);
+
+$someNumber = 1;
+$inttoString = (string) $someNumber;
+print("{$someNumber} to string: ");
+var_dump($inttoString);
+
+$someNumber = -1;
+$inttoString = (string) $someNumber;
+print("{$someNumber} to string: ");
+var_dump($inttoString);
+
+$someNumber = 3;
+$inttoString = (string) $someNumber;
+print("{$someNumber} to string: ");
+var_dump($inttoString);
+
+print(PHP_EOL);
+
+$someMeasure = 0.0;
+$floattoString = (string) $someMeasure;
+print("0.0 to string: ");
+var_dump($floattoString);
+
+$someMeasure = -0.0;
+$floattoString = (string) $someMeasure;
+print("-0.0 to string: ");
+var_dump($floattoString);
+
+$someMeasure = 0.1;
+$floattoString = (string) $someMeasure;
+print("{$someMeasure} to string: ");
+var_dump($floattoString);
+
+$someMeasure = 1.0;
+$floattoString = (string) $someMeasure;
+print("1.0 to string: ");
+var_dump($floattoString);
+
+$someMeasure = 3.0;
+$floattoString = (string) $someMeasure;
+print("3.0 to string: ");
+var_dump($floattoString);
+
+print(PHP_EOL);
 
 ```
 
-**View**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_cases.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
+**Result (PHP 8.4)**:
 
 ```
-cite = Stat rosa pristina nomine, nomina nuda tenemus.
+null to string: string(0) ""
 
-upper case: STAT ROSA PRISTINA NOMINE, NOMINA NUDA TENEMUS.
-lower case: stat rosa pristina nomine, nomina nuda tenemus.
+true to string: string(1) "1"
+false to string: string(0) ""
+
+0 to string: string(1) "0"
+-0 to string: string(1) "0"
+1 to string: string(1) "1"
+-1 to string: string(2) "-1"
+3 to string: string(1) "3"
+
+0.0 to string: string(1) "0"
+-0.0 to string: string(2) "-0"
+0.1 to string: string(3) "0.1"
+1.0 to string: string(1) "1"
+3.0 to string: string(1) "3"
+
 ```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/casting_to_string.php)
+
+## Casting from `string`
+
+*Example: Casting from `string`*
+
+```php
+<?php
+
+$someString = 'hello';
+$numericStringZero = '0';
+$numericStringOne = '1';
+$numericStringPositive = '3';
+$numericStringNegative = '-3';
+
+$stringToBool = (bool) $someString;
+print("String to bool: ");
+var_dump($stringToBool);
+$zeroToBool = (bool) $numericStringZero;
+print("Numeric string '0' to bool: ");
+var_dump($zeroToBool);
+$oneToBool = (bool) $numericStringOne;
+print("Numeric string '1' to bool: ");
+var_dump($oneToBool);
+$positiveToBool = (bool) $numericStringPositive;
+print("Numeric string '3' to bool: ");
+var_dump($positiveToBool);
+$negativeToBool = (bool) $numericStringNegative;
+print("Numeric string -3 to bool: ");
+var_dump($negativeToBool);
+print(PHP_EOL);
+
+$stringToInt = (int) $someString;
+print("String to int: ");
+var_dump($stringToInt);
+$zeroToInt = (int) $numericStringZero;
+print("Numeric string '0' to int: ");
+var_dump($zeroToInt);
+$oneToInt = (int) $numericStringOne;
+print("Numeric string '1' to int: ");
+var_dump($oneToInt);
+$positiveToInt = (int) $numericStringPositive;
+print("Numeric string '3' to int: ");
+var_dump($positiveToInt);
+$negativeToInt = (int) $numericStringNegative;
+print("Numeric string -3 to int: ");
+var_dump($negativeToInt);
+print(PHP_EOL);
+
+$stringToFloat = (float) $someString;
+print("String to float: ");
+var_dump($stringToFloat);
+$zeroToFloat = (float) $numericStringZero;
+print("Numeric string '0' to float: ");
+var_dump($zeroToFloat);
+$oneToFloat = (float) $numericStringOne;
+print("Numeric string '1' to float: ");
+var_dump($oneToFloat);
+$positiveToFloat = (float) $numericStringPositive;
+print("Numeric string '3' to float: ");
+var_dump($positiveToFloat);
+$negativeToFloat = (float) $numericStringNegative;
+print("Numeric string -3 to float: ");
+var_dump($negativeToFloat);
+print(PHP_EOL);
+
+$stringToArray = (array) $someString;
+print("String to array: ");
+var_dump($stringToArray);
+$zeroToArray = (array) $numericStringZero;
+print("Numeric string '0' to array: ");
+var_dump($zeroToArray);
+$oneToArray = (array) $numericStringOne;
+print("Numeric string '1' to array: ");
+var_dump($oneToArray);
+$positiveToArray = (array) $numericStringPositive;
+print("Numeric string '3' to array: ");
+var_dump($positiveToArray);
+$negativeToArray = (array) $numericStringNegative;
+print("Numeric string -3 to array: ");
+var_dump($negativeToArray);
+print(PHP_EOL);
+
+$stringToObject = (object) $someString;
+print("String to object: ");
+var_dump($stringToObject);
+$zeroToObject = (object) $numericStringZero;
+print("Numeric string '0' to object: ");
+var_dump($zeroToObject);
+$oneToObject = (object) $numericStringOne;
+print("Numeric string '1' to object: ");
+var_dump($oneToObject);
+$positiveToObject = (object) $numericStringPositive;
+print("Numeric string '3' to object: ");
+var_dump($positiveToObject);
+$negativeToObject = (object) $numericStringNegative;
+print("Numeric string -3 to object: ");
+var_dump($negativeToObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+String to bool: bool(true)
+Numeric string '0' to bool: bool(false)
+Numeric string '1' to bool: bool(true)
+Numeric string '3' to bool: bool(true)
+Numeric string -3 to bool: bool(true)
+
+String to int: int(0)
+Numeric string '0' to int: int(0)
+Numeric string '1' to int: int(1)
+Numeric string '3' to int: int(3)
+Numeric string -3 to int: int(-3)
+
+String to float: float(0)
+Numeric string '0' to float: float(0)
+Numeric string '1' to float: float(1)
+Numeric string '3' to float: float(3)
+Numeric string -3 to float: float(-3)
+
+String to array: array(1) {
+  [0]=>
+  string(5) "hello"
+}
+Numeric string '0' to array: array(1) {
+  [0]=>
+  string(1) "0"
+}
+Numeric string '1' to array: array(1) {
+  [0]=>
+  string(1) "1"
+}
+Numeric string '3' to array: array(1) {
+  [0]=>
+  string(1) "3"
+}
+Numeric string -3 to array: array(1) {
+  [0]=>
+  string(2) "-3"
+}
+
+String to object: object(stdClass)#1 (1) {
+  ["scalar"]=>
+  string(5) "hello"
+}
+Numeric string '0' to object: object(stdClass)#2 (1) {
+  ["scalar"]=>
+  string(1) "0"
+}
+Numeric string '1' to object: object(stdClass)#3 (1) {
+  ["scalar"]=>
+  string(1) "1"
+}
+Numeric string '3' to object: object(stdClass)#4 (1) {
+  ["scalar"]=>
+  string(1) "3"
+}
+Numeric string -3 to object: object(stdClass)#5 (1) {
+  ["scalar"]=>
+  string(2) "-3"
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/scalar/strings/casting_from_string.php)
 
 [▵ Up](#strings)
 [⌂ Home](../../../../../README.md)
