@@ -28,7 +28,7 @@ The keys of an associative array are strings. You use associative arrays when yo
 
 $someArray = [null, true, 3, 'orange'];
 $someAssociativeArray = [
-    'someKey' => 'someValue',
+    'some_key' => 'some value',
     'otherKey' => 1024,
     10 => true,
 ];
@@ -61,8 +61,8 @@ Type: array
 
 Information:
 array(3) {
-  ["someKey"]=>
-  string(9) "someValue"
+  ["some_key"]=>
+  string(9) "some value"
   ["otherKey"]=>
   int(1024)
   [10]=>
@@ -82,7 +82,7 @@ Type: array
 
 $someArrayClassic = array(true, 15, 'hello');
 $someAssociativeArrayClassic = [
-    'someKey' => 'someValue',
+    'some_key' => 'some value',
     3 => 10.5,
     5.6 => false,
 ];
@@ -123,8 +123,8 @@ array(3) {
 }
 Classic associative array():
 array(3) {
-  ["someKey"]=>
-  string(9) "someValue"
+  ["some_key"]=>
+  string(9) "some value"
   [3]=>
   float(10.5)
   [5]=>
@@ -152,6 +152,227 @@ array(2) {
 
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/arrays/array_syntax.php)
+
+## Array definition and initialisation
+
+*Example: Array definition and initialisation*
+
+```php
+<?php
+
+$array_1 = [];
+
+print("Not initialised, defined as empty by []:\n\n");
+print_r($array_1); print("\n");
+
+$array_2 = array();
+
+print("Not initialised, defined as empty by array():\n\n");
+print_r($array_2); print("\n");
+
+$array_3 = [2, 4, 6];
+
+print("Initialised, defined as 3-element by []:\n\n");
+print_r($array_3); print("\n");
+
+$array_4 = array(3, 5, 7);
+
+print("Initialised, defined as 3-element by array():\n\n");
+print_r($array_4); print("\n");
+
+$array_5 = range(1, 3);
+print("Initialised, defined as 3-element by range():\n\n");
+print_r($array_5); print("\n");
+
+$array_6 = [
+  'one' => 1,
+  'two' => '2',
+  'three' => '***',
+];
+print("Initialised, defined as 3-element associative by []:\n\n");
+print_r($array_6); print("\n");
+
+$array_7 = array(
+  'three' => '######',
+  "3" => 5.5,
+  4
+);
+print("Initialised, defined as 3-element partially associative by array():\n\n");
+print_r($array_7); print("\n");
+
+$city = 'Twin Peaks';
+$street = 'Hundret Acre Wood';
+$house = [
+  'no' => 6,
+  'flat_no' => 127
+];
+
+$array_8 = compact('city', 'street', 'house');
+print("Initialised, defined as 3-element associative by compact():\n\n");
+print_r($array_8); print("\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Not initialised, defined as empty by []:
+
+Array
+(
+)
+
+Not initialised, defined as empty by array():
+
+Array
+(
+)
+
+Initialised, defined as 3-element by []:
+
+Array
+(
+    [0] => 2
+    [1] => 4
+    [2] => 6
+)
+
+Initialised, defined as 3-element by array():
+
+Array
+(
+    [0] => 3
+    [1] => 5
+    [2] => 7
+)
+
+Initialised, defined as 3-element by range():
+
+Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => 3
+)
+
+Initialised, defined as 3-element associative by []:
+
+Array
+(
+    [one] => 1
+    [two] => 2
+    [three] => ***
+)
+
+Initialised, defined as 3-element partially associative by array():
+
+Array
+(
+    [three] => ######
+    [3] => 5.5
+    [4] => 4
+)
+
+Initialised, defined as 3-element associative by compact():
+
+Array
+(
+    [city] => Twin Peaks
+    [street] => Hundret Acre Wood
+    [house] => Array
+        (
+            [no] => 6
+            [flat_no] => 127
+        )
+
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_definition_and_initialisation.php)
+
+## Array assignment and overwritting
+
+*Example Array assignment and overwritting*
+
+```php
+<?php
+
+$array = [];
+
+print("Not initialised, before assignments: \$array = []\n\n");
+print_r($array); print("\n");
+
+$array = [0, 0, 0];
+
+print("Initialised, before assignments: \$array = [0, 0, 0]\n\n");
+print_r($array); print("\n");
+
+$array = [1, 2];
+
+print("After assignment: \$array = [1, 2]\n\n");
+print_r($array); print("\n");
+
+$array[1] = 3;
+
+print("After overwriting element: \$array[1] = 3\n\n");
+print_r($array); print("\n");
+
+$array[] = 4;
+
+print("After overwriting by adding element: \$array[] = 4\n\n");
+print_r($array); print("\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Not initialised, before assignments: $array = []
+
+Array
+(
+)
+
+Initialised, before assignments: $array = [0, 0, 0]
+
+Array
+(
+    [0] => 0
+    [1] => 0
+    [2] => 0
+)
+
+After assignment: $array = [1, 2]
+
+Array
+(
+    [0] => 1
+    [1] => 2
+)
+
+After overwriting element: $array[1] = 3
+
+Array
+(
+    [0] => 1
+    [1] => 3
+)
+
+After overwriting by adding element: $array[] = 4
+
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 4
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_assignment_and_overwriting.php)
 
 ## Creating arrays
 
@@ -240,6 +461,65 @@ $scores = [1, 2, 3];
 ```
 
 -- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-array/#creating-an-array-using-the-syntax)
+
+*Example: Array creating*
+
+```php
+<?php
+
+$someEmptyArray = [];
+$someIndexedArray = [10, 'penguin', true];
+$someAssociativeArray = [
+    'some_key' => 'some value',
+    2 => 3,
+    'otherKey' => null,
+];
+
+print("Empty array:\n");
+var_dump($someEmptyArray);
+print(PHP_EOL);
+
+print("Indexed array:\n");
+var_dump($someIndexedArray);
+print(PHP_EOL);
+
+print("Associative array:\n");
+var_dump($someAssociativeArray);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Empty array:
+array(0) {
+}
+
+Indexed array:
+array(3) {
+  [0]=>
+  int(10)
+  [1]=>
+  string(7) "penguin"
+  [2]=>
+  bool(true)
+}
+
+Associative array:
+array(3) {
+  ["some_key"]=>
+  string(9) "some value"
+  [2]=>
+  int(3)
+  ["otherKey"]=>
+  NULL
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_creating.php)
 
 ## Displaying arrays
 
@@ -337,7 +617,75 @@ And then you can reuse the function whenever you want to display an *array*.
 
 -- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-array/#displaying-arrays)
 
-### Modifying arrays
+*Example: Array displaying*
+
+```php
+<?php
+
+$someArray = [10, 'penguin', true];
+$otherArray = [
+    'some_key' => 'some value',
+    2 => 3,
+    'otherKey' => null,
+];
+
+print("Some array:\n");
+var_dump($someArray);
+print(PHP_EOL);
+print_r($someArray);
+print(PHP_EOL);
+
+print("Other array:\n");
+var_dump($otherArray);
+print(PHP_EOL);
+print_r($otherArray);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some array:
+array(3) {
+  [0]=>
+  int(10)
+  [1]=>
+  string(7) "penguin"
+  [2]=>
+  bool(true)
+}
+
+Array
+(
+    [0] => 10
+    [1] => penguin
+    [2] => 1
+)
+
+Other array:
+array(3) {
+  ["some_key"]=>
+  string(9) "some value"
+  [2]=>
+  int(3)
+  ["otherKey"]=>
+  NULL
+}
+
+Array
+(
+    [some_key] => some value
+    [2] => 3
+    [otherKey] =>
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_displaying.php)
+
+## Modifying arrays
 
 An existing *array* can be modified by explicitly setting values in it.
 
@@ -350,13 +698,13 @@ $arr[] = value;
 // value may be any value of any type
 ```
 
-If `$arr` doesn't exist yet or is set to `null` or `false`, it will be created, so this is also an alternative way to create an *array*. This practice is however discouraged because if `$arr` already contains some value (e.g. string from request variable) then this value will stay in the place and `[]` may actually stand for *string access operator*. It is always better to initialize a variable by a direct assignment.
+If `$arr` doesn't exist yet or is set to `null` or `false`, it will be created, so this is also an alternative way to create an *array*. This practice is however discouraged because if `$arr` already contains some value (e.g. *string* from request variable) then this value will stay in the place and `[]` may actually stand for *string access operator*. It is always better to initialize a variable by a direct assignment.
 
-Note: As of PHP 7.1.0, applying the empty index operator on a *string* throws a fatal error. Formerly, the *string* was silently converted to an *array*.
+Note: As of PHP 7.1.0, applying the empty *index operator* on a *string* throws a fatal error. Formerly, the *string* was silently *converted* to an *array*.
 
-Note: As of PHP 8.1.0, creating a new *array* from `false` value is deprecated. Creating a new *array* from `null` and undefined values is still allowed.
+***Note: As of PHP 8.1.0, creating a new *array* from `false` value is deprecated. Creating a new *array* from `null` and undefined values is still allowed.***
 
-To change a certain *value*, assign a new *value* to that *element* using its *key*. To remove a *key*/*value* pair, call the `unset()` function on it.
+***To change a certain *value*, assign a new *value* to that *element* using its *key*. To remove a *key*/*value* pair, call the `unset()` function on it.***
 
 *Example: Using square brackets with arrays*
 
@@ -379,6 +727,99 @@ unset($arr);    // This deletes the whole array
 var_dump($arr);
 ?>
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
+*Example: Array modifying*
+
+```php
+<?php
+
+$someArray = [
+    1 => 15.5,
+    'some_key' => 'some value',
+    2 => 3,
+    'otherKey' => null,
+];
+
+var_dump($someArray);
+print(PHP_EOL);
+
+$someArray[1] = 'hello';
+$someArray['some_key'] = 1024;
+
+var_dump($someArray);
+print(PHP_EOL);
+
+$someArray[] = 16;
+$someArray[] = 'coffee';
+
+var_dump($someArray);
+print(PHP_EOL);
+
+unset($someArray[2]);
+unset($someArray['otherKey']);
+
+var_dump($someArray);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+array(4) {
+  [1]=>
+  float(15.5)
+  ["some_key"]=>
+  string(9) "some value"
+  [2]=>
+  int(3)
+  ["otherKey"]=>
+  NULL
+}
+
+array(4) {
+  [1]=>
+  string(5) "hello"
+  ["some_key"]=>
+  int(1024)
+  [2]=>
+  int(3)
+  ["otherKey"]=>
+  NULL
+}
+
+array(6) {
+  [1]=>
+  string(5) "hello"
+  ["some_key"]=>
+  int(1024)
+  [2]=>
+  int(3)
+  ["otherKey"]=>
+  NULL
+  [3]=>
+  int(16)
+  [4]=>
+  string(6) "coffee"
+}
+
+array(4) {
+  [1]=>
+  string(5) "hello"
+  ["some_key"]=>
+  int(1024)
+  [3]=>
+  int(16)
+  [4]=>
+  string(6) "coffee"
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_modifying.php)
 
 Note:
 
@@ -436,17 +877,269 @@ Array
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
 
+*Example: Array element appending with array access operator*
+
+```php
+<?php
+
+$someArray = [
+    3 => 'hello',
+    'key' => 'value',
+    1 => 0.5,
+];
+
+var_dump($someArray);
+print(PHP_EOL);
+
+$someArray[] = 6;
+
+var_dump($someArray);
+print(PHP_EOL);
+
+$someArray[] = 'star';
+
+var_dump($someArray);
+print(PHP_EOL);
+
+unset($someArray);
+
+$someArray[] = 16;
+
+var_dump($someArray);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+array(3) {
+  [3]=>
+  string(5) "hello"
+  ["key"]=>
+  string(5) "value"
+  [1]=>
+  float(0.5)
+}
+
+array(4) {
+  [3]=>
+  string(5) "hello"
+  ["key"]=>
+  string(5) "value"
+  [1]=>
+  float(0.5)
+  [4]=>
+  int(6)
+}
+
+array(5) {
+  [3]=>
+  string(5) "hello"
+  ["key"]=>
+  string(5) "value"
+  [1]=>
+  float(0.5)
+  [4]=>
+  int(6)
+  [5]=>
+  string(4) "star"
+}
+
+array(1) {
+  [0]=>
+  int(16)
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_element_appending_with_array_access_operator.php)
+
+# Destroying arrays
+
+*Example: Array destroying*
+
+```php
+<?php
+
+$someArray = [
+    1 => 15.5,
+    'some_key' => 'some value',
+    2 => 3,
+    'other_key' => null,
+];
+
+var_dump(isset($someArray));
+var_dump($someArray);
+print(PHP_EOL);
+
+unset($someArray);
+
+var_dump(isset($someArray));
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+bool(true)
+array(4) {
+  [1]=>
+  float(15.5)
+  ["some_key"]=>
+  string(10) "some value"
+  [2]=>
+  int(3)
+  ["other_key"]=>
+  NULL
+}
+
+bool(false)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_destroying.php)
+
+## Array values
+
+*Example: Array values*
+
+```php
+<?php
+
+$someArray = [
+    1 => 15.5,
+    'some_key' => 'some value',
+    2 => 3,
+    'other_key' => null,
+    5 => 'other value'
+];
+
+print("Array:\n");
+var_dump($someArray);
+print(PHP_EOL);
+
+$arrayValues = array_values($someArray);
+
+print("Values:\n");
+var_dump($arrayValues);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Array:
+array(5) {
+  [1]=>
+  float(15.5)
+  ["some_key"]=>
+  string(10) "some value"
+  [2]=>
+  int(3)
+  ["other_key"]=>
+  NULL
+  [5]=>
+  string(11) "other value"
+}
+
+Values:
+array(5) {
+  [0]=>
+  float(15.5)
+  [1]=>
+  string(10) "some value"
+  [2]=>
+  int(3)
+  [3]=>
+  NULL
+  [4]=>
+  string(11) "other value"
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_values.php)
+
 ## Array indexes and keys
 
-The key can either be an `int` or a `string`. The value can be of any type.
+The *key* can either be an `int` or a `string`. The *value* can be of any *type*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
+*Example: Array keys*
+
+```php
+<?php
+
+$someArray = [
+    1 => 15.5,
+    'some_key' => 'some value',
+    2 => 3,
+    'other_key' => null,
+    5 => 'other value'
+];
+
+print("Array:\n");
+var_dump($someArray);
+print(PHP_EOL);
+
+$arrayKeys = array_keys($someArray);
+
+print("Keys:\n");
+var_dump($arrayKeys);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Array:
+array(5) {
+  [1]=>
+  float(15.5)
+  ["some_key"]=>
+  string(10) "some value"
+  [2]=>
+  int(3)
+  ["other_key"]=>
+  NULL
+  [5]=>
+  string(11) "other value"
+}
+
+Values:
+array(5) {
+  [0]=>
+  float(15.5)
+  [1]=>
+  string(10) "some value"
+  [2]=>
+  int(3)
+  [3]=>
+  NULL
+  [4]=>
+  string(11) "other value"
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_keys.php)
 
 Additionally the following *key casts* will occur:
 
-* *Strings* containing valid decimal *ints*, unless the number is preceded by a `+` sign, will be cast to the `int` type. E.g. the key `"8"` will actually be stored under `8`. On the other hand `"08"` will not be cast, as it isn't a valid decimal integer.
+* *Strings* containing valid *decimal ints*, unless the number is preceded by a `+` sign, will be cast to the `int` type. E.g. the key `"8"` will actually be stored under `8`. On the other hand `"08"` will not be cast, as it isn't a valid *decimal integer*.
 * *Floats* are also cast to *ints*, which means that the fractional part will be truncated. E.g. the key `8.7` will actually be stored under `8`.
-* *Bools* are cast to *ints*, too, i.e. the key `true` will actually be stored under `1` and the key `false` under `0`.
+* *Bools* are cast to *ints*, too, i.e. the *key* `true` will actually be stored under `1` and the key `false` under `0`.
 * *Null* will be cast to the *empty string*, i.e. the key `null` will actually be stored under `""`.
-* *Arrays* and objects can not be used as keys. Doing so will result in a warning: `Illegal offset type`.
+* *Arrays* and objects can not be used as *keys*. Doing so will result in a warning: `Illegal offset type`.
 
 If multiple elements in the `array` declaration use the same *key*, only the last one will be used as all others are overwritten.
 
@@ -466,14 +1159,14 @@ var_dump($array);
 
 The above example will output:
 
-```php
+```
 array(1) {
   [1]=>
   string(1) "d"
 }
 ```
 
-As all the keys in the above example are cast to `1`, the value will be overwritten on every new element and the last assigned value `"d"` is the only one left over.
+As all the *keys* in the above example are cast to `1`, the *value* will be overwritten on every new *element* and the last assigned *value* `"d"` is the only one left over.
 
 PHP arrays can contain `int` and `string` *keys* at the same time as PHP does not distinguish between *indexed* and *associative arrays*.
 
@@ -515,9 +1208,11 @@ The *key* is optional. If it is not specified, PHP will use the increment of the
 $array = array("foo", "bar", "hello", "world");
 var_dump($array);
 ?>
-￼Run code
+```
+
 The above example will output:
 
+```
 array(4) {
   [0]=>
   string(3) "foo"
@@ -530,7 +1225,7 @@ array(4) {
 }
 ```
 
-It is possible to specify the key only for some elements and leave it out for others:
+It is possible to specify the *key* only for some *elements* and leave it out for others:
 
 *Example: Keys not on all elements*
 
@@ -565,7 +1260,7 @@ As you can see the last value `"d"` was assigned the key `7`. This is because th
 
 *Example: Complex type casting and overwriting example*
 
-This example includes all variations of type casting of keys and overwriting of elements.
+This example includes all variations of *type casting* of *keys* and overwriting of *elements*.
 
 ```php
 <?php
@@ -649,6 +1344,73 @@ array(2) {
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
+*Example: Array key type casting and overwriting*
+
+```php
+<?php
+
+$letters = [
+  1    => "a",
+  "1"  => "b", // the value "a" will be overwritten by "b"
+  1.5  => "c", // the value "b" will be overwritten by "c"
+  true => "d", // the values "c" will be overwritten by "d"
+];
+
+var_dump($letters);
+print("\n");
+
+$values = [
+  1    => 'a',
+  '1'  => 'b', // the value "a" will be overwritten by "b"
+  1.5  => 'c', // the value "b" will be overwritten by "c"
+  -1 => 'd',
+  '01'  => 'e', // as this is not an integer string it will NOT override the key for 1
+  '1.5' => 'f', // as this is not an integer string it will NOT override the key for 1
+  true => 'g', // the value "c" will be overwritten by "g"
+  false => 'h',
+  '' => 'i',
+  null => 'j', // the value "i" will be overwritten by "j"
+  'k', // value "k" is assigned the key 2. This is because the largest integer key before that was 1
+  2 => 'l', // the value "k" will be overwritten by "l"
+];
+
+var_dump($values);
+print("\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+array(1) {
+  [1]=>
+  string(1) "d"
+}
+
+array(7) {
+  [1]=>
+  string(1) "g"
+  [-1]=>
+  string(1) "d"
+  ["01"]=>
+  string(1) "e"
+  ["1.5"]=>
+  string(1) "f"
+  [0]=>
+  string(1) "h"
+  [""]=>
+  string(1) "j"
+  [2]=>
+  string(1) "l"
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_key_type_casting_and_overwriting.php)
+
+## Array elements
 
 ### Accessing array elements with square bracket syntax
 
@@ -809,6 +1571,85 @@ Attempting to access an *array* *key* which has not been defined is the same as 
 Note:
 
 Destructuring a *scalar value* assigns `null` to all variables.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
+## Array unpacking
+
+An *array* prefixed by `...` will be *expanded* in place during *array definition*. Only *arrays* and *objects* which implement `Traversable` can be *expanded*. *Array unpacking* with `...` is available as of PHP 7.4.0. This is also called the ***spread operator***.
+
+It's possible to expand multiple times, and add normal elements before or after the *`...` operator*:
+
+*Example: Simple array unpacking*
+
+```php
+<?php
+// Using short array syntax.
+// Also, works with array() syntax.
+$arr1 = [1, 2, 3];
+$arr2 = [...$arr1]; // [1, 2, 3]
+$arr3 = [0, ...$arr1]; // [0, 1, 2, 3]
+$arr4 = [...$arr1, ...$arr2, 111]; // [1, 2, 3, 1, 2, 3, 111]
+$arr5 = [...$arr1, ...$arr1]; // [1, 2, 3, 1, 2, 3]
+
+function getArr() {
+  return ['a', 'b'];
+}
+$arr6 = [...getArr(), 'c' => 'd']; // ['a', 'b', 'c' => 'd']
+
+var_dump($arr1, $arr2, $arr3, $arr4, $arr5, $arr6);
+?>
+```
+
+Unpacking an array with the *`...` operator* follows the semantics of the `array_merge()` function. That is, later *string keys* overwrite earlier ones and *integer keys* are renumbered:
+
+*Example: Array unpacking with duplicate key*
+
+```php
+<?php
+// string key
+$arr1 = ["a" => 1];
+$arr2 = ["a" => 2];
+$arr3 = ["a" => 0, ...$arr1, ...$arr2];
+var_dump($arr3); // ["a" => 2]
+
+// integer key
+$arr4 = [1, 2, 3];
+$arr5 = [4, 5, 6];
+$arr6 = [...$arr4, ...$arr5];
+var_dump($arr6); // [1, 2, 3, 4, 5, 6]
+// Which is [0 => 1, 1 => 2, 2 => 3, 3 => 4, 4 => 5, 5 => 6]
+// where the original integer keys have not been retained.
+?>
+```
+
+Note:
+
+*Keys* that are neither *integers* nor *strings* throw a `TypeError`. Such *keys* can only be generated by a `Traversable` object.
+
+Note:
+
+Prior to PHP 8.1, unpacking an *array* which has a *string key* is not supported:
+
+```php
+<?php
+
+$arr1 = [1, 2, 3];
+$arr2 = ['a' => 4];
+$arr3 = [...$arr1, ...$arr2];
+// Fatal error: Uncaught Error: Cannot unpack array with string keys in example.php:5
+
+$arr4 = [1, 2, 3];
+$arr5 = [4, 5];
+$arr6 = [...$arr4, ...$arr5]; // works. [1, 2, 3, 4, 5]
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
+## Comparing
+
+It is possible to compare arrays with the `array_diff()` function and with array operators.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
 
@@ -1105,85 +1946,6 @@ array(3) {
 The above will appear to have two keys named `AA`, although one of them is actually named `\0A\0A`.
 
 Converting `null` to an array results in an *empty array*.
-
--- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
-
-## Comparing
-
-It is possible to compare arrays with the `array_diff()` function and with array operators.
-
--- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
-
-## Array unpacking
-
-An *array* prefixed by `...` will be *expanded* in place during *array definition*. Only *arrays* and *objects* which implement `Traversable` can be *expanded*. *Array unpacking* with `...` is available as of PHP 7.4.0. This is also called the ***spread operator***.
-
-It's possible to expand multiple times, and add normal elements before or after the *`...` operator*:
-
-*Example: Simple array unpacking*
-
-```php
-<?php
-// Using short array syntax.
-// Also, works with array() syntax.
-$arr1 = [1, 2, 3];
-$arr2 = [...$arr1]; // [1, 2, 3]
-$arr3 = [0, ...$arr1]; // [0, 1, 2, 3]
-$arr4 = [...$arr1, ...$arr2, 111]; // [1, 2, 3, 1, 2, 3, 111]
-$arr5 = [...$arr1, ...$arr1]; // [1, 2, 3, 1, 2, 3]
-
-function getArr() {
-  return ['a', 'b'];
-}
-$arr6 = [...getArr(), 'c' => 'd']; // ['a', 'b', 'c' => 'd']
-
-var_dump($arr1, $arr2, $arr3, $arr4, $arr5, $arr6);
-?>
-```
-
-Unpacking an array with the *`...` operator* follows the semantics of the `array_merge()` function. That is, later *string keys* overwrite earlier ones and *integer keys* are renumbered:
-
-*Example: Array unpacking with duplicate key*
-
-```php
-<?php
-// string key
-$arr1 = ["a" => 1];
-$arr2 = ["a" => 2];
-$arr3 = ["a" => 0, ...$arr1, ...$arr2];
-var_dump($arr3); // ["a" => 2]
-
-// integer key
-$arr4 = [1, 2, 3];
-$arr5 = [4, 5, 6];
-$arr6 = [...$arr4, ...$arr5];
-var_dump($arr6); // [1, 2, 3, 4, 5, 6]
-// Which is [0 => 1, 1 => 2, 2 => 3, 3 => 4, 4 => 5, 5 => 6]
-// where the original integer keys have not been retained.
-?>
-```
-
-Note:
-
-*Keys* that are neither *integers* nor *strings* throw a `TypeError`. Such *keys* can only be generated by a `Traversable` object.
-
-Note:
-
-Prior to PHP 8.1, unpacking an *array* which has a *string key* is not supported:
-
-```php
-<?php
-
-$arr1 = [1, 2, 3];
-$arr2 = ['a' => 4];
-$arr3 = [...$arr1, ...$arr2];
-// Fatal error: Uncaught Error: Cannot unpack array with string keys in example.php:5
-
-$arr4 = [1, 2, 3];
-$arr5 = [4, 5];
-$arr6 = [...$arr4, ...$arr5]; // works. [1, 2, 3, 4, 5]
-?>
-```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
 

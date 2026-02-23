@@ -2,8 +2,8 @@
 
 $someArray = [null, true, 3, 'orange'];
 $someAssociativeArray = [
-    'someKey' => 'someValue',
-    'otherKey' => 1024,
+    'some_key' => 'some value',
+    'other_key' => 1024,
     10 => true,
 ];
 

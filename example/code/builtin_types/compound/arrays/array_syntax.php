@@ -2,7 +2,7 @@
 
 $someArrayClassic = array(true, 15, 'hello');
 $someAssociativeArrayClassic = [
-    'someKey' => 'someValue',
+    'some_key' => 'some value',
     3 => 10.5,
     5.6 => false,
 ];
