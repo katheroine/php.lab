@@ -821,142 +821,7 @@ array(4) {
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/arrays/array_modifying.php)
 
-Note:
-
-As mentioned above, if no *key* is specified, the maximum of the existing `int` indices is taken, and the new *key* will be that maximum value plus `1` (but at least `0`). If no `int` indices exist yet, the *key* will be `0` (zero).
-
-Note that the maximum integer *key* used for this need not currently exist in the *array*. It need only have existed in the *array* at some time since the last time the *array* was re-indexed. The following example illustrates:
-
-```php
-<?php
-// Create a simple array.
-$array = array(1, 2, 3, 4, 5);
-print_r($array);
-
-// Now delete every item, but leave the array itself intact:
-foreach ($array as $i => $value) {
-    unset($array[$i]);
-}
-print_r($array);
-
-// Append an item (note that the new key is 5, instead of 0).
-$array[] = 6;
-print_r($array);
-
-// Re-index:
-$array = array_values($array);
-$array[] = 7;
-print_r($array);
-?>
-```
-
-The above example will output:
-
-```
-Array
-(
-    [0] => 1
-    [1] => 2
-    [2] => 3
-    [3] => 4
-    [4] => 5
-)
-Array
-(
-)
-Array
-(
-    [5] => 6
-)
-Array
-(
-    [0] => 6
-    [1] => 7
-)
-```
-
--- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
-
-*Example: Array element appending with array access operator*
-
-```php
-<?php
-
-$someArray = [
-    3 => 'hello',
-    'key' => 'value',
-    1 => 0.5,
-];
-
-var_dump($someArray);
-print(PHP_EOL);
-
-$someArray[] = 6;
-
-var_dump($someArray);
-print(PHP_EOL);
-
-$someArray[] = 'star';
-
-var_dump($someArray);
-print(PHP_EOL);
-
-unset($someArray);
-
-$someArray[] = 16;
-
-var_dump($someArray);
-print(PHP_EOL);
-
-```
-
-**Result (PHP 8.4)**:
-
-```
-array(3) {
-  [3]=>
-  string(5) "hello"
-  ["key"]=>
-  string(5) "value"
-  [1]=>
-  float(0.5)
-}
-
-array(4) {
-  [3]=>
-  string(5) "hello"
-  ["key"]=>
-  string(5) "value"
-  [1]=>
-  float(0.5)
-  [4]=>
-  int(6)
-}
-
-array(5) {
-  [3]=>
-  string(5) "hello"
-  ["key"]=>
-  string(5) "value"
-  [1]=>
-  float(0.5)
-  [4]=>
-  int(6)
-  [5]=>
-  string(4) "star"
-}
-
-array(1) {
-  [0]=>
-  int(16)
-}
-
-```
-
-**Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_element_appending_with_array_access_operator.php)
-
-# Destroying arrays
+## Destroying arrays
 
 *Example: Array destroying*
 
@@ -1412,9 +1277,504 @@ array(7) {
 
 ## Array elements
 
-### Accessing array elements with square bracket syntax
+*Example: Array elements*
 
-*Array elements* can be accessed using the array[key] syntax.
+```php
+<?php
+
+$numbers = [2, 4, 6];
+
+print("Numbers:\n\n");
+var_dump($numbers);
+print(PHP_EOL);
+print("\$numbers[0]: {$numbers[0]}\n");
+print("\$numbers[1]: {$numbers[1]}\n");
+print("\$numbers[2]: {$numbers[2]}\n\n");
+
+$values = [9.5, 8.5, 7.5];
+
+print("Values:\n\n");
+var_dump($values);
+print(PHP_EOL);
+print("\$values[0]: {$values[0]}\n");
+print("\$values[1]: {$values[1]}\n");
+print("\$values[2]: {$values[2]}\n\n");
+
+$words = ["first", "two", "last"];
+
+print("Words:\n\n");
+var_dump($words);
+print(PHP_EOL);
+print("\$words[0]: {$words[0]}\n");
+print("\$words[1]: {$words[1]}\n");
+print("\$words[2]: {$words[2]}\n\n");
+
+$items = [
+  321,
+  2.5,
+  "orange",
+  [2, 4, 6],
+  new stdClass,
+];
+
+print("Items:\n\n");
+var_dump($items);
+print(PHP_EOL);
+print("\$items[0]: {$items[0]}\n");
+print("\$items[1]: {$items[1]}\n");
+print("\$items[2]: {$items[2]}\n");
+print("\$items[3]: {$items[3][0]}, {$items[3][1]}, {$items[3][2]}\n");
+print("\$items[4]: " . gettype($items[4]) . "\n\n");
+
+$data = [
+  'id' => 1024,
+  'programming_language' => 'PHP',
+  'database' => 'MongoDB',
+  'operating_system' => 'Linux',
+];
+
+print("Data:\n\n");
+var_dump($data);
+print(PHP_EOL);
+print("\$data['id']: {$data['id']}\n");
+print("\$data['programming_language']: {$data['programming_language']}\n");
+print("\$data['database']: {$data['database']}\n");
+print("\$data['operating_system']: {$data['operating_system']}\n\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Numbers:
+
+array(3) {
+  [0]=>
+  int(2)
+  [1]=>
+  int(4)
+  [2]=>
+  int(6)
+}
+
+$numbers[0]: 2
+$numbers[1]: 4
+$numbers[2]: 6
+
+Values:
+
+array(3) {
+  [0]=>
+  float(9.5)
+  [1]=>
+  float(8.5)
+  [2]=>
+  float(7.5)
+}
+
+$values[0]: 9.5
+$values[1]: 8.5
+$values[2]: 7.5
+
+Words:
+
+array(3) {
+  [0]=>
+  string(5) "first"
+  [1]=>
+  string(3) "two"
+  [2]=>
+  string(4) "last"
+}
+
+$words[0]: first
+$words[1]: two
+$words[2]: last
+
+Items:
+
+array(5) {
+  [0]=>
+  int(321)
+  [1]=>
+  float(2.5)
+  [2]=>
+  string(6) "orange"
+  [3]=>
+  array(3) {
+    [0]=>
+    int(2)
+    [1]=>
+    int(4)
+    [2]=>
+    int(6)
+  }
+  [4]=>
+  object(stdClass)#1 (0) {
+  }
+}
+
+$items[0]: 321
+$items[1]: 2.5
+$items[2]: orange
+$items[3]: 2, 4, 6
+$items[4]: object
+
+Data:
+
+array(4) {
+  ["id"]=>
+  int(1024)
+  ["programming_language"]=>
+  string(3) "PHP"
+  ["database"]=>
+  string(7) "MongoDB"
+  ["operating_system"]=>
+  string(5) "Linux"
+}
+
+$data['id']: 1024
+$data['programming_language']: PHP
+$data['database']: MongoDB
+$data['operating_system']: Linux
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_elements.php)
+
+### Creating array elements
+
+To add an *element* to an *array*, you use the following syntax:
+
+```php
+$array_name[] = new_element;
+```
+
+PHP will calculate the highest numerical *index* plus one each time you assign an *element* to the *array*.
+
+The following example shows how to add the number `4` to the `$scores` *array*:
+
+```php
+<?php
+
+$scores = [1, 2, 3];
+$scores[] = 4;
+
+print_r($scores);
+```
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-array/#adding-an-element-to-the-array)
+
+[...] If no *key* is specified, the maximum of the existing `int` indices is taken, and the new *key* will be that maximum value plus `1` (but at least `0`). If no `int` indices exist yet, the *key* will be `0` (zero).
+
+Note that the maximum integer *key* used for this need not currently exist in the *array*. It need only have existed in the *array* at some time since the last time the *array* was re-indexed. The following example illustrates:
+
+```php
+<?php
+// Create a simple array.
+$array = array(1, 2, 3, 4, 5);
+print_r($array);
+
+// Now delete every item, but leave the array itself intact:
+foreach ($array as $i => $value) {
+    unset($array[$i]);
+}
+print_r($array);
+
+// Append an item (note that the new key is 5, instead of 0).
+$array[] = 6;
+print_r($array);
+
+// Re-index:
+$array = array_values($array);
+$array[] = 7;
+print_r($array);
+?>
+```
+
+The above example will output:
+
+```
+Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => 3
+    [3] => 4
+    [4] => 5
+)
+Array
+(
+)
+Array
+(
+    [5] => 6
+)
+Array
+(
+    [0] => 6
+    [1] => 7
+)
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
+*Example: Array element appending with array access operator*
+
+```php
+<?php
+
+$someArray = [
+    3 => 'hello',
+    'key' => 'value',
+    1 => 0.5,
+];
+
+var_dump($someArray);
+print(PHP_EOL);
+
+$someArray[] = 6;
+
+var_dump($someArray);
+print(PHP_EOL);
+
+$someArray[] = 'star';
+
+var_dump($someArray);
+print(PHP_EOL);
+
+unset($someArray);
+
+$someArray[] = 16;
+
+var_dump($someArray);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+array(3) {
+  [3]=>
+  string(5) "hello"
+  ["key"]=>
+  string(5) "value"
+  [1]=>
+  float(0.5)
+}
+
+array(4) {
+  [3]=>
+  string(5) "hello"
+  ["key"]=>
+  string(5) "value"
+  [1]=>
+  float(0.5)
+  [4]=>
+  int(6)
+}
+
+array(5) {
+  [3]=>
+  string(5) "hello"
+  ["key"]=>
+  string(5) "value"
+  [1]=>
+  float(0.5)
+  [4]=>
+  int(6)
+  [5]=>
+  string(4) "star"
+}
+
+array(1) {
+  [0]=>
+  int(16)
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_element_appending_with_array_access_operator.php)
+
+In this example, we defined an *array* that consists of three numbers initially. Then, we added the number `4` to the *array*.
+
+It’s possible to use an *index* when you add a new *element* to the *array*. For example:
+
+```php
+$scores = [1, 2, 3];
+$scores[3] = 4;
+```
+
+However, to do this, you must manually calculate the new *index*, which is not practical. Also, the value will be overwritten if the index is already used.
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-array/#adding-an-element-to-the-array)
+
+*Example: Array elements creating*
+
+```php
+<?php
+
+$numbers[0] = 2;
+$numbers[1] = 4;
+$numbers[] = 6;
+
+print("Numbers:\n\n");
+var_dump($numbers);
+print(PHP_EOL);
+
+$amounts = array(3, 6, 9);
+
+print("Amounts:\n\n");
+var_dump($amounts);
+print(PHP_EOL);
+
+$values = [9.5, 8.5, 7.5];
+
+print("Values:\n\n");
+var_dump($values);
+print(PHP_EOL);
+
+$items = [2, 'orange'];
+$items[0] = 2.5;
+$items[4] = 321;
+
+print("Items:\n\n");
+var_dump($items);
+print(PHP_EOL);
+
+$words = array(
+  2 => 'second',
+  'which' => 'last',
+  1 => "first",
+);
+
+print("Words:\n\n");
+var_dump($words);
+print(PHP_EOL);
+
+$things = [
+  1,
+  2,
+  3 => 4,
+  5,
+  'key' => 'blue',
+];
+
+print("Things:\n\n");
+var_dump($things);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Numbers:
+
+array(3) {
+  [0]=>
+  int(2)
+  [1]=>
+  int(4)
+  [2]=>
+  int(6)
+}
+
+Amounts:
+
+array(3) {
+  [0]=>
+  int(3)
+  [1]=>
+  int(6)
+  [2]=>
+  int(9)
+}
+
+Values:
+
+array(3) {
+  [0]=>
+  float(9.5)
+  [1]=>
+  float(8.5)
+  [2]=>
+  float(7.5)
+}
+
+Items:
+
+array(3) {
+  [0]=>
+  float(2.5)
+  [1]=>
+  string(6) "orange"
+  [4]=>
+  int(321)
+}
+
+Words:
+
+array(3) {
+  [2]=>
+  string(6) "second"
+  ["which"]=>
+  string(4) "last"
+  [1]=>
+  string(5) "first"
+}
+
+Things:
+
+array(5) {
+  [0]=>
+  int(1)
+  [1]=>
+  int(2)
+  [3]=>
+  int(4)
+  [4]=>
+  int(5)
+  ["key"]=>
+  string(4) "blue"
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_elements_creating.php)
+
+### Accessing array elements
+
+To access an *element* in an *array*, you specify the *index* of the *element* within the square brackets:
+
+```php
+$array_name[index]
+```
+
+Note that the *index* of the first *element* of an *array* begins with zero, not one.
+
+The following example shows how to access the first *element* of the *array*:
+
+```php
+<?php
+
+$scores = [1, 2, 3];
+echo $scores[0];
+```
+
+Output:
+
+```
+1
+```
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-array/#accessing-array-elements)
+
+*Array elements* can be accessed using the `array[key]` syntax.
 
 *Example: Accessing array elements*
 
@@ -1468,11 +1828,266 @@ Attempting to access an *array key* which has not been defined is the same as ac
 
 Note:
 
-*Array dereferencing* a scalar value which is not a string yields null. Prior to PHP 7.4.0, that did not issue an error message. As of PHP 7.4.0, this issues `E_NOTICE`; as of PHP 8.0.0, this issues `E_WARNING`.
+*Array dereferencing* a scalar value which is not a *string* yields `null`. Prior to PHP 7.4.0, that did not issue an error message. As of PHP 7.4.0, this issues `E_NOTICE`; as of PHP 8.0.0, this issues `E_WARNING`.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
 
-### Array destructuring
+*Example: Array elements accessing*
+
+```php
+<?php
+
+$numbers = [];
+
+$numbers[0] = 2;
+$numbers[1] = 4;
+$numbers[2] = 6;
+
+print("Numbers:\n\n");
+
+print("\$numbers[0]: {$numbers[0]}\n");
+print("\$numbers[1]: {$numbers[1]}\n");
+print("\$numbers[2]: {$numbers[2]}\n\n");
+
+print("current(\$numbers): " . current($numbers) . "\n");
+print("next(\$numbers): " . next($numbers) . "\n");
+print("next(\$numbers): " . next($numbers) . "\n\n");
+
+print("current(\$numbers): " . current($numbers) . "\n");
+print("prev(\$numbers): " . prev($numbers) . "\n");
+print("prev(\$numbers): " . prev($numbers) . "\n\n");
+
+$values = &$numbers;
+
+$values[0] = 1;
+$values[1] = 3;
+$values[2] = 5;
+
+print("\$numbers[0]: {$numbers[0]}\n");
+print("\$numbers[1]: {$numbers[1]}\n");
+print("\$numbers[2]: {$numbers[2]}\n\n");
+
+$items = [];
+
+$items[2] = "Hello, there!";
+$items['color'] = 'orange';
+
+print("Items:\n\n");
+
+print("\$items[2]: {$items[2]}\n");
+print("\$items['color']: {$items['color']}\n\n");
+
+print("current(\$items): " . current($items) . "\n");
+print("next(\$items): " . next($items) . "\n\n");
+
+print("current(\$items): " . current($items) . "\n");
+print("prev(\$items): " . prev($items) . "\n\n");
+
+$things = &$items;
+
+$things[2] = "Hi!";
+$things['color'] = 'blue';
+
+print("\$items[2]: {$items[2]}\n");
+print("\$items['color']: {$items['color']}\n\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Numbers:
+
+$numbers[0]: 2
+$numbers[1]: 4
+$numbers[2]: 6
+
+current($numbers): 2
+next($numbers): 4
+next($numbers): 6
+
+current($numbers): 6
+prev($numbers): 4
+prev($numbers): 2
+
+$numbers[0]: 1
+$numbers[1]: 3
+$numbers[2]: 5
+
+Items:
+
+$items[2]: Hello, there!
+$items['color']: orange
+
+current($items): Hello, there!
+next($items): orange
+
+current($items): orange
+prev($items): Hello, there!
+
+$items[2]: Hi!
+$items['color']: blue
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_elements_accessing.php)
+
+### Modifying array elements
+
+The following statement changes the *element* located at the *index* to the `$new_element`:
+
+```php
+$array_name[index] = $new_element;
+```
+
+For example, to change the first *element* of the `$scores` *array* from `1` to zero, you do it as follows:
+
+```php
+<?php
+
+$scores = [1, 2, 3];
+$scores[0] = 0;
+
+print_r($scores);
+```
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-array/#changing-array-elements)
+
+*Example: Array elements modifying*
+
+```php
+<?php
+
+$numbers = [2, 4, 6];
+
+print("Numbers:\n\n");
+var_dump($numbers);
+print(PHP_EOL);
+
+$numbers[1] = 5;
+
+var_dump($numbers);
+print(PHP_EOL);
+
+$values = &$numbers;
+
+$values[2] = 9;
+
+var_dump($numbers);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Numbers:
+
+array(3) {
+  [0]=>
+  int(2)
+  [1]=>
+  int(4)
+  [2]=>
+  int(6)
+}
+
+array(3) {
+  [0]=>
+  int(2)
+  [1]=>
+  int(5)
+  [2]=>
+  int(6)
+}
+
+array(3) {
+  [0]=>
+  int(2)
+  [1]=>
+  int(5)
+  [2]=>
+  int(9)
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_elements_modifying.php)
+
+### Destroying array elements
+
+To remove an *element* from an *array*, you use the `unset()` function. The following removes the second *element* of the `$scores` array:
+
+```php
+<?php
+
+$scores = [1, 2, 3];
+unset($scores[1]);
+
+print_r($scores);
+```
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-array/#removing-array-elements)
+
+*Example: Array elements destroying*
+
+```php
+<?php
+
+$numbers = [2, 4, 6];
+
+print("Numbers:\n\n");
+var_dump($numbers);
+print(PHP_EOL);
+
+unset($numbers[1]);
+
+var_dump($numbers);
+print(PHP_EOL);
+
+$values = &$numbers;
+
+unset($values[2]);
+
+var_dump($numbers);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Numbers:
+
+array(3) {
+  [0]=>
+  int(2)
+  [1]=>
+  int(4)
+  [2]=>
+  int(6)
+}
+
+array(2) {
+  [0]=>
+  int(2)
+  [2]=>
+  int(6)
+}
+
+array(1) {
+  [0]=>
+  int(2)
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_elements_destroying.php)
+
+## Array destructuring
 
 *Arrays* can be *destructured* using the `[]` (as of PHP 7.1.0) or `list()` language constructs. These constructs can be used to *destructure* an *array* into distinct *variables*.
 
