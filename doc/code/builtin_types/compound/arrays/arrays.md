@@ -2302,7 +2302,100 @@ Name: violet, Value: 9055202
 
 ## Array unpacking
 
+### Sperad operator
+
 An *array* prefixed by `...` will be *expanded* in place during *array definition*. Only *arrays* and *objects* which implement `Traversable` can be *expanded*. *Array unpacking* with `...` is available as of PHP 7.4.0. This is also called the ***spread operator***.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
+PHP 7.4 introduced the ***spread operator*** to the *array expression*. PHP uses the three dots (`...`) to denote the *spread operator*.
+
+When you prefix an *array* with the *spread operator*, PHP will spread *array elements* in place:
+
+```
+...array_var
+```
+
+For example:
+
+```php
+<?php
+
+$numbers = [4,5];
+$scores = [1,2,3, ...$numbers];
+
+print_r($scores);
+```
+
+Output:
+
+```
+Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => 3
+    [3] => 4
+    [4] => 5
+)
+```
+
+How it works.
+
+* First, define the `$numbers` *array* that holds two *integers*.
+* Second, define the `$scores` *array* of three *integers* `1`, `2`, and `3`. Also, spread *elements* of the `$numbers` *array* into the `$scores` *array*. As a result, the `$score` *array* will contain five numbers `1`, `2`, `3`, `4`, and `5`.
+
+The *spread operator* performs better than the `array_merge()` function because it is a language construct and a function call. Additionally, PHP optimizes the performance for *constant arrays* at compile time.
+
+Unlike *argument unpacking*, you can use the *spread operator* anywhere. For example, you can use the *spread operator* at the beginning of the array:
+
+```php
+<?php
+
+$numbers = [1,2];
+$scores = [...$numbers, 3, 4];
+
+print_r($scores);
+```
+
+Output:
+
+```
+Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => 3
+    [3] => 4
+)
+```
+
+Or you can use the *spread operator* in the middle of an *array* like this:
+
+```php
+<?php
+
+$numbers = [2,3];
+$scores = [1, ...$numbers, 4];
+
+print_r($scores);
+```
+
+Output:
+
+```
+Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => 3
+    [3] => 4
+)
+```
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-spread-operator/)
+
+### Multiple expanding
 
 It's possible to expand multiple times, and add normal elements before or after the *`...` operator*:
 
@@ -2327,7 +2420,127 @@ var_dump($arr1, $arr2, $arr3, $arr4, $arr5, $arr6);
 ?>
 ```
 
-Unpacking an array with the *`...` operator* follows the semantics of the `array_merge()` function. That is, later *string keys* overwrite earlier ones and *integer keys* are renumbered:
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
+PHP allows you to use the *spread operator* multiple times. For example:
+
+```php
+<?php
+
+$even = [2, 4, 6];
+$odd = [1, 2, 3];
+$all = [...$odd, ...$even];
+
+print_r($all);
+```
+
+Output:
+
+```
+Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => 3
+    [3] => 2
+    [4] => 4
+    [5] => 6
+)
+```
+
+How it works.
+
+* First, define two *arrays* `$even` and `$odd` that hold the even and odd numbers.
+* Second, use the *spread operator* to spread *elements* of these *arrays* into a new *array* `$all`. The `$all` *array* will hold the *elements* of both *arrays*, `$even` and `$odd`.
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-spread-operator/#using-the-spread-operator-multiple-times)
+
+*Example: Array unpacking*
+
+```php
+<?php
+
+$numbers = [2, 3, 4];
+$values = [5.1, 6.3, 7.5];
+$items = [
+  'greetings' => "Hello, there!",
+  'color' => 'orange',
+  'number' => 3.14,
+];
+
+
+$quantities = [0, 1, ...$numbers];
+
+print("Quantities:\n\n");
+var_dump($quantities);
+print(PHP_EOL);
+
+$measures = [...$numbers, ...$values];
+
+print("Measures:\n\n");
+var_dump($measures);
+print(PHP_EOL);
+
+$varietes = [0, ...$measures, ...$items, ...['exit', 'quit']];
+
+print("Varietes:\n\n");
+var_dump($varietes);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Quantities:
+
+Array
+(
+    [0] => 0
+    [1] => 1
+    [2] => 2
+    [3] => 3
+    [4] => 4
+)
+
+Measures:
+
+Array
+(
+    [0] => 2
+    [1] => 3
+    [2] => 4
+    [3] => 5.1
+    [4] => 6.3
+    [5] => 7.5
+)
+
+Varietes:
+
+Array
+(
+    [0] => 0
+    [1] => 2
+    [2] => 3
+    [3] => 4
+    [4] => 5.1
+    [5] => 6.3
+    [6] => 7.5
+    [greetings] => Hello, there!
+    [color] => orange
+    [number] => 3.14
+    [7] => exit
+    [8] => quit
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_unpacking.php)
+
+### Keys overwtiting
+
+*Unpacking an array* with the *`...` operator* follows the semantics of the `array_merge()` function. That is, later *string keys* overwrite earlier ones and *integer keys* are renumbered:
 
 *Example: Array unpacking with duplicate key*
 
@@ -2372,6 +2585,280 @@ $arr6 = [...$arr4, ...$arr5]; // works. [1, 2, 3, 4, 5]
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
+*Example: Array unpacking and key overwriting*
+
+```php
+<?php
+
+$someNumbers = [1, 3, 5];
+$otherNumbers = [7, 8, 9];
+$anotherNumbers = [0 => 2, 1 => 4, 2 => 6];
+$someValues = [0 => 7.1, 1 => 8.2, 2 => 9.3];
+$otherValues = [10 => 1.2, 11 => 2.4, 12 => 3.6];
+
+$someQuantities = [...$someNumbers, ...$otherNumbers];
+
+print("Some quantities:\n\n");
+print_r($someQuantities);
+print(PHP_EOL);
+
+$otherQuantities = [...$someNumbers, ...$anotherNumbers];
+
+print("Other quantities:\n\n");
+print_r($otherQuantities);
+print(PHP_EOL);
+
+$anotherQuantities = [...$anotherNumbers, ...$someNumbers];
+
+print("Another quantities:\n\n");
+print_r($anotherQuantities);
+print(PHP_EOL);
+
+$someMeasures = [...$someValues, ...$anotherNumbers];
+
+print("Some measures:\n\n");
+print_r($someMeasures);
+print(PHP_EOL);
+
+$otherMeasures = [...$someValues, ...$otherValues];
+
+print("Other measures:\n\n");
+print_r($otherMeasures);
+print(PHP_EOL);
+
+$someItems = [
+  'greetings' => "Hello, there!",
+  'color' => 'orange',
+  'number' => 3,
+];
+
+$otherItems = [
+    'color' => 'blue',
+    'number' => 9,
+];
+
+$someVarietes = [...$someItems, ...$otherItems];
+
+print("Some varietes:\n\n");
+print_r($someVarietes);
+print(PHP_EOL);
+
+$otherVarietes = [...$otherItems, ...$someItems];
+
+print("Other varietes:\n\n");
+print_r($otherVarietes);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some quantities:
+
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+    [3] => 7
+    [4] => 8
+    [5] => 9
+)
+
+Other quantities:
+
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+    [3] => 2
+    [4] => 4
+    [5] => 6
+)
+
+Another quantities:
+
+Array
+(
+    [0] => 2
+    [1] => 4
+    [2] => 6
+    [3] => 1
+    [4] => 3
+    [5] => 5
+)
+
+Some measures:
+
+Array
+(
+    [0] => 7.1
+    [1] => 8.2
+    [2] => 9.3
+    [3] => 2
+    [4] => 4
+    [5] => 6
+)
+
+Other measures:
+
+Array
+(
+    [0] => 7.1
+    [1] => 8.2
+    [2] => 9.3
+    [3] => 1.2
+    [4] => 2.4
+    [5] => 3.6
+)
+
+Some varietes:
+
+Array
+(
+    [greetings] => Hello, there!
+    [color] => blue
+    [number] => 9
+)
+
+Other varietes:
+
+Array
+(
+    [color] => orange
+    [number] => 3
+    [greetings] => Hello, there!
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_unpacking_ans_key_overwriting.php)
+
+### Unpacking the result of the function call
+
+The following example uses the *spread operator* with a return value of a function:
+
+```php
+<?php
+
+function get_random_numbers()
+{
+    for ($i = 0; $i < 5; $i++) {
+        $random_numbers[] = rand(1, 100);
+    }
+    return $random_numbers;
+}
+
+$random_numbers = [...get_random_numbers()];
+
+print_r($random_numbers);
+```
+
+Output:
+
+```
+Array
+(
+    [0] => 47
+    [1] => 78
+    [2] => 83
+    [3] => 13
+    [4] => 32
+)
+```
+
+How it works.
+
+* First, define a *function* `get_random_numbers()` that returns an *array* of five random *integers* between `1` and `100`.
+* Then, use the *spread operator* to spread out the *elements* of the returned *array* directly from the *function call*.
+
+Note that you’ll likely see a different output because of the `rand()` function.
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-spread-operator/#using-spread-operator-with-a-return-value-of-a-function-call)
+
+### Unpacking the result of the generator call
+
+In the following example, first, we define a *generator* that returns even numbers between `2` and `10`. Then, we use the *spread operator* to spread out the returned *value* of the *generator* into an *array*:
+
+```php
+<?php
+
+function even_number()
+{
+    for($i =2; $i < 10; $i+=2){
+        yield $i;
+    }
+}
+
+$even = [...even_number()];
+
+print_r($even);
+```
+
+Output:
+
+```
+Array
+(
+    [0] => 2
+    [1] => 4
+    [2] => 6
+    [3] => 8
+)
+```
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-spread-operator/#using-spread-operator-with-a-generator)
+
+### Unpacking the array as the function naming arguments
+
+PHP 8 allows you to call a *function* using *named arguments*. For example:
+
+```php
+<?php
+
+function format_name(string $first, string $middle, string $last): string
+{
+    return $middle ?
+        "$first $middle $last" :
+        "$first $last";
+}
+
+echo format_name(
+    first: 'John',
+    middle: 'V.',
+    last: 'Doe'
+); // John V. Doe
+```
+
+Also, you can pass the arguments to the `format_name` *function* using the *spread operator*:
+
+```php
+<?php
+
+function format_name(string $first, string $middle, string $last): string
+{
+    return $middle ?
+        "$first $middle $last" :
+        "$first $last";
+}
+
+
+$names = [
+    'first' => 'John',
+    'middle' => 'V.',
+    'last' => 'Doe'
+];
+
+echo format_name(...$names); // John V. Doe
+```
+
+In this case, the *keys* of the *array elements* correspond to the *parameter names* of the `format_name()` *function*.
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-spread-operator/#spread-operator-and-named-arguments)
 
 ## Comparing
 
