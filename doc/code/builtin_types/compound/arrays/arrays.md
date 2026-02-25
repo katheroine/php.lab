@@ -2093,6 +2093,183 @@ array(1) {
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/arrays/array_elements_destroying.php)
 
+## Associative arrays
+
+*Example: Associative arrays*
+
+```php
+<?php
+
+$someAssociativeArray = [
+  'some_key' => 'some value',
+  'other key' => 'other value',
+];
+
+print("Information:\n");
+var_dump($someAssociativeArray);
+print('Type: ' . gettype($someAssociativeArray) . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Information:
+array(2) {
+  ["some_key"]=>
+  string(10) "some value"
+  ["other key"]=>
+  string(11) "other value"
+}
+Type: array
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/associative_arrays.php)
+
+## Nested arrays
+
+*Example: Nested arrays*
+
+```php
+<?php
+
+$values = [1, 3, 5, [2, 4, 6], 'seven'];
+
+print("Values:\n\n");
+var_dump($values);
+print(PHP_EOL);
+
+$secondNestedValue = $values[3][1];
+
+print("Second even value: $secondNestedValue\n\n");
+
+$data = [
+  'name' => 'amelie',
+  'address' => [
+    'city' => 'Twin Peaks',
+    'street' => 'Hundret Acre Wood',
+    'house' => [
+      'no' => 6,
+      'flat_no' => 127
+    ],
+  ],
+  'species' => 'owl',
+];
+
+print("Data:\n\n");
+var_dump($data);
+print(PHP_EOL);
+
+$secondNestedData = $data['address']['house']['flat_no'];
+
+print("Second nested data: $secondNestedData\n\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Values:
+
+array(5) {
+  [0]=>
+  int(1)
+  [1]=>
+  int(3)
+  [2]=>
+  int(5)
+  [3]=>
+  array(3) {
+    [0]=>
+    int(2)
+    [1]=>
+    int(4)
+    [2]=>
+    int(6)
+  }
+  [4]=>
+  string(5) "seven"
+}
+
+Second even value: 4
+
+Data:
+
+array(3) {
+  ["name"]=>
+  string(6) "amelie"
+  ["address"]=>
+  array(3) {
+    ["city"]=>
+    string(10) "Twin Peaks"
+    ["street"]=>
+    string(17) "Hundret Acre Wood"
+    ["house"]=>
+    array(2) {
+      ["no"]=>
+      int(6)
+      ["flat_no"]=>
+      int(127)
+    }
+  }
+  ["species"]=>
+  string(3) "owl"
+}
+
+Second nested data: 127
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/nested_arrays.php)
+
+## Testing for `array`
+
+*Example: Testing for `array`*
+
+```php
+<?php
+
+$someArray = [null, true, 3, 'orange'];
+
+print('Type of array: ' . gettype($someArray) . PHP_EOL);
+print('Is array? ' . (is_array($someArray) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
+
+$someAssociativeArray = [
+    'some_key' => 'some value',
+    'other_key' => 1024,
+    10 => true,
+];
+
+print('Type of associative array: ' . gettype($someAssociativeArray) . PHP_EOL);
+print('Is array? ' . (is_array($someAssociativeArray) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
+
+$someNumber = 10;
+
+print('Type of number: ' . gettype($someNumber) . PHP_EOL);
+print('Is array? ' . (is_array($someNumber) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Type of array: array
+Is array? yes
+
+Type of associative array: array
+Is array? yes
+
+Type of number: integer
+Is array? no
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/testing_for_array.php)
+
 ## Array destructuring
 
 *Arrays* can be *destructured* using the `[]` (as of PHP 7.1.0) or `list()` language constructs. These constructs can be used to *destructure* an *array* into distinct *variables*.
@@ -2468,7 +2645,6 @@ $items = [
   'number' => 3.14,
 ];
 
-
 $quantities = [0, 1, ...$numbers];
 
 print("Quantities:\n\n");
@@ -2538,7 +2714,7 @@ Array
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/arrays/array_unpacking.php)
 
-### Keys overwtiting
+### Keys overwriting
 
 *Unpacking an array* with the *`...` operator* follows the semantics of the `array_merge()` function. That is, later *string keys* overwrite earlier ones and *integer keys* are renumbered:
 
@@ -2736,7 +2912,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_unpacking_ans_key_overwriting.php)
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_unpacking_and_key_overwriting.php)
 
 ### Unpacking the result of the function call
 
@@ -2860,7 +3036,456 @@ In this case, the *keys* of the *array elements* correspond to the *parameter na
 
 -- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-spread-operator/#spread-operator-and-named-arguments)
 
-## Comparing
+## Array merging
+
+*Example: Array merging*
+
+```php
+<?php
+
+$numbers = [2, 3, 4];
+$values = [5.1, 6.3, 7.5];
+$items = [
+  'greetings' => "Hello, there!",
+  'color' => 'orange',
+  'number' => 3.14,
+];
+
+$quantities = array_merge([0, 1], $numbers);
+
+print("Quantities:\n\n");
+print_r($quantities);
+print(PHP_EOL);
+
+$measures = array_merge($numbers, $values);
+
+print("Measures:\n\n");
+print_r($measures);
+print(PHP_EOL);
+
+$varietes = array_merge([0], $measures, $items, ['exit', 'quit']);
+
+print("Varietes:\n\n");
+print_r($varietes);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Quantities:
+
+Array
+(
+    [0] => 0
+    [1] => 1
+    [2] => 2
+    [3] => 3
+    [4] => 4
+)
+
+Measures:
+
+Array
+(
+    [0] => 2
+    [1] => 3
+    [2] => 4
+    [3] => 5.1
+    [4] => 6.3
+    [5] => 7.5
+)
+
+Varietes:
+
+Array
+(
+    [0] => 0
+    [1] => 2
+    [2] => 3
+    [3] => 4
+    [4] => 5.1
+    [5] => 6.3
+    [6] => 7.5
+    [greetings] => Hello, there!
+    [color] => orange
+    [number] => 3.14
+    [7] => exit
+    [8] => quit
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_merging.php)
+
+*Example: Array merging and key overwriting*
+
+```php
+<?php
+
+$someNumbers = [1, 3, 5];
+$otherNumbers = [7, 8, 9];
+$anotherNumbers = [0 => 2, 1 => 4, 2 => 6];
+$someValues = [0 => 7.1, 1 => 8.2, 2 => 9.3];
+$otherValues = [10 => 1.2, 11 => 2.4, 12 => 3.6];
+
+$someQuantities = array_merge($someNumbers, $otherNumbers);
+
+print("Some quantities:\n\n");
+print_r($someQuantities);
+print(PHP_EOL);
+
+$otherQuantities = array_merge($someNumbers, $anotherNumbers);
+
+print("Other quantities:\n\n");
+print_r($otherQuantities);
+print(PHP_EOL);
+
+$anotherQuantities = array_merge($anotherNumbers, $someNumbers);
+
+print("Another quantities:\n\n");
+print_r($anotherQuantities);
+print(PHP_EOL);
+
+$someMeasures = array_merge($someValues, $anotherNumbers);
+
+print("Some measures:\n\n");
+print_r($someMeasures);
+print(PHP_EOL);
+
+$otherMeasures = array_merge($someValues, $otherValues);
+
+print("Other measures:\n\n");
+print_r($otherMeasures);
+print(PHP_EOL);
+
+$someItems = [
+  'greetings' => "Hello, there!",
+  'color' => 'orange',
+  'number' => 3,
+];
+
+$otherItems = [
+    'color' => 'blue',
+    'number' => 9,
+];
+
+$someVarietes = array_merge($someItems, $otherItems);
+
+print("Some varietes:\n\n");
+print_r($someVarietes);
+print(PHP_EOL);
+
+$otherVarietes = array_merge($otherItems, $someItems);
+
+print("Other varietes:\n\n");
+print_r($otherVarietes);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some quantities:
+
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+    [3] => 7
+    [4] => 8
+    [5] => 9
+)
+
+Other quantities:
+
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+    [3] => 2
+    [4] => 4
+    [5] => 6
+)
+
+Another quantities:
+
+Array
+(
+    [0] => 2
+    [1] => 4
+    [2] => 6
+    [3] => 1
+    [4] => 3
+    [5] => 5
+)
+
+Some measures:
+
+Array
+(
+    [0] => 7.1
+    [1] => 8.2
+    [2] => 9.3
+    [3] => 2
+    [4] => 4
+    [5] => 6
+)
+
+Other measures:
+
+Array
+(
+    [0] => 7.1
+    [1] => 8.2
+    [2] => 9.3
+    [3] => 1.2
+    [4] => 2.4
+    [5] => 3.6
+)
+
+Some varietes:
+
+Array
+(
+    [greetings] => Hello, there!
+    [color] => blue
+    [number] => 9
+)
+
+Other varietes:
+
+Array
+(
+    [color] => orange
+    [number] => 3
+    [greetings] => Hello, there!
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_merging_and_key_overwriting.php)
+
+## Array adding
+
+*Example: Array adding*
+
+```php
+<?php
+
+$numbers = [2, 3, 4];
+$values = [5.1, 6.3, 7.5];
+$items = [
+  'greetings' => "Hello, there!",
+  'color' => 'orange',
+  'number' => 3.14,
+];
+
+$quantities = [0, 1] + $numbers;
+
+print("Quantities:\n\n");
+print_r($quantities);
+print(PHP_EOL);
+
+$measures = $numbers + $values;
+
+print("Measures:\n\n");
+print_r($measures);
+print(PHP_EOL);
+
+$varietes = [0] + $measures + $items + ['exit', 'quit'];
+
+print("Varietes:\n\n");
+print_r($varietes);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Quantities:
+
+Array
+(
+    [0] => 0
+    [1] => 1
+    [2] => 4
+)
+
+Measures:
+
+Array
+(
+    [0] => 2
+    [1] => 3
+    [2] => 4
+)
+
+Varietes:
+
+Array
+(
+    [0] => 0
+    [1] => 3
+    [2] => 4
+    [greetings] => Hello, there!
+    [color] => orange
+    [number] => 3.14
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_adding.php)
+
+*Example: Array adding and key overwriting*
+
+```php
+<?php
+
+$someNumbers = [1, 3, 5];
+$otherNumbers = [7, 8, 9];
+$anotherNumbers = [0 => 2, 1 => 4, 2 => 6];
+$someValues = [0 => 7.1, 1 => 8.2, 2 => 9.3];
+$otherValues = [10 => 1.2, 11 => 2.4, 12 => 3.6];
+
+$someQuantities = $someNumbers + $otherNumbers;
+
+print("Some quantities:\n\n");
+print_r($someQuantities);
+print(PHP_EOL);
+
+$otherQuantities = $someNumbers + $anotherNumbers;
+
+print("Other quantities:\n\n");
+print_r($otherQuantities);
+print(PHP_EOL);
+
+$anotherQuantities = $anotherNumbers + $someNumbers;
+
+print("Another quantities:\n\n");
+print_r($anotherQuantities);
+print(PHP_EOL);
+
+$someMeasures = $someValues + $anotherNumbers;
+
+print("Some measures:\n\n");
+print_r($someMeasures);
+print(PHP_EOL);
+
+$otherMeasures = $someValues + $otherValues;
+
+print("Other measures:\n\n");
+print_r($otherMeasures);
+print(PHP_EOL);
+
+$someItems = [
+  'greetings' => "Hello, there!",
+  'color' => 'orange',
+  'number' => 3,
+];
+
+$otherItems = [
+    'color' => 'blue',
+    'number' => 9,
+];
+
+$someVarietes = $someItems + $otherItems;
+
+print("Some varietes:\n\n");
+print_r($someVarietes);
+print(PHP_EOL);
+
+$otherVarietes = $otherItems + $someItems;
+
+print("Other varietes:\n\n");
+print_r($otherVarietes);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some quantities:
+
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+)
+
+Other quantities:
+
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+)
+
+Another quantities:
+
+Array
+(
+    [0] => 2
+    [1] => 4
+    [2] => 6
+)
+
+Some measures:
+
+Array
+(
+    [0] => 7.1
+    [1] => 8.2
+    [2] => 9.3
+)
+
+Other measures:
+
+Array
+(
+    [0] => 7.1
+    [1] => 8.2
+    [2] => 9.3
+    [10] => 1.2
+    [11] => 2.4
+    [12] => 3.6
+)
+
+Some varietes:
+
+Array
+(
+    [greetings] => Hello, there!
+    [color] => orange
+    [number] => 3
+)
+
+Other varietes:
+
+Array
+(
+    [color] => blue
+    [number] => 9
+    [greetings] => Hello, there!
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_adding_and_key_overwriting.php)
+
+## Array comparing
 
 It is possible to compare arrays with the `array_diff()` function and with array operators.
 

@@ -2,12 +2,13 @@
 
 $values = [1, 3, 5, [2, 4, 6], 'seven'];
 
+print("Values:\n\n");
 var_dump($values);
-print("\n");
+print(PHP_EOL);
 
-$second_even_value = $values[3][1];
+$secondNestedValue = $values[3][1];
 
-print("Second even value: $second_even_value\n\n");
+print("Second even value: $secondNestedValue\n\n");
 
 $data = [
   'name' => 'amelie',
@@ -22,9 +23,10 @@ $data = [
   'species' => 'owl',
 ];
 
+print("Data:\n\n");
 var_dump($data);
-print("\n");
+print(PHP_EOL);
 
-$flat_no = $data['address']['house']['flat_no'];
+$secondNestedData = $data['address']['house']['flat_no'];
 
-print("Flat number: $flat_no\n\n");
+print("Second nested data: $secondNestedData\n\n");

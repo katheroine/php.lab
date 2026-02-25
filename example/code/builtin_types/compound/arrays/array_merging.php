@@ -1,24 +1,27 @@
 <?php
 
-$values = [9.5, 2.5, 7.5];
-$items = [2.5, "orange"];
+$numbers = [2, 3, 4];
+$values = [5.1, 6.3, 7.5];
+$items = [
+  'greetings' => "Hello, there!",
+  'color' => 'orange',
+  'number' => 3.14,
+];
 
-print("values:\n");
-print_r($values);
-print("items:\n");
-print_r($items);
-print("\n");
+$quantities = array_merge([0, 1], $numbers);
 
-$elements = array_merge($values, $items);
+print("Quantities:\n\n");
+print_r($quantities);
+print(PHP_EOL);
 
-print("\$elements = array_merge(\$values, \$items)\n");
-print("elements:\n");
-print_r($elements);
-print("\n");
+$measures = array_merge($numbers, $values);
 
-$elements = $items + $values;
+print("Measures:\n\n");
+print_r($measures);
+print(PHP_EOL);
 
-print("\$elements = \$items + \$values\n");
-print("elements:\n");
-print_r($elements);
-print("\n");
+$varietes = array_merge([0], $measures, $items, ['exit', 'quit']);
+
+print("Varietes:\n\n");
+print_r($varietes);
+print(PHP_EOL);

@@ -8,19 +8,19 @@ $items = [
   'number' => 3.14,
 ];
 
-$quantities = [0, 1, ...$numbers];
+$quantities = [0, 1] + $numbers;
 
 print("Quantities:\n\n");
 print_r($quantities);
 print(PHP_EOL);
 
-$measures = [...$numbers, ...$values];
+$measures = $numbers + $values;
 
 print("Measures:\n\n");
 print_r($measures);
 print(PHP_EOL);
 
-$varietes = [0, ...$measures, ...$items, ...['exit', 'quit']];
+$varietes = [0] + $measures + $items + ['exit', 'quit'];
 
 print("Varietes:\n\n");
 print_r($varietes);
