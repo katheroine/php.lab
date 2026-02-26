@@ -949,6 +949,28 @@ bool(false)
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/arrays/array_destroying.php)
 
+## Copying arrays
+
+*Array assignment* always involves *value copying*. Use the *reference operator* to copy an *array* by reference.
+
+*Example: Array copying*
+
+```php
+<?php
+$arr1 = array(2, 3);
+$arr2 = $arr1;
+$arr2[] = 4; // $arr2 is changed,
+             // $arr1 is still array(2, 3)
+
+$arr3 = &$arr1;
+$arr3[] = 4; // now $arr1 and $arr3 are the same
+
+var_dump($arr1, $arr2, $arr3);
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
 ## Array values
 
 *Example: Array values*
@@ -2381,6 +2403,44 @@ array(1) {
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/arrays/array_elements_destroying.php)
 
+## Indexed arrays
+
+*Example: Indexed arrays*
+
+```php
+<?php
+
+$someIndexedArray = [null, true, 2, 3.14, 'orange'];
+
+print("Information:\n");
+var_dump($someIndexedArray);
+print('Type: ' . gettype($someIndexedArray) . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Information:
+array(5) {
+  [0]=>
+  NULL
+  [1]=>
+  bool(true)
+  [2]=>
+  int(2)
+  [3]=>
+  float(3.14)
+  [4]=>
+  string(6) "orange"
+}
+Type: array
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/indexed_arrays.php)
+
 ## Associative arrays
 
 *Example: Associative arrays*
@@ -2417,6 +2477,43 @@ Type: array
 [Example](../../../../../example/code/builtin_types/compound/arrays/associative_arrays.php)
 
 ## Nested arrays
+
+Because the *value* of an *array* can be anything, it can also be another *array*. This enables the creation of recursive and *multi-dimensional arrays*.
+
+*Example: Recursive and multi-dimensional arrays*
+
+```php
+<?php
+$fruits = array ( "fruits"  => array ( "a" => "orange",
+                                       "b" => "banana",
+                                       "c" => "apple"
+                                     ),
+                  "numbers" => array ( 1,
+                                       2,
+                                       3,
+                                       4,
+                                       5,
+                                       6
+                                     ),
+                  "holes"   => array (      "first",
+                                       5 => "second",
+                                            "third"
+                                     )
+                );
+var_dump($fruits);
+
+// Some examples to address values in the array above
+echo $fruits["holes"][5];    // prints "second"
+echo $fruits["fruits"]["a"]; // prints "orange"
+unset($fruits["holes"][0]);  // remove "first"
+
+// Create a new multi-dimensional array
+$juices["apple"]["green"] = "good";
+var_dump($juices);
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
 
 *Example: Nested arrays*
 
@@ -3814,6 +3911,255 @@ It is possible to compare arrays with the `array_diff()` function and with array
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
 
+*Example: Array comparing*
+
+```php
+<?php
+
+$someArray =  [null, true, 2, 3.14, 'orange'];
+$otherArray = [0, true, 2, 3.14, 'blue', 'hello'];
+
+$rightDifference = array_diff($someArray, $otherArray);
+$leftDifference = array_diff($otherArray, $someArray);
+
+print("Difference:\n\n");
+
+print_r($rightDifference);
+print(PHP_EOL);
+
+print_r($leftDifference);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Difference:
+
+Array
+(
+    [0] =>
+    [4] => orange
+)
+
+Array
+(
+    [0] => 0
+    [4] => blue
+    [5] => hello
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_comparing.php)
+
+## Array sorting
+
+*Arrays* are ordered. The order can be changed using various sorting functions. The `count()` function can be used to count the number of *items* in an *array*.
+
+*Example: Sorting an array*
+
+```php
+<?php
+sort($files);
+print_r($files);
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
+*Example: Array sorting*
+
+```php
+<?php
+
+$someNumbers = [7, 9, 2, 6, 3];
+$someValues = [5.2, 5.1, 3, 2.9, 5.0];
+$someThings = [3.14, 0, true, null, 'cyan', false, 5, 'blue', 3.2, 'aqua'];
+$someItems = [
+    3 => 1,
+    'number' => 3.14,
+    5 => 'five',
+    'color' => 'orange',
+    1 => 2,
+    'animal' => 'rabbit',
+    4 => 0,
+];
+
+print("Numbers:\n\n");
+print_r($someNumbers);
+print(PHP_EOL);
+
+sort($someNumbers);
+
+print_r($someNumbers);
+print(PHP_EOL);
+
+print("Values:\n\n");
+print_r($someValues);
+print(PHP_EOL);
+
+sort($someValues);
+
+print_r($someValues);
+print(PHP_EOL);
+
+print("Things:\n\n");
+print_r($someThings);
+print(PHP_EOL);
+
+sort($someThings);
+
+print_r($someThings);
+print(PHP_EOL);
+
+print("Items:\n\n");
+print_r($someItems);
+print(PHP_EOL);
+
+sort($someItems);
+
+print_r($someItems);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Numbers:
+
+Array
+(
+    [0] => 7
+    [1] => 9
+    [2] => 2
+    [3] => 6
+    [4] => 3
+)
+
+Array
+(
+    [0] => 2
+    [1] => 3
+    [2] => 6
+    [3] => 7
+    [4] => 9
+)
+
+Values:
+
+Array
+(
+    [0] => 5.2
+    [1] => 5.1
+    [2] => 3
+    [3] => 2.9
+    [4] => 5
+)
+
+Array
+(
+    [0] => 2.9
+    [1] => 3
+    [2] => 5
+    [3] => 5.1
+    [4] => 5.2
+)
+
+Things:
+
+Array
+(
+    [0] => 3.14
+    [1] => 0
+    [2] => 1
+    [3] =>
+    [4] => cyan
+    [5] =>
+    [6] => 5
+    [7] => blue
+    [8] => 3.2
+    [9] => aqua
+)
+
+Array
+(
+    [0] => 0
+    [1] =>
+    [2] =>
+    [3] => 3.14
+    [4] => 1
+    [5] => 3.2
+    [6] => 5
+    [7] => aqua
+    [8] => blue
+    [9] => cyan
+)
+
+Items:
+
+Array
+(
+    [3] => 1
+    [number] => 3.14
+    [5] => five
+    [color] => orange
+    [1] => 2
+    [animal] => rabbit
+    [4] => 0
+)
+
+Array
+(
+    [0] => 0
+    [1] => 1
+    [2] => 2
+    [3] => 3.14
+    [4] => five
+    [5] => orange
+    [6] => rabbit
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_sorting.php)
+
+## Array size
+
+*Example: Array size*
+
+```php
+<?php
+
+$numbers = [9, 7, 5];
+$values = [9.5, 8.5, 7.5, 3.3, 2.0];
+
+// sizeof is an alias of count
+
+$size = sizeof($numbers);
+$count = count($numbers);
+print("Length of numbers: {$size} (the same: {$count})\n");
+
+$size = sizeof($values);
+$count = count($values);
+print("Length of values: {$size} (the same: {$count})\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Length of numbers: 3 (the same: 3)
+Length of values: 5 (the same: 5)
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_size.php)
+
 ## Converting to array
 
 For any of the types `int`, `float`, `string`, `bool` and `resource`, *converting* a *value* to an *array* results in an *array* with a single element with *index zero* and the value of the *scalar* which was converted. In other words, `(array) $scalarValue` is exactly the same as `array($scalarValue)`.
@@ -3985,70 +4331,6 @@ while (false !== ($file = readdir($handle))) {
 closedir($handle);
 
 var_dump($files);
-?>
-```
-
-*Arrays* are ordered. The order can be changed using various sorting functions. The `count()` function can be used to count the number of *items* in an *array*.
-
-*Example: Sorting an array*
-
-```php
-<?php
-sort($files);
-print_r($files);
-?>
-```
-
-Because the *value* of an *array* can be anything, it can also be another *array*. This enables the creation of recursive and multi-dimensional arrays.
-
-*Example: Recursive and multi-dimensional arrays*
-
-```php
-<?php
-$fruits = array ( "fruits"  => array ( "a" => "orange",
-                                       "b" => "banana",
-                                       "c" => "apple"
-                                     ),
-                  "numbers" => array ( 1,
-                                       2,
-                                       3,
-                                       4,
-                                       5,
-                                       6
-                                     ),
-                  "holes"   => array (      "first",
-                                       5 => "second",
-                                            "third"
-                                     )
-                );
-var_dump($fruits);
-
-// Some examples to address values in the array above
-echo $fruits["holes"][5];    // prints "second"
-echo $fruits["fruits"]["a"]; // prints "orange"
-unset($fruits["holes"][0]);  // remove "first"
-
-// Create a new multi-dimensional array
-$juices["apple"]["green"] = "good";
-var_dump($juices);
-?>
-```
-
-*Array assignment* always involves *value copying*. Use the reference operator to copy an array by reference.
-
-*Example: Array copying*
-
-```php
-<?php
-$arr1 = array(2, 3);
-$arr2 = $arr1;
-$arr2[] = 4; // $arr2 is changed,
-             // $arr1 is still array(2, 3)
-
-$arr3 = &$arr1;
-$arr3[] = 4; // now $arr1 and $arr3 are the same
-
-var_dump($arr1, $arr2, $arr3);
 ?>
 ```
 
