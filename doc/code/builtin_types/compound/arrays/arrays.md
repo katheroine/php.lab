@@ -21,6 +21,87 @@ The keys of an associative array are strings. You use associative arrays when yo
 
 -- [PHP Tutorial](https://www.phptutorial.net/php-tutorial/php-array/#introduction-to-php-arrays)
 
+The `array` type in PHP is very *versatile*. Here are some examples:
+
+*Example: Array versatility*
+
+```php
+<?php
+// This:
+$a = array( 'color' => 'red',
+            'taste' => 'sweet',
+            'shape' => 'round',
+            'name'  => 'apple',
+            4        // key will be 0
+          );
+
+$b = array('a', 'b', 'c');
+
+var_dump($a, $b);
+
+// . . .is completely equivalent with this:
+$a = array();
+$a['color'] = 'red';
+$a['taste'] = 'sweet';
+$a['shape'] = 'round';
+$a['name']  = 'apple';
+$a[]        = 4;        // key will be 0
+
+$b = array();
+$b[] = 'a';
+$b[] = 'b';
+$b[] = 'c';
+
+// After the above code is executed, $a will be the array
+// array('color' => 'red', 'taste' => 'sweet', 'shape' => 'round',
+// 'name' => 'apple', 0 => 4), and $b will be the array
+// array(0 => 'a', 1 => 'b', 2 => 'c'), or simply array('a', 'b', 'c').
+
+var_dump($a, $b);
+?>
+```
+
+*Example: Using `array()`*
+
+```php
+<?php
+// Array as (property-)map
+$map = array( 'version'    => 4,
+              'OS'         => 'Linux',
+              'lang'       => 'english',
+              'short_tags' => true
+            );
+var_dump($map);
+
+// strictly numerical keys
+// this is the same as array(0 => 7, 1 => 8, ...)
+$array = array( 7,
+                8,
+                0,
+                156,
+                -10
+              );
+var_dump($array);
+
+$switching = array(         10, // key = 0
+                    5    =>  6,
+                    3    =>  7,
+                    'a'  =>  4,
+                            11, // key = 6 (maximum of integer-indices was 5)
+                    '8'  =>  2, // key = 8 (integer!)
+                    '02' => 77, // key = '02'
+                    0    => 12  // the value 10 will be overwritten by 12
+                  );
+var_dump($switching);
+
+// empty array
+$empty = array();
+var_dump($empty);
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
 *Example: Array type*
 
 ```php
@@ -1275,6 +1356,30 @@ array(7) {
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/arrays/array_key_type_casting_and_overwriting.php)
 
+This example creates a one-based *array*.
+
+*Example: One-based index*
+
+```php
+<?php
+$firstquarter = array(1 => 'January', 'February', 'March');
+print_r($firstquarter);
+?>
+```
+
+The above example will output:
+
+```
+Array
+(
+    [1] => January
+    [2] => February
+    [3] => March
+)
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
 ## Array elements
 
 *Example: Array elements*
@@ -1939,6 +2044,163 @@ $items['color']: blue
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/arrays/array_elements_accessing.php)
 
+#### Improper element access with unquoted key
+
+Always use quotes around a *string literal array index*. For example, `$foo['bar']` is correct, while `$foo[bar]` is not. But why? It is common to encounter this kind of syntax in old scripts:
+
+```php
+<?php
+$foo[bar] = 'enemy';
+echo $foo[bar];
+// etc
+?>
+```
+
+This is wrong, but it works. The reason is that this code has an *undefined constant* (`bar`) rather than a string (`'bar'` - notice the quotes). It works because PHP automatically converts a *bare string* (an unquoted string which does not correspond to any known symbol) into a *string* which contains the *bare string*. For instance, if there is no defined *constant* named `bar`, then PHP will substitute in the *string* `'bar'` and use that.
+
+Warning
+
+The fallback to treat an *undefined constant* as *bare string* issues an error of level `E_NOTICE`. This has been deprecated as of PHP 7.2.0, and issues an error of level `E_WARNING`. As of PHP 8.0.0, it has been removed and throws an `Error` exception.
+
+This does not mean to always quote the *key*. Do not quote keys which are constants or variables, as this will prevent PHP from interpreting them.
+
+*Example: Key quoting*
+
+```php
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', true);
+ini_set('html_errors', false);
+
+// Simple array:
+$array = array(1, 2);
+$count = count($array);
+
+for ($i = 0; $i < $count; $i++) {
+    echo "\nChecking $i: \n";
+    echo "Bad: " . $array['$i'] . "\n";
+    echo "Good: " . $array[$i] . "\n";
+    echo "Bad: {$array['$i']}\n";
+    echo "Good: {$array[$i]}\n";
+}
+?>
+```
+
+The above example will output:
+
+```
+Checking 0:
+Notice: Undefined index:  $i in /path/to/script.html on line 9
+Bad:
+Good: 1
+Notice: Undefined index:  $i in /path/to/script.html on line 11
+Bad:
+Good: 1
+
+Checking 1:
+Notice: Undefined index:  $i in /path/to/script.html on line 9
+Bad:
+Good: 2
+Notice: Undefined index:  $i in /path/to/script.html on line 11
+Bad:
+Good: 2
+```
+
+More examples to demonstrate this behaviour:
+
+*Example: More examples*
+
+```php
+<?php
+// Show all errors
+error_reporting(E_ALL);
+
+$arr = array('fruit' => 'apple', 'veggie' => 'carrot');
+
+// Correct
+echo $arr['fruit'], PHP_EOL;  // apple
+echo $arr['veggie'], PHP_EOL; // carrot
+
+// Incorrect. This does not work and throws a PHP Error because
+// of an undefined constant named fruit
+//
+// Error: Undefined constant "fruit"
+try {
+    echo $arr[fruit];
+} catch (Error $e) {
+    echo get_class($e), ': ', $e->getMessage(), PHP_EOL;
+}
+
+// This defines a constant to demonstrate what's going on.  The value 'veggie'
+// is assigned to a constant named fruit.
+define('fruit', 'veggie');
+
+// Notice the difference now
+echo $arr['fruit'], PHP_EOL;  // apple
+echo $arr[fruit], PHP_EOL;    // carrot
+
+// The following is okay, as it's inside a string. Constants are not looked for
+// within strings, so no error occurs here
+echo "Hello $arr[fruit]", PHP_EOL;      // Hello apple
+
+// With one exception: braces surrounding arrays within strings allows constants
+// to be interpreted
+echo "Hello {$arr[fruit]}", PHP_EOL;    // Hello carrot
+echo "Hello {$arr['fruit']}", PHP_EOL;  // Hello apple
+
+// Concatenation is another option
+echo "Hello " . $arr['fruit'], PHP_EOL; // Hello apple
+?>
+```
+
+```php
+<?php
+// This will not work, and will result in a parse error, such as:
+// Parse error: parse error, expecting T_STRING' or T_VARIABLE' or T_NUM_STRING'
+// This of course applies to using superglobals in strings as well
+print "Hello $arr['fruit']";
+print "Hello $_GET['foo']";
+?>
+```
+
+As stated in the syntax section, what's inside the square brackets (`[` and `]`) must be an *expression*. This means that code like this works:
+
+```php
+<?php
+echo $arr[somefunc($bar)];
+?>
+```
+
+This is an example of using a function return value as the *array index*. PHP also knows about constants:
+
+```php
+<?php
+$error_descriptions[E_ERROR]   = "A fatal error has occurred";
+$error_descriptions[E_WARNING] = "PHP issued a warning";
+$error_descriptions[E_NOTICE]  = "This is just an informal notice";
+?>
+```
+
+Note that `E_ERROR` is also a valid identifier, just like `bar` in the first example. But the last example is in fact the same as writing:
+
+```php
+<?php
+$error_descriptions[1] = "A fatal error has occurred";
+$error_descriptions[2] = "PHP issued a warning";
+$error_descriptions[8] = "This is just an informal notice";
+?>
+```
+
+because `E_ERROR` equals `1`, etc.
+
+So why is it bad then?
+
+At some point in the future, the PHP team might want to add another *constant* or *keyword*, or a *constant* in other code may interfere. For example, it is already wrong to use the words `empty` and `default` this way, since they are *reserved keywords*.
+
+Note: To reiterate, inside a double-quoted string, it's valid to not surround *array indexes* with quotes so `$foo[bar]` is valid.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
 ### Modifying array elements
 
 The following statement changes the *element* located at the *index* to the `$new_element`:
@@ -2023,6 +2285,32 @@ array(3) {
 [Example](../../../../../example/code/builtin_types/compound/arrays/array_elements_modifying.php)
 
 ### Destroying array elements
+
+The `unset()` function allows removing *keys* from an *array*. Be aware that the *array* will not be *reindexed*. If a true "remove and shift" behavior is desired, the array can be *reindexed* using the `array_values()` function.
+
+*Example: Unsetting intermediate elements*
+
+```php
+<?php
+$a = array(1 => 'one', 2 => 'two', 3 => 'three');
+
+/* will produce an array that would have been defined as
+   $a = array(1 => 'one', 3 => 'three');
+   and NOT
+   $a = array(1 => 'one', 2 =>'three');
+*/
+unset($a[2]);
+var_dump($a);
+
+$b = array_values($a);
+// Now $b is array(0 => 'one', 1 =>'three')
+var_dump($b);
+?>
+```
+
+The `foreach` control structure exists specifically for *arrays*. It provides an easy way to traverse an *array*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
 
 To remove an *element* from an *array*, you use the `unset()` function. The following removes the second *element* of the `$scores` array:
 
@@ -3485,200 +3773,44 @@ Array
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/arrays/array_adding_and_key_overwriting.php)
 
+## Array combining
+
+*Example: Array combining*
+
+```php
+<?php
+
+$someKeys = [1, 'value', 'fruit'];
+$someValues = [32, 3.14, 'pear'];
+
+$someArray = array_combine($someKeys, $someValues);
+
+print("Some array:\n\n");
+print_r($someArray);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some array:
+
+Array
+(
+    [1] => 32
+    [value] => 3.14
+    [fruit] => pear
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_combining.php)
+
 ## Array comparing
 
 It is possible to compare arrays with the `array_diff()` function and with array operators.
-
--- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
-
-## Useful functions
-
-There are quite a few useful functions for working with arrays. See the array functions section.
-
-Note:
-
-The `unset()` function allows removing *keys* from an *array*. Be aware that the *array* will not be *reindexed*. If a true "remove and shift" behavior is desired, the array can be *reindexed* using the `array_values()` function.
-
-*Example: Unsetting intermediate elements*
-
-```php
-<?php
-$a = array(1 => 'one', 2 => 'two', 3 => 'three');
-
-/* will produce an array that would have been defined as
-   $a = array(1 => 'one', 3 => 'three');
-   and NOT
-   $a = array(1 => 'one', 2 =>'three');
-*/
-unset($a[2]);
-var_dump($a);
-
-$b = array_values($a);
-// Now $b is array(0 => 'one', 1 =>'three')
-var_dump($b);
-?>
-```
-
-The `foreach` control structure exists specifically for *arrays*. It provides an easy way to traverse an *array*.
-
--- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
-
-## Array do's and don'ts
-
-### Why is `$foo[bar]` wrong?
-
-Always use quotes around a *string literal array index*. For example, `$foo['bar']` is correct, while `$foo[bar]` is not. But why? It is common to encounter this kind of syntax in old scripts:
-
-```php
-<?php
-$foo[bar] = 'enemy';
-echo $foo[bar];
-// etc
-?>
-```
-
-This is wrong, but it works. The reason is that this code has an *undefined constant* (`bar`) rather than a string (`'bar'` - notice the quotes). It works because PHP automatically converts a *bare string* (an unquoted string which does not correspond to any known symbol) into a *string* which contains the *bare string*. For instance, if there is no defined *constant* named `bar`, then PHP will substitute in the *string* `'bar'` and use that.
-
-Warning
-
-The fallback to treat an *undefined constant* as *bare string* issues an error of level `E_NOTICE`. This has been deprecated as of PHP 7.2.0, and issues an error of level `E_WARNING`. As of PHP 8.0.0, it has been removed and throws an `Error` exception.
-
-This does not mean to always quote the *key*. Do not quote keys which are constants or variables, as this will prevent PHP from interpreting them.
-
-*Example: Key quoting*
-
-```php
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', true);
-ini_set('html_errors', false);
-
-// Simple array:
-$array = array(1, 2);
-$count = count($array);
-
-for ($i = 0; $i < $count; $i++) {
-    echo "\nChecking $i: \n";
-    echo "Bad: " . $array['$i'] . "\n";
-    echo "Good: " . $array[$i] . "\n";
-    echo "Bad: {$array['$i']}\n";
-    echo "Good: {$array[$i]}\n";
-}
-?>
-```
-
-The above example will output:
-
-```
-Checking 0:
-Notice: Undefined index:  $i in /path/to/script.html on line 9
-Bad:
-Good: 1
-Notice: Undefined index:  $i in /path/to/script.html on line 11
-Bad:
-Good: 1
-
-Checking 1:
-Notice: Undefined index:  $i in /path/to/script.html on line 9
-Bad:
-Good: 2
-Notice: Undefined index:  $i in /path/to/script.html on line 11
-Bad:
-Good: 2
-```
-
-More examples to demonstrate this behaviour:
-
-*Example: More examples*
-
-```php
-<?php
-// Show all errors
-error_reporting(E_ALL);
-
-$arr = array('fruit' => 'apple', 'veggie' => 'carrot');
-
-// Correct
-echo $arr['fruit'], PHP_EOL;  // apple
-echo $arr['veggie'], PHP_EOL; // carrot
-
-// Incorrect. This does not work and throws a PHP Error because
-// of an undefined constant named fruit
-//
-// Error: Undefined constant "fruit"
-try {
-    echo $arr[fruit];
-} catch (Error $e) {
-    echo get_class($e), ': ', $e->getMessage(), PHP_EOL;
-}
-
-// This defines a constant to demonstrate what's going on.  The value 'veggie'
-// is assigned to a constant named fruit.
-define('fruit', 'veggie');
-
-// Notice the difference now
-echo $arr['fruit'], PHP_EOL;  // apple
-echo $arr[fruit], PHP_EOL;    // carrot
-
-// The following is okay, as it's inside a string. Constants are not looked for
-// within strings, so no error occurs here
-echo "Hello $arr[fruit]", PHP_EOL;      // Hello apple
-
-// With one exception: braces surrounding arrays within strings allows constants
-// to be interpreted
-echo "Hello {$arr[fruit]}", PHP_EOL;    // Hello carrot
-echo "Hello {$arr['fruit']}", PHP_EOL;  // Hello apple
-
-// Concatenation is another option
-echo "Hello " . $arr['fruit'], PHP_EOL; // Hello apple
-?>
-```
-
-```php
-<?php
-// This will not work, and will result in a parse error, such as:
-// Parse error: parse error, expecting T_STRING' or T_VARIABLE' or T_NUM_STRING'
-// This of course applies to using superglobals in strings as well
-print "Hello $arr['fruit']";
-print "Hello $_GET['foo']";
-?>
-```
-
-As stated in the syntax section, what's inside the square brackets (`[` and `]`) must be an *expression*. This means that code like this works:
-
-```php
-<?php
-echo $arr[somefunc($bar)];
-?>
-```
-
-This is an example of using a function return value as the *array index*. PHP also knows about constants:
-
-```php
-<?php
-$error_descriptions[E_ERROR]   = "A fatal error has occurred";
-$error_descriptions[E_WARNING] = "PHP issued a warning";
-$error_descriptions[E_NOTICE]  = "This is just an informal notice";
-?>
-```
-
-Note that `E_ERROR` is also a valid identifier, just like `bar` in the first example. But the last example is in fact the same as writing:
-
-```php
-<?php
-$error_descriptions[1] = "A fatal error has occurred";
-$error_descriptions[2] = "PHP issued a warning";
-$error_descriptions[8] = "This is just an informal notice";
-?>
-```
-
-because `E_ERROR` equals `1`, etc.
-
-So why is it bad then?
-
-At some point in the future, the PHP team might want to add another *constant* or *keyword*, or a *constant* in other code may interfere. For example, it is already wrong to use the words `empty` and `default` this way, since they are *reserved keywords*.
-
-Note: To reiterate, inside a double-quoted string, it's valid to not surround *array indexes* with quotes so `$foo[bar]` is valid.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
 
@@ -3789,85 +3921,6 @@ Converting `null` to an array results in an *empty array*.
 
 ## Examples
 
-The `array` type in PHP is very *versatile*. Here are some examples:
-
-*Example: Array versatility*
-
-```php
-<?php
-// This:
-$a = array( 'color' => 'red',
-            'taste' => 'sweet',
-            'shape' => 'round',
-            'name'  => 'apple',
-            4        // key will be 0
-          );
-
-$b = array('a', 'b', 'c');
-
-var_dump($a, $b);
-
-// . . .is completely equivalent with this:
-$a = array();
-$a['color'] = 'red';
-$a['taste'] = 'sweet';
-$a['shape'] = 'round';
-$a['name']  = 'apple';
-$a[]        = 4;        // key will be 0
-
-$b = array();
-$b[] = 'a';
-$b[] = 'b';
-$b[] = 'c';
-
-// After the above code is executed, $a will be the array
-// array('color' => 'red', 'taste' => 'sweet', 'shape' => 'round',
-// 'name' => 'apple', 0 => 4), and $b will be the array
-// array(0 => 'a', 1 => 'b', 2 => 'c'), or simply array('a', 'b', 'c').
-
-var_dump($a, $b);
-?>
-```
-
-*Example: Using `array()`*
-
-```php
-<?php
-// Array as (property-)map
-$map = array( 'version'    => 4,
-              'OS'         => 'Linux',
-              'lang'       => 'english',
-              'short_tags' => true
-            );
-var_dump($map);
-
-// strictly numerical keys
-// this is the same as array(0 => 7, 1 => 8, ...)
-$array = array( 7,
-                8,
-                0,
-                156,
-                -10
-              );
-var_dump($array);
-
-$switching = array(         10, // key = 0
-                    5    =>  6,
-                    3    =>  7,
-                    'a'  =>  4,
-                            11, // key = 6 (maximum of integer-indices was 5)
-                    '8'  =>  2, // key = 8 (integer!)
-                    '02' => 77, // key = '02'
-                    0    => 12  // the value 10 will be overwritten by 12
-                  );
-var_dump($switching);
-
-// empty array
-$empty = array();
-var_dump($empty);
-?>
-```
-
 *Example: Collection*
 
 ```php
@@ -3917,28 +3970,6 @@ Array
     [1] => BLUE
     [2] => GREEN
     [3] => YELLOW
-)
-```
-
-This example creates a one-based *array*.
-
-*Example: One-based index*
-
-```php
-<?php
-$firstquarter = array(1 => 'January', 'February', 'March');
-print_r($firstquarter);
-?>
-```
-
-The above example will output:
-
-```
-Array
-(
-    [1] => January
-    [2] => February
-    [3] => March
 )
 ```
 
