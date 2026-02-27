@@ -1,49 +1,74 @@
 <?php
 
-$array = ['apple', 'orange', 'banana', 'pear', 'peach'];
+$someArray = ['apple', 'orange', 'banana', 'pear', 'peach'];
 
-for ($i = 0; $i < count($array); $i++) {
-  print("\$array[{$i}]: {$array[$i]}\n");
+for ($i = 0; $i < count($someArray); $i++) {
+    print("{$i}: {$someArray[$i]}\n");
 }
 
-print("\n");
+print(PHP_EOL);
 
-$array = [2 => 'apple', 6 => 'orange', 15 => 'banana', 20 => 'pear', 35 => 'peach'];
-
-foreach ($array as $value) {
-  print("element: {$value}\n");
+while($element = current($someArray)) {
+    print(key($someArray) . ": " . $element . PHP_EOL);
+    next($someArray);
 }
 
-print("\n");
+print(PHP_EOL);
 
-foreach ($array as $key => $value) {
-  print("\$array[{$key}]: {$value} (the same: {$array[$key]})\n");
+$otherArray = [
+    2 => 'apple',
+    6 => 'orange',
+    15 => 'banana',
+    20 => 'pear',
+    35 => 'peach',
+];
+
+foreach ($otherArray as $value) {
+    print("{$value}\n");
 }
 
-print("\n");
+print(PHP_EOL);
 
-array_walk($array, function($value) {
-  print("element: {$value}\n");
+foreach ($otherArray as $key => $value) {
+    print("{$key}: {$value}\n");
+}
+
+print(PHP_EOL);
+
+array_walk($otherArray, function($value) {
+    print("{$value}\n");
 });
 
-print("\n");
+print(PHP_EOL);
 
-array_walk($array, function($value, $key) {
-  print("\$array[{$key}]: {$value}\n");
+array_walk($otherArray, function($value, $key) {
+    print("{$key}: {$value}\n");
 });
 
-print("\n");
+print(PHP_EOL);
 
-$array = ['apple', 'orange', 'banana', 'pear', 'peach', 'nested' => ['cherry', 'strawberry', 'blueberry', 'raspberry', 'blackberry']];
+$anotherArray = [
+    'apple',
+    'orange',
+    'banana',
+    'pear',
+    'peach',
+    'berry' => [
+        'cherry',
+        'strawberry',
+        'blueberry',
+        'raspberry',
+        'blackberry']
+    ];
 
-array_walk_recursive($array, function($value) {
-  print("element: {$value}\n");
+array_walk_recursive($anotherArray, function($value) {
+  print("{$value}\n");
 });
 
-print("\n");
+print(PHP_EOL);
 
-array_walk_recursive($array, function($value, $key) {
-  print("\$array[{$key}]: {$value}\n");
+array_walk_recursive($anotherArray, function($value, $key) {
+    print("{$key}: {$value}\n");
 });
 
-print("\n");
+print(PHP_EOL);

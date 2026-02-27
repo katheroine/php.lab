@@ -1,82 +1,77 @@
 <?php
 
-$array = [1, 3, 5];
+$someArray = [1, 3, 5];
 
-print("\$array:\n");
-print_r($array);
-print("\n");
+print("Some array:\n");
+print_r($someArray);
+print(PHP_EOL);
 
-$element = current($array);
-print("current(\$array): $element(" . gettype($element) . ")\n");
+$current = current($someArray);
+$pos = pos($someArray); // alias of current
+$key = key($someArray);
 
-$element = pos($array);
-print("pos(\$array): $element(" . gettype($element) . ")\n");
+print(
+    'current: ' . var_export($current, true) . PHP_EOL
+    . 'pos: ' . var_export($pos, true) . PHP_EOL
+    . 'key: ' . var_export($key, true) . PHP_EOL . PHP_EOL
+);
 
-$key = key($array);
-print("key(\$array): $element(" . gettype($element) . ")\n");
+$next = next($someArray);
+$current = current($someArray);
+$pos = pos($someArray);
+$key = key($someArray);
 
-print("\n");
+print(
+    'next: ' . var_export($next, true) . PHP_EOL
+    . 'current: ' . var_export($current, true) . PHP_EOL
+    . 'pos: ' . var_export($pos, true) . PHP_EOL
+    . 'key: ' . var_export($key, true) . PHP_EOL . PHP_EOL
+);
 
-$element = next($array);
-print("next(\$array): $element(" . gettype($element) . ")\n");
+$next = next($someArray);
+$current = current($someArray);
+$pos = pos($someArray);
+$key = key($someArray);
 
-$element = current($array);
-print("current(\$array): $element(" . gettype($element) . ")\n");
+print(
+    'next: ' . var_export($next, true) . PHP_EOL
+    . 'current: ' . var_export($current, true) . PHP_EOL
+    . 'pos: ' . var_export($pos, true) . PHP_EOL
+    . 'key: ' . var_export($key, true) . PHP_EOL . PHP_EOL
+);
 
-$element = pos($array);
-print("pos(\$array): $element(" . gettype($element) . ")\n");
+$prev = prev($someArray);
+$current = current($someArray);
+$pos = pos($someArray);
+$key = key($someArray);
 
-$key = key($array);
-print("key(\$array): $element(" . gettype($element) . ")\n");
+print(
+    'prev: ' . var_export($prev, true) . PHP_EOL
+    . 'current: ' . var_export($current, true) . PHP_EOL
+    . 'pos: ' . var_export($pos, true) . PHP_EOL
+    . 'key: ' . var_export($key, true) . PHP_EOL . PHP_EOL
+);
 
-print("\n");
+$prev = prev($someArray);
+$current = current($someArray);
+$pos = pos($someArray);
+$key = key($someArray);
 
-$element = prev($array);
-print("prev(\$array): $element(" . gettype($element) . ")\n");
+print(
+    'prev: ' . var_export($prev, true) . PHP_EOL
+    . 'current: ' . var_export($current, true) . PHP_EOL
+    . 'pos: ' . var_export($pos, true) . PHP_EOL
+    . 'key: ' . var_export($key, true) . PHP_EOL . PHP_EOL
+);
 
-print("\n");
+$prev = prev($someArray);
+$current = current($someArray);
+$pos = pos($someArray);
+$key = key($someArray);
 
-$element = next($array);
-print("next(\$array): $element(" . gettype($element) . ")\n");
-
-$element = next($array);
-print("next(\$array): $element (" . gettype($element) . ")\n");
-
-$element = current($array);
-print("current(\$array): $element(" . gettype($element) . ")\n");
-
-$key = key($array);
-print("key(\$array): $element(" . gettype($element) . ")\n");
-
-print("\n");
-
-$element = next($array);
-print("next(\$array): $element (" . gettype($element) . ")\n");
-
-$element = current($array);
-print("current(\$array): $element(" . gettype($element) . ")\n");
-
-$key = key($array);
-print("key(\$array): $element(" . gettype($element) . ")\n");
-
-$element = next($array);
-print("next(\$array): $element (" . gettype($element) . ")\n");
-
-$element = prev($array);
-print("prev(\$array): $element(" . gettype($element) . ")\n");
-
-$element = prev($array);
-print("prev(\$array): $element(" . gettype($element) . ")\n");
-
-print("\n");
-
-$element = end($array);
-print("end(\$array): $element(" . gettype($element) . ")\n");
-
-print("\n");
-
-$element = reset($array);
-print("reset(\$array): $element(" . gettype($element) . ")\n");
-
-$element = next($array);
-print("next(\$array): $element(" . gettype($element) . ")\n");
+print(
+    'prev: ' . var_export($prev, true) . PHP_EOL
+    . 'current: ' . var_export($current, true) . PHP_EOL
+    . 'pos: ' . var_export($pos, true) . PHP_EOL
+    . 'key: ' . var_export($key, true) . PHP_EOL . PHP_EOL
+);

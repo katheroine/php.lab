@@ -1,38 +1,57 @@
 <?php
 
-function function_receiving_array_by_value(array $argument): array
+function functionReceivingArrayByValue(array $argument): array
 {
-  print("Function receiving array by value\n");
-  print("-- begin:\n");
-
   foreach ($argument as $key => $value) {
-    print("before: argument[$key] = $value\n");
-    print("argument[$key] = argument[$key] * 2\n");
-
     $argument[$key] = $argument[$key] * 2;
-
-    print("after: argument[$key] = $argument[$key]\n");
   }
 
-  print("-- end.\n");
+  return $argument;
+}
+
+function functionReceivingArrayByReference(array &$argument): array
+{
+  foreach ($argument as $key => $value) {
+    $argument[$key] = $argument[$key] * 2;
+  }
 
   return $argument;
 }
 
 $values = [9, 8, 7];
 
-print("BEFORE: \$values = [ ");
+print("Passing by value:\n");
+print("BEFORE: ");
 foreach ($values as $element)
   print($element . " ");
-print("]\n");
+print(PHP_EOL);
 
-$result_values = function_receiving_array_by_value($values);
+$result = functionReceivingArrayByValue($values);
 
-print("AFTER: \$values = [ ");
+print("AFTER:\n");
+print("original: ");
 foreach ($values as $element)
   print($element . " ");
-print("]\n");
-print("AFTER: \$result_values = [ ");
-foreach ($result_values as $element)
+print(PHP_EOL);
+print("result: ");
+foreach ($result as $element)
   print($element . " ");
-print("]\n");
+print(PHP_EOL . PHP_EOL);
+
+print("Passing by reference:\n");
+print("BEFORE: ");
+foreach ($values as $element)
+  print($element . " ");
+print(PHP_EOL);
+
+$result = functionReceivingArrayByReference($values);
+
+print("AFTER:\n");
+print("original: ");
+foreach ($values as $element)
+  print($element . " ");
+print(PHP_EOL);
+print("result: ");
+foreach ($result as $element)
+  print($element . " ");
+print(PHP_EOL . PHP_EOL);

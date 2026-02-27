@@ -1,99 +1,92 @@
 <?php
 
-$array = [1, 3, 5];
+$someArray = [1, 3, 5];
 
 print("Before:\n");
-print_r($array);
+print_r($someArray);
 
-for ($i = 0; $i < count($array); $i++) {
-  $array[$i] *= 2;
+for ($i = 0; $i < count($someArray); $i++) {
+    $someArray[$i] *= 2;
 }
 
 print("After:\n");
-print_r($array);
+print_r($someArray);
+print(PHP_EOL);
 
-print("\n");
-
-$array = [1, 3, 5];
+$someArray = [1, 3, 5];
 
 print("Before:\n");
-print_r($array);
+print_r($someArray);
 
-foreach ($array as &$value) {
-  $value *= 3;
+foreach ($someArray as &$value) {
+    $value *= 3;
 }
 
 print("After:\n");
-print_r($array);
+print_r($someArray);
+print(PHP_EOL);
 
-print("\n");
-
-$array = [1, 3, 5];
+$someArray = [1, 3, 5];
 
 print("Before:\n");
-print_r($array);
+print_r($someArray);
 
-foreach ($array as $key => $value) {
-  $array[$key] *= 3;
+foreach ($someArray as $key => $value) {
+    $someArray[$key] *= 3;
 }
 
 print("After:\n");
-print_r($array);
+print_r($someArray);
+print(PHP_EOL);
 
-print("\n");
-
-$array = [1, 3, 5];
+$someArray = [1, 3, 5];
 
 print("Before:\n");
-print_r($array);
+print_r($someArray);
 
-array_walk($array, function(&$value) {
-  $value *= 4;
+array_walk($someArray, function(&$value) {
+    $value *= 4;
 });
 
 print("After:\n");
-print_r($array);
+print_r($someArray);
+print(PHP_EOL);
 
-print("\n");
-
-$array = [1, 3, 5];
+$someArray = [1, 3, 5];
 
 print("Before:\n");
-print_r($array);
+print_r($someArray);
 
-array_walk($array, function($value, $key) use (&$array) {
-  $array[$key] *= 4;
+array_walk($someArray, function($value, $key) use (&$someArray) {
+    $someArray[$key] *= 4;
 });
 
 print("After:\n");
-print_r($array);
+print_r($someArray);
+print(PHP_EOL);
 
-print("\n");
-
-$array = [1, 3, 5, 'nested' => [2, 4]];
+$someArray = [1, 3, 5, [2, 4]];
 
 print("Before:\n");
-print_r($array);
+print_r($someArray);
 
-array_walk_recursive($array, function(&$value) {
+array_walk_recursive($someArray, function(&$value) {
   $value *= 5;
 });
 
 print("After:\n");
-print_r($array);
+print_r($someArray);
+print(PHP_EOL);
 
-print("\n");
-
-$array = [1, 3, 5, 'nested' => [2, 4]];
+$someArray = [1, 3, 5, [2, 4]];
 
 print("Before:\n");
-print_r($array);
+print_r($someArray);
 
-array_walk_recursive($array, function($value, $key) use (&$array) {
-  $array[$key] *= 5;
+array_walk_recursive($someArray, function($value, $key) use (&$someArray) {
+  $someArray[$key] *= 5;
 });
 
-print("After:\n");
-print_r($array);
-
-print("\n");
+print("someArray:\n");
+print_r($someArray);
+print(PHP_EOL);

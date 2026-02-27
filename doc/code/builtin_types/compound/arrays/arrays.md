@@ -4160,6 +4160,679 @@ Length of values: 5 (the same: 5)
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/arrays/array_size.php)
 
+## Array internal pointer
+
+*Example: Arrayinternal pointer*
+
+```php
+<?php
+
+$someArray = [1, 3, 5];
+
+print("Some array:\n");
+print_r($someArray);
+print(PHP_EOL);
+
+$current = current($someArray);
+$pos = pos($someArray); // alias of current
+$key = key($someArray);
+
+print(
+    'current: ' . var_export($current, true) . PHP_EOL
+    . 'pos: ' . var_export($pos, true) . PHP_EOL
+    . 'key: ' . var_export($key, true) . PHP_EOL . PHP_EOL
+);
+
+$next = next($someArray);
+$current = current($someArray);
+$pos = pos($someArray);
+$key = key($someArray);
+
+print(
+    'next: ' . var_export($next, true) . PHP_EOL
+    . 'current: ' . var_export($current, true) . PHP_EOL
+    . 'pos: ' . var_export($pos, true) . PHP_EOL
+    . 'key: ' . var_export($key, true) . PHP_EOL . PHP_EOL
+);
+
+$next = next($someArray);
+$current = current($someArray);
+$pos = pos($someArray);
+$key = key($someArray);
+
+print(
+    'next: ' . var_export($next, true) . PHP_EOL
+    . 'current: ' . var_export($current, true) . PHP_EOL
+    . 'pos: ' . var_export($pos, true) . PHP_EOL
+    . 'key: ' . var_export($key, true) . PHP_EOL . PHP_EOL
+);
+
+$prev = prev($someArray);
+$current = current($someArray);
+$pos = pos($someArray);
+$key = key($someArray);
+
+print(
+    'prev: ' . var_export($prev, true) . PHP_EOL
+    . 'current: ' . var_export($current, true) . PHP_EOL
+    . 'pos: ' . var_export($pos, true) . PHP_EOL
+    . 'key: ' . var_export($key, true) . PHP_EOL . PHP_EOL
+);
+
+$prev = prev($someArray);
+$current = current($someArray);
+$pos = pos($someArray);
+$key = key($someArray);
+
+print(
+    'prev: ' . var_export($prev, true) . PHP_EOL
+    . 'current: ' . var_export($current, true) . PHP_EOL
+    . 'pos: ' . var_export($pos, true) . PHP_EOL
+    . 'key: ' . var_export($key, true) . PHP_EOL . PHP_EOL
+);
+
+$prev = prev($someArray);
+$current = current($someArray);
+$pos = pos($someArray);
+$key = key($someArray);
+
+print(
+    'prev: ' . var_export($prev, true) . PHP_EOL
+    . 'current: ' . var_export($current, true) . PHP_EOL
+    . 'pos: ' . var_export($pos, true) . PHP_EOL
+    . 'key: ' . var_export($key, true) . PHP_EOL . PHP_EOL
+);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some array:
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+)
+
+current: 1
+pos: 1
+key: 0
+
+next: 3
+current: 3
+pos: 3
+key: 1
+
+next: 5
+current: 5
+pos: 5
+key: 2
+
+prev: 3
+current: 3
+pos: 3
+key: 1
+
+prev: 1
+current: 1
+pos: 1
+key: 0
+
+prev: false
+current: false
+pos: false
+key: NULL
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/array_internal_pointer.php)
+
+## Iterating over arrays
+
+### Iterating over arrays and reading elements
+
+*Example: Collection*
+
+```php
+<?php
+$colors = array('red', 'blue', 'green', 'yellow');
+
+foreach ($colors as $color) {
+    echo "Do you like $color?\n";
+}
+
+?>
+```
+
+The above example will output:
+
+```
+Do you like red?
+Do you like blue?
+Do you like green?
+Do you like yellow?
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
+*Example: Iterating over arrays and reading elements*
+
+```php
+<?php
+
+$someArray = ['apple', 'orange', 'banana', 'pear', 'peach'];
+
+for ($i = 0; $i < count($someArray); $i++) {
+    print("{$i}: {$someArray[$i]}\n");
+}
+
+print(PHP_EOL);
+
+while($element = current($someArray)) {
+    print(key($someArray) . ": " . $element . PHP_EOL);
+    next($someArray);
+}
+
+print(PHP_EOL);
+
+$otherArray = [
+    2 => 'apple',
+    6 => 'orange',
+    15 => 'banana',
+    20 => 'pear',
+    35 => 'peach',
+];
+
+foreach ($otherArray as $value) {
+    print("{$value}\n");
+}
+
+print(PHP_EOL);
+
+foreach ($otherArray as $key => $value) {
+    print("{$key}: {$value}\n");
+}
+
+print(PHP_EOL);
+
+array_walk($otherArray, function($value) {
+    print("{$value}\n");
+});
+
+print(PHP_EOL);
+
+array_walk($otherArray, function($value, $key) {
+    print("{$key}: {$value}\n");
+});
+
+print(PHP_EOL);
+
+$anotherArray = [
+    'apple',
+    'orange',
+    'banana',
+    'pear',
+    'peach',
+    'berry' => [
+        'cherry',
+        'strawberry',
+        'blueberry',
+        'raspberry',
+        'blackberry']
+    ];
+
+array_walk_recursive($anotherArray, function($value) {
+  print("{$value}\n");
+});
+
+print(PHP_EOL);
+
+array_walk_recursive($anotherArray, function($value, $key) {
+    print("{$key}: {$value}\n");
+});
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+0: apple
+1: orange
+2: banana
+3: pear
+4: peach
+
+0: apple
+1: orange
+2: banana
+3: pear
+4: peach
+
+apple
+orange
+banana
+pear
+peach
+
+2: apple
+6: orange
+15: banana
+20: pear
+35: peach
+
+apple
+orange
+banana
+pear
+peach
+
+2: apple
+6: orange
+15: banana
+20: pear
+35: peach
+
+apple
+orange
+banana
+pear
+peach
+cherry
+strawberry
+blueberry
+raspberry
+blackberry
+
+0: apple
+1: orange
+2: banana
+3: pear
+4: peach
+0: cherry
+1: strawberry
+2: blueberry
+3: raspberry
+4: blackberry
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/iterating_over_array_and_reading_elements.php)
+
+### Iterating over arrays and updating elements
+
+Changing the *values* of the *array* directly is possible by passing them by *reference*.
+
+*Example: Changing element in the loop*
+
+```php
+<?php
+$colors = array('red', 'blue', 'green', 'yellow');
+
+foreach ($colors as &$color) {
+    $color = mb_strtoupper($color);
+}
+unset($color); /* ensure that following writes to
+$color will not modify the last array element */
+
+print_r($colors);
+?>
+```
+
+The above example will output:
+
+```
+Array
+(
+    [0] => RED
+    [1] => BLUE
+    [2] => GREEN
+    [3] => YELLOW
+)
+```
+
+*Example: Filling an array*
+
+```php
+<?php
+// fill an array with all items from a directory
+$handle = opendir('.');
+while (false !== ($file = readdir($handle))) {
+    $files[] = $file;
+}
+closedir($handle);
+
+var_dump($files);
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
+*Example: Iterating over arrays and updating elements*
+
+```php
+<?php
+
+$someArray = [1, 3, 5];
+
+print("Before:\n");
+print_r($someArray);
+
+for ($i = 0; $i < count($someArray); $i++) {
+    $someArray[$i] *= 2;
+}
+
+print("After:\n");
+print_r($someArray);
+print(PHP_EOL);
+
+$someArray = [1, 3, 5];
+
+print("Before:\n");
+print_r($someArray);
+
+foreach ($someArray as &$value) {
+    $value *= 3;
+}
+
+print("After:\n");
+print_r($someArray);
+print(PHP_EOL);
+
+$someArray = [1, 3, 5];
+
+print("Before:\n");
+print_r($someArray);
+
+foreach ($someArray as $key => $value) {
+    $someArray[$key] *= 3;
+}
+
+print("After:\n");
+print_r($someArray);
+print(PHP_EOL);
+
+$someArray = [1, 3, 5];
+
+print("Before:\n");
+print_r($someArray);
+
+array_walk($someArray, function(&$value) {
+    $value *= 4;
+});
+
+print("After:\n");
+print_r($someArray);
+print(PHP_EOL);
+
+$someArray = [1, 3, 5];
+
+print("Before:\n");
+print_r($someArray);
+
+array_walk($someArray, function($value, $key) use (&$someArray) {
+    $someArray[$key] *= 4;
+});
+
+print("After:\n");
+print_r($someArray);
+print(PHP_EOL);
+
+$someArray = [1, 3, 5, [2, 4]];
+
+print("Before:\n");
+print_r($someArray);
+
+array_walk_recursive($someArray, function(&$value) {
+  $value *= 5;
+});
+
+print("After:\n");
+print_r($someArray);
+print(PHP_EOL);
+
+$someArray = [1, 3, 5, [2, 4]];
+
+print("Before:\n");
+print_r($someArray);
+
+array_walk_recursive($someArray, function($value, $key) use (&$someArray) {
+  $someArray[$key] *= 5;
+});
+
+print("someArray:\n");
+print_r($someArray);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Before:
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+)
+After:
+Array
+(
+    [0] => 2
+    [1] => 6
+    [2] => 10
+)
+
+Before:
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+)
+After:
+Array
+(
+    [0] => 3
+    [1] => 9
+    [2] => 15
+)
+
+Before:
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+)
+After:
+Array
+(
+    [0] => 3
+    [1] => 9
+    [2] => 15
+)
+
+Before:
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+)
+After:
+Array
+(
+    [0] => 4
+    [1] => 12
+    [2] => 20
+)
+
+Before:
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+)
+After:
+Array
+(
+    [0] => 4
+    [1] => 12
+    [2] => 20
+)
+
+Before:
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+    [3] => Array
+        (
+            [0] => 2
+            [1] => 4
+        )
+
+)
+After:
+Array
+(
+    [0] => 5
+    [1] => 15
+    [2] => 25
+    [3] => Array
+        (
+            [0] => 10
+            [1] => 20
+        )
+
+)
+
+Before:
+Array
+(
+    [0] => 1
+    [1] => 3
+    [2] => 5
+    [3] => Array
+        (
+            [0] => 2
+            [1] => 4
+        )
+
+)
+someArray:
+Array
+(
+    [0] => 25
+    [1] => 75
+    [2] => 25
+    [3] => Array
+        (
+            [0] => 2
+            [1] => 4
+        )
+
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/iterating_over_array_and_updating_elements.php)
+
+## Passing array to the function
+
+*Example: Passing array to the function*
+
+```php
+<?php
+
+function functionReceivingArrayByValue(array $argument): array
+{
+  foreach ($argument as $key => $value) {
+    $argument[$key] = $argument[$key] * 2;
+  }
+
+  return $argument;
+}
+
+function functionReceivingArrayByReference(array &$argument): array
+{
+  foreach ($argument as $key => $value) {
+    $argument[$key] = $argument[$key] * 2;
+  }
+
+  return $argument;
+}
+
+$values = [9, 8, 7];
+
+print("Passing by value:\n");
+print("BEFORE: ");
+foreach ($values as $element)
+  print($element . " ");
+print(PHP_EOL);
+
+$result = functionReceivingArrayByValue($values);
+
+print("AFTER:\n");
+print("original: ");
+foreach ($values as $element)
+  print($element . " ");
+print(PHP_EOL);
+print("result: ");
+foreach ($result as $element)
+  print($element . " ");
+print(PHP_EOL . PHP_EOL);
+
+print("Passing by reference:\n");
+print("BEFORE: ");
+foreach ($values as $element)
+  print($element . " ");
+print(PHP_EOL);
+
+$result = functionReceivingArrayByReference($values);
+
+print("AFTER:\n");
+print("original: ");
+foreach ($values as $element)
+  print($element . " ");
+print(PHP_EOL);
+print("result: ");
+foreach ($result as $element)
+  print($element . " ");
+print(PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Passing by value:
+BEFORE: 9 8 7
+AFTER:
+original: 9 8 7
+result: 18 16 14
+
+Passing by reference:
+BEFORE: 9 8 7
+AFTER:
+original: 18 16 14
+result: 18 16 14
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/passing_array_to_function.php)
+
 ## Converting to array
 
 For any of the types `int`, `float`, `string`, `bool` and `resource`, *converting* a *value* to an *array* results in an *array* with a single element with *index zero* and the value of the *scalar* which was converted. In other words, `(array) $scalarValue` is exactly the same as `array($scalarValue)`.
@@ -4262,77 +4935,6 @@ array(3) {
 The above will appear to have two keys named `AA`, although one of them is actually named `\0A\0A`.
 
 Converting `null` to an array results in an *empty array*.
-
--- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
-
-## Examples
-
-*Example: Collection*
-
-```php
-<?php
-$colors = array('red', 'blue', 'green', 'yellow');
-
-foreach ($colors as $color) {
-    echo "Do you like $color?\n";
-}
-
-?>
-```
-
-The above example will output:
-
-```
-Do you like red?
-Do you like blue?
-Do you like green?
-Do you like yellow?
-```
-
-Changing the *values* of the *array* directly is possible by passing them by *reference*.
-
-*Example: Changing element in the loop*
-
-```php
-<?php
-$colors = array('red', 'blue', 'green', 'yellow');
-
-foreach ($colors as &$color) {
-    $color = mb_strtoupper($color);
-}
-unset($color); /* ensure that following writes to
-$color will not modify the last array element */
-
-print_r($colors);
-?>
-```
-
-The above example will output:
-
-```
-Array
-(
-    [0] => RED
-    [1] => BLUE
-    [2] => GREEN
-    [3] => YELLOW
-)
-```
-
-*Example: Filling an array*
-
-```php
-<?php
-// fill an array with all items from a directory
-$handle = opendir('.');
-while (false !== ($file = readdir($handle))) {
-    $files[] = $file;
-}
-closedir($handle);
-
-var_dump($files);
-?>
-```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
 
