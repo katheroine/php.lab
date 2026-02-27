@@ -4833,7 +4833,7 @@ result: 18 16 14
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/arrays/passing_array_to_function.php)
 
-## Converting to array
+## Casting to `array`
 
 For any of the types `int`, `float`, `string`, `bool` and `resource`, *converting* a *value* to an *array* results in an *array* with a single element with *index zero* and the value of the *scalar* which was converted. In other words, `(array) $scalarValue` is exactly the same as `array($scalarValue)`.
 
@@ -4937,6 +4937,291 @@ The above will appear to have two keys named `AA`, although one of them is actua
 Converting `null` to an array results in an *empty array*.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.array.php)
+
+*Example: Casting to array*
+
+```php
+<?php
+
+use SomeClass as GlobalSomeClass;
+
+$someNothing = null;
+$nullToArray = (array) $someNothing;
+print("null to array: ");
+var_dump($nullToArray);
+
+print(PHP_EOL);
+
+$someRight = true;
+$intToArray = (array) $someRight;
+print("true to array: ");
+var_dump($intToArray);
+
+$someWrong = false;
+$intToArray = (array) $someWrong;
+print("false to array: ");
+var_dump($intToArray);
+
+print(PHP_EOL);
+
+$someNumber = 0;
+$intToArray = (array) $someNumber;
+print("{$someNumber} to array: ");
+var_dump($intToArray);
+
+$someNumber = -1;
+$intToArray = (array) $someNumber;
+print("{$someNumber} to array: ");
+var_dump($intToArray);
+
+$someNumber = 3;
+$intToArray = (array) $someNumber;
+print("{$someNumber} to array: ");
+var_dump($intToArray);
+
+print(PHP_EOL);
+
+$someMeasure = 0.0;
+$floatToArray = (array) $someMeasure;
+print("0.0 to array: ");
+var_dump($floatToArray);
+
+$someMeasure = 1.0;
+$floatToArray = (array) $someMeasure;
+print("1.0 to array: ");
+var_dump($floatToArray);
+
+$someMeasure = 3.0;
+$floatToArray = (array) $someMeasure;
+print("3.0 to array: ");
+var_dump($floatToArray);
+
+print(PHP_EOL);
+
+$someText = "";
+$stringToArray = (array) $someText;
+print("\"{$someText}\" to array: ");
+var_dump($stringToArray);
+
+$someText = "hello";
+$stringToArray = (array) $someText;
+print("\"{$someText}\" to array: ");
+var_dump($stringToArray);
+
+print(PHP_EOL);
+
+$someObject = (object) [];
+$objectToArray = (array) $someObject;
+print("empty object to array: ");
+var_dump($objectToArray);
+
+$someObject = (object) [
+    'some_key' => 'some value',
+    'other_key' => 1024,
+    10 => true,
+];
+$objectToArray = (array) $someObject;
+print("object to array: ");
+var_dump($objectToArray);
+
+class SomeClass
+{
+    public $publicProperty;
+    protected $protectedProperty = 15.5;
+    private $privateProperty = 'hello';
+}
+$someObject = new SomeClass();
+$objectToArray = (array) $someObject;
+print("class object to array: ");
+var_dump($objectToArray);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+null to array: array(0) {
+}
+
+true to array: array(1) {
+  [0]=>
+  bool(true)
+}
+false to array: array(1) {
+  [0]=>
+  bool(false)
+}
+
+0 to array: array(1) {
+  [0]=>
+  int(0)
+}
+-1 to array: array(1) {
+  [0]=>
+  int(-1)
+}
+3 to array: array(1) {
+  [0]=>
+  int(3)
+}
+
+0.0 to array: array(1) {
+  [0]=>
+  float(0)
+}
+1.0 to array: array(1) {
+  [0]=>
+  float(1)
+}
+3.0 to array: array(1) {
+  [0]=>
+  float(3)
+}
+
+"" to array: array(1) {
+  [0]=>
+  string(0) ""
+}
+"hello" to array: array(1) {
+  [0]=>
+  string(5) "hello"
+}
+
+empty object to array: array(0) {
+}
+object to array: array(3) {
+  ["some_key"]=>
+  string(10) "some value"
+  ["other_key"]=>
+  int(1024)
+  [10]=>
+  bool(true)
+}
+class object to array: array(3) {
+  ["publicProperty"]=>
+  NULL
+  ["*protectedProperty"]=>
+  float(15.5)
+  ["SomeClassprivateProperty"]=>
+  string(5) "hello"
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/casting_to_array.php)
+
+## Casting from `array`
+
+*Example: Casting from `array`*
+
+```php
+<?php
+
+$someEmptyArray = [];
+$someIndexedArray = [null, true, 3, 'orange'];
+$someAssociativeArray = [
+    'some_key' => 'some value',
+    'other_key' => 1024,
+    10 => true,
+];
+
+$emptyArrayToBool = (bool) $someEmptyArray;
+print("Empty array to bool: ");
+var_dump($emptyArrayToBool);
+$indexedArrayToBool = (bool) $someIndexedArray;
+print("Indexed array to bool: ");
+var_dump($indexedArrayToBool);
+$associativeArrayToBool = (bool) $someAssociativeArray;
+print("Associative array to bool: ");
+var_dump($associativeArrayToBool);
+print(PHP_EOL);
+
+$emptyArrayToInt = (int) $someEmptyArray;
+print("Empty array to int: ");
+var_dump($emptyArrayToInt);
+$indexedArrayToInt = (int) $someIndexedArray;
+print("Indexed array to int: ");
+var_dump($indexedArrayToInt);
+$associativeArrayToInt = (int) $someAssociativeArray;
+print("Associative array to int: ");
+var_dump($associativeArrayToInt);
+print(PHP_EOL);
+
+$emptyArrayToFloat = (float) $someEmptyArray;
+print("Empty array to float: ");
+var_dump($emptyArrayToFloat);
+$indexedArrayToFloat = (float) $someIndexedArray;
+print("Indexed array to float: ");
+var_dump($indexedArrayToFloat);
+$associativeArrayToFloat = (float) $someAssociativeArray;
+print("Associative array to float: ");
+var_dump($associativeArrayToFloat);
+print(PHP_EOL);
+
+// /$emptyArrayString = (bool) $someEmptyArray;
+// print("Empty array to string: ");
+// var_dump($emptyArrayToString);
+// $indexedArrayToFloat = (string) $someIndexedArray;
+// print("Indexed array to string: ");
+// var_dump($indexedArrayToFloat);
+// $associativeArrayToFloat = (string) $someAssociativeArray;
+// print("Associative array to string: ");
+// var_dump($associativeArrayToFloat);
+// print(PHP_EOL);
+
+$emptyArrayToObject = (bool) $someEmptyArray;
+print("Empty array to object: ");
+var_dump($emptyArrayToObject);
+$indexedArrayToObject = (object) $someIndexedArray;
+print("Indexed array to object: ");
+var_dump($indexedArrayToObject);
+$associativeArrayToObject = (object) $someAssociativeArray;
+print("Associative array to object: ");
+var_dump($associativeArrayToObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Empty array to bool: bool(false)
+Indexed array to bool: bool(true)
+Associative array to bool: bool(true)
+
+Empty array to int: int(0)
+Indexed array to int: int(1)
+Associative array to int: int(1)
+
+Empty array to float: float(0)
+Indexed array to float: float(1)
+Associative array to float: float(1)
+
+Empty array to object: bool(false)
+Indexed array to object: object(stdClass)#1 (4) {
+  ["0"]=>
+  NULL
+  ["1"]=>
+  bool(true)
+  ["2"]=>
+  int(3)
+  ["3"]=>
+  string(6) "orange"
+}
+Associative array to object: object(stdClass)#2 (3) {
+  ["some_key"]=>
+  string(10) "some value"
+  ["other_key"]=>
+  int(1024)
+  ["10"]=>
+  bool(true)
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/arrays/casting_from_array.php)
 
 [▵ Up](#arrays)
 [⌂ Home](../../../../../README.md)

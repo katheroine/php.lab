@@ -290,6 +290,8 @@ Laboratory of PHP.
                 34. [Iterating over array_and_reading elements](./example/code/builtin_types/compound/arrays/iterating_over_array_and_reading_elements.php)
                 35. [Iterating over array and updating elements](./example/code/builtin_types/compound/arrays/iterating_over_array_and_updating_elements.php)
                 36. [Passing array to the function](./example/code/builtin_types/compound/arrays/passing_array_to_function.php)
+                37. [Casting to array](./example/code/builtin_types/compound/arrays/casting_to_array.php)
+                38. [Casting from array](./example/code/builtin_types/compound/arrays/casting_from_array.php)
             2. [Enumerations](./example/code/builtin_types/compound/enums/enum.php)
     6. [Functions](./example/code/functions/)
         1. [Functions](./example/code/functions/functions.php)
