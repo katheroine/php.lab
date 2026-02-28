@@ -571,6 +571,182 @@ bool(false)
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/objects/object_destroying.php)
 
+## Object properties
+
+*Example: Object properties*
+
+```php
+<?php
+
+class Data
+{
+    public $programmingLanguage;
+    public $database;
+    protected $operatingSystem = 'Unix';
+    private $id;
+
+    public function __construct($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setOperatingSystem($operatingSystem)
+    {
+        $this->operatingSystem = $operatingSystem;
+    }
+
+    public function getOperatingSystem()
+    {
+        return $this->operatingSystem;
+    }
+}
+
+$data = new Data(1024);
+$data->setOperatingSystem('Linux');
+$data->database = 'MongoDB';
+$data->programmingLanguage = 'PHP';
+
+print("Data:\n\n");
+var_dump($data);
+print(PHP_EOL);
+print("id: {$data->getId()}\n");
+print("operating system: {$data->getOperatingSystem()}\n");
+print("database: {$data->database}\n");
+print("programming language: {$data->programmingLanguage}\n\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Data:
+
+object(Data)#1 (4) {
+  ["programmingLanguage"]=>
+  string(3) "PHP"
+  ["database"]=>
+  string(7) "MongoDB"
+  ["operatingSystem":protected]=>
+  string(5) "Linux"
+  ["id":"Data":private]=>
+  int(1024)
+}
+
+id: 1024
+operating system: Linux
+database: MongoDB
+programming language: PHP
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/object_properties.php)
+
+## Defining and initialising object properties
+
+*Example: Object properties defining and initialising*
+
+```php
+<?php
+
+$someObjectFromArray = (object)[
+    'some_key' => 'some value',
+    'other_key' => 1024,
+    10 => true,
+];
+
+print("From array:\n\n");
+var_dump($someObjectFromArray);
+print(PHP_EOL);
+
+class SomeClass
+{
+    public $publicProperty;
+    protected $protectedProperty = 16;
+    private $somePrivateProperty;
+
+    public function __construct(private $otherPrivateProperty = 'hello')
+    {
+        $this->somePrivateProperty = 64.5;
+    }
+}
+
+$someObjectFromClass = new SomeClass();
+
+print("From class without constructor argument:\n\n");
+var_dump($someObjectFromClass);
+print(PHP_EOL);
+
+class OtherClass
+{
+    public bool $publicProperty;
+    protected int $protectedProperty = 16;
+    private float $somePrivateProperty;
+
+    public function __construct(private string $otherPrivateProperty = 'hello')
+    {
+        $this->somePrivateProperty = 64.5;
+    }
+}
+
+$otherObjectFromClass = new OtherClass(true);
+
+print("From class with constructor argument:\n\n");
+var_dump($otherObjectFromClass);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+From array:
+
+object(stdClass)#1 (3) {
+  ["some_key"]=>
+  string(10) "some value"
+  ["other_key"]=>
+  int(1024)
+  ["10"]=>
+  bool(true)
+}
+
+From class without constructor argument:
+
+object(SomeClass)#2 (4) {
+  ["publicProperty"]=>
+  NULL
+  ["protectedProperty":protected]=>
+  int(16)
+  ["somePrivateProperty":"SomeClass":private]=>
+  float(64.5)
+  ["otherPrivateProperty":"SomeClass":private]=>
+  string(5) "hello"
+}
+
+From class with constructor argument:
+
+object(OtherClass)#3 (3) {
+  ["publicProperty"]=>
+  uninitialized(bool)
+  ["protectedProperty":protected]=>
+  int(16)
+  ["somePrivateProperty":"OtherClass":private]=>
+  float(64.5)
+  ["otherPrivateProperty":"OtherClass":private]=>
+  string(1) "1"
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/object_properties_defining_and_initialising.php)
+
 ## Converting to object
 
 If an *object* is converted to an *object*, it is not modified. If a *value* of any other *type* is converted to an *object*, a new *instance* of the `stdClass` *built-in class* is created. If the value was `null`, the new *instance* will be empty. An *array* converts to an *object* with *properties* named by *keys* and corresponding *values*. Note that in this case before PHP 7.2.0 *numeric keys* have been inaccessible unless iterated.
