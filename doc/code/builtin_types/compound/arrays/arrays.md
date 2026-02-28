@@ -373,9 +373,9 @@ Array
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/arrays/array_definition_and_initialisation.php)
 
-## Array assignment and overwritting
+## Array assignment and overwriting
 
-*Example Array assignment and overwritting*
+*Example Array assignment and overwriting*
 
 ```php
 <?php

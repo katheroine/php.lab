@@ -4,7 +4,91 @@
 
 # Objects
 
-## Object initialization
+## Description
+
+If you look at the world around you, you’ll find many examples of tangible objects: lamps, phones, computers, and cars. Also, you can find intangible objects such as bank accounts and transactions.
+
+All of these objects share the two common key characteristics:
+
+* State
+* Behavior
+
+For example, a bank account has the state that consists of:
+
+* Account number
+* Balance
+
+A bank account also has the following behaviors:
+
+* Deposit
+* Withdraw
+
+PHP **objects** are conceptually similar to real-world objects because they consist of *state* and *behavior*.
+
+An *object* holds its *state* in *variables* that are often referred to as *properties*. An *object* also exposes its *behavior* via *functions* which are known as *methods*.
+
+-- [PHP Tutorial](https://www.phptutorial.net/php-oop/php-objects/#what-is-an-object)
+
+*Example: Type object*
+
+```php
+<?php
+
+$someObject = (object)[
+    'some_key' => 'some value',
+    'other_key' => 1024,
+    10 => true,
+];
+
+class SomeClass
+{
+    public $publicProperty;
+    protected $protectedProperty = 15.5;
+    private $privateProperty = 'hello';
+}
+$otherObject = new SomeClass();
+
+print("Information:\n");
+var_dump($someObject);
+print('Type: ' . gettype($someObject) . PHP_EOL . PHP_EOL);
+
+print("Information:\n");
+var_dump($otherObject);
+print('Type: ' . gettype($otherObject) . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Information:
+object(stdClass)#1 (3) {
+  ["some_key"]=>
+  string(10) "some value"
+  ["other_key"]=>
+  int(1024)
+  ["10"]=>
+  bool(true)
+}
+Type: object
+
+Information:
+object(SomeClass)#2 (3) {
+  ["publicProperty"]=>
+  NULL
+  ["protectedProperty":protected]=>
+  float(15.5)
+  ["privateProperty":"SomeClass":private]=>
+  string(5) "hello"
+}
+Type: object
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/object.php)
+
+## Object definition and initialization
 
 To create a new *object*, use the *`new` statement* to *instantiate* a *class*:
 
@@ -24,6 +108,296 @@ $bar = new foo;
 $bar->do_foo();
 ?>
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.types.object.php)
+
+[That's can be also done by casting an array to the object like `(object) ['nickname' => 'katheroine', 'occupy' => 'programmer']` -- KK]
+
+*Example: Object definition and initialisation*
+
+```php
+<?php
+
+$objectFromEmptyArray = (object)[];
+print("Defined from empty array:\n\n");
+print_r($objectFromEmptyArray);
+print(PHP_EOL);
+
+$objectFromIndexedArray = (object)[null, true, 3, 'orange'];
+print("Defined from indexed array:\n\n");
+print_r($objectFromIndexedArray);
+print(PHP_EOL);
+
+$objectFromAssociativeArray = (object)[
+    'some_key' => 'some value',
+    'other_key' => 1024,
+    10 => true,
+];
+print("Defined from associative array:\n\n");
+print_r($objectFromAssociativeArray);
+print(PHP_EOL);
+
+$objectFromStdClass = new stdClass();
+print("Defined from stdClass class:\n\n");
+print_r($objectFromStdClass);
+print(PHP_EOL);
+
+class SomeClass
+{
+    public $publicProperty;
+    protected $protectedProperty;
+    private $privateProperty;
+}
+
+$uninitialisedObjectFromClass = new SomeClass();
+print("Not initialised, defined from class:\n\n");
+print_r($uninitialisedObjectFromClass);
+print(PHP_EOL);
+
+class OtherClass
+{
+    function __construct(
+        public $publicProperty,
+        protected $protectedProperty,
+        private $privateProperty
+    ) {
+    }
+}
+
+$initialisedObjectFromClass = new OtherClass(16, 14.2, 'welcome');
+print("Initialised, defined from class:\n\n");
+print_r($uninitialisedObjectFromClass);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Defined from empty array:
+
+stdClass Object
+(
+)
+
+Defined from indexed array:
+
+stdClass Object
+(
+    [0] =>
+    [1] => 1
+    [2] => 3
+    [3] => orange
+)
+
+Defined from associative array:
+
+stdClass Object
+(
+    [some_key] => some value
+    [other_key] => 1024
+    [10] => 1
+)
+
+Defined from stdClass class:
+
+stdClass Object
+(
+)
+
+Not initialised, defined from class:
+
+SomeClass Object
+(
+    [publicProperty] =>
+    [protectedProperty:protected] =>
+    [privateProperty:SomeClass:private] =>
+)
+
+Initialised, defined from class:
+
+SomeClass Object
+(
+    [publicProperty] =>
+    [protectedProperty:protected] =>
+    [privateProperty:SomeClass:private] =>
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/object_definition_and_initialisation.php)
+
+## Object assignment and overwriting
+
+*Example: Object assignment and overwriting*
+
+```php
+<?php
+
+class SomeClass
+{
+    function __construct(
+        public $publicProperty = null,
+        protected $protectedProperty = 15.5,
+        private $privateProperty = 'hello'
+    ) {
+    }
+}
+
+$someObject = new SomeClass();
+print("Initialised and assigned:\n\n");
+print_r($someObject);
+print(PHP_EOL);
+
+$someObject = new SomeClass(16, 14.2, 'welcome');
+print("Overwritten:\n\n");
+print_r($someObject);
+print(PHP_EOL);
+
+$someObject->publicProperty = 'hello';
+print("After overwriting a property:\n\n");
+print_r($someObject);
+print(PHP_EOL);
+
+$someObject->dynamicProperty = 10;
+print("After dynamically added a property:\n\n");
+print_r($someObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Initialised and assigned:
+
+SomeClass Object
+(
+    [publicProperty] =>
+    [protectedProperty:protected] => 15.5
+    [privateProperty:SomeClass:private] => hello
+)
+
+Overwritten:
+
+SomeClass Object
+(
+    [publicProperty] => 16
+    [protectedProperty:protected] => 14.2
+    [privateProperty:SomeClass:private] => welcome
+)
+
+After overwriting a property:
+
+SomeClass Object
+(
+    [publicProperty] => hello
+    [protectedProperty:protected] => 14.2
+    [privateProperty:SomeClass:private] => welcome
+)
+
+After dynamically added a property:
+
+SomeClass Object
+(
+    [publicProperty] => hello
+    [protectedProperty:protected] => 14.2
+    [privateProperty:SomeClass:private] => welcome
+    [dynamicProperty] => 10
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/object_definition_and_initialisation.php)
+
+## Creating objects
+
+*Example: Object creating*
+
+```php
+<?php
+
+$objectFromIndexedArray = (object)[null, true, 3, 'orange'];
+$objectFromAssociativeArray = (object)[
+    'some_key' => 'some value',
+    'other_key' => 1024,
+    10 => true,
+];
+$objectFromStdClass = new stdClass();
+
+class SomeClass
+{
+    function __construct(
+        public $publicProperty,
+        protected $protectedProperty,
+        private $privateProperty = 1024
+    ) {
+    }
+}
+
+$uninitialisedObjectFromClass = new SomeClass('hello', 15.5);
+
+print("From indexed array:\n\n");
+print_r($objectFromIndexedArray);
+print(PHP_EOL);
+
+print("From associative array:\n\n");
+print_r($objectFromAssociativeArray);
+print(PHP_EOL);
+
+print("From stdClass class:\n\n");
+print_r($objectFromStdClass);
+print(PHP_EOL);
+
+print("From defined class:\n\n");
+print_r($uninitialisedObjectFromClass);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+From indexed array:
+
+stdClass Object
+(
+    [0] =>
+    [1] => 1
+    [2] => 3
+    [3] => orange
+)
+
+From associative array:
+
+stdClass Object
+(
+    [some_key] => some value
+    [other_key] => 1024
+    [10] => 1
+)
+
+From stdClass class:
+
+stdClass Object
+(
+)
+
+From defined class:
+
+SomeClass Object
+(
+    [publicProperty] => hello
+    [protectedProperty:protected] => 15.5
+    [privateProperty:SomeClass:private] => 1024
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/object_creating.php)
 
 ## Converting to object
 
