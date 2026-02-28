@@ -399,6 +399,178 @@ SomeClass Object
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/objects/object_creating.php)
 
+## Displaying objects
+
+*Example: Object displaying*
+
+```php
+<?php
+
+class SomeClass
+{
+    function __construct(
+        public $publicProperty,
+        protected $protectedProperty,
+        private $privateProperty = 1024
+    ) {
+    }
+}
+
+$someObject = new SomeClass('hello', 15.5);
+
+print("Some object:\n\n");
+var_dump($someObject);
+print(PHP_EOL);
+print_r($someObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some object:
+
+object(SomeClass)#1 (3) {
+  ["publicProperty"]=>
+  string(5) "hello"
+  ["protectedProperty":protected]=>
+  float(15.5)
+  ["privateProperty":"SomeClass":private]=>
+  int(1024)
+}
+
+SomeClass Object
+(
+    [publicProperty] => hello
+    [protectedProperty:protected] => 15.5
+    [privateProperty:SomeClass:private] => 1024
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/object_displaying.php)
+
+## Modifying objects
+
+*Example: Object modifying*
+
+```php
+<?php
+
+class SomeClass
+{
+    function __construct(
+        public $publicProperty,
+        protected $protectedProperty,
+        private $privateProperty = 10
+    ) {
+    }
+
+    public function setProtectedProperty($protectedProperty)
+    {
+        $this->protectedProperty = $protectedProperty;
+    }
+
+    public function setPrivateProperty($privateProperty)
+    {
+        $this->privateProperty = $privateProperty;
+    }
+}
+
+$someObject = new SomeClass('some value', 15.5);
+
+print_r($someObject);
+print(PHP_EOL);
+
+$someObject->publicProperty = 'hello';
+$someObject->setProtectedProperty(0.2);
+$someObject->setPrivateProperty(1024);
+
+print_r($someObject);
+print(PHP_EOL);
+
+$someObject->someDynamicProperty = '16';
+$someObject->otherDynamicProperty = 'coffee';
+
+print_r($someObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+SomeClass Object
+(
+    [publicProperty] => some value
+    [protectedProperty:protected] => 15.5
+    [privateProperty:SomeClass:private] => 10
+)
+
+SomeClass Object
+(
+    [publicProperty] => hello
+    [protectedProperty:protected] => 0.2
+    [privateProperty:SomeClass:private] => 1024
+)
+
+SomeClass Object
+(
+    [publicProperty] => hello
+    [protectedProperty:protected] => 0.2
+    [privateProperty:SomeClass:private] => 1024
+    [someDynamicProperty] => 16
+    [otherDynamicProperty] => coffee
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/object_modifying.php)
+
+## Destroying objects
+
+*Example: Object destroying*
+
+```php
+<?php
+
+$someObject = (object)[
+    'someField' => 'some value',
+    'otherField' => 1024
+];
+
+var_dump(isset($someObject));
+var_dump($someObject);
+print(PHP_EOL);
+
+unset($someObject);
+
+var_dump(isset($someObject));
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+bool(true)
+object(stdClass)#1 (2) {
+  ["someField"]=>
+  string(10) "some value"
+  ["otherField"]=>
+  int(1024)
+}
+
+bool(false)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/object_destroying.php)
+
 ## Converting to object
 
 If an *object* is converted to an *object*, it is not modified. If a *value* of any other *type* is converted to an *object*, a new *instance* of the `stdClass` *built-in class* is created. If the value was `null`, the new *instance* will be empty. An *array* converts to an *object* with *properties* named by *keys* and corresponding *values*. Note that in this case before PHP 7.2.0 *numeric keys* have been inaccessible unless iterated.
