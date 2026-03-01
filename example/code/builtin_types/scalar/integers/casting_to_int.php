@@ -158,7 +158,7 @@ $arrayToInt = (int) $someCollection;
 print("[null, true, 2] to int: ");
 var_dump($arrayToInt);
 
-$someCollection = [null, true, 2];
+$someCollection = [1, 2, 3];
 $arrayToInt = (int) $someCollection;
 print("[1, 2, 3] to int: ");
 var_dump($arrayToInt);

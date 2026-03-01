@@ -5159,7 +5159,7 @@ print("Associative array to float: ");
 var_dump($associativeArrayToFloat);
 print(PHP_EOL);
 
-// /$emptyArrayString = (bool) $someEmptyArray;
+// /$emptyArrayString = (string) $someEmptyArray;
 // print("Empty array to string: ");
 // var_dump($emptyArrayToString);
 // $indexedArrayToFloat = (string) $someIndexedArray;
@@ -5170,7 +5170,7 @@ print(PHP_EOL);
 // var_dump($associativeArrayToFloat);
 // print(PHP_EOL);
 
-$emptyArrayToObject = (bool) $someEmptyArray;
+$emptyArrayToObject = (object) $someEmptyArray;
 print("Empty array to object: ");
 var_dump($emptyArrayToObject);
 $indexedArrayToObject = (object) $someIndexedArray;
@@ -5198,8 +5198,9 @@ Empty array to float: float(0)
 Indexed array to float: float(1)
 Associative array to float: float(1)
 
-Empty array to object: bool(false)
-Indexed array to object: object(stdClass)#1 (4) {
+Empty array to object: object(stdClass)#1 (0) {
+}
+Indexed array to object: object(stdClass)#2 (4) {
   ["0"]=>
   NULL
   ["1"]=>
@@ -5209,7 +5210,7 @@ Indexed array to object: object(stdClass)#1 (4) {
   ["3"]=>
   string(6) "orange"
 }
-Associative array to object: object(stdClass)#2 (3) {
+Associative array to object: object(stdClass)#3 (3) {
   ["some_key"]=>
   string(10) "some value"
   ["other_key"]=>

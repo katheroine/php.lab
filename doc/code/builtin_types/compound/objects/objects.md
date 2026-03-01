@@ -945,7 +945,58 @@ object(SomeClass)#1 (3) {
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/objects/object_properties_updating.php)
 
-## Converting to object
+## Testing for `object`
+
+*Example: Testing for object*
+
+```php
+<?php
+
+$someObject = (object)[
+    'some_key' => 'some value',
+    'other key' => 1024,
+    10 => true,
+];
+
+print('Type of array object: ' . gettype($someObject) . PHP_EOL);
+print('Is object? ' . (is_object($someObject) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
+
+class SomeClass
+{
+    public $publicProperty;
+    protected $protectedProperty = 15.5;
+    private $privateProperty = 'hello';
+}
+$otherObject = new SomeClass();
+
+print('Type of class object: ' . gettype($otherObject) . PHP_EOL);
+print('Is object? ' . (is_object($otherObject) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
+
+$someNumber = 10;
+
+print('Type of number: ' . gettype($someNumber) . PHP_EOL);
+print('Is object? ' . (is_object($someNumber) ? 'yes' : 'no') . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Type of array object: object
+Is object? yes
+
+Type of class object: object
+Is object? yes
+
+Type of number: integer
+Is object? no
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/testing_for_object.php)
+
+## Casting to `object`
 
 If an *object* is converted to an *object*, it is not modified. If a *value* of any other *type* is converted to an *object*, a new *instance* of the `stdClass` *built-in class* is created. If the value was `null`, the new *instance* will be empty. An *array* converts to an *object* with *properties* named by *keys* and corresponding *values*. Note that in this case before PHP 7.2.0 *numeric keys* have been inaccessible unless iterated.
 
@@ -973,6 +1024,268 @@ echo $obj->scalar;  // outputs 'ciao'
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.object.php)
+
+*Example: Casting to object*
+
+```php
+<?php
+
+$someNothing = null;
+$nullToObject = (object) $someNothing;
+print("null to object: ");
+var_dump($nullToObject);
+
+print(PHP_EOL);
+
+$someRight = true;
+$intToObject = (object) $someRight;
+print("true to object: ");
+var_dump($intToObject);
+
+$someWrong = false;
+$intToObject = (object) $someWrong;
+print("false to object: ");
+var_dump($intToObject);
+
+print(PHP_EOL);
+
+$someNumber = 0;
+$intToObject = (object) $someNumber;
+print("{$someNumber} to object: ");
+var_dump($intToObject);
+
+$someNumber = 3;
+$intToObject = (object) $someNumber;
+print("{$someNumber} to object: ");
+var_dump($intToObject);
+
+print(PHP_EOL);
+
+$someMeasure = 3.5;
+$floatToObject = (object) $someMeasure;
+print("3.0 to object: ");
+var_dump($floatToObject);
+
+print(PHP_EOL);
+
+$someText = "";
+$stringToObject = (object) $someText;
+print("\"{$someText}\" to object: ");
+var_dump($stringToObject);
+
+$someText = "hello";
+$stringToObject = (object) $someText;
+print("\"{$someText}\" to object: ");
+var_dump($stringToObject);
+
+print(PHP_EOL);
+
+$someCollection = [];
+$arrayToObject = (object) $someCollection;
+print("[''] to object: ");
+var_dump($arrayToObject);
+
+$someCollection = [null, true, 2];
+$arrayToObject = (object) $someCollection;
+print("[null, true, 2] to object: ");
+var_dump($arrayToObject);
+
+$someCollection = [
+    'some_key' => 'some value',
+    'other key' => 1024,
+    10 => true,
+];
+$arrayToObject = (object) $someCollection;
+print(<<<END
+[
+    'some_key' => 'some value',
+    'other key' => 1024,
+    10 => true,
+]
+END . "\nto object: ");
+var_dump($arrayToObject);
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+null to object: object(stdClass)#1 (0) {
+}
+
+true to object: object(stdClass)#2 (1) {
+  ["scalar"]=>
+  bool(true)
+}
+false to object: object(stdClass)#3 (1) {
+  ["scalar"]=>
+  bool(false)
+}
+
+0 to object: object(stdClass)#2 (1) {
+  ["scalar"]=>
+  int(0)
+}
+3 to object: object(stdClass)#3 (1) {
+  ["scalar"]=>
+  int(3)
+}
+
+3.0 to object: object(stdClass)#2 (1) {
+  ["scalar"]=>
+  float(3.5)
+}
+
+"" to object: object(stdClass)#4 (1) {
+  ["scalar"]=>
+  string(0) ""
+}
+"hello" to object: object(stdClass)#5 (1) {
+  ["scalar"]=>
+  string(5) "hello"
+}
+
+[''] to object: object(stdClass)#4 (0) {
+}
+[null, true, 2] to object: object(stdClass)#6 (3) {
+  ["0"]=>
+  NULL
+  ["1"]=>
+  bool(true)
+  ["2"]=>
+  int(2)
+}
+[
+    'some_key' => 'some value',
+    'other key' => 1024,
+    10 => true,
+]
+to object: object(stdClass)#4 (3) {
+  ["some_key"]=>
+  string(10) "some value"
+  ["other key"]=>
+  int(1024)
+  ["10"]=>
+  bool(true)
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/casting_to_object.php)
+
+## Casting from `object`
+
+*Example: Casting from object*
+
+```php
+<?php
+
+$emptyObject = (array)[];
+
+$objectFromArray = (array)[
+    'some_key' => ' value',
+    'other key' => 1024,
+    10 => 14.2,
+];
+
+class SomeClass
+{
+    public $publicProperty = 5;
+    protected $protectedProperty = 15.5;
+    private $privateProperty = 'hello';
+}
+$objectFromClass = new SomeClass();
+
+$emptyObjectToBool = (bool) $emptyObject;
+print("Empty object to bool: ");
+var_dump($emptyObjectToBool);
+$objectFromArrayToBool = (bool) $objectFromArray;
+print("Object from array to bool: ");
+var_dump($objectFromArrayToBool);
+$objectFromClassToBool = (bool) $objectFromClass;
+print("Object from class to bool: ");
+var_dump($objectFromClassToBool);
+print(PHP_EOL);
+
+// $emptyObjectToInt = (int) $emptyObject;
+// print("Empty object to int: ");
+// var_dump($emptyObjectToInt);
+// $objectFromArrayToInt = (int) $objectFromArray;
+// print("Object from array to int: ");
+// var_dump($objectFromArrayToInt);
+// $objectFromClassToInt = (int) $objectFromClass;
+// print("Object from class to int: ");
+// var_dump($objectFromClassToInt);
+// print(PHP_EOL);
+
+// $emptyObjectToFloat = (float) $emptyObject;
+// print("Empty object to float: ");
+// var_dump($emptyObjectToFloat);
+// $objectFromArrayToFloat = (float) $objectFromArray;
+// print("Object from array to float: ");
+// var_dump($objectFromArrayToFloat);
+// $objectFromClassToFloat = (float) $objectFromClass;
+// print("Object from class to float: ");
+// var_dump($objectFromClassToFloat);
+// print(PHP_EOL);
+
+// $emptyObjectString = (string) $emptyObject;
+// print("Empty object to string: ");
+// var_dump($emptyObjectToString);
+// $objectFromArrayToFloat = (string) $objectFromArray;
+// print("Object from array to string: ");
+// var_dump($objectFromArrayToFloat);
+// $objectFromClassToFloat = (string) $objectFromClass;
+// print("Object from class to string: ");
+// var_dump($objectFromClassToFloat);
+// print(PHP_EOL);
+
+$emptyObjectToArray = (array) $emptyObject;
+print("Empty object to object: ");
+var_dump($emptyObjectToArray);
+$objectFromArrayToArray = (array) $objectFromArray;
+print("Object from array to object: ");
+var_dump($objectFromArrayToArray);
+$objectFromClassToArray = (array) $objectFromClass;
+print("Object from class to object: ");
+var_dump($objectFromClassToArray);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Empty object to bool: bool(false)
+Object from array to bool: bool(true)
+Object from class to bool: bool(true)
+
+Empty object to object: array(0) {
+}
+Object from array to object: array(3) {
+  ["some_key"]=>
+  string(6) " value"
+  ["other key"]=>
+  int(1024)
+  [10]=>
+  float(14.2)
+}
+Object from class to object: array(3) {
+  ["publicProperty"]=>
+  int(5)
+  ["*protectedProperty"]=>
+  float(15.5)
+  ["SomeClassprivateProperty"]=>
+  string(5) "hello"
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/casting_from_object.php)
 
 [▵ Up](#objects)
 [⌂ Home](../../../../../README.md)

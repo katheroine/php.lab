@@ -41,7 +41,7 @@ print("Associative array to float: ");
 var_dump($associativeArrayToFloat);
 print(PHP_EOL);
 
-// /$emptyArrayString = (bool) $someEmptyArray;
+// $emptyArrayString = (string) $someEmptyArray;
 // print("Empty array to string: ");
 // var_dump($emptyArrayToString);
 // $indexedArrayToFloat = (string) $someIndexedArray;
@@ -52,7 +52,7 @@ print(PHP_EOL);
 // var_dump($associativeArrayToFloat);
 // print(PHP_EOL);
 
-$emptyArrayToObject = (bool) $someEmptyArray;
+$emptyArrayToObject = (object) $someEmptyArray;
 print("Empty array to object: ");
 var_dump($emptyArrayToObject);
 $indexedArrayToObject = (object) $someIndexedArray;

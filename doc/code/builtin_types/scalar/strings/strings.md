@@ -1433,75 +1433,75 @@ Most PHP values can also be converted to strings for permanent storage. This met
 <?php
 
 $someNothing = null;
-$nulltoString = (string) $someNothing;
+$nullToString = (string) $someNothing;
 print("null to string: ");
-var_dump($nulltoString);
+var_dump($nullToString);
 
 print(PHP_EOL);
 
 $someRight = true;
-$inttoString = (string) $someRight;
+$intToString = (string) $someRight;
 print("true to string: ");
-var_dump($inttoString);
+var_dump($intToString);
 
 $someWrong = false;
-$inttoString = (string) $someWrong;
+$intToString = (string) $someWrong;
 print("false to string: ");
-var_dump($inttoString);
+var_dump($intToString);
 
 print(PHP_EOL);
 
 $someNumber = 0;
-$inttoString = (string) $someNumber;
+$intToString = (string) $someNumber;
 print("{$someNumber} to string: ");
-var_dump($inttoString);
+var_dump($intToString);
 
 $someNumber = -0;
-$inttoString = (string) $someNumber;
+$intToString = (string) $someNumber;
 print("-0 to string: ");
-var_dump($inttoString);
+var_dump($intToString);
 
 $someNumber = 1;
-$inttoString = (string) $someNumber;
+$intToString = (string) $someNumber;
 print("{$someNumber} to string: ");
-var_dump($inttoString);
+var_dump($intToString);
 
 $someNumber = -1;
-$inttoString = (string) $someNumber;
+$intToString = (string) $someNumber;
 print("{$someNumber} to string: ");
-var_dump($inttoString);
+var_dump($intToString);
 
 $someNumber = 3;
-$inttoString = (string) $someNumber;
+$intToString = (string) $someNumber;
 print("{$someNumber} to string: ");
-var_dump($inttoString);
+var_dump($intToString);
 
 print(PHP_EOL);
 
 $someMeasure = 0.0;
-$floattoString = (string) $someMeasure;
+$floatToString = (string) $someMeasure;
 print("0.0 to string: ");
-var_dump($floattoString);
+var_dump($floatToString);
 
 $someMeasure = -0.0;
-$floattoString = (string) $someMeasure;
+$floatToString = (string) $someMeasure;
 print("-0.0 to string: ");
-var_dump($floattoString);
+var_dump($floatToString);
 
 $someMeasure = 0.1;
-$floattoString = (string) $someMeasure;
+$floatToString = (string) $someMeasure;
 print("{$someMeasure} to string: ");
-var_dump($floattoString);
+var_dump($floatToString);
 
 $someMeasure = 1.0;
-$floattoString = (string) $someMeasure;
+$floatToString = (string) $someMeasure;
 print("1.0 to string: ");
-var_dump($floattoString);
+var_dump($floatToString);
 
 $someMeasure = 3.0;
-$floattoString = (string) $someMeasure;
+$floatToString = (string) $someMeasure;
 print("3.0 to string: ");
-var_dump($floattoString);
+var_dump($floatToString);
 
 print(PHP_EOL);
 
