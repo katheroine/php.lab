@@ -3,7 +3,7 @@
 $objectFromIndexedArray = (object)[null, true, 3, 'orange'];
 $objectFromAssociativeArray = (object)[
     'some_key' => 'some value',
-    'other_key' => 1024,
+    'other key' => 1024,
     10 => true,
 ];
 $objectFromStdClass = new stdClass();

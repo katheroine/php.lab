@@ -36,7 +36,7 @@ An *object* holds its *state* in *variables* that are often referred to as *prop
 
 $someObject = (object)[
     'some_key' => 'some value',
-    'other_key' => 1024,
+    'other key' => 1024,
     10 => true,
 ];
 
@@ -65,7 +65,7 @@ Information:
 object(stdClass)#1 (3) {
   ["some_key"]=>
   string(10) "some value"
-  ["other_key"]=>
+  ["other key"]=>
   int(1024)
   ["10"]=>
   bool(true)
@@ -130,7 +130,7 @@ print(PHP_EOL);
 
 $objectFromAssociativeArray = (object)[
     'some_key' => 'some value',
-    'other_key' => 1024,
+    'other key' => 1024,
     10 => true,
 ];
 print("Defined from associative array:\n\n");
@@ -195,7 +195,7 @@ Defined from associative array:
 stdClass Object
 (
     [some_key] => some value
-    [other_key] => 1024
+    [other key] => 1024
     [10] => 1
 )
 
@@ -322,7 +322,7 @@ SomeClass Object
 $objectFromIndexedArray = (object)[null, true, 3, 'orange'];
 $objectFromAssociativeArray = (object)[
     'some_key' => 'some value',
-    'other_key' => 1024,
+    'other key' => 1024,
     10 => true,
 ];
 $objectFromStdClass = new stdClass();
@@ -375,7 +375,7 @@ From associative array:
 stdClass Object
 (
     [some_key] => some value
-    [other_key] => 1024
+    [other key] => 1024
     [10] => 1
 )
 
@@ -647,7 +647,7 @@ programming language: PHP
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/objects/object_properties.php)
 
-## Defining and initialising object properties
+### Defining and initialising object properties
 
 *Example: Object properties defining and initialising*
 
@@ -656,7 +656,7 @@ programming language: PHP
 
 $someObjectFromArray = (object)[
     'some_key' => 'some value',
-    'other_key' => 1024,
+    'other key' => 1024,
     10 => true,
 ];
 
@@ -710,7 +710,7 @@ From array:
 object(stdClass)#1 (3) {
   ["some_key"]=>
   string(10) "some value"
-  ["other_key"]=>
+  ["other key"]=>
   int(1024)
   ["10"]=>
   bool(true)
@@ -746,6 +746,204 @@ object(OtherClass)#3 (3) {
 
 **Source code**:
 [Example](../../../../../example/code/builtin_types/compound/objects/object_properties_defining_and_initialising.php)
+
+#### Object dynamic properties
+
+*Example: Object dynamic properties*
+
+```php
+<?php
+
+class SomeClass
+{
+    public $someProperty = 1;
+}
+
+$someObject = new SomeClass();
+print("Some object:\n\n");
+print_r($someObject);
+print(PHP_EOL);
+
+$someObject->otherProperty = 2;
+$someObject->anotherProperty = 3;
+
+print_r($someObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some object:
+
+SomeClass Object
+(
+    [someProperty] => 1
+)
+
+SomeClass Object
+(
+    [someProperty] => 1
+    [otherProperty] => 2
+    [anotherProperty] => 3
+)
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/object_dynamic_properties.php)
+
+### Accessing object properties
+
+*Example: Object properties accessing*
+
+```php
+<?php
+
+$someObjectFromArray = (object)[
+    'some_key' => 'some value',
+    'other key' => 1024,
+    10 => 10.5,
+];
+
+print("From array:\n\n");
+
+print("some_key: {$someObjectFromArray->some_key}\n");
+print("other key: {$someObjectFromArray->{'other key'}}\n");
+print("other key: {$someObjectFromArray->{10}}\n\n");
+
+class SomeClass
+{
+    public $publicProperty;
+    protected $protectedProperty = 16;
+    private $privateProperty = 'hello';
+
+    public function getProtectedProperty()
+    {
+        return $this->protectedProperty;
+    }
+
+    public function getPrivateProperty()
+    {
+        return $this->privateProperty;
+    }
+}
+
+$someObjectFromClass = new SomeClass();
+
+print("From class:\n\n");
+
+print("publicProperty: {$someObjectFromClass->publicProperty}\n");
+print("protectedProperty: {$someObjectFromClass->getProtectedProperty()}\n");
+print("privateProperty: {$someObjectFromClass->getPrivateProperty()}\n\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+From array:
+
+some_key: some value
+other key: 1024
+other key: 10.5
+
+From class:
+
+publicProperty:
+protectedProperty: 16
+privateProperty: hello
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/object_properties_accessing.php)
+
+## Updating object properties
+
+*Example: Object properties updating*
+
+```php
+<?php
+
+class SomeClass
+{
+    public $publicProperty;
+    protected $protectedProperty = 16;
+    private $privateProperty = 'hello';
+
+    public function setProtectedProperty($protectedProperty)
+    {
+        $this->protectedProperty = $protectedProperty;
+    }
+
+    public function setPrivateProperty($privateProperty)
+    {
+        $this->privateProperty = $privateProperty;
+    }
+}
+
+$someObject = new SomeClass();
+
+print("Some object:\n\n");
+var_dump($someObject);
+print(PHP_EOL);
+
+$someObject->publicProperty = 2.5;
+$someObject->setProtectedProperty(32);
+$someObject->setPrivateProperty('hi');
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$someReference = $someObject;
+
+$someReference->publicProperty = 100;
+$someReference->setProtectedProperty(300);
+$someReference->setPrivateProperty('welcome');
+
+var_dump($someObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some object:
+
+object(SomeClass)#1 (3) {
+  ["publicProperty"]=>
+  NULL
+  ["protectedProperty":protected]=>
+  int(16)
+  ["privateProperty":"SomeClass":private]=>
+  string(5) "hello"
+}
+
+object(SomeClass)#1 (3) {
+  ["publicProperty"]=>
+  float(2.5)
+  ["protectedProperty":protected]=>
+  int(32)
+  ["privateProperty":"SomeClass":private]=>
+  string(2) "hi"
+}
+
+object(SomeClass)#1 (3) {
+  ["publicProperty"]=>
+  int(100)
+  ["protectedProperty":protected]=>
+  int(300)
+  ["privateProperty":"SomeClass":private]=>
+  string(7) "welcome"
+}
+
+```
+
+**Source code**:
+[Example](../../../../../example/code/builtin_types/compound/objects/object_properties_updating.php)
 
 ## Converting to object
 

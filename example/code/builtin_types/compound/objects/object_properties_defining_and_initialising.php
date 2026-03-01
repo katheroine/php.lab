@@ -2,11 +2,12 @@
 
 $someObjectFromArray = (object)[
     'some_key' => 'some value',
-    'other_key' => 1024,
+    'other key' => 1024,
     10 => true,
 ];
 
 print("From array:\n\n");
+
 var_dump($someObjectFromArray);
 print(PHP_EOL);
 

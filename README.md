@@ -303,6 +303,8 @@ Laboratory of PHP.
                 8. [Object properties](./example/code/builtin_types/compound/objects/object_properties.php)
                 9. [Object properties defining and initialising](./example/code/builtin_types/compound/objects/object_properties_defining_and_initialising.php)
                 10. [Dynamic properties](./example/code/builtin_types/compound/objects/object_dynamic_properties.php)
+                11. [Object properties accessing](./example/code/builtin_types/compound/objects/object_properties_accessing.php)
+                12. [Object properties updating](./example/code/builtin_types/compound/objects/object_properties_updating.php)
             3. [Enumerations](./example/code/builtin_types/compound/enums/enum.php)
     6. [Functions](./example/code/functions/)
         1. [Functions](./example/code/functions/functions.php)
