@@ -314,6 +314,8 @@ Laboratory of PHP.
             1. [Constant set of states](./example/code/enumerations/use_cases/enum_use_case_constant_set_of_states.php)
         3. [Basic enums](./example/code/enumerations/basic_enums.php)
         4. [Backed enums](./example/code/enumerations/backed_enums.php)
+        5. [Enum methods](./example/code/enumerations/enum_methods.php)
+        7. [Enum implementing interface](./example/code/enumerations/enum_iplementing_interface.php)
     7. [Functions](./example/code/functions/)
         1. [Functions](./example/code/functions/functions.php)
         2. [Functions formatting](./example/code/functions/functions_formatting.php)

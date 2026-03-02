@@ -359,6 +359,120 @@ Enum case try right wrong right value: NULL
 
 *Enums* (both *pure enums* and *backed enums*) may contain *methods*, and may *implement* *interfaces*. If an *enum* *implements* an *interface*, then any *type check* for that *interface* will also accept all *cases* of that *enum*.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.methods.php)
+
+Inside a *method*, the `$this` *variable* is *defined* and refers to the *case instance*.
+
+*Methods* may be arbitrarily complex, but in practice will usually return a *static value* or *match* on `$this` to provide different results for different *cases*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.methods.php)
+
+Methods may be *public*, *private*, or *protected*, although in practice *private* and *protected* are equivalent as *inheritance* is not allowed.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.methods.php)
+
+*Example: Enum methods*
+
+```php
+<?php
+
+enum SomeEnum: string
+{
+    case SomeCase = 'rabbit';
+    case OtherCase = 'fox';
+    case AnotherCase = 'owl';
+
+    public function someMethod()
+    {
+        return $this->otherMethod();
+    }
+
+    protected function otherMethod()
+    {
+        return $this->anotherMethod();
+    }
+
+    private function anotherMethod()
+    {
+        return self::SomeCase->value;
+    }
+}
+
+var_dump(SomeEnum::SomeCase);
+
+$result = SomeEnum::SomeCase->someMethod();
+
+var_dump($result);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+enum(SomeEnum::SomeCase)
+string(6) "rabbit"
+```
+
+**Source code**:
+[Example](../../../example/code/enumerations/enum_methods.php)
+
+## Enumeration static methods
+
+*Enumerations* may also have *static methods*. The use for *static methods* on the *enumeration* itself is primarily for *alternative constructors*. E.g.:
+
+```php
+<?php
+
+enum Size
+{
+    case Small;
+    case Medium;
+    case Large;
+
+    public static function fromLength(int $cm): self
+    {
+        return match(true) {
+            $cm < 50 => self::Small,
+            $cm < 100 => self::Medium,
+            default => self::Large,
+        };
+    }
+}
+?>
+```
+
+*Static methods* may be *public*, *private*, or *protected*, although in practice *private* and *protected* are equivalent as *inheritance* is not allowed.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.static-methods.php)
+
+## Enumeration constants
+
+*Enumerations* may include *constants*, which may be *public*, *private*, or *protected*, although in practice *private* and *protected* are equivalent as *inheritance* is not allowed.
+
+An *enum constant* may refer to an *enum case*:
+
+```php
+<?php
+
+enum Size
+{
+    case Small;
+    case Medium;
+    case Large;
+
+    public const Huge = self::Large;
+}
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.constants.php)
+
+## Interfaces
+
+*Enums* (both *pure enums* and *backed enums*) may contain *methods*, and may *implement* *interfaces*. If an *enum* *implements* an *interface*, then any *type check* for that *interface* will also accept all *cases* of that *enum*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.methods.php)
+
 ```php
 <?php
 
@@ -432,9 +546,7 @@ enum Suit: string implements Colorful
 ?>
 ```
 
-Inside a *method*, the `$this` *variable* is *defined* and refers to the *case instance*.
-
-*Methods* may be arbitrarily complex, but in practice will usually return a *static value* or *match* on `$this` to provide different results for different *cases*.
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.methods.php)
 
 Note that in this case it would be a better data modeling practice to also define a `SuitColor` *enum type* with values `Red` and `Black` and return that instead. However, that would complicate this example.
 
@@ -479,60 +591,61 @@ final class Suit implements UnitEnum, Colorful
 ?>
 ```
 
-Methods may be *public*, *private*, or *protected*, although in practice *private* and *protected* are equivalent as *inheritance* is not allowed.
-
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.methods.php)
 
-## Enumeration static methods
-
-*Enumerations* may also have *static methods*. The use for *static methods* on the *enumeration* itself is primarily for *alternative constructors*. E.g.:
+*Example: Enum implementing interface*
 
 ```php
 <?php
 
-enum Size
+interface SomeInterface
 {
-    case Small;
-    case Medium;
-    case Large;
+    public function someMethod(int $someArgument): string;
+}
 
-    public static function fromLength(int $cm): self
+enum SomeEnum: string implements SomeInterface
+{
+    case SomeCase = 'rabbit';
+    case OtherCase = 'fox';
+    case AnotherCase = 'owl';
+
+    public function someMethod(int $someArgument): string
     {
-        return match(true) {
-            $cm < 50 => self::Small,
-            $cm < 100 => self::Medium,
-            default => self::Large,
-        };
+        switch ($someArgument) {
+            case 1:
+                return self::SomeCase->value;
+                break;
+            case 2:
+                return self::OtherCase->value;
+                break;
+            case 3:
+                return self::AnotherCase->value;
+                break;
+            default:
+                return 'none';
+                break;
+        }
     }
 }
-?>
+
+print(SomeEnum::SomeCase->someMethod(0) . PHP_EOL);
+print(SomeEnum::SomeCase->someMethod(1) . PHP_EOL);
+print(SomeEnum::SomeCase->someMethod(2) . PHP_EOL);
+print(SomeEnum::SomeCase->someMethod(3) . PHP_EOL);
+
 ```
 
-*Static methods* may be *public*, *private*, or *protected*, although in practice *private* and *protected* are equivalent as *inheritance* is not allowed.
+**Result (PHP 8.4)**:
 
--- [PHP Reference](https://www.php.net/manual/en/language.enumerations.static-methods.php)
-
-## Enumeration constants
-
-*Enumerations* may include *constants*, which may be *public*, *private*, or *protected*, although in practice *private* and *protected* are equivalent as *inheritance* is not allowed.
-
-An *enum constant* may refer to an *enum case*:
-
-```php
-<?php
-
-enum Size
-{
-    case Small;
-    case Medium;
-    case Large;
-
-    public const Huge = self::Large;
-}
-?>
+```
+none
+rabbit
+fox
+owl
 ```
 
--- [PHP Reference](https://www.php.net/manual/en/language.enumerations.constants.php)
+**Source code**:
+[Example](../../../example/code/enumerations/enum_iplementing_interface.php)
 
 ## Traits
 
