@@ -1,6 +1,6 @@
 [⌂ Home](../../../../../README.md)
 [▲ Previous: Arrays](../arrays/arrays.md)
-[▼ Next: Enumerations](../enumerations/enumerations.md)
+[▼ Next: Enumerations](../../../enumerations/enumerations.md)
 
 # Objects
 
@@ -1290,4 +1290,4 @@ Object from class to object: array(3) {
 [▵ Up](#objects)
 [⌂ Home](../../../../../README.md)
 [▲ Previous: Arrays](../arrays/arrays.md)
-[▼ Next: Enumerations](../enumerations/enumerations.md)
+[▼ Next: Enumerations](../../../enumerations/enumerations.md)

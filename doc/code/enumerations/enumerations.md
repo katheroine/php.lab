@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Objects](../objects/objects.md)
-[▼ Next: Functions](../../../functions/functions.md)
+[▲ Previous: Objects](../builtin_types/compound/objects/objects.md)
+[▼ Next: Functions](../functions/functions.md)
 
 # Enumerations
 
@@ -8,7 +8,7 @@
 
 PHP 8 >= 8.1.0
 
-## Basic enumerations
+## Description
 
 **Enumerations** are a restricting layer on top of *classes* and *class constants*, intended to provide a way to define a closed set of possible values for a type.
 
@@ -31,21 +31,60 @@ do_stuff(Suit::Spades);
 ?>
 ```
 
-## Casting
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.examples.php)
 
-If an *enum* is converted to an *object*, it is not modified. If an *enum* is converted to an array, an *array* with a single name *key* (for *pure enums*) or an *array* with both name and value *keys* (for *backed enums*) is created. All other cast types will result in an error.
+**Enumerations**, or *enums*, allow a developer to define a custom type that is limited to one of a discrete number of possible values. That can be especially helpful when defining a *domain model*, as it enables "making invalid states unrepresentable".
 
--- [PHP Reference](https://www.php.net/manual/en/language.types.enumerations.php)
-
-## Enumerations overview
-
-**Enumerations**, or *enums*, allow a developer to define a custom type that is limited to one of a discrete number of possible values. That can be especially helpful when defining a *domain model*, as it enables "making invalid states unrepresentable."
-
-*Enums* appear in many languages with a variety of different features. In PHP, *enums* are a special kind of object. The `Enum` itself is a class, and its possible cases are all single-instance objects of that class. That means *enum cases* are valid *objects* and may be used anywhere an object may be used, including type checks.
+*Enums* appear in many languages with a variety of different features. In PHP, *enums* are a special kind of *object*. The `Enum` itself is a *class*, and its possible *cases* are all *single-instance objects* of that *class*. That means *enum cases* are valid *objects* and may be used anywhere an *object* may be used, including *type* checks.
 
 The most popular example of *enumerations* is the built-in *boolean type*, which is an *enumerated type* with legal values `true` and `false`. *Enums* allows developers to define their own arbitrarily robust *enumerations*.
 
 -- [PHP Reference](www.php.net/manual/en/language.enumerations.overview.php)
+
+*Example: Enums*
+
+```php
+<?php
+
+enum SomeEnum
+{
+    case SomeCase;
+    case OtherCase;
+    case AnotherCase;
+}
+
+print("Information:\n");
+var_dump(SomeEnum::SomeCase);
+print('Type: ' . gettype(SomeEnum::SomeCase) . PHP_EOL . PHP_EOL);
+
+enum OtherEnum: string
+{
+    case SomeCase = 'some case';
+    case OtherCase = 'other case';
+    case AnotherCase = 'another case';
+}
+
+print("Information:\n");
+var_dump(OtherEnum::OtherCase);
+print('Type: ' . gettype(OtherEnum::OtherCase) . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Information:
+enum(SomeEnum::SomeCase)
+Type: object
+
+Information:
+enum(OtherEnum::OtherCase)
+Type: object
+
+```
+
+**Source code**:
+[Example](../../../example/code/enumerations/enum.php)
 
 ## Basic enumerations
 
@@ -91,7 +130,7 @@ An *enumeration* may have zero or more *case definitions*, with no maximum. A *z
 
 For *enumeration cases*, the same syntax rules apply as to any label in PHP.
 
-By default, *cases* are not intrinsically backed by a scalar value. That is, `Suit::Hearts` is not equal to `"0"`. Instead, each case is backed by a singleton object of that name. That means that:
+By default, *cases* are not intrinsically *backed* by a *scalar value*. That is, `Suit::Hearts` is not equal to `"0"`. Instead, each case is *backed* by a *singleton object* of that name. That means that:
 
 ```php
 <?php
@@ -109,7 +148,7 @@ It also means that *enum* values are never `<` or `>` each other, since those co
 
 This type of *case*, with no related data, is called a *pure case*. An *enum* that contains only *pure cases* is called a *pure enum*.
 
-All *pure cases* are implemented as *instances* of their *enum type*. The (enum type) is represented internally as a *class*.
+All *pure cases* are implemented as *instances* of their *enum type*. The (*enum type*) is represented internally as a *class*.
 
 All *cases* have a *read-only property*, *name*, that is the case-sensitive name of the *case* itself.
 
@@ -124,6 +163,42 @@ print Suit::Spades->name;
 It is also possible to use the `defined()` and `constant()` functions to check for the existence of or read an *enum case* if the name is obtained dynamically. This is, however, discouraged as using *backed enums* should work for most *use cases*.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.basics.php)
+
+*Example: Basic enums*
+
+```php
+<?php
+
+enum SomeEnum
+{
+    case SomeCase;
+    case OtherCase;
+    case AnotherCase;
+}
+
+print("Information:\n");
+var_dump(SomeEnum::SomeCase);
+print('Type: ' . gettype(SomeEnum::SomeCase) . PHP_EOL);
+print('Class: ' . get_class(SomeEnum::SomeCase) . PHP_EOL . PHP_EOL);
+
+print('Enum name property: ' . SomeEnum::SomeCase->name . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Information:
+enum(SomeEnum::SomeCase)
+Type: object
+Class: SomeEnum
+
+Enum name property: SomeCase
+
+```
+
+**Source code**:
+[Example](../../../example/code/enumerations/basic_enums.php)
 
 ## Backed enumerations
 
@@ -146,7 +221,7 @@ enum Suit: string
 
 A *case* that has a *scalar equivalent* is called a *backed case*, as it is "backed" by a simpler value. An *enum* that contains all *backed cases* is called a *backed enum*. A *backed enum* may contain only *backed cases*. A *pure enum* may contain only *pure cases*.
 
-A *backed enum* may be backed by *types* of `int` or `string`, and a given *enumeration* supports only a *single type* at a time (that is, no *union of `int|string`*). If an *enumeration* is marked as having a *scalar equivalent*, then all cases must have a *unique scalar equivalent* defined explicitly. There are no *auto-generated scalar equivalents* (e.g., *sequential integers*). *Backed cases* must be *unique*; two *backed enum cases* may not have the same *scalar equivalent*. However, a *constant* may refer to a *case*, effectively creating an *alias*.
+A *backed enum* may be backed by *types* of `int` or `string`, and a given *enumeration* supports only a *single type* at a time (that is, no *union of `int|string`*). If an *enumeration* is marked as having a *scalar equivalent*, then all *cases* must have a *unique scalar equivalent* defined explicitly. There are no *auto-generated scalar equivalents* (e.g., *sequential integers*). *Backed cases* must be *unique*; two *backed enum cases* may not have the same *scalar equivalent*. However, a *constant* may refer to a *case*, effectively creating an *alias*.
 
 The *equivalent values* may be a *constant scalar expression*. Prior to PHP 8.2.0, the *equivalent values* had to be *literals* or *literal expressions*. This means that *constants* and *constant expressions* were not supported. That is, `1 + 1` was allowed, but `1 + SOME_CONST` was not.
 
@@ -173,7 +248,7 @@ $ref = &$suit->value;
 
 *Backed enums* implement an internal `BackedEnum` *interface*, which exposes two additional methods:
 
-* `from(int|string): self` will take a *scalar* and return the corresponding *enum case*. If one is not found, it will throw a `ValueError`. This is mainly useful in cases where the *input scalar* is trusted and a missing *enum value* should be considered an application-stopping error.
+* `from(int|string): self` will take a *scalar* and return the corresponding *enum case*. If one is not found, it will throw a `ValueError`. This is mainly useful in *cases* where the *input scalar* is trusted and a missing *enum value* should be considered an application-stopping error.
 
 * `tryFrom(int|string): ?self` will take a *scalar* and return the corresponding *enum case*. If one is not found, it will return `null`. This is mainly useful in cases where the *input scalar* is untrusted and the caller wants to implement their own *error handling* or default-value logic.
 
@@ -198,6 +273,87 @@ print $suit->value;
 Manually defining a `from()` or `tryFrom()` method on a Backed Enum will result in a fatal error.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.backed.php)
+
+*Example: Backed enums*
+
+```php
+<?php
+
+enum SomeBackedEnum: string
+{
+    case SomeCase = 'some case';
+    case OtherCase = 'other case';
+    case AnotherCase = 'another case';
+}
+
+print("Information:\n");
+var_dump(SomeBackedEnum::SomeCase);
+print('Type: ' . gettype(SomeBackedEnum::SomeCase) . PHP_EOL . PHP_EOL);
+
+print('Enum case name property: ' . SomeBackedEnum::SomeCase->name . PHP_EOL);
+print('Enum case value: ' . SomeBackedEnum::SomeCase->value . PHP_EOL);
+print('Enum case from value: ');
+var_export(SomeBackedEnum::SomeCase->from('some case'));
+print(PHP_EOL);
+print('Enum case from right value: ');
+var_export(SomeBackedEnum::SomeCase->tryFrom('some case'));
+print(PHP_EOL);
+print('Enum case try from wrong value: ');
+var_export(SomeBackedEnum::SomeCase->tryFrom('wrong case'));
+print(PHP_EOL . PHP_EOL);
+
+enum OtherBackedEnum: int
+{
+    case SomeCase = 10;
+    case OtherCase = 20;
+    case AnotherCase = 30;
+}
+
+print("Information:\n");
+var_dump(OtherBackedEnum::OtherCase);
+print('Type: ' . gettype(OtherBackedEnum::OtherCase) . PHP_EOL . PHP_EOL);
+
+print('Enum case name property: ' . OtherBackedEnum::OtherCase->name . PHP_EOL);
+print('Enum case value: ' . OtherBackedEnum::OtherCase->value . PHP_EOL);
+print('Enum case from value: ');
+var_export(OtherBackedEnum::OtherCase->from(20));
+print(PHP_EOL);
+print('Enum case try right from right value: ');
+var_export(OtherBackedEnum::OtherCase->tryFrom(20));
+print(PHP_EOL);
+print('Enum case try right wrong right value: ');
+var_export(OtherBackedEnum::OtherCase->tryFrom(40));
+print(PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Information:
+enum(SomeBackedEnum::SomeCase)
+Type: object
+
+Enum case name property: SomeCase
+Enum case value: some case
+Enum case from value: \SomeBackedEnum::SomeCase
+Enum case from right value: \SomeBackedEnum::SomeCase
+Enum case try from wrong value: NULL
+
+Information:
+enum(OtherBackedEnum::OtherCase)
+Type: object
+
+Enum case name property: OtherCase
+Enum case value: 20
+Enum case from value: \OtherBackedEnum::OtherCase
+Enum case try right from right value: \OtherBackedEnum::OtherCase
+Enum case try right wrong right value: NULL
+
+```
+
+**Source code**:
+[Example](../../../example/code/enumerations/backed_enums.php)
 
 ## Enumeration methods
 
@@ -710,117 +866,13 @@ foreach (UserStatus::cases() as $case) {
 
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.examples.php)
 
-## Examples
+## Casting
 
-*Example: Basic usage*
+If an *enum* is converted to an *object*, it is not modified. If an *enum* is converted to an array, an *array* with a single name *key* (for *pure enums*) or an *array* with both name and value *keys* (for *backed enums*) is created. All other cast types will result in an error.
 
-```php
-<?php
-
-enum status
-{
-  case draft;
-  case pending;
-  case published;
-  case soft_deleted;
-  case restored;
-  case deleted;
-  case testing;
-  case revising;
-  case accepted;
-}
-
-print("status draft: ");
-print_r(status::draft);
-print("status pending: ");
-print_r(status::pending);
-print("status published: ");
-print_r(status::published);
-print("status soft_deleted: ");
-print_r(status::soft_deleted);
-print("status restored: ");
-print_r(status::restored);
-print("status deleted: ");
-print_r(status::deleted);
-print("status testing: ");
-print_r(status::testing);
-print("status revising: ");
-print_r(status::revising);
-print("status accepted: ");
-print_r(status::accepted);
-
-print("\n");
-
-$post_status = status::published;
-print("post_status: ");
-print_r($post_status);
-$post_status = status::testing;
-print("post_status: ");
-print_r($post_status);
-
-print("\n");
-
-```
-
-**View**:
-[Example](../../../../../example/code/builtin_types/compound/enums/enum.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-status draft: status Enum
-(
-    [name] => draft
-)
-status pending: status Enum
-(
-    [name] => pending
-)
-status published: status Enum
-(
-    [name] => published
-)
-status soft_deleted: status Enum
-(
-    [name] => soft_deleted
-)
-status restored: status Enum
-(
-    [name] => restored
-)
-status deleted: status Enum
-(
-    [name] => deleted
-)
-status testing: status Enum
-(
-    [name] => testing
-)
-status revising: status Enum
-(
-    [name] => revising
-)
-status accepted: status Enum
-(
-    [name] => accepted
-)
-
-post_status: status Enum
-(
-    [name] => published
-)
-post_status: status Enum
-(
-    [name] => testing
-)
-
-```
+-- [PHP Reference](https://www.php.net/manual/en/language.types.enumerations.php)
 
 [▵ Up](#enumerations)
 [⌂ Home](../../../README.md)
-[▲ Previous: Objects](../objects/objects.md)
-[▼ Next: Functions](../../../functions/functions.md)
+[▲ Previous: Objects](../builtin_types/compound/objects/objects.md)
+[▼ Next: Functions](../functions/functions.md)

@@ -1,5 +1,5 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Enumerations](../builtin_types/compound/enumerations/enumerations.md)
+[▲ Previous: Enumerations](../enumerations/enumerations.md)
 [▼ Next: Anonymous functions](./anonymous_functions.md)
 
 # Functions
@@ -1239,5 +1239,5 @@ result: OUT
 
 [▵ Up](#functions)
 [⌂ Home](../../../README.md)
-[▲ Previous: Enumerations](../builtin_types/compound/enumerations/enumerations.md)
+[▲ Previous: Enumerations](../enumerations/enumerations.md)
 [▼ Next: Anonymous functions](./anonymous_functions.md)
