@@ -355,6 +355,55 @@ Enum case try right wrong right value: NULL
 **Source code**:
 [Example](../../../example/code/enumerations/backed_enums.php)
 
+## Enumeration constants
+
+*Enumerations* may include *constants*, which may be *public*, *private*, or *protected*, although in practice *private* and *protected* are equivalent as *inheritance* is not allowed.
+
+An *enum constant* may refer to an *enum case*:
+
+```php
+<?php
+
+enum Size
+{
+    case Small;
+    case Medium;
+    case Large;
+
+    public const Huge = self::Large;
+}
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.constants.php)
+
+*Example: Enum constants*
+
+```php
+<?php
+
+enum SomeEnum
+{
+    case SomeCase;
+    case OtherCase;
+    case AnotherCase;
+
+    const int CASES_NUMBER = 3;
+}
+
+var_dump(SomeEnum::SomeCase::CASES_NUMBER);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+int(3)
+```
+
+**Source code**:
+[Example](../../../example/code/enumerations/enum_constants.php)
+
 ## Enumeration methods
 
 *Enums* (both *pure enums* and *backed enums*) may contain *methods*, and may *implement* *interfaces*. If an *enum* *implements* an *interface*, then any *type check* for that *interface* will also accept all *cases* of that *enum*.
@@ -445,27 +494,50 @@ enum Size
 
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.static-methods.php)
 
-## Enumeration constants
-
-*Enumerations* may include *constants*, which may be *public*, *private*, or *protected*, although in practice *private* and *protected* are equivalent as *inheritance* is not allowed.
-
-An *enum constant* may refer to an *enum case*:
+*Example: Enum static methods*
 
 ```php
 <?php
 
-enum Size
+enum SomeEnum: string
 {
-    case Small;
-    case Medium;
-    case Large;
+    case SomeCase = 'rabbit';
+    case OtherCase = 'fox';
+    case AnotherCase = 'owl';
 
-    public const Huge = self::Large;
+    public static function someMethod()
+    {
+        return self::otherMethod();
+    }
+
+    protected static function otherMethod()
+    {
+        return self::anotherMethod();
+    }
+
+    private static function anotherMethod()
+    {
+        return self::OtherCase->value;
+    }
 }
-?>
+
+var_dump(SomeEnum::SomeCase);
+
+$result = SomeEnum::SomeCase::someMethod();
+
+var_dump($result);
+
 ```
 
--- [PHP Reference](https://www.php.net/manual/en/language.enumerations.constants.php)
+**Result (PHP 8.4)**:
+
+```
+enum(SomeEnum::SomeCase)
+string(3) "fox"
+```
+
+**Source code**:
+[Example](../../../example/code/enumerations/enum_static_methods.php)
 
 ## Interfaces
 
