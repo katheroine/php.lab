@@ -320,6 +320,8 @@ Laboratory of PHP.
         7. [Enum static methods](./example/code/enumerations/enum_static_methods.php)
         8. [Enum implementing interface](./example/code/enumerations/enum_iplementing_interface.php)
         9. [Enum using trait](./example/code/enumerations/enum_using_trait.php)
+        10. [Enum case as constant value](./example/code/enumerations/enum_case_as_constant_value.php)
+        11. [Enum case in constant expression](./example/code/enumerations/enum_case_in_constant_expression.php)
     7. [Functions](./example/code/functions/)
         1. [Functions](./example/code/functions/functions.php)
         2. [Functions formatting](./example/code/functions/functions_formatting.php)

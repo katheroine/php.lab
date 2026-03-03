@@ -1015,6 +1015,125 @@ $foo = new Foo();
 
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.expressions.php)
 
+*Example: Enum case as constant value*
+
+```php
+<?php
+
+enum SomeEnum: string
+{
+    case SomeCase = 'rabbit';
+    case OtherCase = 'fox';
+    case AnotherCase = 'owl';
+}
+
+const SOME_CONSTANT = SomeEnum::SomeCase;
+
+print(SOME_CONSTANT->value . PHP_EOL);
+
+function someFunction(SomeEnum $someParameter)
+{
+    print($someParameter->value . PHP_EOL);
+}
+
+someFunction(SomeEnum::OtherCase);
+
+class SomeClass
+{
+    const SomeEnum SOME_CONSTANT = SomeEnum::SomeCase;
+    public SomeEnum $someProperty = SomeEnum::OtherCase;
+    private SomeEnum $otherProperty;
+
+    public function someMethod(SomeEnum $someParameter)
+    {
+        $this->otherProperty = $someParameter;
+
+        print(self::SOME_CONSTANT->value . PHP_EOL
+            . $this->someProperty->value . PHP_EOL
+            . $this->otherProperty->value . PHP_EOL);
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->someProperty = SomeEnum::OtherCase;
+$someObject->someMethod(SomeEnum::AnotherCase);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+rabbit
+fox
+rabbit
+fox
+owl
+```
+
+**Source code**:
+[Example](../../../example/code/enumerations/enum_case_as_constant_value.php)
+
+*Example: Enum case in constant expression*
+
+```php
+<?php
+
+enum SomeEnum: string
+{
+    case SomeCase = 'rabbit';
+    case OtherCase = 'fox';
+    case AnotherCase = 'owl';
+}
+
+global $someVariable;
+$someVariable = SomeEnum::SomeCase;
+
+print($someVariable->value . PHP_EOL);
+
+function someFunction(SomeEnum $someParameter = SomeEnum::OtherCase)
+{
+    print($someParameter->value . PHP_EOL);
+}
+
+someFunction();
+
+class SomeClass
+{
+    const SomeEnum SOME_CONSTANT = SomeEnum::SomeCase;
+    public SomeEnum $someProperty = SomeEnum::OtherCase;
+    public static SomeEnum $otherProperty = SomeEnum::AnotherCase;
+    private SomeEnum $anotherProperty;
+
+    public function someMethod(SomeEnum $someParameter = SomeEnum::AnotherCase)
+    {
+        $this->anotherProperty = $someParameter;
+
+        print(self::SOME_CONSTANT->value . PHP_EOL
+            . $this->someProperty->value . PHP_EOL
+            . self::$otherProperty->value . PHP_EOL
+            . $this->anotherProperty->value . PHP_EOL);
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+rabbit
+fox
+rabbit
+fox
+owl
+owl
+```
+
+**Source code**:
+[Example](../../../example/code/enumerations/enum_case_in_constant_expression.php)
+
 ## Differences from objects
 
 Although *enums* are built on *classes* and *objects*, they do not support all object-related functionality. In particular, *enum cases* are forbidden from having *state*.
