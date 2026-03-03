@@ -86,6 +86,168 @@ Type: object
 **Source code**:
 [Example](../../../example/code/enumerations/enum.php)
 
+## Usage
+
+*Example: Basic limited values*
+
+```php
+<?php
+
+enum SortOrder
+{
+    case Asc;
+    case Desc;
+}
+
+function query($fields, $filter, SortOrder $order = SortOrder::Asc)
+{
+     /* ... */
+}
+?>
+```
+
+The `query()` function can now proceed safe in the knowledge that `$order` is guaranteed to be either `SortOrder::Asc` or `SortOrder::Desc`. Any other value would have resulted in a `TypeError`, so no further error checking or testing is needed.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.examples.php)
+
+*Example: Constant set of states use case*
+
+```php
+<?php
+
+enum Status
+{
+    case Draft;
+    case Pending;
+    case Published;
+    case SoftDeleted;
+    case Restored;
+    case Deleted;
+    case Revising;
+    case Accepted;
+}
+
+$postStatus = Status::Published;
+print("Post status: ");
+print_r($postStatus);
+$postStatus = Status::Revising;
+print("Post status: ");
+print_r($postStatus);
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Post status: Status Enum
+(
+    [name] => Published
+)
+Post status: Status Enum
+(
+    [name] => Revising
+)
+
+```
+
+**Source code**:
+[Example](../../../example/code/enumerations/use_cases/enum_use_case_constant_set_of_states.php)
+
+*Example: Advanced exclusive values*
+
+```php
+<?php
+
+enum UserStatus: string
+{
+    case Pending = 'P';
+    case Active = 'A';
+    case Suspended = 'S';
+    case CanceledByUser = 'C';
+
+    public function label(): string
+    {
+        return match($this) {
+            self::Pending => 'Pending',
+            self::Active => 'Active',
+            self::Suspended => 'Suspended',
+            self::CanceledByUser => 'Canceled by user',
+        };
+    }
+}
+?>
+```
+
+In this example, a user's status may be one of, and exclusively, `UserStatus::Pending`, `UserStatus::Active`, `UserStatus::Suspended`, or `UserStatus::CanceledByUser`. A function can type a parameter against UserStatus and then only accept those four values, period.
+
+All four values have a `label()` method, which returns a human-readable *string*. That *string* is independent of the "machine name" scalar equivalent *string*, which can be used in, for example, a database field or an HTML select box.
+
+```php
+<?php
+
+foreach (UserStatus::cases() as $case) {
+    printf('<option value="%s">%s</option>\n', $case->value, $case->label());
+}
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.examples.php)
+
+*Example: Set of options in the contract*
+
+```php
+<?php
+
+enum Role: string
+{
+    case BackendDeveloper = 'backend developer';
+    case FrontendDeveloper = 'frontend developer';
+    case AutomaticTester = 'automatic tester';
+    case DevOpsEngineer = 'devops engineer';
+
+    public function getLabel(): string
+    {
+        return $this->value;
+    }
+}
+
+class Employee
+{
+    public function __construct(
+        private string $name,
+        private string $surname,
+        private Role $role,
+    ) {
+    }
+
+    public function getDescription(): string
+    {
+        return "Name: {$this->name}\n"
+            . "Surname: {$this->surname}\n"
+            . 'Role: ' . $this->role->getLabel();
+    }
+}
+
+$employee = new Employee('Giuseppe', 'Gandolfini', Role::FrontendDeveloper);
+
+print("Employee of the year:\n" . $employee->getDescription() . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Employee of the year:
+Name: Giuseppe
+Surname: Gandolfini
+Role: frontend developer
+```
+
+**Source code**:
+[Example](../../../example/code/enumerations/use_cases/enum_use_case_set_of_options_in_the_contract.php)
+
 ## Basic enumerations
 
 *Enums* are similar to *classes*, and share the same *namespaces* as *classes*, *interfaces*, and *traits*. They are also *autoloadable* the same way. An *enum* defines a new *type*, which has a fixed, limited number of possible legal values.
@@ -907,7 +1069,7 @@ Manually defining a `cases()` method on an *enum* will result in a fatal error.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.listing.php)
 
-## Serialization
+## Enumration serialization
 
 *Enumerations* are *serialized* differently from *objects*. Specifically, they have a new *serialization code*, `"E"`, that specifies the name of the *enum case*. The *deserialization* routine is then able to use that to set a *variable* to the existing *singleton value*. That ensures that:
 
@@ -956,7 +1118,7 @@ Baz Enum:int {
 
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.serialization.php)
 
-## Why enums aren't extendable
+## Enumeration unextendability
 
 Classes have *contracts* on their *methods*:
 
@@ -1025,68 +1187,6 @@ The problem would be that the *`match` statement* in `quux()` no longer covers a
 Because of this *enums* are *final* and can't be *extended*.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.object-differences.inheritance.php)
-
-## Examples
-
-*Example: Basic limited values*
-
-```php
-<?php
-
-enum SortOrder
-{
-    case Asc;
-    case Desc;
-}
-
-function query($fields, $filter, SortOrder $order = SortOrder::Asc)
-{
-     /* ... */
-}
-?>
-```
-
-The `query()` function can now proceed safe in the knowledge that `$order` is guaranteed to be either `SortOrder::Asc` or `SortOrder::Desc`. Any other value would have resulted in a `TypeError`, so no further error checking or testing is needed.
-
-*Example: Advanced exclusive values*
-
-```php
-<?php
-
-enum UserStatus: string
-{
-    case Pending = 'P';
-    case Active = 'A';
-    case Suspended = 'S';
-    case CanceledByUser = 'C';
-
-    public function label(): string
-    {
-        return match($this) {
-            self::Pending => 'Pending',
-            self::Active => 'Active',
-            self::Suspended => 'Suspended',
-            self::CanceledByUser => 'Canceled by user',
-        };
-    }
-}
-?>
-```
-
-In this example, a user's status may be one of, and exclusively, `UserStatus::Pending`, `UserStatus::Active`, `UserStatus::Suspended`, or `UserStatus::CanceledByUser`. A function can type a parameter against UserStatus and then only accept those four values, period.
-
-All four values have a `label()` method, which returns a human-readable *string*. That *string* is independent of the "machine name" scalar equivalent *string*, which can be used in, for example, a database field or an HTML select box.
-
-```php
-<?php
-
-foreach (UserStatus::cases() as $case) {
-    printf('<option value="%s">%s</option>\n', $case->value, $case->label());
-}
-?>
-```
-
--- [PHP Reference](https://www.php.net/manual/en/language.enumerations.examples.php)
 
 ## Casting
 
