@@ -182,6 +182,29 @@ Functions need not be defined before they are referenced, except when a function
 
 -- [PHP Reference](https://www.php.net/manual/en/functions.user-defined.php)
 
+*Example: Function call before definition*
+
+```php
+<?php
+
+someFunction();
+
+function someFunction()
+{
+    print("Some function\n");
+}
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some function
+```
+
+**Source code**:
+[Example](../../../example/code/functions/function_call_before_definition.php)
+
 When a function is defined in a conditional manner such as the two examples shown. Its definition must be processed prior to being called.
 
 *Example: Conditional functions*
@@ -217,11 +240,67 @@ function bar()
 ?>
 ```
 
+**Result (PHP 8.4)**:
+
+```
+Some function
+```
+
+**Source code**:
+[Example](../../../example/code/functions/function_conditional_call_after_conditional_definition.php)
+
+*Example: Function conditional call after conditional definition*
+
+```php
+<?php
+
+$decision = true;
+
+if ($decision) {
+    function someFunction()
+    {
+        print("Some function\n");
+    }
+}
+
+if ($decision) {
+    someFunction();
+}
+
+```
+
 All functions and classes in PHP have the *global scope* - they can be called outside a function even if they were defined inside and vice versa.
+
+*Example: Function global scope*
+
+```php
+<?php
+
+function someFunction()
+{
+    function otherFunction()
+    {
+        print("It works!\n");
+    }
+}
+
+someFunction(); // for creating the definition
+otherFunction();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+It works!
+```
+
+**Source code**:
+[Example](../../../example/code/functions/function_global_scope.php)
 
 PHP does not support *function overloading*, nor is it possible to *undefine* or *redefine* previously-declared functions.
 
-Note: *Function names are case-insensitive* for the ASCII characters `A` to `Z`, though it is usually good form to call functions as they appear in their declaration.
+Note: *Function names are case-insensitive* for the ASCII characters `A` to `Z`, though it is usually good form to call *functions* as they appear in their *declaration*.
 
 Both variable number of *arguments* and *default arguments* are supported in functions. See also the function references for `func_num_args()`, `func_get_arg()`, and `func_get_args()` for more information.
 
