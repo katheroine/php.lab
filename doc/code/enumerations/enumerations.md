@@ -517,6 +517,58 @@ Enum case try right wrong right value: NULL
 **Source code**:
 [Example](../../../example/code/enumerations/backed_enums.php)
 
+## Enumeration case values listing
+
+Both *pure enums* and *backed enums* implement an *internal interface* named `UnitEnum`. `UnitEnum` includes a *static method* `cases()`. `cases()` returns a *packed array* of all defined *cases* in the order of *declaration*.
+
+```php
+<?php
+
+Suit::cases();
+// Produces: [Suit::Hearts, Suit::Diamonds, Suit::Clubs, Suit::Spades]
+?>
+```
+
+Manually defining a `cases()` method on an *enum* will result in a fatal error.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.listing.php)
+
+*Example: Enum case values listing*
+
+```php
+<?php
+
+enum SomeEnum: string
+{
+    case SomeCase = 'some case';
+    case OtherCase = 'other case';
+    case AnotherCase = 'another case';
+}
+
+foreach (SomeEnum::SomeCase->cases() as $case) {
+    var_dump($case);
+    print($case->value . PHP_EOL. PHP_EOL);
+}
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+enum(SomeEnum::SomeCase)
+some case
+
+enum(SomeEnum::OtherCase)
+other case
+
+enum(SomeEnum::AnotherCase)
+another case
+
+```
+
+**Source code**:
+[Example](../../../example/code/enumerations/enum_case_values_listing.php)
+
 ## Enumeration constants
 
 *Enumerations* may include *constants*, which may be *public*, *private*, or *protected*, although in practice *private* and *protected* are equivalent as *inheritance* is not allowed.
@@ -1134,60 +1186,6 @@ owl
 **Source code**:
 [Example](../../../example/code/enumerations/enum_case_in_constant_expression.php)
 
-## Differences from objects
-
-Although *enums* are built on *classes* and *objects*, they do not support all object-related functionality. In particular, *enum cases* are forbidden from having *state*.
-
-* *Constructors* and *destructors* are forbidden.
-* *Inheritance* is not supported. *Enums* may not *extend* or be *extended*.
-* *Static* or *object properties* are not allowed.
-* *Cloning* an *enum case* is not supported, as *cases* must be *singleton instances*.
-* *Magic methods*, except for those listed below, are disallowed.
-* *Enums* must always be declared before they are used.
-
-The following *object* functionality is available, and behaves just as it does on any other *object*:
-
-* *Public*, *private*, and *protected methods*.
-* *Public*, *private*, and *protected static methods*.
-* *Public*, *private*, and *protected constants*.
-* *Enums* may *implement* any number of *interfaces*.
-* *Enums* and *cases* may have *attributes* attached to them. The `TARGET_CLASS` target filter includes *enums* themselves. The *TARGET_CLASS_CONST* target filter includes *enum cases*.
-* `__call`, `__callStatic`, and `__invoke` *magic methods*.
-* `__CLASS__` and `__FUNCTION__` *constants* behave as normal.
-
-The `::class` *magic constant* on an *enum type* evaluates to the *type* name including any *namespace*, exactly the same as an *object*. The `::class` *magic constant* on a `case` instance also evaluates to the *enum type*, as it is an *instance* of that *type*.
-
-Additionally, *enum cases* may not be *instantiated* directly with `new`, nor with `ReflectionClass::newInstanceWithoutConstructor()` in *reflection*. Both will result in an error.
-
-```php
-<?php
-
-$clovers = new Suit();
-// Error: Cannot instantiate enum Suit
-
-$horseshoes = (new ReflectionClass(Suit::class))->newInstanceWithoutConstructor()
-// Error: Cannot instantiate enum Suit
-?>
-```
-
--- [PHP Reference](https://www.php.net/manual/en/language.enumerations.object-differences.php)
-
-## Value listing
-
-Both *pure enums* and *backed enums* implement an *internal interface* named `UnitEnum`. `UnitEnum` includes a *static method* `cases()`. `cases()` returns a *packed array* of all defined *cases* in the order of *declaration*.
-
-```php
-<?php
-
-Suit::cases();
-// Produces: [Suit::Hearts, Suit::Diamonds, Suit::Clubs, Suit::Spades]
-?>
-```
-
-Manually defining a `cases()` method on an *enum* will result in a fatal error.
-
--- [PHP Reference](https://www.php.net/manual/en/language.enumerations.listing.php)
-
 ## Enumration serialization
 
 *Enumerations* are *serialized* differently from *objects*. Specifically, they have a new *serialization code*, `"E"`, that specifies the name of the *enum case*. The *deserialization* routine is then able to use that to set a *variable* to the existing *singleton value*. That ensures that:
@@ -1236,6 +1234,44 @@ Baz Enum:int {
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.serialization.php)
+
+## Differences from objects
+
+Although *enums* are built on *classes* and *objects*, they do not support all object-related functionality. In particular, *enum cases* are forbidden from having *state*.
+
+* *Constructors* and *destructors* are forbidden.
+* *Inheritance* is not supported. *Enums* may not *extend* or be *extended*.
+* *Static* or *object properties* are not allowed.
+* *Cloning* an *enum case* is not supported, as *cases* must be *singleton instances*.
+* *Magic methods*, except for those listed below, are disallowed.
+* *Enums* must always be declared before they are used.
+
+The following *object* functionality is available, and behaves just as it does on any other *object*:
+
+* *Public*, *private*, and *protected methods*.
+* *Public*, *private*, and *protected static methods*.
+* *Public*, *private*, and *protected constants*.
+* *Enums* may *implement* any number of *interfaces*.
+* *Enums* and *cases* may have *attributes* attached to them. The `TARGET_CLASS` target filter includes *enums* themselves. The *TARGET_CLASS_CONST* target filter includes *enum cases*.
+* `__call`, `__callStatic`, and `__invoke` *magic methods*.
+* `__CLASS__` and `__FUNCTION__` *constants* behave as normal.
+
+The `::class` *magic constant* on an *enum type* evaluates to the *type* name including any *namespace*, exactly the same as an *object*. The `::class` *magic constant* on a `case` instance also evaluates to the *enum type*, as it is an *instance* of that *type*.
+
+Additionally, *enum cases* may not be *instantiated* directly with `new`, nor with `ReflectionClass::newInstanceWithoutConstructor()` in *reflection*. Both will result in an error.
+
+```php
+<?php
+
+$clovers = new Suit();
+// Error: Cannot instantiate enum Suit
+
+$horseshoes = (new ReflectionClass(Suit::class))->newInstanceWithoutConstructor()
+// Error: Cannot instantiate enum Suit
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.enumerations.object-differences.php)
 
 ## Enumeration unextendability
 
@@ -1307,11 +1343,70 @@ Because of this *enums* are *final* and can't be *extended*.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.object-differences.inheritance.php)
 
-## Casting
+## Casting from `enum`
 
 If an *enum* is converted to an *object*, it is not modified. If an *enum* is converted to an *array*, an *array* with a single name *key* (for *pure enums*) or an *array* with both name and value *keys* (for *backed enums*) is created. All other cast types will result in an error.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.enumerations.php)
+
+*Example: Casting from enum case*
+
+```php
+<?php
+
+enum SomeEnum
+{
+    case SomeCase;
+    case OtherCase;
+    case AnotherCase;
+}
+
+enum SomeBackedEnum: string
+{
+    case SomeCase = 'some case';
+    case OtherCase = 'other case';
+    case AnotherCase = 'another case';
+}
+
+$pureEnumCaseToArray = (array) SomeEnum::SomeCase;
+print("Pure enum case to array: ");
+var_dump($pureEnumCaseToArray);
+$backedEnumCaseToArray = (array) SomeBackedEnum::OtherCase;
+print("Backed enum case to array: ");
+var_dump($backedEnumCaseToArray);
+print(PHP_EOL);
+
+$pureEnumCaseToObject = (object) SomeEnum::SomeCase;
+print("Pure enum case to object: ");
+var_dump($pureEnumCaseToObject);
+$backedEnumCaseToObject = (object) SomeBackedEnum::OtherCase;
+print("Backed enum case to object: ");
+var_dump($backedEnumCaseToObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Pure enum case to array: array(1) {
+  ["name"]=>
+  string(8) "SomeCase"
+}
+Backed enum case to array: array(2) {
+  ["name"]=>
+  string(9) "OtherCase"
+  ["value"]=>
+  string(10) "other case"
+}
+
+Pure enum case to object: enum(SomeEnum::SomeCase)
+Backed enum case to object: enum(SomeBackedEnum::OtherCase)
+
+```
+
+**Source code**:
+[Example](../../../example/code/enumerations/casting_from_enum_case.php)
 
 [▵ Up](#enumerations)
 [⌂ Home](../../../README.md)
