@@ -1,44 +1,41 @@
 <?php
 
-enum status
+enum Status
 {
-  case draft;
-  case pending;
-  case published;
-  case soft_deleted;
-  case restored;
-  case deleted;
-  case testing;
-  case revising;
-  case accepted;
+    case Draft;
+    case Pending;
+    case Published;
+    case SoftDeleted;
+    case Restored;
+    case Deleted;
+    case Revising;
+    case Accepted;
 }
 
-print("status draft: ");
-print_r(status::draft);
-print("status pending: ");
-print_r(status::pending);
-print("status published: ");
-print_r(status::published);
-print("status soft_deleted: ");
-print_r(status::soft_deleted);
-print("status restored: ");
-print_r(status::restored);
-print("status deleted: ");
-print_r(status::deleted);
-print("status testing: ");
-print_r(status::testing);
-print("status revising: ");
-print_r(status::revising);
-print("status accepted: ");
-print_r(status::accepted);
+print("Status Draft: ");
+print_r(Status::Draft);
+print("Status Pending: ");
+print_r(Status::Pending);
+print("Status Published: ");
+print_r(Status::Published);
+print("Status Soft Deleted: ");
+print_r(Status::SoftDeleted);
+print("Status Restored: ");
+print_r(Status::Restored);
+print("Status Deleted: ");
+print_r(Status::Deleted);
+print("Status Revising: ");
+print_r(Status::Revising);
+print("Status Accepted: ");
+print_r(Status::Accepted);
 
-print("\n");
+print(PHP_EOL);
 
-$post_status = status::published;
-print("post_status: ");
-print_r($post_status);
-$post_status = status::testing;
-print("post_status: ");
-print_r($post_status);
+$postStatus = Status::Published;
+print("Post status: ");
+print_r($postStatus);
+$postStatus = Status::Revising;
+print("Post status: ");
+print_r($postStatus);
 
-print("\n");
+print(PHP_EOL);

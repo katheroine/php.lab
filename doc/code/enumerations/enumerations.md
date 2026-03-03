@@ -760,6 +760,43 @@ enum Suit implements Colorful
 
 -- [PHP Reference](https://www.php.net/manual/en/language.enumerations.traits.php)
 
+*Example: Enum using trait*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public static function someMethod()
+    {
+        return self::OtherCase->value;
+    }
+}
+
+enum SomeEnum: string
+{
+    use SomeTrait;
+
+    case SomeCase = 'rabbit';
+    case OtherCase = 'fox';
+    case AnotherCase = 'owl';
+}
+
+$result = SomeEnum::SomeCase::someMethod();
+
+var_dump($result);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+string(3) "fox"
+```
+
+**Source code**:
+[Example](../../../example/code/enumerations/enum_using_trait.php)
+
 ## Enum values in constant expressions
 
 Because *cases* are represented as *constants* on the *enum* itself, they may be used as *static values* in most *constant expressions*: *property defaults*, *static variable defaults*, *parameter defaults*, *global* and *class constant values*. They may not be used in other *enum case values*, but normal *constants* may refer to an *enum case*.
@@ -1038,7 +1075,7 @@ enum UserStatus: string
 
 In this example, a user's status may be one of, and exclusively, `UserStatus::Pending`, `UserStatus::Active`, `UserStatus::Suspended`, or `UserStatus::CanceledByUser`. A function can type a parameter against UserStatus and then only accept those four values, period.
 
-All four values have a `label()` method, which returns a human-readable string. That string is independent of the "machine name" scalar equivalent string, which can be used in, for example, a database field or an HTML select box.
+All four values have a `label()` method, which returns a human-readable *string*. That *string* is independent of the "machine name" scalar equivalent *string*, which can be used in, for example, a database field or an HTML select box.
 
 ```php
 <?php
@@ -1053,7 +1090,7 @@ foreach (UserStatus::cases() as $case) {
 
 ## Casting
 
-If an *enum* is converted to an *object*, it is not modified. If an *enum* is converted to an array, an *array* with a single name *key* (for *pure enums*) or an *array* with both name and value *keys* (for *backed enums*) is created. All other cast types will result in an error.
+If an *enum* is converted to an *object*, it is not modified. If an *enum* is converted to an *array*, an *array* with a single name *key* (for *pure enums*) or an *array* with both name and value *keys* (for *backed enums*) is created. All other cast types will result in an error.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.types.enumerations.php)
 
