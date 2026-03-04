@@ -1,6 +1,6 @@
 <?php
 
-function function_with_static_variable(): void
+function functionWithStaticVariable(): void
 {
   $i = 0;
   static $n = 0;
@@ -13,13 +13,13 @@ function function_with_static_variable(): void
 }
 
 print("Function first call:\n");
-function_with_static_variable();
-print("\n");
+functionWithStaticVariable();
+print(PHP_EOL);
 
 print("Function second call:\n");
-function_with_static_variable();
-print("\n");
+functionWithStaticVariable();
+print(PHP_EOL);
 
 print("Function third call:\n");
-function_with_static_variable();
-print("\n");
+functionWithStaticVariable();
+print(PHP_EOL);

@@ -304,6 +304,46 @@ Note: *Function names are case-insensitive* for the ASCII characters `A` to `Z`,
 
 -- [PHP Reference](https://www.php.net/manual/en/functions.user-defined.php)
 
+*Example: Function calling function*
+
+```php
+<?php
+
+function inside(): string
+{
+  print("* Inside.\n");
+  return "IN";
+}
+
+function outside(): string
+{
+  print("# Outside:\n"
+    . "# Calling function from function...\n");
+  $result = inside();
+  print("# result: {$result}\n");
+  return "OUT";
+}
+
+print("Calling function...\n");
+$result = outside();
+print("result: {$result}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Calling function...
+# Outside:
+# Calling function from function...
+* Inside.
+# result: IN
+result: OUT
+```
+
+**Source code**:
+[Example](../../../example/code/functions/function_calling_function.php)
+
 It is possible to call *recursive functions* in PHP.
 
 *Example: Recursive functions*
@@ -928,15 +968,13 @@ var_dump(foo(...[1, 2], b: 20)); // Fatal error. Named parameter $b overwrites p
 
 -- [PHP Reference](https://www.php.net/manual/en/functions.arguments.php)
 
-## Returning values
+## Returning a value from a function
 
 Values are ***returned*** by using the optional `return` statement. Any *type* may be *returned*, including *arrays* and *objects*. This causes the function to end its execution immediately and pass control back to the line from which it was called.
 
 Note:
 
-If the *return* is omitted the value null will be returned.
-
-### Use of return
+If the `return` is omitted the value `null` will be returned.
 
 *Example: Use of return*
 
@@ -949,6 +987,40 @@ function square($num)
 echo square(4);   // outputs '16'.
 ?>
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/functions.returning-values.php)
+
+*Example: Function returning value*
+
+```php
+<?php
+
+function someFunction(int $someArgument, string $otherArgument): string
+{
+    $result = '';
+
+    for ($i = 0; $i < $someArgument; $i++) {
+        $result .= $otherArgument . PHP_EOL;
+    }
+
+    return $result;
+}
+
+$result = someFunction(3, 'Violet elephant...');
+print($result);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Violet elephant...
+Violet elephant...
+Violet elephant...
+```
+
+**Source code**:
+[Example](../../../example/code/functions/function_returning_value.php)
 
 A *function* can not *return* multiple values, but similar results can be obtained by returning an *array*.
 
@@ -988,11 +1060,64 @@ For more information on references, please check out [References Explained](http
 
 -- [PHP Reference](https://www.php.net/manual/en/functions.returning-values.php)
 
+## Function with static variable
+
+*Example: Function with static variable*
+
+```php
+<?php
+
+function functionWithStaticVariable(): void
+{
+  $i = 0;
+  static $n = 0;
+
+  print("A regular local variable: {$i}\n"
+    . "A static local variable: {$n}\n");
+
+  $i++;
+  $n++;
+}
+
+print("Function first call:\n");
+functionWithStaticVariable();
+print(PHP_EOL);
+
+print("Function second call:\n");
+functionWithStaticVariable();
+print(PHP_EOL);
+
+print("Function third call:\n");
+functionWithStaticVariable();
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Function first call:
+A regular local variable: 0
+A static local variable: 0
+
+Function second call:
+A regular local variable: 0
+A static local variable: 1
+
+Function third call:
+A regular local variable: 0
+A static local variable: 2
+
+```
+
+**Source code**:
+[Example](../../../example/code/functions/function_with_static_variable.php)
+
 ## Variable functions
 
 PHP supports the concept of ***variable functions***. This means that if a *variable name* has parentheses appended to it, PHP will look for a *function* with the same *name* as whatever the *variable* evaluates to, and will attempt to execute it. Among other things, this can be used to implement *callbacks*, *function tables*, and so forth.
 
-Variable functions won't work with language constructs such as `echo`, `print`, `unset()`, `isset()`, `empty()`, `include`, `require` and the like. Utilize wrapper functions to make use of any of these constructs as *variable functions*.
+*Variable functions* won't work with language constructs such as `echo`, `print`, `unset()`, `isset()`, `empty()`, `include`, `require` and the like. Utilize *wrapper functions* to make use of any of these constructs as *variable functions*.
 
 *Example: Variable function example*
 
@@ -1024,7 +1149,45 @@ $func('test');  // This calls echoit()
 ?>
 ```
 
-*Object methods* can also be called with the variable functions syntax.
+-- [PHP Reference](https://www.php.net/manual/en/functions.variable-functions.php)
+
+*Example: Variable function*
+
+```php
+<?php
+
+function someFunction()
+{
+    print("Some function\n");
+}
+
+$someVariableFunction = 'someFunction';
+$someVariableFunction();
+
+function otherFunction(int $someArgument)
+{
+    $result = $someArgument * 3;
+
+    return $result;
+}
+
+$otherVariableFunction = 'otherFunction';
+$result = $otherVariableFunction(3);
+print("Other function result: {$result}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some function
+Other function result: 9
+```
+
+**Source code**:
+[Example](../../../example/code/functions/variable_function.php)
+
+*Object methods* can also be called with the *variable functions* syntax.
 
 *Example: Variable method example*
 
