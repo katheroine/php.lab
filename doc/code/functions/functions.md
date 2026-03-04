@@ -302,7 +302,7 @@ PHP does not support *function overloading*, nor is it possible to *undefine* or
 
 Note: *Function names are case-insensitive* for the ASCII characters `A` to `Z`, though it is usually good form to call *functions* as they appear in their *declaration*.
 
-Both variable number of *arguments* and *default arguments* are supported in functions. See also the function references for `func_num_args()`, `func_get_arg()`, and `func_get_args()` for more information.
+-- [PHP Reference](https://www.php.net/manual/en/functions.user-defined.php)
 
 It is possible to call *recursive functions* in PHP.
 
@@ -320,13 +320,49 @@ function recursion($a)
 ?>
 ```
 
-Note: Recursive function/method calls with over 100-200 recursion levels can smash the stack and cause a termination of the current script. Especially, *infinite recursion* is considered a programming error.
+Note: *Recursive function/method calls* with over 100-200 recursion levels can smash the stack and cause a termination of the current script. Especially, *infinite recursion* is considered a programming error.
 
 -- [PHP Reference](https://www.php.net/manual/en/functions.user-defined.php)
 
 ## Function parameters and arguments
 
 The *function parameters* are declared in the *function signature*. Information may be passed to functions via the *argument list*, which is a comma-delimited list of *expressions*. The *arguments* are *evaluated from left to right* and the result is assigned to the *parameters* of the function, before the function is actually called (*eager evaluation*).
+
+-- [PHP Reference](https://www.php.net/manual/en/functions.arguments.php)
+
+Both variable number of *arguments* and *default arguments* are supported in functions. See also the function references for `func_num_args()`, `func_get_arg()`, and `func_get_args()` for more information.
+
+-- [PHP Reference](https://www.php.net/manual/en/functions.user-defined.php)
+
+*Example: Function arguments*
+
+```php
+<?php
+
+function someFunction(int $someArgument, string $otherArgument, $anotherArgument)
+{
+    for ($i = 0; $i < $someArgument; $i++) {
+        print($otherArgument . PHP_EOL);
+    }
+
+    print($anotherArgument . PHP_EOL);
+}
+
+someFunction(3, 'Blue elephant...', 'Eats peanuts and interprets the code.');
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Blue elephant...
+Blue elephant...
+Blue elephant...
+Eats peanuts and interprets the code.
+```
+
+**Source code**:
+[Example](../../../example/code/functions/function_arguments.php)
 
 PHP supports *passing arguments by value* (the default), *passing by reference*, and *default argument values*. *Variable-length argument lists* and *named arguments* are also supported.
 
@@ -343,7 +379,7 @@ $v = foo(
 ?>
 ```
 
-As of PHP 8.0.0, the *list of function parameters* may include a trailing comma, which will be ignored. That is particularly useful in cases where the list of parameters is long or contains long variable names, making it convenient to list parameters vertically.
+As of PHP 8.0.0, the *list of function parameters* may include a trailing comma, which will be ignored. That is particularly useful in cases where the *list of parameters* is long or contains long *variable names*, making it convenient to list parameters vertically.
 
 *Example: Function parameter list with trailing comma*
 
@@ -362,11 +398,49 @@ function takes_many_args(
 ?>
 ```
 
+### Passing arguments by value
+
+By default, *function arguments* are passed by value (so that if the value of the *argument* within the *function* is changed, it does not get changed outside of the *function*).
+
+-- [PHP Reference](https://www.php.net/manual/en/functions.arguments.php)
+
+*Example: Passing arguments by value*
+
+```php
+<?php
+
+$value = 5;
+
+function functionReceivingValueByValue($argument)
+{
+    $argument *= 2;
+
+    return $argument;
+}
+
+print("Before: {$value}\n");
+$result = functionReceivingValueByValue($value);
+print("Result: {$result}\n");
+print("After: {$value}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Before: 5
+Result: 10
+After: 5
+```
+
+**Source code**:
+[Example](../../../example/code/functions/passing_arguments_by_value.php)
+
 ### Passing arguments by reference
 
-By default, *function arguments* are passed by value (so that if the value of the argument within the function is changed, it does not get changed outside of the function). To allow a function to modify its arguments, they must be passed by reference.
+To allow a *function* to modify its *arguments*, they must be passed by *reference*.
 
-To have an argument to a function always passed by reference, prepend an ampersand (&) to the parameter name in the function definition:
+To have an *argument* to a *function* always passed by *reference*, prepend an ampersand (`&`) to the *parameter name* in the *function definition*:
 
 *Example: Passing function arguments by reference*
 
@@ -383,6 +457,38 @@ echo $str;    // outputs 'This is a string, and something extra.'
 ```
 
 It is an error to pass a *constant expression* as an *argument* to a *parameter* that expects to be passed by *reference*.
+
+*Example: Passing arguments by reference*
+
+```php
+<?php
+
+$value = 20;
+
+function functionReceivingValueByReference(&$argument)
+{
+    $argument /= 2;
+
+    return $argument;
+}
+
+print("Before: {$value}\n");
+$result = functionReceivingValueByReference($value);
+print("Result: {$result}\n");
+print("After: {$value}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Before: 20
+Result: 10
+After: 10
+```
+
+**Source code**:
+[Example](../../../example/code/functions/passing_arguments_by_reference.php)
 
 ### Default parameter values
 
