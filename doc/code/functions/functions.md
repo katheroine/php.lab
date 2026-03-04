@@ -492,7 +492,7 @@ After: 10
 
 ### Default parameter values
 
-A function may define *default values* for *parameters* using syntax similar to *assigning a variable*. The *default* is used only when the *parameter's argument* is not passed. Note that passing null does not assign the default value.
+A function may define *default values* for *parameters* using syntax similar to *assigning a variable*. The *default* is used only when the *parameter's argument* is not passed. Note that passing `null` does not assign the *default value*.
 
 *Example: Use of default parameters in functions*
 
@@ -515,6 +515,36 @@ Making a cup of cappuccino.
 Making a cup of .
 Making a cup of espresso.
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/functions.arguments.php)
+
+*Example: Function arguments default value*
+
+```php
+<?php
+
+function functionWithDefaultArgument(int $argument = 3): int
+{
+    return $argument * 2;
+}
+
+$result = functionWithDefaultArgument();
+print("Result of calling function with default argument: {$result}\n");
+
+$result = functionWithDefaultArgument(4);
+print("Result of calling function with provided argument: {$result}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Result of calling function with default argument: 6
+Result of calling function with provided argument: 8
+```
+
+**Source code**:
+[Example](../../../example/code/functions/function_arguments_default_value.php)
 
 *Default parameter* values may be *scalar values*, *arrays*, the *special type null*, and as of PHP 8.1.0, *objects* using the `new ClassName()` syntax.
 
@@ -613,7 +643,7 @@ The above example will output:
 Making a bowl of raspberry yogurt.
 ```
 
-As of PHP 8.0.0, *named arguments* can be used to skip over multiple optional parameters.
+As of PHP 8.0.0, *named arguments* can be used to skip over multiple *optional parameters*.
 
 *Example: Correct usage of default function parameters*
 
@@ -634,7 +664,7 @@ The above example will output:
 Making a bowl of raspberry natural yogurt.
 ```
 
-As of PHP 8.0.0, declaring *mandatory parameters* after *optional parameters* is deprecated. This can generally be resolved by dropping the default value, since it will never be used. One exception to this rule are parameters of the form `Type $param = null`, where the `null` default makes the *type* implicitly *nullable*. This usage is deprecated as of PHP 8.4.0, and an explicit nullable type should be used instead.
+As of PHP 8.0.0, declaring *mandatory parameters* after *optional parameters* is deprecated. This can generally be resolved by dropping the *default value*, since it will never be used. One exception to this rule are parameters of the form `Type $param = null`, where the `null` default makes the *type* implicitly *nullable*. This usage is deprecated as of PHP 8.4.0, and an explicit *nullable type* should be used instead.
 
 *Example: Declaring optional parameters after mandatory parameters*
 
@@ -655,7 +685,7 @@ function bar(?A $a, $b) {}       // Recommended
 
 Note: As of PHP 7.1.0, *omitting a parameter* which does not specify a *default* throws an `ArgumentCountError`; in previous versions it raised a `Warning`.
 
-Note: Parameters that expect the argument by reference may have a default value.
+Note: *Parameters* that expect the *argument* by *reference* may have a *default value*.
 
 ### Variable-length argument lists
 
@@ -685,7 +715,7 @@ The above example will output:
 10
 ```
 
-`...` can also be used when calling functions to *unpack* an *array* or `Traversable` *variable* or *literal* into the argument list:
+`...` can also be used when calling *functions* to *unpack* an *array* or `Traversable` *variable* or *literal* into the argument list:
 
 *Example: Using `...` to provide arguments*
 
@@ -743,9 +773,43 @@ Catchable fatal error: Argument 2 passed to total_intervals() must be an instanc
 
 Finally, *variable arguments* can also be passed by *reference* by prefixing the `...` with an ampersand (`&`).
 
+*Example: Function arguments variable number*
+
+```php
+<?php
+
+function functionWithVariableNumberOfArguments(int ...$arguments): int
+{
+    $product = 1;
+
+    foreach($arguments as $argument){
+        $product *= $argument;
+    }
+
+    return $product;
+}
+
+$result = functionWithVariableNumberOfArguments(1, 2, 3);
+print("Result of calling function with 3 arguments: {$result}\n");
+
+$result = functionWithVariableNumberOfArguments(1, 2, 3, 4, 5);
+print("Result of calling function with 5 arguments: {$result}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Result of calling function with 3 arguments: 6
+Result of calling function with 5 arguments: 120
+```
+
+**Source code**:
+[Example](../../../example/code/functions/function_arguments_variable_number.php)
+
 ### Named arguments
 
-PHP 8.0.0 introduced ***named arguments*** as an extension of the existing *positional parameters*. *Named arguments* allow *passing arguments* to a function based on the *parameter name*, rather than the *parameter position*. This makes the meaning of the argument *self-documenting*, makes the arguments *order-independent* and allows skipping default values arbitrarily.
+PHP 8.0.0 introduced ***named arguments*** as an extension of the existing *positional parameters*. *Named arguments* allow *passing arguments* to a function based on the *parameter name*, rather than the *parameter position*. This makes the meaning of the argument *self-documenting*, makes the *arguments* *order-independent* and allows skipping *default values* arbitrarily.
 
 *Named arguments* are passed by prefixing the value with the *parameter name* followed by a colon. Using reserved keywords as *parameter names* is allowed. The *parameter name* must be an *identifier*, specifying dynamically is not allowed.
 
@@ -782,6 +846,38 @@ The order in which the *named arguments* are passed does not matter.
 array_fill(value: 50, count: 100, start_index: 0);
 ?>
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/functions.arguments.php)
+
+*Example: Function named arguments*
+
+```php
+<?php
+
+function repeat(int $number, string $text)
+{
+    for ($i = 0; $i < $number; $i++) {
+        print($text . PHP_EOL);
+    }
+}
+
+repeat(text: 'Blue elephant...', number: 3);
+repeat(number: 2, text: '...is a symbol of PHP');
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Blue elephant...
+Blue elephant...
+Blue elephant...
+...is a symbol of PHP
+...is a symbol of PHP
+```
+
+**Source code**:
+[Example](../../../example/code/functions/function_named_arguments.php)
 
 *Named arguments* can be combined with *positional arguments*. In this case, the *named arguments* must come after the *positional arguments*. It is also possible to specify only some of the optional arguments of a function, regardless of their order.
 
