@@ -100,6 +100,64 @@ $obj?->prop->method(...);
 
 -- [PHP Reference](https://www.php.net/manual/en/functions.first_class_callable_syntax.php)
 
+*Example: Function as variable*
+
+```php
+<?php
+
+function someFunction(int $someArgument): int
+{
+    $result = $someArgument * 2;
+
+    return $result;
+}
+
+$someFunctionVariable1 = 'someFunction';
+$result = $someFunctionVariable1(3);
+print("Some function result: {$result}\n");
+
+$someFunctionVariable2 = someFunction(...);
+$result = $someFunctionVariable2(3);
+print("Some function result: {$result}\n");
+
+$someFunctionVariable3 = 'someFunction'(...);
+$result = $someFunctionVariable2(3);
+print("Some function result: {$result}\n");
+
+$someFunctionVariable4 = Closure::fromCallable('someFunction');
+$result = $someFunctionVariable4(3);
+print("Some function result: {$result}\n");
+
+$otherFunctionVariable1 = function (int $someArgument): int
+{
+    $result = $someArgument * 3;
+
+    return $result;
+};
+
+$result = $otherFunctionVariable1(3);
+print("Other function result: {$result}\n");
+
+$otherFunctionVariable2 = Closure::fromCallable($otherFunctionVariable1);
+$result = $otherFunctionVariable2(3);
+print("Other function result: {$result}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some function result: 6
+Some function result: 6
+Some function result: 6
+Some function result: 6
+Other function result: 9
+Other function result: 9
+```
+
+**Source code**:
+[Example](../../../example/code/functions/function_as_variable.php)
+
 [▵ Up](#first-class-callable-syntax)
 [⌂ Home](../../../README.md)
 [▲ Previous: Anonymous functions](./anonymous_functions.md)

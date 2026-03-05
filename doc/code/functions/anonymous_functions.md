@@ -164,6 +164,8 @@ string(11) "hello world"
 
 [The third function call from the example above shows that the variable *binding* during the closure definition is implemented by PHP as by the value not by the reference. -- KK]
 
+-- [PHP Reference](https://www.php.net/manual/en/functions.anonymous.php)
+
 *Example: Closure*
 
 ```php
@@ -202,6 +204,84 @@ Other function result: 9
 [Example](../../../example/code/functions/closure.php)
 
 As of PHP 8.0.0, the list of scope-inherited variables may include a trailing comma, which will be ignored.
+
+-- [PHP Reference](https://www.php.net/manual/en/functions.anonymous.php)
+
+### Binding by value
+
+*Example: Closure binding by value*
+
+```php
+<?php
+
+$value = 3;
+
+$closureBindingByValue = function () use ($value) {
+    $value *= 3;
+
+    return $value;
+};
+
+print("Binding by value\n\n");
+print("Before: {$value}\n");
+$result = $closureBindingByValue();
+print("Result: {$result}\n");
+print("After: {$value}\n\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Binding by value
+
+Before: 3
+Result: 9
+After: 3
+
+```
+
+**Source code**:
+[Example](../../../example/code/functions/closure_binding_by_value.php)
+
+### Binding by reference
+
+*Example: Closure binding by reference*
+
+```php
+<?php
+
+$value = 30;
+
+$closureBindingByReference = function () use (&$value) {
+    $value /= 3;
+
+    return $value;
+};
+
+print("Binding by reference\n\n");
+print("Before: {$value}\n");
+$result = $closureBindingByReference();
+print("Result: {$result}\n");
+print("After: {$value}\n\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Binding by reference
+
+Before: 30
+Result: 10
+After: 10
+
+```
+
+**Source code**:
+[Example](../../../example/code/functions/closure_binding_by_reference.php)
+
+### The parent scope
 
 *Inheriting variables from the parent scope* is not the same as using *global variables*. *Global variables* exist in the *global scope*, which is the same no matter what *function* is executing. The *parent scope* of a *closure* is the *function* in which the closure was *declared* (not necessarily the *function* it was called from). See the following example:
 
@@ -291,79 +371,67 @@ object(Test)#1 (0) {
 }
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/functions.anonymous.php)
+
+### Binding `$this`
+
 When declared in the *context of a class*, the current *class* is automatically bound to it, making `$this` available inside of the function's scope. If this *automatic binding* of the current *class* is not wanted, then *static anonymous functions* may be used instead.
 
 -- [PHP Reference](https://www.php.net/manual/en/functions.anonymous.php)
 
-*Example: Closure binding by value*
+*Example: Closure binding `$this`*
 
 ```php
 <?php
 
-$value = 3;
+class ElementsModifier
+{
+    private $decoration = '*';
 
-$closureBindingByValue = function () use ($value) {
-    $value *= 3;
+    public function modify(array &$someArgument)
+    {
+        array_walk($someArgument, function(&$value, $key) {
+            $value = $this->decoration
+                . strtoupper($value)
+                . $this->decoration;
+        });
+    }
+}
 
-    return $value;
-};
+$colors = [
+    'blue',
+    'orange',
+    'violet',
+];
 
-print("Binding by value\n\n");
-print("Before: {$value}\n");
-$result = $closureBindingByValue();
-print("Result: {$result}\n");
-print("After: {$value}\n\n");
+print_r($colors);
+
+$modifier = new ElementsModifier();
+$modifier->modify($colors);
+
+print_r($colors);
 
 ```
 
 **Result (PHP 8.4)**:
 
 ```
-Binding by value
-
-Before: 3
-Result: 9
-After: 3
-
+Array
+(
+    [0] => blue
+    [1] => orange
+    [2] => violet
+)
+Array
+(
+    [0] => *BLUE*
+    [1] => *ORANGE*
+    [2] => *VIOLET*
+)
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/closure_binding_by_value.php)
-
-*Example: Closure binding by reference*
-
-```php
-<?php
-
-$value = 30;
-
-$closureBindingByReference = function () use (&$value) {
-    $value /= 3;
-
-    return $value;
-};
-
-print("Binding by reference\n\n");
-print("Before: {$value}\n");
-$result = $closureBindingByReference();
-print("Result: {$result}\n");
-print("After: {$value}\n\n");
-
-```
-
-**Result (PHP 8.4)**:
-
-```
-Binding by reference
-
-Before: 30
-Result: 10
-After: 10
-
-```
-
-**Source code**:
-[Example](../../../example/code/functions/closure_binding_by_reference.php)
+[Example](../../../example/code/functions/closure_binding_this.php)
 
 ### Static anonymous functions
 
@@ -415,6 +483,62 @@ The above example will output:
 ```
 Warning: Cannot bind an instance to a static closure in %s on line %d
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/functions.anonymous.php)
+
+*Example: Static anonymous function*
+
+```php
+<?php
+
+class ElementsModifier
+{
+    static private $decoration = '*';
+
+    public function modify(array &$someArgument)
+    {
+        array_walk($someArgument, static function(&$value, $key) {
+            $value = self::$decoration
+                . strtoupper($value)
+                . self::$decoration;
+        });
+    }
+}
+
+$colors = [
+    'blue',
+    'orange',
+    'violet',
+];
+
+print_r($colors);
+
+$modifier = new ElementsModifier();
+$modifier->modify($colors);
+
+print_r($colors);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Array
+(
+    [0] => blue
+    [1] => orange
+    [2] => violet
+)
+Array
+(
+    [0] => *BLUE*
+    [1] => *ORANGE*
+    [2] => *VIOLET*
+)
+```
+
+**Source code**:
+[Example](../../../example/code/functions/static_anonymous_function.php)
 
 ### Changelog
 
