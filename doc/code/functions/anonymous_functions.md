@@ -439,7 +439,36 @@ Both *anonymous functions* and *arrow functions* are implemented using the `Clos
 
 *Arrow functions* support the same features as *anonymous functions*, except that *using variables from the parent scope is always automatic*.
 
-When a *variable* used in the *expression* is defined in the *parent scope* it will be *implicitly captured by-value*. In the following example, the functions `$fn1` and `$fn2` behave the same way.
+-- [PHP Reference](https://www.php.net/manual/en/functions.arrow.php)
+
+*Example: Arrow function*
+
+```php
+<?php
+
+$someFunction = fn () => "Some function";
+
+$result = $someFunction();
+print("Some function result: {$result}\n");
+
+$otherFunction = fn (int $someArgument): int => $someArgument * 3;
+
+$result = $otherFunction(3);
+print("Other function result: {$result}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some function result: Some function
+Other function result: 9
+```
+
+**Source code**:
+[Example](../../../example/code/functions/arrow_function.php)
+
+When a *variable* used in the *expression* is defined in the *parent scope* it will be *implicitly captured by-value*. In the following example, the *functions* `$fn1` and `$fn2` behave the same way.
 
 *Example: Arrow functions capture variables by value automatically*
 
@@ -463,6 +492,38 @@ The above example will output:
 ```
 4
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/functions.arrow.php)
+
+*Example: Arrow function binding*
+
+```php
+<?php
+
+$someVariable = 10.5;
+$otherVariable = 'binded variable';
+
+$someFunction = fn () => "Some function with binded variable: {$someVariable}";
+
+$result = $someFunction();
+print("Some function result: {$result}\n");
+
+$otherFunction = fn (string $someArgument): string => $someArgument . $otherVariable;
+
+$result = $otherFunction('Variable: ');
+print("Other function result: {$result}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some function result: Some function with binded variable: 10.5
+Other function result: Variable: binded variable
+```
+
+**Source code**:
+[Example](../../../example/code/functions/arrow_function_binding.php)
 
 This also works if the *arrow functions* are *nested*:
 
@@ -495,7 +556,7 @@ fn($x, ...$rest) => $rest;
 ?>
 ```
 
-*Arrow functions* use *by-value variable binding*. This is roughly equivalent to performing a `use($x)` for every variable `$x` used inside the arrow function. A *by-value binding* means that it is not possible to modify any values from the outer scope. Anonymous functions can be used instead for by-ref bindings.
+*Arrow functions* use *by-value variable binding*. This is roughly equivalent to performing a `use($x)` for every variable `$x` used inside the arrow function. A *by-value binding* means that it is not possible to modify any values from the outer scope. *Anonymous functions* can be used instead for *by-ref bindings*.
 
 *Example: Values from the outer scope cannot be modified by arrow functions*
 
