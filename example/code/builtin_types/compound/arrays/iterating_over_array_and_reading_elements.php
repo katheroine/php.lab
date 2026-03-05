@@ -8,10 +8,18 @@ for ($i = 0; $i < count($someArray); $i++) {
 
 print(PHP_EOL);
 
-while($element = current($someArray)) {
+while ($element = current($someArray)) {
     print(key($someArray) . ": " . $element . PHP_EOL);
     next($someArray);
 }
+
+print(PHP_EOL);
+reset($someArray);
+
+do {
+    print(key($someArray) . ": " . current($someArray) . PHP_EOL);
+    $undone = next($someArray);
+} while($undone);
 
 print(PHP_EOL);
 

@@ -1,16 +1,20 @@
 <?php
 
 function someGenerator(int $value, int $quantity, callable $algorithm): Generator {
-    foreach (range(1, $quantity) as $i) {
-        $nextValue = $algorithm($value);
-        yield $nextValue;
-        $value = $nextValue;
+    for ($i = 1; $i < $quantity; $i++) {
+        $value = $algorithm($value);
+
+        yield $value;
     }
 }
 
 $values = someGenerator(0, 10, function(int $value) {
-    return $value + 1;
+    return $value + 2;
 });
+
+print("Information:\n");
+var_dump($values);
+print('Type: ' . gettype($values) . PHP_EOL . PHP_EOL);
 
 foreach ($values as $value) {
     print($value . ' ');

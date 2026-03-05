@@ -8,15 +8,70 @@
 
 PHP 5 >= 5.5.0, PHP 7, PHP 8
 
-## Generators in PHP
+## Definition
+
+In computer science, a **generator** is a *routine* that can be used to control the iteration behaviour of a loop. All *generators* are also *iterators*. A *generator* is very similar to a *function* that returns an *array*, in that a *generator* has *parameters*, can be called, and generates a sequence of values. However, instead of building an *array* containing all the values and returning them all at once, a *generator* yields the values one at a time, which requires less memory and allows the caller to get started processing the first few values immediately. In short, a *generator* looks like a *function* but behaves like an *iterator*.
+
+*Generators* can be implemented in terms of more expressive control flow constructs, such as coroutines or first-class continuations.*Generators*, also known as semicoroutines, are a special case of (and weaker than) coroutines, in that they always *yield control* back to the caller (when passing a value back), rather than specifying a coroutine to jump to.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Generator_(computer_programming))
+
+## Description
 
 **Generators** provide an easy way to implement simple *iterators* without the overhead or complexity of implementing a *class* that implements the `Iterator` *interface*.
 
 A *generator* offers a convenient way to provide data to *`foreach` loops* without having to build an *array* in memory ahead of time, which may cause the program to exceed a memory limit or require a considerable amount of processing time to generate. Instead, a *generator function* can be used, which is the same as a normal *function*, except that instead of returning once, a *generator* can *yield* as many times as it needs to in order to provide the values to be iterated over. Like with *iterators*, random data access is not possible.
 
-A simple example of this is to reimplement the `range()` function as a generator. The standard `range()` function has to generate an *array* with every value in it and return it, which can result in large arrays: for example, calling `range(0, 1000000)` will result in well over 100 MB of memory being used.
+-- [PHP Reference](https://www.php.net/manual/en/language.generators.overview.php)
 
-As an alternative, we can implement an `xrange()` generator, which will only ever need enough memory to create an `Iterator` object and track the current state of the generator internally, which turns out to be less than 1 kilobyte.
+*Example: Generator*
+
+```php
+<?php
+
+function someGenerator(int $value, int $quantity, callable $algorithm): Generator {
+    for ($i = 1; $i < $quantity; $i++) {
+        $value = $algorithm($value);
+
+        yield $value;
+    }
+}
+
+$values = someGenerator(0, 10, function(int $value) {
+    return $value + 2;
+});
+
+print("Information:\n");
+var_dump($values);
+print('Type: ' . gettype($values) . PHP_EOL . PHP_EOL);
+
+foreach ($values as $value) {
+    print($value . ' ');
+}
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Information:
+object(Generator)#2 (1) {
+  ["function"]=>
+  string(13) "someGenerator"
+}
+Type: object
+
+2 4 6 8 10 12 14 16 18
+```
+
+**Source code**:
+[Example](../../../example/code/generators/generator.php)
+
+A simple example of this is to reimplement the `range()` *function* as a *generator*. The standard `range()` function has to generate an *array* with every value in it and return it, which can result in large *arrays*: for example, calling `range(0, 1000000)` will result in well over 100 MB of memory being used.
+
+As an alternative, we can implement an `xrange()` *generator*, which will only ever need enough memory to create an `Iterator` *object* and track the current state of the *generator* internally, which turns out to be less than 1 kilobyte.
 
 *Example: Implementing `range()` as a generator*
 
@@ -67,6 +122,8 @@ Single digit odd numbers from range():  1 3 5 7 9
 Single digit odd numbers from xrange(): 1 3 5 7 9
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.generators.overview.php)
+
 ## Generator objects
 
 When a *generator function* is called, a new *object* of the internal `Generator` *class* is returned. This *object* implements the `Iterator` *interface* in much the same way as a *forward-only iterator object* would, and provides *methods* that can be called to manipulate the state of the *generator*, including sending values to and returning values from it.
@@ -77,15 +134,11 @@ When a *generator function* is called, a new *object* of the internal `Generator
 
 A *generator function* looks just like a normal *function*, except that instead of *returning* a *value*, a generator *yields* as many *values* as it needs to. Any *function* containing `yield` is a *generator* function.
 
+## Yielding values by a generator
+
 When a *generator function* is called, it *returns* an *object* that can be *iterated* over. When you *iterate* over that *object* (for instance, via a *`foreach` loop*), PHP will call the object's *iteration methods* each time it needs a *value*, then saves the *state of the generator* when the generator *yields* a *value* so that it can be resumed when the next *value* is required.
 
 Once there are no more *values* to be *yielded*, then the *generator* can simply *return*, and the calling code continues just as if an *array* has run out of *values*.
-
-Note:
-
-A generator can *return* *values*, which can be retrieved using `Generator::getReturn()`.
-
-### `yield` keyword
 
 The heart of a *generator function* is the `yield` keyword. In its simplest form, a *`yield` statement* looks much like a *`return` statement*, except that instead of *stopping execution* of the function and returning, `yield` instead provides a *value* to the code looping over the *generator* and *pauses execution* of the *generator function*.
 
@@ -119,7 +172,74 @@ Note:
 
 Internally, sequential *integer keys* will be paired with the *yielded values*, just as with a *non-associative array*.
 
-#### Yielding values with keys
+-- [PHP Reference](https://www.php.net/manual/en/language.generators.syntax.php)
+
+*Example: Generator yielding values*
+
+```php
+<?php
+
+function oneValueGenerator()
+{
+    yield 1;
+}
+
+foreach (oneValueGenerator() as $value) {
+    print($value . ' ');
+}
+
+print(PHP_EOL);
+
+function limitedValuesGenerator()
+{
+    yield 1;
+    yield 3;
+    yield 5;
+}
+
+foreach (limitedValuesGenerator() as $value) {
+    print($value . ' ');
+}
+
+print(PHP_EOL);
+
+function unlimitedValuesGenerator()
+{
+    $value = 0;
+
+    while(true) {
+        yield $value++;
+    }
+}
+
+$anchor = unlimitedValuesGenerator();
+
+print($anchor->current() . ' ');
+$anchor->next();
+print($anchor->current() . ' ');
+$anchor->next();
+print($anchor->current() . ' ');
+$anchor->next();
+print($anchor->current() . ' ');
+$anchor->next();
+print($anchor->current() . ' ');
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+1
+1 3 5
+0 1 2 3 4
+```
+
+**Source code**:
+[Example](../../../example/code/generators/generator_yielding_values.php)
+
+### Yielding values with keys
 
 PHP also supports *associative arrays*, and *generators* are no different. In addition to *yielding* simple values, as shown above, you can also *yield* a *key* at the same time.
 
@@ -171,7 +291,7 @@ The above example will output:
     Likes blocks
 ```
 
-#### Yielding `null` values
+### Yielding `null` values
 
 `yield` can be called without an argument to *yield* a `null` value with an *automatic key*.
 
@@ -202,7 +322,7 @@ array(3) {
 }
 ```
 
-#### Yielding by reference
+### Yielding by reference
 
 *Generator functions* are able to *yield* values *by reference* as well as *by value*. This is done in the same way as returning references from functions: by prepending an ampersand to the function name.
 
@@ -235,7 +355,7 @@ The above example will output:
 2... 1... 0...
 ```
 
-#### Generator delegation via yield from
+### Generator delegation via yield from
 
 *Generator delegation* allows you to *yield* values from another *generator*, `Traversable` *object*, or *array* by using the `yield from` keyword. The *outer generator* will then *yield* all values from the *inner generator*, *object*, or *array* until that is no longer valid, after which execution will continue in the *outer generator*.
 
@@ -358,6 +478,14 @@ The above example will output:
 
 -- [PHP Reference](https://www.php.net/manual/en/language.generators.syntax.php)
 
+## Returning values by a generator
+
+Note:
+
+A generator can *return* *values*, which can be retrieved using `Generator::getReturn()`.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.generators.syntax.php)
+
 ## Comparing generators with `Iterator` objects
 
 The primary advantage of *generators* is their simplicity. Much less boilerplate code has to be written compared to implementing an `Iterator` class, and the code is generally much more readable. For example, the following function and class are equivalent:
@@ -425,44 +553,6 @@ class LineIterator implements Iterator {
 This flexibility does come at a cost, however: *generators* are *forward-only iterators*, and cannot be rewound once iteration has started. This also means that the same generator can't be iterated over multiple times: the *generator* will need to be rebuilt by calling the *generator function* again.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.generators.comparison.php)
-
-## Examples
-
-```php
-<?php
-
-function someGenerator(int $value, int $quantity, callable $algorithm): Generator {
-    foreach (range(1, $quantity) as $i) {
-        $nextValue = $algorithm($value);
-        yield $nextValue;
-        $value = $nextValue;
-    }
-}
-
-$values = someGenerator(0, 10, function(int $value) {
-    return $value + 1;
-});
-
-foreach ($values as $value) {
-    print($value . ' ');
-}
-
-print(PHP_EOL);
-
-```
-
-**View**:
-[Example](../../../example/code/generators/generators.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-1 2 3 4 5 6 7 8 9 10
-```
 
 [▵ Up](#generators)
 [⌂ Home](../../../README.md)
