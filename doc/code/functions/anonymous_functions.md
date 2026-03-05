@@ -6,9 +6,9 @@
 
 ## Definition
 
-> In computer programming, an **anonymous function** (**function literal**, **lambda function**, or **block**) is a *function definition* that is not bound to an *identifier*. *Anonymous functions* are often *arguments* being passed to *higher-order functions* or used for constructing the result of a *higher-order function* that needs to *return* a *function*. If the function is only used once, or a limited number of times, an anonymous function may be syntactically lighter than using a *named function*. Anonymous functions are ubiquitous in *functional programming languages* and other languages with *first-class functions*, where they fulfil the same role for the function type as literals do for other data types.
+> In computer programming, an **anonymous function** (**function literal**, **lambda function**, or **block**) is a *function definition* that is not bound to an *identifier*. *Anonymous functions* are often *arguments* being passed to *higher-order functions* or used for constructing the result of a *higher-order function* that needs to *return* a *function*. If the function is only used once, or a limited number of times, an *anonymous function* may be syntactically lighter than using a *named function*. *Anonymous functions* are ubiquitous in *functional programming languages* and other languages with *first-class functions*, where they fulfil the same role for the function type as literals do for other data types.
 
-Anonymous functions originate in the work of Alonzo Church in his invention of the *lambda calculus*, in which all functions are anonymous, in 1936, before electronic computers. In several programming languages, anonymous functions are introduced using the keyword `lambda`, and anonymous functions are often referred to as *lambdas* or *lambda abstractions*. Anonymous functions have been a feature of programming languages since Lisp in 1958, and a growing number of modern programming languages support anonymous functions.
+*Anonymous functions* originate in the work of Alonzo Church in his invention of the *lambda calculus*, in which all functions are anonymous, in 1936, before electronic computers. In several programming languages, *anonymous functions* are introduced using the keyword `lambda`, and *anonymous functions* are often referred to as *lambdas* or *lambda abstractions*. *Anonymous functions* have been a feature of programming languages since Lisp in 1958, and a growing number of modern programming languages support *anonymous functions*.
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Anonymous_function)
 
@@ -20,13 +20,13 @@ The concept of closures was developed in the 1960s for the mechanical evaluation
 
 ## Lambdas vs closures
 
-The term *closure* is often used as a synonym for *anonymous function*, though strictly, an anonymous function is a *function literal* without a name, while a closure is an *instance of a function*, a value, whose non-local variables have been bound either to values or storage locations (depending on the language).
+The term *closure* is often used as a synonym for *anonymous function*, though strictly, an *anonymous function* is a *function literal* without a name, while a *closure* is an *instance of a function*, a value, whose non-local variables have been bound either to values or storage locations (depending on the language).
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Closure_(computer_programming))
 
-## Anonymous functions in PHP
+## Description
 
-**Anonymous functions**, also known as **closures**, allow the creation of functions which have no specified name. They are most useful as the value of callable parameters, but they have many other uses.
+**Anonymous functions**, also known as **closures**, allow the creation of functions which have no specified name. They are most useful as the value of *callable parameters*, but they have many other uses.
 
 [PHP does not distinguish between the anonympus functions and closures. -- KK]
 
@@ -43,7 +43,7 @@ echo preg_replace_callback('~-([a-z])~', function ($match) {
 ?>
 ```
 
-*Closures* can also be used as the *values* of *variables*; PHP automatically converts such expressions into instances of the `Closure` internal class. Assigning a *closure* to a *variable* uses the same syntax as any other assignment, including the trailing semicolon:
+*Closures* can also be used as the *values* of *variables*; PHP automatically converts such *expressions* into *instances* of the `Closure` *internal class*. Assigning a *closure* to a *variable* uses the same syntax as any other assignment, including the trailing semicolon:
 
 *Example: Anonymous function variable assignment example*
 
@@ -58,7 +58,43 @@ $greet('PHP');
 ?>
 ```
 
-*Closures* may also inherit *variables* from the *parent scope*. Any such variables must be passed to the use language construct. As of PHP 7.1, these variables must not include *superglobals*, `$this`, or *variables with the same name as a parameter*. A *return type declaration* of the function has to be placed after the *`use` clause*.
+-- [PHP Reference](https://www.php.net/manual/en/functions.anonymous.php)
+
+*Example: Anonymous function*
+
+```php
+<?php
+
+$someFunction = function () {
+    print("Some function\n");
+};
+
+$someFunction();
+
+$otherFunction = function (int $someArgument): int {
+    $result = $someArgument * 3;
+
+    return $result;
+};
+
+$result = $otherFunction(3);
+print("Other function result: {$result}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some function
+Other function result: 9
+```
+
+**Source code**:
+[Example](../../../example/code/functions/anonymous_function.php)
+
+## Closures
+
+*Closures* may also inherit *variables* from the *parent scope*. Any such variables must be passed to the `use` language construct. As of PHP 7.1, these *variables* must not include *superglobals*, `$this`, or *variables with the same name as a parameter*. A *return type declaration* of the function has to be placed after the *`use` clause*.
 
 Example #3 Inheriting variables from the parent scope
 
@@ -128,9 +164,46 @@ string(11) "hello world"
 
 [The third function call from the example above shows that the variable *binding* during the closure definition is implemented by PHP as by the value not by the reference. -- KK]
 
+*Example: Closure*
+
+```php
+<?php
+
+$someVariable = 10.5;
+$otherVariable = 'binded variable';
+
+$someFunction = function () use ($someVariable) {
+    print("Some function with binded variable: {$someVariable} \n");
+};
+
+$someFunction();
+
+$otherFunction = function (int $someArgument) use ($someVariable, $otherVariable): int {
+    $result = $someArgument * 3;
+    print("Some function with binded variables: {$someVariable}, {$otherVariable} \n");
+
+    return $result;
+};
+
+$result = $otherFunction(3);
+print("Other function result: {$result}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some function with binded variable: 10.5
+Some function with binded variables: 10.5, binded variable
+Other function result: 9
+```
+
+**Source code**:
+[Example](../../../example/code/functions/closure.php)
+
 As of PHP 8.0.0, the list of scope-inherited variables may include a trailing comma, which will be ignored.
 
-*Inheriting variables from the parent scope* is not the same as using *global variables*. *Global variables* exist in the *global scope*, which is the same no matter what function is executing. The *parent scope* of a *closure* is the function in which the closure was *declared* (not necessarily the function it was called from). See the following example:
+*Inheriting variables from the parent scope* is not the same as using *global variables*. *Global variables* exist in the *global scope*, which is the same no matter what *function* is executing. The *parent scope* of a *closure* is the *function* in which the closure was *declared* (not necessarily the *function* it was called from). See the following example:
 
 *Example: Closures and scoping*
 
@@ -218,13 +291,85 @@ object(Test)#1 (0) {
 }
 ```
 
-When declared in the *context of a class*, the current class is automatically bound to it, making `$this` available inside of the function's scope. If this *automatic binding* of the current class is not wanted, then *static anonymous functions* may be used instead.
+When declared in the *context of a class*, the current *class* is automatically bound to it, making `$this` available inside of the function's scope. If this *automatic binding* of the current *class* is not wanted, then *static anonymous functions* may be used instead.
+
+-- [PHP Reference](https://www.php.net/manual/en/functions.anonymous.php)
+
+*Example: Closure binding by value*
+
+```php
+<?php
+
+$value = 3;
+
+$closureBindingByValue = function () use ($value) {
+    $value *= 3;
+
+    return $value;
+};
+
+print("Binding by value\n\n");
+print("Before: {$value}\n");
+$result = $closureBindingByValue();
+print("Result: {$result}\n");
+print("After: {$value}\n\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Binding by value
+
+Before: 3
+Result: 9
+After: 3
+
+```
+
+**Source code**:
+[Example](../../../example/code/functions/closure_binding_by_value.php)
+
+*Example: Closure binding by reference*
+
+```php
+<?php
+
+$value = 30;
+
+$closureBindingByReference = function () use (&$value) {
+    $value /= 3;
+
+    return $value;
+};
+
+print("Binding by reference\n\n");
+print("Before: {$value}\n");
+$result = $closureBindingByReference();
+print("Result: {$result}\n");
+print("After: {$value}\n\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Binding by reference
+
+Before: 30
+Result: 10
+After: 10
+
+```
+
+**Source code**:
+[Example](../../../example/code/functions/closure_binding_by_reference.php)
 
 ### Static anonymous functions
 
 *Anonymous functions* may be declared *statically*. This prevents them from having the current class automatically bound to them. Objects may also not be bound to them at runtime.
 
-*Example: Attempting to use $this inside a static anonymous function*
+*Example: Attempting to use `$this` inside a static anonymous function*
 
 ```php
 <?php
@@ -376,361 +521,6 @@ Notes
 Note: It is possible to use func_num_args(), func_get_arg(), and func_get_args() from within an arrow function.
 
 -- [PHP Reference](https://www.php.net/manual/en/functions.arrow.php)
-
-## Examples
-
-*Example: Anonymous functions*
-
-```php
-<?php
-
-$simpleFunction = function (): void {
-    print("Simple function.\n");
-};
-
-$simpleFunction();
-
-print(PHP_EOL);
-
-$functionWithLocalVariable = function (): void {
-    $i = 4;
-    print("A function with a local variable: {$i}\n");
-};
-
-$functionWithLocalVariable();
-
-print(PHP_EOL);
-
-$functionReturningValue = function (): int {
-    print("A function returning value.\n");
-    return 9;
-};
-
-$i = $functionReturningValue();
-print("returned value: {$i}\n");
-
-print(PHP_EOL);
-
-$functionWithArguments = function (int $number, string $text): void {
-    print("A function with some arguments:\nnumber: {$number}\ntext: {$text}\n");
-};
-
-$functionWithArguments(6, "orange");
-
-print(PHP_EOL);
-
-```
-
-**View**:
-[Example](../../../example/code/functions/anonymous_functions.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-Simple function.
-
-A function with a local variable: 4
-
-A function returning value.
-returned value: 9
-
-A function with some arguments:
-number: 6
-text: orange
-
-```
-
-*Example: Closures*
-
-```php
-<?php
-
-$quantity = 4;
-$message = "Hello, there!";
-
-$simpleFunction = function () use ($quantity, $message): void {
-    print("Simple function.\n"
-        . "Quantity: {$quantity}\n"
-        . "Message: {$message}\n"
-    );
-};
-
-$simpleFunction();
-
-print(PHP_EOL);
-
-$functionWithLocalVariable = function () use ($quantity, $message): void {
-    $i = 4;
-    print("A function with a local variable: {$i}\n"
-        . "Quantity: {$quantity}\n"
-        . "Message: {$message}\n"
-    );
-};
-
-$functionWithLocalVariable();
-
-print(PHP_EOL);
-
-$functionReturningValue = function () use ($quantity, $message): int {
-    print("A function returning value.\n"
-        . "Quantity: {$quantity}\n"
-        . "Message: {$message}\n"
-    );
-    return 9;
-};
-
-$i = $functionReturningValue();
-print("returned value: {$i}\n");
-
-print(PHP_EOL);
-
-$functionWithArguments = function (int $number, string $text) use ($quantity, $message): void {
-    print("A function with some arguments:\nnumber: {$number}\ntext: {$text}\n"
-        . "Quantity: {$quantity}\n"
-        . "Message: {$message}\n"
-    );
-};
-
-$functionWithArguments(6, "orange");
-
-print(PHP_EOL);
-
-```
-
-**View**:
-[Example](../../../example/code/functions/closures.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-Simple function.
-Quantity: 4
-Message: Hello, there!
-
-A function with a local variable: 4
-Quantity: 4
-Message: Hello, there!
-
-A function returning value.
-Quantity: 4
-Message: Hello, there!
-returned value: 9
-
-A function with some arguments:
-number: 6
-text: orange
-Quantity: 4
-Message: Hello, there!
-
-```
-
-*Example: Callbacks*
-
-```php
-<?php
-
-function sourceValue($prompt, $validate)
-{
-    do {
-        $value = (string)readline($prompt);
-        $validation_message = $validate($value);
-
-        if (empty($validation_message))
-            break;
-
-        print($validation_message . "\nTry again.\n");
-    } while (true);
-
-    return $value;
-}
-
-function validateTemperatureInCelsius($value)
-{
-    $message = "";
-
-    if ($value > 26) {
-        $message = "Temperature is to high for human health.";
-    } else if ($value < 22) {
-        $message = "Temperature is to low for human health.";
-    }
-
-    return $message;
-}
-
-$temperature = sourceValue("Give the ambient temperature in degrees Celsius: ", "validateTemperatureInCelsius");
-print("Tempetature has been set to " . $temperature . " degree Celsius.\n");
-
-```
-
-**View**:
-[Example](../../../example/code/functions/callbacks.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-Give the ambient temperature in degrees Celsius: 20
-Temperature is to low for human health.
-Try again.
-Give the ambient temperature in degrees Celsius: 30
-Temperature is to high for human health.
-Try again.
-Give the ambient temperature in degrees Celsius: 23
-Tempetature has been set to 23 degree Celsius.
-```
-
-*Example: Callbacks formatting*
-
-```php
-<?php
-
-function sourceValue($prompt, $validate)
-{
-    do {
-        $value = (string)readline($prompt);
-        $validation_message = $validate($value);
-
-        if (empty($validation_message))
-        break;
-
-        print($validation_message . "\nTry again.\n");
-    } while (true);
-
-    return $value;
-}
-
-function validateTemperatureInCelsius($value)
-{
-    $message = "";
-
-    if ($value > 26) {
-        $message = "Temperature is to high for human health.";
-    } else if ($value < 22) {
-        $message = "Temperature is to low for human health.";
-    }
-
-    return $message;
-}
-
-$validateHumidityInPercents = function(float $value): string {
-    if ($value > 60) {
-        return "Humidity is to high for human health.";
-    } else if ($value < 40) {
-        return "Humidity is to low for human health.";
-    }
-
-    return '';
-};
-
-$temperature = sourceValue("Give the ambient temperature in degrees Celsius: ", "validateTemperatureInCelsius");
-print("Tempetature has been set to " . $temperature . " degree Celsius.\n");
-
-$humidity = sourceValue("Give the air humidity in percents: ", $validateHumidityInPercents);
-print("Humidity has been set to " . $humidity . " percent.\n");
-
-$pressure = sourceValue("Give the atmospheric pressure in hectopascals: ", function($value) {
-  if ($value != 1013.25) {
-    return "Pressure is not perfect.";
-  }
-
-  return '';
-});
-print("Pressure has been set to " . $pressure . " hectopascals.\n");
-
-```
-
-**View**:
-[Example](../../../example/code/functions/callbacks_formatting.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-Give the ambient temperature in degrees Celsius: 20
-Temperature is to low for human health.
-Try again.
-Give the ambient temperature in degrees Celsius: 30
-Temperature is to high for human health.
-Try again.
-Give the ambient temperature in degrees Celsius: 23
-Tempetature has been set to 23 degree Celsius.
-Give the air humidity in percents: 15
-Humidity is to low for human health.
-Try again.
-Give the air humidity in percents: 90
-Humidity is to high for human health.
-Try again.
-Give the air humidity in percents: 56
-Humidity has been set to 56 percent.
-Give the atmospheric pressure in hectopascals: 1000
-Pressure is not perfect.
-Try again.
-Give the atmospheric pressure in hectopascals: 1013.25
-Pressure has been set to 1013.25 hectopascals.
-```
-
-*Example: Higher order functions*
-
-```php
-<?php
-
-function someFunctionTakingFunction(mixed $value, int $quantity, callable $algorithm): mixed
-{
-    foreach (range(1, $quantity) as $i) {
-        $value = $algorithm($value);
-    }
-
-    return $value;
-}
-
-$result = someFunctionTakingFunction(2, 3, function (mixed $value): mixed {
-    return $value + 5;
-});
-
-print($result . PHP_EOL);
-
-function someFunctionReturningFunction(): callable
-{
-    return function(string $name) {
-        print("Hello, {$name}!\n");
-    };
-}
-
-$function = someFunctionReturningFunction();
-$result = $function("Kate");
-
-print($result . PHP_EOL);
-
-```
-
-**View**:
-[Example](../../../example/code/functions/higher_order_functions.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-17
-Hello, Kate!
-
-```
 
 [▵ Up](#anonymous-functions)
 [⌂ Home](../../../README.md)

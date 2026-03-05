@@ -46,7 +46,7 @@ function someFunction()
 
 someFunction();
 
-function otherFunction(int $someArgument)
+function otherFunction(int $someArgument): int
 {
     $result = $someArgument * 3;
 

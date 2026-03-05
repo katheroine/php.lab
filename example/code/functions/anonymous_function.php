@@ -1,18 +1,16 @@
 <?php
 
-function someFunction()
-{
+$someFunction = function () {
     print("Some function\n");
-}
+};
 
-someFunction();
+$someFunction();
 
-function otherFunction(int $someArgument): int
-{
+$otherFunction = function (int $someArgument): int {
     $result = $someArgument * 3;
 
     return $result;
-}
+};
 
-$result = otherFunction(3);
+$result = $otherFunction(3);
 print("Other function result: {$result}\n");
