@@ -585,13 +585,87 @@ print(PHP_EOL);
 **Source code**:
 [Example](../../../example/code/generators/generator_calling_generator.php)
 
-### Generator delegation via yield from
+### Yielding from array
+
+*Example: Yielding from array*
+
+```php
+<?php
+
+global $oddValues, $evenValues;
+
+$oddValues = [1, 3, 5];
+$evenValues = [2, 4, 6];
+
+function someGenerator()
+{
+    global $oddValues, $evenValues;
+
+    yield from [0];
+    yield from $oddValues;
+    yield from $evenValues;
+}
+
+foreach (someGenerator() as $value) {
+    print($value . ' ');
+}
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+0 1 3 5 2 4 6
+```
+
+**Source code**:
+[Example](../../../example/code/generators/yielding_from_array.php)
+
+*Example: Yielding from array with keys*
+
+```php
+<?php
+
+global $oddValues, $evenValues;
+
+$oddValues = ['one' => 1, 'three' => 3, 'five' => 5];
+$evenValues = ['two' => 2, 'four' => 4, 'six' => 6];
+
+function someGenerator()
+{
+    global $oddValues, $evenValues;
+
+    yield from [0 => 0];
+    yield from $oddValues;
+    yield from $evenValues;
+}
+
+foreach (someGenerator() as $key => $value) {
+    print($key . ': ' . $value . '; ');
+}
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+0: 0; one: 1; three: 3; five: 5; two: 2; four: 4; six: 6;
+```
+
+**Source code**:
+[Example](../../../example/code/generators/yielding_from_array_with_keys.php)
+
+### Yielding from generator
 
 *Generator delegation* allows you to *yield* values from another *generator*, `Traversable` *object*, or *array* by using the `yield from` keyword. The *outer generator* will then *yield* all values from the *inner generator*, *object*, or *array* until that is no longer valid, after which execution will continue in the *outer generator*.
 
 If a generator is used with `yield from`, the `yield from` expression will also return any *value* returned by the *inner generator*.
 
-*Example: Yielding from another generator*
+*Example: Yielding from generator*
 
 ```php
 <?php
@@ -638,14 +712,65 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/yielding_from_another_generator.php)
+[Example](../../../example/code/generators/yielding_from_generator.php)
+
+*Example: Yielding from generator with keys*
+
+```php
+<?php
+
+function oddValuesGenerator(int $number)
+{
+    $value = -1;
+
+    for($i = 0; $i < $number; $i++) {
+        $value += 2;
+        yield $value => $value;
+    }
+}
+
+function evenValueGenerator(int $number)
+{
+    $value = 0;
+
+    for($i = 0; $i < $number; $i++) {
+        $value += 2;
+        yield $value => $value;
+    }
+}
+
+function someGenerator(int $number)
+{
+    yield 0 => 0;
+    yield from oddValuesGenerator($number);
+    yield from evenValueGenerator($number);
+}
+
+foreach (someGenerator(3) as $key => $value) {
+    print($key . ': ' . $value . '; ');
+}
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+0: 0; 1: 1; 3: 3; 5: 5; 2: 2; 4: 4; 6: 6;
+```
+
+**Source code**:
+[Example](../../../example/code/generators/yielding_from_generator_with_keys.php)
+
+### Yielding from and keys collision
 
 Caution
 
 Storing into an *array* (e.g. with `iterator_to_array()`)
 `yield from` does not reset the *keys*. It preserves the *keys* returned by the `Traversable` object, or *array*. Thus some *values* may share a common *key* with another `yield` or `yield from`, which, upon insertion into an *array*, will overwrite former *values* with that *key*.
 
-A common case where this matters is `iterator_to_array()` returning a *keyed array* by default, leading to possibly unexpected results. `iterator_to_array()` has a second parameter `preserve_keys` which can be set to false to collect all the *values* while ignoring the *keys* returned by the *generator*.
+A common case where this matters is `iterator_to_array()` returning a *keyed array* by default, leading to possibly unexpected results. `iterator_to_array()` has a second parameter `preserve_keys` which can be set to `false` to collect all the *values* while ignoring the *keys* returned by the *generator*.
 
 *Example: `yield from` with `iterator_to_array()`*
 
@@ -678,6 +803,69 @@ array(3) {
   int(3)
 }
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.generators.syntax.php)
+
+*Example: Yielding from and keys collision*
+
+```php
+<?php
+
+global $oddValues;
+
+$oddValues = ['one' => 1, 'two' => 3, 'three' => 5];
+
+function evenValueGenerator()
+{
+    yield 'one' => 2;
+    yield 'two' => 4;
+    yield 'three' => 6;
+}
+
+function someGenerator()
+{
+    global $oddValues;
+
+    yield from $oddValues;
+    yield from evenValueGenerator();
+}
+
+foreach (someGenerator() as $key => $value) {
+    print($key . ': ' . $value . '; ');
+}
+
+print(PHP_EOL);
+
+$someArray = iterator_to_array(someGenerator());
+
+foreach ($someArray as $key => $value) {
+    print($key . ': ' . $value . '; ');
+}
+
+print(PHP_EOL);
+
+$otherArray = iterator_to_array(someGenerator(), false);
+
+foreach ($otherArray as $key => $value) {
+    print($key . ': ' . $value . '; ');
+}
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+one: 1; two: 3; three: 5; one: 2; two: 4; three: 6;
+one: 2; two: 4; three: 6;
+0: 1; 1: 3; 2: 5; 3: 2; 4: 4; 5: 6;
+```
+
+**Source code**:
+[Example](../../../example/code/generators/yielding_from_and_keys_collision.php)
+
+### Yielding from array and generator
 
 *Example: Basic use of `yield from`*
 
