@@ -365,6 +365,8 @@ Laboratory of PHP.
         4. [Generator yielding null](./example/code/generators/generator_yielding_null.php)
         5. [Yielding element by value](./example/code/generators/generator_yielding_value.php)
         6. [Yielding element by reference](./example/code/generators/yielding_element_by_reference.php)
+        7. [Generator calling generator](./example/code/generators/generator_calling_generator.php)
+        8. [Yielding from another generator](./example/code/generators/yielding_from_another_generator.php)
     9. [Classes, interfaces, traits](./example/code/classes_interfaces_traits/)
         1. [Classes](./example/code/classes_interfaces_traits/classes/)
             1. [Classes](./example/code/classes_interfaces_traits/classes/classes.php)

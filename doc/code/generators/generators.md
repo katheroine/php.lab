@@ -523,18 +523,129 @@ print(PHP_EOL);
 **Source code**:
 [Example](../../../example/code/generators/yielding_element_by_reference.php)
 
+### Generator calling generator
+
+*Example: Generator calling generator*
+
+```php
+<?php
+
+function oddValuesGenerator(int $number)
+{
+    $value = -1;
+
+    for($i = 0; $i < $number; $i++) {
+        $value += 2;
+        yield $value;
+    }
+}
+
+function evenValueGenerator(int $number)
+{
+    $value = 0;
+
+    for($i = 0; $i < $number; $i++) {
+        $value += 2;
+        yield $value;
+    }
+}
+
+function someGenerator(int $number)
+{
+    $odds = oddValuesGenerator($number);
+    $evens = evenValueGenerator($number);
+
+    $number *= 2;
+
+    for ($i = 1; $i <= $number; $i++) {
+        if ($i % 2) {
+            yield $odds->current();
+            $odds->next();
+        } else {
+            yield $evens->current();
+            $evens->next();
+        }
+    }
+}
+
+foreach (someGenerator(3) as $value) {
+    print($value . ' ');
+}
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+1 2 3 4 5 6
+```
+
+**Source code**:
+[Example](../../../example/code/generators/generator_calling_generator.php)
+
 ### Generator delegation via yield from
 
 *Generator delegation* allows you to *yield* values from another *generator*, `Traversable` *object*, or *array* by using the `yield from` keyword. The *outer generator* will then *yield* all values from the *inner generator*, *object*, or *array* until that is no longer valid, after which execution will continue in the *outer generator*.
 
-If a generator is used with `yield from`, the `yield from` expression will also return any value returned by the *inner generator*.
+If a generator is used with `yield from`, the `yield from` expression will also return any *value* returned by the *inner generator*.
+
+*Example: Yielding from another generator*
+
+```php
+<?php
+
+function oddValuesGenerator(int $number)
+{
+    $value = -1;
+
+    for($i = 0; $i < $number; $i++) {
+        $value += 2;
+        yield $value;
+    }
+}
+
+function evenValueGenerator(int $number)
+{
+    $value = 0;
+
+    for($i = 0; $i < $number; $i++) {
+        $value += 2;
+        yield $value;
+    }
+}
+
+function someGenerator(int $number)
+{
+    yield 0;
+    yield from oddValuesGenerator($number);
+    yield from evenValueGenerator($number);
+}
+
+foreach (someGenerator(3) as $value) {
+    print($value . ' ');
+}
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+0 1 3 5 2 4 6
+```
+
+**Source code**:
+[Example](../../../example/code/generators/yielding_from_another_generator.php)
 
 Caution
 
-Storing into an array (e.g. with iterator_to_array())
-yield from does not reset the keys. It preserves the keys returned by the Traversable object, or array. Thus some values may share a common key with another yield or yield from, which, upon insertion into an array, will overwrite former values with that key.
+Storing into an *array* (e.g. with `iterator_to_array()`)
+`yield from` does not reset the *keys*. It preserves the *keys* returned by the `Traversable` object, or *array*. Thus some *values* may share a common *key* with another `yield` or `yield from`, which, upon insertion into an *array*, will overwrite former *values* with that *key*.
 
-A common case where this matters is iterator_to_array() returning a keyed array by default, leading to possibly unexpected results. iterator_to_array() has a second parameter preserve_keys which can be set to false to collect all the values while ignoring the keys returned by the Generator.
+A common case where this matters is `iterator_to_array()` returning a *keyed array* by default, leading to possibly unexpected results. `iterator_to_array()` has a second parameter `preserve_keys` which can be set to false to collect all the *values* while ignoring the *keys* returned by the *generator*.
 
 *Example: `yield from` with `iterator_to_array()`*
 
