@@ -237,7 +237,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/generator_yielding_values.php)
+[Example](../../../example/code/generators/generator_yielding_value.php)
 
 ### Yielding values with keys
 
@@ -291,6 +291,74 @@ The above example will output:
     Likes blocks
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.generators.syntax.php)
+
+*Example: Generator yielding key - value pairs*
+
+```php
+<?php
+
+function oneValueGenerator()
+{
+    yield 1 => 1;
+}
+
+foreach (oneValueGenerator() as $key => $value) {
+    print($key . ': ' . $value . '; ');
+}
+
+print(PHP_EOL);
+
+function limitedValuesGenerator()
+{
+    yield 'one' => 1;
+    yield 'three' => 3;
+    yield 'five' => 5;
+}
+
+foreach (limitedValuesGenerator() as $key => $value) {
+    print($key . ': ' . $value . '; ');
+}
+
+print(PHP_EOL);
+
+function unlimitedValuesGenerator()
+{
+    $key = 0;
+    $value = 0;
+
+    while(true) {
+        yield $key-- => $value++;
+    }
+}
+
+$anchor = unlimitedValuesGenerator();
+
+print($anchor->key() . ': ' . $anchor->current() . '; ');
+$anchor->next();
+print($anchor->key() . ': ' . $anchor->current() . '; ');
+$anchor->next();
+print($anchor->key() . ': ' . $anchor->current() . '; ');
+$anchor->next();
+print($anchor->key() . ': ' . $anchor->current() . '; ');
+$anchor->next();
+print($anchor->key() . ': ' . $anchor->current() . '; ');
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+1: 1;
+one: 1; three: 3; five: 5;
+0: 0; -1: 1; -2: 2; -3: 3; -4: 4;
+```
+
+**Source code**:
+[Example](../../../example/code/generators/generator_yielding_key_value.php)
+
 ### Yielding `null` values
 
 `yield` can be called without an argument to *yield* a `null` value with an *automatic key*.
@@ -321,6 +389,73 @@ array(3) {
   NULL
 }
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.generators.syntax.php)
+
+*Example: Generator yielding null*
+
+```php
+<?php
+
+function nullGenerator()
+{
+    while(true) {
+        yield;
+    }
+}
+
+$nulls = nullGenerator();
+
+for ($i = 0; $i < 10; $i++) {
+    print($nulls->key() . ': ' . gettype($nulls->current()) . '; ');
+    $nulls->next();
+}
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+0: NULL; 1: NULL; 2: NULL; 3: NULL; 4: NULL; 5: NULL; 6: NULL; 7: NULL; 8: NULL; 9: NULL;
+```
+
+**Source code**:
+[Example](../../../example/code/generators/generator_yielding_null.php)
+
+### Yielding by value
+
+*Example: Yielding element by value*
+
+```php
+<?php
+
+function generatorYieldingByValue(int $value, int $quantity): Generator {
+    for ($i = 1; $i < $quantity; $i++) {
+        $value *= 2;
+
+        yield $value;
+    }
+}
+
+foreach (generatorYieldingByValue(1, 6) as $value) {
+    print($value . ' ');
+    $value += 1;
+}
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+2 4 8 16 32
+```
+
+**Source code**:
+[Example](../../../example/code/generators/yielding_element_by_value.php)
 
 ### Yielding by reference
 
@@ -354,6 +489,39 @@ The above example will output:
 ```
 2... 1... 0...
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.generators.syntax.php)
+
+*Example: Yielding element by reference*
+
+```php
+<?php
+
+function &generatorYieldingByValue(int $value, int $quantity): Generator {
+    for ($i = 1; $i < $quantity; $i++) {
+        $value *= 2;
+
+        yield $value;
+    }
+}
+
+foreach (generatorYieldingByValue(1, 6) as &$value) {
+    print($value . ' ');
+    $value += 1;
+}
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+2 6 14 30 62
+```
+
+**Source code**:
+[Example](../../../example/code/generators/yielding_element_by_reference.php)
 
 ### Generator delegation via yield from
 
