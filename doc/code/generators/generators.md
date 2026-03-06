@@ -953,6 +953,46 @@ A generator can *return* *values*, which can be retrieved using `Generator::getR
 
 -- [PHP Reference](https://www.php.net/manual/en/language.generators.syntax.php)
 
+*Example: Generator returning value*
+
+```php
+<?php
+
+function someGenerator(int $number): Generator
+{
+    $result = 0;
+
+    for ($i = 0; $i < $number; $i++) {
+        $result += $i;
+        yield $i;
+    }
+
+    return $result;
+}
+
+$values = someGenerator(5);
+
+foreach($values as $value) {
+    print($value . ' ');
+}
+
+print(PHP_EOL);
+
+$result = $values->getReturn();
+print($result . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+0 1 2 3 4
+10
+```
+
+**Source code**:
+[Example](../../../example/code/generators/generator_returning_value.php)
+
 ## Comparing generators with `Iterator` objects
 
 The primary advantage of *generators* is their simplicity. Much less boilerplate code has to be written compared to implementing an `Iterator` class, and the code is generally much more readable. For example, the following function and class are equivalent:

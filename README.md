@@ -371,6 +371,7 @@ Laboratory of PHP.
         10. [Yielding from generator](./example/code/generators/yielding_from_generator.php)
         11. [Yielding from generator with keys](./example/code/generators/yielding_from_generator_with_keys.php)
         12. [Yielding from and keys collision](./example/code/generators/yielding_from_and_keys_collision.php)
+        13. [Generator returning value](./example/code/generators/generator_returning_value.php)
     9. [Classes, interfaces, traits](./example/code/classes_interfaces_traits/)
         1. [Classes](./example/code/classes_interfaces_traits/classes/)
             1. [Classes](./example/code/classes_interfaces_traits/classes/classes.php)
