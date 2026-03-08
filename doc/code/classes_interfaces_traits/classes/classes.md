@@ -10,25 +10,73 @@
 >
 > *Object state* can differ between each *instance* of the *class* whereas the *class state* is shared by all of them. The *object methods* include access to the *object state* (via an implicit or explicit parameter that references the *object*) whereas *class methods* do not.
 
-If the language supports *inheritance*, a class can be defined based on another class with all of its *state* and *behavior* plus additional *state* and *behavior* that further specializes the class. The specialized class is a *sub-class*, and the class it is based on is its *superclass*.
+If the language supports *inheritance*, a *class* can be defined based on another *class* with all of its *state* and *behavior* plus additional *state* and *behavior* that further specializes the *class*. The specialized *class* is a *sub-class*, and the *class* it is based on is its *superclass*.
 
-In *purely object-oriented programming languages*, such as Java and C#, all classes might be part of an *inheritance tree* such that the *root class* is `Object`, meaning all *objects instances* are of `Object` or implicitly *extend* `Object`, which is called a top *type*.
+In *purely object-oriented programming languages*, such as Java and C#, all *classes* might be part of an *inheritance tree* such that the *root class* is `Object`, meaning all *objects instances* are of `Object` or implicitly *extend* `Object`, which is called a top *type*.
 
 -- [Wikipedia](https://en.wikipedia.org/wiki/Class_(programming))
 
-## Classes in PHP
+## Description
 
 PHP includes a complete ***object model***. Some of its features are: *visibility*, *abstract* and *final classes* and *methods*, additional *magic methods*, *interfaces*, and *cloning*.
 
-PHP treats *objects* in the same way as *references* or *handles*, meaning that each variable contains an *object reference* rather than a copy of the entire *object*.
+PHP treats *objects* in the same way as *references* or *handles*, meaning that each *variable* contains an *object reference* rather than a copy of the entire *object*.
 
 -- [PHP Reference](https://www.php.net/manual/en/oop5.intro.php)
 
-## `class`
+*Example: Class*
 
-Basic class definitions begin with the *keyword* `class`, followed by a *class name*, followed by a pair of curly braces which enclose the definitions of the properties and methods belonging to the class.
+```php
+<?php
 
-The *class name* can be any *valid label*, provided it is not a PHP *reserved word*. As of PHP 8.4.0, using a single underscore `_` as a class name is deprecated. A valid class name starts with a letter or underscore, followed by any number of letters, numbers, or underscores. As a regular expression, it would be expressed thus: `^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$`.
+class SomeClass
+{
+    public $someProperty = 64;
+    private $otherProperty = 'broccoli';
+
+    function someMethod()
+    {
+        return $this->otherProperty;
+    }
+
+    function otherMethod($someArgument)
+    {
+        $this->otherProperty = $someArgument;
+    }
+}
+
+$someObject = new SomeClass();
+
+print($someObject->someProperty . PHP_EOL);
+print($someObject->someMethod() . PHP_EOL . PHP_EOL);
+
+$someObject->someProperty = 128;
+$someObject->otherMethod('cauliflower');
+
+print($someObject->someProperty . PHP_EOL);
+print($someObject->someMethod() . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+64
+broccoli
+
+128
+cauliflower
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class.php)
+
+## Class definition
+
+Basic *class definitions* begin with the *keyword* `class`, followed by a *class name*, followed by a pair of curly braces which enclose the definitions of the properties and methods belonging to the class.
+
+The *class name* can be any *valid label*, provided it is not a PHP *reserved word*. As of PHP 8.4.0, using a single underscore `_` as a *class name* is deprecated. A valid *class name* starts with a letter or underscore, followed by any number of letters, numbers, or underscores. As a regular expression, it would be expressed thus: `^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$`.
 
 A *class* may contain its own *constants*, *variables* (called *properties*), and *functions* (called *methods*).
 
@@ -49,114 +97,70 @@ class SimpleClass
 ?>
 ```
 
-The *pseudo-variable* `$this` is available when a *method* is called from within an *object context*. `$this` is the *value* of the *calling object*.
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.class)
 
-Warning
-
-Calling a *non-static method* statically throws an `Error`. Prior to PHP 8.0.0, this would generate a deprecation notice, and `$this` would be undefined.
-
-*Example: Some examples of the `$this` pseudo-variable*
+*Example: Class defeiniton*
 
 ```php
 <?php
-class A
+
+class SomeClass
 {
-    function foo()
+    public $someProperty;
+    public $otherProperty;
+
+    function someMethod()
     {
-        if (isset($this)) {
-            echo '$this is defined (';
-            echo get_class($this);
-            echo ")\n";
-        } else {
-            echo "\$this is not defined.\n";
-        }
+        return "{$this->someProperty} & {$this->otherProperty}";
     }
 }
 
-class B
+class OtherClass
 {
-    function bar()
+    public int $someNumber;
+    public float $someValue;
+    public string $someText;
+
+    function someMethod(int $number, float $value): string
     {
-        A::foo();
+        $this->someNumber = $number;
+        $this->someValue = $value;
+        $this->someText = (string) ($number * $value);
+
+        return $this->someText;
+    }
+
+    function otherMethod(): float
+    {
+        return $this->someNumber * $this->someValue;
     }
 }
 
-$a = new A();
-$a->foo();
+$someObject = new SomeClass();
+$someObject->someProperty = 256;
+$someObject->otherProperty = 'tomato';
+$result = $someObject->someMethod();
 
-A::foo();
+print($result . PHP_EOL);
 
-$b = new B();
-$b->bar();
+$otherObject = new OtherClass();
+$result = $otherObject->someMethod(3, 1.5);
 
-B::bar();
-?>
+print($result . PHP_EOL);
+print($otherObject->otherMethod() . PHP_EOL);
+
 ```
 
-Output of the above example in PHP 7:
+**Result (PHP 8.4)**:
 
 ```
-$this is defined (A)
-
-Deprecated: Non-static method A::foo() should not be called statically in %s  on line 27
-$this is not defined.
-
-Deprecated: Non-static method A::foo() should not be called statically in %s  on line 20
-$this is not defined.
-
-Deprecated: Non-static method B::bar() should not be called statically in %s  on line 32
-
-Deprecated: Non-static method A::foo() should not be called statically in %s  on line 20
-$this is not defined.
-Output of the above example in PHP 8:
-
-$this is defined (A)
-
-Fatal error: Uncaught Error: Non-static method A::foo() cannot be called statically in %s :27
-Stack trace:
-#0 {main}
-  thrown in %s  on line 27
+256 & tomato
+4.5
+4.5
 ```
 
-## Readonly classes
-
-As of PHP 8.2.0, a *class* can be marked with the `readonly` *modifier*. Marking a class as *readonly* will add the `readonly` modifier to every declared *property*, and prevent the creation of *dynamic properties*. Moreover, it is impossible to add support for them by using the `AllowDynamicProperties` *attribute*. Attempting to do so will trigger a compile-time error.
-
-```php
-<?php
-#[\AllowDynamicProperties]
-readonly class Foo {
-}
-
-// Fatal error: Cannot apply #[AllowDynamicProperties] to readonly class Foo
-?>
-```
-
-As neither *untyped nor static properties* can be marked with the `readonly` modifier, *readonly classes* cannot declare them either:
-
-```php
-<?php
-readonly class Foo
-{
-    public $bar;
-}
-
-// Fatal error: Readonly property Foo::$bar must have type
-?>
-```
-
-```php
-<?php
-readonly class Foo
-{
-    public static int $bar;
-}
-
-// Fatal error: Readonly class Foo cannot declare static properties
-?>
-```
-
-A *readonly class* can be extended if, and only if, the *child class* is also a *readonly class*.
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_definition.php)
 
 ## `new`
 
@@ -350,6 +354,53 @@ property
 method
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.properties-methods)
+
+*Example: Property and method with the same name*
+
+```php
+<?php
+
+class PaintPalette
+{
+    public $colours = [
+        'red',
+        'blue',
+        'yellow',
+    ];
+
+    function colours()
+    {
+        return $this->colours;
+    }
+}
+
+$palette = new PaintPalette();
+print_r($palette->colours);
+print_r($palette->colours());
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Array
+(
+    [0] => red
+    [1] => blue
+    [2] => yellow
+)
+Array
+(
+    [0] => red
+    [1] => blue
+    [2] => yellow
+)
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/property_and_method_with_same_name.php)
+
 That means that *calling* an *anonymous function* which has been *assigned* to a *property* is not directly possible. Instead the *property* has to be *assigned* to a *variable* first, for instance. It is possible to *call* such a *property* directly by enclosing it in parentheses.
 
 *Example: Calling an anonymous function stored in a property*
@@ -377,6 +428,352 @@ The above example will output:
 ```
 42
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.properties-methods)
+
+*Example: Anonymous function property and method with the same name*
+
+```php
+<?php
+
+class PaintPalette
+{
+    private $palette = [
+        'red',
+        'blue',
+        'yellow',
+    ];
+
+    public $colours;
+
+    function __construct()
+    {
+        $this->colours = function() {
+            return $this->palette;
+        };
+    }
+
+    function colours()
+    {
+        return $this->palette;
+    }
+}
+
+$palette = new PaintPalette();
+print_r(($palette->colours)());
+print_r($palette->colours());
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Array
+(
+    [0] => red
+    [1] => blue
+    [2] => yellow
+)
+Array
+(
+    [0] => red
+    [1] => blue
+    [2] => yellow
+)
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_function_property_and_method_with_same_name.php)
+
+## Nullsafe properties and methods
+
+As of PHP 8.0.0, *properties* and *methods* may also be accessed with the *nullsafe operator* instead: `?->`. The *nullsafe operator* works the same as property or method access as above, except that if the object being dereferenced is `null` then `null` will be returned rather than an exception thrown. If the dereference is part of a chain, the rest of the chain is skipped.
+
+The effect is similar to wrapping each access in an `is_null()` check first, but more compact.
+
+*Example: Nullsafe operator*
+
+```php
+<?php
+
+// As of PHP 8.0.0, this line:
+$result = $repository?->getUser(5)?->name;
+
+// Is equivalent to the following code block:
+if (is_null($repository)) {
+    $result = null;
+} else {
+    $user = $repository->getUser(5);
+    if (is_null($user)) {
+        $result = null;
+    } else {
+        $result = $user->name;
+    }
+}
+?>
+```
+
+Note:
+
+The *nullsafe operator* is best used when `null` is considered a valid and expected possible value for a *property* or *method return*. For indicating an error, a *thrown exception* is preferable.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php)
+
+*Example: Nullsafe properties*
+
+```php
+<?php
+
+class SomeClass
+{
+    public $someProperty = null;
+
+    function __construct($empty)
+    {
+        if (! $empty) {
+            $this->someProperty = new OtherClass();
+        }
+    }
+}
+
+class OtherClass
+{
+    public $otherProperty = 'vanilla';
+}
+
+function someFunction($emptyResult, $emptyProperty)
+{
+    if ($emptyResult) {
+        return null;
+    }
+
+    return new SomeClass($emptyProperty);
+}
+
+$result = someFunction(true, true)?->someProperty?->otherProperty;
+print('Result: ' . $result . PHP_EOL);
+
+$result = someFunction(false, true)?->someProperty?->otherProperty;
+print('Result: ' . $result . PHP_EOL);
+
+$result = someFunction(false, false)?->someProperty?->otherProperty;
+print('Result: ' . $result . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Result:
+Result:
+Result: vanilla
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/nullsafe_properties.php)
+
+## Object & class context
+
+The *pseudo-variable* `$this` is available when a *method* is called from within an *object context*. `$this` is the *value* of the *calling object*.
+
+Warning
+
+Calling a *non-static method* statically throws an `Error`. Prior to PHP 8.0.0, this would generate a deprecation notice, and `$this` would be undefined.
+
+*Example: Some examples of the `$this` pseudo-variable*
+
+```php
+<?php
+class A
+{
+    function foo()
+    {
+        if (isset($this)) {
+            echo '$this is defined (';
+            echo get_class($this);
+            echo ")\n";
+        } else {
+            echo "\$this is not defined.\n";
+        }
+    }
+}
+
+class B
+{
+    function bar()
+    {
+        A::foo();
+    }
+}
+
+$a = new A();
+$a->foo();
+
+A::foo();
+
+$b = new B();
+$b->bar();
+
+B::bar();
+?>
+```
+
+Output of the above example in PHP 7:
+
+```
+$this is defined (A)
+
+Deprecated: Non-static method A::foo() should not be called statically in %s  on line 27
+$this is not defined.
+
+Deprecated: Non-static method A::foo() should not be called statically in %s  on line 20
+$this is not defined.
+
+Deprecated: Non-static method B::bar() should not be called statically in %s  on line 32
+
+Deprecated: Non-static method A::foo() should not be called statically in %s  on line 20
+$this is not defined.
+```
+
+Output of the above example in PHP 8:
+
+```
+$this is defined (A)
+
+Fatal error: Uncaught Error: Non-static method A::foo() cannot be called statically in %s :27
+Stack trace:
+#0 {main}
+  thrown in %s  on line 27
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.class)
+
+## Scope resolution operator (`::`)
+
+The ***scope resolution operator*** (also called *paamayim nekudotayim*) or in simpler terms, the *double colon*, is a *token* that allows access to a *constant*, *static property*, or *static method* of a *class* or one of its *parents*. Moreover, *static properties* or *methods* can be *overriden* via *late static binding*.
+
+When *referencing* these items from outside the *class definition*, use the *name* of the *class*.
+
+It's possible to reference the *class* using a *variable*. The *variable's value* can not be a *keyword* (e.g. `self`, `parent` and `static`).
+
+*Paamayim nekudotayim* would, at first, seem like a strange choice for naming a double-colon. However, while writing the Zend Engine 0.5 (which powers PHP 3), that's what the Zend team decided to call it. It actually does mean double-colon - in Hebrew!
+
+[It's simply the *scope resolution operator* in other languages. -- KK]
+
+*Example: `::` from outside the class definition*
+
+```php
+<?php
+class MyClass {
+    const CONST_VALUE = 'A constant value';
+}
+
+$classname = 'MyClass';
+echo $classname::CONST_VALUE;
+
+echo MyClass::CONST_VALUE;
+?>
+```
+
+Three special *keywords* `self`, `parent` and `static` are used to *access properties* or *methods* from inside the *class definition*.
+
+*Example: `::` from inside the class definition*
+
+```php
+<?php
+class MyClass {
+    const CONST_VALUE = 'A constant value';
+}
+
+class OtherClass extends MyClass
+{
+    public static $my_static = 'static var';
+
+    public static function doubleColon() {
+        echo parent::CONST_VALUE . "\n";
+        echo self::$my_static . "\n";
+    }
+}
+
+$classname = 'OtherClass';
+$classname::doubleColon();
+
+OtherClass::doubleColon();
+?>
+```
+
+When an *extending class* overrides the parent's definition of a *method*, PHP will not call the *parent's method*. It's up to the *extended class* on whether or not the *parent's method* is called. This also applies to *constructors* and *destructors*, *overloading*, and *magic method* definitions.
+
+*Example: Calling a parent's method*
+
+```php
+<?php
+class MyClass
+{
+    protected function myFunc() {
+        echo "MyClass::myFunc()\n";
+    }
+}
+
+class OtherClass extends MyClass
+{
+    // Override parent's definition
+    public function myFunc()
+    {
+        // But still call the parent function
+        parent::myFunc();
+        echo "OtherClass::myFunc()\n";
+    }
+}
+
+$class = new OtherClass();
+$class->myFunc();
+?>
+```
+
+See also some examples of *static call trickery*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php)
+
+## Readonly classes
+
+As of PHP 8.2.0, a *class* can be marked with the `readonly` *modifier*. Marking a class as *readonly* will add the `readonly` modifier to every declared *property*, and prevent the creation of *dynamic properties*. Moreover, it is impossible to add support for them by using the `AllowDynamicProperties` *attribute*. Attempting to do so will trigger a compile-time error.
+
+```php
+<?php
+#[\AllowDynamicProperties]
+readonly class Foo {
+}
+
+// Fatal error: Cannot apply #[AllowDynamicProperties] to readonly class Foo
+?>
+```
+
+As neither *untyped* nor *static properties* can be marked with the `readonly` modifier, *readonly classes* cannot declare them either:
+
+```php
+<?php
+readonly class Foo
+{
+    public $bar;
+}
+
+// Fatal error: Readonly property Foo::$bar must have type
+?>
+```
+
+```php
+<?php
+readonly class Foo
+{
+    public static int $bar;
+}
+
+// Fatal error: Readonly class Foo cannot declare static properties
+?>
+```
+
+A *readonly class* can be extended if, and only if, the *child class* is also a *readonly class*.
 
 ## `extends`
 
@@ -614,246 +1011,6 @@ The above example will output:
 
 ```
 NS\ClassName
-```
-
-## Nullsafe methods and properties
-
-As of PHP 8.0.0, *properties* and *methods* may also be accessed with the *nullsafe operator* instead: `?->`. The *nullsafe operator* works the same as property or method access as above, except that if the object being dereferenced is `null` then `null` will be returned rather than an exception thrown. If the dereference is part of a chain, the rest of the chain is skipped.
-
-The effect is similar to wrapping each access in an `is_null()` check first, but more compact.
-
-*Example: Nullsafe operator*
-
-```php
-<?php
-
-// As of PHP 8.0.0, this line:
-$result = $repository?->getUser(5)?->name;
-
-// Is equivalent to the following code block:
-if (is_null($repository)) {
-    $result = null;
-} else {
-    $user = $repository->getUser(5);
-    if (is_null($user)) {
-        $result = null;
-    } else {
-        $result = $user->name;
-    }
-}
-?>
-```
-
-Note:
-
-The *nullsafe operator* is best used when `null` is considered a valid and expected possible value for a *property* or *method return*. For indicating an error, a *thrown exception* is preferable.
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php)
-
-## Scope resolution operator (`::`)
-
-The ***scope resolution operator*** (also called *paamayim nekudotayim*) or in simpler terms, the *double colon*, is a *token* that allows access to a *constant*, *static property*, or *static method* of a *class* or one of its *parents*. Moreover, *static properties* or *methods* can be *overriden* via *late static binding*.
-
-When *referencing* these items from outside the *class definition*, use the name of the class.
-
-It's possible to reference the *class* using a *variable*. The *variable's value* can not be a *keyword* (e.g. `self`, `parent` and `static`).
-
-*Paamayim nekudotayim* would, at first, seem like a strange choice for naming a double-colon. However, while writing the Zend Engine 0.5 (which powers PHP 3), that's what the Zend team decided to call it. It actually does mean double-colon - in Hebrew!
-
-Example: `::` from outside the class definition
-
-```php
-<?php
-class MyClass {
-    const CONST_VALUE = 'A constant value';
-}
-
-$classname = 'MyClass';
-echo $classname::CONST_VALUE;
-
-echo MyClass::CONST_VALUE;
-?>
-```
-
-Three special *keywords* `self`, `parent` and `static` are used to *access properties* or *methods* from inside the *class definition*.
-
-*Example: `::` from inside the class definition*
-
-```php
-<?php
-class MyClass {
-    const CONST_VALUE = 'A constant value';
-}
-
-class OtherClass extends MyClass
-{
-    public static $my_static = 'static var';
-
-    public static function doubleColon() {
-        echo parent::CONST_VALUE . "\n";
-        echo self::$my_static . "\n";
-    }
-}
-
-$classname = 'OtherClass';
-$classname::doubleColon();
-
-OtherClass::doubleColon();
-?>
-```
-
-When an *extending class* overrides the parent's definition of a *method*, PHP will not call the *parent's method*. It's up to the *extended class* on whether or not the *parent's method* is called. This also applies to *constructors* and *destructors*, *overloading*, and *magic method* definitions.
-
-*Example: Calling a parent's method*
-
-```php
-<?php
-class MyClass
-{
-    protected function myFunc() {
-        echo "MyClass::myFunc()\n";
-    }
-}
-
-class OtherClass extends MyClass
-{
-    // Override parent's definition
-    public function myFunc()
-    {
-        // But still call the parent function
-        parent::myFunc();
-        echo "OtherClass::myFunc()\n";
-    }
-}
-
-$class = new OtherClass();
-$class->myFunc();
-?>
-```
-
-See also some examples of *static call trickery*.
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php)
-
-## Examples
-
-*Examples: Class basic usage*
-
-```php
-<?php
-
-class SomeClass
-{
-    public const SOME_CLASS_CONSTANT = 'lalala';
-    public static int $someClassVariable = 1024;
-    public string $someObjectVariable = 'hello';
-    public readonly float $someUnchengeableVariable;
-
-    public function __construct()
-    {
-        $this->someUnchengeableVariable = 1.5;
-    }
-
-    public static function someClassFunction(): void
-    {
-        print(
-            SomeClass::SOME_CLASS_CONSTANT . PHP_EOL
-            . self::SOME_CLASS_CONSTANT . PHP_EOL
-            . SomeClass::$someClassVariable . PHP_EOL
-            . self::$someClassVariable . PHP_EOL
-            // . $this->someObjectVariable . PHP_EOL
-            . PHP_EOL
-        );
-    }
-
-    public function someObjectFunction(): void
-    {
-        print(
-            SomeClass::SOME_CLASS_CONSTANT . PHP_EOL
-            . self::SOME_CLASS_CONSTANT . PHP_EOL
-            . SomeClass::$someClassVariable . PHP_EOL
-            . self::$someClassVariable . PHP_EOL
-            // . $this->someClassVariable . PHP_EOL
-            . $this->someObjectVariable . PHP_EOL
-            . $this->someUnchengeableVariable . PHP_EOL
-            . PHP_EOL
-        );
-
-        // $this->someUnchengeableVariable = 512;
-    }
-}
-
-SomeClass::someClassFunction();
-
-$someObject = new SomeClass();
-$someObject->someObjectFunction();
-
-SomeClass::$someClassVariable = 256;
-// $someObject->someClassVariable = 128;
-$someObject->someObjectVariable = 'hi';
-// $someObject->someUnchengeableVariable = 2;
-
-$someObject->someObjectFunction();
-
-```
-
-**View**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/classes.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-lalala
-lalala
-1024
-1024
-
-lalala
-lalala
-1024
-1024
-hello
-1.5
-
-lalala
-lalala
-256
-256
-hi
-1.5
-
-```
-
-*Example: Class name resolution*
-
-```php
-<?php
-
-namespace SomeNamespace;
-
-class SomeClass
-{
-}
-
-print(SomeClass::class . PHP_EOL);
-
-```
-
-**View**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_name_resolution.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-SomeNamespace\SomeClass
 ```
 
 [▵ Up](#classes)
