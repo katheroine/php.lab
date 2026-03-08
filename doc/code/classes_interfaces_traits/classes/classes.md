@@ -74,6 +74,8 @@ cauliflower
 
 ## Class definition
 
+>>> `class` keyword
+
 Basic *class definitions* begin with the *keyword* `class`, followed by a *class name*, followed by a pair of curly braces which enclose the definitions of the properties and methods belonging to the class.
 
 The *class name* can be any *valid label*, provided it is not a PHP *reserved word*. As of PHP 8.4.0, using a single underscore `_` as a *class name* is deprecated. A valid *class name* starts with a letter or underscore, followed by any number of letters, numbers, or underscores. As a regular expression, it would be expressed thus: `^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$`.
@@ -99,7 +101,7 @@ class SimpleClass
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.class)
 
-*Example: Class defeiniton*
+*Example: Class definiton*
 
 ```php
 <?php
@@ -162,15 +164,84 @@ print($otherObject->otherMethod() . PHP_EOL);
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/class_definition.php)
 
-## `new`
+## Class instantiation
+
+>>> `new` keyword
 
 To create an *instance of a class*, the `new` *keyword* must be used. An *object* will always be created unless the *object* has a *constructor* defined that throws an *exception* on error. *Classes* should be *defined* before *instantiation* (and in some cases this is a requirement).
 
-If a *variable* containing a *string* with the *name of a class* is used with `new`, a new *instance* of that *class* will be created. If the *class* is in a *namespace*, its *fully qualified name* must be used when doing this.
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new)
 
 Note:
 
 If there are no *arguments* to be passed to the class's *constructor*, parentheses after the class name may be omitted.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new)
+
+*Example: Class Instantiation*
+
+```php
+<?php
+
+class SomeClass
+{
+}
+
+class OtherClass
+{
+    private(set) string $someProperty;
+
+    function __construct(string $someValue)
+    {
+        $this->someProperty = $someValue;
+    }
+}
+
+$someObject = new SomeClass;
+
+print("Some object\n");
+var_dump($someObject);
+print(PHP_EOL);
+
+$otherObject = new SomeClass();
+
+print("Other object\n");
+var_dump($otherObject);
+print(PHP_EOL);
+
+$anotherObject = new OtherClass('onion');
+
+print("Another object\n");
+var_dump($anotherObject);
+print("Initialied property: {$anotherObject->someProperty}\n");
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some object
+object(SomeClass)#1 (0) {
+}
+
+Other object
+object(SomeClass)#2 (0) {
+}
+
+Another object
+object(OtherClass)#3 (1) {
+  ["someProperty"]=>
+  string(5) "onion"
+}
+Initialied property: onion
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation.php)
+
+If a *variable* containing a *string* with the *name of a class* is used with `new`, a new *instance* of that *class* will be created. If the *class* is in a *namespace*, its *fully qualified name* must be used when doing this.
 
 *Example: Creating an instance*
 
@@ -188,6 +259,67 @@ $instance = new $className(); // new SimpleClass()
 var_dump($instance);
 ?>
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new)
+
+*Example: Class instantiation from a string*
+
+```php
+<?php
+
+class SomeClass
+{
+}
+
+class OtherClass
+{
+}
+
+class AnotherClass
+{
+}
+
+const CLASS_NAME = 'SomeClass';
+$someObject = new (CLASS_NAME)();
+
+print("Some object\n");
+var_dump($someObject);
+print(PHP_EOL);
+
+$className = 'OtherClass';
+$otherObject = new $className();
+
+print("Other object\n");
+var_dump($otherObject);
+print(PHP_EOL);
+
+$anotherObject = new ('An' . $className)();
+
+print("Another object\n");
+var_dump($anotherObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some object
+object(SomeClass)#1 (0) {
+}
+
+Other object
+object(OtherClass)#2 (0) {
+}
+
+Another object
+object(AnotherClass)#3 (0) {
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_from_string.php)
 
 As of PHP 8.0.0, using `new` with arbitrary *expressions* is supported. This allows more complex *instantiation* if the *expression* produces a *string*. The *expressions* must be wrapped in parentheses.
 
@@ -228,7 +360,161 @@ object(ClassD)#1 (0) {
 }
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new)
+
+*Example: Class instantiation from and expression*
+
+```php
+<?php
+
+class SomeClass
+{
+}
+
+class OtherClass
+{
+}
+
+class AnotherClass
+{
+}
+
+function giveClassName(): string
+{
+    return 'OtherClass';
+}
+
+$someObject = new ('Some' . 'Class')();
+
+print("Some object\n");
+var_dump($someObject);
+print(PHP_EOL);
+
+$otherObject = new (giveClassName())();
+
+print("Other object\n");
+var_dump($otherObject);
+print(PHP_EOL);
+
+$anotherObject = new ('An' . giveClassName())();
+
+print("Another object\n");
+var_dump($anotherObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some object
+object(SomeClass)#1 (0) {
+}
+
+Other object
+object(OtherClass)#2 (0) {
+}
+
+Another object
+object(AnotherClass)#3 (0) {
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_from_expression.php)
+
 In the *class context*, it is possible to create a new *object* by `new self` and `new parent`.
+
+[Also from `new static`. -- KK]
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new)
+
+*Example: Class instantiation from `static`, `self` and `parent` keywords*
+
+```php
+<?php
+
+class BaseClass
+{
+    static function createStatic()
+    {
+        return new static();
+    }
+
+    static function createSelf()
+    {
+        return new self();
+    }
+}
+
+class DerivedClass extends BaseClass
+{
+    static function createParent()
+    {
+        return new parent();
+    }
+}
+
+$fromBaseStaticObject = BaseClass::createStatic();
+
+print("From base static\n");
+var_dump($fromBaseStaticObject);
+print(PHP_EOL);
+
+$fromBaseSelfObject = BaseClass::createSelf();
+
+print("From base self\n");
+var_dump($fromBaseSelfObject);
+print(PHP_EOL);
+
+$fromDerivedStatic = DerivedClass::createStatic();
+
+print("From derived static\n");
+var_dump($fromDerivedStatic);
+print(PHP_EOL);
+
+$fromDerivedSelf = DerivedClass::createSelf();
+
+print("From derived self\n");
+var_dump($fromDerivedSelf);
+print(PHP_EOL);
+
+$fromDerivedParent = DerivedClass::createParent();
+
+print("From derived parent\n");
+var_dump($fromDerivedParent);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+From base static
+object(BaseClass)#1 (0) {
+}
+
+From base self
+object(BaseClass)#2 (0) {
+}
+
+From derived static
+object(DerivedClass)#3 (0) {
+}
+
+From derived self
+object(BaseClass)#4 (0) {
+}
+
+From derived parent
+object(BaseClass)#5 (0) {
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_from_static_self_and_parent.php)
 
 When *assigning* an already created *instance* of a *class* to a new *variable*, the new *variable* will access the same *instance* as the *object* that was assigned. This behaviour is the same when *passing* *instances* to a *function*. A *copy* of an already created *object* can be made by *cloning* it.
 
@@ -265,6 +551,71 @@ object(SimpleClass)#1 (1) {
      string(30) "$assigned will have this value"
 }
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new)
+
+*Example: Object assigning to the variable, passing to the function and returning by the function*
+
+```php
+<?php
+
+class SomeClass
+{
+}
+
+class OtherClass
+{
+}
+
+class AnotherClass
+{
+}
+
+function receivingFunction(object $objectArgument)
+{
+    print("As function argument\n");
+    var_dump($objectArgument);
+    print(PHP_EOL);
+}
+
+function returningFunction()
+{
+    return new AnotherClass();
+}
+
+$someObject = new SomeClass();
+
+print("As a variable\n");
+var_dump($someObject);
+print(PHP_EOL);
+
+receivingFunction(new OtherClass);
+
+print("As a function result\n");
+var_dump(returningFunction());
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+As a variable
+object(SomeClass)#1 (0) {
+}
+
+As function argument
+object(OtherClass)#2 (0) {
+}
+
+As a function result
+object(AnotherClass)#2 (0) {
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/object_assignment_passing_and_returning.php)
 
 It's possible to create *instances* of an *object* in a couple of ways:
 
@@ -325,6 +676,8 @@ The above example will output something similar to:
 ```
 
 Note: Prior to PHP 7.1, the arguments are not evaluated if there is no constructor function defined.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new)
 
 ## Properties and methods
 
