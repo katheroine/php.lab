@@ -178,7 +178,7 @@ If there are no *arguments* to be passed to the class's *constructor*, parenthes
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new)
 
-*Example: Class Instantiation*
+*Example: Class instantiation*
 
 ```php
 <?php
@@ -516,6 +516,83 @@ object(BaseClass)#5 (0) {
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_from_static_self_and_parent.php)
 
+It's possible to create *instances* of an *object* in a couple of ways:
+
+*Example: Creating new objects*
+
+```php
+<?php
+
+class Test
+{
+    public static function getNew()
+    {
+        return new static();
+    }
+}
+
+class Child extends Test {}
+
+$obj1 = new Test(); // By the class name
+$obj2 = new $obj1(); // Through the variable containing an object
+var_dump($obj1 !== $obj2);
+
+$obj3 = Test::getNew(); // By the class method
+var_dump($obj3 instanceof Test);
+
+$obj4 = Child::getNew(); // Through a child class method
+var_dump($obj4 instanceof Child);
+
+?>
+```
+
+The above example will output:
+
+```
+bool(true)
+bool(true)
+bool(true)
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new)
+
+*Example: Class instantiation by factory method*
+
+```php
+<?php
+
+class SomeClass
+{
+    static function create()
+    {
+        return new static();
+    }
+
+    private function __construct()
+    {
+    }
+}
+
+$someObject = SomeClass::create();
+
+print("Object:\n");
+var_dump($someObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Object:
+object(SomeClass)#1 (0) {
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_by_factory_method.php)
+
 When *assigning* an already created *instance* of a *class* to a new *variable*, the new *variable* will access the same *instance* as the *object* that was assigned. This behaviour is the same when *passing* *instances* to a *function*. A *copy* of an already created *object* can be made by *cloning* it.
 
 *Example: Object assignment*
@@ -763,83 +840,6 @@ SomeClass Object
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/object_access.php)
 
-It's possible to create *instances* of an *object* in a couple of ways:
-
-*Example: Creating new objects*
-
-```php
-<?php
-
-class Test
-{
-    public static function getNew()
-    {
-        return new static();
-    }
-}
-
-class Child extends Test {}
-
-$obj1 = new Test(); // By the class name
-$obj2 = new $obj1(); // Through the variable containing an object
-var_dump($obj1 !== $obj2);
-
-$obj3 = Test::getNew(); // By the class method
-var_dump($obj3 instanceof Test);
-
-$obj4 = Child::getNew(); // Through a child class method
-var_dump($obj4 instanceof Child);
-
-?>
-```
-
-The above example will output:
-
-```
-bool(true)
-bool(true)
-bool(true)
-```
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new)
-
-*Example: Class instantiation by factory method*
-
-```php
-<?php
-
-class SomeClass
-{
-    static function create()
-    {
-        return new static();
-    }
-
-    private function __construct()
-    {
-    }
-}
-
-$someObject = SomeClass::create();
-
-print("Object:\n");
-var_dump($someObject);
-print(PHP_EOL);
-
-```
-
-**Result (PHP 8.4)**:
-
-```
-Object:
-object(SomeClass)#1 (0) {
-}
-
-```
-
-**Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_by_factory_method.php)
-
 It is possible to access a member of a newly created object in a single expression:
 
 *Example: Access member of newly created object*
@@ -900,7 +900,186 @@ pumpkin
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_and_immediate_instance_member_access.php)
 
-## Properties and methods
+## Class members
+
+### Class constant
+
+*Example: Class constant*
+
+```php
+<?php
+
+class SomeClass
+{
+    public const SOME_CONSTANT = 'grapefruit';
+}
+
+print('Constant value: ' . SomeClass::SOME_CONSTANT . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Constant value: grapefruit
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_constant.php)
+
+### Class properties and methods
+
+#### Class static property
+
+*Example: Class static property*
+
+```php
+<?php
+
+class SomeClass
+{
+    public static $someStaticProperty = 'lemon';
+}
+
+print('Statically accessed static property value: ' . SomeClass::$someStaticProperty . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Statically accessed static property value: lemon
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_static_property.php)
+
+#### Class property
+
+*Example: Class property*
+
+```php
+<?php
+
+class SomeClass
+{
+    public $someProperty = 'lemon';
+}
+
+$someObject = new SomeClass();
+
+print('Dynamically accessed property value: ' . $someObject->someProperty . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Dynamically accessed property value: lemon
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_property.php)
+
+#### Class static method
+
+*Example: Class static method*
+
+```php
+<?php
+
+class SomeClass
+{
+    public const SOME_CONSTANT = 'grapefruit';
+    public static $someStaticProperty = 'lemon';
+    public $someProperty = 'orange';
+
+    public static function someStaticMethod()
+    {
+        print('Statically accessed constant value (by self): ' . self::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed constant value (by static): ' . static::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed static property value (by self): ' . self::$someStaticProperty . PHP_EOL);
+        print('Statically accessed static property value (by static): ' . static::$someStaticProperty . PHP_EOL);
+    }
+}
+
+print("Static method static call:\n");
+SomeClass::someStaticMethod();
+print(PHP_EOL);
+
+$someObject = new SomeClass();
+
+print("Static method dynamic call:\n");
+$someObject->someStaticMethod();
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Static method static call:
+Statically accessed constant value (by self): grapefruit
+Statically accessed constant value (by static): grapefruit
+Statically accessed static property value (by self): lemon
+Statically accessed static property value (by static): lemon
+
+Static method dynamic call:
+Statically accessed constant value (by self): grapefruit
+Statically accessed constant value (by static): grapefruit
+Statically accessed static property value (by self): lemon
+Statically accessed static property value (by static): lemon
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_static_method.php)
+
+#### Class method
+
+*Example: Class method*
+
+```php
+<?php
+
+class SomeClass
+{
+    public const SOME_CONSTANT = 'grapefruit';
+    public static $someStaticProperty = 'lemon';
+    public $someProperty = 'orange';
+
+    public function someMethod()
+    {
+        print('Statically accessed constant value (by self): ' . self::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed constant value (by static): ' . static::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed static property value (by self): ' . self::$someStaticProperty . PHP_EOL);
+        print('Statically accessed static property value (by static): ' . static::$someStaticProperty . PHP_EOL);
+        print('Dynamically accessed property value: ' . $this->someProperty . PHP_EOL);
+    }
+}
+
+$someObject = new SomeClass();
+
+print("Method dynamic call:\n");
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Method dynamic call:
+Statically accessed constant value (by self): grapefruit
+Statically accessed constant value (by static): grapefruit
+Statically accessed static property value (by self): lemon
+Statically accessed static property value (by static): lemon
+Dynamically accessed property value: orange
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_method.php)
+
+#### Class properties and methods names
 
 *Class properties* and *methods* live in separate "namespaces", so it is possible to have a *property* and a *method* with the same name. Referring to both a *property* and a *method* has the same notation, and whether a *property* will be *accessed* or a *method* will be *called*, solely depends on the context, i.e. whether the usage is a *variable access* or a *function call*.
 
@@ -1059,7 +1238,469 @@ Array
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_function_property_and_method_with_same_name.php)
 
-## Nullsafe properties and methods
+### Class static members
+
+*Example: Class static members*
+
+```php
+<?php
+
+class SomeClass
+{
+    public static $someStaticProperty = 'lemon';
+
+    public static function someStaticMethod()
+    {
+        return 'blackberry';
+    }
+}
+
+print('Statically accessed static property value: ' . SomeClass::$someStaticProperty . PHP_EOL);
+print('Statically called static method result: ' . SomeClass::someStaticMethod() . PHP_EOL);
+
+$someObject = new SomeClass();
+
+print('Dynamically called static method result: ' . $someObject->someStaticMethod() . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Statically accessed static property value: lemon
+Statically called static method result: blackberry
+Dynamically called static method result: blackberry
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_static_members.php)
+
+### Class dynamic members
+
+*Example: Class dynamic members*
+
+```php
+<?php
+
+class SomeClass
+{
+    public $someProperty = 'orange';
+
+    public function someMethod()
+    {
+        return 'strawberry';
+    }
+}
+
+$someObject = new SomeClass();
+
+print('Dynamically accessed property value: ' . $someObject->someProperty . PHP_EOL);
+print('Dynamically called method result: ' . $someObject->someMethod() . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Dynamically accessed property value: orange
+Dynamically called method result: strawberry
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_dynamic_members.php)
+
+### Class members static access
+
+*Example: Class members static access*
+
+```php
+<?php
+
+class SomeClass
+{
+    public const SOME_CONSTANT = 'grapefruit';
+    public static $someStaticProperty = 'lemon';
+
+    public static function someStaticMethod()
+    {
+        print("Inside static method:\n\n");
+        print('Constant value (accessed by self): ' . self::SOME_CONSTANT . PHP_EOL);
+        print('Constant value (accessed by static): ' . static::SOME_CONSTANT . PHP_EOL);
+        print('Static property value (accessed by self): ' . self::$someStaticProperty . PHP_EOL);
+        print('Static property value (accessed by static): ' . static::$someStaticProperty . PHP_EOL);
+    }
+}
+
+print("Outside class:\n\n");
+print('Constant value: ' . SomeClass::SOME_CONSTANT . PHP_EOL);
+print('Static property value: ' . SomeClass::$someStaticProperty . PHP_EOL . PHP_EOL);
+print("Static method call:\n\n");
+SomeClass::someStaticMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Outside class:
+
+Constant value: grapefruit
+Static property value: lemon
+
+Static method call:
+
+Inside static method:
+
+Constant value (accessed by self): grapefruit
+Constant value (accessed by static): grapefruit
+Static property value (accessed by self): lemon
+Static property value (accessed by static): lemon
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_members_static_access.php)
+
+*Example: Class members dynamic access*
+
+```php
+<?php
+
+class SomeClass
+{
+    public $someProperty = 'lemon';
+
+    public static function someStaticMethod()
+    {
+        print("Inside static method.\n\n");
+    }
+
+    public function someMethod()
+    {
+        print("Inside method:\n\n");
+        print('Property value: ' . $this->someProperty . PHP_EOL);
+    }
+}
+
+$someObject = new SomeClass();
+
+print("Outside class:\n\n");
+print('Property value: ' . $someObject->someProperty . PHP_EOL . PHP_EOL);
+print("Static method call:\n\n");
+$someObject->someStaticMethod();
+print("Method call:\n\n");
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Outside class:
+
+Property value: lemon
+
+Static method call:
+
+Inside static method.
+
+Method call:
+
+Inside method:
+
+Property value: lemon
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_members_dynamic_access.php)
+
+### Object & class context
+
+#### Object context
+
+>>> `$this` pseudo-variable
+
+The *pseudo-variable* `$this` is available when a *method* is called from within an *object context*. `$this` is the *value* of the *calling object*.
+
+Warning
+
+Calling a *non-static method* statically throws an `Error`. Prior to PHP 8.0.0, this would generate a deprecation notice, and `$this` would be undefined.
+
+*Example: Some examples of the `$this` pseudo-variable*
+
+```php
+<?php
+class A
+{
+    function foo()
+    {
+        if (isset($this)) {
+            echo '$this is defined (';
+            echo get_class($this);
+            echo ")\n";
+        } else {
+            echo "\$this is not defined.\n";
+        }
+    }
+}
+
+class B
+{
+    function bar()
+    {
+        A::foo();
+    }
+}
+
+$a = new A();
+$a->foo();
+
+A::foo();
+
+$b = new B();
+$b->bar();
+
+B::bar();
+?>
+```
+
+Output of the above example in PHP 7:
+
+```
+$this is defined (A)
+
+Deprecated: Non-static method A::foo() should not be called statically in %s  on line 27
+$this is not defined.
+
+Deprecated: Non-static method A::foo() should not be called statically in %s  on line 20
+$this is not defined.
+
+Deprecated: Non-static method B::bar() should not be called statically in %s  on line 32
+
+Deprecated: Non-static method A::foo() should not be called statically in %s  on line 20
+$this is not defined.
+```
+
+Output of the above example in PHP 8:
+
+```
+$this is defined (A)
+
+Fatal error: Uncaught Error: Non-static method A::foo() cannot be called statically in %s :27
+Stack trace:
+#0 {main}
+  thrown in %s  on line 27
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.class)
+
+#### Class context
+
+>>> Scope resolution `::` operator
+
+The ***scope resolution operator*** (also called *paamayim nekudotayim*) or in simpler terms, the *double colon*, is a *token* that allows access to a *constant*, *static property*, or *static method* of a *class* or one of its *parents*. Moreover, *static properties* or *methods* can be *overriden* via *late static binding*.
+
+When *referencing* these items from outside the *class definition*, use the *name* of the *class*.
+
+It's possible to reference the *class* using a *variable*. The *variable's value* can not be a *keyword* (e.g. `self`, `parent` and `static`).
+
+*Paamayim nekudotayim* would, at first, seem like a strange choice for naming a double-colon. However, while writing the Zend Engine 0.5 (which powers PHP 3), that's what the Zend team decided to call it. It actually does mean double-colon - in Hebrew!
+
+[It's simply the *scope resolution operator* in other languages. -- KK]
+
+*Example: `::` from outside the class definition*
+
+```php
+<?php
+class MyClass {
+    const CONST_VALUE = 'A constant value';
+}
+
+$classname = 'MyClass';
+echo $classname::CONST_VALUE;
+
+echo MyClass::CONST_VALUE;
+?>
+```
+
+#### Accessing class members by `self`, `parent` and `static` keywords
+
+Three special *keywords* `self`, `parent` and `static` are used to *access properties* or *methods* from inside the *class definition*.
+
+*Example: `::` from inside the class definition*
+
+```php
+<?php
+class MyClass {
+    const CONST_VALUE = 'A constant value';
+}
+
+class OtherClass extends MyClass
+{
+    public static $my_static = 'static var';
+
+    public static function doubleColon() {
+        echo parent::CONST_VALUE . "\n";
+        echo self::$my_static . "\n";
+    }
+}
+
+$classname = 'OtherClass';
+$classname::doubleColon();
+
+OtherClass::doubleColon();
+?>
+```
+
+When an *extending class* overrides the parent's definition of a *method*, PHP will not call the *parent's method*. It's up to the *extended class* on whether or not the *parent's method* is called. This also applies to *constructors* and *destructors*, *overloading*, and *magic method* definitions.
+
+*Example: Calling a parent's method*
+
+```php
+<?php
+class MyClass
+{
+    protected function myFunc() {
+        echo "MyClass::myFunc()\n";
+    }
+}
+
+class OtherClass extends MyClass
+{
+    // Override parent's definition
+    public function myFunc()
+    {
+        // But still call the parent function
+        parent::myFunc();
+        echo "OtherClass::myFunc()\n";
+    }
+}
+
+$class = new OtherClass();
+$class->myFunc();
+?>
+```
+
+See also some examples of *static call trickery*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php)
+
+*Example: Class member access by `static`, `self` and `parent` keywords*
+
+```php
+<?php
+
+class BaseClass
+{
+    public const SOME_CONSTANT = 'grapefruit';
+    public static $someStaticProperty = 'lemon';
+    public $someProperty = 'orange';
+
+    static function someStaticMethod()
+    {
+        print(static::class . '/' . self::class . " static method:\n\n");
+        print('Statically accessed constant value (by self): ' . self::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed constant value (by static): ' . static::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed static property value (by self): ' . self::$someStaticProperty . PHP_EOL);
+        print('Statically accessed static property value (by static): ' . static::$someStaticProperty . PHP_EOL);
+        print(PHP_EOL);
+    }
+
+    function someMethod()
+    {
+        print(static::class . '/' . self::class . " method:\n\n");
+        print('Statically accessed constant value (by self): ' . self::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed constant value (by static): ' . static::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed static property value (by self): ' . self::$someStaticProperty . PHP_EOL);
+        print('Statically accessed static property value (by static): ' . static::$someStaticProperty . PHP_EOL);
+        print('Dynamically accessed property value: ' . $this->someProperty . PHP_EOL);
+        print(PHP_EOL);
+    }
+}
+
+class DerivedClass extends BaseClass
+{
+    public const SOME_CONSTANT = 'potato';
+    public static $someStaticProperty = 'tomato';
+    public $someProperty = 'cucumber';
+
+    function otherMethod()
+    {
+        print(static::class . '/' . self::class . " method:\n\n");
+        print('Statically accessed constant value (by self): ' . self::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed constant value (by static): ' . static::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed static property value (by self): ' . self::$someStaticProperty . PHP_EOL);
+        print('Statically accessed static property value (by static): ' . static::$someStaticProperty . PHP_EOL);
+        print('Dynamically accessed property value: ' . $this->someProperty . PHP_EOL);
+        print(PHP_EOL);
+        print('Statically accessed parent constant value (by parent): ' . parent::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed parent static property value (by parent): ' . parent::$someStaticProperty . PHP_EOL);
+        print(PHP_EOL);
+    }
+}
+
+$someObject = new BaseClass();
+
+$someObject->someStaticMethod();
+$someObject->someMethod();
+
+$otherObject = new DerivedClass();
+
+$otherObject->someStaticMethod();
+$otherObject->someMethod();
+$otherObject->otherMethod();
+```
+
+**Result (PHP 8.4)**:
+
+```
+BaseClass/BaseClass static method:
+
+Statically accessed constant value (by self): grapefruit
+Statically accessed constant value (by static): grapefruit
+Statically accessed static property value (by self): lemon
+Statically accessed static property value (by static): lemon
+
+BaseClass/BaseClass method:
+
+Statically accessed constant value (by self): grapefruit
+Statically accessed constant value (by static): grapefruit
+Statically accessed static property value (by self): lemon
+Statically accessed static property value (by static): lemon
+Dynamically accessed property value: orange
+
+DerivedClass/BaseClass static method:
+
+Statically accessed constant value (by self): grapefruit
+Statically accessed constant value (by static): potato
+Statically accessed static property value (by self): lemon
+Statically accessed static property value (by static): tomato
+
+DerivedClass/BaseClass method:
+
+Statically accessed constant value (by self): grapefruit
+Statically accessed constant value (by static): potato
+Statically accessed static property value (by self): lemon
+Statically accessed static property value (by static): tomato
+Dynamically accessed property value: cucumber
+
+DerivedClass/DerivedClass method:
+
+Statically accessed constant value (by self): potato
+Statically accessed constant value (by static): potato
+Statically accessed static property value (by self): tomato
+Statically accessed static property value (by static): tomato
+Dynamically accessed property value: cucumber
+
+Statically accessed parent constant value (by parent): grapefruit
+Statically accessed parent static property value (by parent): lemon
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_member_access_by_static_self_and_parent.php)
+
+### Nullsafe properties and methods
+
+>>> `?->` operator
 
 As of PHP 8.0.0, *properties* and *methods* may also be accessed with the *nullsafe operator* instead: `?->`. The *nullsafe operator* works the same as property or method access as above, except that if the object being dereferenced is `null` then `null` will be returned rather than an exception thrown. If the dereference is part of a chain, the rest of the chain is skipped.
 
@@ -1146,168 +1787,68 @@ Result: vanilla
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/nullsafe_properties.php)
 
-## Object & class context
-
-The *pseudo-variable* `$this` is available when a *method* is called from within an *object context*. `$this` is the *value* of the *calling object*.
-
-Warning
-
-Calling a *non-static method* statically throws an `Error`. Prior to PHP 8.0.0, this would generate a deprecation notice, and `$this` would be undefined.
-
-*Example: Some examples of the `$this` pseudo-variable*
+*Example: Nullsafe methods*
 
 ```php
 <?php
-class A
+
+class SomeClass
 {
-    function foo()
+    private $empty;
+
+    public function someMethod()
     {
-        if (isset($this)) {
-            echo '$this is defined (';
-            echo get_class($this);
-            echo ")\n";
-        } else {
-            echo "\$this is not defined.\n";
+        if ($this->empty) {
+            return null;
         }
-    }
-}
 
-class B
-{
-    function bar()
+        return new OtherClass();
+    }
+
+    function __construct($empty)
     {
-        A::foo();
+        $this->empty = $empty;
     }
 }
 
-$a = new A();
-$a->foo();
-
-A::foo();
-
-$b = new B();
-$b->bar();
-
-B::bar();
-?>
-```
-
-Output of the above example in PHP 7:
-
-```
-$this is defined (A)
-
-Deprecated: Non-static method A::foo() should not be called statically in %s  on line 27
-$this is not defined.
-
-Deprecated: Non-static method A::foo() should not be called statically in %s  on line 20
-$this is not defined.
-
-Deprecated: Non-static method B::bar() should not be called statically in %s  on line 32
-
-Deprecated: Non-static method A::foo() should not be called statically in %s  on line 20
-$this is not defined.
-```
-
-Output of the above example in PHP 8:
-
-```
-$this is defined (A)
-
-Fatal error: Uncaught Error: Non-static method A::foo() cannot be called statically in %s :27
-Stack trace:
-#0 {main}
-  thrown in %s  on line 27
-```
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.class)
-
-## Scope resolution operator (`::`)
-
-The ***scope resolution operator*** (also called *paamayim nekudotayim*) or in simpler terms, the *double colon*, is a *token* that allows access to a *constant*, *static property*, or *static method* of a *class* or one of its *parents*. Moreover, *static properties* or *methods* can be *overriden* via *late static binding*.
-
-When *referencing* these items from outside the *class definition*, use the *name* of the *class*.
-
-It's possible to reference the *class* using a *variable*. The *variable's value* can not be a *keyword* (e.g. `self`, `parent` and `static`).
-
-*Paamayim nekudotayim* would, at first, seem like a strange choice for naming a double-colon. However, while writing the Zend Engine 0.5 (which powers PHP 3), that's what the Zend team decided to call it. It actually does mean double-colon - in Hebrew!
-
-[It's simply the *scope resolution operator* in other languages. -- KK]
-
-*Example: `::` from outside the class definition*
-
-```php
-<?php
-class MyClass {
-    const CONST_VALUE = 'A constant value';
-}
-
-$classname = 'MyClass';
-echo $classname::CONST_VALUE;
-
-echo MyClass::CONST_VALUE;
-?>
-```
-
-Three special *keywords* `self`, `parent` and `static` are used to *access properties* or *methods* from inside the *class definition*.
-
-*Example: `::` from inside the class definition*
-
-```php
-<?php
-class MyClass {
-    const CONST_VALUE = 'A constant value';
-}
-
-class OtherClass extends MyClass
+class OtherClass
 {
-    public static $my_static = 'static var';
-
-    public static function doubleColon() {
-        echo parent::CONST_VALUE . "\n";
-        echo self::$my_static . "\n";
-    }
-}
-
-$classname = 'OtherClass';
-$classname::doubleColon();
-
-OtherClass::doubleColon();
-?>
-```
-
-When an *extending class* overrides the parent's definition of a *method*, PHP will not call the *parent's method*. It's up to the *extended class* on whether or not the *parent's method* is called. This also applies to *constructors* and *destructors*, *overloading*, and *magic method* definitions.
-
-*Example: Calling a parent's method*
-
-```php
-<?php
-class MyClass
-{
-    protected function myFunc() {
-        echo "MyClass::myFunc()\n";
-    }
-}
-
-class OtherClass extends MyClass
-{
-    // Override parent's definition
-    public function myFunc()
+    public function otherMethod()
     {
-        // But still call the parent function
-        parent::myFunc();
-        echo "OtherClass::myFunc()\n";
+        return 'vanilla';
     }
 }
 
-$class = new OtherClass();
-$class->myFunc();
-?>
+function someFunction($emptyResult, $emptyMethod)
+{
+    if ($emptyResult) {
+        return null;
+    }
+
+    return new SomeClass($emptyMethod);
+}
+
+$result = someFunction(true, true)?->someMethod()?->otherMethod();
+print('Result: ' . $result . PHP_EOL);
+
+$result = someFunction(false, true)?->someMethod()?->otherMethod();
+print('Result: ' . $result . PHP_EOL);
+
+$result = someFunction(false, false)?->someMethod()?->otherMethod();
+print('Result: ' . $result . PHP_EOL);
+
 ```
 
-See also some examples of *static call trickery*.
+**Result (PHP 8.4)**:
 
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php)
+```
+Result:
+Result:
+Result: vanilla
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/nullsafe_methods.php)
 
 ## Readonly classes
 
