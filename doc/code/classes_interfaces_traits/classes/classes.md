@@ -617,6 +617,152 @@ object(AnotherClass)#2 (0) {
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/object_assignment_passing_and_returning.php)
 
+*Example: Object access*
+
+```php
+<?php
+
+class SomeClass
+{
+    public $someProperty = 'betroot';
+}
+
+$someObject = new SomeClass();
+
+print("Object:\n");
+print_r($someObject);
+print(PHP_EOL);
+
+$someVariable = $someObject;
+
+print("Variable:\n");
+print_r($someVariable);
+print(PHP_EOL);
+
+$someReference = &$someObject;
+
+print("Reference:\n");
+print_r($someObject);
+print(PHP_EOL);
+
+$someClone = clone $someObject;
+
+print("Clone:\n");
+print_r($someClone);
+print(PHP_EOL);
+
+print("Change of variable\n\n");
+
+$someVariable->someProperty = 'carrot';
+
+print("Variable:\n");
+print_r($someVariable);
+print(PHP_EOL);
+
+print("Object:\n");
+print_r($someObject);
+print(PHP_EOL);
+
+print("Change of reference\n\n");
+
+$someReference->someProperty = 'parsley';
+
+print("Reference:\n");
+print_r($someObject);
+print(PHP_EOL);
+
+print("Object:\n");
+print_r($someObject);
+print(PHP_EOL);
+
+print("Change of clone\n\n");
+
+$someClone->someProperty = 'radish';
+
+print("Clone:\n");
+print_r($someClone);
+print(PHP_EOL);
+
+print("Object:\n");
+print_r($someObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Object:
+SomeClass Object
+(
+    [someProperty] => betroot
+)
+
+Variable:
+SomeClass Object
+(
+    [someProperty] => betroot
+)
+
+Reference:
+SomeClass Object
+(
+    [someProperty] => betroot
+)
+
+Clone:
+SomeClass Object
+(
+    [someProperty] => betroot
+)
+
+Change of variable
+
+Variable:
+SomeClass Object
+(
+    [someProperty] => carrot
+)
+
+Object:
+SomeClass Object
+(
+    [someProperty] => carrot
+)
+
+Change of reference
+
+Reference:
+SomeClass Object
+(
+    [someProperty] => parsley
+)
+
+Object:
+SomeClass Object
+(
+    [someProperty] => parsley
+)
+
+Change of clone
+
+Clone:
+SomeClass Object
+(
+    [someProperty] => radish
+)
+
+Object:
+SomeClass Object
+(
+    [someProperty] => parsley
+)
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/object_access.php)
+
 It's possible to create *instances* of an *object* in a couple of ways:
 
 *Example: Creating new objects*
@@ -655,6 +801,45 @@ bool(true)
 bool(true)
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new)
+
+*Example: Class instantiation by factory method*
+
+```php
+<?php
+
+class SomeClass
+{
+    static function create()
+    {
+        return new static();
+    }
+
+    private function __construct()
+    {
+    }
+}
+
+$someObject = SomeClass::create();
+
+print("Object:\n");
+var_dump($someObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Object:
+object(SomeClass)#1 (0) {
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_by_factory_method.php)
+
 It is possible to access a member of a newly created object in a single expression:
 
 *Example: Access member of newly created object*
@@ -678,6 +863,42 @@ The above example will output something similar to:
 Note: Prior to PHP 7.1, the arguments are not evaluated if there is no constructor function defined.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new)
+
+*Example: Class instantiation and immediate instance member access*
+
+```php
+<?php
+
+class SomeClass
+{
+    public $someProperty = 'watermelon';
+    private $otherProperty = 'pumpkin';
+
+    function someMethod()
+    {
+        return $this->otherProperty;
+    }
+}
+
+$value = (new SomeClass())->someProperty;
+
+print($value . PHP_EOL);
+
+$value = (new SomeClass())->someMethod();
+
+print($value . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+watermelon
+pumpkin
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_and_immediate_instance_member_access.php)
 
 ## Properties and methods
 

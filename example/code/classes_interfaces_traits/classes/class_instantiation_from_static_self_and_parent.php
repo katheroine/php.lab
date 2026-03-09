@@ -4,12 +4,12 @@ class BaseClass
 {
     static function createStatic()
     {
-        return new static;
+        return new static();
     }
 
     static function createSelf()
     {
-        return new self;
+        return new self();
     }
 }
 
@@ -17,7 +17,7 @@ class DerivedClass extends BaseClass
 {
     static function createParent()
     {
-        return new parent;
+        return new parent();
     }
 }
 
