@@ -4,11 +4,11 @@
 
 # Covariance and contravariance
 
-In PHP 7.2.0, *partial contravariance* was introduced by removing *type restrictions* on *parameters* in a *child method*. As of PHP 7.4.0, full covariance and contravariance support was added.
+In PHP 7.2.0, *partial contravariance* was introduced by removing *type restrictions* on *parameters* in a *child method*. As of PHP 7.4.0, full *covariance* and *contravariance* support was added.
 
 *Covariance* allows a *child's method* to *return* a *more specific type* than the *return type* of its *parent's method*. *Contravariance* allows a *parameter type* to be *less specific* in a *child method*, than that of its *parent*.
 
-A *type declaration* is considered more specific in the following case:
+A *type declaration* is considered *more specific* in the following case:
 
 * A *type* is removed from a *union type*
 * A *type* is added to an *intersection type*
@@ -207,6 +207,112 @@ class PoodleOwner extends DogOwner
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.variance.php)
+
+*Example: Class inheritance and covariance, contravariance, invariance*
+
+```php
+<?php
+
+class Adept
+{
+    public $curiosity = "How the time works?";
+}
+
+class Craftman extends Adept
+{
+    public $knowledge = "There's a time dilation.";
+}
+
+class Master extends Craftman
+{
+    public $wisdom = "GPS clocks need time correction.";
+}
+
+class Association
+{
+    function affiliate(Craftman $member)
+    {
+        print(
+            $member->curiosity . PHP_EOL
+            . $member->knowledge . PHP_EOL . PHP_EOL
+        );
+    }
+
+    function getGuide(): Craftman
+    {
+        return new Craftman();
+    }
+}
+
+class Club extends Association
+{
+    function affiliate(Adept $member)
+    {
+        print($member->curiosity . PHP_EOL . PHP_EOL);
+    }
+
+    function getGuide(): Master
+    {
+        return new Master();
+    }
+}
+
+function communityMeeting(Association $group)
+{
+    $newMember = new Craftman();
+
+    print("Affiliating:\n\n");
+    $group->affiliate($newMember);
+
+    $newGuide = $group->getGuide();
+
+    print("Guidance:\n\n");
+    print(
+        "Guide curiosity: {$newGuide->curiosity}\n"
+        . "Guide knowledge: {$newGuide->knowledge}\n\n"
+    );
+}
+
+$someGroup = new Association();
+print("# Association:\n\n");
+communityMeeting($someGroup);
+
+$otherGroup = new Club();
+print("# Club:\n\n");
+communityMeeting($otherGroup);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# Association:
+
+Affiliating:
+
+How the time works?
+There's a time dilation.
+
+Guidance:
+
+Guide curiosity: How the time works?
+Guide knowledge: There's a time dilation.
+
+# Club:
+
+Affiliating:
+
+How the time works?
+
+Guidance:
+
+Guide curiosity: How the time works?
+Guide knowledge: There's a time dilation.
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_inheritance_and_covariance_contravariance_invariance.php)
 
 [▵ Up](#covariance-and-contravariance)
 [⌂ Home](../../../README.md)

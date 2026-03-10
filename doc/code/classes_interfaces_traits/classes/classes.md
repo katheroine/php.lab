@@ -2131,7 +2131,7 @@ Another method result: avocado
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/class_inheritance.php)
 
-## Signature compatibility rules
+### Class inheritance and method signature compatibility rules
 
 When *overriding a method*, its *signature* must be compatible with the *parent method*. Otherwise, a fatal error is emitted, or, prior to PHP 8.0.0, an `E_WARNING` level error is generated. A *signature* is compatible if it respects the *variance rules*, makes a mandatory *parameter* optional, adds only optional new *parameters* and doesn't restrict but only relaxes the *visibility*. This is known as the *Liskov Substitution Principle*, or *LSP* for short. The *constructor*, and *private methods* are exempt from these *signature compatibility rules*, and thus won't emit a fatal error in case of a *signature* mismatch.
 
@@ -2264,6 +2264,86 @@ Stack trace:
   thrown in /in/XaaeN on line 14
 ```
 
+*Exapmle: Class inheritance and signature compatibility*
+
+```php
+<?php
+
+class Flower
+{
+    private const STAMP = '*';
+
+    public function bloom(int $quantity)
+    {
+        $blossoms = '';
+
+        for ($i = 0; $i < $quantity; $i++) {
+            $blossoms .= static::STAMP;
+        }
+
+        return $blossoms;
+    }
+}
+
+class Rose extends Flower
+{
+    protected const STAMP = '@';
+
+    public function bloom(int $quantity = 3): string
+    {
+        return parent::bloom($quantity);
+    }
+}
+
+class RoseBush extends Rose
+{
+    public function bloom(int $columns = 3, int $rows = 3): string
+    {
+        $blossoms = '';
+
+        for ($i = 0; $i < $rows; $i++) {
+            $blossoms .= Rose::bloom($columns);
+
+            if ($i < $rows - 1) {
+                $blossoms .= PHP_EOL;
+            }
+        }
+
+        return $blossoms;
+    }
+}
+
+function garden(Flower $flower, int $number)
+{
+    print($flower->bloom($number) . PHP_EOL . PHP_EOL);
+}
+
+$flower = new Flower();
+$rose = new Rose();
+$bush = new RoseBush();
+
+garden($flower, 3);
+garden($rose, 4);
+garden($bush, 5);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+***
+
+@@@@
+
+@@@@@
+@@@@@
+@@@@@
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_inheritance_and_method_signature_compatibility.php)
+
 ## Class name resolution
 
 >>> `::class`
@@ -2307,7 +2387,7 @@ The above example will output:
 Does\Not\Exist
 ```
 
-As of PHP 8.0.0, `::class` may also be used on *objects*. This resolution happens at *runtime*, not *compile time*. Its effect is the same as `calling get_class()` on the object.
+As of PHP 8.0.0, `::class` may also be used on *objects*. This resolution happens at *runtime*, not *compile time*. Its effect is the same as calling `get_class()` on the *object*.
 
 *Example: Object name resolution*
 
@@ -2328,6 +2408,32 @@ The above example will output:
 ```
 NS\ClassName
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.class.class)
+
+*Example: Class name resolution*
+
+```php
+<?php
+
+namespace SomeNamespace;
+
+class SomeClass
+{
+}
+
+print(SomeClass::class . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+SomeNamespace\SomeClass
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_name_resolution.php)
 
 [▵ Up](#classes)
 [⌂ Home](../../../README.md)
