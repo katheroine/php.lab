@@ -1495,7 +1495,7 @@ Stack trace:
 
 #### Class context
 
->>> Scope resolution `::` operator
+>>> scope resolution `::` operator
 
 The ***scope resolution operator*** (also called *paamayim nekudotayim*) or in simpler terms, the *double colon*, is a *token* that allows access to a *constant*, *static property*, or *static method* of a *class* or one of its *parents*. Moreover, *static properties* or *methods* can be *overriden* via *late static binding*.
 
@@ -1585,6 +1585,12 @@ See also some examples of *static call trickery*.
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php)
 
 *Example: Class member access by `static`, `self` and `parent` keywords*
+
+>>> `static` keyword
+
+>>> `self` keyword
+
+>>> `parent` keyword
 
 ```php
 <?php
@@ -1700,9 +1706,9 @@ Statically accessed parent static property value (by parent): lemon
 
 ### Nullsafe properties and methods
 
->>> `?->` operator
+>>> nullsafe `?->` operator
 
-As of PHP 8.0.0, *properties* and *methods* may also be accessed with the *nullsafe operator* instead: `?->`. The *nullsafe operator* works the same as property or method access as above, except that if the object being dereferenced is `null` then `null` will be returned rather than an exception thrown. If the dereference is part of a chain, the rest of the chain is skipped.
+As of PHP 8.0.0, *properties* and *methods* may also be accessed with the *nullsafe operator* instead: `?->`. The *nullsafe operator* works the same as *property* or *method* access as above, except that if the object being dereferenced is `null` then `null` will be returned rather than an exception thrown. If the dereference is part of a chain, the rest of the chain is skipped.
 
 The effect is similar to wrapping each access in an `is_null()` check first, but more compact.
 
@@ -1852,6 +1858,8 @@ Result: vanilla
 
 ## Readonly classes
 
+>>> `readonly` modifier
+
 As of PHP 8.2.0, a *class* can be marked with the `readonly` *modifier*. Marking a class as *readonly* will add the `readonly` modifier to every declared *property*, and prevent the creation of *dynamic properties*. Moreover, it is impossible to add support for them by using the `AllowDynamicProperties` *attribute*. Attempting to do so will trigger a compile-time error.
 
 ```php
@@ -1888,9 +1896,87 @@ readonly class Foo
 ?>
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.class.readonly)
+
+*Example: Readonly class*
+
+```php
+<?php
+
+readonly class SomeReadonlyClass
+{
+    public int $someProperty;
+    public string $otherProperty;
+
+    public function __construct()
+    {
+        $this->someProperty = 10;
+        $this->otherProperty = 'magenta';
+    }
+}
+
+$someReadonlyObject = new SomeReadonlyClass();
+
+print("Some property: {$someReadonlyObject->someProperty}\n");
+print("Some readonly property: {$someReadonlyObject->otherProperty}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some property: 10
+Some readonly property: magenta
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/readonly_class.php)
+
 A *readonly class* can be extended if, and only if, the *child class* is also a *readonly class*.
 
-## `extends`
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.class.readonly)
+
+*Example: Readonly class inheritance*
+
+```php
+<?php
+
+readonly class SomeReadonlyClass
+{
+    public int $someProperty;
+    public string $otherProperty;
+
+    public function __construct()
+    {
+        $this->someProperty = 10;
+        $this->otherProperty = 'magenta';
+    }
+}
+
+readonly class SomeDerivedClass extends SomeReadonlyClass
+{
+}
+
+$someReadonlyObject = new SomeDerivedClass();
+
+print("Some property: {$someReadonlyObject->someProperty}\n");
+print("Some readonly property: {$someReadonlyObject->otherProperty}\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some property: 10
+Some readonly property: magenta
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/readonly_class_inheritance.php)
+
+## Inheritance
+
+>>> `extends` keyword
 
 A *class* can *inherit* the *constants*, *methods*, and *properties* of another *class* by using the *keyword* `extends` in the *class declaration*. It is not possible to *extend* multiple *classes*; a *class* can only *inherit* from one *base class*.
 
@@ -1931,6 +2017,119 @@ The above example will output:
 Extending class
 Parent class
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.extends)
+
+*Example: Class inheritance*
+
+```php
+<?php
+
+class BaseClass
+{
+    public const SOME_CONSTANT = 'grapefruit';
+    public static $someStaticProperty = 'lemon';
+    public $someProperty = 'orange';
+
+    static function someStaticMethod()
+    {
+        return 'kiwi';
+    }
+
+    function someMethod()
+    {
+        return 'melon';
+    }
+
+    function otherMethod()
+    {
+        return 'watermelon';
+    }
+
+    function anotherMethod()
+    {
+        return 'avocado';
+    }
+}
+
+class DerivedClass extends BaseClass
+{
+    public const OTHER_CONSTANT = 'potato';
+    public static $otherStaticProperty = 'tomato';
+    public $otherProperty = 'cucumber';
+
+    function otherMethod()
+    {
+        return 'radish';
+    }
+
+    function anotherMethod()
+    {
+        return parent::anotherMethod();
+    }
+}
+
+$someObject = new BaseClass();
+
+print("Base class:\n\n");
+print('Some constant: ' . BaseClass::SOME_CONSTANT . PHP_EOL);
+print('Some static property: ' . BaseClass::$someStaticProperty . PHP_EOL);
+print("Some property: {$someObject->someProperty}\n");
+print(PHP_EOL);
+print("Some method result: {$someObject->someMethod()}\n");
+print("Other method result: {$someObject->otherMethod()}\n");
+print("Another method result: {$someObject->anotherMethod()}\n");
+print(PHP_EOL);
+
+$otherObject = new DerivedClass();
+
+print("Derived class:\n\n");
+print('Some constant: ' . DerivedClass::SOME_CONSTANT . PHP_EOL);
+print('Some static property: ' . DerivedClass::$someStaticProperty . PHP_EOL);
+print("Some property: {$otherObject->someProperty}\n");
+print(PHP_EOL);
+print('Other constant: ' . DerivedClass::OTHER_CONSTANT . PHP_EOL);
+print('Other static property: ' . DerivedClass::$otherStaticProperty . PHP_EOL);
+print("Some property: {$otherObject->otherProperty}\n");
+print(PHP_EOL);
+print("Some method result: {$otherObject->someMethod()}\n");
+print("Other method result: {$otherObject->otherMethod()}\n");
+print("Another method result: {$otherObject->anotherMethod()}\n");
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Base class:
+
+Some constant: grapefruit
+Some static property: lemon
+Some property: orange
+
+Some method result: melon
+Other method result: watermelon
+Another method result: avocado
+
+Derived class:
+
+Some constant: grapefruit
+Some static property: lemon
+Some property: orange
+
+Other constant: potato
+Other static property: tomato
+Some property: cucumber
+
+Some method result: melon
+Other method result: radish
+Another method result: avocado
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_inheritance.php)
 
 ## Signature compatibility rules
 
@@ -2065,7 +2264,9 @@ Stack trace:
   thrown in /in/XaaeN on line 14
 ```
 
-## `::class`
+## Class name resolution
+
+>>> `::class`
 
 The *class keyword* is also used for *class name resolution*. To obtain the *fully qualified name* of a class `ClassName` use `ClassName::class`. This is particularly useful with *namespaced classes*.
 
