@@ -386,6 +386,8 @@ Laboratory of PHP.
                 9. [Object access](./example/code/classes_interfaces_traits/classes/object_access.php)
                 10. [Class instatiation and immediate instance member access](./example/code/classes_interfaces_traits/classes/class_instantiation_and_immediate_instance_member_access.php)
                 11. [Class constant](./example/code/classes_interfaces_traits/classes/class_constant.php)
+                12. [Class constant visibility modifiers](./example/code/classes_interfaces_traits/classes/class_constant_visibility_modifiers.php)
+                13. [Class constant type declarations](./example/code/classes_interfaces_traits/classes/class_constant_type_declarations.php)
                 12. [Class static property](/example/code/classes_interfaces_traits/classes/class_static_property.php)
                 13. [Class property](/example/code/classes_interfaces_traits/classes/class_property.php)
                 14. [Class static method](/example/code/classes_interfaces_traits/classes/class_static_method.php)

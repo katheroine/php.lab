@@ -902,30 +902,7 @@ pumpkin
 
 ## Class members
 
-### Class constant
 
-*Example: Class constant*
-
-```php
-<?php
-
-class SomeClass
-{
-    public const SOME_CONSTANT = 'grapefruit';
-}
-
-print('Constant value: ' . SomeClass::SOME_CONSTANT . PHP_EOL);
-
-```
-
-**Result (PHP 8.4)**:
-
-```
-Constant value: grapefruit
-```
-
-**Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_constant.php)
 
 ### Class properties and methods
 
