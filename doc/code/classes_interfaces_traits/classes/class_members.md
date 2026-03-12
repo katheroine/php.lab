@@ -1883,7 +1883,502 @@ Warning
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.properties.php)
 
-------
+*Example: Class dynamic property*
+
+```php
+<?php
+
+class SomeClass
+{
+    public $someProperty = 1;
+}
+
+$someObject = new SomeClass();
+
+print_r($someObject);
+print(PHP_EOL);
+
+$someObject->someDynamicProperty = 2;
+$someObject->otherDynamicProperty = 3;
+
+print_r($someObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+SomeClass Object
+(
+    [someProperty] => 1
+)
+
+SomeClass Object
+(
+    [someProperty] => 1
+    [someDynamicProperty] => 2
+    [otherDynamicProperty] => 3
+)
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_dynamic_property.php)
+
+## Methods
+
+*Example: Class method*
+
+```php
+<?php
+
+class SomeClass
+{
+    public const SOME_CONSTANT = 'grapefruit';
+    public static $someStaticProperty = 'lemon';
+    public $someProperty = 'orange';
+
+    public function someMethod()
+    {
+        print('Statically accessed constant value (by self): ' . self::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed constant value (by static): ' . static::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed static property value (by self): ' . self::$someStaticProperty . PHP_EOL);
+        print('Statically accessed static property value (by static): ' . static::$someStaticProperty . PHP_EOL);
+        print('Dynamically accessed property value: ' . $this->someProperty . PHP_EOL);
+    }
+}
+
+$someObject = new SomeClass();
+
+print("Method dynamic call:\n");
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Method dynamic call:
+Statically accessed constant value (by self): grapefruit
+Statically accessed constant value (by static): grapefruit
+Statically accessed static property value (by self): lemon
+Statically accessed static property value (by static): lemon
+Dynamically accessed property value: orange
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_method.php)
+
+*Example: Class static method*
+
+```php
+<?php
+
+class SomeClass
+{
+    public const SOME_CONSTANT = 'grapefruit';
+    public static $someStaticProperty = 'lemon';
+    public $someProperty = 'orange';
+
+    public static function someStaticMethod()
+    {
+        print('Statically accessed constant value (by self): ' . self::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed constant value (by static): ' . static::SOME_CONSTANT . PHP_EOL);
+        print('Statically accessed static property value (by self): ' . self::$someStaticProperty . PHP_EOL);
+        print('Statically accessed static property value (by static): ' . static::$someStaticProperty . PHP_EOL);
+    }
+}
+
+print("Static method static call:\n");
+SomeClass::someStaticMethod();
+print(PHP_EOL);
+
+$someObject = new SomeClass();
+
+print("Static method dynamic call:\n");
+$someObject->someStaticMethod();
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Static method static call:
+Statically accessed constant value (by self): grapefruit
+Statically accessed constant value (by static): grapefruit
+Statically accessed static property value (by self): lemon
+Statically accessed static property value (by static): lemon
+
+Static method dynamic call:
+Statically accessed constant value (by self): grapefruit
+Statically accessed constant value (by static): grapefruit
+Statically accessed static property value (by self): lemon
+Statically accessed static property value (by static): lemon
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_static_method.php)
+
+### Method visibility modifiers
+
+*Class methods* may be *defined* as *public*, *private*, or *protected*. Methods declared without any explicit *visibility keyword* are *defined* as *public*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.visibility.php#language.oop5.visiblity-methods)
+
+*Example: Class method visibility modifiers*
+
+```php
+<?php
+
+class SomeClass
+{
+    public function somePublicMethod()
+    {
+        return 'public';
+    }
+
+    protected function someProtectedMethod()
+    {
+        return 'protected';
+    }
+
+    private function somePrivateMethod()
+    {
+        return 'private';
+    }
+
+    function someMethod()
+    {
+        print(
+            "# From the base class:\n\n"
+            . $this->somePublicMethod() . PHP_EOL
+            . $this->someProtectedMethod() . PHP_EOL
+            . $this->somePrivateMethod(). PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class OtherClass extends SomeClass
+{
+    function otherMethod()
+    {
+        print(
+            "# From the derived class:\n\n"
+            . $this->somePublicMethod() . PHP_EOL
+            . $this->someProtectedMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->someMethod();
+
+$otherObject = new OtherClass();
+$otherObject->otherMethod();
+
+print(
+    "# From the outside:\n\n"
+    . $someObject->somePublicMethod() . PHP_EOL
+    . PHP_EOL
+);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# From the base class:
+
+public
+protected
+private
+
+# From the derived class:
+
+public
+protected
+
+# From the outside:
+
+public
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_method_visibility_modifiers.php)
+
+*Example: Class method visibility and polimorphism*
+
+```php
+<?php
+
+class BaseClass
+{
+    public function somePublicMethod()
+    {
+        return 'base: public';
+    }
+
+    protected function someProtectedMethod()
+    {
+        return 'base: protected';
+    }
+
+    private function somePrivateMethod()
+    {
+        return 'base: private';
+    }
+
+    function someMethod()
+    {
+        print(
+            '# From ' . static::class . PHP_EOL . PHP_EOL
+            . $this->somePublicMethod() . PHP_EOL
+            . $this->someProtectedMethod() . PHP_EOL
+            . $this->somePrivateMethod(). PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class DerivedClass extends BaseClass
+{
+    function somePublicMethod()
+    {
+        return 'derived: public';
+    }
+
+    function someProtectedMethod()
+    {
+        return 'derived: protected';
+    }
+
+    function somePrivateMethod()
+    {
+        return 'derived: private';
+    }
+
+}
+
+$baseObject = new BaseClass();
+$baseObject->someMethod();
+
+$derivedObject = new DerivedClass();
+$derivedObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# From BaseClass
+
+base: public
+base: protected
+base: private
+
+# From DerivedClass
+
+derived: public
+derived: protected
+base: private
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_method_visibility_and_polimorphism.php)
+
+*Example: Method declaration*
+
+```php
+<?php
+/**
+ * Define MyClass
+ */
+class MyClass
+{
+    // Declare a public constructor
+    public function __construct() { }
+
+    // Declare a public method
+    public function MyPublic() { }
+
+    // Declare a protected method
+    protected function MyProtected() { }
+
+    // Declare a private method
+    private function MyPrivate() { }
+
+    // This is public
+    function Foo()
+    {
+        $this->MyPublic();
+        $this->MyProtected();
+        $this->MyPrivate();
+    }
+}
+
+$myclass = new MyClass;
+$myclass->MyPublic(); // Works
+$myclass->MyProtected(); // Fatal Error
+$myclass->MyPrivate(); // Fatal Error
+$myclass->Foo(); // Public, Protected and Private work
+
+
+/**
+ * Define MyClass2
+ */
+class MyClass2 extends MyClass
+{
+    // This is public
+    function Foo2()
+    {
+        $this->MyPublic();
+        $this->MyProtected();
+        $this->MyPrivate(); // Fatal Error
+    }
+}
+
+$myclass2 = new MyClass2;
+$myclass2->MyPublic(); // Works
+$myclass2->Foo2(); // Public and Protected work, not Private
+
+class Bar
+{
+    public function test() {
+        $this->testPrivate();
+        $this->testPublic();
+    }
+
+    public function testPublic() {
+        echo "Bar::testPublic\n";
+    }
+
+    private function testPrivate() {
+        echo "Bar::testPrivate\n";
+    }
+}
+
+class Foo extends Bar
+{
+    public function testPublic() {
+        echo "Foo::testPublic\n";
+    }
+
+    private function testPrivate() {
+        echo "Foo::testPrivate\n";
+    }
+}
+
+$myFoo = new Foo();
+$myFoo->test(); // Bar::testPrivate
+                // Foo::testPublic
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.visibility.php#language.oop5.visiblity-methods)
+
+### Method type declarations
+
+*Example: Class method visibility modifiers*
+
+```php
+<?php
+
+class SomeClass
+{
+    public function somePublicMethod()
+    {
+        return 'public';
+    }
+
+    protected function someProtectedMethod()
+    {
+        return 'protected';
+    }
+
+    private function somePrivateMethod()
+    {
+        return 'private';
+    }
+
+    function someMethod()
+    {
+        print(
+            "# From the base class:\n\n"
+            . $this->somePublicMethod() . PHP_EOL
+            . $this->someProtectedMethod() . PHP_EOL
+            . $this->somePrivateMethod(). PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class OtherClass extends SomeClass
+{
+    function otherMethod()
+    {
+        print(
+            "# From the derived class:\n\n"
+            . $this->somePublicMethod() . PHP_EOL
+            . $this->someProtectedMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->someMethod();
+
+$otherObject = new OtherClass();
+$otherObject->otherMethod();
+
+print(
+    "# From the outside:\n\n"
+    . $someObject->somePublicMethod() . PHP_EOL
+    . PHP_EOL
+);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+30
+object
+
+NULL (NULL)
+NULL (NULL)
+NULL (NULL)
+false (boolean)
+6 (integer)
+4.8 (double)
+'<hello>' (string)
+array (
+  0 => 3,
+  1 => 5,
+  2 => 7,
+  3 => 'element',
+) (array)
+array (
+  2 => 'string',
+  'color' => 'string',
+  3 => 'string',
+) (array)
+\Closure::__set_state(array(
+)) (object)
+\OtherClass::__set_state(array(
+)) (object)
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_method_type_declarations.php)
 
 ## Class properties and methods names
 
@@ -2043,8 +2538,6 @@ Array
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_function_property_and_method_with_same_name.php)
-
-------
 
 [▵ Up](#class-components)
 [⌂ Home](../../../README.md)
