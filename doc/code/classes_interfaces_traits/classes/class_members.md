@@ -1482,7 +1482,9 @@ Typed:initialised
 
 ### Readonly properties
 
-As of PHP 8.1.0, a *property* can be declared with the *`readonly` modifier*, which prevents *modification* of the *property* after *initialization*. Prior to PHP 8.4.0 a *readonly property* is implicitly *private-set*, and may only be written to from the same *class*. As of PHP 8.4.0, *readonly properties* are implicitly *protected* (set), so may be set from *child classes*. That may be *overridden* explicitly if desired.
+As of PHP 8.1.0, a *property* can be declared with the *`readonly` modifier*, which prevents *modification* of the *property* after *initialization*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties.readonly-properties)
 
 *Example: Example of readonly properties*
 
@@ -1512,6 +1514,82 @@ Note:
 
 The *`readonly` modifier* can only be applied to *typed properties*. A *readonly property* without *type constraints* can be created using the *`mixed` type*.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties.readonly-properties)
+
+*Example: Class readonly property*
+
+```php
+<?php
+
+class SomeClass
+{
+    readonly mixed $someReadonlyProperty;
+
+    function __construct(int $value)
+    {
+        $this->someReadonlyProperty = $value;
+    }
+}
+
+$someObject = new SomeClass(32);
+
+print($someObject->someReadonlyProperty . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+32
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_readonly_property.php)
+
+*Example: Class readonly property initialisation*
+
+```php
+<?php
+
+class SomeClass
+{
+    readonly mixed $someReadonlyProperty;
+
+    function __construct(int $value)
+    {
+        $this->someReadonlyProperty = $value;
+    }
+}
+
+class OtherClass
+{
+    readonly mixed $otherReadonlyProperty;
+
+    function initialiseReadonlyProperty(int $value)
+    {
+        $this->otherReadonlyProperty = $value;
+    }
+}
+
+$someObject = new SomeClass(32);
+print($someObject->someReadonlyProperty . PHP_EOL);
+
+$otherObject = new OtherClass();
+$otherObject->initialiseReadonlyProperty(64);
+print($otherObject->otherReadonlyProperty . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+32
+64
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_readonly_property_initialisation.php)
+
 Note:
 
 *Readonly static properties* are not supported.
@@ -1532,6 +1610,165 @@ $test1->prop = "foobar";
 // Error: Cannot initialize readonly property Test1::$prop from global scope
 ?>
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties.readonly-properties)
+
+*Example: Class readonly property initialisation scope*
+
+```php
+<?php
+
+class SomeClass
+{
+    readonly mixed $someReadonlyProperty;
+
+    function __construct(int $value)
+    {
+        $this->someReadonlyProperty = $value;
+    }
+}
+
+abstract class OtherClass
+{
+    readonly mixed $otherReadonlyProperty;
+}
+
+class AnotherClass extends OtherClass
+{
+    function __construct(int $value = 64)
+    {
+        $this->otherReadonlyProperty = $value * 2;
+    }
+}
+
+$someObject = new SomeClass(64);
+print($someObject->someReadonlyProperty . PHP_EOL);
+
+$anotherObject = new AnotherClass();
+print($anotherObject->otherReadonlyProperty . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+64
+128
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_readonly_property_initialisation_scope.php)
+
+As of PHP 8.3.0, *readonly properties* can be reinitialized when *cloning* an *object* using the `__clone()` *method*.
+
+*Example: Readonly properties and cloning*
+
+```php
+<?php
+class Test1 {
+    public readonly ?string $prop;
+
+    public function __clone() {
+        $this->prop = null;
+    }
+
+    public function setProp(string $prop): void {
+        $this->prop = $prop;
+    }
+}
+
+$test1 = new Test1;
+$test1->setProp('foobar');
+
+$test2 = clone $test1;
+var_dump($test2->prop); // NULL
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties.readonly-properties)
+
+*Example: Class readonly property initialisation during cloning*
+
+```php
+<?php
+
+class SomeClass
+{
+    readonly mixed $someReadonlyProperty;
+
+    function __construct(int $value)
+    {
+        $this->someReadonlyProperty = $value;
+    }
+
+    function __clone()
+    {
+        $this->someReadonlyProperty = 2;
+    }
+}
+
+$someObject = new SomeClass(32);
+print($someObject->someReadonlyProperty . PHP_EOL);
+
+$clonedObject = clone $someObject;
+print($clonedObject->someReadonlyProperty . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+32
+2
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_readonly_property_initialisation_during_cloning.php)
+
+Prior to PHP 8.4.0 a *readonly property* is implicitly *private-set*, and may only be written to from the same *class*. As of PHP 8.4.0, *readonly properties* are implicitly *protected (set)*, so may be set from *child classes*. That may be *overridden* explicitly if desired.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties.readonly-properties)
+
+*Example: Class readonly property visibility*
+
+```php
+<?php
+
+class SomeClass
+{
+    readonly mixed $someReadonlyProperty;
+
+    function __construct(int $value)
+    {
+        $this->someReadonlyProperty = $value;
+    }
+}
+
+class OtherClass
+{
+    function __construct(int $value = 64)
+    {
+        $this->someReadonlyProperty = $value * 2;
+    }
+}
+
+$someObject = new SomeClass(32);
+print($someObject->someReadonlyProperty . PHP_EOL);
+
+$otherObject = new OtherClass();
+print($otherObject->someReadonlyProperty . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+32
+128
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_readonly_property_visibility.php)
 
 Note:
 
@@ -1594,31 +1831,47 @@ $test->obj = new stdClass;
 ?>
 ```
 
-As of PHP 8.3.0, *readonly properties* can be reinitialized when *cloning* an *object* using the `__clone()` *method*.
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties.readonly-properties)
 
-*Example: Readonly properties and cloning*
+*Example: Class readonly property interior mutability*
 
 ```php
 <?php
-class Test1 {
-    public readonly ?string $prop;
 
-    public function __clone() {
-        $this->prop = null;
-    }
+class SomeClass
+{
+    readonly mixed $someReadonlyProperty;
+    readonly mixed $otherReadonlyProperty;
 
-    public function setProp(string $prop): void {
-        $this->prop = $prop;
+    function __construct(int $value)
+    {
+        $this->someReadonlyProperty = (object) [
+            'interior' => $value
+        ];;
     }
 }
 
-$test1 = new Test1;
-$test1->setProp('foobar');
+$someObject = new SomeClass(32);
 
-$test2 = clone $test1;
-var_dump($test2->prop); // NULL
-?>
+print_r($someObject->someReadonlyProperty);
+print(PHP_EOL);
+
+$someObject->someReadonlyProperty->interior = 64;
+
+print_r($someObject->someReadonlyProperty);
+print(PHP_EOL);
+
 ```
+
+**Result (PHP 8.4)**:
+
+```
+64
+128
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_readonly_property_interior_mutability.php)
 
 ### Dynamic properties
 
