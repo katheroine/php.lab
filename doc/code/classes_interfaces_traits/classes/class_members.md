@@ -1134,6 +1134,91 @@ object(SomeClass)#1 (2) {
 
 As of PHP 7.4.0, *property definitions* can include *type declarations*, with the exception of *callable*.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties.typed-properties)
+
+*Example: Class property type declarations*
+
+```php
+<?php
+
+class SomeClass
+{
+    public mixed $mixedProperty = null;
+    public bool $booleanProperty = true;
+    public int $integerProperty = 5;
+    public float $floatingPointProperty = 2.4;
+    public string $stringProperty = 'hello';
+    public array $arrayProperty = [3, 5, 7];
+    public iterable $iterableProperty = [
+        2 => "Hello, there!",
+        'color' => 'orange',
+        3.14 => 'PI',
+    ];
+    public stdClass $simpleObjectProperty;
+    public OtherClass $objectProperty;
+
+    function __construct()
+    {
+        $this->simpleObjectProperty = (object) [
+            2 => "Hello, there!",
+            'color' => 'orange',
+            3.14 => 'PI',
+        ];
+
+        $this->objectProperty = new OtherClass();
+    }
+}
+
+class OtherClass
+{
+}
+
+$someObject = new SomeClass();
+
+print(
+    var_export($someObject->mixedProperty, true) . ' (' . gettype($someObject->mixedProperty) . ")\n"
+    . var_export($someObject->booleanProperty, true) . ' (' . gettype($someObject->booleanProperty) . ")\n"
+    . var_export($someObject->integerProperty, true) . ' (' . gettype($someObject->integerProperty) . ")\n"
+    . var_export($someObject->floatingPointProperty, true) . ' (' . gettype($someObject->floatingPointProperty) . ")\n"
+    . var_export($someObject->stringProperty, true) . ' (' . gettype($someObject->stringProperty) . ")\n"
+    . var_export($someObject->arrayProperty, true) . ' (' . gettype($someObject->arrayProperty) . ")\n"
+    . var_export($someObject->iterableProperty, true) . ' (' . gettype($someObject->iterableProperty) . ")\n"
+    . var_export($someObject->simpleObjectProperty, true) . ' (' . gettype($someObject->simpleObjectProperty) . ")\n"
+    . var_export($someObject->objectProperty, true) . ' (' . gettype($someObject->objectProperty) . ")\n"
+);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+NULL (NULL)
+true (boolean)
+5 (integer)
+2.4 (double)
+'hello' (string)
+array (
+  0 => 3,
+  1 => 5,
+  2 => 7,
+) (array)
+array (
+  2 => 'Hello, there!',
+  'color' => 'orange',
+  3 => 'PI',
+) (array)
+(object) array(
+   '2' => 'Hello, there!',
+   'color' => 'orange',
+   '3' => 'PI',
+) (object)
+\OtherClass::__set_state(array(
+)) (object)
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_property_type_declarations.php)
+
 *Example: Example of typed properties*
 
 ```php
@@ -1165,6 +1250,149 @@ The above example will output:
 int(1234)
 NULL
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties.typed-properties)
+
+### Property access
+
+Within *class methods* *non-static properties* may be accessed by using `->` (*object perator*): `$this->property` (where `property` is the name of the *property*). *Static properties* are accessed by using the `::` (double colon): `self::$property`.
+
+The *pseudo-variable* `$this` is available inside any *class method* when that *method* is called from within an *object context*. `$this` is the *value* of the *calling object*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties)
+
+*Example: Class property access*
+
+```php
+<?php
+
+class SomeClass
+{
+    static $someStaticProperty = 'base static';
+    public $somePublicProperty = 'base public';
+    protected $someProtectedProperty = 'base protected';
+    private $somePrivateProperty = 'base private';
+
+    function someMethod()
+    {
+        print(
+            "# From the base class:\n\n"
+            . self::$someStaticProperty . PHP_EOL
+            . static::$someStaticProperty . PHP_EOL
+            . $this->somePublicProperty . PHP_EOL
+            . $this->someProtectedProperty . PHP_EOL
+            . $this->somePrivateProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+
+    static function staticMethod()
+    {
+        print(
+            "# From the base class:\n\n"
+            . self::$someStaticProperty . PHP_EOL
+            . static::$someStaticProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class OtherClass extends SomeClass
+{
+    function otherMethod()
+    {
+        print(
+            "# From first derived class:\n\n"
+            . self::$someStaticProperty . PHP_EOL
+            . static::$someStaticProperty . PHP_EOL
+            . $this->somePublicProperty . PHP_EOL
+            . $this->someProtectedProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class AnotherClass extends SomeClass
+{
+    static $someStaticProperty = 'derived static';
+    public $somePublicProperty = 'derived public';
+
+    function anotherFunction()
+    {
+         print(
+            "# From second derived class:\n\n"
+            . static::$someStaticProperty . PHP_EOL
+            . self::$someStaticProperty . PHP_EOL
+            . $this->somePublicProperty . PHP_EOL
+            . parent::$someStaticProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->someMethod();
+
+$otherObject = new OtherClass();
+$otherObject->otherMethod();
+
+$anotherObject = new AnotherClass();
+$anotherObject->anotherFunction();
+
+print(
+    "# From the outside:\n\n"
+    . $someObject->somePublicProperty . PHP_EOL
+    . PHP_EOL
+);
+
+$someObject->staticMethod();
+$anotherObject->staticMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# From the base class:
+
+base static
+base static
+base public
+base protected
+base private
+
+# From first derived class:
+
+base static
+base static
+base public
+base protected
+
+# From second derived class:
+
+derived static
+derived static
+derived public
+base static
+
+# From the outside:
+
+base public
+
+# From the base class:
+
+base static
+base static
+
+# From the base class:
+
+base static
+derived static
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_property_access.php)
 
 *Typed properties* must be *initialized* before *accessing*, otherwise an `Error` is thrown.
 
@@ -1222,13 +1450,35 @@ string(6) "circle"
 Fatal error: Uncaught Error: Typed property Shape::$numberOfSides must not be accessed before initialization
 ```
 
-### Property access
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties.typed-properties)
 
-Within *class methods* *non-static properties* may be accessed by using `->` (*object perator*): `$this->property` (where `property` is the name of the *property*). *Static properties* are accessed by using the `::` (double colon): `self::$property`.
+*Example: Class typed property initialisation before access*
 
-The *pseudo-variable* `$this` is available inside any *class method* when that *method* is called from within an *object context*. `$this` is the *value* of the *calling object*.
+```php
+<?php
 
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties)
+class SomeClass
+{
+    public $untypedProperty;
+    public string $typedProperty = 'initialised';
+}
+
+$someObject = new SomeClass();
+
+print('Untyped: ' . $someObject->untypedProperty . PHP_EOL);
+print('Typed:' . $someObject->typedProperty . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Untyped:
+Typed:initialised
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_typed_property_initialisation_before_access.php)
 
 ### Readonly properties
 
@@ -1542,9 +1792,6 @@ Array
 [Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_function_property_and_method_with_same_name.php)
 
 ------
-
-
-
 
 [▵ Up](#class-components)
 [⌂ Home](../../../README.md)

@@ -1129,6 +1129,8 @@ Static property value (accessed by static): lemon
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/class_members_static_access.php)
 
+### Class members dynamic access
+
 *Example: Class members dynamic access*
 
 ```php
