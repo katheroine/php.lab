@@ -68,7 +68,7 @@ Laboratory of PHP.
     11. [Fibers](./doc/code/fibers/fibers.md)
     12. [Classes, interfaces, traits](./doc/code/classes_interfaces_traits/)
         1. [Classes](./doc/code/classes_interfaces_traits/classes/classes.md)
-            1. [Class components](./doc/code/classes_interfaces_traits/classes/class_components.md)
+            1. [Class members](./doc/code/classes_interfaces_traits/classes/class_members.md)
             2. [Magic methods](./doc/code/classes_interfaces_traits/classes/magic_methods.md)
             3. [Constructors and destructors](./doc/code/classes_interfaces_traits/classes/constructors_and_destructors.md)
             4. [Objects](./doc/code/classes_interfaces_traits/classes/objects.md)

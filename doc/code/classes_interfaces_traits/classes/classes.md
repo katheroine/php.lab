@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Fibers](../../fibers/fibers.md)
-[▼ Next: Class components](./class_components.md)
+[▼ Next: Class members](./class_members.md)
 
 # Classes
 
@@ -1112,4 +1112,4 @@ SomeNamespace\SomeClass
 [▵ Up](#classes)
 [⌂ Home](../../../README.md)
 [▲ Previous: Fibers](../../fibers/fibers.md)
-[▼ Next: Class components](./class_components.md)
+[▼ Next: Class members](./class_members.md)

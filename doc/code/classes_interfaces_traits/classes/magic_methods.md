@@ -1,5 +1,5 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Classe components](./class_components.md)
+[▲ Previous: Classe members](./class_members.md)
 [▼ Next: Constructors and destructors](./constructors_and_destructors.md)
 
 # Magic methods
@@ -720,5 +720,5 @@ object(SomeClass)#1 (0) {
 
 [▵ Up](#magic-methods)
 [⌂ Home](../../../README.md)
-[▲ Previous: Classe components](./class_components.md)
+[▲ Previous: Classe members](./class_members.md)
 [▼ Next: Constructors and destructors](./constructors_and_destructors.md)
