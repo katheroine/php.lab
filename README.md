@@ -427,6 +427,8 @@ Laboratory of PHP.
                 15. [Class backed property hook contravariance](./example/code/classes_interfaces_traits/classes/class_backed_property_hook_contravariance.php)
                 16. [Class backed property hook shorthand omitted parameter type](./example/code/classes_interfaces_traits/classes/class_backed_property_hook_shorthand_omitted_parameter_type.php)
                 17. [Class backed property hook shorthand expression](./example/code/classes_interfaces_traits/classes/class_backed_property_hook_shorthand_expression.php)
+                18. [Class backed property hook and constructor promotion](./example/code/classes_interfaces_traits/classes/class_backed_property_hook_and_constructor_property_promotion.php)
+                19. [Class virtual property hook](./example/code/classes_interfaces_traits/classes/class_virtual_property_hook.php)
                 15. [Readonly class](./example/code/classes_interfaces_traits/classes/readonly_class.php)
                 16. [Readonly class inheritance](./example/code/classes_interfaces_traits/classes/readonly_class_inheritance.php)
                 17. [Class inheritance](./example/code/classes_interfaces_traits/classes/class_inheritance.php)

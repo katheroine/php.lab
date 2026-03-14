@@ -115,6 +115,10 @@ Both a *get* and *set hook* are *defined*, although it is allowed to *define* on
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.property-hooks.php#language.oop5.property-hooks)
 
+On a *backed property*, omitting a *get* or *set hook* means the *default read* or *write behavior* will be used.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.property-hooks.php#language.oop5.property-hooks)
+
 *Example: Class asymetric backed property hook*
 
 ```php
@@ -436,8 +440,6 @@ A *property* may implement zero, one, or both *hooks* as the situation requires.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.property-hooks.php#language.oop5.property-hooks)
 
-On a *backed property*, omitting a *get* or *set hook* means the *default read* or *write behavior* will be used.
-
 Note: *Hooks* can be defined when using *constructor property promotion*. However, when doing so, values provided to the *constructor* must match the *type* associated with the *property*, regardless of what the set *hook* might allow. Consider the following:
 
 ```php
@@ -483,6 +485,62 @@ class Example
 
 Any attempts to set the *property* outside the *constructor* will allow either `string` or `DateTimeInterface` values, but the constructor will only allow `DateTimeInterface`. This is because the *defined type* for the *property* (`DateTimeInterface`) is used as the *parameter type* within the *constructor signature*, regardless of what the *set hook* allows. If this kind of behavior is needed from the *constructor*, *constructor property promotion* cannot be used.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.property-hooks.php#language.oop5.property-hooks)
+
+*Example: Class property hook and construction property promotion*
+
+```php
+<?php
+
+class SomeClass
+{
+    function __construct(
+        public string $someProperty = '' {
+            set(string $property) {
+                $this->someProperty = '<' . $property . '>';
+            }
+            get {
+                return trim($this->someProperty, '<>');
+            }
+        }
+    ) {
+    }
+}
+
+$someObject = new SomeClass('mango');
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$someObject->someProperty = 'pineapple';
+
+var_dump($someObject);
+print(PHP_EOL);
+
+print($someObject->someProperty . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+object(SomeClass)#1 (1) {
+  ["someProperty"]=>
+  string(7) "<mango>"
+}
+
+object(SomeClass)#1 (1) {
+  ["someProperty"]=>
+  string(11) "<pineapple>"
+}
+
+pineapple
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_backed_property_hook_and_constructor_property_promotion.php)
+
 ### Virtual properties
 
 ***Virtual properties*** are *properties* that have no *backing value*. A *property* is *virtual* if neither its *get* nor *set hook* references the *property* itself using exact syntax. That is, a *property* named `$foo` whose *hook* contains `$this->foo` will be *backed*. But the following is not a *backed property*, and will error:
@@ -526,6 +584,61 @@ $s->area = 30; // Error, as there is no set operation defined.
 ```
 
 Defining both a *get* and *set hook* on a *virtual property* is also allowed.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.property-hooks.php#language.oop5.property-hooks)
+
+*Example: Class virtual property hook*
+
+```php
+<?php
+
+class SomeClass
+{
+    public string $someProperty = 'grapes';
+    public string $otherProperty {
+        get {
+            return 'sweet ' . $this->someProperty;
+        }
+    }
+}
+
+$someObject = new SomeClass();
+
+var_dump($someObject);
+print(PHP_EOL);
+
+print($someObject->otherProperty . PHP_EOL . PHP_EOL);
+
+$someObject->someProperty = 'pineapple';
+
+var_dump($someObject);
+print(PHP_EOL);
+
+print($someObject->otherProperty . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+object(SomeClass)#1 (1) {
+  ["someProperty"]=>
+  string(6) "grapes"
+}
+
+sweet grapes
+
+object(SomeClass)#1 (1) {
+  ["someProperty"]=>
+  string(9) "pineapple"
+}
+
+sweet pineapple
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_virtual_property_hook.php)
 
 Scoping
 
