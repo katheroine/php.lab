@@ -38,7 +38,7 @@ Dynamically called method result: strawberry
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_members.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_members.php)
 
 *Example: Class static members*
 
@@ -76,7 +76,7 @@ Dynamically called static method result: blackberry
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_static_members.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_static_members.php)
 
 ## Visibility
 
@@ -220,7 +220,7 @@ public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_member_visbility.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_member_visbility.php)
 
 ### Visibility from other objects
 
@@ -348,7 +348,7 @@ private
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_member_visibility_from_same_class_object.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_member_visibility_from_same_class_object.php)
 
 ## Dynamic and static context
 
@@ -401,7 +401,7 @@ Static property value (accessed by static): lemon
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_members_static_access.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_members_static_access.php)
 
 ### Class members dynamic access
 
@@ -456,7 +456,7 @@ Property value: lemon
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_members_dynamic_access.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_members_dynamic_access.php)
 
 ## Object & class context
 
@@ -757,7 +757,7 @@ Statically accessed parent static property value (by parent): lemon
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_member_access_by_static_self_and_parent.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_member_access_by_static_self_and_parent.php)
 
 ## Nullsafe properties and methods
 
@@ -834,7 +834,7 @@ Constant value: grapefruit
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_constant.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_constant.php)
 
 
 *Example: Defining and using a constant*
@@ -903,7 +903,7 @@ SomeNamespace\SomeClass
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_name_resolution.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_name_resolution.php)
 
 *Example: Class constant expression example*
 
@@ -1015,7 +1015,7 @@ public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_constant_visibility_modifiers.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_constant_visibility_modifiers.php)
 
 As of PHP 7.1.0, *class constants* may be defined as *public*, *private*, or *protected*. *Constants* declared without any explicit *visibility keyword* are defined as *public*.
 
@@ -1179,7 +1179,7 @@ array (
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_constant_type_declarations.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_constant_type_declarations.php)
 
 *Example: Assigning types to class constants, as of PHP 8.3.0*
 
@@ -1252,7 +1252,7 @@ Dynamically accessed property value: lemon
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_property.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_property.php)
 
 ### Static properties
 
@@ -1277,7 +1277,7 @@ Statically accessed static property value: lemon
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_static_property.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_static_property.php)
 
 ***Static properties*** are accessed using the *scope resolution operator* (`::`) and cannot be accessed through the *object operator* (`->`).
 
@@ -1377,7 +1377,7 @@ array(4) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_property_definition.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_property_definition.php)
 
 *Example: Class property definition required modifier*
 
@@ -1418,7 +1418,7 @@ final
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_property_definition_required_modifier.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_property_definition_required_modifier.php)
 
 Note:
 
@@ -1537,7 +1537,7 @@ public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_constant_visibility_modifiers.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_constant_visibility_modifiers.php)
 
 *Example: Property declaration*
 
@@ -1634,7 +1634,7 @@ final
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_property_declaration_default_visibility.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_property_declaration_default_visibility.php)
 
 ### Asymmetric property visibility
 
@@ -1791,7 +1791,7 @@ object(SomeClass)#1 (2) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_property_asymetric_visibility.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_property_asymetric_visibility.php)
 
 As of PHP 8.5, set *visibility* may also be applied to *static properties* of *classes*.
 
@@ -1980,7 +1980,7 @@ object(SomeClass)#1 (2) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_property_asymetric_visibility_and_inheritance_redefinition.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_property_asymetric_visibility_and_inheritance_redefinition.php)
 
 ### Property type declarations
 
@@ -2069,7 +2069,7 @@ array (
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_property_type_declarations.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_property_type_declarations.php)
 
 *Example: Nullsafe properties*
 
@@ -2122,7 +2122,7 @@ Result: vanilla
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/nullsafe_properties.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltnullsafe_properties.php)
 
 *Example: Example of typed properties*
 
@@ -2297,7 +2297,7 @@ derived static
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_property_access.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_property_access.php)
 
 *Typed properties* must be *initialized* before *accessing*, otherwise an `Error` is thrown.
 
@@ -2383,7 +2383,7 @@ Typed:initialised
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_typed_property_initialisation_before_access.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_typed_property_initialisation_before_access.php)
 
 ### Readonly properties
 
@@ -2449,7 +2449,7 @@ print($someObject->someReadonlyProperty . PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_readonly_property.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_readonly_property.php)
 
 *Example: Class readonly property initialisation*
 
@@ -2493,7 +2493,7 @@ print($otherObject->otherReadonlyProperty . PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_readonly_property_initialisation.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_readonly_property_initialisation.php)
 
 Note:
 
@@ -2562,7 +2562,7 @@ print($anotherObject->otherReadonlyProperty . PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_readonly_property_initialisation_scope.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_readonly_property_initialisation_scope.php)
 
 As of PHP 8.3.0, *readonly properties* can be reinitialized when *cloning* an *object* using the `__clone()` *method*.
 
@@ -2628,7 +2628,7 @@ print($clonedObject->someReadonlyProperty . PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_readonly_property_initialisation_during_cloning.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_readonly_property_initialisation_during_cloning.php)
 
 Prior to PHP 8.4.0 a *readonly property* is implicitly *private-set*, and may only be written to from the same *class*. As of PHP 8.4.0, *readonly properties* are implicitly *protected (set)*, so may be set from *child classes*. That may be *overridden* explicitly if desired.
 
@@ -2673,7 +2673,7 @@ print($otherObject->someReadonlyProperty . PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_readonly_property_visibility.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_readonly_property_visibility.php)
 
 Note:
 
@@ -2776,7 +2776,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_readonly_property_interior_mutability.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_readonly_property_interior_mutability.php)
 
 ### Dynamic properties
 
@@ -2829,7 +2829,7 @@ SomeClass Object
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_dynamic_property.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_dynamic_property.php)
 
 ## Methods
 
@@ -2873,7 +2873,7 @@ Dynamically accessed property value: orange
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_method.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_method.php)
 
 ### Static methods
 
@@ -2927,7 +2927,7 @@ Statically accessed static property value (by static): lemon
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_static_method.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_static_method.php)
 
 Because ***static methods*** are callable without an instance of the object created, the pseudo-variable $this is not available inside methods declared as static.
 
@@ -3043,7 +3043,7 @@ public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_method_visibility_modifiers.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_method_visibility_modifiers.php)
 
 *Example: Class method visibility and polimorphism*
 
@@ -3124,7 +3124,7 @@ base: private
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_method_visibility_and_polimorphism.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_method_visibility_and_polimorphism.php)
 
 *Example: Method declaration*
 
@@ -3311,7 +3311,7 @@ array (
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_method_type_declarations.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_method_type_declarations.php)
 
 *Example: Nullsafe methods*
 
@@ -3374,7 +3374,7 @@ Result: vanilla
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/nullsafe_methods.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltnullsafe_methods.php)
 
 ## Class properties and methods names
 
@@ -3449,7 +3449,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/property_and_method_with_same_name.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltproperty_and_method_with_same_name.php)
 
 That means that *calling* an *anonymous function* which has been *assigned* to a *property* is not directly possible. Instead the *property* has to be *assigned* to a *variable* first, for instance. It is possible to *call* such a *property* directly by enclosing it in parentheses.
 
@@ -3533,7 +3533,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_function_property_and_method_with_same_name.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltanonymous_function_property_and_method_with_same_name.php)
 
 ## Property hooks
 
@@ -3642,7 +3642,7 @@ pineapple
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_backed_property_hook.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_backed_property_hook.php)
 
 The `$foo` *property* ends in `{}`, rather than a semicolon. That indicates the presence of *hooks*[...] Both *hooks* have a *body*, denoted by `{}`, that may contain arbitrary code.
 
@@ -3735,7 +3735,7 @@ object(OtherClass)#2 (1) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_asymetric_backed_property_hook.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_asymetric_backed_property_hook.php)
 
 The *set hook* additionally allows specifying the *type* and *name* of an incoming *value*, using the same syntax as a *method*. The *type* must be either the same as the *type* of the *property*, or *contravariant* (wider) to it. For instance, a *property* of *type `string`* could have a set *hook* that accepts `string|Stringable`, but not one that only accepts `array`.
 
@@ -3804,7 +3804,7 @@ O:8:"stdClass":2:{s:5:"color";s:5:"green";s:5:"taste";s:4:"sour";}
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_backed_property_hook_contravariance.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_backed_property_hook_contravariance.php)
 
 There are a number of shorthand syntax variants as well to handle common cases.
 
@@ -3878,7 +3878,7 @@ object(SomeClass)#1 (1) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_backed_property_hook_shorthand_omitted_parameter_type.php).
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_backed_property_hook_shorthand_omitted_parameter_type.php).
 
 If the *get hook* is a single *expression*, then the `{}` may be omitted and replaced with an *arrow expression*.
 
@@ -3971,7 +3971,7 @@ pineapple
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_backed_property_hook_shorthand_expression.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_backed_property_hook_shorthand_expression.php)
 
 A *property* may implement zero, one, or both *hooks* as the situation requires. All shorthand versions are mutually-independent. That is, using a *short-get* with a *long-set*, or a *short-set* with an explicit type, or so on is all valid.
 
@@ -4076,7 +4076,7 @@ pineapple
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_backed_property_hook_and_constructor_property_promotion.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_backed_property_hook_and_constructor_property_promotion.php)
 
 ### Virtual properties
 
@@ -4175,7 +4175,7 @@ sweet pineapple
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_virtual_property_hook.php)
+[Example](../../../../example/code/Resuclasses_interfaces_traits/classes/class_members/ltclass_virtual_property_hook.php)
 
 Scoping
 
