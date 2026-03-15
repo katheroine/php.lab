@@ -1494,7 +1494,9 @@ object(SomeClass)#2 (6) {
 **Source code**:
 [Example](../../../../example/library/methods/magic_methods/__unserialize.php)
 
-## `__set_state()`
+## `__set_state` and `__debugInfo`
+
+### `__set_state`
 
 ```
 static __set_state(array $properties): object
@@ -1551,49 +1553,90 @@ object(A)#2 (2) {
 
 Note: When exporting an *object*, `var_export()` does not check whether `__set_state()` is implemented by the *object's class*, so re-importing objects will result in an `Error` exception, if `__set_state()` is not implemented. Particularly, this affects some *internal classes*. It is the responsibility of the programmer to verify that only *objects* will be re-imported, whose class implements `__set_state()`.
 
-*Example: Basic usage*
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.magic.php#language.oop5.magic.set-state)
+
+*Example: `__set_state` magic method*
 
 ```php
+<?php
 
 class SomeClass
 {
-    public $variable;
+    public const string SOME_CONSTANT = 'SOME LABEL';
+    private const string HIDDEN_FIELD_MESSAGE = 'hidden';
+
+    public string $somePublicProperty = 'some public';
+    public string $otherPublicProperty = 'other public';
+    protected string $someProtectedProperty = 'some protected';
 
     public static function __set_state(array $properties): object
     {
         print(
-            "Magic method __set_state\n"
-            . "Properties: "
+            "Magic method __set_state\n\n"
+            . "Properties:\n"
         );
         var_dump($properties);
+        print(PHP_EOL);
 
-        return (object) [];
+        return (object) [
+            'SOME_CONSTANT' => static::SOME_CONSTANT,
+            'somePublicProperty' => $properties['somePublicProperty'],
+            'otherPublicProperty' => static::HIDDEN_FIELD_MESSAGE,
+            'someProtectedProperty' => static::HIDDEN_FIELD_MESSAGE,
+        ];
     }
 }
 
 $someObject = new SomeClass();
-var_export($someObject);
 
+$result = var_export($someObject, true);
+print($result . PHP_EOL . PHP_EOL);
+
+eval('$otherObject = ' . $result . ';');
+
+var_dump($otherObject);
 print(PHP_EOL);
 
 ```
 
-**View**:
-[Example](../../../../example/library/functions/magic_methods/__set_state.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
+**Result (PHP 8.4)**:
 
 ```
 \SomeClass::__set_state(array(
-   'variable' => NULL,
+   'somePublicProperty' => 'some public',
+   'otherPublicProperty' => 'other public',
+   'someProtectedProperty' => 'some protected',
 ))
+
+Magic method __set_state
+
+Properties:
+array(3) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["otherPublicProperty"]=>
+  string(12) "other public"
+  ["someProtectedProperty"]=>
+  string(14) "some protected"
+}
+
+object(stdClass)#2 (4) {
+  ["SOME_CONSTANT"]=>
+  string(10) "SOME LABEL"
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["otherPublicProperty"]=>
+  string(6) "hidden"
+  ["someProtectedProperty"]=>
+  string(6) "hidden"
+}
+
 ```
 
-## `__debugInfo()`
+**Source code**:
+[Example](../../../../example/library/methods/magic_methods/__set_state.php)
+
+### `__debugInfo`
 
 ```
 __debugInfo(): array
@@ -1632,46 +1675,64 @@ object(C)#1 (1) {
 }
 ```
 
-*Example: Basic usage*
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.magic.php#language.oop5.magic.debuginfo)
+
+*Example: __debugInfo magic method*
 
 ```php
 <?php
 
 class SomeClass
 {
-    public $variable;
+    public const string SOME_CONSTANT = 'SOME LABEL';
+    private const string HIDDEN_FIELD_MESSAGE = 'hidden';
+
+    public string $somePublicProperty = 'some public';
+    public string $otherPublicProperty = 'other public';
+    protected string $someProtectedProperty = 'some protected';
 
     public function __debugInfo(): array
     {
         print(
-            "Magic method __debugInfo\n"
+            "Magic method __debugInfo\n\n"
         );
 
-        return [];
+        return [
+            'SOME_CONSTANT' => static::SOME_CONSTANT,
+            'somePublicProperty' => $this->somePublicProperty,
+            'otherPublicProperty' => static::HIDDEN_FIELD_MESSAGE,
+            'someProtectedProperty' => static::HIDDEN_FIELD_MESSAGE,
+        ];
     }
 }
 
 $someObject = new SomeClass();
+
 var_dump($someObject);
+print(PHP_EOL);
 
 ```
 
-**View**:
-[Example](../../../../example/library/functions/magic_methods/__debugInfo.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
+**Result (PHP 8.4)**:
 
 ```
 Magic method __debugInfo
-object(SomeClass)#1 (0) {
+
+object(SomeClass)#1 (4) {
+  ["SOME_CONSTANT"]=>
+  string(10) "SOME LABEL"
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["otherPublicProperty"]=>
+  string(6) "hidden"
+  ["someProtectedProperty"]=>
+  string(6) "hidden"
 }
+
 ```
 
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.magic.php)
+**Source code**:
+[Example](../../../../example/library/methods/magic_methods/__debugInfo.php)
 
 [▵ Up](#magic-methods)
 [⌂ Home](../../../README.md)
