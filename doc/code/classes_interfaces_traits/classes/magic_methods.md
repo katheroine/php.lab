@@ -1734,6 +1734,371 @@ object(SomeClass)#1 (4) {
 **Source code**:
 [Example](../../../../example/library/methods/magic_methods/__debugInfo.php)
 
+## `__clone`, `__construct`, `__destruct`
+
+### `__clone`
+
+Creating a *copy* of an *object* with fully replicated properties is not always the wanted behavior. A good example of the need for *copy constructors*, is if you have an object which represents a GTK window and the object holds the resource of this GTK window, when you create a duplicate you might want to create a new window with the same properties and have the new object hold the resource of the new window. Another example is if your *object* holds a *reference* to another *object* which it uses and when you replicate the *parent object* you want to create a new *instance* of this other *object* so that the replica has its own separate copy.
+
+An *object copy* is created by using the `clone` keyword (which calls the object's `__clone()` *method* if possible).
+
+```php
+$copy_of_object = clone $object;
+```
+
+When an *object* is cloned, PHP will perform a *shallow copy* of all of the object's properties. Any *properties* that are references to other *variables* will remain *references*.
+
+```
+__clone(): void
+```
+
+Once the *cloning* is complete, if a `__clone()` *method* is defined, then the newly created object's `__clone()` *method* will be called, to allow any necessary *properties* that need to be changed.
+
+*Example: Cloning an object*
+
+```php
+<?php
+class SubObject
+{
+    static $instances = 0;
+    public $instance;
+
+    public function __construct() {
+        $this->instance = ++self::$instances;
+    }
+
+    public function __clone() {
+        $this->instance = ++self::$instances;
+    }
+}
+
+class MyCloneable
+{
+    public $object1;
+    public $object2;
+
+    function __clone()
+    {
+        // Force a copy of this->object, otherwise
+        // it will point to same object.
+        $this->object1 = clone $this->object1;
+    }
+}
+
+$obj = new MyCloneable();
+
+$obj->object1 = new SubObject();
+$obj->object2 = new SubObject();
+
+$obj2 = clone $obj;
+
+
+print "Original Object:\n";
+print_r($obj);
+
+print "Cloned Object:\n";
+print_r($obj2);
+
+?>
+```
+
+The above example will output:
+
+```
+Original Object:
+MyCloneable Object
+(
+    [object1] => SubObject Object
+        (
+            [instance] => 1
+        )
+
+    [object2] => SubObject Object
+        (
+            [instance] => 2
+        )
+
+)
+Cloned Object:
+MyCloneable Object
+(
+    [object1] => SubObject Object
+        (
+            [instance] => 3
+        )
+
+    [object2] => SubObject Object
+        (
+            [instance] => 2
+        )
+
+)
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.cloning.php)
+
+*Example: __clone magic method*
+
+```php
+<?php
+
+class SomeClass
+{
+    public OtherClass $someInnerObject;
+    public OtherClass $otherInnerObject;
+
+    public function __construct()
+    {
+        $this->someInnerObject = new OtherClass();
+        $this->otherInnerObject = new OtherClass();
+    }
+
+    public function __clone(): void
+    {
+        print(
+            "Magic method __clone\n\n"
+        );
+
+        $this->someInnerObject = new OtherClass();
+    }
+}
+
+class OtherClass
+{
+    public string $someProperty = 'original';
+}
+
+$someObject = new SomeClass();
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$otherObject = clone $someObject;
+
+var_dump($otherObject);
+print(PHP_EOL);
+
+$someObject->someInnerObject->someProperty = 'modified';
+$someObject->otherInnerObject->someProperty = 'modified';
+
+var_dump($otherObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+object(SomeClass)#1 (2) {
+  ["someInnerObject"]=>
+  object(OtherClass)#2 (1) {
+    ["someProperty"]=>
+    string(8) "original"
+  }
+  ["otherInnerObject"]=>
+  object(OtherClass)#3 (1) {
+    ["someProperty"]=>
+    string(8) "original"
+  }
+}
+
+Magic method __clone
+
+object(SomeClass)#4 (2) {
+  ["someInnerObject"]=>
+  object(OtherClass)#5 (1) {
+    ["someProperty"]=>
+    string(8) "original"
+  }
+  ["otherInnerObject"]=>
+  object(OtherClass)#3 (1) {
+    ["someProperty"]=>
+    string(8) "original"
+  }
+}
+
+object(SomeClass)#4 (2) {
+  ["someInnerObject"]=>
+  object(OtherClass)#5 (1) {
+    ["someProperty"]=>
+    string(8) "original"
+  }
+  ["otherInnerObject"]=>
+  object(OtherClass)#3 (1) {
+    ["someProperty"]=>
+    string(8) "modified"
+  }
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/library/methods/magic_methods/__clone.php)
+
+### `__construct`
+
+```
+__construct(mixed ...$values = ""): void
+```
+
+PHP allows developers to declare *constructor methods* for *classes*. *Classes* which have a *constructor* method call this method on each newly-created object, so it is suitable for any initialization that the object may need before it is used.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
+
+*Example: __construct magic method*
+
+```php
+<?php
+
+class SomeClass
+{
+    public static $instanceQuantity = 0;
+
+    public string $somePublicProperty;
+    protected string $someProtectedProperty;
+    private string $somePrivateProperty;
+
+    public function __construct(
+        string $somePublicValue = 'some public',
+        string $someProtectedValue = 'some protected',
+        string $somePrivateValue = 'some private'
+    ) {
+        print(
+            "Magic method __construct\n\n"
+        );
+
+        self::$instanceQuantity++;
+
+        $this->somePublicProperty = $somePublicValue;
+        $this->someProtectedProperty = $someProtectedValue;
+        $this->somePrivateProperty = $somePrivateValue;
+    }
+}
+
+print('Instance quantity: ' . SomeClass::$instanceQuantity . PHP_EOL . PHP_EOL);
+
+$someObject = new SomeClass();
+
+print('Instance quantity: ' . SomeClass::$instanceQuantity . PHP_EOL . PHP_EOL);
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$otherObject = new SomeClass(
+    'pear',
+    'orange',
+    'banana'
+);
+
+print('Instance quantity: ' . SomeClass::$instanceQuantity . PHP_EOL . PHP_EOL);
+
+var_dump($otherObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Instance quantity: 0
+
+Magic method __construct
+
+Instance quantity: 1
+
+object(SomeClass)#1 (3) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["someProtectedProperty":protected]=>
+  string(14) "some protected"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(12) "some private"
+}
+
+Magic method __construct
+
+Instance quantity: 2
+
+object(SomeClass)#2 (3) {
+  ["somePublicProperty"]=>
+  string(4) "pear"
+  ["someProtectedProperty":protected]=>
+  string(6) "orange"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(6) "banana"
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/library/methods/magic_methods/__construct.php)
+
+### `__destruct`
+
+```
+__destruct(): void
+```
+
+PHP possesses a *destructor* concept similar to that of other object-oriented languages, such as C++. The *destructor* method will be called as soon as there are no other references to a particular *object*, or in any order during the shutdown sequence.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.destructor)
+
+*Example: __destruct magic method*
+
+```php
+<?php
+
+class SomeClass
+{
+    public static $instanceQuantity = 0;
+
+    public function __destruct()
+    {
+        print(
+            "Magic method __destruct\n\n"
+        );
+
+        self::$instanceQuantity--;
+    }
+}
+
+function someLocalSpace()
+{
+    $someObject = new SomeClass();
+    SomeClass::$instanceQuantity++;
+
+    print('Instance quantity: ' . SomeClass::$instanceQuantity . PHP_EOL . PHP_EOL);
+
+    $otherObject = new SomeClass();
+    SomeClass::$instanceQuantity++;
+
+    print('Instance quantity: ' . SomeClass::$instanceQuantity . PHP_EOL . PHP_EOL);
+}
+
+someLocalSpace();
+
+print('Instance quantity: ' . SomeClass::$instanceQuantity . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Instance quantity: 1
+
+Instance quantity: 2
+
+Magic method __destruct
+
+Magic method __destruct
+
+Instance quantity: 0
+
+```
+
+**Source code**:
+[Example](../../../../example/library/methods/magic_methods/__destruct.php)
+
 [▵ Up](#magic-methods)
 [⌂ Home](../../../README.md)
 [▲ Previous: Classe members](./class_members.md)
