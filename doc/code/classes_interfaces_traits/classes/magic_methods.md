@@ -447,7 +447,7 @@ object(SomeClass)#1 (1) {
 **Source code**:
 [Example](../../../../example/library/methods/magic_methods/__unset.php)
 
-## `__call` and `__staticCall`
+## `__call` and `callStatic`
 
 ```
 public __call(string $name, array $arguments): mixed
@@ -496,6 +496,355 @@ Calling static method 'runTest' in static context
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.overloading.php#language.oop5.overloading.methods)
+
+### `__call`
+
+**`__call()`** is triggered when invoking *inaccessible* *methods* in an *object context*.
+
+```
+public __call(string $name, array $arguments): mixed
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.overloading.php#object.call)
+
+*Example: `__call` magic method*
+
+```php
+<?php
+
+class SomeClass
+{
+    private array $actions = [];
+
+    function __construct()
+    {
+        $this->actions = [
+            'adding' => function($values) {
+                return array_sum($values);
+            },
+            'multipling' => function($values) {
+                return array_product($values);
+            },
+        ];
+    }
+
+    public function __call(string $methodName, mixed $methodArguments): mixed
+    {
+        print(
+            "Magic method __call\n\n"
+            . "Method name: {$methodName}\n\m"
+            . "Method arguments:\n"
+        );
+        var_dump($methodArguments);
+        print(PHP_EOL);
+
+        if (! isset($this->actions[$methodName])) {
+            return null;
+        }
+
+        return $this->actions[$methodName]($methodArguments);
+    }
+}
+
+$someObject = new SomeClass();
+
+$result = $someObject->adding(1, 2, 3);
+
+print($result . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Magic method __call
+
+Method name: adding
+
+Method arguments:
+array(3) {
+  [0]=>
+  int(1)
+  [1]=>
+  int(2)
+  [2]=>
+  int(3)
+}
+
+6
+
+```
+
+**Source code**:
+[Example](../../../../example/library/methods/magic_methods/__call.php)
+
+### `__callStatic`
+
+**`__callStatic()`** is triggered when invoking *inaccessible* *methods* in a *static context*.
+
+```
+public static __callStatic(string $name, array $arguments): mixed
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.overloading.php#object.callstatic)
+
+*Example: `__callStatic` magic method*
+
+```php
+<?php
+
+class SomeClass
+{
+    private const array ACTIONS = [
+        'adding' => 'array_sum',
+        'multipling' => 'array_product',
+    ];
+
+    public static function __callStatic(string $methodName, mixed $methodArguments): mixed
+    {
+        print(
+            "Magic method __callStatic\n\n"
+            . "Method name: {$methodName}\n\n"
+            . "Method arguments:\n"
+        );
+        var_dump($methodArguments);
+        print(PHP_EOL);
+
+        if (! isset(static::ACTIONS[$methodName])) {
+            return null;
+        }
+
+        return static::ACTIONS[$methodName]($methodArguments);
+    }
+}
+
+$result = SomeClass::adding(1, 2, 3);
+
+print($result . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Magic method __callStatic
+
+Method name: adding
+
+Method arguments:
+array(3) {
+  [0]=>
+  int(1)
+  [1]=>
+  int(2)
+  [2]=>
+  int(3)
+}
+
+6
+
+```
+
+**Source code**:
+[Example](../../../../example/library/methods/magic_methods/__callStatic.php)
+
+## `__invoke()`
+
+The `__invoke()` *method* is called when a script tries to *call an object as a function*.
+
+```
+__invoke( ...$values): mixed
+```
+
+*Example: Using __invoke()*
+
+```php
+<?php
+class CallableClass
+{
+    public function __invoke($x)
+    {
+        var_dump($x);
+    }
+}
+$obj = new CallableClass;
+$obj(5);
+var_dump(is_callable($obj));
+?>
+```
+
+The above example will output:
+
+```
+int(5)
+bool(true)
+```
+
+*Example: Using __invoke()*
+
+```php
+<?php
+class Sort
+{
+    private $key;
+
+    public function __construct(string $key)
+    {
+        $this->key = $key;
+    }
+
+    public function __invoke(array $a, array $b): int
+    {
+        return $a[$this->key] <=> $b[$this->key];
+    }
+}
+
+$customers = [
+    ['id' => 1, 'first_name' => 'John', 'last_name' => 'Do'],
+    ['id' => 3, 'first_name' => 'Alice', 'last_name' => 'Gustav'],
+    ['id' => 2, 'first_name' => 'Bob', 'last_name' => 'Filipe']
+];
+
+// sort customers by first name
+usort($customers, new Sort('first_name'));
+print_r($customers);
+
+// sort customers by last name
+usort($customers, new Sort('last_name'));
+print_r($customers);
+?>
+```
+
+The above example will output:
+
+```
+Array
+(
+    [0] => Array
+        (
+            [id] => 3
+            [first_name] => Alice
+            [last_name] => Gustav
+        )
+
+    [1] => Array
+        (
+            [id] => 2
+            [first_name] => Bob
+            [last_name] => Filipe
+        )
+
+    [2] => Array
+        (
+            [id] => 1
+            [first_name] => John
+            [last_name] => Do
+        )
+
+)
+Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [first_name] => John
+            [last_name] => Do
+        )
+
+    [1] => Array
+        (
+            [id] => 2
+            [first_name] => Bob
+            [last_name] => Filipe
+        )
+
+    [2] => Array
+        (
+            [id] => 3
+            [first_name] => Alice
+            [last_name] => Gustav
+        )
+
+)
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.magic.php#object.invoke)
+
+*Example: `__invoke` magic method*
+
+```php
+<?php
+
+class SomeClass
+{
+    public function __invoke(...$callableArguments): int
+    {
+        print(
+            "Magic method __invoke\n\n"
+            . "Arguments of the callable:\n\n"
+        );
+        var_dump($callableArguments);
+        print(PHP_EOL);
+
+        foreach ($callableArguments as $argument) {
+            print(
+                'Argument type: ' . gettype($argument) . PHP_EOL
+                . 'Exported: ' . var_export($argument, true) . PHP_EOL
+                . PHP_EOL
+            );
+        }
+
+        return count($callableArguments);
+    }
+}
+
+$someObject = new SomeClass();
+
+$result = $someObject(4, "hello", [2, 3]);
+
+print($result . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Magic method __invoke
+
+Arguments of the callable:
+
+array(3) {
+  [0]=>
+  int(4)
+  [1]=>
+  string(5) "hello"
+  [2]=>
+  array(2) {
+    [0]=>
+    int(2)
+    [1]=>
+    int(3)
+  }
+}
+
+Argument type: integer
+Exported: 4
+
+Argument type: string
+Exported: 'hello'
+
+Argument type: array
+Exported: array (
+  0 => 2,
+  1 => 3,
+)
+
+3
+
+```
+
+**Source code**:
+[Example](../../../../example/library/methods/magic_methods/__invoke.php)
 
 ## `__sleep()` and `__wakeup()`
 
@@ -855,165 +1204,6 @@ $someObject = new SomeClass();
 
 ```
 Magic method __toString
-```
-
-## `__invoke()`
-
-```
-__invoke( ...$values): mixed
-```
-
-The `__invoke()` method is called when a script tries to *call an object as a function*.
-
-*Example: Using __invoke()*
-
-```php
-<?php
-class CallableClass
-{
-    public function __invoke($x)
-    {
-        var_dump($x);
-    }
-}
-$obj = new CallableClass;
-$obj(5);
-var_dump(is_callable($obj));
-?>
-```
-
-The above example will output:
-
-```
-int(5)
-bool(true)
-```
-
-*Example: Using __invoke()*
-
-```php
-<?php
-class Sort
-{
-    private $key;
-
-    public function __construct(string $key)
-    {
-        $this->key = $key;
-    }
-
-    public function __invoke(array $a, array $b): int
-    {
-        return $a[$this->key] <=> $b[$this->key];
-    }
-}
-
-$customers = [
-    ['id' => 1, 'first_name' => 'John', 'last_name' => 'Do'],
-    ['id' => 3, 'first_name' => 'Alice', 'last_name' => 'Gustav'],
-    ['id' => 2, 'first_name' => 'Bob', 'last_name' => 'Filipe']
-];
-
-// sort customers by first name
-usort($customers, new Sort('first_name'));
-print_r($customers);
-
-// sort customers by last name
-usort($customers, new Sort('last_name'));
-print_r($customers);
-?>
-```
-
-The above example will output:
-
-```
-Array
-(
-    [0] => Array
-        (
-            [id] => 3
-            [first_name] => Alice
-            [last_name] => Gustav
-        )
-
-    [1] => Array
-        (
-            [id] => 2
-            [first_name] => Bob
-            [last_name] => Filipe
-        )
-
-    [2] => Array
-        (
-            [id] => 1
-            [first_name] => John
-            [last_name] => Do
-        )
-
-)
-Array
-(
-    [0] => Array
-        (
-            [id] => 1
-            [first_name] => John
-            [last_name] => Do
-        )
-
-    [1] => Array
-        (
-            [id] => 2
-            [first_name] => Bob
-            [last_name] => Filipe
-        )
-
-    [2] => Array
-        (
-            [id] => 3
-            [first_name] => Alice
-            [last_name] => Gustav
-        )
-
-)
-```
-
-*Example: Basic usage*
-
-```php
-<?php
-
-class SomeClass
-{
-    public function __invoke(mixed $argument1, mixed $argument2): void
-    {
-        print(
-            "Magic method __invoke\n"
-            . "Method arguments: \n"
-            . $argument1 . PHP_EOL
-            . $argument2 . PHP_EOL
-        );
-    }
-}
-
-$someObject = new SomeClass();
-$someObject(4, "hello");
-
-```
-
-**View**:
-[Example](../../../../example/library/functions/magic_methods/__invoke.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-Magic method __invoke
-Method arguments:
-4
-hello
 ```
 
 ## `__set_state()`

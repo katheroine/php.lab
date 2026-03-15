@@ -2,15 +2,29 @@
 
 class SomeClass
 {
-    public static function __callStatic(string $methodName, mixed $methodArguments): void
+    private const array ACTIONS = [
+        'adding' => 'array_sum',
+        'multipling' => 'array_product',
+    ];
+
+    public static function __callStatic(string $methodName, mixed $methodArguments): mixed
     {
         print(
-            "Magic method __callStatic\n"
-            . "Method name: {$methodName}\n"
-            . "Method arguments: "
+            "Magic method __callStatic\n\n"
+            . "Method name: {$methodName}\n\n"
+            . "Method arguments:\n"
         );
         var_dump($methodArguments);
+        print(PHP_EOL);
+
+        if (! isset(static::ACTIONS[$methodName])) {
+            return null;
+        }
+
+        return static::ACTIONS[$methodName]($methodArguments);
     }
 }
 
-SomeClass::method(4, "hello");
+$result = SomeClass::adding(1, 2, 3);
+
+print($result . PHP_EOL . PHP_EOL);
