@@ -846,6 +846,103 @@ Exported: array (
 **Source code**:
 [Example](../../../../example/library/methods/magic_methods/__invoke.php)
 
+## `__toString()`
+
+The `__toString()` *method* allows a *class* to decide how it will *react when it is treated like a string*. For example, what `echo $obj;` will print.
+
+```
+public __toString(): string
+```
+
+Warning
+
+As of PHP 8.0.0, the *return value* follows standard PHP *type semantics*, meaning it will be *coerced* into a `string` if possible and if *strict typing* is disabled.
+
+A `Stringable` *object* will not be accepted by a `string` *type declaration* if *strict typing* is enabled. If such behaviour is wanted the *type declaration* must accept `Stringable` and `string` via a *union type*.
+
+As of PHP 8.0.0, any *class* that contains a `__toString()` *method* will also implicitly implement the `Stringable` *interface*, and will thus pass *type checks* for that *interface*. Explicitly implementing the *interface* anyway is recommended.
+
+In PHP 7.4, the *returned value* must be a `string`, otherwise an `Error` is thrown.
+
+Prior to PHP 7.4.0, the *returned value* must be a `string`, otherwise a fatal `E_RECOVERABLE_ERROR` is emitted.
+
+Warning
+
+It was not possible to *throw an exception* from within a `__toString()` method prior to PHP 7.4.0. Doing so will result in a fatal error.
+
+*Example: Simple example*
+
+```php
+<?php
+// Declare a simple class
+class TestClass
+{
+    public $foo;
+
+    public function __construct($foo)
+    {
+        $this->foo = $foo;
+    }
+
+    public function __toString()
+    {
+        return $this->foo;
+    }
+}
+
+$class = new TestClass('Hello');
+echo $class;
+?>
+```
+
+The above example will output:
+
+```
+Hello
+```
+
+*Example: `__toString` magic method*
+
+```php
+<?php
+
+class SomeClass
+{
+    private const string PREFIX = '<';
+    private const string POSTFIX = '>';
+
+    function __construct(private string $content = '')
+    {
+    }
+
+    public function __toString(): string
+    {
+        print(
+            "Magic method __toString\n\n"
+        );
+
+        return static::PREFIX . $this->content . static::POSTFIX;
+    }
+}
+
+$someObject = new SomeClass('Veni, vidi, vim!');
+
+print($someObject . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Magic method __toString
+
+<Veni, vidi, vim!>
+
+```
+
+**Source code**:
+[Example](../../../../example/library/methods/magic_methods/__toString.php)
+
 ## `__sleep()` and `__wakeup()`
 
 ```
@@ -1114,96 +1211,6 @@ Data: array(1) {
   ["variable"]=>
   NULL
 }
-```
-
-## `__toString()`
-
-```
-public __toString(): string
-```
-
-The `__toString()` method allows a *class* to decide how it will *react when it is treated like a string*. For example, what `echo $obj;` will print.
-
-Warning
-
-As of PHP 8.0.0, the *return value* follows standard PHP *type semantics*, meaning it will be *coerced* into a `string` if possible and if *strict typing* is disabled.
-
-A `Stringable` object will not be accepted by a `string` *type declaration* if *strict typing* is enabled. If such behaviour is wanted the *type declaration* must accept `Stringable` and `string` via a *union type*.
-
-As of PHP 8.0.0, any class that contains a `__toString()` method will also implicitly implement the `Stringable` interface, and will thus pass type checks for that interface. Explicitly implementing the interface anyway is recommended.
-
-In PHP 7.4, the *returned value* must be a `string`, otherwise an `Error` is thrown.
-
-Prior to PHP 7.4.0, the *returned value* must be a `string`, otherwise a fatal `E_RECOVERABLE_ERROR` is emitted.
-
-Warning
-
-It was not possible to *throw an exception* from within a `__toString()` method prior to PHP 7.4.0. Doing so will result in a fatal error.
-
-*Example: Simple example*
-
-```php
-<?php
-// Declare a simple class
-class TestClass
-{
-    public $foo;
-
-    public function __construct($foo)
-    {
-        $this->foo = $foo;
-    }
-
-    public function __toString()
-    {
-        return $this->foo;
-    }
-}
-
-$class = new TestClass('Hello');
-echo $class;
-?>
-```
-
-The above example will output:
-
-```
-Hello
-```
-
-*Example: Basic usage*
-
-```php
-<?php
-
-class SomeClass
-{
-    public function __toString(): string
-    {
-        print(
-            "Magic method __toString\n"
-        );
-
-        return "";
-    }
-}
-
-$someObject = new SomeClass();
-(string) $someObject;
-
-```
-
-**View**:
-[Example](../../../../example/library/functions/magic_methods/__toString.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-Magic method __toString
 ```
 
 ## `__set_state()`
