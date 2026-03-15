@@ -648,7 +648,9 @@ array(3) {
 **Source code**:
 [Example](../../../../example/library/methods/magic_methods/__callStatic.php)
 
-## `__invoke()`
+## `__invoke` and `__toString`
+
+### `__invoke`
 
 The `__invoke()` *method* is called when a script tries to *call an object as a function*.
 
@@ -846,7 +848,7 @@ Exported: array (
 **Source code**:
 [Example](../../../../example/library/methods/magic_methods/__invoke.php)
 
-## `__toString()`
+### `__toString`
 
 The `__toString()` *method* allows a *class* to decide how it will *react when it is treated like a string*. For example, what `echo $obj;` will print.
 
@@ -943,7 +945,7 @@ Magic method __toString
 **Source code**:
 [Example](../../../../example/library/methods/magic_methods/__toString.php)
 
-## `__sleep()` and `__wakeup()`
+## `__sleep` and `__wakeup`
 
 ```
 public __sleep(): array
@@ -964,7 +966,7 @@ The intended use of `__sleep()` is to *commit pending data* or *perform* similar
 
 Conversely, `unserialize()` checks for the presence of a function with the magic name `__wakeup()`. If present, this function can reconstruct any resources that the *object* may have.
 
-The intended use of `__wakeup()` is to reestablish any database connections that may have been lost during *serialization* and perform other reinitialization tasks.
+The intended use of `__wakeup()` is to reestablish any database connections that may have been lost during *serialization* and perform other *reinitialization* tasks.
 
 *Example: Sleep and wakeup*
 
@@ -1000,74 +1002,208 @@ class Connection
 }?>
 ```
 
-*Example: Basic usage of __sleep*
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.magic.php#language.oop5.magic.sleep)
 
-```php
-?php
+### `__sleep`
 
-class SomeClass
-{
-    public function __sleep(): array
-    {
-        print(
-            "Magic method __sleep\n"
-        );
-
-        return [];
-    }
-}
-
-$someObject = new SomeClass();
-serialize($someObject);
+`serialize()` checks if the class has a function with the magic name `__sleep()`. If so, that function is executed prior to any *serialization*. It can clean up the *object* and is supposed to *return* an *array* with the *names of all variables of that object* that should be *serialized*.
 
 ```
-
-**View**:
-[Example](../../../../example/library/functions/magic_methods/__sleep.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
-
-```
-Magic method __sleep
+public __sleep(): array
 ```
 
-*Example: Basic usage of __wakeup*
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.magic.php#object.sleep)
+
+*Example: `__sleep` magic method*
 
 ```php
 <?php
 
 class SomeClass
 {
-    public function __wakeup(): void
+    public function __construct(
+        public string $somePublicProperty = 'some public',
+        public string $otherPublicProperty = 'other public',
+        protected string $someProtectedProperty = 'some protected',
+        protected string $otherProtectedProperty = 'other protected',
+        private string $somePrivateProperty = 'some private',
+        private string $otherPrivateProperty = 'other private',
+    ) {
+    }
+
+    public function __sleep(): array
     {
         print(
-            "Magic method __wakeup\n"
+            "Magic method __sleep\n\n"
         );
+
+        return [
+            'somePublicProperty',
+            'someProtectedProperty',
+            'somePrivateProperty',
+        ];
     }
 }
 
 $someObject = new SomeClass();
-$serialized = serialize($someObject);
-unserialize($serialized);
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$result = serialize($someObject);
+
+print($result . PHP_EOL . PHP_EOL);
+
+$coresult = unserialize($result);
+
+var_dump($coresult);
+print(PHP_EOL);
 
 ```
 
-**View**:
-[Example](../../../../example/library/functions/magic_methods/__wakeup.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
+**Result (PHP 8.4)**:
 
 ```
+object(SomeClass)#1 (6) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["otherPublicProperty"]=>
+  string(12) "other public"
+  ["someProtectedProperty":protected]=>
+  string(14) "some protected"
+  ["otherProtectedProperty":protected]=>
+  string(15) "other protected"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(12) "some private"
+  ["otherPrivateProperty":"SomeClass":private]=>
+  string(13) "other private"
+}
+
+Magic method __sleep
+
+O:9:"SomeClass":3:{s:18:"somePublicProperty";s:11:"some public";s:24:"*someProtectedProperty";s:14:"some protected";s:30:"SomeClasssomePrivateProperty";s:12:"some private";}
+
+object(SomeClass)#2 (3) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["otherPublicProperty"]=>
+  uninitialized(string)
+  ["someProtectedProperty":protected]=>
+  string(14) "some protected"
+  ["otherProtectedProperty":protected]=>
+  uninitialized(string)
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(12) "some private"
+  ["otherPrivateProperty":"SomeClass":private]=>
+  uninitialized(string)
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/library/methods/magic_methods/__sleep.php)
+
+### `__wakeup`
+
+Conversely, `unserialize()` checks for the presence of a function with the magic name `__wakeup()`. If present, this function can reconstruct any resources that the *object* may have.
+
+The intended use of `__wakeup()` is to reestablish any database connections that may have been lost during *serialization* and perform other *reinitialization* tasks.
+
+```
+public __wakeup(): void
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.magic.php#object.wakeup)
+
+*Example: `__wakeup` magic method*
+
+```php
+<?php
+
+class SomeClass
+{
+    private const string UNSERIALISATION_HIDDEN_FIELD_MESSAGE = 'hidden during unserialisation';
+
+    public function __construct(
+        public string $somePublicProperty = 'some public',
+        public string $otherPublicProperty = 'other public',
+        protected string $someProtectedProperty = 'some protected',
+        protected string $otherProtectedProperty = 'other protected',
+        private string $somePrivateProperty = 'some private',
+        private string $otherPrivateProperty = 'other private',
+    ) {
+    }
+
+    public function __wakeup(): void
+    {
+        print(
+            "Magic method __wakeup\n\n"
+        );
+
+        $this->someProtectedProperty = static::UNSERIALISATION_HIDDEN_FIELD_MESSAGE;
+        $this->otherProtectedProperty = static::UNSERIALISATION_HIDDEN_FIELD_MESSAGE;
+        $this->somePrivateProperty = static::UNSERIALISATION_HIDDEN_FIELD_MESSAGE;
+        $this->otherPrivateProperty = static::UNSERIALISATION_HIDDEN_FIELD_MESSAGE;
+    }
+}
+
+$someObject = new SomeClass();
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$result = serialize($someObject);
+
+print($result . PHP_EOL . PHP_EOL);
+
+$coresult = unserialize($result);
+
+var_dump($coresult);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+object(SomeClass)#1 (6) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["otherPublicProperty"]=>
+  string(12) "other public"
+  ["someProtectedProperty":protected]=>
+  string(14) "some protected"
+  ["otherProtectedProperty":protected]=>
+  string(15) "other protected"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(12) "some private"
+  ["otherPrivateProperty":"SomeClass":private]=>
+  string(13) "other private"
+}
+
+O:9:"SomeClass":6:{s:18:"somePublicProperty";s:11:"some public";s:19:"otherPublicProperty";s:12:"other public";s:24:"*someProtectedProperty";s:14:"some protected";s:25:"*otherProtectedProperty";s:15:"other protected";s:30:"SomeClasssomePrivateProperty";s:12:"some private";s:31:"SomeClassotherPrivateProperty";s:13:"other private";}
+
 Magic method __wakeup
+
+object(SomeClass)#2 (6) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["otherPublicProperty"]=>
+  string(12) "other public"
+  ["someProtectedProperty":protected]=>
+  string(29) "hidden during unserialisation"
+  ["otherProtectedProperty":protected]=>
+  string(29) "hidden during unserialisation"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(29) "hidden during unserialisation"
+  ["otherPrivateProperty":"SomeClass":private]=>
+  string(29) "hidden during unserialisation"
+}
+
 ```
+
+**Source code**:
+[Example](../../../../example/library/methods/magic_methods/__wakeup.php)
 
 ## `__serialize()` and `__unserialize()`
 
@@ -1080,7 +1216,7 @@ public __unserialize(array $data): void
 
 Note:
 
-If both `__serialize()` and `__sleep()` are defined in the same *object*, only `__serialize()` will be called. `__sleep()` will be ignored. If the object implements the `Serializable` interface, the interface's `serialize()` method will be ignored and `__serialize()` used instead.
+If both `__serialize()` and `__sleep()` are defined in the same *object*, only `__serialize()` will be called. `__sleep()` will be ignored. If the *object* implements the `Serializable` interface, the interface's `serialize()` method will be ignored and `__serialize()` used instead.
 
 The intended use of `__serialize()` is to define a *serialization-friendly arbitrary representation of the object*. Elements of the *array* may correspond to *properties* of the *object* but that is not required.
 
@@ -1136,82 +1272,227 @@ class Connection
 }?>
 ```
 
-*Example: Basic usage of __serialize*
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.magic.php#language.oop5.magic.serialize)
+
+### `__serialize`
+
+```
+public __serialize(): array
+```
+
+`serialize()` checks if the *class* has a *function* with the *magic name* `__serialize()`. If so, that *function* is executed prior to any *serialization*. It must construct and return an *associative array* of *key/value pairs* that represent the *serialized form of the object*. If no *array* is returned a `TypeError` will be thrown.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.magic.php#object.serialize)
+
+*Example: `__serialize` magic method*
 
 ```php
 <?php
 
 class SomeClass
 {
+    public function __construct(
+        public string $somePublicProperty = 'some public',
+        public string $otherPublicProperty = 'other public',
+        protected string $someProtectedProperty = 'some protected',
+        protected string $otherProtectedProperty = 'other protected',
+        private string $somePrivateProperty = 'some private',
+        private string $otherPrivateProperty = 'other private',
+    ) {
+    }
+
     public function __serialize(): array
     {
         print(
-            "Magic method __serialize\n"
+            "Magic method __serialize\n\n"
         );
 
-        return [];
+        return [
+            'somePublicProperty' => $this->somePublicProperty,
+            'someProtectedProperty' => $this->someProtectedProperty,
+            'somePrivateProperty' => $this->somePrivateProperty,
+        ];
     }
 }
 
 $someObject = new SomeClass();
-serialize($someObject);
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$result = serialize($someObject);
+
+print($result . PHP_EOL . PHP_EOL);
+
+$coresult = unserialize($result);
+
+var_dump($coresult);
+print(PHP_EOL);
 
 ```
 
-**View**:
-[Example](../../../../example/library/functions/magic_methods/__serialize.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
+**Result (PHP 8.4)**:
 
 ```
+object(SomeClass)#1 (6) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["otherPublicProperty"]=>
+  string(12) "other public"
+  ["someProtectedProperty":protected]=>
+  string(14) "some protected"
+  ["otherProtectedProperty":protected]=>
+  string(15) "other protected"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(12) "some private"
+  ["otherPrivateProperty":"SomeClass":private]=>
+  string(13) "other private"
+}
+
 Magic method __serialize
+
+O:9:"SomeClass":3:{s:18:"somePublicProperty";s:11:"some public";s:21:"someProtectedProperty";s:14:"some protected";s:19:"somePrivateProperty";s:12:"some private";}
+
+object(SomeClass)#2 (3) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["otherPublicProperty"]=>
+  uninitialized(string)
+  ["someProtectedProperty":protected]=>
+  string(14) "some protected"
+  ["otherProtectedProperty":protected]=>
+  uninitialized(string)
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(12) "some private"
+  ["otherPrivateProperty":"SomeClass":private]=>
+  uninitialized(string)
+}
+
 ```
 
-*Example: Basic usage of __unserialize*
+**Source code**:
+[Example](../../../../example/library/methods/magic_methods/__serialize.php)
+
+### `__unserialize`
+
+```
+public __unserialize(array $data): void
+```
+
+Conversely, `unserialize()` checks for the presence of a function with the magic name `__unserialize()`. If present, this function will be passed the restored *array* that was returned from `__serialize()`. It may then restore the *properties* of the *object* from that *array* as appropriate.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.magic.php#object.unserialize)
+
+*Example: __nuserialize magic method*
 
 ```php
 <?php
 
 class SomeClass
 {
-    public $variable;
+    private const string UNSERIALISATION_HIDDEN_FIELD_MESSAGE = 'hidden during unserialisation';
+
+    public function __construct(
+        public string $somePublicProperty = 'some public',
+        public string $otherPublicProperty = 'other public',
+        protected string $someProtectedProperty = 'some protected',
+        protected string $otherProtectedProperty = 'other protected',
+        private string $somePrivateProperty = 'some private',
+        private string $otherPrivateProperty = 'other private',
+    ) {
+    }
 
     public function __unserialize(array $data): void
     {
         print(
-            "Magic method __unserialize\n"
-            . "Data: "
+            "Magic method __unserialize\n\n"
+            . "Data:\n"
         );
         var_dump($data);
+        print(PHP_EOL);
+
+        $this->somePublicProperty = $data['somePublicProperty'];
+        $this->otherPublicProperty = $data['otherPublicProperty'];
+        $this->someProtectedProperty = static::UNSERIALISATION_HIDDEN_FIELD_MESSAGE;
+        $this->otherProtectedProperty = static::UNSERIALISATION_HIDDEN_FIELD_MESSAGE;
+        $this->somePrivateProperty = static::UNSERIALISATION_HIDDEN_FIELD_MESSAGE;
+        $this->otherPrivateProperty = static::UNSERIALISATION_HIDDEN_FIELD_MESSAGE;
     }
 }
 
 $someObject = new SomeClass();
-$serialized = serialize($someObject);
-unserialize($serialized);
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$result = serialize($someObject);
+
+print($result . PHP_EOL . PHP_EOL);
+
+$coresult = unserialize($result);
+
+var_dump($coresult);
+print(PHP_EOL);
 
 ```
 
-**View**:
-[Example](../../../../example/library/functions/magic_methods/__unserialize.php)
-
-**Execute**:
-* [OnlinePHP]()
-* [OneCompiler]()
-
-**Result**:
+**Result (PHP 8.4)**:
 
 ```
-Magic method __unserialize
-Data: array(1) {
-  ["variable"]=>
-  NULL
+object(SomeClass)#1 (6) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["otherPublicProperty"]=>
+  string(12) "other public"
+  ["someProtectedProperty":protected]=>
+  string(14) "some protected"
+  ["otherProtectedProperty":protected]=>
+  string(15) "other protected"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(12) "some private"
+  ["otherPrivateProperty":"SomeClass":private]=>
+  string(13) "other private"
 }
+
+O:9:"SomeClass":6:{s:18:"somePublicProperty";s:11:"some public";s:19:"otherPublicProperty";s:12:"other public";s:24:"*someProtectedProperty";s:14:"some protected";s:25:"*otherProtectedProperty";s:15:"other protected";s:30:"SomeClasssomePrivateProperty";s:12:"some private";s:31:"SomeClassotherPrivateProperty";s:13:"other private";}
+
+Magic method __unserialize
+
+Data:
+array(6) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["otherPublicProperty"]=>
+  string(12) "other public"
+  ["*someProtectedProperty"]=>
+  string(14) "some protected"
+  ["*otherProtectedProperty"]=>
+  string(15) "other protected"
+  ["SomeClasssomePrivateProperty"]=>
+  string(12) "some private"
+  ["SomeClassotherPrivateProperty"]=>
+  string(13) "other private"
+}
+
+object(SomeClass)#2 (6) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["otherPublicProperty"]=>
+  string(12) "other public"
+  ["someProtectedProperty":protected]=>
+  string(29) "hidden during unserialisation"
+  ["otherProtectedProperty":protected]=>
+  string(29) "hidden during unserialisation"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(29) "hidden during unserialisation"
+  ["otherPrivateProperty":"SomeClass":private]=>
+  string(29) "hidden during unserialisation"
+}
+
 ```
+
+**Source code**:
+[Example](../../../../example/library/methods/magic_methods/__unserialize.php)
 
 ## `__set_state()`
 

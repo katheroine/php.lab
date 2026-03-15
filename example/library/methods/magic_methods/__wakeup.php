@@ -2,14 +2,41 @@
 
 class SomeClass
 {
+    private const string UNSERIALISATION_HIDDEN_FIELD_MESSAGE = 'hidden during unserialisation';
+
+    public function __construct(
+        public string $somePublicProperty = 'some public',
+        public string $otherPublicProperty = 'other public',
+        protected string $someProtectedProperty = 'some protected',
+        protected string $otherProtectedProperty = 'other protected',
+        private string $somePrivateProperty = 'some private',
+        private string $otherPrivateProperty = 'other private',
+    ) {
+    }
+
     public function __wakeup(): void
     {
         print(
-            "Magic method __wakeup\n"
+            "Magic method __wakeup\n\n"
         );
+
+        $this->someProtectedProperty = static::UNSERIALISATION_HIDDEN_FIELD_MESSAGE;
+        $this->otherProtectedProperty = static::UNSERIALISATION_HIDDEN_FIELD_MESSAGE;
+        $this->somePrivateProperty = static::UNSERIALISATION_HIDDEN_FIELD_MESSAGE;
+        $this->otherPrivateProperty = static::UNSERIALISATION_HIDDEN_FIELD_MESSAGE;
     }
 }
 
 $someObject = new SomeClass();
-$serialized = serialize($someObject);
-unserialize($serialized);
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$result = serialize($someObject);
+
+print($result . PHP_EOL . PHP_EOL);
+
+$coresult = unserialize($result);
+
+var_dump($coresult);
+print(PHP_EOL);

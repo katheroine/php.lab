@@ -2,15 +2,40 @@
 
 class SomeClass
 {
+    public function __construct(
+        public string $somePublicProperty = 'some public',
+        public string $otherPublicProperty = 'other public',
+        protected string $someProtectedProperty = 'some protected',
+        protected string $otherProtectedProperty = 'other protected',
+        private string $somePrivateProperty = 'some private',
+        private string $otherPrivateProperty = 'other private',
+    ) {
+    }
+
     public function __sleep(): array
     {
         print(
-            "Magic method __sleep\n"
+            "Magic method __sleep\n\n"
         );
 
-        return [];
+        return [
+            'somePublicProperty',
+            'someProtectedProperty',
+            'somePrivateProperty',
+        ];
     }
 }
 
 $someObject = new SomeClass();
-serialize($someObject);
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$result = serialize($someObject);
+
+print($result . PHP_EOL . PHP_EOL);
+
+$coresult = unserialize($result);
+
+var_dump($coresult);
+print(PHP_EOL);
