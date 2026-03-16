@@ -4,6 +4,51 @@
 
 # Constructors and destructors
 
+*Example: Constructor and destructor*
+
+```php
+<?php
+
+class SomeClass
+{
+    function __construct()
+    {
+        print("Constructor is running...\n");
+    }
+
+    function __destruct()
+    {
+        print("Destructor is running...\n");
+    }
+
+    function action() : void
+    {
+        print("Some action is performing...\n");
+    }
+}
+
+print("The object will be created now.\n");
+
+$someObject = new SomeClass();
+$someObject->action();
+
+print("The program will end now.\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+The object will be created now.
+Constructor is running...
+Some action is performing...
+The program will end now.
+Destructor is running...
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_and_destructor.php)
+
 ## Constructor
 
 ```
@@ -11,6 +56,98 @@ __construct(mixed ...$values = ""): void
 ```
 
 PHP allows developers to declare *constructor methods* for *classes*. *Classes* which have a *constructor method* call this method on each newly-created *object*, so it is suitable for any *initialization* that the *object* may need before it is used.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
+
+*Example: Constructor*
+
+```php
+<?php
+
+class SomeClass
+{
+    public static $instanceQuantity = 0;
+
+    public string $somePublicProperty;
+    protected string $someProtectedProperty;
+    private string $somePrivateProperty;
+
+    public function __construct(
+        string $somePublicValue = 'some public',
+        string $someProtectedValue = 'some protected',
+        string $somePrivateValue = 'some private'
+    ) {
+        print(
+            "Magic method __construct\n\n"
+        );
+
+        self::$instanceQuantity++;
+
+        $this->somePublicProperty = $somePublicValue;
+        $this->someProtectedProperty = $someProtectedValue;
+        $this->somePrivateProperty = $somePrivateValue;
+    }
+}
+
+print('Instance quantity: ' . SomeClass::$instanceQuantity . PHP_EOL . PHP_EOL);
+
+$someObject = new SomeClass();
+
+print('Instance quantity: ' . SomeClass::$instanceQuantity . PHP_EOL . PHP_EOL);
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$otherObject = new SomeClass(
+    'pear',
+    'orange',
+    'banana'
+);
+
+print('Instance quantity: ' . SomeClass::$instanceQuantity . PHP_EOL . PHP_EOL);
+
+var_dump($otherObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Instance quantity: 0
+
+Magic method __construct
+
+Instance quantity: 1
+
+object(SomeClass)#1 (3) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["someProtectedProperty":protected]=>
+  string(14) "some protected"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(12) "some private"
+}
+
+Magic method __construct
+
+Instance quantity: 2
+
+object(SomeClass)#2 (3) {
+  ["somePublicProperty"]=>
+  string(4) "pear"
+  ["someProtectedProperty":protected]=>
+  string(6) "orange"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(6) "banana"
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor.php)
+
+### Inheritance
 
 Note: *Parent constructors* are not called implicitly if the *child class* defines a *constructor*. In order to run a *parent constructor*, a call to `parent::__construct()` within the *child constructor* is required. If the *child* does not define a *constructor* then it may be inherited from the *parent class* just like a normal *class method* (if it was not declared as *private*).
 
@@ -46,6 +183,86 @@ $obj = new SubClass();
 $obj = new OtherSubClass();
 ?>
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
+
+*Example: Constructor and inheritance*
+
+```php
+<?php
+
+class SomeClass
+{
+    function __construct()
+    {
+        print("SomeClass constructor\n\n");
+    }
+}
+
+print("Instantiating SomeClass...\n\n");
+
+new SomeClass();
+
+class OtherClass extends SomeClass
+{
+}
+
+print("Instantiating OtherClass...\n\n");
+
+new OtherClass();
+
+class AnotherClass extends SomeClass
+{
+    function __construct()
+    {
+        print("AnotherClass constructor\n\n");
+    }
+}
+
+print("Instantiating AnotherClass...\n\n");
+
+new AnotherClass();
+
+class DifferentClass extends SomeClass
+{
+    function __construct()
+    {
+        parent::__construct();
+        print("DifferentClass constructor\n\n");
+    }
+}
+
+print("Instantiating DifferentClass...\n\n");
+
+new DifferentClass();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Instantiating SomeClass...
+
+SomeClass constructor
+
+Instantiating OtherClass...
+
+SomeClass constructor
+
+Instantiating AnotherClass...
+
+AnotherClass constructor
+
+Instantiating DifferentClass...
+
+SomeClass constructor
+
+DifferentClass constructor
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_and_inheritance.php)
 
 Unlike other methods, `__construct()` is exempt from the usual *signature compatibility* rules when being extended.
 
@@ -220,6 +437,64 @@ __destruct(): void
 
 PHP possesses a *destructor* concept similar to that of other object-oriented languages, such as C++. The *destructor method* will be called as soon as there are no other *references* to a particular *object*, or in any order during the *shutdown sequence*.
 
+-- PHP[Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.destructor)
+
+*Example: Destructor*
+
+```php
+<?php
+
+class SomeClass
+{
+    public static $instanceQuantity = 0;
+
+    public function __destruct()
+    {
+        print(
+            "Magic method __destruct\n\n"
+        );
+
+        self::$instanceQuantity--;
+    }
+}
+
+function someLocalSpace()
+{
+    $someObject = new SomeClass();
+    SomeClass::$instanceQuantity++;
+
+    print('Instance quantity: ' . SomeClass::$instanceQuantity . PHP_EOL . PHP_EOL);
+
+    $otherObject = new SomeClass();
+    SomeClass::$instanceQuantity++;
+
+    print('Instance quantity: ' . SomeClass::$instanceQuantity . PHP_EOL . PHP_EOL);
+}
+
+someLocalSpace();
+
+print('Instance quantity: ' . SomeClass::$instanceQuantity . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Instance quantity: 1
+
+Instance quantity: 2
+
+Magic method __destruct
+
+Magic method __destruct
+
+Instance quantity: 0
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor.php)
+
 *Example: Destructor Example*
 
 ```php
@@ -238,6 +513,8 @@ class MyDestructableClass
 
 $obj = new MyDestructableClass();
 ```
+
+### Inheritance
 
 Like *constructors*, *parent destructors* will not be called implicitly by the engine. In order to run a *parent destructor*, one would have to explicitly call `parent::__destruct()` in the *destructor body*. Also like *constructors*, a *child class* may *inherit* the *parent's destructor* if it does not implement one itself.
 
