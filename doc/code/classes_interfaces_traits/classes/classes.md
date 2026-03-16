@@ -593,6 +593,126 @@ object(SomeClass)#1 (0) {
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_by_factory_method.php)
 
+*Example: Class instantiation ways*
+
+```php
+<?php
+
+class SomeClass
+{
+    public static function constructByStatic()
+    {
+        return new static();
+    }
+
+    public static function constructBySelf()
+    {
+        return new self();
+    }
+}
+
+class OtherClass extends SomeClass
+{
+    static function constructByParent()
+    {
+        return new parent();
+    }
+}
+
+$someObject = new SomeClass();
+
+print("# From the explicit class name:\n\n");
+print('Created object class: '. get_class($someObject) . PHP_EOL . PHP_EOL);
+
+$fromObject = new $someObject;
+
+print("# From an object of the particular class:\n\n");
+print(
+    'Original object class: ' . get_class($someObject) . PHP_EOL
+    . 'Created object class: ' . get_class($fromObject) . PHP_EOL
+    . PHP_EOL
+);
+print("Equal:\n");
+var_dump($fromObject == $someObject);
+print("Identical:\n");
+var_dump($fromObject === $someObject);
+print(PHP_EOL);
+
+$className = 'SomeClass';
+$fromString = new $className();
+
+print("# From a string containing the particular class name:\n\n");
+print('Created object class: '. get_class($fromString) . PHP_EOL . PHP_EOL);
+
+function getClassName(): string
+{
+    return 'SomeClass';
+}
+
+$fromExpression = new (getClassName());
+
+print("# From an expression which value contains the particular class name:\n\n");
+print('Created object class: '. get_class($fromExpression) . PHP_EOL . PHP_EOL);
+
+$fromClassNameResolution = new (SomeClass::class);
+
+print("# From the particular class name resolution:\n\n");
+print('Created object class: '. get_class($fromClassNameResolution) . PHP_EOL . PHP_EOL);
+
+$byStatic = SomeClass::constructByStatic();
+$bySelf = SomeClass::constructBySelf();
+$byParent = OtherClass::constructByParent();
+
+print("# From a factory method of the particular class:\n\n");
+print(
+    'By static: ' . get_class($byStatic) . PHP_EOL
+    . 'By self: ' . get_class($bySelf) . PHP_EOL
+    . 'By parent: ' . get_class($byParent) . PHP_EOL
+    . PHP_EOL
+);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# From the explicit class name:
+
+Created object class: SomeClass
+
+# From an object of the particular class:
+
+Original object class: SomeClass
+Created object class: SomeClass
+
+Equal:
+bool(true)
+Identical:
+bool(false)
+
+# From a string containing the particular class name:
+
+Created object class: SomeClass
+
+# From an expression which value contains the particular class name:
+
+Created object class: SomeClass
+
+# From the particular class name resolution:
+
+Created object class: SomeClass
+
+# From a factory method of the particular class:
+
+By static: SomeClass
+By self: SomeClass
+By parent: SomeClass
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/class_instantiation_ways.php)
+
 When *assigning* an already created *instance* of a *class* to a new *variable*, the new *variable* will access the same *instance* as the *object* that was assigned. This behaviour is the same when *passing* *instances* to a *function*. A *copy* of an already created *object* can be made by *cloning* it.
 
 *Example: Object assignment*

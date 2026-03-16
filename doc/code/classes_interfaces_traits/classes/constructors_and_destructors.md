@@ -147,126 +147,13 @@ object(SomeClass)#2 (3) {
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor.php)
 
-### Inheritance
+### Old-style constructors
 
-Note: *Parent constructors* are not called implicitly if the *child class* defines a *constructor*. In order to run a *parent constructor*, a call to `parent::__construct()` within the *child constructor* is required. If the *child* does not define a *constructor* then it may be inherited from the *parent class* just like a normal *class method* (if it was not declared as *private*).
+Prior to PHP 8.0.0, *classes* in the *global namespace* will interpret a *method* named the same as the *class* as an *old-style constructor*. That syntax is deprecated, and will result in an `E_DEPRECATED` error but still call that *function* as a *constructor*. If both `__construct()` and a same-name method are defined, `__construct()` will be called.
 
-*Example: Constructors in inheritance*
+In *namespaced classes*, or any *class* as of PHP 8.0.0, a *method* named the same as the *class* never has any special meaning.
 
-```php
-<?php
-class BaseClass {
-    function __construct() {
-        print "In BaseClass constructor\n";
-    }
-}
-
-class SubClass extends BaseClass {
-    function __construct() {
-        parent::__construct();
-        print "In SubClass constructor\n";
-    }
-}
-
-class OtherSubClass extends BaseClass {
-    // inherits BaseClass's constructor
-}
-
-// In BaseClass constructor
-$obj = new BaseClass();
-
-// In BaseClass constructor
-// In SubClass constructor
-$obj = new SubClass();
-
-// In BaseClass constructor
-$obj = new OtherSubClass();
-?>
-```
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
-
-*Example: Constructor and inheritance*
-
-```php
-<?php
-
-class SomeClass
-{
-    function __construct()
-    {
-        print("SomeClass constructor\n\n");
-    }
-}
-
-print("Instantiating SomeClass...\n\n");
-
-new SomeClass();
-
-class OtherClass extends SomeClass
-{
-}
-
-print("Instantiating OtherClass...\n\n");
-
-new OtherClass();
-
-class AnotherClass extends SomeClass
-{
-    function __construct()
-    {
-        print("AnotherClass constructor\n\n");
-    }
-}
-
-print("Instantiating AnotherClass...\n\n");
-
-new AnotherClass();
-
-class DifferentClass extends SomeClass
-{
-    function __construct()
-    {
-        parent::__construct();
-        print("DifferentClass constructor\n\n");
-    }
-}
-
-print("Instantiating DifferentClass...\n\n");
-
-new DifferentClass();
-
-```
-
-**Result (PHP 8.4)**:
-
-```
-Instantiating SomeClass...
-
-SomeClass constructor
-
-Instantiating OtherClass...
-
-SomeClass constructor
-
-Instantiating AnotherClass...
-
-AnotherClass constructor
-
-Instantiating DifferentClass...
-
-SomeClass constructor
-
-DifferentClass constructor
-
-```
-
-**Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_and_inheritance.php)
-
-#### Signature compatibility
-
-Unlike other methods, `__construct()` is exempt from the usual *signature compatibility* rules when being extended.
+Always use `__construct()` in new code.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
 
@@ -346,16 +233,6 @@ object(SomeClass)#1 (3) {
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_arguments.php)
-
-### Old-style constructors
-
-Prior to PHP 8.0.0, *classes* in the *global namespace* will interpret a *method* named the same as the *class* as an *old-style constructor*. That syntax is deprecated, and will result in an `E_DEPRECATED` error but still call that *function* as a *constructor*. If both `__construct()` and a same-name method are defined, `__construct()` will be called.
-
-In *namespaced classes*, or any *class* as of PHP 8.0.0, a *method* named the same as the *class* never has any special meaning.
-
-Always use `__construct()` in new code.
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
 
 ### Constructor promotion
 
@@ -655,7 +532,7 @@ Note:
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion)
 
-### `new` in initializers
+### Object initializers
 
 As of PHP 8.1.0, *objects* can be used as *default parameter values*, *static variables*, and *global constants*, as well as in *attribute arguments*. *Objects* can also be passed to `define()` now.
 
@@ -694,7 +571,130 @@ function test(
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.new)
 
-### Static creation methods
+### Inheritance
+
+Note: *Parent constructors* are not called implicitly if the *child class* defines a *constructor*. In order to run a *parent constructor*, a call to `parent::__construct()` within the *child constructor* is required. If the *child* does not define a *constructor* then it may be inherited from the *parent class* just like a normal *class method* (if it was not declared as *private*).
+
+*Example: Constructors in inheritance*
+
+```php
+<?php
+class BaseClass {
+    function __construct() {
+        print "In BaseClass constructor\n";
+    }
+}
+
+class SubClass extends BaseClass {
+    function __construct() {
+        parent::__construct();
+        print "In SubClass constructor\n";
+    }
+}
+
+class OtherSubClass extends BaseClass {
+    // inherits BaseClass's constructor
+}
+
+// In BaseClass constructor
+$obj = new BaseClass();
+
+// In BaseClass constructor
+// In SubClass constructor
+$obj = new SubClass();
+
+// In BaseClass constructor
+$obj = new OtherSubClass();
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
+
+*Example: Constructor and inheritance*
+
+```php
+<?php
+
+class SomeClass
+{
+    function __construct()
+    {
+        print("SomeClass constructor\n\n");
+    }
+}
+
+print("Instantiating SomeClass...\n\n");
+
+new SomeClass();
+
+class OtherClass extends SomeClass
+{
+}
+
+print("Instantiating OtherClass...\n\n");
+
+new OtherClass();
+
+class AnotherClass extends SomeClass
+{
+    function __construct()
+    {
+        print("AnotherClass constructor\n\n");
+    }
+}
+
+print("Instantiating AnotherClass...\n\n");
+
+new AnotherClass();
+
+class DifferentClass extends SomeClass
+{
+    function __construct()
+    {
+        parent::__construct();
+        print("DifferentClass constructor\n\n");
+    }
+}
+
+print("Instantiating DifferentClass...\n\n");
+
+new DifferentClass();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Instantiating SomeClass...
+
+SomeClass constructor
+
+Instantiating OtherClass...
+
+SomeClass constructor
+
+Instantiating AnotherClass...
+
+AnotherClass constructor
+
+Instantiating DifferentClass...
+
+SomeClass constructor
+
+DifferentClass constructor
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_and_inheritance.php)
+
+#### Signature compatibility
+
+Unlike other methods, `__construct()` is exempt from the usual *signature compatibility* rules when being extended.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
+
+### Private constructor
 
 PHP only supports a *single constructor* per *class*. In some cases, however, it may be desirable to allow an *object* to be *constructed* in different ways with different inputs. The recommended way to do so is by using *static methods* as *constructor wrappers*.
 
@@ -750,126 +750,6 @@ The three *public static methods* then demonstrate different ways of *instantiat
 * `fromXml()` accepts an XML string, preprocesses it, and then creates a bare object. The constructor is still called, but as all of the parameters are optional the method skips them. It then assigns values to the object properties directly before returning the result.
 
 In all three cases, the `static` *keyword* is translated into the name of the *class* the code is in. In this case, `Product`.
-
-*Example: Class instantiation ways*
-
-```php
-<?php
-
-class SomeClass
-{
-    public static function constructByStatic()
-    {
-        return new static();
-    }
-
-    public static function constructBySelf()
-    {
-        return new self();
-    }
-}
-
-class OtherClass extends SomeClass
-{
-    static function constructByParent()
-    {
-        return new parent();
-    }
-}
-
-$someObject = new SomeClass();
-
-print("# From the explicit class name:\n\n");
-print('Created object class: '. get_class($someObject) . PHP_EOL . PHP_EOL);
-
-$fromObject = new $someObject;
-
-print("# From an object of the particular class:\n\n");
-print(
-    'Original object class: ' . get_class($someObject) . PHP_EOL
-    . 'Created object class: ' . get_class($fromObject) . PHP_EOL
-    . PHP_EOL
-);
-print("Equal:\n");
-var_dump($fromObject == $someObject);
-print("Identical:\n");
-var_dump($fromObject === $someObject);
-print(PHP_EOL);
-
-$className = 'SomeClass';
-$fromString = new $className();
-
-print("# From a string containing the particular class name:\n\n");
-print('Created object class: '. get_class($fromString) . PHP_EOL . PHP_EOL);
-
-function getClassName(): string
-{
-    return 'SomeClass';
-}
-
-$fromExpression = new (getClassName());
-
-print("# From an expression which value contains the particular class name:\n\n");
-print('Created object class: '. get_class($fromExpression) . PHP_EOL . PHP_EOL);
-
-$fromClassNameResolution = new (SomeClass::class);
-
-print("# From the particular class name resolution:\n\n");
-print('Created object class: '. get_class($fromClassNameResolution) . PHP_EOL . PHP_EOL);
-
-$byStatic = SomeClass::constructByStatic();
-$bySelf = SomeClass::constructBySelf();
-$byParent = OtherClass::constructByParent();
-
-print("# From a factory method of the particular class:\n\n");
-print(
-    'By static: ' . get_class($byStatic) . PHP_EOL
-    . 'By self: ' . get_class($bySelf) . PHP_EOL
-    . 'By parent: ' . get_class($byParent) . PHP_EOL
-    . PHP_EOL
-);
-
-```
-
-**Result (PHP 8.4)**:
-
-```
-# From the explicit class name:
-
-Created object class: SomeClass
-
-# From an object of the particular class:
-
-Original object class: SomeClass
-Created object class: SomeClass
-
-Equal:
-bool(true)
-Identical:
-bool(false)
-
-# From a string containing the particular class name:
-
-Created object class: SomeClass
-
-# From an expression which value contains the particular class name:
-
-Created object class: SomeClass
-
-# From the particular class name resolution:
-
-Created object class: SomeClass
-
-# From a factory method of the particular class:
-
-By static: SomeClass
-By self: SomeClass
-By parent: SomeClass
-
-```
-
-**Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/class_instantiation_ways.php)
 
 ## Destructor
 
