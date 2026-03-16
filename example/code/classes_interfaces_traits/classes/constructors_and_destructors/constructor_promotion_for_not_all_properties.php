@@ -2,9 +2,10 @@
 
 class SomeClass
 {
+    public $somePublicProperty = 'public';
+    protected string $someProtectedProperty = 'protected';
+
     public function __construct(
-        public $somePublicProperty = 'public',
-        protected string $someProtectedProperty = 'protected',
         private string $somePrivateProperty = 'private',
         public readonly string $someReadonlyProperty = 'readonly',
     ) {
@@ -17,11 +18,10 @@ var_dump($someObject);
 print(PHP_EOL);
 
 $otherObject = new SomeClass(
-    'apple',
-    'lemon',
     'banana',
     'mango',
 );
+$otherObject->somePublicProperty = 'lemon';
 
 var_dump($otherObject);
 print(PHP_EOL);

@@ -695,6 +695,14 @@ garden($bush, 5);
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/class_inheritance_and_method_signature_compatibility.php)
 
+### Class inheritance and constructor signature compatibility rules
+
+Unlike other methods, `__construct()` is exempt from the usual *signature compatibility* rules when being extended.
+
+*Constructors* are ordinary *methods* which are called during the *instantiation* of their corresponding *object*. As such, they may define an arbitrary number of *arguments*, which may be *required*, may have a *type*, and may have a *default value*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
+
 ## `final` keyword
 
 The `final` *keyword* prevents *child classes* from *overriding a method*, *property*, or *constant* by prefixing the *definition* with `final`. If the *class* itself is being defined *final* then it cannot be *extended*.

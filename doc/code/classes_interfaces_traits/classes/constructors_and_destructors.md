@@ -264,7 +264,13 @@ DifferentClass constructor
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_and_inheritance.php)
 
+#### Signature compatibility
+
 Unlike other methods, `__construct()` is exempt from the usual *signature compatibility* rules when being extended.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
+
+### Arguments
 
 *Constructors* are ordinary *methods* which are called during the *instantiation* of their corresponding *object*. As such, they may define an arbitrary number of *arguments*, which may be *required*, may have a *type*, and may have a *default value*. *Constructor arguments* are called by placing the *arguments* in parentheses after the *class name*.
 
@@ -293,6 +299,54 @@ $p3 = new Point(y: 5, x: 4);
 
 If a class has no *constructor*, or the *constructor* has no *required arguments*, the parentheses may be omitted.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
+
+*Example: Constructor arguments*
+
+```php
+<?php
+
+class SomeClass
+{
+    public string $somePublicProperty = 'public';
+    protected string $someProtectedProperty = 'protected';
+    private string $somePrivateProperty = 'private';
+
+    public function __construct(
+        string $somePublicValue = 'some public',
+        string $someProtectedValue = 'some protected',
+        string $somePrivateValue = 'some private'
+    ) {
+        $this->somePublicProperty = $somePublicValue;
+        $this->someProtectedProperty = $someProtectedValue;
+        $this->somePrivateProperty = $somePrivateValue;
+    }
+}
+
+$someObject = new SomeClass();
+
+var_dump($someObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+object(SomeClass)#1 (3) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["someProtectedProperty":protected]=>
+  string(14) "some protected"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(12) "some private"
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_arguments.php)
+
 ### Old-style constructors
 
 Prior to PHP 8.0.0, *classes* in the *global namespace* will interpret a *method* named the same as the *class* as an *old-style constructor*. That syntax is deprecated, and will result in an `E_DEPRECATED` error but still call that *function* as a *constructor*. If both `__construct()` and a same-name method are defined, `__construct()` will be called.
@@ -300,6 +354,8 @@ Prior to PHP 8.0.0, *classes* in the *global namespace* will interpret a *method
 In *namespaced classes*, or any *class* as of PHP 8.0.0, a *method* named the same as the *class* never has any special meaning.
 
 Always use `__construct()` in new code.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
 
 ### Constructor promotion
 
@@ -315,17 +371,279 @@ class Point {
 }
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion)
+
+*Example: Constructor promotion*
+
+```php
+<?php
+
+class SomeClass
+{
+    public function __construct(
+        public $somePublicProperty = 'public',
+        protected string $someProtectedProperty = 'protected',
+        private string $somePrivateProperty = 'private',
+        public readonly string $someReadonlyProperty = 'readonly',
+    ) {
+    }
+}
+
+$someObject = new SomeClass();
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$otherObject = new SomeClass(
+    'apple',
+    'lemon',
+    'banana',
+    'mango',
+);
+
+var_dump($otherObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+object(SomeClass)#1 (4) {
+  ["somePublicProperty"]=>
+  string(6) "public"
+  ["someProtectedProperty":protected]=>
+  string(9) "protected"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(7) "private"
+  ["someReadonlyProperty"]=>
+  string(8) "readonly"
+}
+
+object(SomeClass)#2 (4) {
+  ["somePublicProperty"]=>
+  string(5) "apple"
+  ["someProtectedProperty":protected]=>
+  string(5) "lemon"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(6) "banana"
+  ["someReadonlyProperty"]=>
+  string(5) "mango"
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion.php)
+
 When a *constructor argument* includes a *modifier*, PHP will interpret it as both an *object property* and a *constructor argument*, and assign the *argument value* to the *property*. The *constructor body* may then be empty or may contain other *statements*. Any additional *statements* will be executed after the *argument* values have been *assigned* to the corresponding *properties*.
 
-Not all *arguments* need to be *promoted*. It is possible to mix and match *promoted* and *not-promoted arguments*, in any order. *Promoted arguments* have no impact on code calling the *constructor*.
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion)
 
 Note:
 
 Using a *visibility modifier* (`public`, `protected` or `private`) is the most likely way to apply *property promotion*, but any other single *modifier* (such as `readonly`) will have the same effect.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion)
+
+*Example Constructor promotion property modifiers*
+
+```php
+<?php
+
+class SomeClass
+{
+    function __construct(
+        public string $someProperty,
+        readonly float $otherProperty = 10.0,
+    ) {
+    }
+}
+
+$someObject = new SomeClass("hello");
+
+var_dump($someObject);
+print(PHP_EOL);
+
+print(
+    $someObject->someProperty . PHP_EOL
+    . $someObject->otherProperty . PHP_EOL
+    . PHP_EOL
+);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+object(SomeClass)#1 (2) {
+  ["someProperty"]=>
+  string(5) "hello"
+  ["otherProperty"]=>
+  float(10)
+}
+
+hello
+10
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion_property_modifiers.php)
+
+Not all *arguments* need to be *promoted*. It is possible to mix and match *promoted* and *not-promoted arguments*, in any order. *Promoted arguments* have no impact on code calling the *constructor*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion)
+
+*Example: Constructor promotion for not all properties*
+
+```php
+<?php
+
+class SomeClass
+{
+    public $somePublicProperty = 'public';
+    protected string $someProtectedProperty = 'protected';
+
+    public function __construct(
+        private string $somePrivateProperty = 'private',
+        public readonly string $someReadonlyProperty = 'readonly',
+    ) {
+    }
+}
+
+$someObject = new SomeClass();
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$otherObject = new SomeClass(
+    'banana',
+    'mango',
+);
+$otherObject->somePublicProperty = 'lemon';
+
+var_dump($otherObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+object(SomeClass)#1 (4) {
+  ["somePublicProperty"]=>
+  string(6) "public"
+  ["someProtectedProperty":protected]=>
+  string(9) "protected"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(7) "private"
+  ["someReadonlyProperty"]=>
+  string(8) "readonly"
+}
+
+object(SomeClass)#2 (4) {
+  ["somePublicProperty"]=>
+  string(5) "lemon"
+  ["someProtectedProperty":protected]=>
+  string(9) "protected"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(6) "banana"
+  ["someReadonlyProperty"]=>
+  string(5) "mango"
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion_for_not_all_properties.php)
+
 Note:
 
 *Object properties* may not be typed *callable* due to engine ambiguity that would introduce. *Promoted arguments*, therefore, may not be *typed callable* either. Any other *type declaration* is permitted, however.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion)
+
+*Example: Constructor promotion property type declarations*
+
+```php
+<?php
+
+class SomeClass
+{
+    function __construct(
+        public mixed $mixedProperty = null,
+        public bool $booleanProperty = true,
+        public int $integerProperty = 5,
+        public float $floatingPointProperty = 2.4,
+        public string $stringProperty = 'hello',
+        public array $arrayProperty = [3, 5, 7],
+        public iterable $iterableProperty = [
+            2 => "Hello, there!",
+            'color' => 'orange',
+            3.14 => 'PI',
+        ],
+        public OtherClass $objectProperty = new OtherClass(),
+        public ?stdClass $simpleObjectProperty = null,
+    )
+    {
+        $this->simpleObjectProperty = (object) [
+            2 => "Hello, there!",
+            'color' => 'orange',
+            3.14 => 'PI',
+        ];
+    }
+}
+
+class OtherClass
+{
+}
+
+$someObject = new SomeClass();
+
+print(
+    var_export($someObject->mixedProperty, true) . ' (' . gettype($someObject->mixedProperty) . ")\n"
+    . var_export($someObject->booleanProperty, true) . ' (' . gettype($someObject->booleanProperty) . ")\n"
+    . var_export($someObject->integerProperty, true) . ' (' . gettype($someObject->integerProperty) . ")\n"
+    . var_export($someObject->floatingPointProperty, true) . ' (' . gettype($someObject->floatingPointProperty) . ")\n"
+    . var_export($someObject->stringProperty, true) . ' (' . gettype($someObject->stringProperty) . ")\n"
+    . var_export($someObject->arrayProperty, true) . ' (' . gettype($someObject->arrayProperty) . ")\n"
+    . var_export($someObject->iterableProperty, true) . ' (' . gettype($someObject->iterableProperty) . ")\n"
+    . var_export($someObject->objectProperty, true) . ' (' . gettype($someObject->objectProperty) . ")\n"
+    . var_export($someObject->simpleObjectProperty, true) . ' (' . gettype($someObject->simpleObjectProperty) . ")\n"
+);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+NULL (NULL)
+true (boolean)
+5 (integer)
+2.4 (double)
+'hello' (string)
+array (
+  0 => 3,
+  1 => 5,
+  2 => 7,
+) (array)
+array (
+  2 => 'Hello, there!',
+  'color' => 'orange',
+  3 => 'PI',
+) (array)
+\OtherClass::__set_state(array(
+)) (object)
+(object) array(
+   '2' => 'Hello, there!',
+   'color' => 'orange',
+   '3' => 'PI',
+) (object)
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion_property_type_declarations.php)
 
 Note:
 
@@ -334,6 +652,8 @@ As *promoted properties* are desugared to both a *property* as well as a *functi
 Note:
 
 *Attributes* placed on a *promoted constructor argument* will be replicated to both the *property* and *argument*. *Default values* on a *promoted constructor argument* will be replicated only to the *argument* and not the *property*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion)
 
 ### `new` in initializers
 
