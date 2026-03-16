@@ -313,6 +313,8 @@ object(SomeClass)#2 (4) {
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion.php)
 
+#### Property modifiers used in constructor promotion
+
 When a *constructor argument* includes a *modifier*, PHP will interpret it as both an *object property* and a *constructor argument*, and assign the *argument value* to the *property*. The *constructor body* may then be empty or may contain other *statements*. Any additional *statements* will be executed after the *argument* values have been *assigned* to the corresponding *properties*.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion)
@@ -323,7 +325,7 @@ Using a *visibility modifier* (`public`, `protected` or `private`) is the most l
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion)
 
-*Example Constructor promotion property modifiers*
+*Example: Constructor promotion property modifiers*
 
 ```php
 <?php
@@ -367,6 +369,8 @@ hello
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion_property_modifiers.php)
+
+#### Selective constructor promotion
 
 Not all *arguments* need to be *promoted*. It is possible to mix and match *promoted* and *not-promoted arguments*, in any order. *Promoted arguments* have no impact on code calling the *constructor*.
 
@@ -434,6 +438,8 @@ object(SomeClass)#2 (4) {
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion_for_not_all_properties.php)
+
+#### Property type declarations in constructor promotion
 
 Note:
 
@@ -522,9 +528,15 @@ array (
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion_property_type_declarations.php)
 
+#### Property and argument restrictions in constructor promotions
+
 Note:
 
 As *promoted properties* are desugared to both a *property* as well as a *function parameter*, any and all *naming restrictions* for both *properties* as well as *parameters* apply.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion)
+
+#### Default values in constructor promotions
 
 Note:
 
@@ -532,7 +544,7 @@ Note:
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion)
 
-### Object initializers
+### Initializer restrictions
 
 As of PHP 8.1.0, *objects* can be used as *default parameter values*, *static variables*, and *global constants*, as well as in *attribute arguments*. *Objects* can also be passed to `define()` now.
 
@@ -840,6 +852,8 @@ $obj = new MyDestructableClass();
 
 Like *constructors*, *parent destructors* will not be called implicitly by the engine. In order to run a *parent destructor*, one would have to explicitly call `parent::__destruct()` in the *destructor body*. Also like *constructors*, a *child class* may *inherit* the *parent's destructor* if it does not implement one itself.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.destructor)
+
 *Example: Destructor and inheritance*
 
 ```php
@@ -939,6 +953,8 @@ DifferentClass destructor
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/destructor_and_inheritance.php)
 
+### Destructor calling edge cases
+
 The *destructor* will be called even if script execution is stopped using `exit()`. Calling `exit()` in a *destructor* will prevent the remaining *shutdown routines* from executing.
 
 If a *destructor* creates new *references* to its *object*, it will not be called a second time when the *reference count* reaches zero again or during the *shutdown sequence*.
@@ -948,6 +964,8 @@ As of PHP 8.4.0, when *cycle collection* occurs during the execution of a *fiber
 Note:
 
 *Destructors* called during the *script shutdown* have *HTTP headers* already sent. The *working directory* in the *script shutdown* phase can be different with some *SAPIs* (e.g. Apache).
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.destructor)
 
 Note:
 
