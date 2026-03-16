@@ -445,6 +445,7 @@ Laboratory of PHP.
                 5. [Constructor promotion property type declarations](./example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion_property_type_declarations.php)
                 6. [Class instantiation ways](./example/code/classes_interfaces_traits/classes/constructors_and_destructors/class_instantiation_ways.php)
                 9. [Destructor](./example/code/classes_interfaces_traits/classes/constructors_and_destructors/destructor.php)
+                10. [Destructor and inheritance](./example/code/classes_interfaces_traits/classes/constructors_and_destructors/destructor_and_inheritance.php)
             4. [Objects](./example/code/classes_interfaces_traits/classes/)
                 1. [Cloning objects](./example/code/classes_interfaces_traits/classes/objects/cloning.php)
             5. [Inheritance](./example/code/classes_interfaces_traits/classes/inheritance/inheritance.php)

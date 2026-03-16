@@ -960,6 +960,105 @@ $obj = new MyDestructableClass();
 
 Like *constructors*, *parent destructors* will not be called implicitly by the engine. In order to run a *parent destructor*, one would have to explicitly call `parent::__destruct()` in the *destructor body*. Also like *constructors*, a *child class* may *inherit* the *parent's destructor* if it does not implement one itself.
 
+*Example: Destructor and inheritance*
+
+```php
+<?php
+
+class SomeClass
+{
+    function __destruct()
+    {
+        print("SomeClass destructor\n\n");
+    }
+}
+
+function someClassScope()
+{
+    print("Destroying SomeClass instance...\n\n");
+
+    new SomeClass();
+}
+
+someClassScope();
+
+class OtherClass extends SomeClass
+{
+}
+
+function otherClassScope()
+{
+    print("Destroying OtherClass instance...\n\n");
+
+    new OtherClass();
+
+}
+
+otherClassScope();
+
+class AnotherClass extends SomeClass
+{
+    function __destruct()
+    {
+        print("AnotherClass destructor\n\n");
+    }
+}
+
+function anotherClassScope()
+{
+    print("Destroying AnotherClass instance...\n\n");
+
+    new AnotherClass();
+}
+
+anotherClassScope();
+
+class DifferentClass extends SomeClass
+{
+    function __destruct()
+    {
+        parent::__destruct();
+        print("DifferentClass destructor\n\n");
+    }
+}
+
+function differentClassScope()
+{
+    print("Destroying DifferentClass instance...\n\n");
+
+    new DifferentClass();
+}
+
+differentClassScope();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Destroying SomeClass instance...
+
+SomeClass destructor
+
+Destroying OtherClass instance...
+
+SomeClass destructor
+
+Destroying AnotherClass instance...
+
+AnotherClass destructor
+
+Destroying DifferentClass instance...
+
+SomeClass destructor
+
+DifferentClass destructor
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/destructor_and_inheritance.php)
+
 The *destructor* will be called even if script execution is stopped using `exit()`. Calling `exit()` in a *destructor* will prevent the remaining *shutdown routines* from executing.
 
 If a *destructor* creates new *references* to its *object*, it will not be called a second time when the *reference count* reaches zero again or during the *shutdown sequence*.
