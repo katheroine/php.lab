@@ -763,6 +763,79 @@ The three *public static methods* then demonstrate different ways of *instantiat
 
 In all three cases, the `static` *keyword* is translated into the name of the *class* the code is in. In this case, `Product`.
 
+*Example: Private constructor*
+
+```php
+<?php
+
+class Card
+{
+    private function __construct(
+        private string $name,
+        private string $surname,
+        private string $title,
+        private int $experienceLevel,
+    ) {
+    }
+
+    public static function createFromDescriptionAndLevel(string $description, int $experienceLevel = 0): self
+    {
+        $name = '';
+        $surname = '';
+        $title = '';
+
+        $fields = explode(' ', $description);
+
+        if (isset($fields[0])) {
+            $name = static::groomField($fields[0]);
+
+            if (isset($fields[1])) {
+                $surname = static::groomField($fields[1]);
+
+                if(isset($fields[2])) {
+                    $title = static::groomField($fields[2]);
+                }
+            }
+        }
+
+        return new self(
+            $name,
+            $surname,
+            $title,
+            $experienceLevel,
+        );
+    }
+
+    private static function groomField(string $field): string
+    {
+        return ucfirst(strtolower(trim($field, ',;.')));
+    }
+}
+
+$someCard = Card::createFromDescriptionAndLevel('Amadeus Mozarella, cheesemaker', 5);
+
+var_dump($someCard);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+object(Card)#1 (4) {
+  ["name":"Card":private]=>
+  string(7) "Amadeus"
+  ["surname":"Card":private]=>
+  string(9) "Mozarella"
+  ["title":"Card":private]=>
+  string(11) "Cheesemaker"
+  ["experienceLevel":"Card":private]=>
+  int(5)
+}
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/private_constructor.php)
+
 ## Destructor
 
 ```
