@@ -1,6 +1,6 @@
 <?php
 
-$someObject = (object)[
+$someObject = (object) [
     'some_key' => 'some value',
     'other key' => 1024,
     10 => true,

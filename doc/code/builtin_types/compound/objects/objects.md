@@ -34,7 +34,7 @@ An *object* holds its *state* in *variables* that are often referred to as *prop
 ```php
 <?php
 
-$someObject = (object)[
+$someObject = (object) [
     'some_key' => 'some value',
     'other key' => 1024,
     10 => true,
@@ -118,17 +118,17 @@ $bar->do_foo();
 ```php
 <?php
 
-$objectFromEmptyArray = (object)[];
+$objectFromEmptyArray = (object) [];
 print("Defined from empty array:\n\n");
 print_r($objectFromEmptyArray);
 print(PHP_EOL);
 
-$objectFromIndexedArray = (object)[null, true, 3, 'orange'];
+$objectFromIndexedArray = (object) [null, true, 3, 'orange'];
 print("Defined from indexed array:\n\n");
 print_r($objectFromIndexedArray);
 print(PHP_EOL);
 
-$objectFromAssociativeArray = (object)[
+$objectFromAssociativeArray = (object) [
     'some_key' => 'some value',
     'other key' => 1024,
     10 => true,
@@ -319,8 +319,8 @@ SomeClass Object
 ```php
 <?php
 
-$objectFromIndexedArray = (object)[null, true, 3, 'orange'];
-$objectFromAssociativeArray = (object)[
+$objectFromIndexedArray = (object) [null, true, 3, 'orange'];
+$objectFromAssociativeArray = (object) [
     'some_key' => 'some value',
     'other key' => 1024,
     10 => true,
@@ -537,7 +537,7 @@ SomeClass Object
 ```php
 <?php
 
-$someObject = (object)[
+$someObject = (object) [
     'someField' => 'some value',
     'otherField' => 1024
 ];
@@ -654,7 +654,7 @@ programming language: PHP
 ```php
 <?php
 
-$someObjectFromArray = (object)[
+$someObjectFromArray = (object) [
     'some_key' => 'some value',
     'other key' => 1024,
     10 => true,

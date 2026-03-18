@@ -1,6 +1,6 @@
 <?php
 
-$someObject = (object)[
+$someObject = (object) [
     'someField' => 'some value',
     'otherField' => 1024
 ];

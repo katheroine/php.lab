@@ -2,7 +2,266 @@
 [▲ Previous: Constructors and destructors](./constructors_and_destructors.md)
 [▼ Next: Inheritance](./inheritance.md)
 
-# Objects
+# Class objects
+
+[There is discussed the correspondence between object and class in this document. The objects in general are described [here](../../builtin_types/compound/objects/objects.md) -- KK]
+
+## Definition
+
+> In software development, an **object** is an *entity semantic* that has *state*, *behavior*, and *identity*. An *object* can model some part of reality or can be an invention of the design process whose collaborations with other such *objects* serve as the mechanisms that provide some higher-level behavior. Put another way, an *object* represents an individual, identifiable item, unit, or entity, either real or abstract, with a well-defined role in the problem domain.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Object_(computer_science))
+
+*Example: Class object*
+
+```php
+<?php
+
+class SomeClass
+{
+    public function __construct(
+        public $publicProperty,
+        protected $protectedProperty = 15.5,
+        private $privateProperty = 'hello',
+    ) {
+    }
+}
+
+$someObject = new SomeClass(1, 2.5);
+
+print("Information:\n");
+var_dump($someObject);
+print('Type: ' . gettype($someObject) . PHP_EOL . PHP_EOL);
+
+print("Public property: {$someObject->publicProperty}\n");
+$someObject->publicProperty = 3;
+print("Public property: {$someObject->publicProperty}\n");
+var_dump($someObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Information:
+object(SomeClass)#1 (3) {
+  ["publicProperty"]=>
+  int(1)
+  ["protectedProperty":protected]=>
+  float(2.5)
+  ["privateProperty":"SomeClass":private]=>
+  string(5) "hello"
+}
+Type: object
+
+Public property: 1
+Public property: 3
+object(SomeClass)#1 (3) {
+  ["publicProperty"]=>
+  int(3)
+  ["protectedProperty":protected]=>
+  float(2.5)
+  ["privateProperty":"SomeClass":private]=>
+  string(5) "hello"
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object.php)
+
+## Class object definition and initialization
+
+*Example: Class object definition and initialisation*
+
+```php
+<?php
+
+$objectFromStdClass = new stdClass();
+print("Defined from stdClass class:\n\n");
+print_r($objectFromStdClass);
+print(PHP_EOL);
+
+class SomeClass
+{
+    public $publicProperty;
+    protected $protectedProperty;
+    private $privateProperty;
+}
+
+$uninitialisedObjectFromClass = new SomeClass();
+print("Not initialised, defined from class:\n\n");
+print_r($uninitialisedObjectFromClass);
+print(PHP_EOL);
+
+class OtherClass
+{
+    function __construct(
+        public $publicProperty,
+        protected $protectedProperty,
+        private $privateProperty
+    ) {
+    }
+}
+
+$initialisedObjectFromClass = new OtherClass(16, 14.2, 'welcome');
+print("Initialised, defined from class:\n\n");
+print_r($uninitialisedObjectFromClass);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Defined from stdClass class:
+
+stdClass Object
+(
+)
+
+Not initialised, defined from class:
+
+SomeClass Object
+(
+    [publicProperty] =>
+    [protectedProperty:protected] =>
+    [privateProperty:SomeClass:private] =>
+)
+
+Initialised, defined from class:
+
+SomeClass Object
+(
+    [publicProperty] =>
+    [protectedProperty:protected] =>
+    [privateProperty:SomeClass:private] =>
+)
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_definition_and_initialisation.php)
+
+## Modifying class objects
+
+*Example: Class object modifying*
+
+```php
+<?php
+
+class SomeClass
+{
+    function __construct(
+        public mixed $publicProperty,
+        protected string $protectedProperty,
+        private string $privateProperty = 'nothing',
+    ) {
+    }
+
+    public function setProtectedProperty(string $protectedProperty)
+    {
+        $this->protectedProperty = 'base ' . $protectedProperty;
+    }
+
+    public function setPrivateProperty(string $privateProperty)
+    {
+        $this->privateProperty = 'base ' . $privateProperty;
+    }
+}
+
+class OtherClass extends SomeClass
+{
+    public function setProtectedProperty(int|string $protectedProperty)
+    {
+        $this->protectedProperty = 'derived ' . $protectedProperty;
+    }
+}
+
+$someObject = new SomeClass('some value', 15.5);
+
+print("Some object:\n\n");
+
+print_r($someObject);
+print(PHP_EOL);
+
+$someObject->publicProperty = 'orange';
+$someObject->setProtectedProperty('tangerine');
+$someObject->setPrivateProperty(1024);
+
+print_r($someObject);
+print(PHP_EOL);
+
+$someObject->someDynamicProperty = '16';
+$someObject->otherDynamicProperty = 'coffee';
+
+print_r($someObject);
+print(PHP_EOL);
+
+$otherObject = new OtherClass('other value', 10);
+
+print("Other object:\n\n");
+
+print_r($otherObject);
+print(PHP_EOL);
+
+$otherObject->publicProperty = 100;
+$otherObject->setProtectedProperty(200);
+
+print_r($otherObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some object:
+
+SomeClass Object
+(
+    [publicProperty] => some value
+    [protectedProperty:protected] => 15.5
+    [privateProperty:SomeClass:private] => nothing
+)
+
+SomeClass Object
+(
+    [publicProperty] => orange
+    [protectedProperty:protected] => base tangerine
+    [privateProperty:SomeClass:private] => base 1024
+)
+
+SomeClass Object
+(
+    [publicProperty] => orange
+    [protectedProperty:protected] => base tangerine
+    [privateProperty:SomeClass:private] => base 1024
+    [someDynamicProperty] => 16
+    [otherDynamicProperty] => coffee
+)
+
+Other object:
+
+OtherClass Object
+(
+    [publicProperty] => other value
+    [protectedProperty:protected] => 10
+    [privateProperty:SomeClass:private] => nothing
+)
+
+OtherClass Object
+(
+    [publicProperty] => 100
+    [protectedProperty:protected] => derived 200
+    [privateProperty:SomeClass:private] => nothing
+)
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_modifying.php)
 
 ## Object iteration
 

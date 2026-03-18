@@ -1,6 +1,6 @@
 <?php
 
-$objectFromIndexedArray = (object)[null, true, 3, 'orange'];
+$objectFromIndexedArray = (object) [null, true, 3, 'orange'];
 $objectFromAssociativeArray = (object)[
     'some_key' => 'some value',
     'other key' => 1024,
