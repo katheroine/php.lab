@@ -2,27 +2,15 @@
 
 class SomeClass
 {
-    public string $someRegularProperty;
-    public OtherClass $someObjectProperty;
-
-    public function __construct()
-    {
-        $this->someRegularProperty = 'original';
-        $this->someObjectProperty = new OtherClass();
-    }
-}
-
-class OtherClass
-{
     public string $someProperty = 'original';
 }
 
 $someObject = new SomeClass();
 
-var_dump($someObject);
+print_r($someObject);
 print(PHP_EOL);
 
-$otherObject = clone $someObject;
+$otherObject = $someObject;
 
 var_dump($otherObject);
 print(PHP_EOL);
@@ -33,8 +21,18 @@ print(
     . PHP_EOL
 );
 
-$someObject->someRegularProperty = 'modified';
-$someObject->someObjectProperty->someProperty = 'modified';
+$anotherObject = &$someObject;
+
+var_dump($anotherObject);
+print(PHP_EOL);
+
+print(
+    'Equal: ' . ($someObject == $anotherObject ? 'yes' : 'no') . PHP_EOL
+    . 'Identical: ' . ($someObject === $anotherObject ? 'yes' : 'no') . PHP_EOL
+    . PHP_EOL
+);
+
+$someObject->someProperty = 'modified';
 
 var_dump($someObject);
 print(PHP_EOL);

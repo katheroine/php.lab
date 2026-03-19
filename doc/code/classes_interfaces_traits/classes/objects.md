@@ -1116,6 +1116,12 @@ $otherObject = clone $someObject;
 var_dump($otherObject);
 print(PHP_EOL);
 
+print(
+    'Equal: ' . ($someObject == $otherObject ? 'yes' : 'no') . PHP_EOL
+    . 'Identical: ' . ($someObject === $otherObject ? 'yes' : 'no') . PHP_EOL
+    . PHP_EOL
+);
+
 $someObject->someRegularProperty = 'modified';
 $someObject->someObjectProperty->someProperty = 'modified';
 
@@ -1149,6 +1155,9 @@ object(SomeClass)#3 (2) {
     string(8) "original"
   }
 }
+
+Equal: yes
+Identical: no
 
 object(SomeClass)#1 (2) {
   ["someRegularProperty"]=>
@@ -1227,9 +1236,95 @@ The above example will output:
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.references.php)
 
+*Example: Class object and reference*
+
+```php
+<?php
+
+class SomeClass
+{
+    public string $someProperty = 'original';
+}
+
+$someObject = new SomeClass();
+
+print_r($someObject);
+print(PHP_EOL);
+
+$otherObject = $someObject;
+
+var_dump($otherObject);
+print(PHP_EOL);
+
+print(
+    'Equal: ' . ($someObject == $otherObject ? 'yes' : 'no') . PHP_EOL
+    . 'Identical: ' . ($someObject === $otherObject ? 'yes' : 'no') . PHP_EOL
+    . PHP_EOL
+);
+
+$anotherObject = &$someObject;
+
+var_dump($anotherObject);
+print(PHP_EOL);
+
+print(
+    'Equal: ' . ($someObject == $anotherObject ? 'yes' : 'no') . PHP_EOL
+    . 'Identical: ' . ($someObject === $anotherObject ? 'yes' : 'no') . PHP_EOL
+    . PHP_EOL
+);
+
+$someObject->someProperty = 'modified';
+
+var_dump($someObject);
+print(PHP_EOL);
+
+var_dump($otherObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+SomeClass Object
+(
+    [someProperty] => original
+)
+
+object(SomeClass)#1 (1) {
+  ["someProperty"]=>
+  string(8) "original"
+}
+
+Equal: yes
+Identical: yes
+
+object(SomeClass)#1 (1) {
+  ["someProperty"]=>
+  string(8) "original"
+}
+
+Equal: yes
+Identical: yes
+
+object(SomeClass)#1 (1) {
+  ["someProperty"]=>
+  string(8) "modified"
+}
+
+object(SomeClass)#1 (1) {
+  ["someProperty"]=>
+  string(8) "modified"
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_and_reference.php)
+
 ## Lazy objects
 
-A *lazy object* is an object whose initialization is *deferred* until its *state* is *observed* or *modified*. Some use-case examples include *dependency injection components* that provide *lazy services* fully initialized only if needed, ORMs providing *lazy entities* that *hydrate* themselves from the *database* only when accessed, or a *JSON parser* that delays *parsing* until elements are *accessed*.
+A *lazy object* is an *object* whose initialization is *deferred* until its *state* is *observed* or *modified*. Some use-case examples include *dependency injection components* that provide *lazy services* fully initialized only if needed, ORMs providing *lazy entities* that *hydrate* themselves from the *database* only when accessed, or a *JSON parser* that delays *parsing* until elements are *accessed*.
 
 Two *lazy object strategies* are supported: *ghost objects* and *virtual proxies*, hereafter referred to as *lazy ghosts* and *lazy proxies*. In both strategies, the *lazy object* is attached to an *initializer* or *factory* that is called automatically when its *state* is *observed* or *modified* for the first time. From an abstraction point of view, *lazy ghost objects* are indistinguishable from *non-lazy* ones: they can be used without knowing they are *lazy*, allowing them to be passed to and used by code that is unaware of laziness. *Lazy proxies* are similarly transparent, but care must be taken when their *identity* is used, as the *proxy* and its real *instance* have different *identities*.
 
@@ -1237,9 +1332,138 @@ Note: Version Information
 
 Lazy objects were introduced in PHP 8.4.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.lazy-objects.php)
+
+*Example: Lazy ghost*
+
+```php
+<?php
+
+class SomeClass
+{
+    public string $someProperty;
+
+    public function __construct(string $someProperty)
+    {
+        print("Construction...\n");
+
+        $this->someProperty = $someProperty;
+    }
+}
+
+$someReflection = new ReflectionClass(SomeClass::class);
+$someGhost = $someReflection->newLazyGhost(function (SomeClass $object) {
+    $object->__construct('initialised');
+});
+
+print(
+    'Ghost type: ' . gettype($someGhost) . PHP_EOL
+    . 'Ghost class: ' . get_class($someGhost) . PHP_EOL
+    . PHP_EOL
+);
+
+var_dump($someGhost);
+print(PHP_EOL);
+
+print("Property reading: {$someGhost->someProperty}\n\n");
+
+var_dump($someGhost);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Ghost type: object
+Ghost class: SomeClass
+
+lazy ghost object(SomeClass)#3 (0) {
+  ["someProperty"]=>
+  uninitialized(string)
+}
+
+Construction...
+Property reading: initialised
+
+object(SomeClass)#3 (1) {
+  ["someProperty"]=>
+  string(11) "initialised"
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/objects/lazy_ghost.php)
+
+*Example: Lazy proxy*
+
+```php
+<?php
+
+class SomeClass
+{
+    public string $someProperty;
+
+    public function __construct(string $someProperty)
+    {
+        print("Construction...\n");
+
+        $this->someProperty = $someProperty;
+    }
+}
+
+$someReflection = new ReflectionClass(SomeClass::class);
+$someProxy = $someReflection->newLazyProxy(function (SomeClass $object) {
+    return new SomeClass('initialised');
+});
+
+print(
+    'Proxy type: ' . gettype($someProxy) . PHP_EOL
+    . 'Proxy class: ' . get_class($someProxy) . PHP_EOL
+    . PHP_EOL
+);
+
+var_dump($someProxy);
+print(PHP_EOL);
+
+print("Property reading: {$someProxy->someProperty}\n\n");
+
+var_dump($someProxy);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Proxy type: object
+Proxy class: SomeClass
+
+lazy proxy object(SomeClass)#3 (0) {
+  ["someProperty"]=>
+  uninitialized(string)
+}
+
+Construction...
+Property reading: initialised
+
+lazy proxy object(SomeClass)#3 (1) {
+  ["instance"]=>
+  object(SomeClass)#4 (1) {
+    ["someProperty"]=>
+    string(11) "initialised"
+  }
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/objects/lazy_proxy.php)
+
 ### Creating lazy objects
 
-It is possible to create a *lazy instance* of any user *defined class* or the `stdClass` *class* (other *internal classes* are not supported), or to reset an *instance* of these classes to make it *lazy*. The entry points for creating a *lazy object* are the `ReflectionClass::newLazyGhost()` and `ReflectionClass::newLazyProxy()` methods.
+It is possible to create a *lazy instance* of any *user defined class* or the `stdClass` *class* (other *internal classes* are not supported), or to reset an *instance* of these *classes* to make it *lazy*. The entry points for creating a *lazy object* are the `ReflectionClass::newLazyGhost()` and `ReflectionClass::newLazyProxy()` methods.
 
 Both *methods* accept a *function* that is called when the *object* requires *initialization*. The function's expected behavior varies depending on the strategy in use, as described in the reference documentation for each *method*.
 
@@ -1356,11 +1580,15 @@ var_dump($post->id);
 
 The `ReflectionProperty::skipLazyInitialization()` and `ReflectionProperty::setRawValueWithoutLazyInitialization()` *methods* offer ways to bypass *lazy-initialization* when *accessing* a *property*.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.lazy-objects.php#language.oop5.lazy-objects.creation)
+
 ### About lazy object strategies
 
 *Lazy ghosts* are *objects* that *initialize* in-place and, once *initialized*, are indistinguishable from an *object* that was never *lazy*. This strategy is suitable when we control both the *instantiation* and *initialization* of the *object*, making it unsuitable if either of these is managed by another party.
 
 *Lazy proxies*, once initialized, act as *proxies* to a real *instance*: any operation on an initialized *lazy proxy* is forwarded to the real *instance*. The creation of the real *instance* can be *delegated* to another party, making this strategy useful in cases where *lazy ghosts* are unsuitable. Although *lazy proxies* are nearly as transparent as *lazy ghosts*, caution is needed when their *identity* is used, as the *proxy* and its real *instance* have distinct *identities*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.lazy-objects.php#language.oop5.lazy-objects.patterns)
 
 ### Lifecycle of lazy objects
 
@@ -1371,6 +1599,8 @@ The `ReflectionProperty::skipLazyInitialization()` and `ReflectionProperty::setR
 * Calling explicitly `ReflectionClass::initializeLazyObject()` or `ReflectionClass::markLazyObjectAsInitialized()`.
 
 As *lazy objects* become initialized when all their *properties* are marked *non-lazy*, the above methods will not mark an *object* as *lazy* if no *properties* could be marked as *lazy*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.lazy-objects.php#language.oop5.lazy-objects.lifecycle)
 
 ### Initialization triggers
 
@@ -1384,7 +1614,7 @@ As *lazy objects* become initialized when all their *properties* are marked *non
 * *Serializing* the *object* with `serialize()`, `json_encode()`, etc.
 * *Cloning* the object.
 
-Method calls that do not *access* the *object state* will not trigger *initialization*. Similarly, interactions with the object that invoke magic methods or hook functions will not trigger initialization if these methods or functions do not access the object's state.
+*Method* calls that do not *access* the *object state* will not trigger *initialization*. Similarly, interactions with the *object* that invoke *magic methods* or *hook functions* will not trigger *initialization* if these *methods* or *functions* do not access the *object's state*.
 
 #### Non-triggering operations
 
@@ -1396,6 +1626,8 @@ The following specific *methods* or low-level operations allow *access* or *modi
 * Calling to `ReflectionObject::__toString()`.
 * Using `var_dump()` or `debug_zval_dump()`, unless `__debugInfo()` triggers *initialization*.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.lazy-objects.php#language.oop5.lazy-objects.initialization-triggers)
+
 ### Initialization sequence
 
 This section outlines the sequence of operations performed when *initialization* is triggered, based on the strategy in use.
@@ -1404,31 +1636,33 @@ This section outlines the sequence of operations performed when *initialization*
 
 * The *object* is marked as *non-lazy*.
 * *Properties* not initialized with `ReflectionProperty::skipLazyInitialization()` or `ReflectionProperty::setRawValueWithoutLazyInitialization()` are set to their *default values*, if any. At this stage, the *object* resembles one created with `ReflectionClass::newInstanceWithoutConstructor()`, except for already initialized *properties*.
-* The *initializer function* is then called with the *object* as its first parameter. The *function* is expected, but not required, to *initialize* the *object state*, and must return `null` or no value. The *object* is no longer *lazy* at this point, so the function can *access* its *properties* directly.
+* The *initializer function* is then called with the *object* as its first *parameter*. The *function* is expected, but not required, to *initialize* the *object state*, and must return `null` or no value. The *object* is no longer *lazy* at this point, so the function can *access* its *properties* directly.
 
 After *initialization*, the *object* is indistinguishable from an *object* that was never *lazy*.
 
 #### Proxy objects
 
 * The *object* is marked as *non-lazy*.
-* Unlike *ghost objects*, the properties of the *object* are not modified at this stage.
+* Unlike *ghost objects*, the *properties* of the *object* are not modified at this stage.
 * The *factory function* is called with the *object* as its first *parameter* and must return a *non-lazy instance* of a compatible *class*.
 * The returned *instance* is referred to as the real *instance* and is attached to the *proxy*.
 * The *proxy's property values* are discarded as though `unset()` was called.
 
-After *initialization*, accessing any *property* on the proxy will `yield` the same *result* as accessing the corresponding *property* on the real *instance*; all *property accesses* on the *proxy* are forwarded to the real *instance*, including declared, dynamic, non-existing, or properties marked with `ReflectionProperty::skipLazyInitialization()` or `ReflectionProperty::setRawValueWithoutLazyInitialization()`.
+After *initialization*, accessing any *property* on the proxy will `yield` the same *result* as accessing the corresponding *property* on the real *instance*; all *property accesses* on the *proxy* are forwarded to the real *instance*, including declared, dynamic, non-existing, or *properties* marked with `ReflectionProperty::skipLazyInitialization()` or `ReflectionProperty::setRawValueWithoutLazyInitialization()`.
 
 The *proxy object* itself is not replaced or substituted for the real instance.
 
 While the *factory* receives the *proxy* as its first *parameter*, it is not expected to *modify* it (modifications are allowed but will be lost during the final *initialization* step). However, the *proxy* can be used for decisions based on the values of *initialized properties*, the *class*, the *object* itself, or its *identity*. For instance, the *initializer* might use an initialized property's value when creating the real *instance*.
 
-### Common behavior
+#### Common behavior
 
 The *scope* and *`$this` context* of the *initializer* or *factory function* remains unchanged, and usual *visibility constraints* apply.
 
 After successful *initialization*, the *initializer* or *factory function* is no longer referenced by the *object* and may be released if it has no other *references*.
 
 If the *initializer* throws an *exception*, the *object state* is reverted to its pre-initialization state and the *object* is marked as *lazy* again. In other words, all effects on the *object* itself are reverted. Other side effects, such as effects on other *objects*, are not reverted. This prevents exposing a partially *initialized instance* in case of failure.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.lazy-objects.php#language.oop5.lazy-objects.initialization-sequence)
 
 ### Cloning
 
@@ -1438,13 +1672,15 @@ For proxy *objects*, both the *proxy* and its real *instance* are *cloned*, and 
 
 This behavior ensures that the *clone* and the original *object* maintain separate *states*. Changes to the original *object* or its *initializer's state* after cloning do not affect the *clone*. Cloning both the *proxy* and its real *instance*, rather than returning a *clone* of the real *instance* alone, ensures that the *clone operation* consistently returns an *object* of the same *class*.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.lazy-objects.php#language.oop5.lazy-objects.cloning)
+
 ### Destructors
 
 For *lazy ghosts*, the *destructor* is only called if the *object* has been *initialized*. For *proxies*, the *destructor* is only called on the real *instance*, if one exists.
 
 The `ReflectionClass::resetAsLazyGhost()` and `ReflectionClass::resetAsLazyProxy()` methods may invoke the *destructor* of the *object* being reset.
 
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.lazy-objects.php)
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.lazy-objects.php#language.oop5.lazy-objects.destructors)
 
 [▵ Up](#objects)
 [⌂ Home](../../../README.md)
