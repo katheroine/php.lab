@@ -263,7 +263,7 @@ OtherClass Object
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_modifying.php)
 
-## Object iteration
+## Iterating over class objects
 
 PHP provides a way for *objects* to be *defined* so it is possible to iterate through a *list of items*, with, for example a *`foreach` statement*. By default, all *visible properties* will be used for the *iteration*.
 
@@ -320,7 +320,371 @@ As the output shows, the `foreach` iterated through all of the *visible properti
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.iterations.php)
 
-## Comparing objects
+### Iterating over objects and reading elements
+
+*Example: Iterating over object and reading properties*
+
+```php
+<?php
+
+class SomeClass
+{
+    public string $somePublicProperty = 'apple';
+    public string $otherPublicProperty = 'orange';
+    public string $anotherPublicProperty = 'banana';
+    protected string $someProtectedProperty = 'pear';
+    private string $somePrivateProperty = 'peach';
+
+    public function iterateWithValues()
+    {
+        foreach ($this as $value) {
+            print("{$value}\n");
+        }
+    }
+
+    public function iterateWithKeysAndValues()
+    {
+        foreach ($this as $key => $value) {
+            print("{$key}: {$value}\n");
+        }
+    }
+}
+
+class OtherClass extends SomeClass
+{
+    public function iterateWithValues()
+    {
+        foreach ($this as $value) {
+            print("{$value}\n");
+        }
+    }
+
+    public function iterateWithKeysAndValues()
+    {
+        foreach ($this as $key => $value) {
+            print("{$key}: {$value}\n");
+        }
+    }
+}
+
+$someObject = new SomeClass();
+
+print(
+    "# SomeClass:\n\n"
+    . "from outside:\n\n"
+);
+
+foreach ($someObject as $value) {
+    print("{$value}\n");
+}
+print(PHP_EOL);
+
+foreach ($someObject as $key => $value) {
+    print("{$key}: {$value}\n");
+}
+print(PHP_EOL);
+
+print("from inside:\n\n");
+
+$someObject->iterateWithValues();
+print(PHP_EOL);
+
+$someObject->iterateWithKeysAndValues();
+print(PHP_EOL);
+
+$otherObject = new OtherClass();
+
+print(
+    "# OtherClass:\n\n"
+    . "from outside:\n\n"
+);
+
+foreach ($otherObject as $value) {
+    print("{$value}\n");
+}
+print(PHP_EOL);
+
+foreach ($otherObject as $key => $value) {
+    print("{$key}: {$value}\n");
+}
+print(PHP_EOL);
+
+print("from inside:\n\n");
+
+$otherObject->iterateWithValues();
+print(PHP_EOL);
+
+$otherObject->iterateWithKeysAndValues();
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeClass:
+
+from outside:
+
+apple
+orange
+banana
+
+somePublicProperty: apple
+otherPublicProperty: orange
+anotherPublicProperty: banana
+
+from inside:
+
+apple
+orange
+banana
+pear
+peach
+
+somePublicProperty: apple
+otherPublicProperty: orange
+anotherPublicProperty: banana
+someProtectedProperty: pear
+somePrivateProperty: peach
+
+# OtherClass:
+
+from outside:
+
+apple
+orange
+banana
+
+somePublicProperty: apple
+otherPublicProperty: orange
+anotherPublicProperty: banana
+
+from inside:
+
+apple
+orange
+banana
+pear
+
+somePublicProperty: apple
+otherPublicProperty: orange
+anotherPublicProperty: banana
+someProtectedProperty: pear
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/objects/iterating_over_object_and_reading_properties.php)
+
+### Iterating over objects and updating elements
+
+*Example: Iterating over object and updating properties*
+
+```php
+<?php
+
+class SomeClass
+{
+    public string $somePublicProperty = 'apple';
+    public string $otherPublicProperty = 'orange';
+    public string $anotherPublicProperty = 'banana';
+    protected string $someProtectedProperty = 'pear';
+    private string $somePrivateProperty = 'peach';
+
+    public function iterateWithValues(string $postfix)
+    {
+        foreach ($this as &$value) {
+            $value .= $postfix;
+        }
+    }
+
+    public function iterateWithKeysAndValues(string $postfix)
+    {
+        foreach ($this as $key => &$value) {
+            $value .= $postfix;
+        }
+    }
+}
+
+class OtherClass extends SomeClass
+{
+    public function iterateWithValues(string $postfix)
+    {
+        foreach ($this as &$value) {
+            $value .= $postfix;
+        }
+    }
+
+    public function iterateWithKeysAndValues(string $postfix)
+    {
+        foreach ($this as $key => &$value) {
+            $value .= $postfix;
+        }
+    }
+}
+
+$someObject = new SomeClass();
+
+print(
+    "# SomeClass:\n\n"
+    . "from outside:\n\n"
+);
+
+foreach ($someObject as &$value) {
+    $value .= ' 1...';
+}
+
+print_r($someObject);
+print(PHP_EOL);
+
+foreach ($someObject as $key => &$value) {
+    $value .= ' 2...';
+}
+
+print_r($someObject);
+print(PHP_EOL);
+
+print("from inside:\n\n");
+
+$someObject->iterateWithValues(' 3...');
+
+print_r($someObject);
+print(PHP_EOL);
+
+$someObject->iterateWithKeysAndValues(' 4...');
+
+print_r($someObject);
+print(PHP_EOL);
+
+$otherObject = new OtherClass();
+
+print(
+    "# OtherClass:\n\n"
+    . "from outside:\n\n"
+);
+
+foreach ($otherObject as &$value) {
+    $value .= ' 5...';
+}
+
+print_r($otherObject);
+print(PHP_EOL);
+
+foreach ($otherObject as $key => &$value) {
+    $value .= ' 6...';
+}
+
+print_r($otherObject);
+print(PHP_EOL);
+
+print("from inside:\n\n");
+
+$otherObject->iterateWithValues(' 7...');
+
+print_r($otherObject);
+print(PHP_EOL);
+
+$otherObject->iterateWithKeysAndValues(' 8...');
+
+print_r($otherObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeClass:
+
+from outside:
+
+SomeClass Object
+(
+    [somePublicProperty] => apple 1...
+    [otherPublicProperty] => orange 1...
+    [anotherPublicProperty] => banana 1...
+    [someProtectedProperty:protected] => pear
+    [somePrivateProperty:SomeClass:private] => peach
+)
+
+SomeClass Object
+(
+    [somePublicProperty] => apple 1... 2...
+    [otherPublicProperty] => orange 1... 2...
+    [anotherPublicProperty] => banana 1... 2...
+    [someProtectedProperty:protected] => pear
+    [somePrivateProperty:SomeClass:private] => peach
+)
+
+from inside:
+
+SomeClass Object
+(
+    [somePublicProperty] => apple 1... 2... 3...
+    [otherPublicProperty] => orange 1... 2... 3...
+    [anotherPublicProperty] => banana 1... 2... 3...
+    [someProtectedProperty:protected] => pear 3...
+    [somePrivateProperty:SomeClass:private] => peach 3...
+)
+
+SomeClass Object
+(
+    [somePublicProperty] => apple 1... 2... 3... 4...
+    [otherPublicProperty] => orange 1... 2... 3... 4...
+    [anotherPublicProperty] => banana 1... 2... 3... 4...
+    [someProtectedProperty:protected] => pear 3... 4...
+    [somePrivateProperty:SomeClass:private] => peach 3... 4...
+)
+
+# OtherClass:
+
+from outside:
+
+OtherClass Object
+(
+    [somePublicProperty] => apple 5...
+    [otherPublicProperty] => orange 5...
+    [anotherPublicProperty] => banana 5...
+    [someProtectedProperty:protected] => pear
+    [somePrivateProperty:SomeClass:private] => peach
+)
+
+OtherClass Object
+(
+    [somePublicProperty] => apple 5... 6...
+    [otherPublicProperty] => orange 5... 6...
+    [anotherPublicProperty] => banana 5... 6...
+    [someProtectedProperty:protected] => pear
+    [somePrivateProperty:SomeClass:private] => peach
+)
+
+from inside:
+
+OtherClass Object
+(
+    [somePublicProperty] => apple 5... 6... 7...
+    [otherPublicProperty] => orange 5... 6... 7...
+    [anotherPublicProperty] => banana 5... 6... 7...
+    [someProtectedProperty:protected] => pear 7...
+    [somePrivateProperty:SomeClass:private] => peach
+)
+
+OtherClass Object
+(
+    [somePublicProperty] => apple 5... 6... 7... 8...
+    [otherPublicProperty] => orange 5... 6... 7... 8...
+    [anotherPublicProperty] => banana 5... 6... 7... 8...
+    [someProtectedProperty:protected] => pear 7... 8...
+    [somePrivateProperty:SomeClass:private] => peach
+)
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/objects/iterating_over_object_and_updating_properties.php)
+
+## Comparing class objects
 
 When using the *comparison operator* (`==`), *object variables* are compared in a simple manner, namely: Two *object instances* are *equal* if they have the same *attributes* and *values* (*values* are compared with `==`), and are *instances* of the same *class*.
 
@@ -411,9 +775,95 @@ Extensions can define own rules for their objects comparison (==).
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.object-comparison.php)
 
-## Serializing objects - objects in sessions
+*Example: Class object comparing*
 
-`serialize()` returns a *string* containing a *byte-stream* representation of any *value* that can be stored in PHP. `unserialize()` can use this string to recreate the original *variable values*. Using `serialize` to save an *object* will save all *variables* in an *object*. The *methods* in an object will not be saved, only the *name* of the *class*.
+```php
+<?php
+
+class SomeClass
+{
+    public $someProperty = 1024;
+}
+
+class OtherClass
+{
+    public $someProperty = 1024;
+}
+
+$someObject = new SomeClass();
+$otherObject = new SomeClass();
+$anotherObject = new OtherClass();
+
+print("Objects of different classes:\n\n");
+
+if ($someObject == $anotherObject) {
+    print("Are equal\n");
+} else {
+    print("Are not equal\n");
+}
+if ($someObject === $anotherObject) {
+    print("Are identical\n");
+} else {
+    print("Are not identical\n");
+}
+print(PHP_EOL);
+
+print("Different objects of the same class:\n\n");
+
+if ($someObject == $otherObject) {
+    print("Are equal\n");
+} else {
+    print("Are not equal\n");
+}
+if ($someObject === $otherObject) {
+    print("Are identical\n");
+} else {
+    print("Are not identical\n");
+}
+print(PHP_EOL);
+
+print("The same object:\n\n");
+
+if ($someObject == $someObject) {
+    print("Are equal\n");
+} else {
+    print("Are not equal\n");
+}
+if ($someObject === $someObject) {
+    print("Are identical\n");
+} else {
+    print("Are not identical\n");
+}
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Objects of different classes:
+
+Are not equal
+Are not identical
+
+Different objects of the same class:
+
+Are equal
+Are not identical
+
+The same object:
+
+Are equal
+Are identical
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_comparing.php)
+
+## Serializing class objects
+
+`serialize()` returns a *string* containing a *byte-stream* representation of any *value* that can be stored in PHP. `unserialize()` can use this string to recreate the original *variable values*. Using `serialize` to save an *object* will save all *variables* in an *object*. The *methods* in an *object* will not be saved, only the *name* of the *class*.
 
 In order to be able to `unserialize()` an *object*, the *class* of that *object* needs to be *defined*. That is, if you have an *object* of *class* `A` and *serialize* this, you'll get a *string* that refers to *class* `A` and contains all *values* of *variables* contained in it. If you want to be able to `unserialize` this in another file, an *object* of *class* `A`, the *definition* of *class* `A` must be present in that file first. This can be done for example by storing the *class definition* of *class* `A` in an *include file* and including this file or making use of the `spl_autoload_register()` function.
 
@@ -455,9 +905,68 @@ It is strongly recommended that if an application *serializes* *objects*, for us
 
 So if in the example above `$a` became part of a session by adding a new *key* to the `$_SESSION` *superglobal array*, you should include the file `A.php` on all of your pages, not only `page1.php` and `page2.php`.
 
-Beyond the above advice, note that you can also hook into the serialization and unserialization events on an object using the `__sleep()` and __wakeup() methods. Using __sleep() also allows you to only serialize a subset of the object's properties.
+Beyond the above advice, note that you can also hook into the *serialization* and *unserialization* events on an *object* using the `__sleep()` and `__wakeup()` methods. Using `__sleep()` also allows you to only *serialize* a subset of the object's properties.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.serialization.php)
+
+*Example: Class object serializing*
+
+```php
+<?php
+
+class SomeClass
+{
+    public function __construct(
+        public string $somePublicProperty = 'some public',
+        protected string $someProtectedProperty = 'some protected',
+        private string $somePrivateProperty = 'some private',
+    ) {
+    }
+}
+
+$someObject = new SomeClass();
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$result = serialize($someObject);
+
+print($result . PHP_EOL . PHP_EOL);
+
+$coresult = unserialize($result);
+
+var_dump($coresult);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+object(SomeClass)#1 (3) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["someProtectedProperty":protected]=>
+  string(14) "some protected"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(12) "some private"
+}
+
+O:9:"SomeClass":3:{s:18:"somePublicProperty";s:11:"some public";s:24:"*someProtectedProperty";s:14:"some protected";s:30:"SomeClasssomePrivateProperty";s:12:"some private";}
+
+object(SomeClass)#2 (3) {
+  ["somePublicProperty"]=>
+  string(11) "some public"
+  ["someProtectedProperty":protected]=>
+  string(14) "some protected"
+  ["somePrivateProperty":"SomeClass":private]=>
+  string(12) "some private"
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_serializing.php)
 
 ## Object cloning
 
