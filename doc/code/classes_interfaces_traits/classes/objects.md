@@ -968,23 +968,23 @@ object(SomeClass)#2 (3) {
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_serializing.php)
 
-## Object cloning
+## Cloning class objects
 
-Creating a copy of an *object* with fully replicated *properties* is not always the wanted behavior. A good example of the need for *copy constructors*, is if you have an object which represents a GTK window and the object holds the resource of this GTK window, when you create a duplicate you might want to create a new window with the same properties and have the new object hold the resource of the new window. Another example is if your *object* holds a *reference* to another *object* which it uses and when you replicate the parent *object* you want to create a new *instance* of this other *object* so that the replica has its own separate copy.
+Creating a copy of an *object* with fully replicated *properties* is not always the wanted behavior. A good example of the need for *copy constructors*, is if you have an *object* which represents a GTK window and the *object* holds the resource of this GTK window, when you create a duplicate you might want to create a new window with the same *properties* and have the new *object* hold the resource of the new window. Another example is if your *object* holds a *reference* to another *object* which it uses and when you replicate the *parent object* you want to create a new *instance* of this other *object* so that the replica has its own separate copy.
 
 An *object* copy is created by using the `clone` *keyword* (which calls the object's `__clone()` *method* if possible).
 
 `$copy_of_object = clone $object;`
 
-When an *object* is *cloned*, PHP will perform a shallow copy of all of the *object's properties*. Any properties that are references to other variables will remain references.
+When an *object* is *cloned*, PHP will perform a *shallow copy* of all of the *object's properties*. Any properties that are references to other *variables* will remain *references*.
 
 ```
 __clone(): void
 ```
 
-Once the *cloning* is complete, if a `__clone()` *method* is defined, then the newly created object's `__clone()` *method* will be called, to allow any necessary properties that need to be changed.
+Once the *cloning* is complete, if a `__clone()` *method* is defined, then the newly created object's `__clone()` *method* will be called, to allow any necessary *properties* that need to be changed.
 
-*Example: Cloning an object*
+*Example: Class object cloning*
 
 ```php
 <?php
@@ -1083,6 +1083,97 @@ The above example will output something similar to:
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.cloning.php)
+
+*Example: Object cloning*
+
+```php
+<?php
+
+class SomeClass
+{
+    public string $someRegularProperty;
+    public OtherClass $someObjectProperty;
+
+    public function __construct()
+    {
+        $this->someRegularProperty = 'original';
+        $this->someObjectProperty = new OtherClass();
+    }
+}
+
+class OtherClass
+{
+    public string $someProperty = 'original';
+}
+
+$someObject = new SomeClass();
+
+var_dump($someObject);
+print(PHP_EOL);
+
+$otherObject = clone $someObject;
+
+var_dump($otherObject);
+print(PHP_EOL);
+
+$someObject->someRegularProperty = 'modified';
+$someObject->someObjectProperty->someProperty = 'modified';
+
+var_dump($someObject);
+print(PHP_EOL);
+
+var_dump($otherObject);
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+object(SomeClass)#1 (2) {
+  ["someRegularProperty"]=>
+  string(8) "original"
+  ["someObjectProperty"]=>
+  object(OtherClass)#2 (1) {
+    ["someProperty"]=>
+    string(8) "original"
+  }
+}
+
+object(SomeClass)#3 (2) {
+  ["someRegularProperty"]=>
+  string(8) "original"
+  ["someObjectProperty"]=>
+  object(OtherClass)#2 (1) {
+    ["someProperty"]=>
+    string(8) "original"
+  }
+}
+
+object(SomeClass)#1 (2) {
+  ["someRegularProperty"]=>
+  string(8) "modified"
+  ["someObjectProperty"]=>
+  object(OtherClass)#2 (1) {
+    ["someProperty"]=>
+    string(8) "modified"
+  }
+}
+
+object(SomeClass)#3 (2) {
+  ["someRegularProperty"]=>
+  string(8) "original"
+  ["someObjectProperty"]=>
+  object(OtherClass)#2 (1) {
+    ["someProperty"]=>
+    string(8) "modified"
+  }
+}
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_cloning.php)
 
 ## Objects and references
 

@@ -455,7 +455,7 @@ Laboratory of PHP.
                 5. [Iterating over object and updating properties](./example/code/classes_interfaces_traits/classes/objects/iterating_over_object_and_updating_properties.php)
                 6. [Class object comparing](./example/code/classes_interfaces_traits/classes/objects/class_object_comparing.php)
                 7. [Class object serializing](./example/code/classes_interfaces_traits/classes/objects/class_object_serializing.php)
-                3. [Cloning objects](./example/code/classes_interfaces_traits/classes/objects/cloning.php)
+                8. [Class object cloning](./example/code/classes_interfaces_traits/classes/objects/class_object_cloning.php)
             5. [Inheritance](./example/code/classes_interfaces_traits/classes/inheritance/inheritance.php)
                 1. [Base and derived class](./example/code/classes_interfaces_traits/classes/inheritance/base_and_derived_class.php)
                 2. [Class access specifiers](./example/code/classes_interfaces_traits/classes/inheritance/class_access_specifiers.php)
