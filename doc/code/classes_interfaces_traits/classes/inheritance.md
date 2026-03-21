@@ -4,11 +4,168 @@
 
 # Inheritance
 
-## Object inheritance
+## Description
 
 ***Inheritance*** is a well-established programming principle, and PHP makes use of this principle in its *object model*. This principle will affect the way many *classes* and *objects* relate to one another.
 
 For example, when *extending* a *class*, the *subclass* *inherits* all of the *public* and *protected methods*, *properties* and *constants* from the *parent class*. Unless a *class* *overrides* those *methods*, they will retain their original functionality.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance)
+
+*Example: Class inheritance*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public const SOME_PUBLIC_CONSTANT = 'public constant';
+    protected const SOME_PROTECTED_CONSTANT = 'protected constant';
+    private const SOME_PRIVATE_CONSTANT = 'private constant';
+
+    public $somePublicProperty = 'public property';
+    protected $someProtectedProperty = 'protected property';
+    private $somePrivateProperty = 'private property';
+
+    public function somePublicMethod()
+    {
+        return 'public method';
+    }
+
+    protected function someProtectedMethod()
+    {
+        return 'protected method';
+    }
+
+    private function somePrivateMethod()
+    {
+        return 'private method';
+    }
+
+    public function someMethod()
+    {
+        print(
+            '# ' . __METHOD__
+            . "\n\n* private:\n"
+            . self::SOME_PRIVATE_CONSTANT . PHP_EOL
+            . $this->somePrivateProperty . PHP_EOL
+            . $this->somePrivateMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function otherMethod()
+    {
+        $this->someMethod();
+        print(
+            '#' . __METHOD__
+            . "\n\n* protected:\n"
+            . self::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . $this->someProtectedProperty . PHP_EOL
+            . $this->someProtectedMethod() . PHP_EOL
+            . "\n* public:\n"
+            . self::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . $this->somePublicProperty . PHP_EOL
+            . $this->somePublicMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print(
+    "# Global scope:\n\n"
+    . SomeDerivedClass::SOME_PUBLIC_CONSTANT . PHP_EOL
+    . $someObject->somePublicProperty . PHP_EOL
+    . $someObject->somePublicMethod() . PHP_EOL
+    . PHP_EOL
+);
+
+$someObject->otherMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# Global scope:
+
+public constant
+public property
+public method
+
+# SomeBaseClass::someMethod
+
+* private:
+private constant
+private property
+private method
+
+#SomeDerivedClass::otherMethod
+
+* protected:
+protected constant
+protected property
+protected method
+
+* public:
+public constant
+public property
+public method
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance.php)
+
+*Example: Class inheritance and method overriding*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public function someMethod()
+    {
+        print("Some method from base class\n");
+    }
+
+    public function otherMethod()
+    {
+        print("Other method from base class\n");
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function otherMethod()
+    {
+        parent::otherMethod();
+        print("Other method from derived class\n");
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+$someObject->someMethod();
+$someObject->otherMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some method from base class
+Other method from base class
+Other method from derived class
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_method_overriding.php)
 
 This is useful for *defining* and *abstracting* functionality, and permits the *implementation* of additional functionality in similar *objects* without the need to *reimplement* all of the shared functionality.
 
