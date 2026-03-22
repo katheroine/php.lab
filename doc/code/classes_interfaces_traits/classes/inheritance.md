@@ -4,13 +4,108 @@
 
 # Inheritance
 
+## Definition
+
+> In *object-oriented programming*, **inheritance** is the mechanism of basing an *object* or *class* upon another *object* (***prototype-based inheritance***) or *class* (***class-based inheritance***), retaining similar *implementation*. It is also defined as *deriving* new classes (*sub classes*) from existing ones such as *super class* or *base class* and then forming them into a *hierarchy of classes*. In most *class-based object-oriented languages* like C++, an *object* created through inheritance, a *child object*, acquires all the properties and behaviors of the *parent object*, with the exception of: *constructors*, *destructors*, *overloaded operators* and *friend functions* of the *base class*. *Inheritance* allows programmers to create *classes* that are built upon existing *classes*, to specify a new *implementation* while maintaining the same *behaviors* (realizing an *interface*), to reuse code and to independently extend original software via *public classes* and *interfaces*. The relationships of *objects* or *classes* through *inheritance* give rise to a directed acyclic graph.
+>
+> An *inherited class* is called a *subclass* of its *parent class* or *super class*. The term *inheritance* is loosely used for both *class-based* and *prototype-based programming*, but in narrow use the term is reserved for *class-based programming* (one *class* inherits from another), with the corresponding technique in *prototype-based programming* being instead called *delegation* (one *object* delegates to another). Class-modifying inheritance patterns can be pre-defined according to simple network interface parameters such that inter-language compatibility is preserved.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming))
+
+[PHP supports class-based inheritance. -- KK]
+
 ## Description
 
 ***Inheritance*** is a well-established programming principle, and PHP makes use of this principle in its *object model*. This principle will affect the way many *classes* and *objects* relate to one another.
 
 For example, when *extending* a *class*, the *subclass* *inherits* all of the *public* and *protected methods*, *properties* and *constants* from the *parent class*. Unless a *class* *overrides* those *methods*, they will retain their original functionality.
 
+This is useful for *defining* and *abstracting* functionality, and permits the *implementation* of additional functionality in similar *objects* without the need to *reimplement* all of the shared functionality.
+
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance)
+
+*Example: Inheritance example*
+
+```php
+<?php
+
+class Foo
+{
+    public function printItem($string)
+    {
+        echo 'Foo: ' . $string . PHP_EOL;
+    }
+
+    public function printPHP()
+    {
+        echo 'PHP is great.' . PHP_EOL;
+    }
+}
+
+class Bar extends Foo
+{
+    public function printItem($string)
+    {
+        echo 'Bar: ' . $string . PHP_EOL;
+    }
+}
+
+$foo = new Foo();
+$bar = new Bar();
+$foo->printItem('baz'); // Output: 'Foo: baz'
+$foo->printPHP();       // Output: 'PHP is great'
+$bar->printItem('baz'); // Output: 'Bar: baz'
+$bar->printPHP();       // Output: 'PHP is great'
+
+?>
+```
+
+Output of the above example in PHP 8.5.0:
+
+```
+Foo: baz
+PHP is great.
+Bar: baz
+PHP is great.
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance)
+
+*Example: Simple class inheritance*
+
+```php
+<?php
+class SimpleClass
+{
+    function displayVar()
+    {
+        echo "Parent class\n";
+    }
+}
+
+class ExtendClass extends SimpleClass
+{
+    // Redefine the parent method
+    function displayVar()
+    {
+        echo "Extending class\n";
+        parent::displayVar();
+    }
+}
+
+$extended = new ExtendClass();
+$extended->displayVar();
+?>
+```
+
+The above example will output:
+
+```
+Extending class
+Parent class
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.extends)
 
 *Example: Class inheritance*
 
@@ -122,52 +217,59 @@ public method
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance.php)
 
-*Example: Class inheritance and method overriding*
+## Extending class
+
+>>> `extends` keyword
+
+A *class* can *inherit* the *constants*, *methods*, and *properties* of another *class* by using the *keyword* `extends` in the *class declaration*. It is not possible to *extend* multiple *classes*; a *class* can only *inherit* from one *base class*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.extends)
+
+*Example: Extending class*
 
 ```php
 <?php
 
-class SomeBaseClass
+class SomeClass
 {
-    public function someMethod()
-    {
-        print("Some method from base class\n");
-    }
-
-    public function otherMethod()
-    {
-        print("Other method from base class\n");
-    }
+    public string $someProperty = 'base';
 }
 
-class SomeDerivedClass extends SomeBaseClass
+class OtherClass extends SomeClass
 {
-    public function otherMethod()
-    {
-        parent::otherMethod();
-        print("Other method from derived class\n");
-    }
+    public string $otherProperty = 'derived';
 }
 
-$someObject = new SomeDerivedClass();
+$someObject = new OtherClass();
 
-$someObject->someMethod();
-$someObject->otherMethod();
+print('Class: ' . get_class($someObject) . PHP_EOL);
+print('Base class: ' . get_parent_class($someObject) . PHP_EOL);
+print("Base class property: {$someObject->someProperty}\n");
+print("Derived class property: {$someObject->otherProperty}\n");
 
 ```
 
 **Result (PHP 8.4)**:
 
 ```
-Some method from base class
-Other method from base class
-Other method from derived class
+Class: OtherClass
+Base class: SomeClass
+Base class property: base
+Derived class property: derived
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_method_overriding.php)
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/extending_class.php)
 
-This is useful for *defining* and *abstracting* functionality, and permits the *implementation* of additional functionality in similar *objects* without the need to *reimplement* all of the shared functionality.
+Note:
+
+Unless *autoloading* is used, the *classes* must be *defined* before they are used. If a *class* *extends* another, then the *parent class* must be *declared* before the *child class* structure. This rule applies to *classes* that *inherit* other *classes* and *interfaces*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance)
+
+## Members access
+
+### Members visibility
 
 *Private methods* of a *parent class* are not accessible to a *child class*. As a result, *child classes* may reimplement a *private method* themselves without regard for normal inheritance rules. Prior to PHP 8.0.0, however, *final* and *static* restrictions were applied to *private methods*. As of PHP 8.0.0, the only *private method* restriction that is enforced is *private final constructors*, as that is a common way to "disable" the *constructor* when using *static factory methods* instead.
 
@@ -326,9 +428,676 @@ SomeDerivedClass::anotherMethod
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_members_visibility.php)
 
-The *visibility* of *methods*, *properties* and *constants* can be relaxed, e.g. a *protected method* can be marked as *public*, but they cannot be restricted, e.g. marking a *public property* as *private*. An exception are *constructors*, whose *visibility* can be restricted, e.g. a *public constructor* can be marked as *private* in a *child class*.
+### Static, readonly, final and overriden members access
+
+*Example: Class inheritance and public members access*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public const string SOME_CONSTANT = 'base constant';
+    public static string $someStaticProperty = 'base static property';
+    public string $someProperty = 'base property';
+    public readonly string $someReadonlyProperty;
+    final public static string $someFinalStaticProperty = 'base final static property';
+    final public string $someFinalProperty = 'base final property';
+
+    public function __construct()
+    {
+        $this->someReadonlyProperty = 'base readonly property';
+    }
+
+    public static function someStaticMethod(): string
+    {
+        return 'base static method';
+    }
+
+    public function someMethod(): string
+    {
+        return 'base method';
+    }
+
+    final public static function someFinalStaticMethod(): string
+    {
+        return 'base final static method';
+    }
+
+    final public function someFinalMethod(): string
+    {
+        return 'base final method';
+    }
+
+    public static function baseStaticContext(): void
+    {
+        print(
+            __METHOD__
+            . "\n\n* constants:\n\n"
+            . 'SomeBaseClass::SOME_CONSTANT : ' . SomeBaseClass::SOME_CONSTANT . PHP_EOL
+            . '(__CLASS__)::SOME_CONSTANT : ' . (__CLASS__)::SOME_CONSTANT . PHP_EOL
+            . 'self::SOME_CONSTANT : ' . self::SOME_CONSTANT . PHP_EOL
+            . 'static::SOME_CONSTANT : ' . static::SOME_CONSTANT . PHP_EOL
+            . "\n* properties:\n\n"
+            . 'SomeBaseClass::$someStaticProperty : ' . SomeBaseClass::$someStaticProperty . PHP_EOL
+            . '(__CLASS__)::$someStaticProperty : ' . (__CLASS__)::$someStaticProperty . PHP_EOL
+            . 'self::$someStaticProperty : ' . self::$someStaticProperty . PHP_EOL
+            . 'static::$someStaticProperty : ' . static::$someStaticProperty . PHP_EOL
+            . 'SomeBaseClass::$someFinalStaticProperty : ' . SomeBaseClass::$someFinalStaticProperty . PHP_EOL
+            . '(__CLASS__)::$someFinalStaticProperty : ' . (__CLASS__)::$someFinalStaticProperty . PHP_EOL
+            . 'self::$someFinalStaticProperty : ' . self::$someFinalStaticProperty . PHP_EOL
+            . 'static::$someFinalStaticProperty : ' . static::$someFinalStaticProperty . PHP_EOL
+            . "\n* methods:\n\n"
+            . 'SomeBaseClass::someStaticMethod() : ' . SomeBaseClass::someStaticMethod() . PHP_EOL
+            . '(__CLASS__)::someStaticMethod() : ' . (__CLASS__)::someStaticMethod() . PHP_EOL
+            . 'self::someStaticMethod() : ' . self::someStaticMethod() . PHP_EOL
+            . 'static::someStaticMethod() : ' . static::someStaticMethod() . PHP_EOL
+            . 'SomeBaseClass::someFinalStaticMethod() : ' . SomeBaseClass::someFinalStaticMethod() . PHP_EOL
+            . '(__CLASS__)::someFinalStaticMethod() : ' . (__CLASS__)::someFinalStaticMethod() . PHP_EOL
+            . 'self::someFinalStaticMethod() : ' . self::someFinalStaticMethod() . PHP_EOL
+            . 'static::someFinalStaticMethod() : ' . static::someFinalStaticMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+
+    public function baseDynamicContext(): void
+    {
+        print(
+            __METHOD__
+            . "\n\n* constants:\n\n"
+            . 'SomeBaseClass::SOME_CONSTANT : ' . SomeBaseClass::SOME_CONSTANT . PHP_EOL
+            . '(__CLASS__)::SOME_CONSTANT : ' . (__CLASS__)::SOME_CONSTANT . PHP_EOL
+            . 'self::SOME_CONSTANT : ' . self::SOME_CONSTANT . PHP_EOL
+            . 'static::SOME_CONSTANT : ' . static::SOME_CONSTANT . PHP_EOL
+            . "\n* properties:\n\n"
+            . 'SomeBaseClass::$someStaticProperty : ' . SomeBaseClass::$someStaticProperty . PHP_EOL
+            . '(__CLASS__)::$someStaticProperty : ' . (__CLASS__)::$someStaticProperty . PHP_EOL
+            . 'self::$someStaticProperty : ' . self::$someStaticProperty . PHP_EOL
+            . 'static::$someStaticProperty : ' . static::$someStaticProperty . PHP_EOL
+            . 'SomeBaseClass::$someFinalStaticProperty : ' . SomeBaseClass::$someFinalStaticProperty . PHP_EOL
+            . '(__CLASS__)::$someFinalStaticProperty : ' . (__CLASS__)::$someFinalStaticProperty . PHP_EOL
+            . 'self::$someFinalStaticProperty : ' . self::$someFinalStaticProperty . PHP_EOL
+            . 'static::$someFinalStaticProperty : ' . static::$someFinalStaticProperty . PHP_EOL
+            . '$this->someProperty : ' . $this->someProperty . PHP_EOL
+            . '$this->someReadonlyProperty : ' . $this->someReadonlyProperty . PHP_EOL
+            . "\n* methods:\n\n"
+            . 'SomeBaseClass::someStaticMethod() : ' . SomeBaseClass::someStaticMethod() . PHP_EOL
+            . '(__CLASS__)::someStaticMethod() : ' . (__CLASS__)::someStaticMethod() . PHP_EOL
+            . 'self::someStaticMethod() : ' . self::someStaticMethod() . PHP_EOL
+            . 'static::someStaticMethod() : ' . static::someStaticMethod() . PHP_EOL
+            . '$this->someStaticMethod() : ' . $this->someStaticMethod() . PHP_EOL
+            . 'SomeBaseClass::someFinalStaticMethod() : ' . SomeBaseClass::someFinalStaticMethod() . PHP_EOL
+            . '(__CLASS__)::someFinalStaticMethod() : ' . (__CLASS__)::someFinalStaticMethod() . PHP_EOL
+            . 'self::someFinalStaticMethod() : ' . self::someFinalStaticMethod() . PHP_EOL
+            . 'static::someFinalStaticMethod() : ' . static::someFinalStaticMethod() . PHP_EOL
+            . '$this->someFinalStaticMethod() : ' . $this->someFinalStaticMethod() . PHP_EOL
+            . '$this->someMethod() : ' . $this->someMethod() . PHP_EOL
+            . '$this->someFinalMethod() : ' . $this->someFinalMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public static function derivedStaticContext()
+    {
+        print(
+            __METHOD__
+            . "\n\n* constants:\n\n"
+            . 'SomeBaseClass::SOME_CONSTANT : ' . SomeBaseClass::SOME_CONSTANT . PHP_EOL
+            . '(__CLASS__)::SOME_CONSTANT : ' . (__CLASS__)::SOME_CONSTANT . PHP_EOL
+            . 'self::SOME_CONSTANT : ' . self::SOME_CONSTANT . PHP_EOL
+            . 'static::SOME_CONSTANT : ' . static::SOME_CONSTANT . PHP_EOL
+            . "\n* properties:\n\n"
+            . 'SomeBaseClass::$someStaticProperty : ' . SomeBaseClass::$someStaticProperty . PHP_EOL
+            . '(__CLASS__)::$someStaticProperty : ' . (__CLASS__)::$someStaticProperty . PHP_EOL
+            . 'self::$someStaticProperty : ' . self::$someStaticProperty . PHP_EOL
+            . 'static::$someStaticProperty : ' . static::$someStaticProperty . PHP_EOL
+            . 'SomeBaseClass::$someFinalStaticProperty : ' . SomeBaseClass::$someFinalStaticProperty . PHP_EOL
+            . '(__CLASS__)::$someFinalStaticProperty : ' . (__CLASS__)::$someFinalStaticProperty . PHP_EOL
+            . 'self::$someFinalStaticProperty : ' . self::$someFinalStaticProperty . PHP_EOL
+            . 'static::$someFinalStaticProperty : ' . static::$someFinalStaticProperty . PHP_EOL
+            . "\n* methods:\n\n"
+            . 'SomeBaseClass::someStaticMethod() : ' . SomeBaseClass::someStaticMethod() . PHP_EOL
+            . '(__CLASS__)::someStaticMethod() : ' . (__CLASS__)::someStaticMethod() . PHP_EOL
+            . 'self::someStaticMethod() : ' . self::someStaticMethod() . PHP_EOL
+            . 'static::someStaticMethod() : ' . static::someStaticMethod() . PHP_EOL
+            . 'SomeBaseClass::someFinalStaticMethod() : ' . SomeBaseClass::someFinalStaticMethod() . PHP_EOL
+            . '(__CLASS__)::someFinalStaticMethod() : ' . (__CLASS__)::someFinalStaticMethod() . PHP_EOL
+            . 'self::someFinalStaticMethod() : ' . self::someFinalStaticMethod() . PHP_EOL
+            . 'static::someFinalStaticMethod() : ' . static::someFinalStaticMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+
+    public function derivedDynamicContext()
+    {
+        print(
+            __METHOD__
+            . "\n\n* constants:\n\n"
+            . 'SomeBaseClass::SOME_CONSTANT : ' . SomeBaseClass::SOME_CONSTANT . PHP_EOL
+            . '(__CLASS__)::SOME_CONSTANT : ' . (__CLASS__)::SOME_CONSTANT . PHP_EOL
+            . 'self::SOME_CONSTANT : ' . self::SOME_CONSTANT . PHP_EOL
+            . 'static::SOME_CONSTANT : ' . static::SOME_CONSTANT . PHP_EOL
+            . "\n* properties:\n\n"
+            . 'SomeBaseClass::$someStaticProperty : ' . SomeBaseClass::$someStaticProperty . PHP_EOL
+            . '(__CLASS__)::$someStaticProperty : ' . (__CLASS__)::$someStaticProperty . PHP_EOL
+            . 'self::$someStaticProperty : ' . self::$someStaticProperty . PHP_EOL
+            . 'static::$someStaticProperty : ' . static::$someStaticProperty . PHP_EOL
+            . 'SomeBaseClass::$someFinalStaticProperty : ' . SomeBaseClass::$someFinalStaticProperty . PHP_EOL
+            . '(__CLASS__)::$someFinalStaticProperty : ' . (__CLASS__)::$someFinalStaticProperty . PHP_EOL
+            . 'self::$someFinalStaticProperty : ' . self::$someFinalStaticProperty . PHP_EOL
+            . 'static::$someFinalStaticProperty : ' . static::$someFinalStaticProperty . PHP_EOL
+            . '$this->someProperty : ' . $this->someProperty . PHP_EOL
+            . '$this->someReadonlyProperty : ' . $this->someReadonlyProperty . PHP_EOL
+            . "\n* methods:\n\n"
+            . 'SomeBaseClass::someStaticMethod() : ' . SomeBaseClass::someStaticMethod() . PHP_EOL
+            . '(__CLASS__)::someStaticMethod() : ' . (__CLASS__)::someStaticMethod() . PHP_EOL
+            . 'self::someStaticMethod() : ' . self::someStaticMethod() . PHP_EOL
+            . 'static::someStaticMethod() : ' . static::someStaticMethod() . PHP_EOL
+            . '$this->someStaticMethod() : ' . $this->someStaticMethod() . PHP_EOL
+            . 'SomeBaseClass::someFinalStaticMethod() : ' . SomeBaseClass::someFinalStaticMethod() . PHP_EOL
+            . '(__CLASS__)::someFinalStaticMethod() : ' . (__CLASS__)::someFinalStaticMethod() . PHP_EOL
+            . 'self::someFinalStaticMethod() : ' . self::someFinalStaticMethod() . PHP_EOL
+            . 'static::someFinalStaticMethod() : ' . static::someFinalStaticMethod() . PHP_EOL
+            . '$this->someFinalStaticMethod() : ' . $this->someFinalStaticMethod() . PHP_EOL
+            . '$this->someMethod() : ' . $this->someMethod() . PHP_EOL
+            . '$this->someFinalMethod() : ' . $this->someFinalMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class someDerivedOverridingClass extends SomeBaseClass
+{
+    public const string SOME_CONSTANT = 'derived constant';
+    public static string $someStaticProperty = 'derived static property';
+    public string $someProperty = 'derived property';
+    public readonly string $someReadonlyProperty;
+
+    public function __construct()
+    {
+        $this->someReadonlyProperty = 'derived readonly property';
+    }
+
+    public static function someStaticMethod(): string
+    {
+        return 'derived static method';
+    }
+
+    public function someMethod(): string
+    {
+        return 'derived method';
+    }
+
+    public static function derivedOverridingStaticContext()
+    {
+        print(
+            __METHOD__
+            . "\n\n* constants:\n\n"
+            . 'SomeBaseClass::SOME_CONSTANT : ' . SomeBaseClass::SOME_CONSTANT . PHP_EOL
+            . 'parent::SOME_CONSTANT : ' . parent::SOME_CONSTANT . PHP_EOL
+            . 'SomeDerivedOverridingClass::SOME_CONSTANT : ' . SomeDerivedOverridingClass::SOME_CONSTANT . PHP_EOL
+            . '(__CLASS__)::SOME_CONSTANT : ' . (__CLASS__)::SOME_CONSTANT . PHP_EOL
+            . 'self::SOME_CONSTANT : ' . self::SOME_CONSTANT . PHP_EOL
+            . 'static::SOME_CONSTANT : ' . static::SOME_CONSTANT . PHP_EOL
+            . "\n* properties:\n\n"
+            . 'SomeBaseClass::$someStaticProperty : ' . SomeBaseClass::$someStaticProperty . PHP_EOL
+            . 'parent::$someStaticProperty : ' . parent::$someStaticProperty . PHP_EOL
+            . 'someDerivedOverridingClass::$someStaticProperty : ' . someDerivedOverridingClass::$someStaticProperty . PHP_EOL
+            . '(__CLASS__)::$someStaticProperty : ' . (__CLASS__)::$someStaticProperty . PHP_EOL
+            . 'self::$someStaticProperty : ' . self::$someStaticProperty . PHP_EOL
+            . 'static::$someStaticProperty : ' . static::$someStaticProperty . PHP_EOL
+            . 'SomeBaseClass::$someFinalStaticProperty : ' . SomeBaseClass::$someFinalStaticProperty . PHP_EOL
+            . 'parent::$someFinalStaticProperty : ' . parent::$someFinalStaticProperty . PHP_EOL
+            . 'someDerivedOverridingClass::$someFinalStaticProperty : ' . someDerivedOverridingClass::$someFinalStaticProperty . PHP_EOL
+            . '(__CLASS__)::$someFinalStaticProperty : ' . (__CLASS__)::$someFinalStaticProperty . PHP_EOL
+            . 'self::$someFinalStaticProperty : ' . self::$someFinalStaticProperty . PHP_EOL
+            . 'static::$someFinalStaticProperty : ' . static::$someFinalStaticProperty . PHP_EOL
+            . "\n* methods:\n\n"
+            . 'SomeBaseClass::someStaticMethod() : ' . SomeBaseClass::someStaticMethod() . PHP_EOL
+            . 'parent::someStaticMethod() : ' . parent::someStaticMethod() . PHP_EOL
+            . 'someDerivedOverridingClass::someStaticMethod() : ' . someDerivedOverridingClass::someStaticMethod() . PHP_EOL
+            . '(__CLASS__)::someStaticMethod() : ' . (__CLASS__)::someStaticMethod() . PHP_EOL
+            . 'self::someStaticMethod() : ' . self::someStaticMethod() . PHP_EOL
+            . 'static::someStaticMethod() : ' . static::someStaticMethod() . PHP_EOL
+            . 'SomeBaseClass::someFinalStaticMethod() : ' . SomeBaseClass::someFinalStaticMethod() . PHP_EOL
+            . 'parent::someFinalStaticMethod() : ' . parent::someFinalStaticMethod() . PHP_EOL
+            . 'someDerivedOverridingClass::someFinalStaticMethod() : ' . someDerivedOverridingClass::someFinalStaticMethod() . PHP_EOL
+            . '(__CLASS__)::someFinalStaticMethod() : ' . (__CLASS__)::someFinalStaticMethod() . PHP_EOL
+            . 'self::someFinalStaticMethod() : ' . self::someFinalStaticMethod() . PHP_EOL
+            . 'static::someFinalStaticMethod() : ' . static::someFinalStaticMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+
+    public function derivedOverridingDynamicContext()
+    {
+        print(
+            __METHOD__
+            . "\n\n* constants:\n\n"
+            . 'SomeBaseClass::SOME_CONSTANT : ' . SomeBaseClass::SOME_CONSTANT . PHP_EOL
+            . 'parent::SOME_CONSTANT : ' . parent::SOME_CONSTANT . PHP_EOL
+            . 'SomeDerivedOverridingClass::SOME_CONSTANT : ' . SomeDerivedOverridingClass::SOME_CONSTANT . PHP_EOL
+            . '(__CLASS__)::SOME_CONSTANT : ' . (__CLASS__)::SOME_CONSTANT . PHP_EOL
+            . 'self::SOME_CONSTANT : ' . self::SOME_CONSTANT . PHP_EOL
+            . 'static::SOME_CONSTANT : ' . static::SOME_CONSTANT . PHP_EOL
+            . "\n* properties:\n\n"
+            . 'SomeBaseClass::$someStaticProperty : ' . SomeBaseClass::$someStaticProperty . PHP_EOL
+            . 'parent::$someStaticProperty : ' . parent::$someStaticProperty . PHP_EOL
+            . 'someDerivedOverridingClass::$someStaticProperty : ' . someDerivedOverridingClass::$someStaticProperty . PHP_EOL
+            . '(__CLASS__)::$someStaticProperty : ' . (__CLASS__)::$someStaticProperty . PHP_EOL
+            . 'self::$someStaticProperty : ' . self::$someStaticProperty . PHP_EOL
+            . 'static::$someStaticProperty : ' . static::$someStaticProperty . PHP_EOL
+            . 'SomeBaseClass::$someFinalStaticProperty : ' . SomeBaseClass::$someFinalStaticProperty . PHP_EOL
+            . 'parent::$someFinalStaticProperty : ' . parent::$someFinalStaticProperty . PHP_EOL
+            . 'someDerivedOverridingClass::$someFinalStaticProperty : ' . someDerivedOverridingClass::$someFinalStaticProperty . PHP_EOL
+            . '(__CLASS__)::$someFinalStaticProperty : ' . (__CLASS__)::$someFinalStaticProperty . PHP_EOL
+            . 'self::$someFinalStaticProperty : ' . self::$someFinalStaticProperty . PHP_EOL
+            . 'static::$someFinalStaticProperty : ' . static::$someFinalStaticProperty . PHP_EOL
+            . '$this->someProperty : ' . $this->someProperty . PHP_EOL
+            . '$this->someReadonlyProperty : ' . $this->someReadonlyProperty . PHP_EOL
+            . "\n* methods:\n\n"
+            . 'SomeBaseClass::someStaticMethod() : ' . SomeBaseClass::someStaticMethod() . PHP_EOL
+            . 'parent::someStaticMethod() : ' . parent::someStaticMethod() . PHP_EOL
+            . 'someDerivedOverridingClass::someStaticMethod() : ' . someDerivedOverridingClass::someStaticMethod() . PHP_EOL
+            . '(__CLASS__)::someStaticMethod() : ' . (__CLASS__)::someStaticMethod() . PHP_EOL
+            . 'self::someStaticMethod() : ' . self::someStaticMethod() . PHP_EOL
+            . 'static::someStaticMethod() : ' . static::someStaticMethod() . PHP_EOL
+            . '$this->someStaticMethod() : ' . $this->someStaticMethod() . PHP_EOL
+            . 'SomeBaseClass::someFinalStaticMethod() : ' . SomeBaseClass::someFinalStaticMethod() . PHP_EOL
+            . 'parent::someFinalStaticMethod() : ' . parent::someFinalStaticMethod() . PHP_EOL
+            . 'someDerivedOverridingClass::someFinalStaticMethod() : ' . someDerivedOverridingClass::someFinalStaticMethod() . PHP_EOL
+            . '(__CLASS__)::someFinalStaticMethod() : ' . (__CLASS__)::someFinalStaticMethod() . PHP_EOL
+            . 'self::someFinalStaticMethod() : ' . self::someFinalStaticMethod() . PHP_EOL
+            . 'static::someFinalStaticMethod() : ' . static::someFinalStaticMethod() . PHP_EOL
+            . '$this->someFinalStaticMethod() : ' . $this->someFinalStaticMethod() . PHP_EOL
+            . '$this->someMethod() : ' . $this->someMethod() . PHP_EOL
+            . '$this->someFinalMethod() : ' . $this->someFinalMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseStaticContext();
+$someObject->baseDynamicContext();
+$someObject->derivedStaticContext();
+$someObject->derivedDynamicContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->derivedOverridingStaticContext();
+$otherObject->derivedOverridingDynamicContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeDerivedClass:
+
+SomeBaseClass::baseStaticContext
+
+* constants:
+
+SomeBaseClass::SOME_CONSTANT : base constant
+(__CLASS__)::SOME_CONSTANT : base constant
+self::SOME_CONSTANT : base constant
+static::SOME_CONSTANT : base constant
+
+* properties:
+
+SomeBaseClass::$someStaticProperty : base static property
+(__CLASS__)::$someStaticProperty : base static property
+self::$someStaticProperty : base static property
+static::$someStaticProperty : base static property
+SomeBaseClass::$someFinalStaticProperty : base final static property
+(__CLASS__)::$someFinalStaticProperty : base final static property
+self::$someFinalStaticProperty : base final static property
+static::$someFinalStaticProperty : base final static property
+
+* methods:
+
+SomeBaseClass::someStaticMethod() : base static method
+(__CLASS__)::someStaticMethod() : base static method
+self::someStaticMethod() : base static method
+static::someStaticMethod() : base static method
+SomeBaseClass::someFinalStaticMethod() : base final static method
+(__CLASS__)::someFinalStaticMethod() : base final static method
+self::someFinalStaticMethod() : base final static method
+static::someFinalStaticMethod() : base final static method
+
+SomeBaseClass::baseDynamicContext
+
+* constants:
+
+SomeBaseClass::SOME_CONSTANT : base constant
+(__CLASS__)::SOME_CONSTANT : base constant
+self::SOME_CONSTANT : base constant
+static::SOME_CONSTANT : base constant
+
+* properties:
+
+SomeBaseClass::$someStaticProperty : base static property
+(__CLASS__)::$someStaticProperty : base static property
+self::$someStaticProperty : base static property
+static::$someStaticProperty : base static property
+SomeBaseClass::$someFinalStaticProperty : base final static property
+(__CLASS__)::$someFinalStaticProperty : base final static property
+self::$someFinalStaticProperty : base final static property
+static::$someFinalStaticProperty : base final static property
+$this->someProperty : base property
+$this->someReadonlyProperty : base readonly property
+
+* methods:
+
+SomeBaseClass::someStaticMethod() : base static method
+(__CLASS__)::someStaticMethod() : base static method
+self::someStaticMethod() : base static method
+static::someStaticMethod() : base static method
+$this->someStaticMethod() : base static method
+SomeBaseClass::someFinalStaticMethod() : base final static method
+(__CLASS__)::someFinalStaticMethod() : base final static method
+self::someFinalStaticMethod() : base final static method
+static::someFinalStaticMethod() : base final static method
+$this->someFinalStaticMethod() : base final static method
+$this->someMethod() : base method
+$this->someFinalMethod() : base final method
+
+SomeDerivedClass::derivedStaticContext
+
+* constants:
+
+SomeBaseClass::SOME_CONSTANT : base constant
+(__CLASS__)::SOME_CONSTANT : base constant
+self::SOME_CONSTANT : base constant
+static::SOME_CONSTANT : base constant
+
+* properties:
+
+SomeBaseClass::$someStaticProperty : base static property
+(__CLASS__)::$someStaticProperty : base static property
+self::$someStaticProperty : base static property
+static::$someStaticProperty : base static property
+SomeBaseClass::$someFinalStaticProperty : base final static property
+(__CLASS__)::$someFinalStaticProperty : base final static property
+self::$someFinalStaticProperty : base final static property
+static::$someFinalStaticProperty : base final static property
+
+* methods:
+
+SomeBaseClass::someStaticMethod() : base static method
+(__CLASS__)::someStaticMethod() : base static method
+self::someStaticMethod() : base static method
+static::someStaticMethod() : base static method
+SomeBaseClass::someFinalStaticMethod() : base final static method
+(__CLASS__)::someFinalStaticMethod() : base final static method
+self::someFinalStaticMethod() : base final static method
+static::someFinalStaticMethod() : base final static method
+
+SomeDerivedClass::derivedDynamicContext
+
+* constants:
+
+SomeBaseClass::SOME_CONSTANT : base constant
+(__CLASS__)::SOME_CONSTANT : base constant
+self::SOME_CONSTANT : base constant
+static::SOME_CONSTANT : base constant
+
+* properties:
+
+SomeBaseClass::$someStaticProperty : base static property
+(__CLASS__)::$someStaticProperty : base static property
+self::$someStaticProperty : base static property
+static::$someStaticProperty : base static property
+SomeBaseClass::$someFinalStaticProperty : base final static property
+(__CLASS__)::$someFinalStaticProperty : base final static property
+self::$someFinalStaticProperty : base final static property
+static::$someFinalStaticProperty : base final static property
+$this->someProperty : base property
+$this->someReadonlyProperty : base readonly property
+
+* methods:
+
+SomeBaseClass::someStaticMethod() : base static method
+(__CLASS__)::someStaticMethod() : base static method
+self::someStaticMethod() : base static method
+static::someStaticMethod() : base static method
+$this->someStaticMethod() : base static method
+SomeBaseClass::someFinalStaticMethod() : base final static method
+(__CLASS__)::someFinalStaticMethod() : base final static method
+self::someFinalStaticMethod() : base final static method
+static::someFinalStaticMethod() : base final static method
+$this->someFinalStaticMethod() : base final static method
+$this->someMethod() : base method
+$this->someFinalMethod() : base final method
+
+# SomeDerivedOverridingClass:
+
+someDerivedOverridingClass::derivedOverridingStaticContext
+
+* constants:
+
+SomeBaseClass::SOME_CONSTANT : base constant
+parent::SOME_CONSTANT : base constant
+SomeDerivedOverridingClass::SOME_CONSTANT : derived constant
+(__CLASS__)::SOME_CONSTANT : derived constant
+self::SOME_CONSTANT : derived constant
+static::SOME_CONSTANT : derived constant
+
+* properties:
+
+SomeBaseClass::$someStaticProperty : base static property
+parent::$someStaticProperty : base static property
+someDerivedOverridingClass::$someStaticProperty : derived static property
+(__CLASS__)::$someStaticProperty : derived static property
+self::$someStaticProperty : derived static property
+static::$someStaticProperty : derived static property
+SomeBaseClass::$someFinalStaticProperty : base final static property
+parent::$someFinalStaticProperty : base final static property
+someDerivedOverridingClass::$someFinalStaticProperty : base final static property
+(__CLASS__)::$someFinalStaticProperty : base final static property
+self::$someFinalStaticProperty : base final static property
+static::$someFinalStaticProperty : base final static property
+
+* methods:
+
+SomeBaseClass::someStaticMethod() : base static method
+parent::someStaticMethod() : base static method
+someDerivedOverridingClass::someStaticMethod() : derived static method
+(__CLASS__)::someStaticMethod() : derived static method
+self::someStaticMethod() : derived static method
+static::someStaticMethod() : derived static method
+SomeBaseClass::someFinalStaticMethod() : base final static method
+parent::someFinalStaticMethod() : base final static method
+someDerivedOverridingClass::someFinalStaticMethod() : base final static method
+(__CLASS__)::someFinalStaticMethod() : base final static method
+self::someFinalStaticMethod() : base final static method
+static::someFinalStaticMethod() : base final static method
+
+someDerivedOverridingClass::derivedOverridingDynamicContext
+
+* constants:
+
+SomeBaseClass::SOME_CONSTANT : base constant
+parent::SOME_CONSTANT : base constant
+SomeDerivedOverridingClass::SOME_CONSTANT : derived constant
+(__CLASS__)::SOME_CONSTANT : derived constant
+self::SOME_CONSTANT : derived constant
+static::SOME_CONSTANT : derived constant
+
+* properties:
+
+SomeBaseClass::$someStaticProperty : base static property
+parent::$someStaticProperty : base static property
+someDerivedOverridingClass::$someStaticProperty : derived static property
+(__CLASS__)::$someStaticProperty : derived static property
+self::$someStaticProperty : derived static property
+static::$someStaticProperty : derived static property
+SomeBaseClass::$someFinalStaticProperty : base final static property
+parent::$someFinalStaticProperty : base final static property
+someDerivedOverridingClass::$someFinalStaticProperty : base final static property
+(__CLASS__)::$someFinalStaticProperty : base final static property
+self::$someFinalStaticProperty : base final static property
+static::$someFinalStaticProperty : base final static property
+$this->someProperty : derived property
+$this->someReadonlyProperty : derived readonly property
+
+* methods:
+
+SomeBaseClass::someStaticMethod() : base static method
+parent::someStaticMethod() : base static method
+someDerivedOverridingClass::someStaticMethod() : derived static method
+(__CLASS__)::someStaticMethod() : derived static method
+self::someStaticMethod() : derived static method
+static::someStaticMethod() : derived static method
+$this->someStaticMethod() : derived static method
+SomeBaseClass::someFinalStaticMethod() : base final static method
+parent::someFinalStaticMethod() : base final static method
+someDerivedOverridingClass::someFinalStaticMethod() : base final static method
+(__CLASS__)::someFinalStaticMethod() : base final static method
+self::someFinalStaticMethod() : base final static method
+static::someFinalStaticMethod() : base final static method
+$this->someFinalStaticMethod() : base final static method
+$this->someMethod() : derived method
+$this->someFinalMethod() : base final method
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_public_members_access.php)
+
+### Hooks access
+
+A *hook* in a *child class* may access the *parent class's property* using the `parent::$prop` *keyword*, followed by the desired *hook*. For example, `parent::$propName::get()`. It may be read as "access the prop defined on the parent class, and then run its get operation" (or set operation, as appropriate).
+
+If not accessed this way, the *parent class's hook* is ignored. This behavior is consistent with how all *methods* work. This also offers a way to access the parent class's storage, if any. If there is no *hook* on the *parent property*, its default get/set behavior will be used. *Hooks* may not access any other *hook* except their own *parent* on their own *property*.
+
+The example above could be rewritten as follows, which would allow for the `Point` class to add its own *set hook* in the future without issues (in the previous example, a *hook* added to the *parent class* would be ignored in the *child*).
+
+*Example: Parent hook access (set)*
+
+```php
+<?php
+class Point
+{
+    public int $x;
+    public int $y;
+}
+
+class PositivePoint extends Point
+{
+    public int $x {
+        set {
+            if ($value < 0) {
+                throw new \InvalidArgumentException('Too small');
+            }
+            parent::$x::set($value);
+        }
+    }
+}
+?>
+```
+
+An example of overriding only a get hook could be:
+
+*Example: Parent hook access (get)*
+
+```php
+<?php
+class Strings
+{
+    public string $val;
+}
+
+class CaseFoldingStrings extends Strings
+{
+    public bool $uppercase = true;
+
+    public string $val {
+        get => $this->uppercase
+            ? strtoupper(parent::$val::get())
+            : strtolower(parent::$val::get());
+    }
+}
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.property-hooks.php#language.oop5.property-hooks.virtual)
+
+## Overriding
+
+The *inherited* *constants*, *methods*, and *properties* can be *overridden* by *redeclaring* them with the same *name* *defined* in the *parent class*. However, if the *parent class* has defined a *method* or *constant* as *final*, they may not be *overridden*. It is possible to *access* the *overridden* methods or *static properties* by referencing them with `parent::`.
+
+Note: As of PHP 8.1.0, *constants* may be declared as *final*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.extends)
+
+*Example: Class inheritance and method overriding*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public function someMethod()
+    {
+        print("Some method from base class\n");
+    }
+
+    public function otherMethod()
+    {
+        print("Other method from base class\n");
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function otherMethod()
+    {
+        parent::otherMethod();
+        print("Other method from derived class\n");
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+$someObject->someMethod();
+$someObject->otherMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some method from base class
+Other method from base class
+Other method from derived class
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_method_overriding.php)
+
+When *overriding a method*, its *signature* must be compatible with the *parent method*. Otherwise, a fatal error is emitted, or, prior to PHP 8.0.0, an `E_WARNING` level error is generated.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop.lsp)
+
+### Overriding and visibility compatibility rules
+
+The *visibility* of *methods*, *properties* and *constants* can be relaxed, e.g. a *protected method* can be marked as *public*, but they cannot be restricted, e.g. marking a *public property* as *private*.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance)
+
+A [method -- KK] *signature* is compatible if it respects the *variance rules*, makes a mandatory *parameter* optional, adds only optional new *parameters* and doesn't restrict but only relaxes the *visibility*. This is known as the *Liskov Substitution Principle*, or *LSP* for short. The *constructor*, and *private methods* are exempt from these *signature compatibility rules*, and thus won't emit a fatal error in case of a *signature* mismatch.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop.lsp)
 
 *Example: Class inheritance and members visibility compatibility*
 
@@ -414,65 +1183,145 @@ Kitty Pranky
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_members_visibility_compatibility.php)
+*Example: Compatible child methods*
 
-Note:
+```php
+<?php
 
-Unless *autoloading* is used, the *classes* must be *defined* before they are used. If a *class* *extends* another, then the *parent class* must be *declared* before the *child class* structure. This rule applies to *classes* that *inherit* other *classes* and *interfaces*.
+class Base
+{
+    public function foo(int $a) {
+        echo "Valid\n";
+    }
+}
 
-Note:
+class Extend1 extends Base
+{
+    function foo(int $a = 5)
+    {
+        parent::foo($a);
+    }
+}
 
-It is not allowed to *override* a *read-write property* with a *readonly property* or vice versa.
+class Extend2 extends Base
+{
+    function foo(int $a, $b = 5)
+    {
+        parent::foo($a);
+    }
+}
+
+$extended1 = new Extend1();
+$extended1->foo();
+$extended2 = new Extend2();
+$extended2->foo(1);
+```
+
+The above example will output:
+
+```
+Valid
+Valid
+```
+
+The following examples demonstrate that a *child method* which removes a *parameter*, or makes an optional *parameter* mandatory, is not compatible with the parent method.
+
+*Example: Fatal error when a child method removes a parameter*
+
+```php
+<?php
+
+class Base
+{
+    public function foo(int $a = 5) {
+        echo "Valid\n";
+    }
+}
+
+class Extend extends Base
+{
+    function foo()
+    {
+        parent::foo(1);
+    }
+}
+```
+
+Output of the above example in PHP 8 is similar to:
+
+```
+Fatal error: Declaration of Extend::foo() must be compatible with Base::foo(int $a = 5) in /in/evtlq on line 13
+```
+
+*Example: Fatal error when a child method makes an optional parameter mandatory*
+
+```php
+<?php
+
+class Base
+{
+    public function foo(int $a = 5) {
+        echo "Valid\n";
+    }
+}
+
+class Extend extends Base
+{
+    function foo(int $a)
+    {
+        parent::foo($a);
+    }
+}
+```
+
+Output of the above example in PHP 8 is similar to:
+
+```
+Fatal error: Declaration of Extend::foo(int $a) must be compatible with Base::foo(int $a = 5) in /in/qJXVC on line 13
+```
+
+Warning
+
+Renaming a method's *parameter* in a *child class* is not a *signature incompatibility*. However, this is discouraged as it will result in a runtime `Error` if *named arguments* are used.
+
+*Example: Error when using named arguments and parameters were renamed in a child class*
 
 ```php
 <?php
 
 class A {
-    public int $prop;
+    public function test($foo, $bar) {}
 }
+
 class B extends A {
-    // Illegal: read-write -> readonly
-    public readonly int $prop;
+    public function test($a, $b) {}
 }
-?>
+
+$obj = new B;
+
+// Pass parameters according to A::test() contract
+$obj->test(foo: "foo", bar: "bar"); // ERROR!
 ```
 
-*Example: Inheritance example*
+The above example will output something similar to:
 
-```php
-<?php
-
-class Foo
-{
-    public function printItem($string)
-    {
-        echo 'Foo: ' . $string . PHP_EOL;
-    }
-
-    public function printPHP()
-    {
-        echo 'PHP is great.' . PHP_EOL;
-    }
-}
-
-class Bar extends Foo
-{
-    public function printItem($string)
-    {
-        echo 'Bar: ' . $string . PHP_EOL;
-    }
-}
-
-$foo = new Foo();
-$bar = new Bar();
-$foo->printItem('baz'); // Output: 'Foo: baz'
-$foo->printPHP();       // Output: 'PHP is great'
-$bar->printItem('baz'); // Output: 'Bar: baz'
-$bar->printPHP();       // Output: 'PHP is great'
-
-?>
+```
+Fatal error: Uncaught Error: Unknown named parameter $foo in /in/XaaeN:14
+Stack trace:
+#0 {main}
+  thrown in /in/XaaeN on line 14
 ```
 
-### Return type compatibility with internal classes
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop.lsp)
+
+### Overriding and type compatibility rules
+
+#### Overriding and method types compatibility rules
+
+
+
+
+#### Overriding and method return type compatibility rules
 
 Prior to PHP 8.1, most *internal classes* or *methods* didn't *declare* their *return types*, and any *return type* was allowed when *extending* them.
 
@@ -523,7 +1372,121 @@ class MyDateTime extends DateTime
 ?>
 ```
 
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php)
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance.internal-classes)
+
+
+*Exapmle: Class inheritance and signature compatibility*
+
+```php
+<?php
+
+class Flower
+{
+    private const STAMP = '*';
+
+    public function bloom(int $quantity)
+    {
+        $blossoms = '';
+
+        for ($i = 0; $i < $quantity; $i++) {
+            $blossoms .= static::STAMP;
+        }
+
+        return $blossoms;
+    }
+}
+
+class Rose extends Flower
+{
+    protected const STAMP = '@';
+
+    public function bloom(int $quantity = 3): string
+    {
+        return parent::bloom($quantity);
+    }
+}
+
+class RoseBush extends Rose
+{
+    public function bloom(int $columns = 3, int $rows = 3): string
+    {
+        $blossoms = '';
+
+        for ($i = 0; $i < $rows; $i++) {
+            $blossoms .= Rose::bloom($columns);
+
+            if ($i < $rows - 1) {
+                $blossoms .= PHP_EOL;
+            }
+        }
+
+        return $blossoms;
+    }
+}
+
+function garden(Flower $flower, int $number)
+{
+    print($flower->bloom($number) . PHP_EOL . PHP_EOL);
+}
+
+$flower = new Flower();
+$rose = new Rose();
+$bush = new RoseBush();
+
+garden($flower, 3);
+garden($rose, 4);
+garden($bush, 5);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+***
+
+@@@@
+
+@@@@@
+@@@@@
+@@@@@
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/class_inheritance_and_method_signature_compatibility.php)
+
+#### Overriding and constructor signature compatibility rules
+
+An exception are *constructors*, whose *visibility* can be restricted, e.g. a *public constructor* can be marked as *private* in a *child class*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance)
+
+Unlike other methods, `__construct()` is exempt from the usual *signature compatibility* rules when being extended.
+
+*Constructors* are ordinary *methods* which are called during the *instantiation* of their corresponding *object*. As such, they may define an arbitrary number of *arguments*, which may be *required*, may have a *type*, and may have a *default value*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
+
+#### Overriding and readonly modifier
+
+Note:
+
+It is not allowed to *override* a *read-write property* with a *readonly property* or vice versa.
+
+```php
+<?php
+
+class A {
+    public int $prop;
+}
+class B extends A {
+    // Illegal: read-write -> readonly
+    public readonly int $prop;
+}
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance)
 
 ## Overloading
 
@@ -722,387 +1685,9 @@ Calling static method 'runTest' in static context
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.overloading.php)
 
-## Inheritance
+## Final class members
 
->>> `extends` keyword
-
-A *class* can *inherit* the *constants*, *methods*, and *properties* of another *class* by using the *keyword* `extends` in the *class declaration*. It is not possible to *extend* multiple *classes*; a *class* can only *inherit* from one *base class*.
-
-The *inherited* *constants*, *methods*, and *properties* can be *overridden* by *redeclaring* them with the same *name* *defined* in the *parent class*. However, if the *parent class* has defined a *method* or *constant* as *final*, they may not be *overridden*. It is possible to *access* the *overridden* methods or *static properties* by referencing them with `parent::`.
-
-Note: As of PHP 8.1.0, *constants* may be declared as *final*.
-
-*Example: Simple class inheritance*
-
-```php
-<?php
-class SimpleClass
-{
-    function displayVar()
-    {
-        echo "Parent class\n";
-    }
-}
-
-class ExtendClass extends SimpleClass
-{
-    // Redefine the parent method
-    function displayVar()
-    {
-        echo "Extending class\n";
-        parent::displayVar();
-    }
-}
-
-$extended = new ExtendClass();
-$extended->displayVar();
-?>
-```
-
-The above example will output:
-
-```
-Extending class
-Parent class
-```
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.extends)
-
-*Example: Class inheritance*
-
-```php
-<?php
-
-class BaseClass
-{
-    public const SOME_CONSTANT = 'grapefruit';
-    public static $someStaticProperty = 'lemon';
-    public $someProperty = 'orange';
-
-    static function someStaticMethod()
-    {
-        return 'kiwi';
-    }
-
-    function someMethod()
-    {
-        return 'melon';
-    }
-
-    function otherMethod()
-    {
-        return 'watermelon';
-    }
-
-    function anotherMethod()
-    {
-        return 'avocado';
-    }
-}
-
-class DerivedClass extends BaseClass
-{
-    public const OTHER_CONSTANT = 'potato';
-    public static $otherStaticProperty = 'tomato';
-    public $otherProperty = 'cucumber';
-
-    function otherMethod()
-    {
-        return 'radish';
-    }
-
-    function anotherMethod()
-    {
-        return parent::anotherMethod();
-    }
-}
-
-$someObject = new BaseClass();
-
-print("Base class:\n\n");
-print('Some constant: ' . BaseClass::SOME_CONSTANT . PHP_EOL);
-print('Some static property: ' . BaseClass::$someStaticProperty . PHP_EOL);
-print("Some property: {$someObject->someProperty}\n");
-print(PHP_EOL);
-print("Some method result: {$someObject->someMethod()}\n");
-print("Other method result: {$someObject->otherMethod()}\n");
-print("Another method result: {$someObject->anotherMethod()}\n");
-print(PHP_EOL);
-
-$otherObject = new DerivedClass();
-
-print("Derived class:\n\n");
-print('Some constant: ' . DerivedClass::SOME_CONSTANT . PHP_EOL);
-print('Some static property: ' . DerivedClass::$someStaticProperty . PHP_EOL);
-print("Some property: {$otherObject->someProperty}\n");
-print(PHP_EOL);
-print('Other constant: ' . DerivedClass::OTHER_CONSTANT . PHP_EOL);
-print('Other static property: ' . DerivedClass::$otherStaticProperty . PHP_EOL);
-print("Some property: {$otherObject->otherProperty}\n");
-print(PHP_EOL);
-print("Some method result: {$otherObject->someMethod()}\n");
-print("Other method result: {$otherObject->otherMethod()}\n");
-print("Another method result: {$otherObject->anotherMethod()}\n");
-print(PHP_EOL);
-
-```
-
-**Result (PHP 8.4)**:
-
-```
-Base class:
-
-Some constant: grapefruit
-Some static property: lemon
-Some property: orange
-
-Some method result: melon
-Other method result: watermelon
-Another method result: avocado
-
-Derived class:
-
-Some constant: grapefruit
-Some static property: lemon
-Some property: orange
-
-Other constant: potato
-Other static property: tomato
-Some property: cucumber
-
-Some method result: melon
-Other method result: radish
-Another method result: avocado
-
-```
-
-**Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_inheritance.php)
-
-### Class inheritance and method signature compatibility rules
-
-When *overriding a method*, its *signature* must be compatible with the *parent method*. Otherwise, a fatal error is emitted, or, prior to PHP 8.0.0, an `E_WARNING` level error is generated. A *signature* is compatible if it respects the *variance rules*, makes a mandatory *parameter* optional, adds only optional new *parameters* and doesn't restrict but only relaxes the *visibility*. This is known as the *Liskov Substitution Principle*, or *LSP* for short. The *constructor*, and *private methods* are exempt from these *signature compatibility rules*, and thus won't emit a fatal error in case of a *signature* mismatch.
-
-*Example: Compatible child methods*
-
-```php
-<?php
-
-class Base
-{
-    public function foo(int $a) {
-        echo "Valid\n";
-    }
-}
-
-class Extend1 extends Base
-{
-    function foo(int $a = 5)
-    {
-        parent::foo($a);
-    }
-}
-
-class Extend2 extends Base
-{
-    function foo(int $a, $b = 5)
-    {
-        parent::foo($a);
-    }
-}
-
-$extended1 = new Extend1();
-$extended1->foo();
-$extended2 = new Extend2();
-$extended2->foo(1);
-```
-
-The above example will output:
-
-```
-Valid
-Valid
-```
-
-The following examples demonstrate that a *child method* which removes a *parameter*, or makes an optional *parameter* mandatory, is not compatible with the parent method.
-
-*Example: Fatal error when a child method removes a parameter*
-
-```php
-<?php
-
-class Base
-{
-    public function foo(int $a = 5) {
-        echo "Valid\n";
-    }
-}
-
-class Extend extends Base
-{
-    function foo()
-    {
-        parent::foo(1);
-    }
-}
-```
-
-Output of the above example in PHP 8 is similar to:
-
-```
-Fatal error: Declaration of Extend::foo() must be compatible with Base::foo(int $a = 5) in /in/evtlq on line 13
-```
-
-*Example: Fatal error when a child method makes an optional parameter mandatory*
-
-```php
-<?php
-
-class Base
-{
-    public function foo(int $a = 5) {
-        echo "Valid\n";
-    }
-}
-
-class Extend extends Base
-{
-    function foo(int $a)
-    {
-        parent::foo($a);
-    }
-}
-```
-
-Output of the above example in PHP 8 is similar to:
-
-```
-Fatal error: Declaration of Extend::foo(int $a) must be compatible with Base::foo(int $a = 5) in /in/qJXVC on line 13
-```
-
-Warning
-
-Renaming a method's *parameter* in a *child class* is not a *signature incompatibility*. However, this is discouraged as it will result in a runtime `Error` if *named arguments* are used.
-
-*Example: Error when using named arguments and parameters were renamed in a child class*
-
-```php
-<?php
-
-class A {
-    public function test($foo, $bar) {}
-}
-
-class B extends A {
-    public function test($a, $b) {}
-}
-
-$obj = new B;
-
-// Pass parameters according to A::test() contract
-$obj->test(foo: "foo", bar: "bar"); // ERROR!
-```
-
-The above example will output something similar to:
-
-```
-Fatal error: Uncaught Error: Unknown named parameter $foo in /in/XaaeN:14
-Stack trace:
-#0 {main}
-  thrown in /in/XaaeN on line 14
-```
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop.lsp)
-
-*Exapmle: Class inheritance and signature compatibility*
-
-```php
-<?php
-
-class Flower
-{
-    private const STAMP = '*';
-
-    public function bloom(int $quantity)
-    {
-        $blossoms = '';
-
-        for ($i = 0; $i < $quantity; $i++) {
-            $blossoms .= static::STAMP;
-        }
-
-        return $blossoms;
-    }
-}
-
-class Rose extends Flower
-{
-    protected const STAMP = '@';
-
-    public function bloom(int $quantity = 3): string
-    {
-        return parent::bloom($quantity);
-    }
-}
-
-class RoseBush extends Rose
-{
-    public function bloom(int $columns = 3, int $rows = 3): string
-    {
-        $blossoms = '';
-
-        for ($i = 0; $i < $rows; $i++) {
-            $blossoms .= Rose::bloom($columns);
-
-            if ($i < $rows - 1) {
-                $blossoms .= PHP_EOL;
-            }
-        }
-
-        return $blossoms;
-    }
-}
-
-function garden(Flower $flower, int $number)
-{
-    print($flower->bloom($number) . PHP_EOL . PHP_EOL);
-}
-
-$flower = new Flower();
-$rose = new Rose();
-$bush = new RoseBush();
-
-garden($flower, 3);
-garden($rose, 4);
-garden($bush, 5);
-
-```
-
-**Result (PHP 8.4)**:
-
-```
-***
-
-@@@@
-
-@@@@@
-@@@@@
-@@@@@
-
-```
-
-**Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_inheritance_and_method_signature_compatibility.php)
-
-### Class inheritance and constructor signature compatibility rules
-
-Unlike other methods, `__construct()` is exempt from the usual *signature compatibility* rules when being extended.
-
-*Constructors* are ordinary *methods* which are called during the *instantiation* of their corresponding *object*. As such, they may define an arbitrary number of *arguments*, which may be *required*, may have a *type*, and may have a *default value*.
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
-
-## `final` keyword
+>>> `final` keyword
 
 The `final` *keyword* prevents *child classes* from *overriding a method*, *property*, or *constant* by prefixing the *definition* with `final`. If the *class* itself is being defined *final* then it cannot be *extended*.
 
@@ -1189,9 +1774,7 @@ Note: A *property* that is declared *private(set)* is implicitly *final*.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.final.php)
 
-#### Hooks inheritance
-
-##### Final hooks
+### Final hooks
 
 *Hooks* may also be declared *final*, in which case they may not be overridden.
 
@@ -1250,62 +1833,6 @@ class PositivePoint extends Point
 ```
 
 Each *hook* overrides *parent* implementations independently of each other. If a *child class* adds *hooks*, any *default value* set on the *property* is removed, and must be redeclared. That is the same consistent with how inheritance works on hook-less properties.
-
-##### Accessing parent hooks
-
-A *hook* in a *child class* may access the *parent class's property* using the `parent::$prop` *keyword*, followed by the desired *hook*. For example, `parent::$propName::get()`. It may be read as "access the prop defined on the parent class, and then run its get operation" (or set operation, as appropriate).
-
-If not accessed this way, the *parent class's hook* is ignored. This behavior is consistent with how all *methods* work. This also offers a way to access the parent class's storage, if any. If there is no *hook* on the *parent property*, its default get/set behavior will be used. *Hooks* may not access any other *hook* except their own *parent* on their own *property*.
-
-The example above could be rewritten as follows, which would allow for the `Point` class to add its own *set hook* in the future without issues (in the previous example, a *hook* added to the *parent class* would be ignored in the *child*).
-
-*Example: Parent hook access (set)*
-
-```php
-<?php
-class Point
-{
-    public int $x;
-    public int $y;
-}
-
-class PositivePoint extends Point
-{
-    public int $x {
-        set {
-            if ($value < 0) {
-                throw new \InvalidArgumentException('Too small');
-            }
-            parent::$x::set($value);
-        }
-    }
-}
-?>
-```
-
-An example of overriding only a get hook could be:
-
-*Example: Parent hook access (get)*
-
-```php
-<?php
-class Strings
-{
-    public string $val;
-}
-
-class CaseFoldingStrings extends Strings
-{
-    public bool $uppercase = true;
-
-    public string $val {
-        get => $this->uppercase
-            ? strtoupper(parent::$val::get())
-            : strtolower(parent::$val::get());
-    }
-}
-?>
-```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.property-hooks.php#language.oop5.property-hooks.virtual)
 

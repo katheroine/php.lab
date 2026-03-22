@@ -461,6 +461,7 @@ Laboratory of PHP.
                 11. [Lazy proxy](./example/code/classes_interfaces_traits/classes/objects/lazy_proxy.php)
             5. [Inheritance](./example/code/classes_interfaces_traits/classes/inheritance/)
                 1. [Class inheritance](./example/code/classes_interfaces_traits/classes/inheritance/class_inheritance.php)
+                2. [Extending class](./example/code/classes_interfaces_traits/classes/inheritance/extending_class.php)
                 2. [Class inheritance and method overrding](./example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_method_overriding.php)
                 3. [Class inheritance and members visibility](./example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_members_visibility.php)
                 4. [Class inheritance and mambers visibility compatibility]()
