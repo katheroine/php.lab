@@ -462,6 +462,8 @@ Laboratory of PHP.
             5. [Inheritance](./example/code/classes_interfaces_traits/classes/inheritance/)
                 1. [Class inheritance](./example/code/classes_interfaces_traits/classes/inheritance/class_inheritance.php)
                 2. [Class inheritance and method overrding](./example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_method_overriding.php)
+                3. [Class inheritance and members visibility](./example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_members_visibility.php)
+                4. [Class inheritance and mambers visibility compatibility]()
                 1. [Base and derived class](./example/code/classes_interfaces_traits/classes/inheritance/base_and_derived_class.php)
                 2. [Class access specifiers](./example/code/classes_interfaces_traits/classes/inheritance/class_access_specifiers.php)
                 3. [Base class components access](./example/code/classes_interfaces_traits/classes/inheritance/base_class_components_access.php)

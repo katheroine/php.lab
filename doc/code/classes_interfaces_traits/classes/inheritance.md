@@ -171,7 +171,249 @@ This is useful for *defining* and *abstracting* functionality, and permits the *
 
 *Private methods* of a *parent class* are not accessible to a *child class*. As a result, *child classes* may reimplement a *private method* themselves without regard for normal inheritance rules. Prior to PHP 8.0.0, however, *final* and *static* restrictions were applied to *private methods*. As of PHP 8.0.0, the only *private method* restriction that is enforced is *private final constructors*, as that is a common way to "disable" the *constructor* when using *static factory methods* instead.
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance)
+
+*Example: Class inheritance and members visibility*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public const SOME_PUBLIC_CONSTANT = 'public';
+    protected const SOME_PROTECTED_CONSTANT = 'protected';
+    private const SOME_PRIVATE_CONSTANT = 'private';
+
+    public $somePublicProperty = 'public';
+    protected $someProtectedProperty = 'protected';
+    private $somePrivateProperty = 'private';
+
+    public function somePublicMethod()
+    {
+        return 'public';
+    }
+
+    protected function someProtectedMethod()
+    {
+        return 'protected';
+    }
+
+    private function somePrivateMethod()
+    {
+        return 'private';
+    }
+
+    public function someMethod()
+    {
+        print(
+            __METHOD__
+            . "\n* constants:\n"
+            . self::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . self::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . self::SOME_PRIVATE_CONSTANT . PHP_EOL
+            . "\n* properties:\n"
+            . $this->somePublicProperty . PHP_EOL
+            . $this->someProtectedProperty . PHP_EOL
+            . $this->somePrivateProperty . PHP_EOL
+            . "\n* methods:\n"
+            . $this->somePublicMethod() . PHP_EOL
+            . $this->someProtectedMethod() . PHP_EOL
+            . $this->somePrivateMethod(). PHP_EOL
+            . PHP_EOL
+        );
+    }
+
+    public function anotherMethod(): void
+    {
+        print(__METHOD__ . PHP_EOL);
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    function otherMethod()
+    {
+        print(
+            __METHOD__
+            . "\n* constants:\n"
+            . self::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . self::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . "\n* properties:\n"
+            . $this->somePublicProperty . PHP_EOL
+            . $this->someProtectedProperty . PHP_EOL
+            . "\n* methods:\n"
+            . $this->somePublicMethod() . PHP_EOL
+            . $this->someProtectedMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+
+    public function anotherMethod(): void
+    {
+        parent::anotherMethod();
+        print(__METHOD__ . PHP_EOL);
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print(
+    "# Global scope:\n"
+    . "\n* constants:\n"
+    . SomeDerivedClass::SOME_PUBLIC_CONSTANT . PHP_EOL
+    . "\n* properties:\n"
+    . $someObject->somePublicProperty . PHP_EOL
+    . "\n* methods:\n"
+    . $someObject->somePublicMethod() . PHP_EOL
+    . PHP_EOL
+);
+
+$someObject->someMethod();
+$someObject->otherMethod();
+$someObject->anotherMethod();
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# Global scope:
+
+* constants:
+public
+
+* properties:
+public
+
+* methods:
+public
+
+SomeBaseClass::someMethod
+* constants:
+public
+protected
+private
+
+* properties:
+public
+protected
+private
+
+* methods:
+public
+protected
+private
+
+SomeDerivedClass::otherMethod
+* constants:
+public
+protected
+
+* properties:
+public
+protected
+
+* methods:
+public
+protected
+
+SomeBaseClass::anotherMethod
+SomeDerivedClass::anotherMethod
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_members_visibility.php)
+
 The *visibility* of *methods*, *properties* and *constants* can be relaxed, e.g. a *protected method* can be marked as *public*, but they cannot be restricted, e.g. marking a *public property* as *private*. An exception are *constructors*, whose *visibility* can be restricted, e.g. a *public constructor* can be marked as *private* in a *child class*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance)
+
+*Example: Class inheritance and members visibility compatibility*
+
+```php
+<?php
+
+class Association
+{
+    protected array $members = [];
+    public int $strength = 0;
+
+    public function __construct(
+        public string $name,
+        protected string $chairman,
+    ) {
+        $this->affiliate($chairman);
+    }
+
+    protected function affiliate(string $member)
+    {
+        $this->members[] = $member;
+        ++$this->strength;
+    }
+}
+
+class Club extends Association
+{
+    public array $members;
+
+    public function affiliate(string $member)
+    {
+        parent::affiliate($member);
+    }
+}
+
+function communityMeeting(Association $group)
+{
+    print(
+        "Group name: {$group->name}\n"
+        . "Group strength: {$group->strength}\n\n"
+    );
+}
+
+$someGroup = new Association('Western Academy Top Graduates', 'Simon Daffodil');
+print("# Association:\n\n");
+communityMeeting($someGroup);
+
+$otherGroup = new Club('Jotter Hobbyist Pen Club', 'Katy Pernickety');
+$otherGroup->affiliate('Doris Frog');
+$otherGroup->affiliate('Arthur Carbony');
+$otherGroup->affiliate('John Thyme');
+$otherGroup->affiliate('Kitty Pranky');
+print("# Club:\n\n");
+communityMeeting($otherGroup);
+print("Members:\n");
+foreach($otherGroup->members as $member) {
+    print($member . PHP_EOL);
+}
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# Association:
+
+Group name: Western Academy Top Graduates
+Group strength: 1
+
+# Club:
+
+Group name: Jotter Hobbyist Pen Club
+Group strength: 5
+
+Members:
+Katy Pernickety
+Doris Frog
+Arthur Carbony
+John Thyme
+Kitty Pranky
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_members_visibility_compatibility.php)
 
 Note:
 

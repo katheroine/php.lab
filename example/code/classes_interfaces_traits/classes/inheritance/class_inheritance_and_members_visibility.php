@@ -55,8 +55,6 @@ class SomeDerivedClass extends SomeBaseClass
 {
     function otherMethod()
     {
-        $this->someMethod();
-
         print(
             __METHOD__
             . "\n* constants:\n"
