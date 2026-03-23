@@ -1,0 +1,75 @@
+<?php
+
+class SomeBaseClass
+{
+    public $somePublicProperty = 'base public';
+    protected $someProtectedProperty = 'base protected';
+    private $somePrivateProperty = 'base private';
+
+    public function baseDynamicContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . '$this->somePrivateProperty : ' . $this->somePrivateProperty . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedDynamicContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedOverridingClass extends SomeBaseClass
+{
+    public $somePublicProperty = 'base public';
+    protected $someProtectedProperty = 'base protected';
+    private $somePrivateProperty = 'base private'; // It's not overriding but rather shadowing!
+    // It's completly new property - very own property of the derived class
+    // because private member of the base class is unaccessible and not visible for the derived class.
+
+    public function derivedOverridingDynamicContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . '$this->somePrivateProperty : ' . $this->somePrivateProperty . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseDynamicContext();
+$someObject->derivedDynamicContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->baseDynamicContext();
+$otherObject->derivedOverridingDynamicContext();
