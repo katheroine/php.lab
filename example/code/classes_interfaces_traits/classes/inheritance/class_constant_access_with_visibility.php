@@ -81,7 +81,7 @@ class SomeDerivedClass extends SomeBaseClass
         );
     }
 
-    public static function derivedDynamicContext()
+    public function derivedDynamicContext()
     {
         print(
             __METHOD__ . PHP_EOL
@@ -140,7 +140,7 @@ class SomeDerivedOverridingClass extends SomeBaseClass
         );
     }
 
-    public static function derivedOverridingDynamicContext()
+    public function derivedOverridingDynamicContext()
     {
         print(
             __METHOD__ . PHP_EOL
