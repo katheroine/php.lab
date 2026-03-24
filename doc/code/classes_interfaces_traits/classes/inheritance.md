@@ -1011,7 +1011,7 @@ static::SOME_FINAL_PUBLIC_CONSTANT : base final public const
 
 ### Property access
 
-#### Property access with visibility
+#### Property access
 
 *Example: Class property access with visibility*
 
@@ -1056,9 +1056,9 @@ class SomeDerivedClass extends SomeBaseClass
 
 class SomeDerivedOverridingClass extends SomeBaseClass
 {
-    public $somePublicProperty = 'base public';
-    protected $someProtectedProperty = 'base protected';
-    private $somePrivateProperty = 'base private'; // It's not overriding but rather shadowing!
+    public $somePublicProperty = 'derived public';
+    protected $someProtectedProperty = 'derived protected';
+    private $somePrivateProperty = 'derived private'; // It's not overriding but rather shadowing!
     // It's completly new property - very own property of the derived class
     // because private member of the base class is unaccessible and not visible for the derived class.
 
@@ -1133,25 +1133,25 @@ $this->somePrivateProperty : base private
 
 * protected:
 
-$this->someProtectedProperty : base protected
+$this->someProtectedProperty : derived protected
 
 * public:
 
-$this->somePublicProperty : base public
+$this->somePublicProperty : derived public
 
 SomeDerivedOverridingClass::derivedOverridingDynamicContext
 
 * private:
 
-$this->somePrivateProperty : base private
+$this->somePrivateProperty : derived private
 
 * protected:
 
-$this->someProtectedProperty : base protected
+$this->someProtectedProperty : derived protected
 
 * public:
 
-$this->somePublicProperty : base public
+$this->somePublicProperty : derived public
 
 ```
 
@@ -1375,6 +1375,168 @@ static::$somePublicProperty : derived static public
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_static_property_access_with_visibility.php)
+
+#### Readonly property access
+
+*Example: Class readonly property access with visibility*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public function __construct(
+        public readonly string $somePublicProperty = 'base readonly public',
+        protected readonly string $someProtectedProperty = 'base readonly protected',
+        private readonly string $somePrivateProperty = 'base readonly private',
+    ) {
+    }
+
+    public function baseDynamicContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . '$this->somePrivateProperty : ' . $this->somePrivateProperty . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedDynamicContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedOverridingClass extends SomeBaseClass
+{
+    private readonly string $somePrivateProperty; // It's not overriding but rather shadowing!
+    // It's completly new property - very own property of the derived class
+    // because private member of the base class is unaccessible and not visible for the derived class.
+
+    public function __construct()
+    {
+        // It mus be called for initialize properties before reading
+        // from the derived class object calling base class method.
+        parent::__construct(
+            'derived readonly public',
+            'derived readonly protected',
+            'derived readonly private',
+        );
+
+        $this->somePrivateProperty = 'derived shadowed readonly private';
+    }
+
+    public function derivedOverridingDynamicContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . '$this->somePrivateProperty : ' . $this->somePrivateProperty . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseDynamicContext();
+$someObject->derivedDynamicContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->baseDynamicContext();
+$otherObject->derivedOverridingDynamicContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeDerivedClass:
+
+SomeBaseClass::baseDynamicContext
+
+* private:
+
+$this->somePrivateProperty : base readonly private
+
+* protected:
+
+$this->someProtectedProperty : base readonly protected
+
+* public:
+
+$this->somePublicProperty : base readonly public
+
+SomeDerivedClass::derivedDynamicContext
+
+* protected:
+
+$this->someProtectedProperty : base readonly protected
+
+* public:
+
+$this->somePublicProperty : base readonly public
+
+# SomeDerivedOverridingClass:
+
+SomeBaseClass::baseDynamicContext
+
+* private:
+
+$this->somePrivateProperty : derived readonly private
+
+* protected:
+
+$this->someProtectedProperty : derived readonly protected
+
+* public:
+
+$this->somePublicProperty : derived readonly public
+
+SomeDerivedOverridingClass::derivedOverridingDynamicContext
+
+* private:
+
+$this->somePrivateProperty : derived shadowed readonly private
+
+* protected:
+
+$this->someProtectedProperty : derived readonly protected
+
+* public:
+
+$this->somePublicProperty : derived readonly public
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_readonly_property_access_with_visibility.php)
+
 
 ### Hooks access
 

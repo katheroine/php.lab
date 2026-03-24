@@ -468,6 +468,7 @@ Laboratory of PHP.
                 5. [Class final constant access with visibility](./example/code/classes_interfaces_traits/classes/inheritance/class_final_constant_access_with_visibility.php)
                 6. [Class property access with visibility](./example/code/classes_interfaces_traits/classes/inheritance/class_property_access_with_visibility.php)
                 7. [Class static property access with visibility](./example/code/classes_interfaces_traits/classes/inheritance/class_static_property_access_with_visibility.php)
+                8. [Class readonly property access with visibility](./example/code/classes_interfaces_traits/classes/inheritance/class_readonly_property_access_with_visibility.php)
                 4. [Class inheritance and members visibility compatibility](./example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_members_visibility_compatibility.php)
                 1. [Base and derived class](./example/code/classes_interfaces_traits/classes/inheritance/base_and_derived_class.php)
                 2. [Class access specifiers](./example/code/classes_interfaces_traits/classes/inheritance/class_access_specifiers.php)
