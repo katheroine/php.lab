@@ -267,9 +267,51 @@ Unless *autoloading* is used, the *classes* must be *defined* before they are us
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance)
 
-## Members access
+## Base and derived class
 
-### Members visibility
+*Example: Base and derived class*
+
+```php
+<?php
+
+class Mammal
+{
+    public string $classTaxon = "Mammalia";
+}
+
+class Fox extends Mammal
+{
+    public string $speciesTaxon = "Vulpes vulpes";
+    public string $name;
+
+    public function show() : void
+    {
+        print("Hi, my name is {$this->name}.\n"
+            . "Class: {$this->classTaxon}\n"
+            . "Species: {$this->speciesTaxon}\n"
+        );
+    }
+}
+
+$foxFerdinand = new Fox();
+
+$foxFerdinand->name = "Ferdinand";
+$foxFerdinand->show();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Hi, my name is Ferdinand.
+Class: Mammalia
+Species: Vulpes vulpes
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/base_and_derived_class.php)
+
+## Members visibility
 
 *Private methods* of a *parent class* are not accessible to a *child class*. As a result, *child classes* may reimplement a *private method* themselves without regard for normal inheritance rules. Prior to PHP 8.0.0, however, *final* and *static* restrictions were applied to *private methods*. As of PHP 8.0.0, the only *private method* restriction that is enforced is *private final constructors*, as that is a common way to "disable" the *constructor* when using *static factory methods* instead.
 
@@ -427,6 +469,98 @@ SomeDerivedClass::anotherMethod
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_members_visibility.php)
+
+*Example: Class members visibility modifiers*
+
+```php
+<?php
+
+class Mammal
+{
+    public bool $isDomesticated;
+
+    protected bool $hasTail;
+
+    private bool $isMilkFeeded = true;
+    private string $classTaxon = "Mammalia";
+}
+
+class Fox extends Mammal
+{
+    public string $name;
+
+    public function __construct()
+    {
+        $this->hasTail = true;
+        $this->isDomesticated = false;
+    }
+
+    public function show() : void
+    {
+        print("Hi, my name is {$this->name}\n"
+            . "Species: {$this->speciesTaxon}\n"
+            . "Do I have tail? {$this->hasTail}\n"
+            . "Do I have fur? {$this->hasFur}\n"
+            . "Am I domesticated? {$this->isDomesticated}\n\n"
+        );
+    }
+
+    private bool $hasFur = true;
+    private string $speciesTaxon = "Vulpes vulpes";
+}
+
+class UrbanFox extends Fox
+{
+    public function display() : void
+    {
+        print("Hi, my name is {$this->name}\n"
+            . "Do I have tail? {$this->hasTail}\n"
+            . "Am I domesticated? {$this->isDomesticated}\n\n"
+        );
+    }
+}
+
+$foxFerdinand = new Fox();
+
+$foxFerdinand->name = "Ferdinand";
+$foxFerdinand->isDomesticated = true;
+
+$foxFerdinand->show();
+
+print("Hi, my name is {$foxFerdinand->name}\n"
+    . "Am I domesticated? {$foxFerdinand->isDomesticated}\n\n"
+);
+
+$foxMelody = new UrbanFox();
+
+$foxMelody->name = "Melody";
+
+$foxMelody->display();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Hi, my name is Ferdinand
+Species: Vulpes vulpes
+Do I have tail? 1
+Do I have fur? 1
+Am I domesticated? 1
+
+Hi, my name is Ferdinand
+Am I domesticated? 1
+
+Hi, my name is Melody
+Do I have tail? 1
+Am I domesticated?
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_members_visibility_modifiers.php)
+
+## Members access
 
 ### Class constant access
 
@@ -1075,7 +1209,6 @@ class SomeDerivedOverridingClass extends SomeBaseClass
             . PHP_EOL
         );
     }
-
 }
 
 $someObject = new SomeDerivedClass();
@@ -2594,13 +2727,333 @@ $this->somePublicProperty : derived public base hook + derived public derived ho
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_property_hook_access_with_visibility.php)
 
-## Overriding
+## Members overriding
 
-The *inherited* *constants*, *methods*, and *properties* can be *overridden* by *redeclaring* them with the same *name* *defined* in the *parent class*. However, if the *parent class* has defined a *method* or *constant* as *final*, they may not be *overridden*. It is possible to *access* the *overridden* methods or *static properties* by referencing them with `parent::`.
+The *inherited* *constants*, *methods*, and *properties* can be *overridden* by *redeclaring* them with the same *name* *defined* in the *parent class*. However, if the *parent class* has defined a *method* or *constant* as *final*, they may not be *overridden*. It is possible to *access* the *overridden* [constants, -- KK] methods or *static properties* by referencing them with `parent::`.
 
 Note: As of PHP 8.1.0, *constants* may be declared as *final*.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.extends)
+
+### Class constant overriding
+
+*Example: Class constant overriding with visibility*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public const SOME_PUBLIC_CONSTANT = 'base public';
+    protected const SOME_PROTECTED_CONSTANT = 'base protected';
+    private const SOME_PRIVATE_CONSTANT = 'base private';
+
+    public function baseContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . 'self::SOME_PRIVATE_CONSTANT : ' . self::SOME_PRIVATE_CONSTANT . PHP_EOL
+            // Cannot be called without error in the derived class:
+            // . 'static::SOME_PRIVATE_CONSTANT : ' . static::SOME_PRIVATE_CONSTANT . PHP_EOL
+            // Private members are unaccessible in the derived classes.
+            . "\n* protected:\n\n"
+            . 'self::SOME_PROTECTED_CONSTANT : ' . self::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . 'static::SOME_PROTECTED_CONSTANT : ' . static::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . "\n* public:\n\n"
+            . 'self::SOME_PUBLIC_CONSTANT : ' . self::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . 'static::SOME_PUBLIC_CONSTANT : ' . static::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'parent::SOME_PROTECTED_CONSTANT : ' . parent::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . 'self::SOME_PROTECTED_CONSTANT : ' . self::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . 'static::SOME_PROTECTED_CONSTANT : ' . static::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . "\n* public:\n\n"
+            . 'parent::SOME_PUBLIC_CONSTANT : ' . parent::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . 'self::SOME_PUBLIC_CONSTANT : ' . self::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . 'static::SOME_PUBLIC_CONSTANT : ' . static::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedOverridingClass extends SomeBaseClass
+{
+    public const SOME_PUBLIC_CONSTANT = 'derived public';
+    protected const SOME_PROTECTED_CONSTANT = 'derived protected';
+    private const SOME_PRIVATE_CONSTANT = 'derived shadowed private'; // It's not overriding but rather shadowing!
+    // It's completly new constant - very own constant of the derived class
+    // because private member of the base class is unaccessible and not visible for the derived class.
+
+    public function derivedOverridingContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . 'self::SOME_PRIVATE_CONSTANT : ' . self::SOME_PRIVATE_CONSTANT . PHP_EOL
+            // This will be dangerous in case of further inheritance:
+            . 'static::SOME_PRIVATE_CONSTANT : ' . static::SOME_PRIVATE_CONSTANT . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'parent::SOME_PROTECTED_CONSTANT : ' . parent::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . 'self::SOME_PROTECTED_CONSTANT : ' . self::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . 'static::SOME_PROTECTED_CONSTANT : ' . static::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . "\n* public:\n\n"
+            . 'parent::SOME_PUBLIC_CONSTANT : ' . parent::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . 'self::SOME_PUBLIC_CONSTANT : ' . self::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . 'static::SOME_PUBLIC_CONSTANT : ' . static::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseContext();
+$someObject->derivedContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->baseContext();
+$otherObject->derivedOverridingContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeDerivedClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+self::SOME_PRIVATE_CONSTANT : base private
+
+* protected:
+
+self::SOME_PROTECTED_CONSTANT : base protected
+static::SOME_PROTECTED_CONSTANT : base protected
+
+* public:
+
+self::SOME_PUBLIC_CONSTANT : base public
+static::SOME_PUBLIC_CONSTANT : base public
+
+SomeDerivedClass::derivedContext
+
+* protected:
+
+parent::SOME_PROTECTED_CONSTANT : base protected
+self::SOME_PROTECTED_CONSTANT : base protected
+static::SOME_PROTECTED_CONSTANT : base protected
+
+* public:
+
+parent::SOME_PUBLIC_CONSTANT : base public
+self::SOME_PUBLIC_CONSTANT : base public
+static::SOME_PUBLIC_CONSTANT : base public
+
+# SomeDerivedOverridingClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+self::SOME_PRIVATE_CONSTANT : base private
+
+* protected:
+
+self::SOME_PROTECTED_CONSTANT : base protected
+static::SOME_PROTECTED_CONSTANT : derived protected
+
+* public:
+
+self::SOME_PUBLIC_CONSTANT : base public
+static::SOME_PUBLIC_CONSTANT : derived public
+
+SomeDerivedOverridingClass::derivedOverridingContext
+
+* private:
+
+self::SOME_PRIVATE_CONSTANT : derived shadowed private
+static::SOME_PRIVATE_CONSTANT : derived shadowed private
+
+* protected:
+
+parent::SOME_PROTECTED_CONSTANT : base protected
+self::SOME_PROTECTED_CONSTANT : derived protected
+static::SOME_PROTECTED_CONSTANT : derived protected
+
+* public:
+
+parent::SOME_PUBLIC_CONSTANT : base public
+self::SOME_PUBLIC_CONSTANT : derived public
+static::SOME_PUBLIC_CONSTANT : derived public
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_constant_overriding_with_visibility.php)
+
+### Property overriding
+
+*Example: Class property overriding with visibility*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public $somePublicProperty = 'base public';
+    protected $someProtectedProperty = 'base protected';
+    private $somePrivateProperty = 'base private';
+
+    public function baseContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . '$this->somePrivateProperty : ' . $this->somePrivateProperty . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedOverridingClass extends SomeBaseClass
+{
+    public $somePublicProperty = 'derived public';
+    protected $someProtectedProperty = 'derived protected';
+    private $somePrivateProperty = 'derived shadowed private'; // It's not overriding but rather shadowing!
+    // It's completly new property - very own property of the derived class
+    // because private member of the base class is unaccessible and not visible for the derived class.
+
+    public function derivedOverridingContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . '$this->somePrivateProperty : ' . $this->somePrivateProperty . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseContext();
+$someObject->derivedContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->baseContext();
+$otherObject->derivedOverridingContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeDerivedClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+$this->somePrivateProperty : base private
+
+* protected:
+
+$this->someProtectedProperty : base protected
+
+* public:
+
+$this->somePublicProperty : base public
+
+SomeDerivedClass::derivedContext
+
+* protected:
+
+$this->someProtectedProperty : base protected
+
+* public:
+
+$this->somePublicProperty : base public
+
+# SomeDerivedOverridingClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+$this->somePrivateProperty : base private
+
+* protected:
+
+$this->someProtectedProperty : derived protected
+
+* public:
+
+$this->somePublicProperty : derived public
+
+SomeDerivedOverridingClass::derivedOverridingContext
+
+* private:
+
+$this->somePrivateProperty : derived shadowed private
+
+* protected:
+
+$this->someProtectedProperty : derived protected
+
+* public:
+
+$this->somePublicProperty : derived public
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_property_overriding_with_visibility.php)
 
 *Example: Class inheritance and method overriding*
 
@@ -2657,7 +3110,7 @@ The *visibility* of *methods*, *properties* and *constants* can be relaxed, e.g.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance)
 
-A [method -- KK] *signature* is compatible if it respects the *variance rules*, makes a mandatory *parameter* optional, adds only optional new *parameters* and doesn't restrict but only relaxes the *visibility*. This is known as the *Liskov Substitution Principle*, or *LSP* for short. The *constructor*, and *private methods* are exempt from these *signature compatibility rules*, and thus won't emit a fatal error in case of a *signature* mismatch.
+A [method] *signature* is compatible if it respects the *variance rules*, makes a mandatory *parameter* optional, adds only optional new *parameters* and doesn't restrict but only relaxes the *visibility*. This is known as the *Liskov Substitution Principle*, or *LSP* for short. The *constructor*, and *private methods* are exempt from these *signature compatibility rules*, and thus won't emit a fatal error in case of a *signature* mismatch.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop.lsp)
 
@@ -2745,6 +3198,7 @@ Kitty Pranky
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_members_visibility_compatibility.php)
+
 *Example: Compatible child methods*
 
 ```php
