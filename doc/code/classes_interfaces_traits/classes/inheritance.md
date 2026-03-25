@@ -1950,10 +1950,24 @@ class SomeBaseClass
         print(
             __METHOD__ . PHP_EOL
             . "\n* private:\n\n"
+            . 'SomeBaseClass::somePrivateMethod() : ' . SomeBaseClass::somePrivateMethod() . PHP_EOL
+            . '(__CLASS__)::somePrivateMethod() : ' . (__CLASS__)::somePrivateMethod() . PHP_EOL
+            . 'self::somePrivateMethod() : ' . self::somePrivateMethod() . PHP_EOL
+            // Cannot be called without error in the derived class:
+            // . 'static::somePrivateMethod() : ' . static::somePrivateMethod() . PHP_EOL
+            // Private members are unaccessible in the derived classes.
             . '$this->somePrivateMethod() : ' . $this->somePrivateMethod() . PHP_EOL
             . "\n* protected:\n\n"
+            . 'SomeBaseClass::someProtectedMethod() : ' . SomeBaseClass::someProtectedMethod() . PHP_EOL
+            . '(__CLASS__)::someProtectedMethod() : ' . (__CLASS__)::someProtectedMethod() . PHP_EOL
+            . 'self::someProtectedMethod() : ' . self::someProtectedMethod() . PHP_EOL
+            . 'static::someProtectedMethod() : ' . static::someProtectedMethod() . PHP_EOL
             . '$this->someProtectedMethod() : ' . $this->someProtectedMethod() . PHP_EOL
             . "\n* public:\n\n"
+            . 'SomeBaseClass::somePublicMethod() : ' . SomeBaseClass::somePublicMethod() . PHP_EOL
+            . '(__CLASS__)::somePublicMethod() : ' . (__CLASS__)::somePublicMethod() . PHP_EOL
+            . 'self::somePublicMethod() : ' . self::somePublicMethod() . PHP_EOL
+            . 'static::somePublicMethod() : ' . static::somePublicMethod() . PHP_EOL
             . '$this->somePublicMethod() : ' . $this->somePublicMethod() . PHP_EOL
             . PHP_EOL
         );
@@ -1967,8 +1981,20 @@ class SomeDerivedClass extends SomeBaseClass
         print(
             __METHOD__ . PHP_EOL
             . "\n* protected:\n\n"
+            . 'SomeBaseClass::someProtectedMethod() : ' . SomeBaseClass::someProtectedMethod() . PHP_EOL
+            . 'parent::someProtectedMethod() : ' . parent::someProtectedMethod() . PHP_EOL
+            . 'SomeDerivedClass::someProtectedMethod() : ' . SomeDerivedClass::someProtectedMethod() . PHP_EOL
+            . '(__CLASS__)::someProtectedMethod() : ' . (__CLASS__)::someProtectedMethod() . PHP_EOL
+            . 'self::someProtectedMethod() : ' . self::someProtectedMethod() . PHP_EOL
+            . 'static::someProtectedMethod() : ' . static::someProtectedMethod() . PHP_EOL
             . '$this->someProtectedMethod() : ' . $this->someProtectedMethod() . PHP_EOL
             . "\n* public:\n\n"
+            . 'SomeBaseClass::somePublicMethod() : ' . SomeBaseClass::somePublicMethod() . PHP_EOL
+            . 'parent::somePublicMethod() : ' . parent::somePublicMethod() . PHP_EOL
+            . 'SomeDerivedClass::somePublicMethod() : ' . SomeDerivedClass::somePublicMethod() . PHP_EOL
+            . '(__CLASS__)::somePublicMethod() : ' . (__CLASS__)::somePublicMethod() . PHP_EOL
+            . 'self::somePublicMethod() : ' . self::somePublicMethod() . PHP_EOL
+            . 'static::somePublicMethod() : ' . static::somePublicMethod() . PHP_EOL
             . '$this->somePublicMethod() : ' . $this->somePublicMethod() . PHP_EOL
             . PHP_EOL
         );
@@ -1987,22 +2013,39 @@ class SomeDerivedOverridingClass extends SomeBaseClass
         return 'derived protected';
     }
 
-    private function somePrivateMethod()
-    {
-        return 'derived shadowed private';
-    } // It's not overriding but rather shadowing!
+    private function somePrivateMethod() // It's not overriding but rather shadowing!
     // It's completly new method - very own method of the derived class
     // because private member of the base class is unaccessible and not visible for the derived class.
+    {
+        return 'derived shadowed private';
+    }
 
     public function derivedOverridingDynamicContext()
     {
         print(
             __METHOD__ . PHP_EOL
             . "\n* private:\n\n"
+            . 'SomeDerivedOverridingClass::somePrivateMethod() : ' . SomeDerivedOverridingClass::somePrivateMethod() . PHP_EOL
+            . '(__CLASS__)::somePrivateMethod() : ' . (__CLASS__)::somePrivateMethod() . PHP_EOL
+            . 'self::somePrivateMethod() : ' . self::somePrivateMethod() . PHP_EOL
+            // This will be dangerous in case of further inheritance:
+            . 'static::somePrivateMethod() : ' . static::somePrivateMethod() . PHP_EOL
             . '$this->somePrivateMethod() : ' . $this->somePrivateMethod() . PHP_EOL
             . "\n* protected:\n\n"
+            . 'SomeBaseClass::someProtectedMethod() : ' . SomeBaseClass::someProtectedMethod() . PHP_EOL
+            . 'parent::someProtectedMethod() : ' . parent::someProtectedMethod() . PHP_EOL
+            . 'SomeDerivedOverridingClass::someProtectedMethod() : ' . SomeDerivedOverridingClass::someProtectedMethod() . PHP_EOL
+            . '(__CLASS__)::someProtectedMethod() : ' . (__CLASS__)::someProtectedMethod() . PHP_EOL
+            . 'self::someProtectedMethod() : ' . self::someProtectedMethod() . PHP_EOL
+            . 'static::someProtectedMethod() : ' . static::someProtectedMethod() . PHP_EOL
             . '$this->someProtectedMethod() : ' . $this->someProtectedMethod() . PHP_EOL
             . "\n* public:\n\n"
+            . 'SomeBaseClass::somePublicMethod() : ' . SomeBaseClass::somePublicMethod() . PHP_EOL
+            . 'parent::somePublicMethod() : ' . parent::somePublicMethod() . PHP_EOL
+            . 'SomeDerivedOverridingClass::somePublicMethod() : ' . SomeDerivedOverridingClass::somePublicMethod() . PHP_EOL
+            . '(__CLASS__)::somePublicMethod() : ' . (__CLASS__)::somePublicMethod() . PHP_EOL
+            . 'self::somePublicMethod() : ' . self::somePublicMethod() . PHP_EOL
+            . 'static::somePublicMethod() : ' . static::somePublicMethod() . PHP_EOL
             . '$this->somePublicMethod() : ' . $this->somePublicMethod() . PHP_EOL
             . PHP_EOL
         );
@@ -2034,24 +2077,47 @@ SomeBaseClass::baseDynamicContext
 
 * private:
 
+SomeBaseClass::somePrivateMethod() : base private
+(__CLASS__)::somePrivateMethod() : base private
+self::somePrivateMethod() : base private
 $this->somePrivateMethod() : base private
 
 * protected:
 
+SomeBaseClass::someProtectedMethod() : base protected
+(__CLASS__)::someProtectedMethod() : base protected
+self::someProtectedMethod() : base protected
+static::someProtectedMethod() : base protected
 $this->someProtectedMethod() : base protected
 
 * public:
 
+SomeBaseClass::somePublicMethod() : base public
+(__CLASS__)::somePublicMethod() : base public
+self::somePublicMethod() : base public
+static::somePublicMethod() : base public
 $this->somePublicMethod() : base public
 
 SomeDerivedClass::derivedDynamicContext
 
 * protected:
 
+SomeBaseClass::someProtectedMethod() : base protected
+parent::someProtectedMethod() : base protected
+SomeDerivedClass::someProtectedMethod() : base protected
+(__CLASS__)::someProtectedMethod() : base protected
+self::someProtectedMethod() : base protected
+static::someProtectedMethod() : base protected
 $this->someProtectedMethod() : base protected
 
 * public:
 
+SomeBaseClass::somePublicMethod() : base public
+parent::somePublicMethod() : base public
+SomeDerivedClass::somePublicMethod() : base public
+(__CLASS__)::somePublicMethod() : base public
+self::somePublicMethod() : base public
+static::somePublicMethod() : base public
 $this->somePublicMethod() : base public
 
 # SomeDerivedOverridingClass:
@@ -2060,28 +2126,55 @@ SomeBaseClass::baseDynamicContext
 
 * private:
 
+SomeBaseClass::somePrivateMethod() : base private
+(__CLASS__)::somePrivateMethod() : base private
+self::somePrivateMethod() : base private
 $this->somePrivateMethod() : base private
 
 * protected:
 
+SomeBaseClass::someProtectedMethod() : base protected
+(__CLASS__)::someProtectedMethod() : base protected
+self::someProtectedMethod() : base protected
+static::someProtectedMethod() : derived protected
 $this->someProtectedMethod() : derived protected
 
 * public:
 
+SomeBaseClass::somePublicMethod() : base public
+(__CLASS__)::somePublicMethod() : base public
+self::somePublicMethod() : base public
+static::somePublicMethod() : derived public
 $this->somePublicMethod() : derived public
 
 SomeDerivedOverridingClass::derivedOverridingDynamicContext
 
 * private:
 
+SomeDerivedOverridingClass::somePrivateMethod() : derived shadowed private
+(__CLASS__)::somePrivateMethod() : derived shadowed private
+self::somePrivateMethod() : derived shadowed private
+static::somePrivateMethod() : derived shadowed private
 $this->somePrivateMethod() : derived shadowed private
 
 * protected:
 
+SomeBaseClass::someProtectedMethod() : base protected
+parent::someProtectedMethod() : base protected
+SomeDerivedOverridingClass::someProtectedMethod() : derived protected
+(__CLASS__)::someProtectedMethod() : derived protected
+self::someProtectedMethod() : derived protected
+static::someProtectedMethod() : derived protected
 $this->someProtectedMethod() : derived protected
 
 * public:
 
+SomeBaseClass::somePublicMethod() : base public
+parent::somePublicMethod() : base public
+SomeDerivedOverridingClass::somePublicMethod() : derived public
+(__CLASS__)::somePublicMethod() : derived public
+self::somePublicMethod() : derived public
+static::somePublicMethod() : derived public
 $this->somePublicMethod() : derived public
 
 ```
@@ -2911,7 +3004,7 @@ static::SOME_PUBLIC_CONSTANT : derived public
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_constant_overriding_with_visibility.php)
 
-### Property overriding
+### Dynamic property overriding
 
 *Example: Class property overriding with visibility*
 
@@ -3231,6 +3324,431 @@ static::$somePublicProperty : derived static public
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_static_property_overriding_with_visibility.php)
 
+### Dynamic method overriding
+
+*Example: Class dynamic method overriding with visibility*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public function somePublicMethod()
+    {
+        return 'base public';
+    }
+
+    protected function someProtectedMethod()
+    {
+        return 'base protected';
+    }
+
+    private function somePrivateMethod()
+    {
+        return 'base private';
+    }
+
+    public function baseContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . 'self::somePrivateMethod() : ' . self::somePrivateMethod() . PHP_EOL
+            // Cannot be called without error in the derived class:
+            // . 'static::somePrivateMethod() : ' . static::somePrivateMethod() . PHP_EOL
+            // Private members are unaccessible in the derived classes.
+            . '$this->somePrivateMethod() : ' . $this->somePrivateMethod() . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'self::someProtectedMethod() : ' . self::someProtectedMethod() . PHP_EOL
+            . 'static::someProtectedMethod() : ' . static::someProtectedMethod() . PHP_EOL
+            . '$this->someProtectedMethod() : ' . $this->someProtectedMethod() . PHP_EOL
+            . "\n* public:\n\n"
+            . 'self::somePublicMethod() : ' . self::somePublicMethod() . PHP_EOL
+            . 'static::somePublicMethod() : ' . static::somePublicMethod() . PHP_EOL
+            . '$this->somePublicMethod() : ' . $this->somePublicMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'parent::someProtectedMethod() : ' . parent::someProtectedMethod() . PHP_EOL
+            . 'self::someProtectedMethod() : ' . self::someProtectedMethod() . PHP_EOL
+            . 'static::someProtectedMethod() : ' . static::someProtectedMethod() . PHP_EOL
+            . '$this->someProtectedMethod() : ' . $this->someProtectedMethod() . PHP_EOL
+            . "\n* public:\n\n"
+            . 'parent::somePublicMethod() : ' . parent::somePublicMethod() . PHP_EOL
+            . 'self::somePublicMethod() : ' . self::somePublicMethod() . PHP_EOL
+            . 'static::somePublicMethod() : ' . static::somePublicMethod() . PHP_EOL
+            . '$this->somePublicMethod() : ' . $this->somePublicMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedOverridingClass extends SomeBaseClass
+{
+    public function somePublicMethod()
+    {
+        return 'derived public';
+    }
+
+    protected function someProtectedMethod()
+    {
+        return 'derived protected';
+    }
+
+    private function somePrivateMethod() // It's not overriding but rather shadowing!
+    // It's completly new method - very own method of the derived class
+    // because private member of the base class is unaccessible and not visible for the derived class.
+    {
+        return 'derived shadowed private';
+    }
+
+    public function derivedOverridingContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . 'self::somePrivateMethod() : ' . self::somePrivateMethod() . PHP_EOL
+            // This will be dangerous in case of further inheritance:
+            . 'static::somePrivateMethod() : ' . static::somePrivateMethod() . PHP_EOL
+            . '$this->somePrivateMethod() : ' . $this->somePrivateMethod() . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'parent::someProtectedMethod() : ' . parent::someProtectedMethod() . PHP_EOL
+            . 'self::someProtectedMethod() : ' . self::someProtectedMethod() . PHP_EOL
+            . 'static::someProtectedMethod() : ' . static::someProtectedMethod() . PHP_EOL
+            . '$this->someProtectedMethod() : ' . $this->someProtectedMethod() . PHP_EOL
+            . "\n* public:\n\n"
+            . 'parent::somePublicMethod() : ' . parent::somePublicMethod() . PHP_EOL
+            . 'self::somePublicMethod() : ' . self::somePublicMethod() . PHP_EOL
+            . 'static::somePublicMethod() : ' . static::somePublicMethod() . PHP_EOL
+            . '$this->somePublicMethod() : ' . $this->somePublicMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseContext();
+$someObject->derivedContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->baseContext();
+$otherObject->derivedOverridingContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeDerivedClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+self::somePrivateMethod() : base private
+$this->somePrivateMethod() : base private
+
+* protected:
+
+self::someProtectedMethod() : base protected
+static::someProtectedMethod() : base protected
+$this->someProtectedMethod() : base protected
+
+* public:
+
+self::somePublicMethod() : base public
+static::somePublicMethod() : base public
+$this->somePublicMethod() : base public
+
+SomeDerivedClass::derivedContext
+
+* protected:
+
+parent::someProtectedMethod() : base protected
+self::someProtectedMethod() : base protected
+static::someProtectedMethod() : base protected
+$this->someProtectedMethod() : base protected
+
+* public:
+
+parent::somePublicMethod() : base public
+self::somePublicMethod() : base public
+static::somePublicMethod() : base public
+$this->somePublicMethod() : base public
+
+# SomeDerivedOverridingClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+self::somePrivateMethod() : base private
+$this->somePrivateMethod() : base private
+
+* protected:
+
+self::someProtectedMethod() : base protected
+static::someProtectedMethod() : derived protected
+$this->someProtectedMethod() : derived protected
+
+* public:
+
+self::somePublicMethod() : base public
+static::somePublicMethod() : derived public
+$this->somePublicMethod() : derived public
+
+SomeDerivedOverridingClass::derivedOverridingContext
+
+* private:
+
+self::somePrivateMethod() : derived shadowed private
+static::somePrivateMethod() : derived shadowed private
+$this->somePrivateMethod() : derived shadowed private
+
+* protected:
+
+parent::someProtectedMethod() : base protected
+self::someProtectedMethod() : derived protected
+static::someProtectedMethod() : derived protected
+$this->someProtectedMethod() : derived protected
+
+* public:
+
+parent::somePublicMethod() : base public
+self::somePublicMethod() : derived public
+static::somePublicMethod() : derived public
+$this->somePublicMethod() : derived public
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_with_visibility.php)
+
+### Static method overriding
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public static function somePublicStaticMethod()
+    {
+        return 'base public';
+    }
+
+    protected static function someProtectedStaticMethod()
+    {
+        return 'base protected';
+    }
+
+    private static function somePrivateStaticMethod()
+    {
+        return 'base private';
+    }
+
+    public function baseContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . 'self::somePrivateStaticMethod() : ' . self::somePrivateStaticMethod() . PHP_EOL
+            // Cannot be called without error in the derived class:
+            // . 'static::somePrivateStaticMethod() : ' . static::somePrivateStaticMethod() . PHP_EOL
+            // Private members are unaccessible in the derived classes.
+            . '$this->somePrivateStaticMethod() : ' . $this->somePrivateStaticMethod() . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'self::someProtectedStaticMethod() : ' . self::someProtectedStaticMethod() . PHP_EOL
+            . 'static::someProtectedStaticMethod() : ' . static::someProtectedStaticMethod() . PHP_EOL
+            . '$this->someProtectedStaticMethod() : ' . $this->someProtectedStaticMethod() . PHP_EOL
+            . "\n* public:\n\n"
+            . 'self::somePublicStaticMethod() : ' . self::somePublicStaticMethod() . PHP_EOL
+            . 'static::somePublicStaticMethod() : ' . static::somePublicStaticMethod() . PHP_EOL
+            . '$this->somePublicStaticMethod() : ' . $this->somePublicStaticMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'parent::someProtectedStaticMethod() : ' . parent::someProtectedStaticMethod() . PHP_EOL
+            . 'self::someProtectedStaticMethod() : ' . self::someProtectedStaticMethod() . PHP_EOL
+            . 'static::someProtectedStaticMethod() : ' . static::someProtectedStaticMethod() . PHP_EOL
+            . '$this->someProtectedStaticMethod() : ' . $this->someProtectedStaticMethod() . PHP_EOL
+            . "\n* public:\n\n"
+            . 'parent::somePublicStaticMethod() : ' . parent::somePublicStaticMethod() . PHP_EOL
+            . 'self::somePublicStaticMethod() : ' . self::somePublicStaticMethod() . PHP_EOL
+            . 'static::somePublicStaticMethod() : ' . static::somePublicStaticMethod() . PHP_EOL
+            . '$this->somePublicStaticMethod() : ' . $this->somePublicStaticMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedOverridingClass extends SomeBaseClass
+{
+    public static function somePublicStaticMethod()
+    {
+        return 'derived public';
+    }
+
+    protected static function someProtectedStaticMethod()
+    {
+        return 'derived protected';
+    }
+
+    private static function somePrivateStaticMethod()
+    {
+        return 'derived shadowed private';
+    } // It's not overriding but rather shadowing!
+    // It's completly new method - very own method of the derived class
+    // because private member of the base class is unaccessible and not visible for the derived class.
+
+    public static function derivedOverridingDynamicContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . 'self::somePrivateStaticMethod() : ' . self::somePrivateStaticMethod() . PHP_EOL
+            // This will be dangerous in case of further inheritance:
+            . 'static::somePrivateStaticMethod() : ' . static::somePrivateStaticMethod() . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'parent::someProtectedStaticMethod() : ' . parent::someProtectedStaticMethod() . PHP_EOL
+            . 'self::someProtectedStaticMethod() : ' . self::someProtectedStaticMethod() . PHP_EOL
+            . 'static::someProtectedStaticMethod() : ' . static::someProtectedStaticMethod() . PHP_EOL
+            . "\n* public:\n\n"
+            . 'parent::somePublicStaticMethod() : ' . parent::somePublicStaticMethod() . PHP_EOL
+            . 'self::somePublicStaticMethod() : ' . self::somePublicStaticMethod() . PHP_EOL
+            . 'static::somePublicStaticMethod() : ' . static::somePublicStaticMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseContext();
+$someObject->derivedContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->baseContext();
+$otherObject->derivedOverridingContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeDerivedClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+self::somePrivateMethod() : base private
+$this->somePrivateMethod() : base private
+
+* protected:
+
+self::someProtectedMethod() : base protected
+static::someProtectedMethod() : base protected
+$this->someProtectedMethod() : base protected
+
+* public:
+
+self::somePublicMethod() : base public
+static::somePublicMethod() : base public
+$this->somePublicMethod() : base public
+
+SomeDerivedClass::derivedContext
+
+* protected:
+
+parent::someProtectedMethod() : base protected
+self::someProtectedMethod() : base protected
+static::someProtectedMethod() : base protected
+$this->someProtectedMethod() : base protected
+
+* public:
+
+parent::somePublicMethod() : base public
+self::somePublicMethod() : base public
+static::somePublicMethod() : base public
+$this->somePublicMethod() : base public
+
+# SomeDerivedOverridingClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+self::somePrivateMethod() : base private
+$this->somePrivateMethod() : base private
+
+* protected:
+
+self::someProtectedMethod() : base protected
+static::someProtectedMethod() : derived protected
+$this->someProtectedMethod() : derived protected
+
+* public:
+
+self::somePublicMethod() : base public
+static::somePublicMethod() : derived public
+$this->somePublicMethod() : derived public
+
+SomeDerivedOverridingClass::derivedOverridingContext
+
+* private:
+
+self::somePrivateMethod() : derived shadowed private
+static::somePrivateMethod() : derived shadowed private
+$this->somePrivateMethod() : derived shadowed private
+
+* protected:
+
+parent::someProtectedMethod() : base protected
+self::someProtectedMethod() : derived protected
+static::someProtectedMethod() : derived protected
+$this->someProtectedMethod() : derived protected
+
+* public:
+
+parent::somePublicMethod() : base public
+self::somePublicMethod() : derived public
+static::somePublicMethod() : derived public
+$this->somePublicMethod() : derived public
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_static_method_overriding_with_visibility.php)
+
 *Example: Class inheritance and method overriding*
 
 ```php
@@ -3276,11 +3794,13 @@ Other method from derived class
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_method_overriding.php)
 
+### Members overriding and compatibility
+
 When *overriding a method*, its *signature* must be compatible with the *parent method*. Otherwise, a fatal error is emitted, or, prior to PHP 8.0.0, an `E_WARNING` level error is generated.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop.lsp)
 
-### Overriding and visibility compatibility rules
+#### Overriding and visibility compatibility rules
 
 The *visibility* of *methods*, *properties* and *constants* can be relaxed, e.g. a *protected method* can be marked as *public*, but they cannot be restricted, e.g. marking a *public property* as *private*.
 
@@ -3506,14 +4026,14 @@ Stack trace:
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop.lsp)
 
-### Overriding and type compatibility rules
+#### Overriding and type compatibility rules
 
-#### Overriding and method types compatibility rules
-
-
+##### Overriding and method types compatibility rules
 
 
-#### Overriding and method return type compatibility rules
+
+
+##### Overriding and method return type compatibility rules
 
 Prior to PHP 8.1, most *internal classes* or *methods* didn't *declare* their *return types*, and any *return type* was allowed when *extending* them.
 
@@ -3565,7 +4085,6 @@ class MyDateTime extends DateTime
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance.internal-classes)
-
 
 *Exapmle: Class inheritance and signature compatibility*
 
