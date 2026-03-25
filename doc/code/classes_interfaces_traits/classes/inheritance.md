@@ -2040,11 +2040,15 @@ class SomeDerivedClass extends SomeBaseClass
             __METHOD__ . PHP_EOL
             . "\n* protected:\n\n"
             . 'SomeBaseClass::someProtectedStaticMethod() : ' . SomeBaseClass::someProtectedStaticMethod() . PHP_EOL
+            . 'parent::someProtectedStaticMethod() : ' . parent::someProtectedStaticMethod() . PHP_EOL
+            . 'SomeDerivedClass::someProtectedStaticMethod() : ' . SomeDerivedClass::someProtectedStaticMethod() . PHP_EOL
             . '(__CLASS__)::someProtectedStaticMethod() : ' . (__CLASS__)::someProtectedStaticMethod() . PHP_EOL
             . 'self::someProtectedStaticMethod() : ' . self::someProtectedStaticMethod() . PHP_EOL
             . 'static::someProtectedStaticMethod() : ' . static::someProtectedStaticMethod() . PHP_EOL
             . "\n* public:\n\n"
             . 'SomeBaseClass::somePublicStaticMethod() : ' . SomeBaseClass::somePublicStaticMethod() . PHP_EOL
+            . 'parent::somePublicStaticMethod() : ' . parent::somePublicStaticMethod() . PHP_EOL
+            . 'SomeDerivedClass::somePublicStaticMethod() : ' . SomeDerivedClass::somePublicStaticMethod() . PHP_EOL
             . '(__CLASS__)::somePublicStaticMethod() : ' . (__CLASS__)::somePublicStaticMethod() . PHP_EOL
             . 'self::somePublicStaticMethod() : ' . self::somePublicStaticMethod() . PHP_EOL
             . 'static::somePublicStaticMethod() : ' . static::somePublicStaticMethod() . PHP_EOL
@@ -2058,12 +2062,16 @@ class SomeDerivedClass extends SomeBaseClass
             __METHOD__ . PHP_EOL
             . "\n* protected:\n\n"
             . 'SomeBaseClass::someProtectedStaticMethod() : ' . SomeBaseClass::someProtectedStaticMethod() . PHP_EOL
+            . 'parent::someProtectedStaticMethod() : ' . parent::someProtectedStaticMethod() . PHP_EOL
+            . 'SomeDerivedClass::someProtectedStaticMethod() : ' . SomeDerivedClass::someProtectedStaticMethod() . PHP_EOL
             . '(__CLASS__)::someProtectedStaticMethod() : ' . (__CLASS__)::someProtectedStaticMethod() . PHP_EOL
             . 'self::someProtectedStaticMethod() : ' . self::someProtectedStaticMethod() . PHP_EOL
             . 'static::someProtectedStaticMethod() : ' . static::someProtectedStaticMethod() . PHP_EOL
             . '$this->someProtectedStaticMethod() : ' . $this->someProtectedStaticMethod() . PHP_EOL
             . "\n* public:\n\n"
             . 'SomeBaseClass::somePublicStaticMethod() : ' . SomeBaseClass::somePublicStaticMethod() . PHP_EOL
+            . 'parent::somePublicStaticMethod() : ' . parent::somePublicStaticMethod() . PHP_EOL
+            . 'SomeDerivedClass::somePublicStaticMethod() : ' . SomeDerivedClass::somePublicStaticMethod() . PHP_EOL
             . '(__CLASS__)::somePublicStaticMethod() : ' . (__CLASS__)::somePublicStaticMethod() . PHP_EOL
             . 'self::somePublicStaticMethod() : ' . self::somePublicStaticMethod() . PHP_EOL
             . 'static::somePublicStaticMethod() : ' . static::somePublicStaticMethod() . PHP_EOL
@@ -2226,6 +2234,8 @@ SomeDerivedClass::derivedStaticContext
 * protected:
 
 SomeBaseClass::someProtectedStaticMethod() : base protected
+parent::someProtectedStaticMethod() : base protected
+SomeDerivedClass::someProtectedStaticMethod() : base protected
 (__CLASS__)::someProtectedStaticMethod() : base protected
 self::someProtectedStaticMethod() : base protected
 static::someProtectedStaticMethod() : base protected
@@ -2233,6 +2243,8 @@ static::someProtectedStaticMethod() : base protected
 * public:
 
 SomeBaseClass::somePublicStaticMethod() : base public
+parent::somePublicStaticMethod() : base public
+SomeDerivedClass::somePublicStaticMethod() : base public
 (__CLASS__)::somePublicStaticMethod() : base public
 self::somePublicStaticMethod() : base public
 static::somePublicStaticMethod() : base public
@@ -2242,6 +2254,8 @@ SomeDerivedClass::derivedDynamicContext
 * protected:
 
 SomeBaseClass::someProtectedStaticMethod() : base protected
+parent::someProtectedStaticMethod() : base protected
+SomeDerivedClass::someProtectedStaticMethod() : base protected
 (__CLASS__)::someProtectedStaticMethod() : base protected
 self::someProtectedStaticMethod() : base protected
 static::someProtectedStaticMethod() : base protected
@@ -2250,6 +2264,8 @@ $this->someProtectedStaticMethod() : base protected
 * public:
 
 SomeBaseClass::somePublicStaticMethod() : base public
+parent::somePublicStaticMethod() : base public
+SomeDerivedClass::somePublicStaticMethod() : base public
 (__CLASS__)::somePublicStaticMethod() : base public
 self::somePublicStaticMethod() : base public
 static::somePublicStaticMethod() : base public
@@ -2365,7 +2381,7 @@ static::somePublicStaticMethod() : derived public
 
 ### Hooks access
 
-A *hook* in a *child class* may access the *parent class's property* using the `parent::$prop` *keyword*, followed by the desired *hook*. For example, `parent::$propName::get()`. It may be read as "access the prop defined on the parent class, and then run its get operation" (or set operation, as appropriate).
+A *hook* in a *child class* may access the *parent class's property* using the `parent::$prop` *keyword*, followed by the desired *hook*. For example, `parent::$propName::get()`. It may be read as "access the prop defined on the parent class, and then run its get operation (or set operation, as appropriate).
 
 If not accessed this way, the *parent class's hook* is ignored. This behavior is consistent with how all *methods* work. This also offers a way to access the parent class's storage, if any. If there is no *hook* on the *parent property*, its default get/set behavior will be used. *Hooks* may not access any other *hook* except their own *parent* on their own *property*.
 
@@ -2420,6 +2436,163 @@ class CaseFoldingStrings extends Strings
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.property-hooks.php#language.oop5.property-hooks.virtual)
+
+*Example: Class property hook access with visibility*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public $somePublicProperty = 'base public' {
+        get => $this->somePublicProperty . ' base hook';
+    }
+    protected $someProtectedProperty = 'base protected' {
+        get => $this->someProtectedProperty . ' base hook';
+    }
+    private $somePrivateProperty = 'base private' {
+        get => $this->somePrivateProperty . ' base hook';
+    }
+
+    public function baseDynamicContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . '$this->somePrivateProperty : ' . $this->somePrivateProperty . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedDynamicContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedOverridingClass extends SomeBaseClass
+{
+    public $somePublicProperty = 'derived public' {
+        get => parent::$somePublicProperty::get() . ' + ' . $this->somePublicProperty . ' derived hook';
+    }
+    protected $someProtectedProperty = 'derived protected' {
+        get => parent::$someProtectedProperty::get() . ' + ' . $this->someProtectedProperty . ' derived hook';
+    }
+    private $somePrivateProperty = 'derived shadowed private' {
+        get => $this->somePrivateProperty . ' derived shadowed hook';
+    } // It's not overriding but rather shadowing!
+    // It's completly new property hook - very own property hook of the derived class
+    // because private member of the base class is unaccessible and not visible for the derived class.
+
+    public function derivedOverridingDynamicContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . '$this->somePrivateProperty : ' . $this->somePrivateProperty . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseDynamicContext();
+$someObject->derivedDynamicContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->baseDynamicContext();
+$otherObject->derivedOverridingDynamicContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeDerivedClass:
+
+SomeBaseClass::baseDynamicContext
+
+* private:
+
+$this->somePrivateProperty : base private base hook
+
+* protected:
+
+$this->someProtectedProperty : base protected base hook
+
+* public:
+
+$this->somePublicProperty : base public base hook
+
+SomeDerivedClass::derivedDynamicContext
+
+* protected:
+
+$this->someProtectedProperty : base protected base hook
+
+* public:
+
+$this->somePublicProperty : base public base hook
+
+# SomeDerivedOverridingClass:
+
+SomeBaseClass::baseDynamicContext
+
+* private:
+
+$this->somePrivateProperty : base private base hook
+
+* protected:
+
+$this->someProtectedProperty : derived protected base hook + derived protected derived hook
+
+* public:
+
+$this->somePublicProperty : derived public base hook + derived public derived hook
+
+SomeDerivedOverridingClass::derivedOverridingDynamicContext
+
+* private:
+
+$this->somePrivateProperty : derived shadowed private derived shadowed hook
+
+* protected:
+
+$this->someProtectedProperty : derived protected base hook + derived protected derived hook
+
+* public:
+
+$this->somePublicProperty : derived public base hook + derived public derived hook
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_property_hook_access_with_visibility.php)
 
 ## Overriding
 

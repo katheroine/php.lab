@@ -79,11 +79,15 @@ class SomeDerivedClass extends SomeBaseClass
             __METHOD__ . PHP_EOL
             . "\n* protected:\n\n"
             . 'SomeBaseClass::someProtectedStaticMethod() : ' . SomeBaseClass::someProtectedStaticMethod() . PHP_EOL
+            . 'parent::someProtectedStaticMethod() : ' . parent::someProtectedStaticMethod() . PHP_EOL
+            . 'SomeDerivedClass::someProtectedStaticMethod() : ' . SomeDerivedClass::someProtectedStaticMethod() . PHP_EOL
             . '(__CLASS__)::someProtectedStaticMethod() : ' . (__CLASS__)::someProtectedStaticMethod() . PHP_EOL
             . 'self::someProtectedStaticMethod() : ' . self::someProtectedStaticMethod() . PHP_EOL
             . 'static::someProtectedStaticMethod() : ' . static::someProtectedStaticMethod() . PHP_EOL
             . "\n* public:\n\n"
             . 'SomeBaseClass::somePublicStaticMethod() : ' . SomeBaseClass::somePublicStaticMethod() . PHP_EOL
+            . 'parent::somePublicStaticMethod() : ' . parent::somePublicStaticMethod() . PHP_EOL
+            . 'SomeDerivedClass::somePublicStaticMethod() : ' . SomeDerivedClass::somePublicStaticMethod() . PHP_EOL
             . '(__CLASS__)::somePublicStaticMethod() : ' . (__CLASS__)::somePublicStaticMethod() . PHP_EOL
             . 'self::somePublicStaticMethod() : ' . self::somePublicStaticMethod() . PHP_EOL
             . 'static::somePublicStaticMethod() : ' . static::somePublicStaticMethod() . PHP_EOL
@@ -97,12 +101,16 @@ class SomeDerivedClass extends SomeBaseClass
             __METHOD__ . PHP_EOL
             . "\n* protected:\n\n"
             . 'SomeBaseClass::someProtectedStaticMethod() : ' . SomeBaseClass::someProtectedStaticMethod() . PHP_EOL
+            . 'parent::someProtectedStaticMethod() : ' . parent::someProtectedStaticMethod() . PHP_EOL
+            . 'SomeDerivedClass::someProtectedStaticMethod() : ' . SomeDerivedClass::someProtectedStaticMethod() . PHP_EOL
             . '(__CLASS__)::someProtectedStaticMethod() : ' . (__CLASS__)::someProtectedStaticMethod() . PHP_EOL
             . 'self::someProtectedStaticMethod() : ' . self::someProtectedStaticMethod() . PHP_EOL
             . 'static::someProtectedStaticMethod() : ' . static::someProtectedStaticMethod() . PHP_EOL
             . '$this->someProtectedStaticMethod() : ' . $this->someProtectedStaticMethod() . PHP_EOL
             . "\n* public:\n\n"
             . 'SomeBaseClass::somePublicStaticMethod() : ' . SomeBaseClass::somePublicStaticMethod() . PHP_EOL
+            . 'parent::somePublicStaticMethod() : ' . parent::somePublicStaticMethod() . PHP_EOL
+            . 'SomeDerivedClass::somePublicStaticMethod() : ' . SomeDerivedClass::somePublicStaticMethod() . PHP_EOL
             . '(__CLASS__)::somePublicStaticMethod() : ' . (__CLASS__)::somePublicStaticMethod() . PHP_EOL
             . 'self::somePublicStaticMethod() : ' . self::somePublicStaticMethod() . PHP_EOL
             . 'static::somePublicStaticMethod() : ' . static::somePublicStaticMethod() . PHP_EOL
