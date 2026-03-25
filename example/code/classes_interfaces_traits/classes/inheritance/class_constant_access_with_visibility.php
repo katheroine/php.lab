@@ -108,7 +108,7 @@ class SomeDerivedOverridingClass extends SomeBaseClass
 {
     public const SOME_PUBLIC_CONSTANT = 'derived public';
     protected const SOME_PROTECTED_CONSTANT = 'derived protected';
-    private const SOME_PRIVATE_CONSTANT = 'derived private'; // It's not overriding but rather shadowing!
+    private const SOME_PRIVATE_CONSTANT = 'derived shadowed private'; // It's not overriding but rather shadowing!
     // It's completly new constant - very own constant of the derived class
     // because private member of the base class is unaccessible and not visible for the derived class.
 

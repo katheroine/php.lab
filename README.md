@@ -477,6 +477,7 @@ Laboratory of PHP.
                 13. [Class inheritance and public members access](./example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_public_members_access.php)
                 14. [Class constant overriding and visibility](./example/code/classes_interfaces_traits/classes/inheritance/class_constant_overriding_with_visibility.php)
                 15. [Class property overriding and visibility](./example/code/classes_interfaces_traits/classes/inheritance/class_property_overriding_with_visibility.php)
+                16. [Class static property overriding with visibility](./example/code/classes_interfaces_traits/classes/inheritance/class_static_property_overriding_with_visibility.php)
                 2. [Class inheritance and method overrding](./example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_method_overriding.php)
                 4. [Class inheritance and members visibility compatibility](./example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_members_visibility_compatibility.php)
                 2. [Class access specifiers](./example/code/classes_interfaces_traits/classes/inheritance/class_access_specifiers.php)

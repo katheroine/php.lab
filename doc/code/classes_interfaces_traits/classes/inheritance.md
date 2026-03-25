@@ -679,7 +679,7 @@ class SomeDerivedOverridingClass extends SomeBaseClass
 {
     public const SOME_PUBLIC_CONSTANT = 'derived public';
     protected const SOME_PROTECTED_CONSTANT = 'derived protected';
-    private const SOME_PRIVATE_CONSTANT = 'derived private'; // It's not overriding but rather shadowing!
+    private const SOME_PRIVATE_CONSTANT = 'derived shadowed private'; // It's not overriding but rather shadowing!
     // It's completly new constant - very own constant of the derived class
     // because private member of the base class is unaccessible and not visible for the derived class.
 
@@ -899,10 +899,10 @@ SomeDerivedOverridingClass::derivedOverridingStaticContext
 
 * private:
 
-SomeDerivedOverridingClass::SOME_PRIVATE_CONSTANT : derived private
-(__CLASS__)::SOME_PRIVATE_CONSTANT : derived private
-self::SOME_PRIVATE_CONSTANT : derived private
-static::SOME_PRIVATE_CONSTANT : derived private
+SomeDerivedOverridingClass::SOME_PRIVATE_CONSTANT : derived shadowed private
+(__CLASS__)::SOME_PRIVATE_CONSTANT : derived shadowed private
+self::SOME_PRIVATE_CONSTANT : derived shadowed private
+static::SOME_PRIVATE_CONSTANT : derived shadowed private
 
 * protected:
 
@@ -926,10 +926,10 @@ SomeDerivedOverridingClass::derivedOverridingDynamicContext
 
 * private:
 
-SomeDerivedOverridingClass::SOME_PRIVATE_CONSTANT : derived private
-(__CLASS__)::SOME_PRIVATE_CONSTANT : derived private
-self::SOME_PRIVATE_CONSTANT : derived private
-static::SOME_PRIVATE_CONSTANT : derived private
+SomeDerivedOverridingClass::SOME_PRIVATE_CONSTANT : derived shadowed private
+(__CLASS__)::SOME_PRIVATE_CONSTANT : derived shadowed private
+self::SOME_PRIVATE_CONSTANT : derived shadowed private
+static::SOME_PRIVATE_CONSTANT : derived shadowed private
 
 * protected:
 
@@ -1192,7 +1192,7 @@ class SomeDerivedOverridingClass extends SomeBaseClass
 {
     public $somePublicProperty = 'derived public';
     protected $someProtectedProperty = 'derived protected';
-    private $somePrivateProperty = 'derived private'; // It's not overriding but rather shadowing!
+    private $somePrivateProperty = 'derived shadowed private'; // It's not overriding but rather shadowing!
     // It's completly new property - very own property of the derived class
     // because private member of the base class is unaccessible and not visible for the derived class.
 
@@ -1276,7 +1276,7 @@ SomeDerivedOverridingClass::derivedOverridingDynamicContext
 
 * private:
 
-$this->somePrivateProperty : derived private
+$this->somePrivateProperty : derived shadowed private
 
 * protected:
 
@@ -1406,7 +1406,9 @@ class SomeDerivedOverridingClass extends SomeBaseClass
 {
     public static $somePublicProperty = 'derived static public';
     protected static $someProtectedProperty = 'derived static protected';
-    private static $somePrivateProperty = 'derived static private';
+    private static $somePrivateProperty = 'derived shadowed static private'; // It's not overriding but rather shadowing!
+    // It's completly new property - very own property of the derived class
+    // because private member of the base class is unaccessible and not visible for the derived class.
 
     public static function derivedOverridingStaticContext(): void
     {
@@ -1624,10 +1626,10 @@ SomeDerivedOverridingClass::derivedOverridingStaticContext
 
 * private:
 
-SomeDerivedOverridingClass::$somePrivateProperty : derived static private
-(__CLASS__)::$somePrivateProperty : derived static private
-self::$somePrivateProperty : derived static private
-static::$somePrivateProperty : derived static private
+SomeDerivedOverridingClass::$somePrivateProperty : derived shadowed static private
+(__CLASS__)::$somePrivateProperty : derived shadowed static private
+self::$somePrivateProperty : derived shadowed static private
+static::$somePrivateProperty : derived shadowed static private
 
 * protected:
 
@@ -1651,10 +1653,10 @@ SomeDerivedOverridingClass::derivedOverridingDynamicContext
 
 * private:
 
-SomeDerivedOverridingClass::$somePrivateProperty : derived static private
-(__CLASS__)::$somePrivateProperty : derived static private
-self::$somePrivateProperty : derived static private
-static::$somePrivateProperty : derived static private
+SomeDerivedOverridingClass::$somePrivateProperty : derived shadowed static private
+(__CLASS__)::$somePrivateProperty : derived shadowed static private
+self::$somePrivateProperty : derived shadowed static private
+static::$somePrivateProperty : derived shadowed static private
 
 * protected:
 
@@ -1985,12 +1987,12 @@ class SomeDerivedOverridingClass extends SomeBaseClass
         return 'derived protected';
     }
 
-    private function somePrivateMethod() // It's not overriding but rather shadowing!
-    // It's completly new method - very own method of the derived class
-    // because private member of the base class is unaccessible and not visible for the derived class.
+    private function somePrivateMethod()
     {
         return 'derived shadowed private';
-    }
+    } // It's not overriding but rather shadowing!
+    // It's completly new method - very own method of the derived class
+    // because private member of the base class is unaccessible and not visible for the derived class.
 
     public function derivedOverridingDynamicContext()
     {
@@ -3054,6 +3056,180 @@ $this->somePublicProperty : derived public
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_property_overriding_with_visibility.php)
+
+### Static property overriding
+
+*Example: Class static property overriding with visibility*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public static $somePublicProperty = 'base static public';
+    protected static $someProtectedProperty = 'base static protected';
+    private static $somePrivateProperty = 'base static private';
+
+    public function baseContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . 'self::$somePrivateProperty : ' . self::$somePrivateProperty . PHP_EOL
+            // Cannot be called without error in the derived class:
+            // . 'static::$somePrivateProperty : ' . static::$somePrivateProperty . PHP_EOL
+            // Private members are unaccessible in the derived classes.
+            . "\n* protected:\n\n"
+            . 'self::$someProtectedProperty : ' . self::$someProtectedProperty . PHP_EOL
+            . 'static::$someProtectedProperty : ' . static::$someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . 'self::$somePublicProperty : ' . self::$somePublicProperty . PHP_EOL
+            . 'static::$somePublicProperty : ' . static::$somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'parent::$someProtectedProperty : ' . parent::$someProtectedProperty . PHP_EOL
+            . 'self::$someProtectedProperty : ' . self::$someProtectedProperty . PHP_EOL
+            . 'static::$someProtectedProperty : ' . static::$someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . 'parent::$somePublicProperty : ' . parent::$somePublicProperty . PHP_EOL
+            . 'self::$somePublicProperty : ' . self::$somePublicProperty . PHP_EOL
+            . 'static::$somePublicProperty : ' . static::$somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedOverridingClass extends SomeBaseClass
+{
+    public static $somePublicProperty = 'derived static public';
+    protected static $someProtectedProperty = 'derived static protected';
+    private static $somePrivateProperty = 'derived shadowed static private'; // It's not overriding but rather shadowing!
+    // It's completly new property - very own property of the derived class
+    // because private member of the base class is unaccessible and not visible for the derived class.
+
+    public function derivedOverridingContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . 'self::$somePrivateProperty : ' . self::$somePrivateProperty . PHP_EOL
+            // This will be dangerous in case of further inheritance:
+            . 'static::$somePrivateProperty : ' . static::$somePrivateProperty . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'parent::$someProtectedProperty : ' . parent::$someProtectedProperty . PHP_EOL
+            . 'self::$someProtectedProperty : ' . self::$someProtectedProperty . PHP_EOL
+            . 'static::$someProtectedProperty : ' . static::$someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . 'parent::$somePublicProperty : ' . parent::$somePublicProperty . PHP_EOL
+            . 'self::$somePublicProperty : ' . self::$somePublicProperty . PHP_EOL
+            . 'static::$somePublicProperty : ' . static::$somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseContext();
+$someObject->derivedContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->baseContext();
+$otherObject->derivedOverridingContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeDerivedClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+self::$somePrivateProperty : base static private
+
+* protected:
+
+self::$someProtectedProperty : base static protected
+static::$someProtectedProperty : base static protected
+
+* public:
+
+self::$somePublicProperty : base static public
+static::$somePublicProperty : base static public
+
+SomeDerivedClass::derivedContext
+
+* protected:
+
+parent::$someProtectedProperty : base static protected
+self::$someProtectedProperty : base static protected
+static::$someProtectedProperty : base static protected
+
+* public:
+
+parent::$somePublicProperty : base static public
+self::$somePublicProperty : base static public
+static::$somePublicProperty : base static public
+
+# SomeDerivedOverridingClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+self::$somePrivateProperty : base static private
+
+* protected:
+
+self::$someProtectedProperty : base static protected
+static::$someProtectedProperty : derived static protected
+
+* public:
+
+self::$somePublicProperty : base static public
+static::$somePublicProperty : derived static public
+
+SomeDerivedOverridingClass::derivedOverridingContext
+
+* private:
+
+self::$somePrivateProperty : derived shadowed static private
+static::$somePrivateProperty : derived shadowed static private
+
+* protected:
+
+parent::$someProtectedProperty : base static protected
+self::$someProtectedProperty : derived static protected
+static::$someProtectedProperty : derived static protected
+
+* public:
+
+parent::$somePublicProperty : base static public
+self::$somePublicProperty : derived static public
+static::$somePublicProperty : derived static public
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_static_property_overriding_with_visibility.php)
 
 *Example: Class inheritance and method overriding*
 

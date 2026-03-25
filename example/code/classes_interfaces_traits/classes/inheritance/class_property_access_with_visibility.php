@@ -40,7 +40,7 @@ class SomeDerivedOverridingClass extends SomeBaseClass
 {
     public $somePublicProperty = 'derived public';
     protected $someProtectedProperty = 'derived protected';
-    private $somePrivateProperty = 'derived private'; // It's not overriding but rather shadowing!
+    private $somePrivateProperty = 'derived shadowed private'; // It's not overriding but rather shadowing!
     // It's completly new property - very own property of the derived class
     // because private member of the base class is unaccessible and not visible for the derived class.
 

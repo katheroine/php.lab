@@ -108,7 +108,9 @@ class SomeDerivedOverridingClass extends SomeBaseClass
 {
     public static $somePublicProperty = 'derived static public';
     protected static $someProtectedProperty = 'derived static protected';
-    private static $somePrivateProperty = 'derived static private';
+    private static $somePrivateProperty = 'derived shadowed static private'; // It's not overriding but rather shadowing!
+    // It's completly new property - very own property of the derived class
+    // because private member of the base class is unaccessible and not visible for the derived class.
 
     public static function derivedOverridingStaticContext(): void
     {
