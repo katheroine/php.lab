@@ -3794,9 +3794,9 @@ Other method from derived class
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_method_overriding.php)
 
-### Members overriding and compatibility
+## Members overriding and compatibility
 
-#### Overriding and visibility compatibility rules
+### Overriding and visibility compatibility rules
 
 The *visibility* of *methods*, *properties* and *constants* can be relaxed, e.g. a *protected method* can be marked as *public*, but they cannot be restricted, e.g. marking a *public property* as *private*.
 
@@ -3887,7 +3887,7 @@ Kitty Pranky
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_members_overriding_and_visibility_compatibility.php)
 
-#### Overriding and method parameter number and requiredness rules
+### Overriding and method parameter number and requiredness rules
 
 A [method] *signature* is compatible if it respects the *variance rules*, makes a mandatory *parameter* optional, adds only optional new *parameters* and doesn't restrict but only relaxes the *visibility*. This is known as the *Liskov Substitution Principle*, or *LSP* for short. The *constructor*, and *private methods* are exempt from these *signature compatibility rules*, and thus won't emit a fatal error in case of a *signature* mismatch.
 
@@ -4087,7 +4087,7 @@ Kitty Pranky
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_parameter_number_and_requireness_compatibility.php)
 
-#### Overriding and method parameter name rule
+### Overriding and method parameter name rule
 
 Warning
 
@@ -4123,7 +4123,9 @@ Stack trace:
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop.lsp)
 
-#### Overriding and property type compatibility rules
+### Overriding and property type compatibility rules
+
+>>> **invariance**
 
 By default, *properties* are neither *covariant* nor *contravariant*, hence *invariant*. That is, their *type* may not change in a *child class* at all. The reason for that is *"get" operations* must be *covariant*, and *"set" operations* must be *contravariant*. The only way for a *property* to satisfy both requirements is to be *invariant*.
 
@@ -4164,7 +4166,7 @@ class PoodleOwner extends DogOwner
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.variance.php)
 
-#### Overriding and method types compatibility rules
+### Overriding and method types compatibility rules
 
 In PHP 7.2.0, *partial contravariance* was introduced by removing *type restrictions* on *parameters* in a *child method*. As of PHP 7.4.0, full *covariance* and *contravariance* support was added.
 
@@ -4176,7 +4178,8 @@ A *type declaration* is considered *more specific* in the following case:
 * A *type* is added to an *intersection type*
 * A *class type* is changed to a *child class type*
 * `iterable` is changed to *array* or `Traversable`
-* A *type class* is considered less specific if the opposite is true.
+
+A *type class* is considered *less specific* if the opposite is true.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.variance.php#language.oop5.variance)
 
@@ -4576,9 +4579,7 @@ garden($bush, 5);
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/class_inheritance_and_method_signature_compatibility.php)
 
-
-
-#### Overriding and constructor signature compatibility rules
+### Overriding and constructor signature compatibility rules
 
 An exception are *constructors*, whose *visibility* can be restricted, e.g. a *public constructor* can be marked as *private* in a *child class*.
 
@@ -4590,7 +4591,7 @@ Unlike other methods, `__construct()` is exempt from the usual *signature compat
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor)
 
-#### Overriding and readonly modifier
+### Overriding and readonly modifier
 
 Note:
 
