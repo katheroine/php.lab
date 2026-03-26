@@ -2607,6 +2607,132 @@ static::somePublicStaticMethod() : derived public
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_static_method_access_with_visibility.php)
 
+#### Final method access
+
+*Example: Class final method access with visibility*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    final public function someFinalPublicMethod()
+    {
+        return 'base final public';
+    }
+
+    final protected function someFinalProtectedMethod()
+    {
+        return 'base final protected';
+    }
+
+    public function baseDynamicContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'SomeBaseClass::someFinalProtectedMethod() : ' . SomeBaseClass::someFinalProtectedMethod() . PHP_EOL
+            . '(__CLASS__)::someFinalProtectedMethod() : ' . (__CLASS__)::someFinalProtectedMethod() . PHP_EOL
+            . 'self::someFinalProtectedMethod() : ' . self::someFinalProtectedMethod() . PHP_EOL
+            . 'static::someFinalProtectedMethod() : ' . static::someFinalProtectedMethod() . PHP_EOL
+            . '$this->someFinalProtectedMethod() : ' . $this->someFinalProtectedMethod() . PHP_EOL
+            . "\n* public:\n\n"
+            . 'SomeBaseClass::someFinalPublicMethod() : ' . SomeBaseClass::someFinalPublicMethod() . PHP_EOL
+            . '(__CLASS__)::someFinalPublicMethod() : ' . (__CLASS__)::someFinalPublicMethod() . PHP_EOL
+            . 'self::someFinalPublicMethod() : ' . self::someFinalPublicMethod() . PHP_EOL
+            . 'static::someFinalPublicMethod() : ' . static::someFinalPublicMethod() . PHP_EOL
+            . '$this->someFinalPublicMethod() : ' . $this->someFinalPublicMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedDynamicContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'SomeBaseClass::someFinalProtectedMethod() : ' . SomeBaseClass::someFinalProtectedMethod() . PHP_EOL
+            . 'parent::someFinalProtectedMethod() : ' . parent::someFinalProtectedMethod() . PHP_EOL
+            . 'SomeDerivedClass::someFinalProtectedMethod() : ' . SomeDerivedClass::someFinalProtectedMethod() . PHP_EOL
+            . '(__CLASS__)::someFinalProtectedMethod() : ' . (__CLASS__)::someFinalProtectedMethod() . PHP_EOL
+            . 'self::someFinalProtectedMethod() : ' . self::someFinalProtectedMethod() . PHP_EOL
+            . 'static::someFinalProtectedMethod() : ' . static::someFinalProtectedMethod() . PHP_EOL
+            . '$this->someFinalProtectedMethod() : ' . $this->someFinalProtectedMethod() . PHP_EOL
+            . "\n* public:\n\n"
+            . 'SomeBaseClass::someFinalPublicMethod() : ' . SomeBaseClass::someFinalPublicMethod() . PHP_EOL
+            . 'parent::someFinalPublicMethod() : ' . parent::someFinalPublicMethod() . PHP_EOL
+            . 'SomeDerivedClass::someFinalPublicMethod() : ' . SomeDerivedClass::someFinalPublicMethod() . PHP_EOL
+            . '(__CLASS__)::someFinalPublicMethod() : ' . (__CLASS__)::someFinalPublicMethod() . PHP_EOL
+            . 'self::someFinalPublicMethod() : ' . self::someFinalPublicMethod() . PHP_EOL
+            . 'static::someFinalPublicMethod() : ' . static::someFinalPublicMethod() . PHP_EOL
+            . '$this->someFinalPublicMethod() : ' . $this->someFinalPublicMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseDynamicContext();
+$someObject->derivedDynamicContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeDerivedClass:
+
+SomeBaseClass::baseDynamicContext
+
+* protected:
+
+SomeBaseClass::someFinalProtectedMethod() : base final protected
+(__CLASS__)::someFinalProtectedMethod() : base final protected
+self::someFinalProtectedMethod() : base final protected
+static::someFinalProtectedMethod() : base final protected
+$this->someFinalProtectedMethod() : base final protected
+
+* public:
+
+SomeBaseClass::someFinalPublicMethod() : base final public
+(__CLASS__)::someFinalPublicMethod() : base final public
+self::someFinalPublicMethod() : base final public
+static::someFinalPublicMethod() : base final public
+$this->someFinalPublicMethod() : base final public
+
+SomeDerivedClass::derivedDynamicContext
+
+* protected:
+
+SomeBaseClass::someFinalProtectedMethod() : base final protected
+parent::someFinalProtectedMethod() : base final protected
+SomeDerivedClass::someFinalProtectedMethod() : base final protected
+(__CLASS__)::someFinalProtectedMethod() : base final protected
+self::someFinalProtectedMethod() : base final protected
+static::someFinalProtectedMethod() : base final protected
+$this->someFinalProtectedMethod() : base final protected
+
+* public:
+
+SomeBaseClass::someFinalPublicMethod() : base final public
+parent::someFinalPublicMethod() : base final public
+SomeDerivedClass::someFinalPublicMethod() : base final public
+(__CLASS__)::someFinalPublicMethod() : base final public
+self::someFinalPublicMethod() : base final public
+static::someFinalPublicMethod() : base final public
+$this->someFinalPublicMethod() : base final public
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_final_method_access_with_visibility.php)
+
 ### Hooks access
 
 A *hook* in a *child class* may access the *parent class's property* using the `parent::$prop` *keyword*, followed by the desired *hook*. For example, `parent::$propName::get()`. It may be read as "access the prop defined on the parent class, and then run its get operation (or set operation, as appropriate).
@@ -2822,7 +2948,7 @@ $this->somePublicProperty : derived public base hook + derived public derived ho
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_property_hook_access_with_visibility.php)
 
-## Members overriding
+## Class members overriding
 
 The *inherited* *constants*, *methods*, and *properties* can be *overridden* by *redeclaring* them with the same *name* *defined* in the *parent class*. However, if the *parent class* has defined a *method* or *constant* as *final*, they may not be *overridden*. It is possible to *access* the *overridden* [constants, -- KK] methods or *static properties* by referencing them with `parent::`.
 
@@ -3793,6 +3919,157 @@ Other method from derived class
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_method_overriding.php)
+
+## Final class members
+
+>>> `final` keyword
+
+The `final` *keyword* prevents *child classes* from *overriding a method*, *property*, or *constant* by prefixing the *definition* with `final`. If the *class* itself is being defined *final* then it cannot be *extended*.
+
+*Example: Final methods example*
+
+```php
+<?php
+class BaseClass {
+   public function test() {
+       echo "BaseClass::test() called\n";
+   }
+
+   final public function moreTesting() {
+       echo "BaseClass::moreTesting() called\n";
+   }
+}
+
+class ChildClass extends BaseClass {
+   public function moreTesting() {
+       echo "ChildClass::moreTesting() called\n";
+   }
+}
+// Results in Fatal error: Cannot override final method BaseClass::moreTesting()
+?>
+```
+
+*Example: Final class example*
+
+```php
+<?php
+final class BaseClass {
+   public function test() {
+       echo "BaseClass::test() called\n";
+   }
+
+   // As the class is already final, the final keyword is redundant
+   final public function moreTesting() {
+       echo "BaseClass::moreTesting() called\n";
+   }
+}
+
+class ChildClass extends BaseClass {
+}
+// Results in Fatal error: Class ChildClass may not inherit from final class (BaseClass)
+?>
+```
+
+*Example: Final property example as of PHP 8.4.0*
+
+```php
+<?php
+class BaseClass {
+   final protected string $test;
+}
+
+class ChildClass extends BaseClass {
+    public string $test;
+}
+// Results in Fatal error: Cannot override final property BaseClass::$test
+?>
+```
+
+*Example: Final constants example as of PHP 8.1.0*
+
+```php
+<?php
+class Foo
+{
+    final public const X = "foo";
+}
+
+class Bar extends Foo
+{
+    public const X = "bar";
+}
+
+// Fatal error: Bar::X cannot override final constant Foo::X
+?>
+```
+
+Note: As of PHP 8.0.0, *private methods* may not be declared *final* except for the *constructor*.
+
+Note: A *property* that is declared *private(set)* is implicitly *final*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.final.php)
+
+### Final hooks
+
+*Hooks* may also be declared *final*, in which case they may not be overridden.
+
+*Example: Final hooks*
+
+```php
+<?php
+class User
+{
+    public string $username {
+        final set => strtolower($value);
+    }
+}
+
+class Manager extends User
+{
+    public string $username {
+        // This is allowed
+        get => strtoupper($this->username);
+
+        // But this is NOT allowed, because set is final in the parent.
+        set => strtoupper($value);
+    }
+}
+?>
+```
+
+A *property* may also be declared *final*. A *final property* may not be redeclared by a child class in any way, which precludes altering hooks or widening its access.
+
+Declaring *hooks* *final* on a *property* that is declared *final* is redundant, and will be silently ignored. This is the same behavior as *final methods*.
+
+A *child class* may define or redefine individual *hooks* on a *property* by redefining the *property* and just the *hooks* it wishes to *override*. A *child class* may also add *hooks* to a *property* that had none. This is essentially the same as if the *hooks* were *methods*.
+
+*Example: Hook inheritance*
+
+```php
+<?php
+class Point
+{
+    public int $x;
+    public int $y;
+}
+
+class PositivePoint extends Point
+{
+    public int $x {
+        set {
+            if ($value < 0) {
+                throw new \InvalidArgumentException('Too small');
+            }
+            $this->x = $value;
+        }
+    }
+}
+?>
+```
+
+Each *hook* overrides *parent* implementations independently of each other. If a *child class* adds *hooks*, any *default value* set on the *property* is removed, and must be redeclared. That is the same consistent with how inheritance works on hook-less properties.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.property-hooks.php#language.oop5.property-hooks.virtual)
 
 ## Members overriding and compatibility
 
@@ -4808,157 +5085,6 @@ Calling static method 'runTest' in static context
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.overloading.php)
-
-## Final class members
-
->>> `final` keyword
-
-The `final` *keyword* prevents *child classes* from *overriding a method*, *property*, or *constant* by prefixing the *definition* with `final`. If the *class* itself is being defined *final* then it cannot be *extended*.
-
-*Example: Final methods example*
-
-```php
-<?php
-class BaseClass {
-   public function test() {
-       echo "BaseClass::test() called\n";
-   }
-
-   final public function moreTesting() {
-       echo "BaseClass::moreTesting() called\n";
-   }
-}
-
-class ChildClass extends BaseClass {
-   public function moreTesting() {
-       echo "ChildClass::moreTesting() called\n";
-   }
-}
-// Results in Fatal error: Cannot override final method BaseClass::moreTesting()
-?>
-```
-
-*Example: Final class example*
-
-```php
-<?php
-final class BaseClass {
-   public function test() {
-       echo "BaseClass::test() called\n";
-   }
-
-   // As the class is already final, the final keyword is redundant
-   final public function moreTesting() {
-       echo "BaseClass::moreTesting() called\n";
-   }
-}
-
-class ChildClass extends BaseClass {
-}
-// Results in Fatal error: Class ChildClass may not inherit from final class (BaseClass)
-?>
-```
-
-*Example: Final property example as of PHP 8.4.0*
-
-```php
-<?php
-class BaseClass {
-   final protected string $test;
-}
-
-class ChildClass extends BaseClass {
-    public string $test;
-}
-// Results in Fatal error: Cannot override final property BaseClass::$test
-?>
-```
-
-*Example: Final constants example as of PHP 8.1.0*
-
-```php
-<?php
-class Foo
-{
-    final public const X = "foo";
-}
-
-class Bar extends Foo
-{
-    public const X = "bar";
-}
-
-// Fatal error: Bar::X cannot override final constant Foo::X
-?>
-```
-
-Note: As of PHP 8.0.0, *private methods* may not be declared *final* except for the *constructor*.
-
-Note: A *property* that is declared *private(set)* is implicitly *final*.
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.final.php)
-
-### Final hooks
-
-*Hooks* may also be declared *final*, in which case they may not be overridden.
-
-*Example: Final hooks*
-
-```php
-<?php
-class User
-{
-    public string $username {
-        final set => strtolower($value);
-    }
-}
-
-class Manager extends User
-{
-    public string $username {
-        // This is allowed
-        get => strtoupper($this->username);
-
-        // But this is NOT allowed, because set is final in the parent.
-        set => strtoupper($value);
-    }
-}
-?>
-```
-
-A *property* may also be declared *final*. A *final property* may not be redeclared by a child class in any way, which precludes altering hooks or widening its access.
-
-Declaring *hooks* *final* on a *property* that is declared *final* is redundant, and will be silently ignored. This is the same behavior as *final methods*.
-
-A *child class* may define or redefine individual *hooks* on a *property* by redefining the *property* and just the *hooks* it wishes to *override*. A *child class* may also add *hooks* to a *property* that had none. This is essentially the same as if the *hooks* were *methods*.
-
-*Example: Hook inheritance*
-
-```php
-<?php
-class Point
-{
-    public int $x;
-    public int $y;
-}
-
-class PositivePoint extends Point
-{
-    public int $x {
-        set {
-            if ($value < 0) {
-                throw new \InvalidArgumentException('Too small');
-            }
-            $this->x = $value;
-        }
-    }
-}
-?>
-```
-
-Each *hook* overrides *parent* implementations independently of each other. If a *child class* adds *hooks*, any *default value* set on the *property* is removed, and must be redeclared. That is the same consistent with how inheritance works on hook-less properties.
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.property-hooks.php#language.oop5.property-hooks.virtual)
 
 [▵ Up](#inheritance)
 [⌂ Home](../../../README.md)
