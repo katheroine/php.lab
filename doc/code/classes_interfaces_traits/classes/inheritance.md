@@ -3887,7 +3887,7 @@ Kitty Pranky
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_members_overriding_and_visibility_compatibility.php)
 
-### Overriding and method parameter number and requiredness rules
+### Overriding and method parameter number and requireness rules
 
 A [method] *signature* is compatible if it respects the *variance rules*, makes a mandatory *parameter* optional, adds only optional new *parameters* and doesn't restrict but only relaxes the *visibility*. This is known as the *Liskov Substitution Principle*, or *LSP* for short. The *constructor*, and *private methods* are exempt from these *signature compatibility rules*, and thus won't emit a fatal error in case of a *signature* mismatch.
 
@@ -3990,7 +3990,7 @@ Output of the above example in PHP 8 is similar to:
 Fatal error: Declaration of Extend::foo(int $a) must be compatible with Base::foo(int $a = 5) in /in/qJXVC on line 13
 ```
 
-*Example: Class method overriding and paramenter number and requireness compatibility*
+*Example: Class method overriding and paramenter number compatibility*
 
 ```php
 <?php
@@ -4085,7 +4085,87 @@ Kitty Pranky
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_parameter_number_and_requireness_compatibility.php)
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_parameter_number_compatibility.php)
+
+*Exapmle: Class method overriding and parameter requireness compatibility*
+
+```php
+<?php
+
+class Flower
+{
+    private const STAMP = '*';
+
+    public function bloom(int $quantity)
+    {
+        $blossoms = '';
+
+        for ($i = 0; $i < $quantity; $i++) {
+            $blossoms .= static::STAMP;
+        }
+
+        return $blossoms;
+    }
+}
+
+class Rose extends Flower
+{
+    protected const STAMP = '@';
+
+    public function bloom(int $quantity = 3): string
+    {
+        return parent::bloom($quantity);
+    }
+}
+
+class RoseBush extends Rose
+{
+    public function bloom(int $columns = 3, int $rows = 3): string
+    {
+        $blossoms = '';
+
+        for ($i = 0; $i < $rows; $i++) {
+            $blossoms .= Rose::bloom($columns);
+
+            if ($i < $rows - 1) {
+                $blossoms .= PHP_EOL;
+            }
+        }
+
+        return $blossoms;
+    }
+}
+
+function garden(Flower $flower, int $number)
+{
+    print($flower->bloom($number) . PHP_EOL . PHP_EOL);
+}
+
+$flower = new Flower();
+$rose = new Rose();
+$bush = new RoseBush();
+
+garden($flower, 3);
+garden($rose, 4);
+garden($bush, 5);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+***
+
+@@@@
+
+@@@@@
+@@@@@
+@@@@@
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_parameter_requireness_compatibility.php)
 
 ### Overriding and method parameter name rule
 
@@ -4498,86 +4578,6 @@ Guide knowledge: There's a time dilation.
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_types_compatibility.php)
-
-*Exapmle: Class inheritance and signature compatibility*
-
-```php
-<?php
-
-class Flower
-{
-    private const STAMP = '*';
-
-    public function bloom(int $quantity)
-    {
-        $blossoms = '';
-
-        for ($i = 0; $i < $quantity; $i++) {
-            $blossoms .= static::STAMP;
-        }
-
-        return $blossoms;
-    }
-}
-
-class Rose extends Flower
-{
-    protected const STAMP = '@';
-
-    public function bloom(int $quantity = 3): string
-    {
-        return parent::bloom($quantity);
-    }
-}
-
-class RoseBush extends Rose
-{
-    public function bloom(int $columns = 3, int $rows = 3): string
-    {
-        $blossoms = '';
-
-        for ($i = 0; $i < $rows; $i++) {
-            $blossoms .= Rose::bloom($columns);
-
-            if ($i < $rows - 1) {
-                $blossoms .= PHP_EOL;
-            }
-        }
-
-        return $blossoms;
-    }
-}
-
-function garden(Flower $flower, int $number)
-{
-    print($flower->bloom($number) . PHP_EOL . PHP_EOL);
-}
-
-$flower = new Flower();
-$rose = new Rose();
-$bush = new RoseBush();
-
-garden($flower, 3);
-garden($rose, 4);
-garden($bush, 5);
-
-```
-
-**Result (PHP 8.4)**:
-
-```
-***
-
-@@@@
-
-@@@@@
-@@@@@
-@@@@@
-
-```
-
-**Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_inheritance_and_method_signature_compatibility.php)
 
 ### Overriding and constructor signature compatibility rules
 
