@@ -3796,21 +3796,13 @@ Other method from derived class
 
 ### Members overriding and compatibility
 
-When *overriding a method*, its *signature* must be compatible with the *parent method*. Otherwise, a fatal error is emitted, or, prior to PHP 8.0.0, an `E_WARNING` level error is generated.
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop.lsp)
-
 #### Overriding and visibility compatibility rules
 
 The *visibility* of *methods*, *properties* and *constants* can be relaxed, e.g. a *protected method* can be marked as *public*, but they cannot be restricted, e.g. marking a *public property* as *private*.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance)
 
-A [method] *signature* is compatible if it respects the *variance rules*, makes a mandatory *parameter* optional, adds only optional new *parameters* and doesn't restrict but only relaxes the *visibility*. This is known as the *Liskov Substitution Principle*, or *LSP* for short. The *constructor*, and *private methods* are exempt from these *signature compatibility rules*, and thus won't emit a fatal error in case of a *signature* mismatch.
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop.lsp)
-
-*Example: Class inheritance and members visibility compatibility*
+*Example: Class members overriding and visibility compatibility*
 
 ```php
 <?php
@@ -3893,7 +3885,13 @@ Kitty Pranky
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_members_visibility_compatibility.php)
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_members_overriding_and_visibility_compatibility.php)
+
+#### Overriding and method parameter number and requiredness rules
+
+A [method] *signature* is compatible if it respects the *variance rules*, makes a mandatory *parameter* optional, adds only optional new *parameters* and doesn't restrict but only relaxes the *visibility*. This is known as the *Liskov Substitution Principle*, or *LSP* for short. The *constructor*, and *private methods* are exempt from these *signature compatibility rules*, and thus won't emit a fatal error in case of a *signature* mismatch.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop.lsp)
 
 *Example: Compatible child methods*
 
@@ -3992,6 +3990,105 @@ Output of the above example in PHP 8 is similar to:
 Fatal error: Declaration of Extend::foo(int $a) must be compatible with Base::foo(int $a = 5) in /in/qJXVC on line 13
 ```
 
+*Example: Class method overriding and paramenter number and requireness compatibility*
+
+```php
+<?php
+
+class Association
+{
+    protected array $members = [];
+    public int $strength = 0;
+
+    public function __construct(
+        public string $name,
+        protected string $chairman,
+    ) {
+        $this->affiliate($chairman);
+    }
+
+    public function affiliate(string $member)
+    {
+        $this->members[] = $member;
+        ++$this->strength;
+    }
+
+    public function display()
+    {
+        foreach ($this->members as $member) {
+            print($member . PHP_EOL);
+        }
+        print(PHP_EOL);
+    }
+}
+
+class Club extends Association
+{
+    public function affiliate(string $member, ?int $id = null)
+    {
+        parent::affiliate($member);
+    }
+}
+
+function communityMeeting(Association $group, array $newcomers = [])
+{
+    print(
+        "Group name: {$group->name}\n"
+        . "Group strength: {$group->strength}\n\n"
+    );
+
+    foreach ($newcomers as $newcomer) {
+        $group->affiliate($newcomer);
+    }
+}
+
+$someGroup = new Association('Western Academy Top Graduates', 'Simon Daffodil');
+print("# Association:\n\n");
+communityMeeting($someGroup, ['Karen McLaren', 'North Sloth', 'Ib Vermicelli']);
+$someGroup->display();
+
+$otherGroup = new Club('Jotter Hobbyist Pen Club', 'Katy Pernickety');
+$otherGroup->affiliate('Doris Frog', 3);
+$otherGroup->affiliate('Arthur Carbony', 5);
+$otherGroup->affiliate('John Thyme');
+$otherGroup->affiliate('Kitty Pranky');
+print("# Club:\n\n");
+communityMeeting($otherGroup);
+$otherGroup->display();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# Association:
+
+Group name: Western Academy Top Graduates
+Group strength: 1
+
+Simon Daffodil
+Karen McLaren
+North Sloth
+Ib Vermicelli
+
+# Club:
+
+Group name: Jotter Hobbyist Pen Club
+Group strength: 5
+
+Katy Pernickety
+Doris Frog
+Arthur Carbony
+John Thyme
+Kitty Pranky
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_parameter_number_and_requireness_compatibility.php)
+
+#### Overriding and method parameter name rule
+
 Warning
 
 Renaming a method's *parameter* in a *child class* is not a *signature incompatibility*. However, this is discouraged as it will result in a runtime `Error` if *named arguments* are used.
@@ -4026,14 +4123,66 @@ Stack trace:
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop.lsp)
 
-#### Overriding and type compatibility rules
+#### Overriding and property type compatibility rules
 
-##### Overriding and method types compatibility rules
+By default, *properties* are neither *covariant* nor *contravariant*, hence *invariant*. That is, their *type* may not change in a *child class* at all. The reason for that is *"get" operations* must be *covariant*, and *"set" operations* must be *contravariant*. The only way for a *property* to satisfy both requirements is to be *invariant*.
 
+As of PHP 8.4.0, with the addition of *abstract properties* (on an *interface* or *abstract class*) and *virtual properties*, it is possible to declare a *property* that has only a *get* or *set operation*. As a result, *abstract properties* or *virtual properties* that have only a *"get" operation* required may be *covariant*. Similarly, an *abstract property* or *virtual property* that has only a *"set" operation* required may be *contravariant*.
 
+Once a *property* has both a *get* and *set operation*, however, it is no longer *covariant* or *contravariant* for further extension. That is, it is now *invariant*.
 
+*Example: Property type variance*
 
-##### Overriding and method return type compatibility rules
+```php
+<?php
+class Animal {}
+class Dog extends Animal {}
+class Poodle extends Dog {}
+
+interface PetOwner
+{
+    // Only a get operation is required, so this may be covariant.
+    public Animal $pet { get; }
+}
+
+class DogOwner implements PetOwner
+{
+    // This may be a more restrictive type since the "get" side
+    // still returns an Animal.  However, as a native property
+    // children of this class may not change the type anymore.
+    public Dog $pet;
+}
+
+class PoodleOwner extends DogOwner
+{
+    // This is NOT ALLOWED, because DogOwner::$pet has both
+    // get and set operations defined and required.
+    public Poodle $pet;
+}
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.variance.php)
+
+#### Overriding and method types compatibility rules
+
+In PHP 7.2.0, *partial contravariance* was introduced by removing *type restrictions* on *parameters* in a *child method*. As of PHP 7.4.0, full *covariance* and *contravariance* support was added.
+
+*Covariance* allows a *child's method* to *return* a *more specific type* than the *return type* of its *parent's method*. *Contravariance* allows a *parameter type* to be *less specific* in a *child method*, than that of its *parent*.
+
+A *type declaration* is considered *more specific* in the following case:
+
+* A *type* is removed from a *union type*
+* A *type* is added to an *intersection type*
+* A *class type* is changed to a *child class type*
+* `iterable` is changed to *array* or `Traversable`
+* A *type class* is considered less specific if the opposite is true.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.variance.php#language.oop5.variance)
+
+When *overriding a method*, its *signature* must be compatible with the *parent method*. Otherwise, a fatal error is emitted, or, prior to PHP 8.0.0, an `E_WARNING` level error is generated.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.basic.php#language.oop.lsp)
 
 Prior to PHP 8.1, most *internal classes* or *methods* didn't *declare* their *return types*, and any *return type* was allowed when *extending* them.
 
@@ -4085,6 +4234,267 @@ class MyDateTime extends DateTime
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.inheritance.php#language.oop5.inheritance.internal-classes)
+
+>>> **covariance**
+
+To illustrate how *covariance* works, a simple *abstract parent class*, `Animal` is created. `Animal` will be extended by *children classes*, `Cat`, and `Dog`.
+
+```php
+<?php
+
+abstract class Animal
+{
+    protected string $name;
+
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
+    abstract public function speak();
+}
+
+class Dog extends Animal
+{
+    public function speak()
+    {
+        echo $this->name . " barks";
+    }
+}
+
+class Cat extends Animal
+{
+    public function speak()
+    {
+        echo $this->name . " meows";
+    }
+}
+```
+
+Note that there aren't any *methods* which *return values* in this example. A few *factories* will be added which return a new *object* of *class type* `Animal`, `Cat`, or `Dog`.
+
+```php
+<?php
+
+interface AnimalShelter
+{
+    public function adopt(string $name): Animal;
+}
+
+class CatShelter implements AnimalShelter
+{
+    public function adopt(string $name): Cat // instead of returning class type Animal, it can return class type Cat
+    {
+        return new Cat($name);
+    }
+}
+
+class DogShelter implements AnimalShelter
+{
+    public function adopt(string $name): Dog // instead of returning class type Animal, it can return class type Dog
+    {
+        return new Dog($name);
+    }
+}
+
+$kitty = (new CatShelter)->adopt("Ricky");
+$kitty->speak();
+echo "\n";
+
+$doggy = (new DogShelter)->adopt("Mavrick");
+$doggy->speak();
+```
+
+The above example will output:
+
+```
+Ricky meows
+Mavrick barks
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.variance.php#language.oop5.variance.covariance)
+
+>>> **contravariance**
+
+Continuing with the previous example with the *classes* `Animal`, `Cat`, and `Dog`, a *class* called `Food` and `AnimalFood` will be included, and a method `eat(AnimalFood $food)` is added to the `Animal` *abstract class*.
+
+```php
+<?php
+
+class Food {}
+
+class AnimalFood extends Food {}
+
+abstract class Animal
+{
+    protected string $name;
+
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public function eat(AnimalFood $food)
+    {
+        echo $this->name . " eats " . get_class($food);
+    }
+}
+```
+
+In order to see the behavior of *contravariance*, the eat *method* is *overridden* in the `Dog` *class* to allow any `Food` *type* *object*. The `Cat` class remains unchanged.
+
+```php
+<?php
+
+class Dog extends Animal
+{
+    public function eat(Food $food) {
+        echo $this->name . " eats " . get_class($food);
+    }
+}
+```
+
+The next example will show the behavior of contravariance.
+
+```php
+<?php
+
+$kitty = (new CatShelter)->adopt("Ricky");
+$catFood = new AnimalFood();
+$kitty->eat($catFood);
+echo "\n";
+
+$doggy = (new DogShelter)->adopt("Mavrick");
+$banana = new Food();
+$doggy->eat($banana);
+```
+
+The above example will output:
+
+```
+Ricky eats AnimalFood
+Mavrick eats Food
+```
+
+But what happens if $kitty tries to eat() the $banana?
+
+```php
+$kitty->eat($banana);
+```
+
+The above example will output:
+
+```
+Fatal error: Uncaught TypeError: Argument 1 passed to Animal::eat() must be an instance of AnimalFood, instance of Food given
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.variance.php#language.oop5.variance.contravariance)
+
+*Example: Class method overriding and types compatibility*
+
+```php
+<?php
+
+class Adept
+{
+    public $curiosity = "How the time works?";
+}
+
+class Craftman extends Adept
+{
+    public $knowledge = "There's a time dilation.";
+}
+
+class Master extends Craftman
+{
+    public $wisdom = "GPS clocks need time correction.";
+}
+
+class Association
+{
+    function affiliate(Craftman $member)
+    {
+        print(
+            $member->curiosity . PHP_EOL
+            . $member->knowledge . PHP_EOL . PHP_EOL
+        );
+    }
+
+    function getGuide(): Craftman
+    {
+        return new Craftman();
+    }
+}
+
+class Club extends Association
+{
+    function affiliate(Adept $member)
+    {
+        print($member->curiosity . PHP_EOL . PHP_EOL);
+    }
+
+    function getGuide(): Master
+    {
+        return new Master();
+    }
+}
+
+function communityMeeting(Association $group)
+{
+    $newMember = new Craftman();
+
+    print("Affiliating:\n\n");
+    $group->affiliate($newMember);
+
+    $newGuide = $group->getGuide();
+
+    print("Guidance:\n\n");
+    print(
+        "Guide curiosity: {$newGuide->curiosity}\n"
+        . "Guide knowledge: {$newGuide->knowledge}\n\n"
+    );
+}
+
+$someGroup = new Association();
+print("# Association:\n\n");
+communityMeeting($someGroup);
+
+$otherGroup = new Club();
+print("# Club:\n\n");
+communityMeeting($otherGroup);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# Association:
+
+Affiliating:
+
+How the time works?
+There's a time dilation.
+
+Guidance:
+
+Guide curiosity: How the time works?
+Guide knowledge: There's a time dilation.
+
+# Club:
+
+Affiliating:
+
+How the time works?
+
+Guidance:
+
+Guide curiosity: How the time works?
+Guide knowledge: There's a time dilation.
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_types_compatibility.php)
 
 *Exapmle: Class inheritance and signature compatibility*
 
@@ -4165,6 +4575,8 @@ garden($bush, 5);
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/class_inheritance_and_method_signature_compatibility.php)
+
+
 
 #### Overriding and constructor signature compatibility rules
 
