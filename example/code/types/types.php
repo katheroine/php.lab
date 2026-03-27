@@ -11,22 +11,24 @@ $h = [
   'color' => 'orange',
   3.14 => 'PI',
 ];
-$u = function(int $number) {
-  return $number * 3;
+$u = function (int $number) {
+    return $number * 3;
 };
 $o = (object) [
   2 => "Hello, there!",
   'color' => 'orange',
   3.14 => 'PI',
 ];
-$co = new class {
-  private int $number;
-  public function set_number(int $number): void {
-    $this->number = $number;
-  }
-  public function get_number(): int {
-    return $this->number;
-  }
+$co = new class () {
+    private int $number;
+    public function set_number(int $number): void
+    {
+        $this->number = $number;
+    }
+    public function get_number(): int
+    {
+        return $this->number;
+    }
 };
 
 echo "\$n = null; // null: " . $n . " (" . gettype($n) . ")\n\n";

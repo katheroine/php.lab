@@ -2,7 +2,7 @@
 
 class SomeClass
 {
-    function __construct(
+    public function __construct(
         public string $someProperty = '' {
             set(string $property) {
                 $this->someProperty = '<' . $property . '>';

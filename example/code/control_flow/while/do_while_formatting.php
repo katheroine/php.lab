@@ -3,8 +3,8 @@
 $i = 0;
 
 do {
-  print("{$i}...\n");
-  ++$i;
+    print("{$i}...\n");
+    ++$i;
 } while ($i < 10);
 
 print "\n";
@@ -12,21 +12,23 @@ print "\n";
 $i = 0;
 
 do {
-  print($i++ . "...\n");
+    print($i++ . "...\n");
 } while ($i < 10);
 
 print "\n";
 
 $i = 0;
 
-do
-  print($i++ . "...\n");
-while ($i < 10);
+do {
+    print($i++ . "...\n");
+} while ($i < 10);
 
 print "\n";
 
 $i = 0;
 
-do print($i++ . "...\n"); while ($i < 10);
+do {
+    print($i++ . "...\n");
+} while ($i < 10);
 
 print "\n";

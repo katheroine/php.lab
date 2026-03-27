@@ -2,7 +2,7 @@
 
 class SomeClass
 {
-    function someFunction()
+    public function someFunction()
     {
         static $number = 0;
 

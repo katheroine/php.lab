@@ -2,66 +2,66 @@
 
 class SomeClass
 {
-    function voidMethod(): void
+    public function voidMethod(): void
     {
     }
 
-    function mixedMethod(mixed $parameter): mixed
-    {
-        return $parameter;
-    }
-
-    function nullMethod(null $parameter): null
+    public function mixedMethod(mixed $parameter): mixed
     {
         return $parameter;
     }
 
-    function booleanMethod(bool $parameter): bool
+    public function nullMethod(null $parameter): null
+    {
+        return $parameter;
+    }
+
+    public function booleanMethod(bool $parameter): bool
     {
         return ! $parameter;
     }
 
-    function integerMethod(int $parameter): int
+    public function integerMethod(int $parameter): int
     {
         return ++$parameter;
     }
 
-    function floatimgPointMethod(float $parameter): float
+    public function floatimgPointMethod(float $parameter): float
     {
         return $parameter * 2;
     }
 
-    function stringMethod(string $parameter): string
+    public function stringMethod(string $parameter): string
     {
         return '<' . $parameter . '>';
     }
 
-    function arrayMethod(array $parameter): array
+    public function arrayMethod(array $parameter): array
     {
         $parameter[] = 'element';
 
         return $parameter;
     }
 
-    function iterableMethod(iterable $parameter): iterable
+    public function iterableMethod(iterable $parameter): iterable
     {
         $result = [];
 
-        foreach($parameter as $key => $value) {
+        foreach ($parameter as $key => $value) {
             $result[$key] = gettype($value);
         }
 
         return $result;
     }
 
-    function callableMethod(callable $parameter, array $arguments = []): callable
+    public function callableMethod(callable $parameter, array $arguments = []): callable
     {
         $parameter(...$arguments);
 
         return $parameter;
     }
 
-    function objectMethod(object $parameter): object
+    public function objectMethod(object $parameter): object
     {
         print(gettype($parameter) . PHP_EOL);
 
@@ -88,7 +88,7 @@ $iterableResult = $someObject->iterableMethod([
     'color' => 'orange',
     3.14 => 'PI',
 ]);
-$callableResult = $someObject->callableMethod(function(int $value): int {
+$callableResult = $someObject->callableMethod(function (int $value): int {
     $result = $value * 10;
     print($result . PHP_EOL);
 

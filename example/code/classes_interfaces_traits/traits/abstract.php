@@ -4,7 +4,7 @@ trait SomeTrait
 {
     public $someVariable = 'hello';
 
-    public abstract function someObligatoryFunction(): string;
+    abstract public function someObligatoryFunction(): string;
 
     public function someFunction(): void
     {

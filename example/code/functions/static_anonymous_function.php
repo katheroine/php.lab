@@ -2,11 +2,11 @@
 
 class ElementsModifier
 {
-    static private $decoration = '*';
+    private static $decoration = '*';
 
     public function modify(array &$someArgument)
     {
-        array_walk($someArgument, static function(&$value, $key) {
+        array_walk($someArgument, static function (&$value, $key) {
             $value = self::$decoration
                 . strtoupper($value)
                 . self::$decoration;

@@ -2,12 +2,12 @@
 
 class SomeClass
 {
-    static $someStaticProperty = 'base static';
+    public static $someStaticProperty = 'base static';
     public $somePublicProperty = 'base public';
     protected $someProtectedProperty = 'base protected';
     private $somePrivateProperty = 'base private';
 
-    function someMethod()
+    public function someMethod()
     {
         print(
             "# From the base class:\n\n"
@@ -20,7 +20,7 @@ class SomeClass
         );
     }
 
-    static function staticMethod()
+    public static function staticMethod()
     {
         print(
             "# From the base class:\n\n"
@@ -33,7 +33,7 @@ class SomeClass
 
 class OtherClass extends SomeClass
 {
-    function otherMethod()
+    public function otherMethod()
     {
         print(
             "# From first derived class:\n\n"
@@ -48,12 +48,12 @@ class OtherClass extends SomeClass
 
 class AnotherClass extends SomeClass
 {
-    static $someStaticProperty = 'derived static';
+    public static $someStaticProperty = 'derived static';
     public $somePublicProperty = 'derived public';
 
-    function anotherFunction()
+    public function anotherFunction()
     {
-         print(
+        print(
             "# From second derived class:\n\n"
             . static::$someStaticProperty . PHP_EOL
             . self::$someStaticProperty . PHP_EOL

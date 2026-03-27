@@ -1,8 +1,8 @@
 <?php
 
 $someRight = true;
-$otherRight = TRUE;
-$anotherRight = True;
+$otherRight = true;
+$anotherRight = true;
 
 print("true: ");
 var_dump($someRight);
@@ -16,8 +16,8 @@ var_dump($anotherRight);
 print(PHP_EOL);
 
 $someWrong = false;
-$otherWrong = FALSE;
-$anotherWrong = False;
+$otherWrong = false;
+$anotherWrong = false;
 
 print("false: ");
 var_dump($someWrong);

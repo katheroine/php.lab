@@ -4,7 +4,7 @@ function oddValuesGenerator(int $number)
 {
     $value = -1;
 
-    for($i = 0; $i < $number; $i++) {
+    for ($i = 0; $i < $number; $i++) {
         $value += 2;
         yield $value => $value;
     }
@@ -14,7 +14,7 @@ function evenValueGenerator(int $number)
 {
     $value = 0;
 
-    for($i = 0; $i < $number; $i++) {
+    for ($i = 0; $i < $number; $i++) {
         $value += 2;
         yield $value => $value;
     }

@@ -1,6 +1,6 @@
 <?php
 
-$someNothing = NULL;
+$someNothing = null;
 
 print('Type/value: ' . var_export($someNothing, true) . PHP_EOL . PHP_EOL);
 printf("in general format: %g\n", $someNothing);

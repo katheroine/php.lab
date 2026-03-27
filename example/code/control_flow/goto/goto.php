@@ -6,8 +6,9 @@ $a = 0;
 start:
 $a += $c;
 $c--;
-if ($c == 0)
-  goto stop;
+if ($c == 0) {
+    goto stop;
+}
 goto start;
 
 stop:

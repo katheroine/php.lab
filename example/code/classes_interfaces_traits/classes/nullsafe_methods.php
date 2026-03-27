@@ -13,7 +13,7 @@ class SomeClass
         return new OtherClass();
     }
 
-    function __construct($empty)
+    public function __construct($empty)
     {
         $this->empty = $empty;
     }

@@ -2,14 +2,15 @@
 
 class SomeClass
 {
-    readonly mixed $someReadonlyProperty;
-    readonly mixed $otherReadonlyProperty;
+    public readonly mixed $someReadonlyProperty;
+    public readonly mixed $otherReadonlyProperty;
 
-    function __construct(int $value)
+    public function __construct(int $value)
     {
         $this->someReadonlyProperty = (object) [
             'interior' => $value
-        ];;
+        ];
+        ;
     }
 }
 

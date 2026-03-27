@@ -1,59 +1,69 @@
 <?php
 
-trait Presentable {
-    const DESCRIPTION_TITLE = "Description: ";
-    const CORE_TITLE = "Core: ";
+trait Presentable
+{
+    public const DESCRIPTION_TITLE = "Description: ";
+    public const CORE_TITLE = "Core: ";
 
     private $presentationTitle = "";
 
-    public function show() : void {
+    public function show(): void
+    {
         if (strlen($this->presentationTitle)) {
-            print ($this->presentationTitle . "\n");
+            print($this->presentationTitle . "\n");
         }
         print(self::DESCRIPTION_TITLE . $this->getLabel() . "\n"
           . self::CORE_TITLE . $this->getCore() . "\n");
     }
 
-    private abstract function getLabel() : string;
-    private abstract function getCore() : string;
+    abstract private function getLabel(): string;
+    abstract private function getCore(): string;
 }
 
-class Value {
+class Value
+{
     use Presentable;
     private string $name;
     private float $value;
 
-    public function __construct(float $value, string $name = "", string $presentationTitle = "") {
+    public function __construct(float $value, string $name = "", string $presentationTitle = "")
+    {
         $this->value = $value;
         $this->name = $name;
         $this->presentationTitle = $presentationTitle;
     }
 
-    private function getLabel() : string {
+    private function getLabel(): string
+    {
         return $this->name;
     }
 
-    private function getCore() : string {
+    private function getCore(): string
+    {
         return $this->value;
     }
 }
 
-class Content {
+class Content
+{
     use Presentable;
     private string $description;
     private string $content;
 
-    public function __construct(string $content, string $description = "", string $presentationTitle = "") {
+    public function __construct(string $content, string $description = "", string $presentationTitle = "")
+    {
         $this->content = $content;
         $this->description = $description;
         $this->presentationTitle = $presentationTitle;
     }
 
-    private function getLabel() : string {
+    private function getLabel(): string
+    {
         return $this->description;
     }
 
-    private function getCore() : string {
+    private function getCore(): string
+    {
         return $this->content;
     }
 }
@@ -64,9 +74,9 @@ $temp->show();
 print("\n");
 
 $lectio = new Content(
-  "In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.",
-  "De beneficiis lectionis",
-  "My favourite cite"
+    "In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.",
+    "De beneficiis lectionis",
+    "My favourite cite"
 );
 $lectio->show();
 

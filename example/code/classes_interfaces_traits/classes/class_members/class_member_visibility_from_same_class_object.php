@@ -25,7 +25,7 @@ class SomeClass
         return $this->somePrivateProperty;
     }
 
-    function someMethod(SomeClass $object)
+    public function someMethod(SomeClass $object)
     {
         print(
             "* Constants:\n"

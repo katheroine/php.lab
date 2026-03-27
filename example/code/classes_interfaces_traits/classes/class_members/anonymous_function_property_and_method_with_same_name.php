@@ -10,14 +10,14 @@ class PaintPalette
 
     public $colours;
 
-    function __construct()
+    public function __construct()
     {
-        $this->colours = function() {
+        $this->colours = function () {
             return $this->palette;
         };
     }
 
-    function colours()
+    public function colours()
     {
         return $this->palette;
     }
@@ -26,4 +26,3 @@ class PaintPalette
 $palette = new PaintPalette();
 print_r(($palette->colours)());
 print_r($palette->colours());
-

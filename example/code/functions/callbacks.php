@@ -6,8 +6,9 @@ function sourceValue($prompt, $validate)
         $value = (string)readline($prompt);
         $validation_message = $validate($value);
 
-        if (empty($validation_message))
+        if (empty($validation_message)) {
             break;
+        }
 
         print($validation_message . "\nTry again.\n");
     } while (true);
@@ -21,7 +22,7 @@ function validateTemperatureInCelsius($value)
 
     if ($value > 26) {
         $message = "Temperature is to high for human health.";
-    } else if ($value < 22) {
+    } elseif ($value < 22) {
         $message = "Temperature is to low for human health.";
     }
 

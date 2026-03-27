@@ -17,7 +17,7 @@ print($result . PHP_EOL);
 
 function someFunctionReturningFunction(): callable
 {
-    return function(string $name) {
+    return function (string $name) {
         print("Hello, {$name}!\n");
     };
 }

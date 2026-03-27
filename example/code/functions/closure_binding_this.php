@@ -6,7 +6,7 @@ class ElementsModifier
 
     public function modify(array &$someArgument)
     {
-        array_walk($someArgument, function(&$value, $key) {
+        array_walk($someArgument, function (&$value, $key) {
             $value = $this->decoration
                 . strtoupper($value)
                 . $this->decoration;

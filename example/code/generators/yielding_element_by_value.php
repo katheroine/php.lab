@@ -1,6 +1,7 @@
 <?php
 
-function generatorYieldingByValue(int $value, int $quantity): Generator {
+function generatorYieldingByValue(int $value, int $quantity): Generator
+{
     for ($i = 1; $i < $quantity; $i++) {
         $value *= 2;
 

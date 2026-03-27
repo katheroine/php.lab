@@ -4,7 +4,7 @@ class SomeException extends Exception
 {
     public mixed $value;
 
-    function __construct(mixed $value)
+    public function __construct(mixed $value)
     {
         $this->value = $value;
         $this->message = "Value has beign given.";
@@ -13,7 +13,7 @@ class SomeException extends Exception
 
 class OtherException extends SomeException
 {
-    function __construct(int $number)
+    public function __construct(int $number)
     {
         $this->value = $number;
         $this->message = "Number has beign given.";

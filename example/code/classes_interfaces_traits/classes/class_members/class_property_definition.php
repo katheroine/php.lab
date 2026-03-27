@@ -3,9 +3,9 @@
 class SomeClass
 {
     public $publicProperty;
-    static $staticProperty;
-    readonly string $readonlyProperty;
-    final $finalProperty;
+    public static $staticProperty;
+    public readonly string $readonlyProperty;
+    final public $finalProperty;
 }
 
 var_dump(get_class_vars(SomeClass::class));

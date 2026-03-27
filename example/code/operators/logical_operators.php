@@ -1,6 +1,7 @@
 <?php
 
-$a = true; $b = false;
+$a = true;
+$b = false;
 
 // Logical conjunction (with high precedence)
 $c = $a && $b;

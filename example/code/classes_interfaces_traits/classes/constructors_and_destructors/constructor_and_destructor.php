@@ -2,17 +2,17 @@
 
 class SomeClass
 {
-    function __construct()
+    public function __construct()
     {
         print("Constructor is running...\n");
     }
 
-    function __destruct()
+    public function __destruct()
     {
         print("Destructor is running...\n");
     }
 
-    function action() : void
+    public function action(): void
     {
         print("Some action is performing...\n");
     }

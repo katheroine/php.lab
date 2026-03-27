@@ -5,12 +5,12 @@ class SomeClass
     public $someProperty = 64;
     private $otherProperty = 'broccoli';
 
-    function someMethod()
+    public function someMethod()
     {
         return $this->otherProperty;
     }
 
-    function otherMethod($someArgument)
+    public function otherMethod($someArgument)
     {
         $this->otherProperty = $someArgument;
     }

@@ -5,7 +5,7 @@ class SomeClass
     public $someProperty;
     public $otherProperty;
 
-    function someMethod()
+    public function someMethod()
     {
         return "{$this->someProperty} & {$this->otherProperty}";
     }
@@ -17,7 +17,7 @@ class OtherClass
     public float $someValue;
     public string $someText;
 
-    function someMethod(int $number, float $value): string
+    public function someMethod(int $number, float $value): string
     {
         $this->someNumber = $number;
         $this->someValue = $value;
@@ -26,7 +26,7 @@ class OtherClass
         return $this->someText;
     }
 
-    function otherMethod(): float
+    public function otherMethod(): float
     {
         return $this->someNumber * $this->someValue;
     }

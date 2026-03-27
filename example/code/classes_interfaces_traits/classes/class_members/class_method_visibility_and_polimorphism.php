@@ -17,7 +17,7 @@ class BaseClass
         return 'base: private';
     }
 
-    function someMethod()
+    public function someMethod()
     {
         print(
             '# From ' . static::class . PHP_EOL . PHP_EOL
@@ -31,17 +31,17 @@ class BaseClass
 
 class DerivedClass extends BaseClass
 {
-    function somePublicMethod()
+    public function somePublicMethod()
     {
         return 'derived: public';
     }
 
-    function someProtectedMethod()
+    public function someProtectedMethod()
     {
         return 'derived: protected';
     }
 
-    function somePrivateMethod()
+    public function somePrivateMethod()
     {
         return 'derived: private';
     }

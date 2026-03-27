@@ -17,7 +17,7 @@ class Master extends Craftman
 
 class Association
 {
-    function affiliate(Craftman $member)
+    public function affiliate(Craftman $member)
     {
         print(
             $member->curiosity . PHP_EOL
@@ -25,7 +25,7 @@ class Association
         );
     }
 
-    function getGuide(): Craftman
+    public function getGuide(): Craftman
     {
         return new Craftman();
     }
@@ -33,12 +33,12 @@ class Association
 
 class Club extends Association
 {
-    function affiliate(Adept $member)
+    public function affiliate(Adept $member)
     {
         print($member->curiosity . PHP_EOL . PHP_EOL);
     }
 
-    function getGuide(): Master
+    public function getGuide(): Master
     {
         return new Master();
     }

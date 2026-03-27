@@ -4,14 +4,14 @@ class SomeClass
 {
     public static $number;
 
-    static function someClassFunction()
+    public static function someClassFunction()
     {
         printf("Number: %d\n", self::$number);
 
         self::$number++;
     }
 
-    function someObjectFunction()
+    public function someObjectFunction()
     {
         printf("Number: %d\n", self::$number);
 

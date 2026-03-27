@@ -14,7 +14,7 @@ function someGenerator(int $number): Generator
 
 $values = someGenerator(5);
 
-foreach($values as $value) {
+foreach ($values as $value) {
     print($value . ' ');
 }
 

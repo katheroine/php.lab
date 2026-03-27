@@ -20,7 +20,7 @@ class Fox extends Mammal
         $this->isDomesticated = false;
     }
 
-    public function show() : void
+    public function show(): void
     {
         print("Hi, my name is {$this->name}\n"
             . "Species: {$this->speciesTaxon}\n"
@@ -36,7 +36,7 @@ class Fox extends Mammal
 
 class UrbanFox extends Fox
 {
-    public function display() : void
+    public function display(): void
     {
         print("Hi, my name is {$this->name}\n"
             . "Do I have tail? {$this->hasTail}\n"

@@ -23,8 +23,7 @@ $someFunctionVariable4 = Closure::fromCallable('someFunction');
 $result = $someFunctionVariable4(3);
 print("Some function result: {$result}\n");
 
-$otherFunctionVariable1 = function (int $someArgument): int
-{
+$otherFunctionVariable1 = function (int $someArgument): int {
     $result = $someArgument * 3;
 
     return $result;

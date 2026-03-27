@@ -7,10 +7,10 @@ class SomeClass
         'multipling' => 'array_product',
     ];
 
-    function __construct()
+    public function __construct()
     {
         $this->actions = [
-            'adding' => function($values) {
+            'adding' => function ($values) {
                 return array_sum($values);
             },
         ];

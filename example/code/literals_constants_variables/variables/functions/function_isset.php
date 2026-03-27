@@ -1,4 +1,5 @@
 <?php
+
 // PHP Reference: https://www.php.net/manual/en/function.isset.php
 
 $number = 15;

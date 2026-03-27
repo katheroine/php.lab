@@ -8,7 +8,7 @@ class PaintPalette
         'yellow',
     ];
 
-    function colours()
+    public function colours()
     {
         return $this->colours;
     }

@@ -4,7 +4,7 @@ class SomeClass
 {
     public $someProperty = null;
 
-    function __construct($empty)
+    public function __construct($empty)
     {
         if (! $empty) {
             $this->someProperty = new OtherClass();

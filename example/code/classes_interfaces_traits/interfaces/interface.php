@@ -1,35 +1,41 @@
 <?php
 
-interface Presentation {
-    public function getLabel() : string;
-    public function show() : void;
+interface Presentation
+{
+    public function getLabel(): string;
+    public function show(): void;
 }
 
-class Datum implements Presentation {
+class Datum implements Presentation
+{
     protected string $description;
 
-    public function __construct(string $description) {
+    public function __construct(string $description)
+    {
         $this->description = $description;
     }
 
-    public function getLabel() : string { // Must be implemented.
-        return ("Description: " . $this->description);
+    public function getLabel(): string // Must be implemented.
+    {return ("Description: " . $this->description);
     }
 
-    public function show() : void { // Must be implemented.
-        print($this->getLabel() . "\n");
+    public function show(): void // Must be implemented.
+    {print($this->getLabel() . "\n");
     }
 }
 
-class Content extends Datum {
+class Content extends Datum
+{
     protected string $core;
 
-    public function __construct(string $core, string $description = "") {
+    public function __construct(string $core, string $description = "")
+    {
         $this->core = $core;
         $this->description = $description;
     }
 
-    public function show() : void {
+    public function show(): void
+    {
         print($this->getLabel() . "\n"
           . "Core: " . $this->core . "\n");
     }
@@ -41,8 +47,8 @@ $color->show();
 print("\n");
 
 $lectio = new Content(
-  "In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.",
-  "De beneficiis lectionis"
+    "In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.",
+    "De beneficiis lectionis"
 );
 $lectio->show();
 

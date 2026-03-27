@@ -17,7 +17,7 @@ class SomeClass
         return 'private';
     }
 
-    function someMethod()
+    public function someMethod()
     {
         print(
             "# From the base class:\n\n"
@@ -31,7 +31,7 @@ class SomeClass
 
 class OtherClass extends SomeClass
 {
-    function otherMethod()
+    public function otherMethod()
     {
         print(
             "# From the derived class:\n\n"

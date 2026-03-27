@@ -32,7 +32,7 @@ class SomeClass
     public $vegetable = 'pumpkin';
     public static $grain = 'wheat';
 
-    static function someClassFunction()
+    public static function someClassFunction()
     {
         $utensil = 'cup';
 
@@ -42,7 +42,7 @@ class SomeClass
         print(PHP_EOL);
     }
 
-    function someObjectFunction()
+    public function someObjectFunction()
     {
         $furniture = 'armchair';
 
@@ -67,7 +67,7 @@ trait SomeTrait
     public $fruit = 'orange';
     public static $plant = 'polypodium';
 
-    static function someTraitFunction()
+    public static function someTraitFunction()
     {
         $tool = 'axe';
 
@@ -78,7 +78,7 @@ trait SomeTrait
         print(PHP_EOL);
     }
 
-    static function someClassFunction()
+    public static function someClassFunction()
     {
         $device = 'calculator';
 
@@ -89,7 +89,7 @@ trait SomeTrait
         print(PHP_EOL);
     }
 
-    function someObjectFunction()
+    public function someObjectFunction()
     {
         $decor = 'vase';
 

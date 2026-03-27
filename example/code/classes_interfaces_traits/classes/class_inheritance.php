@@ -6,22 +6,22 @@ class BaseClass
     public static $someStaticProperty = 'lemon';
     public $someProperty = 'orange';
 
-    static function someStaticMethod()
+    public static function someStaticMethod()
     {
         return 'kiwi';
     }
 
-    function someMethod()
+    public function someMethod()
     {
         return 'melon';
     }
 
-    function otherMethod()
+    public function otherMethod()
     {
         return 'watermelon';
     }
 
-    function anotherMethod()
+    public function anotherMethod()
     {
         return 'avocado';
     }
@@ -33,12 +33,12 @@ class DerivedClass extends BaseClass
     public static $otherStaticProperty = 'tomato';
     public $otherProperty = 'cucumber';
 
-    function otherMethod()
+    public function otherMethod()
     {
         return 'radish';
     }
 
-    function anotherMethod()
+    public function anotherMethod()
     {
         return parent::anotherMethod();
     }

@@ -1,35 +1,41 @@
 #!/usr/bin/php8.1
 <?php
 
-class House {
-  public string $balcony = "#####";
+class House
+{
+    public string $balcony = "#####";
 
-  public function siesta(): void {
-    // $this is needed here, without it, the variable won't be recognized
-    print("I'm gonna drink my coffe on the balcony: {$this->balcony}\n");
-  }
+    public function siesta(): void
+    {
+        // $this is needed here, without it, the variable won't be recognized
+        print("I'm gonna drink my coffe on the balcony: {$this->balcony}\n");
+    }
 }
 
-class OperaHouse {
-  public string $balcony = "=====";
+class OperaHouse
+{
+    public string $balcony = "=====";
 
-  public function entrance(): void {
-    print("We've got places on the balcony: {$this->balcony}\n");
-  }
+    public function entrance(): void
+    {
+        print("We've got places on the balcony: {$this->balcony}\n");
+    }
 
-  public function scene(): void {
-    print("Applause from the balcony: {$this->balcony}\n"
-      . "The courtain is comming up.\n");
+    public function scene(): void
+    {
+        print("Applause from the balcony: {$this->balcony}\n"
+          . "The courtain is comming up.\n");
 
-    $balcony = ":::::";
-    print("Julia, oh Julia! Come to the balcony: {$balcony}\n");
+        $balcony = ":::::";
+        print("Julia, oh Julia! Come to the balcony: {$balcony}\n");
 
-    print("Applause from the balcony: {$this->balcony}\n");
-  }
+        print("Applause from the balcony: {$this->balcony}\n");
+    }
 }
 
-function singing(): string {
-  return "Trill, trill!";
+function singing(): string
+{
+    return "Trill, trill!";
 }
 
 $balcony = "!!!!!";

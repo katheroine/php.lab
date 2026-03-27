@@ -4,7 +4,7 @@ $someVariable = 15;
 $otherVariable = 1024;
 
 // Regular closure:
-$someClosure = function() use ($someVariable) {
+$someClosure = function () use ($someVariable) {
     print('Is some variable defined? ' . (isset($someVariable) ? 'yes' : 'no') . "\n");
     print('Is other variable defined? ' . (isset($otherVariable) ? 'yes' : 'no') . "\n");
 
@@ -16,7 +16,7 @@ $someClosure = function() use ($someVariable) {
 $someClosure();
 
 // Arrow function:
-$otherClosure = fn() => $someVariable + $otherVariable;
+$otherClosure = fn () => $someVariable + $otherVariable;
 
 $result = $otherClosure();
 

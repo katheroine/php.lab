@@ -16,7 +16,7 @@ class SomeClass
     public stdClass $simpleObjectProperty;
     public OtherClass $objectProperty;
 
-    function __construct()
+    public function __construct()
     {
         $this->simpleObjectProperty = (object) [
             2 => "Hello, there!",

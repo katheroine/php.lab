@@ -28,7 +28,7 @@ function unlimitedValuesGenerator()
 {
     $value = 0;
 
-    while(true) {
+    while (true) {
         yield $value++;
     }
 }

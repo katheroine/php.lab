@@ -15,7 +15,7 @@ class SomeClass
 
 class OtherClass extends SomeClass
 {
-    static function constructByParent()
+    public static function constructByParent()
     {
         return new parent();
     }
@@ -26,7 +26,7 @@ $someObject = new SomeClass();
 print("# From the explicit class name:\n\n");
 print('Created object class: '. get_class($someObject) . PHP_EOL . PHP_EOL);
 
-$fromObject = new $someObject;
+$fromObject = new $someObject();
 
 print("# From an object of the particular class:\n\n");
 print(

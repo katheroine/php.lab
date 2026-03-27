@@ -1,26 +1,32 @@
 <?php
 
-abstract class Datum {
+abstract class Datum
+{
     protected string $description;
 
-    public function formatDescriptionAsText() : string {
+    public function formatDescriptionAsText(): string
+    {
         return ("Description: " . $this->description);
     }
 }
 
-class Content extends Datum {
+class Content extends Datum
+{
     protected string $core;
 
-    public function __construct(string $core, string $description = "") {
+    public function __construct(string $core, string $description = "")
+    {
         $this->core = $core;
         $this->description = $description;
     }
 
-    public function formatCoreAsText() : string {
+    public function formatCoreAsText(): string
+    {
         return ("Core: " . $this->core);
     }
 
-    public function show() : void {
+    public function show(): void
+    {
         print($this->formatDescriptionAsText() . "\n"
           . $this->formatCoreAsText() . "\n");
     }
@@ -29,8 +35,8 @@ class Content extends Datum {
 // $data = new Datum(); // One cannot instantiate.
 
 $lectio = new Content(
-  "In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.",
-  "De beneficiis lectionis"
+    "In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.",
+    "De beneficiis lectionis"
 );
 
 $lectio->show();

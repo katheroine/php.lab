@@ -2,11 +2,11 @@
 
 class SomeClass
 {
-    static $staticProperty = 'static';
-    readonly string $readonlyProperty;
-    final $finalProperty = 'final';
+    public static $staticProperty = 'static';
+    public readonly string $readonlyProperty;
+    final public $finalProperty = 'final';
 
-    function __construct()
+    public function __construct()
     {
         $this->readonlyProperty = 'readonly';
     }

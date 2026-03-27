@@ -10,7 +10,7 @@ class Fox extends Mammal
     public string $speciesTaxon = "Vulpes vulpes";
     public string $name;
 
-    public function show() : void
+    public function show(): void
     {
         print("Hi, my name is {$this->name}.\n"
             . "Class: {$this->classTaxon}\n"

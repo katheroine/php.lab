@@ -2,9 +2,9 @@
 
 class SomeClass
 {
-    readonly mixed $someReadonlyProperty;
+    public readonly mixed $someReadonlyProperty;
 
-    function __construct(int $value)
+    public function __construct(int $value)
     {
         $this->someReadonlyProperty = $value;
     }
@@ -12,12 +12,12 @@ class SomeClass
 
 abstract class OtherClass
 {
-    readonly mixed $otherReadonlyProperty;
+    public readonly mixed $otherReadonlyProperty;
 }
 
 class AnotherClass extends OtherClass
 {
-    function __construct(int $value = 64)
+    public function __construct(int $value = 64)
     {
         $this->otherReadonlyProperty = $value * 2;
     }

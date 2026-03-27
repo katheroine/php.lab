@@ -34,14 +34,15 @@ class someClass implements SomeInterface
     private string $someProperty = 'hello';
 
     #[SomeMethodAttribute]
-    function someMethod(): void
+    public function someMethod(): void
     {
     }
 }
 
-$someAnonymousFunction = #[SomeAnonymousFunctionAttribute] function() {};
+$someAnonymousFunction = #[SomeAnonymousFunctionAttribute] function () {
+};
 
-$someAnonymousClassObject = new #[SomeAnonymousClassAttribute] class {};
+$someAnonymousClassObject = new #[SomeAnonymousClassAttribute] class () {};
 
 $functionReflection = new ReflectionFunction('someFunction');
 $attributes = $functionReflection->getAttributes();

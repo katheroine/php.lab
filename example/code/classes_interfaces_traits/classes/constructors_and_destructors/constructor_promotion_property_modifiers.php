@@ -2,9 +2,9 @@
 
 class SomeClass
 {
-    function __construct(
+    public function __construct(
         public string $someProperty,
-        readonly float $otherProperty = 10.0,
+        public readonly float $otherProperty = 10.0,
     ) {
     }
 }

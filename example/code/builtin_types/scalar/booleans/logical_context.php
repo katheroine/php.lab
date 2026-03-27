@@ -28,7 +28,7 @@ print("Status: $status\n");
 
 print("Skills:\n");
 
-while($technology = current($technologies)) {
+while ($technology = current($technologies)) {
     print($technology . ' ');
     next($technologies);
 }

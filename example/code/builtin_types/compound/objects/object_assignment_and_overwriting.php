@@ -2,7 +2,7 @@
 
 class SomeClass
 {
-    function __construct(
+    public function __construct(
         public $publicProperty = null,
         protected $protectedProperty = 15.5,
         private $privateProperty = 'hello'

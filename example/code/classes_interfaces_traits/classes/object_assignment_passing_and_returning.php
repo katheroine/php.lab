@@ -30,7 +30,7 @@ print("As a variable\n");
 var_dump($someObject);
 print(PHP_EOL);
 
-receivingFunction(new OtherClass);
+receivingFunction(new OtherClass());
 
 print("As a function result\n");
 var_dump(returningFunction());

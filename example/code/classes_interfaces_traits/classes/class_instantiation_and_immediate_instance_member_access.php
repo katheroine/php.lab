@@ -5,7 +5,7 @@ class SomeClass
     public $someProperty = 'watermelon';
     private $otherProperty = 'pumpkin';
 
-    function someMethod()
+    public function someMethod()
     {
         return $this->otherProperty;
     }

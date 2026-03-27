@@ -38,7 +38,7 @@ print(PHP_EOL);
 
 class OtherClass
 {
-    function __construct(
+    public function __construct(
         public $publicProperty,
         protected $protectedProperty,
         private $privateProperty

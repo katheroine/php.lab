@@ -2,7 +2,7 @@
 
 class SomeClass
 {
-    function __construct(
+    public function __construct(
         public mixed $publicProperty,
         protected string $protectedProperty,
         private string $privateProperty = 'nothing',

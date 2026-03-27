@@ -2,14 +2,14 @@
 
 class SomeClass
 {
-    readonly mixed $someReadonlyProperty;
+    public readonly mixed $someReadonlyProperty;
 
-    function __construct(int $value)
+    public function __construct(int $value)
     {
         $this->someReadonlyProperty = $value;
     }
 
-    function __clone()
+    public function __clone()
     {
         $this->someReadonlyProperty = 2;
     }

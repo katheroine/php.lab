@@ -49,6 +49,6 @@ $otherGroup->affiliate('Kitty Pranky');
 print("# Club:\n\n");
 communityMeeting($otherGroup);
 print("Members:\n");
-foreach($otherGroup->members as $member) {
+foreach ($otherGroup->members as $member) {
     print($member . PHP_EOL);
 }

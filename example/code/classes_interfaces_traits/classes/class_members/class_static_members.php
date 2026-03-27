@@ -2,7 +2,7 @@
 
 class SomeClass
 {
-    const SOME_CONSTANT = 'pear';
+    public const SOME_CONSTANT = 'pear';
 
     public static $someStaticProperty = 'lemon';
 

@@ -2,7 +2,7 @@
 
 class SomeClass
 {
-    static function create()
+    public static function create()
     {
         return new static();
     }

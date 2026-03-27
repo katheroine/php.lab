@@ -2,14 +2,14 @@
 
 function functionWithStaticVariable(): void
 {
-  $i = 0;
-  static $n = 0;
+    $i = 0;
+    static $n = 0;
 
-  print("A regular local variable: {$i}\n"
-    . "A static local variable: {$n}\n");
+    print("A regular local variable: {$i}\n"
+      . "A static local variable: {$n}\n");
 
-  $i++;
-  $n++;
+    $i++;
+    $n++;
 }
 
 print("Function first call:\n");

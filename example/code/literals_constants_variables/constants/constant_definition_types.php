@@ -37,7 +37,7 @@ print("Other array:\n");
 print_r(OTHER_ARRAY);
 print("\n");
 
-define('SOME_FUNCTION', function() {
+define('SOME_FUNCTION', function () {
     return 'some_function';
 });
 // const OTHER_FUNCTION = function() {

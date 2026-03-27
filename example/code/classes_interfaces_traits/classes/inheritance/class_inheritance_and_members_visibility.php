@@ -53,7 +53,7 @@ class SomeBaseClass
 
 class SomeDerivedClass extends SomeBaseClass
 {
-    function otherMethod()
+    public function otherMethod()
     {
         print(
             __METHOD__

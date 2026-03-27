@@ -1,6 +1,8 @@
 <?php
 
-$a = 1; $b = 2; $c = false;
+$a = 1;
+$b = 2;
+$c = false;
 
 // Less than
 $c = $a < $b;

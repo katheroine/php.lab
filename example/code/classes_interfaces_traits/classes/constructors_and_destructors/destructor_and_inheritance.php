@@ -2,7 +2,7 @@
 
 class SomeClass
 {
-    function __destruct()
+    public function __destruct()
     {
         print("SomeClass destructor\n\n");
     }
@@ -33,7 +33,7 @@ otherClassScope();
 
 class AnotherClass extends SomeClass
 {
-    function __destruct()
+    public function __destruct()
     {
         print("AnotherClass destructor\n\n");
     }
@@ -50,7 +50,7 @@ anotherClassScope();
 
 class DifferentClass extends SomeClass
 {
-    function __destruct()
+    public function __destruct()
     {
         parent::__destruct();
         print("DifferentClass destructor\n\n");

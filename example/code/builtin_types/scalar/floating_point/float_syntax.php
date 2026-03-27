@@ -1,6 +1,6 @@
 <?php
 
-$someValue= 10.5;
+$someValue = 10.5;
 $somePositiveValue = +3.2;
 $someNegativeValue = -9.3;
 $someValueInUnderscoredNotation = 10_000_1024.0;

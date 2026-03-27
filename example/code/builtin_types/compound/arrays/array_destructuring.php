@@ -10,7 +10,7 @@ print("First number: $e1\n");
 print("Second number: $e2\n");
 print("Third number: $e3\n\n");
 
-list(,,$element3) = $numbers;
+list(, , $element3) = $numbers;
 
 print("Third number: $element3\n\n");
 
@@ -54,6 +54,6 @@ $pairs = [
   ['violet', 0x8A2BE2],
 ];
 
-foreach($pairs as [$name, $value]) {
-  print("Name: $name, Value: $value\n");
+foreach ($pairs as [$name, $value]) {
+    print("Name: $name, Value: $value\n");
 }

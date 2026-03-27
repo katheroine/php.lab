@@ -3,7 +3,7 @@
 $someText = 'Welcome to the jungle!';
 $textLenght = strlen($someText);
 
-for($i = 0; $i < $textLenght; $i++) {
+for ($i = 0; $i < $textLenght; $i++) {
     print($someText[$i]);
 }
 
@@ -13,7 +13,7 @@ $someWord = 'bundle';
 $textStartIndex = strpos($someText, 'jungle');
 $wordLength = strlen($someWord);
 
-for($i = $textStartIndex, $j = 0; ($i < $textLenght && $j < $wordLength); $i++, $j++) {
+for ($i = $textStartIndex, $j = 0; ($i < $textLenght && $j < $wordLength); $i++, $j++) {
     $someText[$i] = $someWord[$j];
 }
 

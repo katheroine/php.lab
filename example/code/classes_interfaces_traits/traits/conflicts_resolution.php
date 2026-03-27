@@ -38,7 +38,7 @@ class SomeClass
     {
         // OtherTrait::SOME_CONSTANT insteadof SomeTrait;
         SomeTrait::someFunction insteadof OtherTrait;
-        OtherTrait::otherFunction insteadOf SomeTrait;
+        OtherTrait::otherFunction insteadof SomeTrait;
         SomeTrait::otherFunction as anotherFunction;
     }
 }

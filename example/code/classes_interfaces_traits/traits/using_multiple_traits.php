@@ -1,39 +1,52 @@
 <?php
 
-trait Presentable {
-    const DESCRIPTION_TITLE = "Description: ";
-    const CORE_TITLE = "Core: ";
+trait Presentable
+{
+    public const DESCRIPTION_TITLE = "Description: ";
+    public const CORE_TITLE = "Core: ";
 
     private string $presentationTitle = "";
 
-    public function show() : void {
+    public function show(): void
+    {
         if (strlen($this->presentationTitle)) {
-            print ($this->presentationTitle . "\n");
+            print($this->presentationTitle . "\n");
         }
         print(self::DESCRIPTION_TITLE . $this->getLabel() . "\n"
           . self::CORE_TITLE . $this->getCore() . "\n");
     }
 }
 
-trait Typeable {
+trait Typeable
+{
     private array $typeConverters;
     private string $type;
 
-    private function setupTypeConverters() : void {
+    private function setupTypeConverters(): void
+    {
         $this->typeConverters = [
-            'int' => function($value) { return (int)$value; },
-            'float' => function($value) { return (float)$value; },
-            'string' => function($value) { return $value; },
+            'int' => function ($value) {
+                return (int)$value;
+            },
+            'float' => function ($value) {
+                return (float)$value;
+            },
+            'string' => function ($value) {
+                return $value;
+            },
         ];
     }
 }
 
-class Value {
-    use Presentable, Typeable;
+class Value
+{
+    use Presentable;
+    use Typeable;
     private string $name;
     private $value;
 
-    public function __construct(string $value, string $type, string $name = "", string $presentationTitle = "") {
+    public function __construct(string $value, string $type, string $name = "", string $presentationTitle = "")
+    {
         $this->setupTypeConverters();
 
         $this->value = $this->typeConverters[$type]($value);
@@ -41,11 +54,13 @@ class Value {
         $this->presentationTitle = $presentationTitle;
     }
 
-    private function getLabel() : string {
+    private function getLabel(): string
+    {
         return $this->name;
     }
 
-    private function getCore() : string {
+    private function getCore(): string
+    {
         return $this->value;
     }
 }

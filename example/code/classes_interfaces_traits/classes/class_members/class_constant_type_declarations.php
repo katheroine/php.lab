@@ -2,13 +2,13 @@
 
 class SomeClass
 {
-    const mixed MIXED_CONSTANT = null;
-    const bool BOOLEAN_CONSTANT = true;
-    const int INTEGER_CONSTANT = 5;
-    const float FLOATING_POINT_CONSTANT = 2.4;
-    const string STRING_CONSTANT = 'hello';
-    const array ARRAY_CONSTANT = [3, 5, 7];
-    const iterable ITERABLE_CONSTANT = [
+    public const mixed MIXED_CONSTANT = null;
+    public const bool BOOLEAN_CONSTANT = true;
+    public const int INTEGER_CONSTANT = 5;
+    public const float FLOATING_POINT_CONSTANT = 2.4;
+    public const string STRING_CONSTANT = 'hello';
+    public const array ARRAY_CONSTANT = [3, 5, 7];
+    public const iterable ITERABLE_CONSTANT = [
         2 => "Hello, there!",
         'color' => 'orange',
         3.14 => 'PI',

@@ -19,7 +19,7 @@ reset($someArray);
 do {
     print(key($someArray) . ": " . current($someArray) . PHP_EOL);
     $undone = next($someArray);
-} while($undone);
+} while ($undone);
 
 print(PHP_EOL);
 
@@ -43,13 +43,13 @@ foreach ($otherArray as $key => $value) {
 
 print(PHP_EOL);
 
-array_walk($otherArray, function($value) {
+array_walk($otherArray, function ($value) {
     print("{$value}\n");
 });
 
 print(PHP_EOL);
 
-array_walk($otherArray, function($value, $key) {
+array_walk($otherArray, function ($value, $key) {
     print("{$key}: {$value}\n");
 });
 
@@ -69,13 +69,13 @@ $anotherArray = [
         'blackberry']
     ];
 
-array_walk_recursive($anotherArray, function($value) {
-  print("{$value}\n");
+array_walk_recursive($anotherArray, function ($value) {
+    print("{$value}\n");
 });
 
 print(PHP_EOL);
 
-array_walk_recursive($anotherArray, function($value, $key) {
+array_walk_recursive($anotherArray, function ($value, $key) {
     print("{$key}: {$value}\n");
 });
 

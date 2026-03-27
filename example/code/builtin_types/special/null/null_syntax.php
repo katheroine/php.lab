@@ -1,8 +1,8 @@
 <?php
 
 $someNothing = null;
-$otherNothing = NULL;
-$anotherNothing = Null;
+$otherNothing = null;
+$anotherNothing = null;
 
 print("null: ");
 var_dump($someNothing);

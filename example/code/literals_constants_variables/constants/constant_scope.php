@@ -29,9 +29,9 @@ print(PHP_EOL);
 
 class SomeClass
 {
-    const VEGETABLE = 'pumpkin';
+    public const VEGETABLE = 'pumpkin';
 
-    static function someClassFunction()
+    public static function someClassFunction()
     {
         define('UTENSIL', 'cup');
 
@@ -44,7 +44,7 @@ class SomeClass
         print(PHP_EOL);
     }
 
-    function someObjectFunction()
+    public function someObjectFunction()
     {
         define('FURNITURE', 'armchair');
 
@@ -70,7 +70,7 @@ print(PHP_EOL);
 
 interface SomeInterface
 {
-    const TREE = 'pine';
+    public const TREE = 'pine';
 }
 
 // printf("Tree defined? %s\n", defined('SomeInterface::TREE'));
@@ -81,9 +81,9 @@ print(PHP_EOL);
 
 trait SomeTrait
 {
-    const FRUIT = 'orange';
+    public const FRUIT = 'orange';
 
-    static function someTraitFunction()
+    public static function someTraitFunction()
     {
         define('TOOL', 'axe');
 
@@ -97,7 +97,7 @@ trait SomeTrait
         print(PHP_EOL);
     }
 
-    static function someClassFunction()
+    public static function someClassFunction()
     {
         define('DEVICE', 'calculator');
 
@@ -111,7 +111,7 @@ trait SomeTrait
         print(PHP_EOL);
     }
 
-    function someObjectFunction()
+    public function someObjectFunction()
     {
         define('DECOR', 'vase');
 

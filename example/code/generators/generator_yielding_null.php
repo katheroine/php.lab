@@ -2,7 +2,7 @@
 
 function nullGenerator()
 {
-    while(true) {
+    while (true) {
         yield;
     }
 }

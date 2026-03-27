@@ -4,7 +4,7 @@ function functionWithVariableNumberOfArguments(int ...$arguments): int
 {
     $product = 1;
 
-    foreach($arguments as $argument){
+    foreach ($arguments as $argument) {
         $product *= $argument;
     }
 

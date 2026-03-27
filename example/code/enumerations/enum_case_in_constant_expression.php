@@ -21,7 +21,7 @@ someFunction();
 
 class SomeClass
 {
-    const SomeEnum SOME_CONSTANT = SomeEnum::SomeCase;
+    public const SomeEnum SOME_CONSTANT = SomeEnum::SomeCase;
     public SomeEnum $someProperty = SomeEnum::OtherCase;
     public static SomeEnum $otherProperty = SomeEnum::AnotherCase;
     private SomeEnum $anotherProperty;

@@ -1,12 +1,14 @@
 #!/usr/bin/php8.1
 <?php
 
-class Mammal {
+class Mammal
+{
     public bool $hasTail;
     public static bool $isMilkFeeded = true;
     public const CLASS_TAXON = "Mammalia";
 
-    public function display(): void {
+    public function display(): void
+    {
         print("Class: " . self::CLASS_TAXON
             . "\nClass: " . Mammal::CLASS_TAXON
             . "\nIs it milk-feeded as a cub? " . self::$isMilkFeeded
@@ -16,12 +18,14 @@ class Mammal {
     }
 }
 
-class Fox extends Mammal {
+class Fox extends Mammal
+{
     public string $name;
     public static bool $hasFur = true;
     public const SPECIES_TAXON = "Vulpes vulpes";
 
-    public function show(): void {
+    public function show(): void
+    {
         print("Hi, my name is " . $this->name
             . ".\nClass: " . self::CLASS_TAXON
             . "\nClass: " . Mammal::CLASS_TAXON
@@ -37,7 +41,8 @@ class Fox extends Mammal {
         );
     }
 
-    public function display(): void {
+    public function display(): void
+    {
         print("Name: " . $this->name
             . "\nSpecies: " . self::SPECIES_TAXON
             . "\nSpecies: " . Fox::SPECIES_TAXON . "\n"

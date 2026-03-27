@@ -10,7 +10,7 @@ $objectFromStdClass = new stdClass();
 
 class SomeClass
 {
-    function __construct(
+    public function __construct(
         public $publicProperty,
         protected $protectedProperty,
         private $privateProperty = 1024

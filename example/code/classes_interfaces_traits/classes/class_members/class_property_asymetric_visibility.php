@@ -2,17 +2,17 @@
 
 class SomeClass
 {
-    protected(set) string $someProperty = 'protected(set)';
+    public protected(set) string $someProperty = 'protected(set)';
     protected private(set) string $otherProperty = 'protected private(set)';
 
-    function someSettingMethod()
+    public function someSettingMethod()
     {
         print("# In the base class\n\n");
         $this->someProperty .= ' - modified in base class';
         $this->otherProperty .= ' - modified in base class';
     }
 
-    function someGettingMethod()
+    public function someGettingMethod()
     {
         print(
             "# From the base class:\n\n"
@@ -25,13 +25,13 @@ class SomeClass
 
 class OtherClass extends SomeClass
 {
-    function otherSettingMethod()
+    public function otherSettingMethod()
     {
         print("# In the derived class\n\n");
         $this->someProperty .= ' - modified in derived class';
     }
 
-    function otherGettingMethod()
+    public function otherGettingMethod()
     {
         print(
             "# From the derived class:\n\n"

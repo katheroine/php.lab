@@ -2,9 +2,9 @@
 
 class SomeClass
 {
-    readonly mixed $someReadonlyProperty;
+    public readonly mixed $someReadonlyProperty;
 
-    function __construct(int $value)
+    public function __construct(int $value)
     {
         $this->someReadonlyProperty = $value;
     }
@@ -12,9 +12,9 @@ class SomeClass
 
 class OtherClass
 {
-    readonly mixed $otherReadonlyProperty;
+    public readonly mixed $otherReadonlyProperty;
 
-    function initialiseReadonlyProperty(int $value)
+    public function initialiseReadonlyProperty(int $value)
     {
         $this->otherReadonlyProperty = $value;
     }

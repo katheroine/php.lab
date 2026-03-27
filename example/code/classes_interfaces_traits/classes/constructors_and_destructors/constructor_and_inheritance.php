@@ -2,7 +2,7 @@
 
 class SomeClass
 {
-    function __construct()
+    public function __construct()
     {
         print("SomeClass constructor\n\n");
     }
@@ -22,7 +22,7 @@ new OtherClass();
 
 class AnotherClass extends SomeClass
 {
-    function __construct()
+    public function __construct()
     {
         print("AnotherClass constructor\n\n");
     }
@@ -34,7 +34,7 @@ new AnotherClass();
 
 class DifferentClass extends SomeClass
 {
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         print("DifferentClass constructor\n\n");

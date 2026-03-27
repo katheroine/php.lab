@@ -24,7 +24,7 @@ class Card
             if (isset($fields[1])) {
                 $surname = static::groomField($fields[1]);
 
-                if(isset($fields[2])) {
+                if (isset($fields[2])) {
                     $title = static::groomField($fields[2]);
                 }
             }

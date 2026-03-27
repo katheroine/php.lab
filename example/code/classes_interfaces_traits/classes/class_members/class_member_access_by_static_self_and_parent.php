@@ -6,7 +6,7 @@ class BaseClass
     public static $someStaticProperty = 'lemon';
     public $someProperty = 'orange';
 
-    static function someStaticMethod()
+    public static function someStaticMethod()
     {
         print(static::class . '/' . self::class . " static method:\n\n");
         print('Statically accessed constant value (by self): ' . self::SOME_CONSTANT . PHP_EOL);
@@ -16,7 +16,7 @@ class BaseClass
         print(PHP_EOL);
     }
 
-    function someMethod()
+    public function someMethod()
     {
         print(static::class . '/' . self::class . " method:\n\n");
         print('Statically accessed constant value (by self): ' . self::SOME_CONSTANT . PHP_EOL);
@@ -34,7 +34,7 @@ class DerivedClass extends BaseClass
     public static $someStaticProperty = 'tomato';
     public $someProperty = 'cucumber';
 
-    function otherMethod()
+    public function otherMethod()
     {
         print(static::class . '/' . self::class . " method:\n\n");
         print('Statically accessed constant value (by self): ' . self::SOME_CONSTANT . PHP_EOL);

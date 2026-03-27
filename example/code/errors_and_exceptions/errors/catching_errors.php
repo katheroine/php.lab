@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 function someFunction(int $someArgument)
@@ -62,7 +63,7 @@ try {
 print(PHP_EOL);
 
 try {
-    1/0;
+    1 / 0;
 } catch (Exception $exception) {
     print("Exception catched!\n");
     print($exception->getMessage() . "\n");
@@ -90,7 +91,8 @@ try {
 print(PHP_EOL);
 
 try {
-    match("hello") {};
+    match("hello") {
+    };
 } catch (Exception $exception) {
     print("Exception catched!\n");
     print($exception->getMessage() . "\n");

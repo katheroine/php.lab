@@ -1,6 +1,7 @@
 <?php
 
-function someGenerator(int $value, int $quantity, callable $algorithm): Generator {
+function someGenerator(int $value, int $quantity, callable $algorithm): Generator
+{
     for ($i = 1; $i < $quantity; $i++) {
         $value = $algorithm($value);
 
@@ -8,7 +9,7 @@ function someGenerator(int $value, int $quantity, callable $algorithm): Generato
     }
 }
 
-$values = someGenerator(0, 10, function(int $value) {
+$values = someGenerator(0, 10, function (int $value) {
     return $value + 2;
 });
 

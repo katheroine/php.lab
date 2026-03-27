@@ -1,6 +1,7 @@
 <?php
 
-function findUserById($id) {
+function findUserById($id)
+{
     $users = [
         1 => 'Alice',
         2 => 'Bob'

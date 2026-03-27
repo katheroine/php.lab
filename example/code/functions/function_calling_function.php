@@ -2,17 +2,17 @@
 
 function inside(): string
 {
-  print("* Inside.\n");
-  return "IN";
+    print("* Inside.\n");
+    return "IN";
 }
 
 function outside(): string
 {
-  print("# Outside:\n"
-    . "# Calling function from function...\n");
-  $result = inside();
-  print("# result: {$result}\n");
-  return "OUT";
+    print("# Outside:\n"
+      . "# Calling function from function...\n");
+    $result = inside();
+    print("# result: {$result}\n");
+    return "OUT";
 }
 
 print("Calling function...\n");

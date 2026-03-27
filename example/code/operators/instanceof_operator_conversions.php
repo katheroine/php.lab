@@ -3,11 +3,15 @@
 $i = 3;
 $d = 2.5;
 $s = "abc";
-$c = new stdClass;
-class dClass extends stdClass {}
-$e = new dClass;
-class nClass {}
-$n = new nClass;
+$c = new stdClass();
+class dClass extends stdClass
+{
+}
+$e = new dClass();
+class nClass
+{
+}
+$n = new nClass();
 
 echo "\$i: ";
 var_dump($i);

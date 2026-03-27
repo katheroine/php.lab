@@ -32,7 +32,7 @@ $items = [
   2.5,
   "orange",
   [2, 4, 6],
-  new stdClass,
+  new stdClass(),
 ];
 
 print("Items:\n\n");

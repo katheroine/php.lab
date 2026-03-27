@@ -26,7 +26,7 @@ print("Some array:\n");
 print_r($someArray);
 print("\n");
 
-$someFunction = function() {
+$someFunction = function () {
     return 'some_function';
 };
 

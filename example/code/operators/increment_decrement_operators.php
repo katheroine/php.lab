@@ -1,6 +1,7 @@
 <?php
 
-$a = 6; $b = 3;
+$a = 6;
+$b = 3;
 
 print("\$a = {$a}, \$b = {$b}\n");
 // Preincrementation

@@ -29,7 +29,7 @@ function unlimitedValuesGenerator()
     $key = 0;
     $value = 0;
 
-    while(true) {
+    while (true) {
         yield $key-- => $value++;
     }
 }

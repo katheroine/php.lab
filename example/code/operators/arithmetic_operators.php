@@ -1,6 +1,7 @@
 <?php
 
-$a = 6; $b = 2;
+$a = 6;
+$b = 2;
 
 // Identity
 print("+{$b} = " . +$b . "\n");

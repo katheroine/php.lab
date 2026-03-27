@@ -6,15 +6,15 @@ class SomeClass
 
 class OtherClass
 {
-    private(set) string $someProperty;
+    public private(set) string $someProperty;
 
-    function __construct(string $someValue)
+    public function __construct(string $someValue)
     {
         $this->someProperty = $someValue;
     }
 }
 
-$someObject = new SomeClass;
+$someObject = new SomeClass();
 
 print("Some object\n");
 var_dump($someObject);

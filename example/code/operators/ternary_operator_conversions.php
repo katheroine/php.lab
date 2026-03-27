@@ -23,5 +23,3 @@ print("\"a\": {$result}\n");
 
 $result = null ? "yes" : "no";
 print("null: {$result}\n");
-
-

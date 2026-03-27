@@ -2,7 +2,7 @@
 
 class SomeClass
 {
-    function __construct(
+    public function __construct(
         public mixed $mixedProperty = null,
         public bool $booleanProperty = true,
         public int $integerProperty = 5,
@@ -16,8 +16,7 @@ class SomeClass
         ],
         public OtherClass $objectProperty = new OtherClass(),
         public ?stdClass $simpleObjectProperty = null,
-    )
-    {
+    ) {
         $this->simpleObjectProperty = (object) [
             2 => "Hello, there!",
             'color' => 'orange',
