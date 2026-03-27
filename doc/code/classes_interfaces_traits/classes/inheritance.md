@@ -311,6 +311,95 @@ Species: Vulpes vulpes
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/base_and_derived_class.php)
 
+## Multilevel inheritance
+
+*Example: Multilevel inheritance*
+
+```php
+<?php
+
+class Mammal
+{
+    public bool $isDomesticated = false;
+    public bool $hasTail = false;
+
+    public static bool $isMilkFeeded = true;
+    public static string $classTaxon = "Mammalia";
+}
+
+class Fox extends Mammal
+{
+    public string $name;
+
+    public static bool $hasFur = true;
+    public static string $speciesTaxon = "Vulpes vulpes";
+
+    public function __construct()
+    {
+        $this->hasTail = true;
+        $this->isDomesticated = false;
+    }
+
+    public function show(): void
+    {
+        print("Hi, my name is " . $this->name
+          . ".\nClass: " . self::$classTaxon
+          . "\nSpecies: " . self::$speciesTaxon
+          . "\nAm I milk-feeded as a cub? " . self::$isMilkFeeded
+          . "\nDo I have tail? " . $this->hasTail
+          . "\nDo I have fur? " . self::$hasFur
+          . "\nAm I domesticated? " . $this->isDomesticated
+          . "\n"
+        );
+    }
+}
+
+class PetFox extends Fox
+{
+    public function __construct()
+    {
+        $this->isDomesticated = true;
+    }
+}
+
+$foxFerdinand = new Fox();
+$foxFerdinand->name = "Ferdinand";
+
+$foxFerdinand->show();
+print("\n");
+
+$foxAgnes = new PetFox();
+$foxAgnes->name = "Agnes";
+
+$foxAgnes->show();
+print("\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Hi, my name is Ferdinand.
+Class: Mammalia
+Species: Vulpes vulpes
+Am I milk-feeded as a cub? 1
+Do I have tail? 1
+Do I have fur? 1
+Am I domesticated?
+
+Hi, my name is Agnes.
+Class: Mammalia
+Species: Vulpes vulpes
+Am I milk-feeded as a cub? 1
+Do I have tail?
+Do I have fur? 1
+Am I domesticated? 1
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/multilevel_inheritance.php)
+
 ## Members visibility
 
 *Private methods* of a *parent class* are not accessible to a *child class*. As a result, *child classes* may reimplement a *private method* themselves without regard for normal inheritance rules. Prior to PHP 8.0.0, however, *final* and *static* restrictions were applied to *private methods*. As of PHP 8.0.0, the only *private method* restriction that is enforced is *private final constructors*, as that is a common way to "disable" the *constructor* when using *static factory methods* instead.
@@ -559,6 +648,195 @@ Am I domesticated?
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_members_visibility_modifiers.php)
+
+## Encapsulation
+
+> In software systems, **encapsulation** refers to the bundling of data with the mechanisms or methods that operate on the data. It may also refer to the limiting of direct *access* to some of that data, such as an *object's components*. Essentially, *encapsulation* prevents external code from being concerned with the internal workings of an *object*.
+
+*Encapsulation* allows developers to present a consistent *interface* that is independent of its *internal implementation*. As one example, *encapsulation* can be used to hide the *values* or *state* of a structured data object inside a *class*. This prevents clients from directly accessing this information in a way that could expose hidden *implementation details* or *violate state invariance* maintained by the *methods*.
+
+*Encapsulation* also encourages programmers to put all the code that is concerned with a certain set of data in the same *class*, which organizes it for easy comprehension by other programmers. *Encapsulation* is a technique that encourages *decoupling*.
+
+All *object-oriented programming (OOP)* systems support *encapsulation*, but *encapsulation* is not unique to OOP. Implementations of abstract data types, modules, and libraries also offer *encapsulation*. The similarity has been explained by programming language theorists in terms of existential types.
+
+> In *object-oriented programming languages*, and other related fields, *encapsulation* refers to one of two related but distinct notions, and sometimes to the combination thereof:
+>
+> * A language mechanism for restricting *direct access* to some of the *object's components*.
+> * A language construct that facilitates the bundling of *data* with the *methods* (or other functions) operating on those *data*.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming))
+
+*Example: Class encapsulation*
+
+```php
+<?php
+
+class Account
+{
+    public string $login = "";
+    public string $email = "";
+    public bool $isActive = false;
+    public int $id = 0;
+
+    protected const CONNECTIONS_MAX_NUMBER = 10;
+    protected array $connections = [];
+    private int $connectionsNumber = 0;
+
+    public function display(): void
+    {
+        print("ID: " . $this->id . "\n"
+            . "Login: " . $this->login . "\n"
+            . "E-mail: " . $this->email . "\n"
+            . "Is active: " . $this->isActive . "\n"
+            . "Has connections: " . $this->hasConnections() . "\n"
+        );
+    }
+
+    public function hasConnections(): bool
+    {
+        return ($this->connectionsNumber > 0);
+    }
+
+    public function addConnection(int $connectedAccountId): bool
+    {
+        if ($this->connectionsNumber == self::CONNECTIONS_MAX_NUMBER) {
+            return false;
+        }
+
+        array_push($this->connections, $connectedAccountId);
+        $this->connectionsNumber++;
+
+        return true;
+    }
+}
+
+class SocialMediaAccount extends Account
+{
+    public function isFriend(int $checkingAccountId): bool
+    {
+        foreach ($this->connections as $connectionAccountId) {
+            if ($checkingAccountId == $connectionAccountId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+$timothy = new SocialMediaAccount();
+
+$timothy->login = "tim";
+$timothy->email = "timothy.muppetone@gmail.com";
+$timothy->isActive = true;
+
+$timothy->display();
+print(PHP_EOL);
+
+$timothy->addConnection(100);
+print("Has connections: {$timothy->hasConnections()}\n");
+print("Is ID 100 a friend? {$timothy->isFriend(100)}\n");
+print("Is ID 200 a friend? {$timothy->isFriend(200)}\n");
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+ID: 0
+Login: tim
+E-mail: timothy.muppetone@gmail.com
+Is active: 1
+Has connections:
+
+Has connections: 1
+Is ID 100 a friend? 1
+Is ID 200 a friend?
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/encapsulation.php)
+
+## Polimorphism
+
+> In programming language theory and type theory, **polymorphism** allows a *value* or *variable* to have more than one *type* and allows a given operation to be performed on values of more than one *type*.
+>
+> In *object-oriented programming*, *polymorphism* is the provision of one *interface* to *entities* of different *data types*. The concept is borrowed from a principle in biology in which an organism or species can have many different forms or stages.
+>
+> The most commonly recognized major forms of *polymorphism* are:
+>
+> * ***Ad hoc polymorphism***: defines a common *interface* for an arbitrary set of individually specified *types*.
+> * ***Parametric polymorphism***: does not specify concrete *types* and instead uses *abstract symbols* that can substitute for any *type*.
+> * ***Subtyping*** (also called *subtype polymorphism* or *inclusion polymorphism*): when a name denotes *instances* of many different *classes* related by a common *superclass*.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Polymorphism_(computer_science))
+
+*Example: Polimorphism*
+
+```php
+<?php
+
+class Value
+{
+    public float $value = 0;
+    public string $label;
+
+    public function __construct(float $value, string $label = "")
+    {
+        $this->value = $value;
+        $this->label = $label;
+    }
+
+    public function show() : void
+    {
+        print($this->label . ": " . $this->value . "\n");
+    }
+}
+
+class Datum extends Value
+{
+    public string $description;
+
+    public function __construct(float $value, string $label, string $description = "")
+    {
+        $this->value = $value;
+        $this->label = $label;
+        $this->description = $description;
+    }
+
+    public function show() : void
+    {
+        print(
+            "Value: " . $this->value
+            . "\nLabel: " . $this->label
+            . "\nDescription: " . $this->description . "\n"
+        );
+    }
+}
+
+function display(Value $value): void
+{
+    $value->show();
+}
+
+$temperature = new Datum(24, "Temperature in degree Celsius", "The Central European summer day temperature");
+
+display($temperature);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Value: 24
+Label: Temperature in degree Celsius
+Description: The Central European summer day temperature
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/polimorphism.php)
 
 ## Members access
 
@@ -6049,6 +6327,58 @@ class ChildClass extends BaseClass {
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.final.php)
+
+*Example: Final class*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public function someMethod(): string
+    {
+        return 'basic';
+    }
+}
+
+final class SomeFinalClass
+{
+    public function someMethod(): string
+    {
+        return 'final';
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function someMethod(): string
+    {
+        return parent::someMethod() . ' -> derived';
+    }
+}
+
+
+$someObject = new SomeBaseClass();
+print($someObject->someMethod() . PHP_EOL);
+
+$otherObject = new SomeFinalClass();
+print($otherObject->someMethod() . PHP_EOL);
+
+$anotherObject = new SomeDerivedClass();
+print($anotherObject->someMethod() . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+basic
+final
+basic -> derived
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/final_class.php)
 
 [▵ Up](#inheritance)
 [⌂ Home](../../../README.md)
