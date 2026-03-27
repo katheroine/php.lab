@@ -490,6 +490,8 @@ Laboratory of PHP.
                 22. [Class method overriding and paramenter number compatibility](./example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_parameter_number_compatibility.php)
                 23. [Class method overriding and paramenter requireness compatibility](./example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_parameter_requireness_compatibility.php)
                 24. [Class method overriding and types compatibility](./example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_types_compatibility.php)
+                25. [Class property overloading](/example/code/classes_interfaces_traits/classes/inheritance/class_property_overloading.php)
+                26. [Class method overloading](/example/code/classes_interfaces_traits/classes/inheritance/class_method_overloading.php)
                 3. [Base class components access](./example/code/classes_interfaces_traits/classes/inheritance/base_class_components_access.php)
                 4. [Base class constructor & destructor](./example/code/classes_interfaces_traits/classes/inheritance/base_class_constructor_and_destructor.php)
                 5. [Multilevel inheritance](./example/code/classes_interfaces_traits/classes/inheritance/multilevel_inheritance.php)

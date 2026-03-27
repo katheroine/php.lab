@@ -5810,6 +5810,109 @@ Getting 'hidden'
 Notice:  Undefined property via __get(): hidden in <file> on line 70 in <file> on line 29
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.overloading.php)
+
+*Example: Class property overloading*
+
+```php
+<?php
+
+class SomeClass
+{
+    private string $secret = 'secret';
+    private array $data = [];
+
+    public function __set(string $propertyName, mixed $propertyValue): void
+    {
+        $this->data[$propertyName] = $propertyValue;
+    }
+
+    public function __get(string $propertyName): mixed
+    {
+        if (! isset($this->data[$propertyName])) {
+            return null;
+        }
+
+        return $this->data[$propertyName];
+    }
+
+    public function __isset(string $propertyName): bool
+    {
+        return isset($this->data[$propertyName]);
+    }
+
+    public function __unset(string $propertyName): void
+    {
+        unset($this->data[$propertyName]);
+    }
+}
+
+$someObject = new SomeClass();
+
+print(
+    'something exists? ' . (isset($someObject->something) ? 'yes' : 'no') . PHP_EOL
+    . 'secret exists? ' . (isset($someObject->secret) ? 'yes' : 'no') . PHP_EOL
+    . PHP_EOL
+);
+
+$someObject->something = 'orange';
+$someObject->secret = 'lemon';
+
+print(
+    'something exists? ' . (isset($someObject->something) ? 'yes' : 'no') . PHP_EOL
+    . 'secret exists? ' . (isset($someObject->secret) ? 'yes' : 'no') . PHP_EOL
+    . PHP_EOL
+    . 'something value: ' . $someObject->something . PHP_EOL
+    . 'secret value: ' . $someObject->secret . PHP_EOL
+    . PHP_EOL
+);
+
+var_dump($someObject);
+print(PHP_EOL);
+
+unset($someObject->something);
+unset($someObject->secret);
+
+print(
+    'something exists? ' . (isset($someObject->something) ? 'yes' : 'no') . PHP_EOL
+    . 'secret exists? ' . (isset($someObject->secret) ? 'yes' : 'no') . PHP_EOL
+    . PHP_EOL
+);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+something exists? no
+secret exists? no
+
+something exists? yes
+secret exists? yes
+
+something value: orange
+secret value: lemon
+
+object(SomeClass)#1 (2) {
+  ["secret":"SomeClass":private]=>
+  string(6) "secret"
+  ["data":"SomeClass":private]=>
+  array(2) {
+    ["something"]=>
+    string(6) "orange"
+    ["secret"]=>
+    string(5) "lemon"
+  }
+}
+
+something exists? no
+secret exists? no
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_property_overloading.php)
+
 ### Method overloading
 
 * `public __call(string $name, array $arguments): mixed`
@@ -5857,6 +5960,70 @@ Calling static method 'runTest' in static context
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.overloading.php)
+
+*Example: Class method overloading*
+
+```php
+<?php
+
+class SomeClass
+{
+    private array $actions = [];
+    private const array ACTIONS = [
+        'multipling' => 'array_product',
+    ];
+
+    function __construct()
+    {
+        $this->actions = [
+            'adding' => function($values) {
+                return array_sum($values);
+            },
+        ];
+    }
+
+    public function __call(string $methodName, mixed $methodArguments): mixed
+    {
+        if (! isset($this->actions[$methodName])) {
+            return null;
+        }
+
+        return $this->actions[$methodName]($methodArguments);
+    }
+
+    public static function __callStatic(string $methodName, mixed $methodArguments): mixed
+    {
+        if (! isset(static::ACTIONS[$methodName])) {
+            return null;
+        }
+
+        return static::ACTIONS[$methodName]($methodArguments);
+    }
+}
+
+$someObject = new SomeClass();
+
+$result = $someObject->adding(1, 2, 3);
+
+print('1 + 2 + 3 = ' . $result . PHP_EOL . PHP_EOL);
+
+$result = SomeClass::multipling(1, 2, 3);
+
+print('1 * 2 * 3 = ' . $result . PHP_EOL . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+1 + 2 + 3 = 6
+
+1 * 2 * 3 = 6
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overloading.php)
 
 ## Final class
 
