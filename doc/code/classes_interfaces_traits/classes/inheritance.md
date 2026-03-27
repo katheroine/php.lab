@@ -6384,9 +6384,232 @@ basic -> derived
 
 PHP implements a feature called ***late static bindings*** which can be used to reference the called *class* in a context of *static inheritance*.
 
-More precisely, *late static bindings* work by storing the *class* named in the last "non-forwarding call". In case of *static method calls*, this is the *class explicitly named* (usually the one on the left of the `::` *operator*); in case of *non static method calls*, it is the *class* of the *object*. A "forwarding call" is a *static* one that is introduced by `self::`, `parent::`, `static::`, or, if going up in the *class* hierarchy, `forward_static_call()`. The function `get_called_class()` can be used to retrieve a *string* with the *name* of the called *class* and `static::` introduces its *scope*.
+More precisely, *late static bindings* work by storing the *class* named in the last *non-forwarding call*. In case of *static method calls*, this is the *class explicitly named* (usually the one on the left of the `::` *operator*); in case of *non static method calls*, it is the *class* of the *object*. A *forwarding call* is a *static* one that is introduced by `self::`, `parent::`, `static::`, or, if going up in the *class* hierarchy, `forward_static_call()`. The function `get_called_class()` can be used to retrieve a *string* with the *name* of the called *class* and `static::` introduces its *scope*.
 
 This feature was named *late static bindings* with an internal perspective in mind. *Late binding* comes from the fact that `static::` will not be resolved using the *class* where the *method* is defined but it will rather be computed using *runtime* information. It was also called a *static binding* as it can be used for (but is not limited to) *static method calls*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.late-static-bindings.php)
+
+*Example: Static method call*
+
+```php
+<?php
+
+class SomeClass
+{
+    public static function display()
+    {
+        print("Hello, there!\n");
+    }
+}
+
+SomeClass::display();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Hello, there!
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/static_method_call.php)
+
+*Example: Non-static method call*
+
+```php
+<?php
+
+class SomeClass
+{
+    public function display()
+    {
+        print("Hello, there!\n");
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->display();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Hello, there!
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/nonstatic_method_call.php)
+
+*Example: Forwarding method call*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public function display()
+    {
+        print("Hello, there!\n");
+    }
+
+    public function base()
+    {
+        self::display();
+        static::display();
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function display()
+    {
+        print("Hello, here!\n");
+    }
+
+    public function derived()
+    {
+        parent::display();
+        self::display();
+        static::display();
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+$someObject->base();
+print(PHP_EOL);
+
+$someObject->derived();
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Hello, there!
+Hello, here!
+
+Hello, there!
+Hello, here!
+Hello, here!
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/forwarding_method_call.php)
+
+*Example: Non-forwarding method call*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public function display()
+    {
+        print("Hello, there!\n");
+    }
+
+    public function base()
+    {
+        $this->display();
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function display()
+    {
+        print("Hello, here!\n");
+    }
+
+    public function derived()
+    {
+        $this->display();
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+$someObject->base();
+print(PHP_EOL);
+
+$someObject->derived();
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Hello, here!
+
+Hello, here!
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/nonforwarding_method_call.php)
+
+*Example: forward_static_call function*
+
+```php
+<?php
+
+class SomeClass
+{
+    public static function display()
+    {
+        print("Hello, far away!\n");
+    }
+}
+
+class OtherClass extends SomeClass
+{
+    public static function display()
+    {
+        print("Hello, there!\n");
+    }
+}
+
+class AnotherClass extends OtherClass
+{
+    public static function display()
+    {
+        print("Hello, here!\n");
+    }
+
+    public function method()
+    {
+        forward_static_call(['SomeClass', 'display']);
+        forward_static_call(['OtherClass', 'display']);
+        forward_static_call([parent::class, 'display']);
+        forward_static_call(['AnotherClass', 'display']);
+        forward_static_call([self::class, 'display']);
+    }
+}
+
+$someObject = new AnotherClass();
+$someObject->method();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Hello, far away!
+Hello, there!
+Hello, there!
+Hello, here!
+Hello, here!
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/forward_static_call.php)
 
 ### Limitations of `self::`
 
@@ -6428,6 +6651,8 @@ The above example will output:
 ```
 A
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.late-static-bindings.php#language.oop5.late-static-bindings.self)
 
 ### Late static bindings usage
 
@@ -6473,6 +6698,50 @@ B
 Note:
 
 In *non-static contexts*, the called *class* will be the *class* of the *object instance*. Since `$this->` will try to call *private methods* from the same *scope*, using `static::` may give different results. Another difference is that `static::` can only refer to *static properties*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.late-static-bindings.php#language.oop5.late-static-bindings.usage)
+
+*Example: `self::` vs `static::` member referencing*
+
+```php
+<?php
+
+class SomeClass
+{
+    public static function display()
+    {
+        print("Hello, there!\n");
+    }
+
+    public function method()
+    {
+        self::display();
+        static::display();
+    }
+}
+
+class OtherClass extends SomeClass
+{
+    public static function display()
+    {
+        print("Hello, here!\n");
+    }
+}
+
+$someObject = new OtherClass();
+$someObject->method();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Hello, there!
+Hello, here!
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/self_vs_static_member_referencing.php)
 
 *Example: `static::` usage in a non-static context*
 
@@ -6528,6 +6797,49 @@ Success!
 Success!
 Call to private method C::foo() from scope A
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.late-static-bindings.php#language.oop5.late-static-bindings.usage)
+
+*Example: `static::` vs `$this->` member referencing*
+
+```php
+<?php
+
+class SomeClass
+{
+    public function publicDisplay()
+    {
+        print("Hello, public!\n");
+    }
+
+    private function privateDisplay()
+    {
+        print("Hello, private!\n");
+    }
+
+    public function method()
+    {
+        static::publicDisplay();
+        $this->publicDisplay();
+        $this->privateDisplay();
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->method();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Hello, public!
+Hello, public!
+Hello, private!
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/static_vs_this_member_referencing.php)
 
 Note:
 
@@ -6587,7 +6899,7 @@ C
 C
 ```
 
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.late-static-bindings.php)
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.late-static-bindings.php#language.oop5.late-static-bindings.usage)
 
 [▵ Up](#inheritance)
 [⌂ Home](../../../README.md)
