@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: Inheritance](./inheritance.md)
-[▼ Next: Late static binding](./late_static_bindings.md)
+[▼ Next: Autoloading classes](./autoloading_classes.md)
 
 # Anonymous classes
 
@@ -164,4 +164,4 @@ var_dump(new readonly class('[DEBUG]') {
 [▵ Up](#anonymous-classes)
 [⌂ Home](../../../README.md)
 [▲ Previous: Inheritance](./inheritance.md)
-[▼ Next: Late static binding](./late_static_bindings.md)
+[▼ Next: Autoloading classes](./autoloading_classes.md)

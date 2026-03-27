@@ -1,5 +1,5 @@
 [⌂ Home](../../../../README.md)
-[▲ Previous: Covariance and contravariance](./covariance_and_contravariance.md)
+[▲ Previous: Anonymous classes](./anonymous_classes.md)
 [▼ Next: Abstract classes](../abstract_classes/abstract_classes.md)
 
 # Autoloading classes
@@ -81,5 +81,5 @@ See Also
 
 [▵ Up](#autoloading-classes)
 [⌂ Home](../../../../README.md)
-[▲ Previous: Covariance and contravariance](./covariance_and_contravariance.md)
+[▲ Previous: Anonymous classes](./anonymous_classes.md)
 [▼ Next: Abstract classes](../abstract_classes/abstract_classes.md)
