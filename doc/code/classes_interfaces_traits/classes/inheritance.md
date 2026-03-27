@@ -3920,11 +3920,566 @@ Other method from derived class
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_method_overriding.php)
 
+### Hook overriding
+
+A *child class* may define or redefine individual *hooks* on a *property* by redefining the *property* and just the *hooks* it wishes to *override*. A *child class* may also add *hooks* to a *property* that had none. This is essentially the same as if the *hooks* were *methods*.
+
+*Example: Hook inheritance*
+
+```php
+<?php
+class Point
+{
+    public int $x;
+    public int $y;
+}
+
+class PositivePoint extends Point
+{
+    public int $x {
+        set {
+            if ($value < 0) {
+                throw new \InvalidArgumentException('Too small');
+            }
+            $this->x = $value;
+        }
+    }
+}
+?>
+```
+
+Each *hook* overrides *parent* implementations independently of each other. If a *child class* adds *hooks*, any *default value* set on the *property* is removed, and must be redeclared. That is the same consistent with how inheritance works on hook-less properties.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.property-hooks.php#language.oop5.property-hooks.virtual)
+
+*Example: Class property hook overriding with visibility*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public $somePublicProperty = 'base public' {
+        get => $this->somePublicProperty . ' base hook';
+    }
+    protected $someProtectedProperty = 'base protected' {
+        get => $this->someProtectedProperty . ' base hook';
+    }
+    private $somePrivateProperty = 'base private' {
+        get => $this->somePrivateProperty . ' base hook';
+    }
+
+    public function baseContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . '$this->somePrivateProperty : ' . $this->somePrivateProperty . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedOverridingClass extends SomeBaseClass
+{
+    public $somePublicProperty = 'derived public' {
+        get => $this->somePublicProperty . ' derived hook';
+    }
+    protected $someProtectedProperty = 'derived protected' {
+        get => $this->someProtectedProperty . ' derived hook';
+    }
+    private $somePrivateProperty = 'derived private' {
+        get => $this->somePrivateProperty . ' derived hook';
+    } // It's not overriding but rather shadowing!
+    // It's completly new property hook - very own property hook of the derived class
+    // because private member of the base class is unaccessible and not visible for the derived class.
+
+    public function derivedOverridingContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseContext();
+$someObject->derivedContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->baseContext();
+$otherObject->derivedOverridingContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeDerivedClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+$this->somePrivateProperty : base private base hook
+
+* protected:
+
+$this->someProtectedProperty : base protected base hook
+
+* public:
+
+$this->somePublicProperty : base public base hook
+
+SomeDerivedClass::derivedContext
+
+* protected:
+
+$this->someProtectedProperty : base protected base hook
+
+* public:
+
+$this->somePublicProperty : base public base hook
+
+# SomeDerivedOverridingClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+$this->somePrivateProperty : base private base hook
+
+* protected:
+
+$this->someProtectedProperty : derived protected derived hook
+
+* public:
+
+$this->somePublicProperty : derived public derived hook
+
+SomeDerivedOverridingClass::derivedOverridingContext
+
+* protected:
+
+$this->someProtectedProperty : derived protected derived hook
+
+* public:
+
+$this->somePublicProperty : derived public derived hook
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_property_hook_overriding_with_visibility.php)
+
 ## Final class members
 
 >>> `final` keyword
 
 The `final` *keyword* prevents *child classes* from *overriding a method*, *property*, or *constant* by prefixing the *definition* with `final`. If the *class* itself is being defined *final* then it cannot be *extended*.
+
+### Final class constant
+
+*Example: Final constants example as of PHP 8.1.0*
+
+```php
+<?php
+class Foo
+{
+    final public const X = "foo";
+}
+
+class Bar extends Foo
+{
+    public const X = "bar";
+}
+
+// Fatal error: Bar::X cannot override final constant Foo::X
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.final.php)
+
+*Example: Class final constant*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public const SOME_PUBLIC_CONSTANT = 'base public';
+    final public const SOME_FINAL_PUBLIC_CONSTANT = 'base final public';
+
+    protected const SOME_PROTECTED_CONSTANT = 'base protected';
+    final protected const SOME_FINAL_PROTECTED_CONSTANT = 'base final protected';
+
+    private const SOME_PRIVATE_CONSTANT = 'base private';
+
+    public function baseContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . 'self::SOME_PRIVATE_CONSTANT : ' . self::SOME_PRIVATE_CONSTANT . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'self::SOME_PROTECTED_CONSTANT : ' . self::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . 'self::SOME_FINAL_PROTECTED_CONSTANT : ' . self::SOME_FINAL_PROTECTED_CONSTANT . PHP_EOL
+            . "\n* public:\n\n"
+            . 'self::SOME_PUBLIC_CONSTANT : ' . self::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . 'self::SOME_FINAL_PUBLIC_CONSTANT : ' . self::SOME_FINAL_PUBLIC_CONSTANT . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'parent::SOME_PROTECTED_CONSTANT : ' . parent::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . 'self::SOME_PROTECTED_CONSTANT : ' . self::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . 'parent::SOME_FINAL_PROTECTED_CONSTANT : ' . parent::SOME_FINAL_PROTECTED_CONSTANT . PHP_EOL
+            . 'self::SOME_FINAL_PROTECTED_CONSTANT : ' . self::SOME_FINAL_PROTECTED_CONSTANT . PHP_EOL
+            . "\n* public:\n\n"
+            . 'parent::SOME_PUBLIC_CONSTANT : ' . parent::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . 'self::SOME_PUBLIC_CONSTANT : ' . self::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . 'parent::SOME_FINAL_PUBLIC_CONSTANT : ' . parent::SOME_FINAL_PUBLIC_CONSTANT . PHP_EOL
+            . 'self::SOME_FINAL_PUBLIC_CONSTANT : ' . self::SOME_FINAL_PUBLIC_CONSTANT . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedOverridingClass extends SomeBaseClass
+{
+    public const SOME_PUBLIC_CONSTANT = 'derived public';
+    protected const SOME_PROTECTED_CONSTANT = 'derived protected';
+
+    public function derivedOverridingContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'parent::SOME_PROTECTED_CONSTANT : ' . parent::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . 'self::SOME_PROTECTED_CONSTANT : ' . self::SOME_PROTECTED_CONSTANT . PHP_EOL
+            . 'parent::SOME_FINAL_PROTECTED_CONSTANT : ' . parent::SOME_FINAL_PROTECTED_CONSTANT . PHP_EOL
+            . 'self::SOME_FINAL_PROTECTED_CONSTANT : ' . self::SOME_FINAL_PROTECTED_CONSTANT . PHP_EOL
+            . "\n* public:\n\n"
+            . 'parent::SOME_PUBLIC_CONSTANT : ' . parent::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . 'self::SOME_PUBLIC_CONSTANT : ' . self::SOME_PUBLIC_CONSTANT . PHP_EOL
+            . 'parent::SOME_FINAL_PUBLIC_CONSTANT : ' . parent::SOME_FINAL_PUBLIC_CONSTANT . PHP_EOL
+            . 'self::SOME_FINAL_PUBLIC_CONSTANT : ' . self::SOME_FINAL_PUBLIC_CONSTANT . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseContext();
+$someObject->derivedContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->baseContext();
+$otherObject->derivedOverridingContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeDerivedClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+self::SOME_PRIVATE_CONSTANT : base private
+
+* protected:
+
+self::SOME_PROTECTED_CONSTANT : base protected
+self::SOME_FINAL_PROTECTED_CONSTANT : base final protected
+
+* public:
+
+self::SOME_PUBLIC_CONSTANT : base public
+self::SOME_FINAL_PUBLIC_CONSTANT : base final public
+
+SomeDerivedClass::derivedContext
+
+* protected:
+
+parent::SOME_PROTECTED_CONSTANT : base protected
+self::SOME_PROTECTED_CONSTANT : base protected
+parent::SOME_FINAL_PROTECTED_CONSTANT : base final protected
+self::SOME_FINAL_PROTECTED_CONSTANT : base final protected
+
+* public:
+
+parent::SOME_PUBLIC_CONSTANT : base public
+self::SOME_PUBLIC_CONSTANT : base public
+parent::SOME_FINAL_PUBLIC_CONSTANT : base final public
+self::SOME_FINAL_PUBLIC_CONSTANT : base final public
+
+# SomeDerivedOverridingClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+self::SOME_PRIVATE_CONSTANT : base private
+
+* protected:
+
+self::SOME_PROTECTED_CONSTANT : base protected
+self::SOME_FINAL_PROTECTED_CONSTANT : base final protected
+
+* public:
+
+self::SOME_PUBLIC_CONSTANT : base public
+self::SOME_FINAL_PUBLIC_CONSTANT : base final public
+
+SomeDerivedOverridingClass::derivedOverridingContext
+
+* protected:
+
+parent::SOME_PROTECTED_CONSTANT : base protected
+self::SOME_PROTECTED_CONSTANT : derived protected
+parent::SOME_FINAL_PROTECTED_CONSTANT : base final protected
+self::SOME_FINAL_PROTECTED_CONSTANT : base final protected
+
+* public:
+
+parent::SOME_PUBLIC_CONSTANT : base public
+self::SOME_PUBLIC_CONSTANT : derived public
+parent::SOME_FINAL_PUBLIC_CONSTANT : base final public
+self::SOME_FINAL_PUBLIC_CONSTANT : base final public
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_final_constant.php)
+
+### Final property
+
+Note: A *property* that is declared *private(set)* is implicitly *final*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.final.php)
+
+*Example: Final property example as of PHP 8.4.0*
+
+```php
+<?php
+class BaseClass {
+   final protected string $test;
+}
+
+class ChildClass extends BaseClass {
+    public string $test;
+}
+// Results in Fatal error: Cannot override final property BaseClass::$test
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.final.php)
+
+*Example: Class final property*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public $somePublicProperty = 'base public';
+    final public $someFinalPublicProperty = 'base final public';
+
+    protected $someProtectedProperty = 'base protected';
+    final protected $someFinalProtectedProperty = 'base final protected';
+
+    private $somePrivateProperty = 'base private';
+
+    public function baseContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . '$this->somePrivateProperty : ' . $this->somePrivateProperty . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . '$this->someFinalProtectedProperty : ' . $this->someFinalProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . '$this->someFinalPublicProperty : ' . $this->someFinalPublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . '$this->someFinalProtectedProperty : ' . $this->someFinalProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . '$this->someFinalPublicProperty : ' . $this->someFinalPublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedOverridingClass extends SomeBaseClass
+{
+    public const SOME_PUBLIC_CONSTANT = 'derived public';
+    protected const SOME_PROTECTED_CONSTANT = 'derived protected';
+
+    public function derivedOverridingContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . '$this->someFinalProtectedProperty : ' . $this->someFinalProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . '$this->someFinalPublicProperty : ' . $this->someFinalPublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseContext();
+$someObject->derivedContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->baseContext();
+$otherObject->derivedOverridingContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeDerivedClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+$this->somePrivateProperty : base private
+
+* protected:
+
+$this->someProtectedProperty : base protected
+$this->someFinalProtectedProperty : base final protected
+
+* public:
+
+$this->somePublicProperty : base public
+$this->someFinalPublicProperty : base final public
+
+SomeDerivedClass::derivedContext
+
+* protected:
+
+$this->someProtectedProperty : base protected
+$this->someFinalProtectedProperty : base final protected
+
+* public:
+
+$this->somePublicProperty : base public
+$this->someFinalPublicProperty : base final public
+
+# SomeDerivedOverridingClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+$this->somePrivateProperty : base private
+
+* protected:
+
+$this->someProtectedProperty : base protected
+$this->someFinalProtectedProperty : base final protected
+
+* public:
+
+$this->somePublicProperty : base public
+$this->someFinalPublicProperty : base final public
+
+SomeDerivedOverridingClass::derivedOverridingContext
+
+* protected:
+
+$this->someProtectedProperty : base protected
+$this->someFinalProtectedProperty : base final protected
+
+* public:
+
+$this->somePublicProperty : base public
+$this->someFinalPublicProperty : base final public
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_final_property.php)
+
+### Final method
+
+Note: As of PHP 8.0.0, *private methods* may not be declared *final* except for the *constructor*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.final.php)
 
 *Example: Final methods example*
 
@@ -3949,67 +4504,202 @@ class ChildClass extends BaseClass {
 ?>
 ```
 
-*Example: Final class example*
-
-```php
-<?php
-final class BaseClass {
-   public function test() {
-       echo "BaseClass::test() called\n";
-   }
-
-   // As the class is already final, the final keyword is redundant
-   final public function moreTesting() {
-       echo "BaseClass::moreTesting() called\n";
-   }
-}
-
-class ChildClass extends BaseClass {
-}
-// Results in Fatal error: Class ChildClass may not inherit from final class (BaseClass)
-?>
-```
-
-*Example: Final property example as of PHP 8.4.0*
-
-```php
-<?php
-class BaseClass {
-   final protected string $test;
-}
-
-class ChildClass extends BaseClass {
-    public string $test;
-}
-// Results in Fatal error: Cannot override final property BaseClass::$test
-?>
-```
-
-*Example: Final constants example as of PHP 8.1.0*
-
-```php
-<?php
-class Foo
-{
-    final public const X = "foo";
-}
-
-class Bar extends Foo
-{
-    public const X = "bar";
-}
-
-// Fatal error: Bar::X cannot override final constant Foo::X
-?>
-```
-
-Note: As of PHP 8.0.0, *private methods* may not be declared *final* except for the *constructor*.
-
-Note: A *property* that is declared *private(set)* is implicitly *final*.
-
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.final.php)
 
-### Final hooks
+*Example: Class final method*
+
+```php
+<?php
+
+class SomeBaseClass
+{
+    public function somePublicMethod()
+    {
+        return 'base public';
+    }
+
+    final public function someFinalPublicMethod()
+    {
+        return 'base final public';
+    }
+
+    protected function someProtectedMethod()
+    {
+        return 'base protected';
+    }
+
+    final protected function someFinalProtectedMethod()
+    {
+        return 'base final protected';
+    }
+
+    private function somePrivateMethod()
+    {
+        return 'base private';
+    }
+
+    public function baseContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . '$this->somePrivateMethod() : ' . $this->somePrivateMethod() . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedMethod() : ' . $this->someProtectedMethod() . PHP_EOL
+            . '$this->someFinalProtectedMethod() : ' . $this->someFinalProtectedMethod() . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicMethod() : ' . $this->somePublicMethod() . PHP_EOL
+            . '$this->someFinalPublicMethod() : ' . $this->someFinalPublicMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'parent::someProtectedMethod() : ' . parent::someProtectedMethod() . PHP_EOL
+            . 'self::someProtectedMethod() : ' . self::someProtectedMethod() . PHP_EOL
+            . 'parent::someFinalProtectedMethod() : ' . parent::someFinalProtectedMethod() . PHP_EOL
+            . 'self::someFinalProtectedMethod() : ' . self::someFinalProtectedMethod() . PHP_EOL
+            . "\n* public:\n\n"
+            . 'parent::somePublicMethod() : ' . parent::somePublicMethod() . PHP_EOL
+            . 'self::somePublicMethod() : ' . self::somePublicMethod() . PHP_EOL
+            . 'parent::someFinalPublicMethod() : ' . parent::someFinalPublicMethod() . PHP_EOL
+            . 'self::someFinalPublicMethod() : ' . self::someFinalPublicMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedOverridingClass extends SomeBaseClass
+{
+    public function somePublicMethod()
+    {
+        return 'derived public';
+    }
+
+    protected function someProtectedMethod()
+    {
+        return 'derived protected';
+    }
+
+    public function derivedOverridingContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . 'parent::someProtectedMethod() : ' . parent::someProtectedMethod() . PHP_EOL
+            . 'self::someProtectedMethod() : ' . self::someProtectedMethod() . PHP_EOL
+            . 'parent::someFinalProtectedMethod() : ' . parent::someFinalProtectedMethod() . PHP_EOL
+            . 'self::someFinalProtectedMethod() : ' . self::someFinalProtectedMethod() . PHP_EOL
+            . "\n* public:\n\n"
+            . 'parent::somePublicMethod() : ' . parent::somePublicMethod() . PHP_EOL
+            . 'self::somePublicMethod() : ' . self::somePublicMethod() . PHP_EOL
+            . 'parent::someFinalPublicMethod() : ' . parent::someFinalPublicMethod() . PHP_EOL
+            . 'self::someFinalPublicMethod() : ' . self::someFinalPublicMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseContext();
+$someObject->derivedContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->baseContext();
+$otherObject->derivedOverridingContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+# SomeDerivedClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+$this->somePrivateMethod() : base private
+
+* protected:
+
+$this->someProtectedMethod() : base protected
+$this->someFinalProtectedMethod() : base final protected
+
+* public:
+
+$this->somePublicMethod() : base public
+$this->someFinalPublicMethod() : base final public
+
+SomeDerivedClass::derivedContext
+
+* protected:
+
+parent::someProtectedMethod() : base protected
+self::someProtectedMethod() : base protected
+parent::someFinalProtectedMethod() : base final protected
+self::someFinalProtectedMethod() : base final protected
+
+* public:
+
+parent::somePublicMethod() : base public
+self::somePublicMethod() : base public
+parent::someFinalPublicMethod() : base final public
+self::someFinalPublicMethod() : base final public
+
+# SomeDerivedOverridingClass:
+
+SomeBaseClass::baseContext
+
+* private:
+
+$this->somePrivateMethod() : base private
+
+* protected:
+
+$this->someProtectedMethod() : derived protected
+$this->someFinalProtectedMethod() : base final protected
+
+* public:
+
+$this->somePublicMethod() : derived public
+$this->someFinalPublicMethod() : base final public
+
+SomeDerivedOverridingClass::derivedOverridingContext
+
+* protected:
+
+parent::someProtectedMethod() : base protected
+self::someProtectedMethod() : derived protected
+parent::someFinalProtectedMethod() : base final protected
+self::someFinalProtectedMethod() : base final protected
+
+* public:
+
+parent::somePublicMethod() : base public
+self::somePublicMethod() : derived public
+parent::someFinalPublicMethod() : base final public
+self::someFinalPublicMethod() : base final public
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_final_method.php)
+
+### Final hook
 
 *Hooks* may also be declared *final*, in which case they may not be overridden.
 
@@ -4041,35 +4731,117 @@ A *property* may also be declared *final*. A *final property* may not be redecla
 
 Declaring *hooks* *final* on a *property* that is declared *final* is redundant, and will be silently ignored. This is the same behavior as *final methods*.
 
-A *child class* may define or redefine individual *hooks* on a *property* by redefining the *property* and just the *hooks* it wishes to *override*. A *child class* may also add *hooks* to a *property* that had none. This is essentially the same as if the *hooks* were *methods*.
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.property-hooks.php#language.oop5.property-hooks.virtual)
 
-*Example: Hook inheritance*
+*Example: Class final property hook*
 
 ```php
 <?php
-class Point
-{
-    public int $x;
-    public int $y;
-}
 
-class PositivePoint extends Point
+class SomeBaseClass
 {
-    public int $x {
-        set {
-            if ($value < 0) {
-                throw new \InvalidArgumentException('Too small');
-            }
-            $this->x = $value;
-        }
+    public $somePublicProperty = 'base public' {
+        get => $this->somePublicProperty . ' base hook';
+    }
+    public $someFinalPublicProperty = 'base final public' {
+        final get => $this->someFinalPublicProperty . ' base final hook';
+    }
+
+    protected $someProtectedProperty = 'base protected' {
+        get => $this->someProtectedProperty . ' base hook';
+    }
+    protected $someFinalProtectedProperty = 'base final protected' {
+        final get => $this->someFinalProtectedProperty . ' base hook';
+    }
+
+    private $somePrivateProperty = 'base private' {
+        get => $this->somePrivateProperty . ' base hook';
+    }
+
+    public function baseContext(): void
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* private:\n\n"
+            . '$this->somePrivateProperty : ' . $this->somePrivateProperty . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . PHP_EOL
+        );
     }
 }
-?>
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function derivedContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . '$this->someFinalProtectedProperty : ' . $this->someFinalProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . '$this->someFinalPublicProperty : ' . $this->someFinalPublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class SomeDerivedOverridingClass extends SomeBaseClass
+{
+    public $somePublicProperty = 'derived public' {
+        get => $this->somePublicProperty . ' derived hook';
+    }
+
+    protected $someProtectedProperty = 'derived protected' {
+        get => $this->someProtectedProperty . ' derived hook';
+    }
+
+    public function derivedOverridingContext()
+    {
+        print(
+            __METHOD__ . PHP_EOL
+            . "\n* protected:\n\n"
+            . '$this->someProtectedProperty : ' . $this->someProtectedProperty . PHP_EOL
+            . '$this->someFinalProtectedProperty : ' . $this->someFinalProtectedProperty . PHP_EOL
+            . "\n* public:\n\n"
+            . '$this->somePublicProperty : ' . $this->somePublicProperty . PHP_EOL
+            . '$this->someFinalPublicProperty : ' . $this->someFinalPublicProperty . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeDerivedClass();
+
+print("# SomeDerivedClass:\n\n");
+
+$someObject->baseContext();
+$someObject->derivedContext();
+
+$otherObject = new SomeDerivedOverridingClass();
+
+print("# SomeDerivedOverridingClass:\n\n");
+
+$otherObject->baseContext();
+$otherObject->derivedOverridingContext();
+
 ```
 
-Each *hook* overrides *parent* implementations independently of each other. If a *child class* adds *hooks*, any *default value* set on the *property* is removed, and must be redeclared. That is the same consistent with how inheritance works on hook-less properties.
+**Result (PHP 8.4)**:
 
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.property-hooks.php#language.oop5.property-hooks.virtual)
+```
+Class: OtherClass
+Base class: SomeClass
+Base class property: base
+Derived class property: derived
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_final_property_hook.php)
 
 ## Members overriding and compatibility
 
@@ -5085,6 +5857,31 @@ Calling static method 'runTest' in static context
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.overloading.php)
+
+## Final class
+
+*Example: Final class example*
+
+```php
+<?php
+final class BaseClass {
+   public function test() {
+       echo "BaseClass::test() called\n";
+   }
+
+   // As the class is already final, the final keyword is redundant
+   final public function moreTesting() {
+       echo "BaseClass::moreTesting() called\n";
+   }
+}
+
+class ChildClass extends BaseClass {
+}
+// Results in Fatal error: Class ChildClass may not inherit from final class (BaseClass)
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.final.php)
 
 [▵ Up](#inheritance)
 [⌂ Home](../../../README.md)
