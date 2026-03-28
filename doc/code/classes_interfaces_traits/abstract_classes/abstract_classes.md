@@ -4,13 +4,133 @@
 
 # Abstract classes
 
-PHP has ***abstract classes***, ***methods***, and **properties**. *Classes* defined as *abstract* cannot be instantiated, and any *class* that contains at least one *abstract method* or *property* must also be *abstract*. *Methods* defined as *abstract* simply declare the method's signature and whether it is *public* or *protected*; they cannot define the *implementation*. *Properties* defined as *abstract* may *declare* a requirement for *get* or *set behavior*, and may provide an implementation for one, but not both, operations.
+## Definition
+
+> In a language that supports *inheritance*, an *abstract class*, or *abstract base class (ABC)*, is a *class* that cannot be directly instantiated. By contrast, a *concrete class* is a class that can be directly *instantiated*. *Instantiation* of an **abstract class** can occur only indirectly, via a *concrete subclass*.
+>
+> An *abstract class* is either labeled as such explicitly or it may simply specify *abstract methods* (or *virtual methods*). An *abstract class* may provide *implementations* of some *methods*, and may also specify *virtual methods* via signatures that are to be implemented by direct or indirect *descendants* of the *abstract class*. Before a *class derived* from an *abstract class* can be *instantiated*, all *abstract methods* of its *parent classes* must be *implemented* by some *class* in the *derivation chain*.
+
+Most *object-oriented programming languages* allow the programmer to specify which *classes* are considered *abstract* and will not allow these to be *instantiated*. For example, in Java, C# and PHP, the *keyword* `abstract` is used. In C++, an *abstract class* is a class having at least one *abstract method* given by the appropriate syntax in that language (a pure virtual function in C++ parlance).
+
+A *class* consisting of only *pure virtual methods* is called a *pure abstract base class (pure ABC)* in C++ and is also known as an interface by users of the language. Other languages, notably Java and C#, support a variant of *abstract classes* called an *interface* via a *keyword* in the language. In these languages, *multiple inheritance* is not allowed, but a *class* can implement multiple *interfaces*. Such a *class* can only contain *abstract publicly accessible methods*.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Class_(programming)#Abstract)
+
+## Description
+
+PHP has ***abstract classes***, ***methods***, and ***properties***. *Classes* defined as *abstract* cannot be *instantiated*, and any *class* that contains at least one *abstract method* or *property* must also be *abstract*. *Methods* defined as *abstract* simply declare the method's signature and whether it is *public* or *protected*; they cannot define the *implementation*. *Properties* defined as *abstract* may *declare* a requirement for *get* or *set behavior*, and may provide an implementation for one, but not both, operations.
 
 When inheriting from an *abstract class*, all *methods* marked *abstract* in the *parent's class declaration* must be *defined* by the *child class*, and follow the usual *inheritance* and *signature compatibility rules*.
 
 As of PHP 8.4, an *abstract class* may *declare* an *abstract property*, either *public* or *protected*. A *protected abstract property* may be satisfied by a *property* that is readable/writeable from either *protected* or *public scope*.
 
 An *abstract property* may be satisfied either by a standard *property* or by a *property* with defined *hooks*, corresponding to the required operation.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.abstract.php#language.oop5.abstract)
+
+*Example: Abstract class*
+
+```php
+<?php
+
+abstract class SomeAbstractClass
+{
+    private const string SOME_CONSTANT = 'constant';
+    protected string $someProperty = 'property';
+
+    public function someMethod(): void
+    {
+        print(
+            $this->getLabel(static::class) . ': ' . PHP_EOL
+            . self::SOME_CONSTANT . PHP_EOL
+            . $this->someProperty . PHP_EOL
+        );
+    }
+
+    protected abstract function getLabel(string $name): string;
+}
+
+class SomeClass extends SomeAbstractClass
+{
+    protected function getLabel(string $name): string
+    {
+        return "The content of the {$name}";
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+The content of the SomeClass:
+constant
+property
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/abstract_classes/abstract_class.php)
+
+*Example: Abstract class without abstract members*
+
+```php
+<?php
+
+abstract class Datum
+{
+    protected string $description;
+
+    public function formatDescriptionAsText(): string
+    {
+        return "Description: " . $this->description;
+    }
+}
+
+class Content extends Datum
+{
+    public function __construct(
+        protected string $core,
+        protected string $description = ""
+    ) {
+    }
+
+    public function formatCoreAsText(): string
+    {
+        return "Core: " . $this->core;
+    }
+
+    public function show(): void
+    {
+        print(
+            $this->formatDescriptionAsText() . PHP_EOL
+            . $this->formatCoreAsText() . PHP_EOL
+        );
+    }
+}
+
+$lectio = new Content(
+    "In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.",
+    "De beneficiis lectionis"
+);
+
+$lectio->show();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Description: De beneficiis lectionis
+Core: In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/abstract_classes/abstract_class_without_abstract_members.php)
+
+## Abstract method
 
 *Example: Abstract method example*
 
@@ -117,6 +237,8 @@ The above example will output:
 Mr. Pacman
 Mrs. Pacwoman
 ```
+
+## Abstract property (hook)
 
 *Example: Abstract property example*
 

@@ -1,36 +1,29 @@
 <?php
 
-abstract class Datum {
-    protected string $description;
+abstract class SomeAbstractClass
+{
+    private const string SOME_CONSTANT = 'constant';
+    protected string $someProperty = 'property';
 
-    public function formatDescriptionAsText() : string {
-        return ("Description: " . $this->description);
+    public function someMethod(): void
+    {
+        print(
+            $this->getLabel(static::class) . ': ' . PHP_EOL
+            . self::SOME_CONSTANT . PHP_EOL
+            . $this->someProperty . PHP_EOL
+        );
+    }
+
+    protected abstract function getLabel(string $name): string;
+}
+
+class SomeClass extends SomeAbstractClass
+{
+    protected function getLabel(string $name): string
+    {
+        return "The content of the {$name}";
     }
 }
 
-class Content extends Datum {
-    protected string $core;
-
-    public function __construct(string $core, string $description = "") {
-        $this->core = $core;
-        $this->description = $description;
-    }
-
-    public function formatCoreAsText() : string {
-        return ("Core: " . $this->core);
-    }
-
-    public function show() : void {
-        print($this->formatDescriptionAsText() . "\n"
-          . $this->formatCoreAsText() . "\n");
-    }
-};
-
-// $data = new Datum(); // One cannot instantiate.
-
-$lectio = new Content(
-  "In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.",
-  "De beneficiis lectionis"
-);
-
-$lectio->show();
+$someObject = new SomeClass();
+$someObject->someMethod();
