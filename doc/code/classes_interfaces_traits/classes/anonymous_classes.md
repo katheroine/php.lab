@@ -305,6 +305,56 @@ The above example will output:
 6
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.anonymous.php#language.oop5.anonymous)
+
+*Example: Anonymous class object as another class property*
+
+```php
+<?php
+
+class SomeClass
+{
+    public object $someObjectProperty;
+
+    public function __construct(string $someParameter)
+    {
+        $this->someObjectProperty = new class ($someParameter) {
+            public function __construct(
+                private string $someProperty
+            ) {
+            }
+
+            public function setProperty(string $value)
+            {
+                $this->someProperty = $value;
+            }
+
+            public function getProperty(): string
+            {
+                return $this->someProperty;
+            }
+        };
+    }
+}
+
+$someObject = new SomeClass('nested');
+print($someObject->someObjectProperty->getProperty() . PHP_EOL);
+
+$someObject->someObjectProperty->setProperty('modified');
+print($someObject->someObjectProperty->getProperty() . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+nested
+modified
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_object_as_another_class_property.php)
+
 All *objects* created by the same *anonymous class declaration* are *instances* of that very *class*.
 
 ```php
@@ -342,6 +392,31 @@ The above example will output something similar to:
 class@anonymous/in/oNi1A0x7f8636ad2021
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.anonymous.php#language.oop5.anonymous)
+
+*Example: Anonymouns class object class*
+
+```php
+<?php
+
+$someObject = new class {
+};
+
+print('Type: ' . gettype($someObject) . PHP_EOL);
+print('Class: ' . get_class($someObject) . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Type: object
+Class: class@anonymous/projects/php.lab/example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_object_type.php:3$0
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_object_class.php)
+
 ## Readonly anonymous classes
 
 As of PHP 8.3.0, the `readonly` *modifier* can be applied to *anonymous classes*.
@@ -364,6 +439,41 @@ var_dump(new readonly class('[DEBUG]') {
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.anonymous.php)
+
+*Example: Readonly anonymouc class*
+
+```php
+<?php
+
+$someObject = new readonly class {
+    private const string SOME_CONSTANT = 'some';
+
+    public function __construct(
+        private string $someProperty = 'anonymous readonly'
+    ) {}
+
+    public function someMethod(): void
+    {
+        print(
+            ucfirst(self::SOME_CONSTANT) . ' '
+            . $this->someProperty
+            . ' class' . PHP_EOL
+        );
+    }
+};
+
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some anonymous readonly class
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/readonly_anonymous_class.php)
 
 [▵ Up](#anonymous-classes)
 [⌂ Home](../../../README.md)
