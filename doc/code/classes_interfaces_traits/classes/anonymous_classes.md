@@ -29,6 +29,40 @@ $util->setLogger(new class {
 });
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.anonymous.php#language.oop5.anonymous)
+
+*Example: Anonymous class*
+
+```php
+<?php
+
+$someObject = new class {
+    private const string SOME_CONSTANT = 'some';
+    private string $someProperty = 'anonymous';
+
+    public function someMethod(): void
+    {
+        print(
+            ucfirst(self::SOME_CONSTANT) . ' '
+            . $this->someProperty
+            . ' class' . PHP_EOL
+        );
+    }
+};
+
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some anonymous class
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class.php)
+
 They can pass *arguments* through to their *constructors*, *extend* other *classes*, *implement* *interfaces*, and *use* *traits* just like a normal *class* can:
 
 ```php
@@ -58,6 +92,176 @@ object(class@anonymous)#1 (1) {
   int(10)
 }
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.anonymous.php#language.oop5.anonymous)
+
+*Example: Anonymouc class with constructor*
+
+```php
+<?php
+
+$someObject = new class ('with constructor and...') {
+    private const string SOME_CONSTANT = 'some';
+    private string $someProperty = 'anonymous';
+    private readonly string $someReadonlyProperty;
+
+    public function __construct(
+        private string $otherProperty,
+        string $someParameter = 'with readonly property'
+    ) {
+        $this->someReadonlyProperty = $someParameter;
+    }
+
+    public function someMethod(): void
+    {
+        print(
+            ucfirst(self::SOME_CONSTANT) . ' '
+            . $this->someProperty
+            . " class\n"
+            . $this->otherProperty . PHP_EOL
+            . $this->someReadonlyProperty . PHP_EOL
+        );
+    }
+};
+
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some anonymous class
+with constructor and...
+with readonly property
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_with_constructor.php)
+
+*Example: Anonymous class extending class*
+
+```php
+<?php
+
+class SomeClass
+{
+    protected string $otherProperty = 'extending other class';
+}
+
+$someObject = new class extends SomeClass {
+    private const string SOME_CONSTANT = 'some';
+    private string $someProperty = 'anonymous';
+
+    public function someMethod(): void
+    {
+        print(
+            ucfirst(self::SOME_CONSTANT) . ' '
+            . $this->someProperty
+            . ' class' . PHP_EOL
+            . $this->otherProperty . PHP_EOL
+        );
+    }
+};
+
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some anonymous class
+extending other class
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_extending_class.php)
+
+*Example: Anonymous class implementing interface*
+
+```php
+<?php
+
+interface SomeInterface
+{
+    public function someMethod(): void;
+}
+
+$someObject = new class implements SomeInterface {
+    private const string SOME_CONSTANT = 'some';
+    private string $someProperty = 'anonymous';
+
+    public function someMethod(): void
+    {
+        print(
+            ucfirst(self::SOME_CONSTANT) . ' '
+            . $this->someProperty
+            . " class\nimplementing interface\n"
+        );
+    }
+};
+
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some anonymous class
+implementing interface
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_implementing_interface.php)
+
+*Example: Anonymous class using trait*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    protected const string OTHER_CONSTANT = 'trait';
+
+    protected function otherMethod(): void
+    {
+        print('using ' . self::OTHER_CONSTANT . PHP_EOL);
+    }
+}
+
+$someObject = new class {
+    use SomeTrait;
+
+    private const string SOME_CONSTANT = 'some';
+    private string $someProperty = 'anonymous';
+
+    public function someMethod(): void
+    {
+        print(
+            ucfirst(self::SOME_CONSTANT) . ' '
+            . $this->someProperty
+            . ' class' . PHP_EOL
+        );
+
+        $this->otherMethod();
+    }
+};
+
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Some anonymous class
+using trait
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_using_trait.php)
 
 Nesting an *anonymous class* within another *class* does not give it *access* to any *private* or *protected methods* or *properties* of that outer *class*. In order to use the outer *class protected properties* or *methods*, the *anonymous class* can extend the outer *class*. To use the *private properties* of the outer *class* in the anonymous class, they must be *passed* through its *constructor*:
 
