@@ -47,7 +47,7 @@ abstract class SomeAbstractClass
         );
     }
 
-    protected abstract function getLabel(string $name): string;
+    abstract protected function getLabel(string $name): string;
 }
 
 class SomeClass extends SomeAbstractClass
@@ -238,7 +238,58 @@ Mr. Pacman
 Mrs. Pacwoman
 ```
 
-## Abstract property (hook)
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.abstract.php#language.oop5.abstract)
+
+*Example: Abstract method*
+
+```php
+<?php
+
+abstract class SomeAbstractClass
+{
+    abstract protected function process(float $value1, float $value2): float;
+
+    public function someMethod(float $value1, float $value2): void
+    {
+        print('Result: ' . $this->process($value1, $value2) . PHP_EOL);
+    }
+}
+
+class SomeClass extends SomeAbstractClass
+{
+    protected function process(float $value1, float $value2): float
+    {
+        return $value1 + $value2;
+    }
+}
+
+class OtherClass extends SomeAbstractClass
+{
+    protected function process(float $value1, float $value2): float
+    {
+        return $value1 * $value2;
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->someMethod(2, 3);
+
+$otherObject = new OtherClass();
+$otherObject->someMethod(2, 3);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Result: 5
+Result: 6
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/abstract_classes/abstract_method.php)
+
+## Abstract property (hooks)
 
 *Example: Abstract property example*
 
@@ -308,7 +359,129 @@ abstract class A
 ?>
 ```
 
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.abstract.php)
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.abstract.php#language.oop5.abstract)
+
+*Example: Abstract property (hooks)*
+
+```php
+<?php
+
+abstract class SomeAbstractClass
+{
+    abstract protected string $someProperty {
+        set;
+        get;
+    }
+
+    abstract protected string $someSetProperty {
+        set;
+    }
+
+    abstract protected string $someGetProperty {
+        get;
+    }
+
+    public function someMethod(string $value): void
+    {
+        $this->someSetProperty = $value;
+    }
+
+    public function otherMethod(): string
+    {
+        return $this->someProperty . ' ' . $this->someGetProperty;
+    }
+}
+
+class SomeClass extends SomeAbstractClass
+{
+    public string $someProperty;
+
+    protected string $someSetProperty {
+        set => $this->someGetProperty = $value . '>';
+    }
+
+    protected string $someGetProperty = '' {
+        get => '<' . $this->someGetProperty;
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->someProperty = 'some';
+$someObject->someMethod('value');
+print($someObject->otherMethod() . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+some <value>
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/abstract_classes/abstract_property_hooks.php)
+
+*Example: Abstract class with abstract members*
+
+```php
+<?php
+
+abstract class Value
+{
+    abstract protected string $description{
+        set;
+        get;
+    }
+    abstract public function show(): void;
+
+    public function __construct(
+        public float $value = 0,
+        public string $label = ""
+    ) {
+        $this->value = $value;
+        $this->label = $label;
+    }
+}
+
+class Datum extends Value
+{
+    public string $description;
+
+    public function __construct(float $value, string $label, string $description = "")
+    {
+        $this->value = $value;
+        $this->label = $label;
+        $this->description = $description;
+    }
+
+    public function show(): void
+    {
+        print("Value: " . $this->value
+            . "\nLabel: " . $this->label
+            . "\nDescription: " . $this->description . "\n"
+        );
+    }
+}
+
+class Content extends Datum
+{
+}
+
+$page = new Content(666, "Page of Harry Potter book", "The satanistic ritual hidden in the book for kids. Oh noes!");
+$page->show();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Value: 666
+Label: Page of Harry Potter book
+Description: The satanistic ritual hidden in the book for kids. Oh noes!
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/abstract_classes/abstract_class_with_abstract_members.php)
 
 [▵ Up](#abstract-classes)
 [⌂ Home](../../../../README.md)

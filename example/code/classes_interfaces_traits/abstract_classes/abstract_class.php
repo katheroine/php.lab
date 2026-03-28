@@ -14,7 +14,7 @@ abstract class SomeAbstractClass
         );
     }
 
-    protected abstract function getLabel(string $name): string;
+    abstract protected function getLabel(string $name): string;
 }
 
 class SomeClass extends SomeAbstractClass
