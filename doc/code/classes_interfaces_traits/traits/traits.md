@@ -4,11 +4,38 @@
 
 # Traits
 
+## Definition
+
+> In computer programming, a **trait** is a language concept that represents a set of *methods* that can be used to extend the functionality of a *class*.
+
+In *object-oriented programming*, behavior is sometimes shared between *classes* which are not related to each other. For example, many unrelated *classes* may have methods to serialize objects to JSON. Historically, there have been several approaches to solve this without duplicating the code in every class needing the behavior. Other approaches include *multiple inheritance* and *mixins*, but these have drawbacks: the behavior of the code may unexpectedly change if the order in which the *mixins* are applied is altered, or if new *methods* are added to the *parent classes* or *mixins*.
+
+*Traits* solve these problems by allowing classes to use the *trait* and get the desired behavior. If a *class* uses more than one *trait*, the order in which the traits are used does not matter. The methods provided by the traits have direct access to the data of the class.
+
+*Traits* combine aspects of *protocols* (*interfaces*) and *mixins*. Like an *interface*, a *trait* defines one or more *method signatures*, of which *implementing classes* must provide *implementations*. Like a *mixin*, a *trait* provides additional behavior for the *implementing class*.
+
+In case of a *naming collision* between *methods* provided by different *traits*, the programmer must explicitly disambiguate which one of those *methods* will be used in the *class*; thus manually solving the *diamond problem* of *multiple inheritance*. This is different from other composition *methods* in *object-oriented programming*, where conflicting names are automatically resolved by *scoping rules*.
+
+Operations which can be performed with *traits* include:
+
+* *symmetric sum*: an operation that merges two disjoint *traits* to create a new *trait*,
+* *override* (or *asymmetric sum*): an operation that forms a new *trait* by adding *methods* to an existing *trait*, possibly *overriding* some of its *methods*,
+* *alias*: an operation that creates a new *trait* by adding a new name for an existing *method*,
+* *exclusion*: an operation that forms a new *trait* by removing a *method* from an existing *trait*. (Combining this with the alias operation yields a shallow rename operation).
+
+If a *method* is excluded from a *trait*, that *method* must be provided by the *class* that consumes the *trait*, or by a *parent class* of that *class*. This is because the *methods* provided by the *trait* might call the excluded *method*.
+
+*Trait composition* is commutative (i.e. given traits A and B, A + B is equivalent to B + A) and associative (i.e. given traits A, B, and C, (A + B) + C is equivalent to A + (B + C)).
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Trait_(computer_programming))
+
+## Description
+
 PHP implements a way to reuse code called *traits*.
 
 ***Traits*** are a mechanism for code reuse in *single inheritance* languages such as PHP. A *trait* is intended to reduce some limitations of *single inheritance* by enabling a developer to reuse sets of *methods* freely in several independent *classes* living in different *class hierarchies*. The semantics of the combination of *traits* and *classes* is defined in a way which reduces complexity, and avoids the typical problems associated with *multiple inheritance* and *mixins*.
 
-A *trait* is similar to a *class*, but only intended to group functionality in a fine-grained and consistent way. It is not possible to *instantiate* a *trait* on its own. It is an addition to traditional *inheritance* and enables horizontal composition of behavior; that is, the application of *class members* without requiring *inheritance*.
+A *trait* is similar to a *class*, but only intended to group functionality in a fine-grained and consistent way. It is not possible to *instantiate* a *trait* on its own. It is an addition to traditional *inheritance* and enables *horizontal composition of behavior*; that is, the application of *class members* without requiring *inheritance*.
 
 *Example: Trait example*
 
@@ -50,6 +77,363 @@ The above example will output:
 ```
 Hello World!
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits)
+
+*Example: Trait*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public const SOME_CONSTANT = 'constant';
+    public static string $someStaticProperty = 'static property';
+    public string $someProperty = 'property';
+    public readonly string $someReadonlyProperty;
+
+    public function __construct()
+    {
+        $this->someReadonlyProperty = 'readonly property';
+    }
+
+    public static function someStaticMethod(): string
+    {
+        return 'static method';
+    }
+
+    public function someMethod(): string
+    {
+        return 'method';
+    }
+}
+
+class SomeClass
+{
+    use SomeTrait;
+
+    public function otherMethod(): void
+    {
+        print(
+            self::SOME_CONSTANT . PHP_EOL
+            . self::$someStaticProperty . PHP_EOL
+            . self::someStaticMethod() . PHP_EOL
+            . $this->someProperty . PHP_EOL
+            . $this->someReadonlyProperty . PHP_EOL
+            . $this->someMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->otherMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+constant
+static property
+static method
+property
+readonly property
+method
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/trait.php)
+
+## Trait and reusability
+
+*Example: Trait and reusability*
+
+```php
+<?php
+
+trait Presentable
+{
+    const DESCRIPTION_TITLE = "Description: ";
+    const CORE_TITLE = "Core: ";
+
+    private $presentationTitle = "";
+
+    abstract function getLabel(): string;
+    abstract function getCore(): string;
+
+    public function show(): void
+    {
+        if (strlen($this->presentationTitle)) {
+            print($this->presentationTitle . PHP_EOL);
+        }
+        print(
+            self::DESCRIPTION_TITLE . $this->getLabel() . PHP_EOL
+            . self::CORE_TITLE . $this->getCore() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+class Value
+{
+    use Presentable;
+
+    public function __construct(
+        private float $value,
+        private string $name,
+        string $presentationTitle = ""
+    ) {
+        $this->presentationTitle = $presentationTitle;
+    }
+
+    private function getLabel(): string
+    {
+        return $this->name;
+    }
+
+    private function getCore(): string
+    {
+        return $this->value;
+    }
+}
+
+class Content
+{
+    use Presentable;
+
+    public function __construct(
+        private string $content,
+        private string $description = "",
+        string $presentationTitle = ""
+    ) {
+        $this->presentationTitle = $presentationTitle;
+    }
+
+    private function getLabel(): string
+    {
+        return $this->description;
+    }
+
+    private function getCore(): string
+    {
+        return $this->content;
+    }
+}
+
+$temp = new Value(23.2, "Good ambient temperature", "My favourite temperature");
+$temp->show();
+
+$lectio = new Content(
+    "In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.",
+    "De beneficiis lectionis",
+    "My favourite cite"
+);
+$lectio->show();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+My favourite temperature
+Description: Good ambient temperature
+Core: 23.2
+
+My favourite cite
+Description: De beneficiis lectionis
+Core: In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/trait_and_reusability.php)
+
+## Trait members access
+
+*Example: Trait members access*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public const SOME_CONSTANT = 'constant';
+    public static string $someStaticProperty = 'static property';
+    public string $someProperty = 'property';
+    public readonly string $someReadonlyProperty;
+
+    public function __construct()
+    {
+        $this->someReadonlyProperty = 'readonly property';
+    }
+
+    public static function someStaticMethod(): string
+    {
+        return 'static method';
+    }
+
+    public function someMethod(): string
+    {
+        return 'method';
+    }
+
+    public static function someTraitContext(): void
+    {
+        print(
+            "Trait context:\n"
+            // . self::SOME_CONSTANT . PHP_EOL
+            . self::$someStaticProperty . PHP_EOL
+            . self::someStaticMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+
+    public static function someClassContext(): void
+    {
+        print(
+            "Class context:\n"
+            . self::SOME_CONSTANT . PHP_EOL
+            . self::$someStaticProperty . PHP_EOL
+            . self::someStaticMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+
+    public function someObjectContext(): void
+    {
+        print(
+            "Object context:\n"
+            . self::SOME_CONSTANT . PHP_EOL
+            . self::$someStaticProperty . PHP_EOL
+            . self::someStaticMethod() . PHP_EOL
+            . $this->someProperty . PHP_EOL
+            . $this->someReadonlyProperty . PHP_EOL
+            . $this->someMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+}
+
+SomeTrait::someTraitContext();
+
+class SomeClass
+{
+    use SomeTrait;
+}
+
+SomeClass::someClassContext();
+
+$someObject = new SomeClass();
+$someObject->someObjectContext();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Trait context:
+static property
+static method
+
+Class context:
+constant
+static property
+static method
+
+Object context:
+constant
+static property
+static method
+property
+readonly property
+method
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/trait_members_access.php)
+
+## Trait constant
+
+*Traits* can, as of PHP 8.2.0, also define *constants*.
+
+*Example: Defining constants*
+
+```php
+<?php
+trait ConstantsTrait {
+    public const FLAG_MUTABLE = 1;
+    final public const FLAG_IMMUTABLE = 5;
+}
+
+class ConstantsExample {
+    use ConstantsTrait;
+}
+
+$example = new ConstantsExample;
+echo $example::FLAG_MUTABLE;
+?>
+```
+
+The above example will output:
+
+```
+1
+```
+
+If a *trait* defines a *constant* then a *class* can not *define* a *constant* with the same *name* unless it is compatible (same *visibility*, *initial value*, and *finality*), otherwise a fatal error is issued.
+
+*Example: Conflict resolution*
+
+```php
+<?php
+trait ConstantsTrait {
+    public const FLAG_MUTABLE = 1;
+    final public const FLAG_IMMUTABLE = 5;
+}
+
+class ConstantsExample {
+    use ConstantsTrait;
+    public const FLAG_IMMUTABLE = 5; // Fatal error
+}
+?>
+```
+
+*Example: Trait constant*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public const SOME_CONSTANT = 'constant';
+}
+
+class SomeClass
+{
+    use SomeTrait;
+
+    public function someMethod(): void
+    {
+        print(self::SOME_CONSTANT . PHP_EOL);
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+constant
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/trait_constant.php)
 
 ## Precedence
 
@@ -472,52 +856,6 @@ class PropertiesExample {
     public $different1 = true; // Fatal error
     public string $different2; // Fatal error
     readonly protected bool $different3; // Fatal error
-}
-?>
-```
-
-## Constants
-
-*Traits* can, as of PHP 8.2.0, also define *constants*.
-
-*Example: Defining constants*
-
-```php
-<?php
-trait ConstantsTrait {
-    public const FLAG_MUTABLE = 1;
-    final public const FLAG_IMMUTABLE = 5;
-}
-
-class ConstantsExample {
-    use ConstantsTrait;
-}
-
-$example = new ConstantsExample;
-echo $example::FLAG_MUTABLE;
-?>
-```
-
-The above example will output:
-
-```
-1
-```
-
-If a *trait* defines a *constant* then a *class* can not *define* a *constant* with the same *name* unless it is compatible (same *visibility*, *initial value*, and *finality*), otherwise a fatal error is issued.
-
-*Example: Conflict resolution*
-
-```php
-<?php
-trait ConstantsTrait {
-    public const FLAG_MUTABLE = 1;
-    final public const FLAG_IMMUTABLE = 5;
-}
-
-class ConstantsExample {
-    use ConstantsTrait;
-    public const FLAG_IMMUTABLE = 5; // Fatal error
 }
 ?>
 ```

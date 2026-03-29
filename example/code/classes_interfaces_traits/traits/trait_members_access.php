@@ -21,16 +21,34 @@ trait SomeTrait
     {
         return 'method';
     }
-}
 
-class SomeClass
-{
-    use SomeTrait;
-
-    public function otherMethod(): void
+    public static function someTraitContext(): void
     {
         print(
-            self::SOME_CONSTANT . PHP_EOL
+            "Trait context:\n"
+            // . self::SOME_CONSTANT . PHP_EOL
+            . self::$someStaticProperty . PHP_EOL
+            . self::someStaticMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+
+    public static function someClassContext(): void
+    {
+        print(
+            "Class context:\n"
+            . self::SOME_CONSTANT . PHP_EOL
+            . self::$someStaticProperty . PHP_EOL
+            . self::someStaticMethod() . PHP_EOL
+            . PHP_EOL
+        );
+    }
+
+    public function someObjectContext(): void
+    {
+        print(
+            "Object context:\n"
+            . self::SOME_CONSTANT . PHP_EOL
             . self::$someStaticProperty . PHP_EOL
             . self::someStaticMethod() . PHP_EOL
             . $this->someProperty . PHP_EOL
@@ -41,5 +59,14 @@ class SomeClass
     }
 }
 
+SomeTrait::someTraitContext();
+
+class SomeClass
+{
+    use SomeTrait;
+}
+
+SomeClass::someClassContext();
+
 $someObject = new SomeClass();
-$someObject->otherMethod();
+$someObject->someObjectContext();
