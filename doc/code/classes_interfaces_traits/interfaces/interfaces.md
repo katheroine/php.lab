@@ -898,6 +898,89 @@ class C extends B
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces.examples)
 
+*Example: Interface implemented by abstract class*
+
+```php
+<?php
+
+interface Presentable
+{
+    public function getId(): int;
+    public function getTitle(): string;
+    public function getContent(): string;
+}
+
+abstract class Information implements Presentable
+{
+    protected static int $datumId = 0;
+
+    public function __construct(
+        protected string $label,
+        protected string $text
+    ) {
+        self::$datumId = $this->processId(self::$datumId);
+    }
+
+    abstract protected function processId(int $id): int;
+
+    public function getId(): int
+    {
+        return self::$datumId;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->label;
+    }
+
+    public function getContent(): string
+    {
+        return $this->text;
+    }
+}
+
+class Article extends Information
+{
+    protected function processId(int $id): int
+    {
+        return ++$id;
+    }
+}
+
+function display(Presentable $presentable)
+{
+    print(
+        '#' . $presentable->getId()
+        . ' "' . $presentable->getTitle() . '"' . PHP_EOL . PHP_EOL
+        . $presentable->getContent() . PHP_EOL . PHP_EOL
+    );
+}
+
+$someArticle = new Article(
+    'C++ teaches more than any other programming language',
+    "While modern languages like Python or Java automate many technical\n"
+    . "details to improve developer productivity,\n"
+    . "C++ leaves them in your hands, providing a deeper look at \"how computers think\"."
+);
+
+display($someArticle);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+#1 "C++ teaches more than any other programming language"
+
+While modern languages like Python or Java automate many technical
+details to improve developer productivity,
+C++ leaves them in your hands, providing a deeper look at "how computers think".
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/interfaces/interface_implemented_by_abstract_class.php)
+
 ## Intefaces and variance compatibility
 
 *Example: Variance compatibility with multiple interfaces*

@@ -529,7 +529,7 @@ Laboratory of PHP.
             7. [Multiple interface implementing](./example/code/classes_interfaces_traits/interfaces/multiple_interface_implementing.php)
             8. [Extending interface](./example/code/classes_interfaces_traits/interfaces/extending_interface.php)
             9. [Extending class and implementing interface](./example/code/classes_interfaces_traits/interfaces/extending_class_and_implementing_interface.php)
-            3. [Interface and abstract class](./example/code/classes_interfaces_traits/interfaces/interface_and_abstract_class.php)
+            10. [Interface implemented by abstract class](./example/code/classes_interfaces_traits/interfaces/interface_implemented_by_abstract_class.php)
         4. [Traits](./example/code/classes_interfaces_traits/traits/trait.php)
             1. [Traits](./example/code/classes_interfaces_traits/traits/traits.php)
             2. [Precedence](./example/code/classes_interfaces_traits/traits/precedence.php)
