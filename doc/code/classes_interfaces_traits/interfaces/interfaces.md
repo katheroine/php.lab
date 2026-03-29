@@ -240,6 +240,10 @@ C++ leaves them in your hands, providing a deeper look at "how computers think".
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/interfaces/interface_and_dependency_injection.php)
 
+An *interface*, together with *type declarations*, provides a good way to make sure that a particular *object* contains particular *methods*. See `instanceof` operator and *type declarations*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php)
+
 *Interfaces* may define *magic methods* to require *implementing* *classes* to *implement* those *methods*.
 
 Note:
@@ -494,7 +498,11 @@ class C2 implements I
 ?>
 ```
 
-## Examples
+## Multiple interface implementing
+
+
+
+## Extending interface
 
 *Example: Extendable interfaces*
 
@@ -538,32 +546,57 @@ class D implements B
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces.examples)
 
-*Example: Variance compatibility with multiple interfaces*
+*Example: Extending inteface*
 
 ```php
 <?php
-class Foo {}
-class Bar extends Foo {}
 
-interface A {
-    public function myfunc(Foo $arg): Foo;
-}
-
-interface B {
-    public function myfunc(Bar $arg): Bar;
-}
-
-class MyClass implements A, B
+interface SomeInterface
 {
-    public function myfunc(Foo $arg): Bar
+    public function someMethod(): string;
+}
+
+interface OtherInterface extends SomeInterface
+{
+    public function otherMethod(): string;
+}
+
+class SomeClass implements OtherInterface
+{
+    public function someMethod(): string
     {
-        return new Bar();
+        return 'some method';
+    }
+
+    public function otherMethod(): string
+    {
+        return 'other method';
     }
 }
-?>
+
+$someObject = new SomeClass();
+print('Interfaces:' . PHP_EOL);
+print_r(class_implements($someObject));
+print('Extended interface method result: ' . $someObject->someMethod() . PHP_EOL);
+print('Extending interface method result: ' . $someObject->otherMethod() . PHP_EOL);
+
 ```
 
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces.examples)
+**Result (PHP 8.4)**:
+
+```
+Interfaces:
+Array
+(
+    [OtherInterface] => OtherInterface
+    [SomeInterface] => SomeInterface
+)
+Extended interface method result: some method
+Extending interface method result: other method
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/interfaces/extending.php)
 
 *Example: Multiple interface inheritance*
 
@@ -603,6 +636,40 @@ class D implements C
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces.examples)
 
+## Extending class and implementing interface
+
+*Example: Extending and implementing simultaneously*
+
+```php
+<?php
+
+class One
+{
+    /* ... */
+}
+
+interface Usable
+{
+    /* ... */
+}
+
+interface Updatable
+{
+    /* ... */
+}
+
+// The keyword order here is important. 'extends' must come first.
+class Two extends One implements Usable, Updatable
+{
+    /* ... */
+}
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces.examples)
+
+## Interface implemented by abstract class
+
 *Example: Interfaces with abstract classes*
 
 ```php
@@ -636,39 +703,34 @@ class C extends B
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces.examples)
 
-*Example: Extending and implementing simultaneously*
+## Intefaces and variance compatibility
+
+*Example: Variance compatibility with multiple interfaces*
 
 ```php
 <?php
+class Foo {}
+class Bar extends Foo {}
 
-class One
-{
-    /* ... */
+interface A {
+    public function myfunc(Foo $arg): Foo;
 }
 
-interface Usable
-{
-    /* ... */
+interface B {
+    public function myfunc(Bar $arg): Bar;
 }
 
-interface Updatable
+class MyClass implements A, B
 {
-    /* ... */
-}
-
-// The keyword order here is important. 'extends' must come first.
-class Two extends One implements Usable, Updatable
-{
-    /* ... */
+    public function myfunc(Foo $arg): Bar
+    {
+        return new Bar();
+    }
 }
 ?>
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces.examples)
-
-An *interface*, together with *type declarations*, provides a good way to make sure that a particular *object* contains particular *methods*. See `instanceof` operator and *type declarations*.
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php)
 
 [▵ Up](#interfaces)
 [⌂ Home](../../../../README.md)
