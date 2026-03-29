@@ -118,6 +118,8 @@ class BadTemplate implements Template
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces.examples)
 
+## Interface and dependency injection
+
 In practice, interfaces serve two complementary purposes:
 
 * To allow *developers* to create *objects* of different *classes* that may be used interchangeably because they *implement* the same *interface* or *interfaces*. A common example is multiple database access services, multiple payment gateways, or different caching strategies. Different *implementations* may be swapped out without requiring any changes to the code that uses them.
@@ -243,14 +245,6 @@ C++ leaves them in your hands, providing a deeper look at "how computers think".
 An *interface*, together with *type declarations*, provides a good way to make sure that a particular *object* contains particular *methods*. See `instanceof` operator and *type declarations*.
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php)
-
-*Interfaces* may define *magic methods* to require *implementing* *classes* to *implement* those *methods*.
-
-Note:
-
-Although they are supported, including *constructors* in *interfaces* is strongly discouraged. Doing so significantly reduces the flexibility of the *object* implementing the *interface*. Additionally, *constructors* are not enforced by *inheritance* rules, which can cause inconsistent and unexpected behavior.
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces)
 
 ## Inplementing interface
 
@@ -559,6 +553,18 @@ some <value>
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/interfaces/interface_property_hooks.php)
+
+## Interface and magic methods
+
+*Interfaces* may define *magic methods* to require *implementing* *classes* to *implement* those *methods*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces)
+
+## Interface and constructors
+
+Although they are supported, including *constructors* in *interfaces* is strongly discouraged. Doing so significantly reduces the flexibility of the *object* implementing the *interface*. Additionally, *constructors* are not enforced by *inheritance* rules, which can cause inconsistent and unexpected behavior.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces)
 
 ## Multiple interface implementing
 
