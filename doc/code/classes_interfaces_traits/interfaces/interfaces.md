@@ -427,7 +427,7 @@ method
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/interfaces/interface_method.php)
 
-## Interface property
+## Interface property (hooks)
 
 As of PHP 8.4.0, *interfaces* may also *declare* *properties*. If they do, the *declaration* must specify if the *property* is to be *readable*, *writeable*, or both. The *interface declaration* applies only to *public* *read* and *write access*.
 
@@ -498,9 +498,121 @@ class C2 implements I
 ?>
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces.properties)
+
+*Example: Interface property (hooks)*
+
+```php
+<?php
+
+interface SomeInterface
+{
+    public string $someProperty {
+        set;
+        get;
+    }
+
+    public string $someSetProperty {
+        set;
+    }
+
+    public string $someGetProperty {
+        get;
+    }
+}
+
+class SomeClass implements SomeInterface
+{
+    public string $someProperty;
+
+    public string $someSetProperty {
+        set => $this->someGetProperty = $value . '>';
+    }
+
+    public string $someGetProperty = '' {
+        get => '<' . $this->someGetProperty;
+    }
+
+    public function someMethod(string $value): void
+    {
+        $this->someSetProperty = $value;
+    }
+
+    public function otherMethod(): string
+    {
+        return $this->someProperty . ' ' . $this->someGetProperty;
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->someProperty = 'some';
+$someObject->someMethod('value');
+print($someObject->otherMethod() . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+some <value>
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/interfaces/interface_property_hooks.php)
+
 ## Multiple interface implementing
 
+*Example: Multiple interface implementing*
 
+```php
+<?php
+
+interface SomeInterface
+{
+    public function someMethod(): string;
+}
+
+interface OtherInterface
+{
+    public function otherMethod(): string;
+}
+
+class SomeClass implements SomeInterface, OtherInterface
+{
+    public function someMethod(): string
+    {
+        return 'some method';
+    }
+
+    public function otherMethod(): string
+    {
+        return 'other method';
+    }
+}
+
+$someObject = new SomeClass();
+print('Interfaces:' . PHP_EOL);
+print_r(class_implements($someObject));
+print('Some interface method result: ' . $someObject->someMethod() . PHP_EOL);
+print('Other interface method result: ' . $someObject->otherMethod() . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Interfaces:
+Array
+(
+    [SomeInterface] => SomeInterface
+    [OtherInterface] => OtherInterface
+)
+Some interface method result: some method
+Other interface method result: other method
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/interfaces/multiple_interface_implementing.php)
 
 ## Extending interface
 
@@ -596,7 +708,7 @@ Extending interface method result: other method
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/interfaces/extending.php)
+[Example](../../../../example/code/classes_interfaces_traits/interfaces/extending_interface.php)
 
 *Example: Multiple interface inheritance*
 
@@ -667,6 +779,89 @@ class Two extends One implements Usable, Updatable
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces.examples)
+
+*Example: Extending class and implementing interface*
+
+```php
+<?php
+
+interface Presentable
+{
+    public function getId(): int;
+    public function getTitle(): string;
+    public function getContent(): string;
+}
+
+abstract class Information
+{
+    protected static int $datumId = 0;
+
+    public function __construct(
+        protected string $label,
+        protected string $text
+    ) {
+        self::$datumId = $this->processId(self::$datumId);
+    }
+
+    abstract protected function processId(int $id): int;
+}
+
+class Article extends Information implements Presentable
+{
+    public function getId(): int
+    {
+        return self::$datumId;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->label;
+    }
+
+    public function getContent(): string
+    {
+        return $this->text;
+    }
+
+    protected function processId(int $id): int
+    {
+        return ++$id;
+    }
+}
+
+function display(Presentable $presentable)
+{
+    print(
+        '#' . $presentable->getId()
+        . ' "' . $presentable->getTitle() . '"' . PHP_EOL . PHP_EOL
+        . $presentable->getContent() . PHP_EOL . PHP_EOL
+    );
+}
+
+$someArticle = new Article(
+    'C++ teaches more than any other programming language',
+    "While modern languages like Python or Java automate many technical\n"
+    . "details to improve developer productivity,\n"
+    . "C++ leaves them in your hands, providing a deeper look at \"how computers think\"."
+);
+
+display($someArticle);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+#1 "C++ teaches more than any other programming language"
+
+While modern languages like Python or Java automate many technical
+details to improve developer productivity,
+C++ leaves them in your hands, providing a deeper look at "how computers think".
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/interfaces/extending_class_and_implementing_interface.php)
 
 ## Interface implemented by abstract class
 
