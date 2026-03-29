@@ -1,49 +1,29 @@
 <?php
 
-interface Presentation {
-    public function getLabel() : string;
-    public function show() : void;
+interface SomeInterface
+{
+    public const SOME_CONSTANT = 'constant';
+
+    public static function someStaticMethod(): string;
+    public function someMethod(): string;
 }
 
-class Datum implements Presentation {
-    protected string $description;
-
-    public function __construct(string $description) {
-        $this->description = $description;
+class SomeClass implements SomeInterface
+{
+    public static function someStaticMethod(): string
+    {
+        return 'static method';
     }
 
-    public function getLabel() : string { // Must be implemented.
-        return ("Description: " . $this->description);
-    }
-
-    public function show() : void { // Must be implemented.
-        print($this->getLabel() . "\n");
-    }
-}
-
-class Content extends Datum {
-    protected string $core;
-
-    public function __construct(string $core, string $description = "") {
-        $this->core = $core;
-        $this->description = $description;
-    }
-
-    public function show() : void {
-        print($this->getLabel() . "\n"
-          . "Core: " . $this->core . "\n");
+    public function someMethod(): string
+    {
+        return 'method';
     }
 }
 
-$color = new Datum("Favourite color");
-$color->show();
-
-print("\n");
-
-$lectio = new Content(
-  "In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.",
-  "De beneficiis lectionis"
+$someObject = new SomeClass();
+print(
+    SomeClass::SOME_CONSTANT . PHP_EOL
+    . $someObject->someStaticMethod() . PHP_EOL
+    . $someObject->someMethod() . PHP_EOL
 );
-$lectio->show();
-
-print("\n");
