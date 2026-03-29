@@ -535,6 +535,8 @@ Laboratory of PHP.
             2. [Trait and reusability](./example/code/classes_interfaces_traits/traits/trait_and_reusability.php)
             3. [Trait members access](./example/code/classes_interfaces_traits/traits/trait_members_access.php)
             4. [Trait constant](./example/code/classes_interfaces_traits/traits/trait_constant.php)
+            5. [Trait property](./example/code/classes_interfaces_traits/traits/trait_property.php)
+            6. [Trait method](./example/code/classes_interfaces_traits/traits/trait_method.php)
             2. [Precedence](./example/code/classes_interfaces_traits/traits/precedence.php)
             3. [Methods access level changing](./example/code/classes_interfaces_traits/traits/functions_access_level_changing.php)
             4. [Methods visibility change](./example/code/classes_interfaces_traits/traits/visibility_change.php)

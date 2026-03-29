@@ -11,9 +11,13 @@ class SomeClass
 
     public function someMethod(): void
     {
-        print(self::SOME_CONSTANT . PHP_EOL);
+        print(
+            self::SOME_CONSTANT . PHP_EOL
+            . $this::SOME_CONSTANT . PHP_EOL
+        );
     }
 }
 
 $someObject = new SomeClass();
+print($someObject::SOME_CONSTANT . PHP_EOL);
 $someObject->someMethod();

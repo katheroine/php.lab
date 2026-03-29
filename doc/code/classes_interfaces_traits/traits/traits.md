@@ -401,6 +401,8 @@ class ConstantsExample {
 ?>
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.constants)
+
 *Example: Trait constant*
 
 ```php
@@ -417,7 +419,97 @@ class SomeClass
 
     public function someMethod(): void
     {
-        print(self::SOME_CONSTANT . PHP_EOL);
+        print(
+            self::SOME_CONSTANT . PHP_EOL
+            . $this::SOME_CONSTANT . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeClass();
+print($someObject::SOME_CONSTANT . PHP_EOL);
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+constant
+constant
+constant
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/trait_constant.php)
+
+## Trait property
+
+*Traits* can also define *properties*.
+
+*Example: Defining properties*
+
+```php
+<?php
+
+trait PropertiesTrait
+{
+    public $x = 1;
+}
+
+class PropertiesExample
+{
+    use PropertiesTrait;
+}
+
+$example = new PropertiesExample();
+$example->x;
+
+?>
+```
+
+If a *trait* *defines* a *property* then a *class* can not *define* a *property* with the same *name* unless it is compatible (same *visibility* and *type*, *readonly* modifier, and *initial* value), otherwise a fatal error is issued.
+
+*Example: Conflict resolution*
+
+```php
+<?php
+trait PropertiesTrait {
+    public $same = true;
+    public $different1 = false;
+    public bool $different2;
+    public bool $different3;
+}
+
+class PropertiesExample {
+    use PropertiesTrait;
+    public $same = true;
+    public $different1 = true; // Fatal error
+    public string $different2; // Fatal error
+    readonly protected bool $different3; // Fatal error
+}
+?>
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.properties)
+
+*Example: Trait property*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public string $someProperty = 'property';
+}
+
+class SomeClass
+{
+    use SomeTrait;
+
+    public function someMethod(): void
+    {
+        print($this->someProperty . PHP_EOL);
     }
 }
 
@@ -429,11 +521,247 @@ $someObject->someMethod();
 **Result (PHP 8.4)**:
 
 ```
-constant
+property
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/trait_constant.php)
+[Example](../../../../example/code/classes_interfaces_traits/traits/trait_property.php)
+
+## Trait method
+
+*Example: Traint method*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public function someMethod(): string
+    {
+        return 'method';
+    }
+}
+
+class SomeClass
+{
+    use SomeTrait;
+
+    public function otherMethod(): void
+    {
+        print(
+            self::someMethod() . PHP_EOL
+            . $this->someMethod() . PHP_EOL
+        );
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->otherMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+method
+method
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/trait_method.php)
+
+## Static trait members
+
+*Traits* can *define* *static variables*, *static methods* and *static properties*.
+
+Note:
+
+As of PHP 8.1.0, calling a *static method*, or accessing a *static property* directly on a *trait* is deprecated. *Static methods* and *properties* should only be accessed on a *class* using the *trait*.
+
+*Example: Static variables*
+
+```php
+<?php
+
+trait Counter
+{
+    public function inc()
+    {
+        static $c = 0;
+        $c = $c + 1;
+        echo "$c\n";
+    }
+}
+
+class C1
+{
+    use Counter;
+}
+
+class C2
+{
+    use Counter;
+}
+
+$o = new C1();
+$o->inc();
+$p = new C2();
+$p->inc();
+
+?>
+```
+
+The above example will output:
+
+```
+1
+1
+```
+
+*Example: Static methods*
+
+```php
+<?php
+
+trait StaticExample
+{
+    public static function doSomething()
+    {
+        return 'Doing something';
+    }
+}
+
+class Example
+{
+    use StaticExample;
+}
+
+echo Example::doSomething();
+
+?>
+```
+
+The above example will output:
+
+```
+Doing something
+```
+
+*Example: Static properties*
+
+Caution
+
+Prior to PHP 8.3.0, *static properties* *defined* in a *trait* were shared across all *classes* in the same *inheritance hierarchy* which used that *trait*. As of PHP 8.3.0, if a *child class* uses a *trait* with a *static property*, it will be considered distinct from the one defined in the *parent class*.
+
+```php
+<?php
+
+trait T
+{
+    public static $counter = 1;
+}
+
+class A
+{
+    use T;
+
+    public static function incrementCounter()
+    {
+        static::$counter++;
+    }
+}
+
+class B extends A
+{
+    use T;
+}
+
+A::incrementCounter();
+
+echo A::$counter, "\n";
+echo B::$counter, "\n";
+
+?>
+```
+
+Output of the above example in PHP 8.3:
+
+```
+2
+1
+```
+
+## Abstract trait members
+
+*Traits* support the use of *abstract methods* in order to impose requirements upon the exhibiting *class*. *Public*, *protected*, and *private methods* are supported. Prior to PHP 8.0.0, only *public* and *protected abstract methods* were supported.
+
+Caution
+
+As of PHP 8.0.0, the *signature* of a concrete *method* must follow the *signature compatibility rules*. Previously, its *signature* might be different.
+
+*Example: Express requirements by abstract methods*
+
+```php
+<?php
+trait Hello {
+    public function sayHelloWorld() {
+        echo 'Hello'.$this->getWorld();
+    }
+    abstract public function getWorld();
+}
+
+class MyHelloWorld {
+    private $world;
+    use Hello;
+    public function getWorld() {
+        return $this->world;
+    }
+    public function setWorld($val) {
+        $this->world = $val;
+    }
+}
+?>
+```
+
+## Final methods
+
+As of PHP 8.3.0, the *`final` modifier* can be applied using the *`as` operator* to *methods* *imported* from *traits*. This can be used to prevent *child classes* from *overriding* the *method*. However, the *class* that *uses* the *trait* can still *override* the *method*.
+
+*Example: Defining a method coming from a trait as final*
+
+```php
+<?php
+
+trait CommonTrait
+{
+    public function method()
+    {
+        echo 'Hello';
+    }
+}
+
+class FinalExampleA
+{
+    use CommonTrait {
+        CommonTrait::method as final; // The 'final' prevents child classes from overriding the method
+    }
+}
+
+class FinalExampleB extends FinalExampleA
+{
+    public function method() {}
+}
+
+?>
+```
+
+The above example will output something similar to:
+
+```
+Fatal error: Cannot override final method FinalExampleA::method() in ...
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php)
 
 ## Precedence
 
@@ -658,247 +986,6 @@ The above example will output:
 ```
 Hello World!
 ```
-
-## Abstract trait members
-
-*Traits* support the use of *abstract methods* in order to impose requirements upon the exhibiting *class*. *Public*, *protected*, and *private methods* are supported. Prior to PHP 8.0.0, only *public* and *protected abstract methods* were supported.
-
-Caution
-
-As of PHP 8.0.0, the *signature* of a concrete *method* must follow the *signature compatibility rules*. Previously, its *signature* might be different.
-
-*Example: Express requirements by abstract methods*
-
-```php
-<?php
-trait Hello {
-    public function sayHelloWorld() {
-        echo 'Hello'.$this->getWorld();
-    }
-    abstract public function getWorld();
-}
-
-class MyHelloWorld {
-    private $world;
-    use Hello;
-    public function getWorld() {
-        return $this->world;
-    }
-    public function setWorld($val) {
-        $this->world = $val;
-    }
-}
-?>
-```
-
-## Static trait members
-
-*Traits* can *define* *static variables*, *static methods* and *static properties*.
-
-Note:
-
-As of PHP 8.1.0, calling a *static method*, or accessing a *static property* directly on a *trait* is deprecated. *Static methods* and *properties* should only be accessed on a *class* using the *trait*.
-
-*Example: Static variables*
-
-```php
-<?php
-
-trait Counter
-{
-    public function inc()
-    {
-        static $c = 0;
-        $c = $c + 1;
-        echo "$c\n";
-    }
-}
-
-class C1
-{
-    use Counter;
-}
-
-class C2
-{
-    use Counter;
-}
-
-$o = new C1();
-$o->inc();
-$p = new C2();
-$p->inc();
-
-?>
-```
-
-The above example will output:
-
-```
-1
-1
-```
-
-*Example: Static methods*
-
-```php
-<?php
-
-trait StaticExample
-{
-    public static function doSomething()
-    {
-        return 'Doing something';
-    }
-}
-
-class Example
-{
-    use StaticExample;
-}
-
-echo Example::doSomething();
-
-?>
-```
-
-The above example will output:
-
-```
-Doing something
-```
-
-*Example: Static properties*
-
-Caution
-
-Prior to PHP 8.3.0, *static properties* *defined* in a *trait* were shared across all *classes* in the same *inheritance hierarchy* which used that *trait*. As of PHP 8.3.0, if a *child class* uses a *trait* with a *static property*, it will be considered distinct from the one defined in the *parent class*.
-
-```php
-<?php
-
-trait T
-{
-    public static $counter = 1;
-}
-
-class A
-{
-    use T;
-
-    public static function incrementCounter()
-    {
-        static::$counter++;
-    }
-}
-
-class B extends A
-{
-    use T;
-}
-
-A::incrementCounter();
-
-echo A::$counter, "\n";
-echo B::$counter, "\n";
-
-?>
-```
-
-Output of the above example in PHP 8.3:
-
-```
-2
-1
-```
-
-## Properties
-
-*Traits* can also define *properties*.
-
-*Example: Defining properties*
-
-```php
-<?php
-
-trait PropertiesTrait
-{
-    public $x = 1;
-}
-
-class PropertiesExample
-{
-    use PropertiesTrait;
-}
-
-$example = new PropertiesExample();
-$example->x;
-
-?>
-```
-
-If a *trait* *defines* a *property* then a *class* can not *define* a *property* with the same *name* unless it is compatible (same *visibility* and *type*, *readonly* modifier, and *initial* value), otherwise a fatal error is issued.
-
-*Example: Conflict resolution*
-
-```php
-<?php
-trait PropertiesTrait {
-    public $same = true;
-    public $different1 = false;
-    public bool $different2;
-    public bool $different3;
-}
-
-class PropertiesExample {
-    use PropertiesTrait;
-    public $same = true;
-    public $different1 = true; // Fatal error
-    public string $different2; // Fatal error
-    readonly protected bool $different3; // Fatal error
-}
-?>
-```
-
-## Final methods
-
-As of PHP 8.3.0, the *`final` modifier* can be applied using the *`as` operator* to *methods* *imported* from *traits*. This can be used to prevent *child classes* from *overriding* the *method*. However, the *class* that *uses* the *trait* can still *override* the *method*.
-
-*Example: Defining a method coming from a trait as final*
-
-```php
-<?php
-
-trait CommonTrait
-{
-    public function method()
-    {
-        echo 'Hello';
-    }
-}
-
-class FinalExampleA
-{
-    use CommonTrait {
-        CommonTrait::method as final; // The 'final' prevents child classes from overriding the method
-    }
-}
-
-class FinalExampleB extends FinalExampleA
-{
-    public function method() {}
-}
-
-?>
-```
-
-The above example will output something similar to:
-
-```
-Fatal error: Cannot override final method FinalExampleA::method() in ...
-```
-
--- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php)
 
 [▵ Up](#traits)
 [⌂ Home](../../../../README.md)
