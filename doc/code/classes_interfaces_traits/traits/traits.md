@@ -417,6 +417,11 @@ class SomeClass
 {
     use SomeTrait;
 
+    public static function someStaticMethod(): void
+    {
+        print(self::SOME_CONSTANT . PHP_EOL);
+    }
+
     public function someMethod(): void
     {
         print(
@@ -426,8 +431,10 @@ class SomeClass
     }
 }
 
+print(SomeClass::SOME_CONSTANT . PHP_EOL);
 $someObject = new SomeClass();
 print($someObject::SOME_CONSTANT . PHP_EOL);
+$someObject->someStaticMethod();
 $someObject->someMethod();
 
 ```
@@ -435,6 +442,8 @@ $someObject->someMethod();
 **Result (PHP 8.4)**:
 
 ```
+constant
+constant
 constant
 constant
 constant
@@ -514,13 +523,16 @@ class SomeClass
 }
 
 $someObject = new SomeClass();
+print($someObject->someProperty . PHP_EOL);
 $someObject->someMethod();
+
 
 ```
 
 **Result (PHP 8.4)**:
 
 ```
+property
 property
 ```
 
@@ -529,7 +541,7 @@ property
 
 ## Trait method
 
-*Example: Traint method*
+*Example: Trait method*
 
 ```php
 <?php
@@ -556,6 +568,7 @@ class SomeClass
 }
 
 $someObject = new SomeClass();
+print($someObject->someMethod() . PHP_EOL);
 $someObject->otherMethod();
 
 ```
@@ -565,12 +578,13 @@ $someObject->otherMethod();
 ```
 method
 method
+method
 ```
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/traits/trait_method.php)
 
-## Static trait members
+## Trait static members
 
 *Traits* can *define* *static variables*, *static methods* and *static properties*.
 
@@ -618,34 +632,7 @@ The above example will output:
 1
 ```
 
-*Example: Static methods*
-
-```php
-<?php
-
-trait StaticExample
-{
-    public static function doSomething()
-    {
-        return 'Doing something';
-    }
-}
-
-class Example
-{
-    use StaticExample;
-}
-
-echo Example::doSomething();
-
-?>
-```
-
-The above example will output:
-
-```
-Doing something
-```
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.static)
 
 *Example: Static properties*
 
@@ -690,6 +677,138 @@ Output of the above example in PHP 8.3:
 2
 1
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.static)
+
+*Example: Trait static property*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public static string $someStaticProperty = 'static property';
+}
+
+class SomeClass
+{
+    use SomeTrait;
+
+    public static function someStaticMethod(): void
+    {
+        print(self::$someStaticProperty . PHP_EOL);
+    }
+
+    public function someMethod(): void
+    {
+        print(self::$someStaticProperty . PHP_EOL);
+    }
+}
+
+print(SomeTrait::$someStaticProperty . PHP_EOL);
+print(SomeClass::$someStaticProperty . PHP_EOL);
+$someObject = new SomeClass();
+$someObject->someMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+static property
+static property
+static property
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/trait_static_property.php)
+
+*Example: Static methods*
+
+```php
+<?php
+
+trait StaticExample
+{
+    public static function doSomething()
+    {
+        return 'Doing something';
+    }
+}
+
+class Example
+{
+    use StaticExample;
+}
+
+echo Example::doSomething();
+
+?>
+```
+
+The above example will output:
+
+```
+Doing something
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.static)
+
+*Example: Trait static method*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public static function someStaticMethod(): string
+    {
+        return 'static method';
+    }
+}
+
+class SomeClass
+{
+    use SomeTrait;
+
+    public static function otherStaticMethod(): void
+    {
+        print(self::someStaticMethod() . PHP_EOL);
+    }
+
+    public function otherMethod(): void
+    {
+        print(
+            self::someStaticMethod() . PHP_EOL
+            . $this::someStaticMethod() . PHP_EOL
+            . $this->someStaticMethod() . PHP_EOL
+        );
+    }
+}
+
+print(SomeTrait::someStaticMethod() . PHP_EOL);
+print(SomeClass::someStaticMethod() . PHP_EOL);
+$someObject = new SomeClass();
+print($someObject->someStaticMethod() . PHP_EOL);
+$someObject::otherStaticMethod();
+$someObject->otherMethod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+static method
+static method
+static method
+static method
+static method
+static method
+static method
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/trait_static_method.php)
 
 ## Abstract trait members
 

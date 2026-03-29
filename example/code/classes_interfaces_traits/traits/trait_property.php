@@ -16,4 +16,5 @@ class SomeClass
 }
 
 $someObject = new SomeClass();
+print($someObject->someProperty . PHP_EOL);
 $someObject->someMethod();

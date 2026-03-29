@@ -9,6 +9,11 @@ class SomeClass
 {
     use SomeTrait;
 
+    public static function someStaticMethod(): void
+    {
+        print(self::SOME_CONSTANT . PHP_EOL);
+    }
+
     public function someMethod(): void
     {
         print(
@@ -18,6 +23,8 @@ class SomeClass
     }
 }
 
+print(SomeClass::SOME_CONSTANT . PHP_EOL);
 $someObject = new SomeClass();
 print($someObject::SOME_CONSTANT . PHP_EOL);
+$someObject->someStaticMethod();
 $someObject->someMethod();

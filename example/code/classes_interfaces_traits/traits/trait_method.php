@@ -22,4 +22,5 @@ class SomeClass
 }
 
 $someObject = new SomeClass();
+print($someObject->someMethod() . PHP_EOL);
 $someObject->otherMethod();
