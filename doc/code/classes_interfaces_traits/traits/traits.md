@@ -810,7 +810,7 @@ static method
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/traits/trait_static_method.php)
 
-## Abstract trait members
+## Trait abstract method
 
 *Traits* support the use of *abstract methods* in order to impose requirements upon the exhibiting *class*. *Public*, *protected*, and *private methods* are supported. Prior to PHP 8.0.0, only *public* and *protected abstract methods* were supported.
 
@@ -842,7 +842,50 @@ class MyHelloWorld {
 ?>
 ```
 
-## Final methods
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.abstract)
+
+*Example: Trait abstract method*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public $someVariable = 'hello';
+
+    public abstract function someAbstractMethod(string $someParameter): string;
+
+    public function someMothod(): void
+    {
+        print($this->someAbstractMethod($this->someVariable));
+    }
+}
+
+class SomeClass
+{
+    use SomeTrait;
+
+    public function someAbstractMethod(string $someParameter): string
+    {
+        return ucfirst($someParameter) . ' world!' . PHP_EOL;
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->someMothod();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Hello world!
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/trait_abstract_method.php)
+
+## Trait final method
 
 As of PHP 8.3.0, the *`final` modifier* can be applied using the *`as` operator* to *methods* *imported* from *traits*. This can be used to prevent *child classes* from *overriding* the *method*. However, the *class* that *uses* the *trait* can still *override* the *method*.
 
@@ -881,6 +924,68 @@ Fatal error: Cannot override final method FinalExampleA::method() in ...
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php)
+
+*Example: Trait final method*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public function someMethod(): string
+    {
+        return 'some method';
+    }
+
+    public function otherMethod(): string
+    {
+        return 'other method';
+    }
+
+    public function anotherMethod(): string
+    {
+        return 'another method';
+    }
+}
+
+class SomeBaseClass
+{
+    use SomeTrait {
+        SomeTrait::someMethod as final;
+        SomeTrait::otherMethod as final otherTraitMethod;
+    }
+
+    public function otherMethod(): string
+    {
+        return $this->otherTraitMethod() . ' overriden in base';
+    }
+}
+
+class SomeDerivedClass extends SomeBaseClass
+{
+    public function anotherMethod(): string
+    {
+        return parent::anotherMethod() . ' overriden in derived';
+    }
+}
+
+$someObject = new SomeDerivedClass();
+print($someObject->someMethod() . PHP_EOL);
+print($someObject->otherMethod() . PHP_EOL);
+print($someObject->anotherMethod() . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+some method
+other method overriden in base
+another method overriden in derived
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/trait_final_method.php)
 
 ## Precedence
 

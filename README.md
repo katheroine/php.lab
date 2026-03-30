@@ -539,6 +539,8 @@ Laboratory of PHP.
             6. [Trait static property](./example/code/classes_interfaces_traits/traits/trait_static_property.php)
             7. [Trait method](./example/code/classes_interfaces_traits/traits/trait_method.php)
             8. [Trait static method](./example/code/classes_interfaces_traits/traits/trait_static_method.php)
+            9. [Trait abstract method](./example/code/classes_interfaces_traits/traits/trait_abstract_method.php)
+            10. [Trait final method](./example/code/classes_interfaces_traits/traits/trait_final_method.php)
             2. [Precedence](./example/code/classes_interfaces_traits/traits/precedence.php)
             3. [Methods access level changing](./example/code/classes_interfaces_traits/traits/functions_access_level_changing.php)
             4. [Methods visibility change](./example/code/classes_interfaces_traits/traits/visibility_change.php)
