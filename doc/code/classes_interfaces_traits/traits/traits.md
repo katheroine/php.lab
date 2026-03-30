@@ -987,6 +987,134 @@ another method overriden in derived
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/traits/trait_final_method.php)
 
+## Multiple trait using
+
+*Multiple traits* can be inserted into a *class* by listing them in the *use statement*, separated by commas.
+
+*Example: Multiple traits usage*
+
+```php
+<?php
+trait Hello {
+    public function sayHello() {
+        echo 'Hello ';
+    }
+}
+
+trait World {
+    public function sayWorld() {
+        echo 'World';
+    }
+}
+
+class MyHelloWorld {
+    use Hello, World;
+    public function sayExclamationMark() {
+        echo '!';
+    }
+}
+
+$o = new MyHelloWorld();
+$o->sayHello();
+$o->sayWorld();
+$o->sayExclamationMark();
+?>
+```
+
+The above example will output:
+
+```
+Hello World!
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.multiple)
+
+*Example: Multiple trait using*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public function someMethod(): string
+    {
+        return 'per speculum';
+    }
+
+    public function otherMethod(): string
+    {
+        return 'in aenigmate';
+    }
+}
+
+class SomeClass
+{
+    use SomeTrait;
+
+    public function anotherMethod(): string
+    {
+        return
+            'Videmus nunc ' . $this->someMethod()
+            . ' et ' . $this->otherMethod() . '.';
+    }
+}
+
+$someObject = new SomeClass();
+print($someObject->anotherMethod() . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Videmus nunc per speculum et in aenigmate.
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/multiple_trait_using.php)
+
+## Composing traits
+
+Just as *classes* can make use of *traits*, so can other *traits*. By using one or more *traits* in a *trait definition*, it can be composed partially or entirely of the *members* *defined* in those other *traits*.
+
+Example: Traits composed from traits
+
+```php
+<?php
+trait Hello {
+    public function sayHello() {
+        echo 'Hello ';
+    }
+}
+
+trait World {
+    public function sayWorld() {
+        echo 'World!';
+    }
+}
+
+trait HelloWorld {
+    use Hello, World;
+}
+
+class MyHelloWorld {
+    use HelloWorld;
+}
+
+$o = new MyHelloWorld();
+$o->sayHello();
+$o->sayWorld();
+?>
+```
+
+The above example will output:
+
+```
+Hello World!
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.composition)
+
 ## Precedence
 
 An *inherited member* from a *base class* is *overridden* by a *member* inserted by a *trait*. The *precedence order* is that *members* from the current *class* *override* *trait methods*, which in turn *override* *inherited methods*.
@@ -1051,46 +1179,6 @@ The above example will output:
 
 ```
 Hello Universe!
-```
-
-## Multiple traits
-
-*Multiple traits* can be inserted into a *class* by listing them in the *use statement*, separated by commas.
-
-*Example: Multiple traits usage*
-
-```php
-<?php
-trait Hello {
-    public function sayHello() {
-        echo 'Hello ';
-    }
-}
-
-trait World {
-    public function sayWorld() {
-        echo 'World';
-    }
-}
-
-class MyHelloWorld {
-    use Hello, World;
-    public function sayExclamationMark() {
-        echo '!';
-    }
-}
-
-$o = new MyHelloWorld();
-$o->sayHello();
-$o->sayWorld();
-$o->sayExclamationMark();
-?>
-```
-
-The above example will output:
-
-```
-Hello World!
 ```
 
 ## Conflict resolution
@@ -1169,46 +1257,6 @@ class MyClass2 {
     use HelloWorld { sayHello as private myPrivateHello; }
 }
 ?>
-```
-
-## Traits composed from traits
-
-Just as *classes* can make use of *traits*, so can other *traits*. By using one or more *traits* in a *trait definition*, it can be composed partially or entirely of the *members* *defined* in those other *traits*.
-
-Example: Traits composed from traits
-
-```php
-<?php
-trait Hello {
-    public function sayHello() {
-        echo 'Hello ';
-    }
-}
-
-trait World {
-    public function sayWorld() {
-        echo 'World!';
-    }
-}
-
-trait HelloWorld {
-    use Hello, World;
-}
-
-class MyHelloWorld {
-    use HelloWorld;
-}
-
-$o = new MyHelloWorld();
-$o->sayHello();
-$o->sayWorld();
-?>
-```
-
-The above example will output:
-
-```
-Hello World!
 ```
 
 [▵ Up](#traits)
