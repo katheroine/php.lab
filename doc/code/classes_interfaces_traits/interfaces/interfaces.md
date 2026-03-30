@@ -560,7 +560,7 @@ some <value>
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces)
 
-## Interface and constructors
+## Interface and constructor
 
 Although they are supported, including *constructors* in *interfaces* is strongly discouraged. Doing so significantly reduces the flexibility of the *object* implementing the *interface*. Additionally, *constructors* are not enforced by *inheritance* rules, which can cause inconsistent and unexpected behavior.
 
@@ -587,12 +587,19 @@ class SomeClass implements SomeInterface, OtherInterface
 {
     public function someMethod(): string
     {
-        return 'some method';
+        return 'per speculum';
     }
 
     public function otherMethod(): string
     {
-        return 'other method';
+        return 'in aenigmate';
+    }
+
+    public function anotherMethod(): string
+    {
+        return
+            'Videmus nunc ' . $this->someMethod()
+            . ' et ' . $this->otherMethod() . '.';
     }
 }
 
@@ -601,6 +608,8 @@ print('Interfaces:' . PHP_EOL);
 print_r(class_implements($someObject));
 print('Some interface method result: ' . $someObject->someMethod() . PHP_EOL);
 print('Other interface method result: ' . $someObject->otherMethod() . PHP_EOL);
+
+print(PHP_EOL . $someObject->anotherMethod() . PHP_EOL);
 
 ```
 
@@ -613,14 +622,16 @@ Array
     [SomeInterface] => SomeInterface
     [OtherInterface] => OtherInterface
 )
-Some interface method result: some method
-Other interface method result: other method
+Some interface method result: per speculum
+Other interface method result: in aenigmate
+
+Videmus nunc per speculum et in aenigmate.
 ```
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/interfaces/multiple_interface_implementing.php)
 
-## Extending interface
+## Interface extending interface
 
 *Example: Extendable interfaces*
 
@@ -664,7 +675,7 @@ class D implements B
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.interfaces.php#language.oop5.interfaces.examples)
 
-*Example: Extending inteface*
+*Example: Interface extending inteface*
 
 ```php
 <?php
@@ -690,6 +701,13 @@ class SomeClass implements OtherInterface
     {
         return 'other method';
     }
+
+    public function anotherMethod(): string
+    {
+        return
+            'Videmus nunc ' . $this->someMethod()
+            . ' et ' . $this->otherMethod() . '.';
+    }
 }
 
 $someObject = new SomeClass();
@@ -697,6 +715,8 @@ print('Interfaces:' . PHP_EOL);
 print_r(class_implements($someObject));
 print('Extended interface method result: ' . $someObject->someMethod() . PHP_EOL);
 print('Extending interface method result: ' . $someObject->otherMethod() . PHP_EOL);
+
+print(PHP_EOL . $someObject->anotherMethod() . PHP_EOL);
 
 ```
 
@@ -711,10 +731,12 @@ Array
 )
 Extended interface method result: some method
 Extending interface method result: other method
+
+Videmus nunc some method et other method.
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/interfaces/extending_interface.php)
+[Example](../../../../example/code/classes_interfaces_traits/interfaces/interface_extending_interface.php)
 
 *Example: Multiple interface inheritance*
 
@@ -809,7 +831,7 @@ abstract class Information
         self::$datumId = $this->processId(self::$datumId);
     }
 
-    abstract protected function processId(int $id): int;
+    abstract protected static function processId(int $id): int;
 }
 
 class Article extends Information implements Presentable
@@ -829,7 +851,7 @@ class Article extends Information implements Presentable
         return $this->text;
     }
 
-    protected function processId(int $id): int
+    protected static function processId(int $id): int
     {
         return ++$id;
     }

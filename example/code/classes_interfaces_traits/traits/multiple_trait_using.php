@@ -6,7 +6,10 @@ trait SomeTrait
     {
         return 'per speculum';
     }
+}
 
+trait OtherTrait
+{
     public function otherMethod(): string
     {
         return 'in aenigmate';
@@ -15,7 +18,7 @@ trait SomeTrait
 
 class SomeClass
 {
-    use SomeTrait;
+    use SomeTrait, OtherTrait;
 
     public function anotherMethod(): string
     {
@@ -26,4 +29,9 @@ class SomeClass
 }
 
 $someObject = new SomeClass();
-print($someObject->anotherMethod() . PHP_EOL);
+print('Traits:' . PHP_EOL);
+print_r(class_uses($someObject));
+print('Some trait method result: ' . $someObject->someMethod() . PHP_EOL);
+print('Other trait method result: ' . $someObject->otherMethod() . PHP_EOL);
+
+print(PHP_EOL . $someObject->anotherMethod() . PHP_EOL);

@@ -1,75 +1,39 @@
 <?php
 
-trait Describable {
-    const DESCRIPTION_TITLE = "Description: ";
-
-    private $presentationTitle = "";
-}
-
-trait Presentable {
-    use Describable;
-
-    const CORE_TITLE = "Core: ";
-
-    public function show() : void {
-        if (strlen($this->presentationTitle)) {
-            print ($this->presentationTitle . "\n");
-        }
-        print(self::DESCRIPTION_TITLE . $this->getLabel() . "\n"
-          . self::CORE_TITLE . $this->getCore() . "\n");
+trait SomeTrait
+{
+    public function someMethod(): string
+    {
+        return 'per speculum';
     }
 }
 
-class Value {
-    use Presentable;
-    private string $name;
-    private float $value;
+trait OtherTrait
+{
+    use SomeTrait;
 
-    public function __construct(float $value, string $name = "", string $presentationTitle = "") {
-        $this->value = $value;
-        $this->name = $name;
-        $this->presentationTitle = $presentationTitle;
-    }
-
-    private function getLabel() : string {
-        return $this->name;
-    }
-
-    private function getCore() : string {
-        return $this->value;
+    public function otherMethod(): string
+    {
+        return 'in aenigmate';
     }
 }
 
-class Content {
-    use Presentable;
-    private string $description;
-    private string $content;
+class SomeClass
+{
+    use OtherTrait;
 
-    public function __construct(string $content, string $description = "", string $presentationTitle = "") {
-        $this->content = $content;
-        $this->description = $description;
-        $this->presentationTitle = $presentationTitle;
-    }
-
-    private function getLabel() : string {
-        return $this->description;
-    }
-
-    private function getCore() : string {
-        return $this->content;
+    public function anotherMethod(): string
+    {
+        return
+            'Videmus nunc ' . $this->someMethod()
+            . ' et ' . $this->otherMethod() . '.';
     }
 }
 
-$temp = new Value(23.2, "Good ambient temperature", "My favourite temperature");
-$temp->show();
+$someObject = new SomeClass();
+print('Traits:' . PHP_EOL);
+print_r(class_uses($someObject));
+print('Some trait method result: ' . $someObject->someMethod() . PHP_EOL);
+print('Other trait method result: ' . $someObject->otherMethod() . PHP_EOL);
 
-print("\n");
-
-$lectio = new Content(
-  "In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.",
-  "De beneficiis lectionis",
-  "My favourite cite"
-);
-$lectio->show();
-
-print("\n");
+print($someObject->anotherMethod() . PHP_EOL);

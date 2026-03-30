@@ -14,12 +14,19 @@ class SomeClass implements SomeInterface, OtherInterface
 {
     public function someMethod(): string
     {
-        return 'some method';
+        return 'per speculum';
     }
 
     public function otherMethod(): string
     {
-        return 'other method';
+        return 'in aenigmate';
+    }
+
+    public function anotherMethod(): string
+    {
+        return
+            'Videmus nunc ' . $this->someMethod()
+            . ' et ' . $this->otherMethod() . '.';
     }
 }
 
@@ -28,3 +35,5 @@ print('Interfaces:' . PHP_EOL);
 print_r(class_implements($someObject));
 print('Some interface method result: ' . $someObject->someMethod() . PHP_EOL);
 print('Other interface method result: ' . $someObject->otherMethod() . PHP_EOL);
+
+print(PHP_EOL . $someObject->anotherMethod() . PHP_EOL);

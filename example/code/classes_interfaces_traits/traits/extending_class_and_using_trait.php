@@ -1,13 +1,14 @@
 <?php
 
-interface Presentable
+trait Identifiable
 {
-    public function getId(): int;
-    public function getTitle(): string;
-    public function getContent(): string;
+    protected static function processId(int $id): int
+    {
+        return $id + 3;
+    }
 }
 
-abstract class Information
+class Information
 {
     protected static int $datumId = 0;
 
@@ -18,11 +19,16 @@ abstract class Information
         self::$datumId = $this->processId(self::$datumId);
     }
 
-    abstract protected static function processId(int $id): int;
+    protected static function processId(int $id): int
+    {
+        return $id + 2;
+    }
 }
 
-class Article extends Information implements Presentable
+class Article extends Information
 {
+    use Identifiable;
+
     public function getId(): int
     {
         return self::$datumId;
@@ -37,20 +43,6 @@ class Article extends Information implements Presentable
     {
         return $this->text;
     }
-
-    protected static function processId(int $id): int
-    {
-        return ++$id;
-    }
-}
-
-function display(Presentable $presentable)
-{
-    print(
-        '#' . $presentable->getId()
-        . ' "' . $presentable->getTitle() . '"' . PHP_EOL . PHP_EOL
-        . $presentable->getContent() . PHP_EOL . PHP_EOL
-    );
 }
 
 $someArticle = new Article(
@@ -60,4 +52,8 @@ $someArticle = new Article(
     . "C++ leaves them in your hands, providing a deeper look at \"how computers think\"."
 );
 
-display($someArticle);
+print(
+    '#' . $someArticle->getId()
+    . ' "' . $someArticle->getTitle() . '"' . PHP_EOL . PHP_EOL
+    . $someArticle->getContent() . PHP_EOL . PHP_EOL
+);

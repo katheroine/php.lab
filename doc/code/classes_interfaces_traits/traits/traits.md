@@ -1040,7 +1040,10 @@ trait SomeTrait
     {
         return 'per speculum';
     }
+}
 
+trait OtherTrait
+{
     public function otherMethod(): string
     {
         return 'in aenigmate';
@@ -1049,7 +1052,7 @@ trait SomeTrait
 
 class SomeClass
 {
-    use SomeTrait;
+    use SomeTrait, OtherTrait;
 
     public function anotherMethod(): string
     {
@@ -1060,20 +1063,34 @@ class SomeClass
 }
 
 $someObject = new SomeClass();
-print($someObject->anotherMethod() . PHP_EOL);
+print('Traits:' . PHP_EOL);
+print_r(class_uses($someObject));
+print('Some trait method result: ' . $someObject->someMethod() . PHP_EOL);
+print('Other trait method result: ' . $someObject->otherMethod() . PHP_EOL);
+
+print(PHP_EOL . $someObject->anotherMethod() . PHP_EOL);
 
 ```
 
 **Result (PHP 8.4)**:
 
 ```
+Traits:
+Array
+(
+    [SomeTrait] => SomeTrait
+    [OtherTrait] => OtherTrait
+)
+Some trait method result: per speculum
+Other trait method result: in aenigmate
+
 Videmus nunc per speculum et in aenigmate.
 ```
 
 **Source code**:
 [Example](../../../../example/code/classes_interfaces_traits/traits/multiple_trait_using.php)
 
-## Composing traits
+## Trait using trait
 
 Just as *classes* can make use of *traits*, so can other *traits*. By using one or more *traits* in a *trait definition*, it can be composed partially or entirely of the *members* *defined* in those other *traits*.
 
@@ -1115,7 +1132,7 @@ Hello World!
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.composition)
 
-## Precedence
+## Extending class and using trait
 
 An *inherited member* from a *base class* is *overridden* by a *member* inserted by a *trait*. The *precedence order* is that *members* from the current *class* *override* *trait methods*, which in turn *override* *inherited methods*.
 
@@ -1180,6 +1197,85 @@ The above example will output:
 ```
 Hello Universe!
 ```
+
+*Example: Extending class and using trait*
+
+```php
+<?php
+
+trait Identifiable
+{
+    protected static function processId(int $id): int
+    {
+        return $id + 3;
+    }
+}
+
+class Information
+{
+    protected static int $datumId = 0;
+
+    public function __construct(
+        protected string $label,
+        protected string $text
+    ) {
+        self::$datumId = $this->processId(self::$datumId);
+    }
+
+    protected static function processId(int $id): int
+    {
+        return $id + 2;
+    }
+}
+
+class Article extends Information
+{
+    use Identifiable;
+
+    public function getId(): int
+    {
+        return self::$datumId;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->label;
+    }
+
+    public function getContent(): string
+    {
+        return $this->text;
+    }
+}
+
+$someArticle = new Article(
+    'C++ teaches more than any other programming language',
+    "While modern languages like Python or Java automate many technical\n"
+    . "details to improve developer productivity,\n"
+    . "C++ leaves them in your hands, providing a deeper look at \"how computers think\"."
+);
+
+print(
+    '#' . $someArticle->getId()
+    . ' "' . $someArticle->getTitle() . '"' . PHP_EOL . PHP_EOL
+    . $someArticle->getContent() . PHP_EOL . PHP_EOL
+);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+#3 "C++ teaches more than any other programming language"
+
+While modern languages like Python or Java automate many technical
+details to improve developer productivity,
+C++ leaves them in your hands, providing a deeper look at "how computers think".
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/extending_class_and_using_trait.php)
 
 ## Conflict resolution
 
