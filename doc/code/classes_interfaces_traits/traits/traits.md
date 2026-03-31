@@ -1503,6 +1503,61 @@ class MyClass2 {
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.visibility)
 
+*Example: Trait members visibility changing*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public function someMethod(): string
+    {
+        return 'some method';
+    }
+
+    protected function otherMethod(): string
+    {
+        return 'other method';
+    }
+
+    private function anotherMethod(): string
+    {
+        return 'another method';
+    }
+}
+
+class SomeClass
+{
+    use SomeTrait {
+        SomeTrait::someMethod as protected;
+        SomeTrait::otherMethod as private privateMethod;
+        SomeTrait::anotherMethod as public publicMethod;
+    }
+
+    public function classContext()
+    {
+        print($this->someMethod() . PHP_EOL);
+        print($this->privateMethod() . PHP_EOL);
+    }
+}
+
+$someObject = new SomeClass();
+$someObject->classContext();
+print($someObject->publicMethod() . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+some method
+other method
+another method
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/trait_members_visibility_changing.php)
+
 [▵ Up](#traits)
 [⌂ Home](../../../../README.md)
 [▲ Previous: Interfaces](../interfaces/interfaces.md)

@@ -545,6 +545,7 @@ Laboratory of PHP.
             12. [Trait using trait](./example/code/classes_interfaces_traits/traits/trait_using_trait.php)
             13. [Extending class and using trait](./example/code/classes_interfaces_traits/traits/extending_class_and_using_trait.php)
             14. [Multiple trait using and conflict resolution](./example/code/classes_interfaces_traits/traits/multiple_trait_using_and_conflicts_resolution.php)
+            15. [Trait members visibility changing](./example/code/classes_interfaces_traits/traits/trait_members_visibility_changing.php)
             3. [Methods access level changing](./example/code/classes_interfaces_traits/traits/functions_access_level_changing.php)
             4. [Methods visibility change](./example/code/classes_interfaces_traits/traits/visibility_change.php)
             6. [Abstract methods](./example/code/classes_interfaces_traits/traits/visibility_change.php)
