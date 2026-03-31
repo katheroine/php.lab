@@ -145,6 +145,37 @@ Hello World
 
 -- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
 
+*Example: Throw as an expression*
+
+Only permitted in PHP 8.0.0 and later.
+
+```php
+<?php
+
+function test() {
+    do_something_risky() or throw new Exception('It did not work');
+}
+
+function do_something_risky() {
+    return false; // Simulate failure
+}
+
+try {
+    test();
+} catch (Exception $e) {
+    print $e->getMessage();
+}
+?>
+```
+
+The above example will output:
+
+```
+It did not work
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
+
 *Example: Throwing an exception*
 
 ```php
@@ -199,7 +230,7 @@ Stack trace:
 
 ## Catching exception
 
->>> `catch`
+>>> `catch` block
 
 A *`catch` block* defines how to respond to a thrown *exception*. A *`catch` block* defines one or more *types* of *exception* or *error* it can handle, and optionally a *variable* to which to assign the *exception*. (The *variable* was required prior to PHP 8.0.0.) The first *`catch` block* a thrown *exception* or error encounters that matches the *type* of the thrown *object* will handle the *object*.
 
@@ -207,7 +238,7 @@ Multiple *`catch` blocks* can be used to catch different *classes* of *exception
 
 When an *exception* is thrown, code following the *statement* will not be executed, and PHP will attempt to find the first matching *`catch` block*. If an *exception* is not caught, a PHP fatal error will be issued with an `"Uncaught Exception ..."` message, unless a handler has been defined with `set_exception_handler()`.
 
-As of PHP 7.1.0, a *`catch` block* may specify multiple exceptions using the pipe (`|`) character. This is useful for when different *exceptions* from different class hierarchies are handled the same.
+As of PHP 7.1.0, a *`catch` block* may specify multiple *exceptions* using the pipe (`|`) character. This is useful for when different *exceptions* from different class hierarchies are handled the same.
 
 As of PHP 8.0.0, the *variable name* for a caught *exception* is optional. If not specified, the *`catch` block* will still execute but will not have access to the thrown *object*.
 
@@ -296,41 +327,206 @@ SomeException Object
 **Source code**:
 [Example](../../../../example/code/errors_and_exceptions/exceptions/catching_defined_exception.php)
 
-## `finally`
+*Example: Omitting the caught variable*
+
+Only permitted in PHP 8.0.0 and later.
+
+```php
+<?php
+
+class SpecificException extends Exception {}
+
+function test() {
+    throw new SpecificException('Oopsie');
+}
+
+try {
+    test();
+} catch (SpecificException) {
+    print "A SpecificException was thrown, but we don't care about the details.";
+}
+?>
+```
+
+The above example will output:
+
+```
+A SpecificException was thrown, but we don't care about the details.
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
+
+*Example: Multi `catch` exception handling*
+
+```php
+<?php
+
+class MyException extends Exception { }
+
+class MyOtherException extends Exception { }
+
+class Test {
+    public function testing() {
+        try {
+            throw new MyException();
+        } catch (MyException | MyOtherException $e) {
+            var_dump(get_class($e));
+        }
+    }
+}
+
+$foo = new Test;
+$foo->testing();
+
+?>
+```
+
+The above example will output:
+
+```
+string(11) "MyException"
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
+
+*Example: Catching various exception types*
+
+```php
+<?php
+
+class NumberValueException extends Exception
+{
+    public int $number;
+}
+
+class ZeroException extends NumberValueException
+{
+    public function __construct(int $number)
+    {
+        $this->number = $number;
+        $this->message = "0 number has beign given.";
+    }
+}
+
+class OneException extends NumberValueException
+{
+    public function __construct(int $number)
+    {
+        $this->number = $number;
+        $this->message = "1 number has beign given.";
+    }
+}
+
+class ThousandException extends NumberValueException
+{
+    public function __construct(int $number)
+    {
+        $this->number = $number;
+        $this->message = "1000 number has beign given.";
+    }
+}
+
+function drawNumber()
+{
+    $number = readline("Give some number: ");
+
+    if ($number == 0) {
+        throw new ZeroException($number);
+    } elseif ($number == 1) {
+        throw new OneException($number);
+    } elseif ($number == 1000) {
+        throw new ThousandException($number);
+    } elseif ($number == 10000) {
+        throw new NumberValueException();
+    }
+
+    return $number;
+}
+
+print("Program begin...\n");
+
+try {
+    print("Risky code...\n");
+
+    $number = drawNumber();
+
+    print("Given number " . $number . " didn't case exception throwing.\n");
+} catch (ZeroException $e) {
+    print("CASE 1: " . $e->getMessage() . " (" . $e->number . ")\n");
+} catch (OneException $e) {
+    print("CASE 2: " . $e->getMessage() . " (" . $e->number . ")\n");
+} catch (ThousandException $e) {
+    print("CASE 3: " . $e->getMessage() . " (" . $e->number . ")\n");
+} catch (Exception) {
+    print("Exception of unknown type catched.\n");
+}
+
+print("Program end...\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Program begin...
+Risky code...
+Give some number:
+Given number  didn't case exception throwing.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 0
+CASE 1: 0 number has beign given. (0)
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 1
+CASE 2: 1 number has beign given. (1)
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 2
+Given number 2 didn't case exception throwing.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 1000
+CASE 3: 1000 number has beign given. (1000)
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 10000
+Exception of unknown type catched.
+Program end...
+```
+
+**Source code**:
+[Example](../../../../example/code/errors_and_exceptions/exceptions/catching_exceptions_of_various_types.php)
+
+## Code always executed
+
+>>> `finally` block
 
 A *`finally` block* may also be specified after or instead of *`catch` blocks*. Code within the finally block will always be executed after the `try` and `catch` blocks, regardless of whether an *exception* has been thrown, and before normal execution resumes.
 
 One notable interaction is between the *`finally` block* and a *`return` statement*. If a *`return` statement* is encountered inside either the `try` or the `catch` blocks, the *`finally` block* will still be executed. Moreover, the *`return` statement* is evaluated when encountered, but the result will be returned after the *`finally` block* is executed. Additionally, if the *`finally` block* also contains a *`return` statement*, the value from the *`finally` block* is returned.
 
 Another notable interaction is between an *exception* thrown from within a *`try` block*, and an exception thrown from within a *`finally` block*. If both blocks throw an *exception*, then the *exception* thrown from the *`finally` block* will be the one that is propagated, and the *exception* thrown from the *`try` block* will be used as its previous *exception*.
-
-## Global exception handler
-
-If an *exception* is allowed to bubble up to the *global scope*, it may be caught by a *global exception handler* if set. The `set_exception_handler()` function can set a *function* that will be called in place of a *`catch` block* if no other block is invoked. The effect is essentially the same as if the entire program were wrapped in a *`try`-`catch` block* with that function as the `catch`.
-
-## Notes
-
-Note:
-
-Internal PHP functions mainly use *error reporting*, only modern object-oriented extensions use *exceptions*. However, *errors* can be easily translated to *exceptions* with `ErrorException`. This technique only works with non-fatal *errors*, however.
-
-*Example: Converting error reporting to exceptions*
-
-```php
-<?php
-function exceptions_error_handler($severity, $message, $filename, $lineno) {
-    throw new ErrorException($message, 0, $severity, $filename, $lineno);
-}
-
-set_error_handler('exceptions_error_handler');
-?>
-```
-
-Tip
-
-The *Standard PHP Library (SPL)* provides a good number of built-in *exceptions*.
-
-## Examples
 
 *Example: Exception handling with a `finally` block*
 
@@ -374,6 +570,8 @@ Second finally.
 Hello World
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
+
 *Example: Interaction between the `finally` block and `return`*
 
 ```php
@@ -398,6 +596,36 @@ The above example will output:
 ```
 finally
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
+
+## Global exception handler
+
+If an *exception* is allowed to bubble up to the *global scope*, it may be caught by a *global exception handler* if set. The `set_exception_handler()` function can set a *function* that will be called in place of a *`catch` block* if no other block is invoked. The effect is essentially the same as if the entire program were wrapped in a *`try`-`catch` block* with that function as the `catch`.
+
+## Notes
+
+Note:
+
+Internal PHP functions mainly use *error reporting*, only modern object-oriented extensions use *exceptions*. However, *errors* can be easily translated to *exceptions* with `ErrorException`. This technique only works with non-fatal *errors*, however.
+
+*Example: Converting error reporting to exceptions*
+
+```php
+<?php
+function exceptions_error_handler($severity, $message, $filename, $lineno) {
+    throw new ErrorException($message, 0, $severity, $filename, $lineno);
+}
+
+set_error_handler('exceptions_error_handler');
+?>
+```
+
+Tip
+
+The *Standard PHP Library (SPL)* provides a good number of built-in *exceptions*.
+
+## Examples
 
 *Example: Nested exception*
 
@@ -433,92 +661,7 @@ The above example will output:
 string(4) "foo!"
 ```
 
-*Example: Multi `catch` exception handling*
-
-```php
-<?php
-
-class MyException extends Exception { }
-
-class MyOtherException extends Exception { }
-
-class Test {
-    public function testing() {
-        try {
-            throw new MyException();
-        } catch (MyException | MyOtherException $e) {
-            var_dump(get_class($e));
-        }
-    }
-}
-
-$foo = new Test;
-$foo->testing();
-
-?>
-```
-
-The above example will output:
-
-```
-string(11) "MyException"
-```
-
-*Example: Omitting the caught variable*
-
-Only permitted in PHP 8.0.0 and later.
-
-```php
-<?php
-
-class SpecificException extends Exception {}
-
-function test() {
-    throw new SpecificException('Oopsie');
-}
-
-try {
-    test();
-} catch (SpecificException) {
-    print "A SpecificException was thrown, but we don't care about the details.";
-}
-?>
-```
-
-The above example will output:
-
-```
-A SpecificException was thrown, but we don't care about the details.
-```
-
-*Example: Throw as an expression*
-
-Only permitted in PHP 8.0.0 and later.
-
-```php
-<?php
-
-function test() {
-    do_something_risky() or throw new Exception('It did not work');
-}
-
-function do_something_risky() {
-    return false; // Simulate failure
-}
-
-try {
-    test();
-} catch (Exception $e) {
-    print $e->getMessage();
-}
-?>
-```
-
-The above example will output:
-
-```
-It did not work
-```
+-- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
 
 *Example: Exception in `try` and in `finally`*
 
@@ -550,7 +693,7 @@ string(5) "Third"
 string(6) "Fourth"
 ```
 
--- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php)
+-- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
 
 ## Extending exceptions
 

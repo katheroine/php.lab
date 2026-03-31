@@ -556,6 +556,7 @@ Laboratory of PHP.
             3. [Throwing a defined exception](./example/code/errors_and_exceptions/exceptions/throwing_defined_exception.php)
             4. [Catching an exception](./example/code/errors_and_exceptions/exceptions/catching_exception.php)
             5. [Catching a defined exception](./example/code/errors_and_exceptions/exceptions/catching_defined_exception.php)
+            6. [Catching exceptions of various types](./example/code/errors_and_exceptions/exceptions/catching_exceptions_of_various_types.php)
             2. [`try`-`catch`-`finally`](./example/code/errors_and_exceptions/exceptions/try_catch_finally.php)
             3. [In-place exceptions throwing](./example/code/errors_and_exceptions/exceptions/inplace_exceptions_throwing.php)
             4. [Exceptions hierarchy](./example/code/errors_and_exceptions/exceptions/exceptions_hierarchy.php)
