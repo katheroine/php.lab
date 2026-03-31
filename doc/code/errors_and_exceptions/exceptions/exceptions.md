@@ -4,15 +4,202 @@
 
 # Exceptions
 
+## Definition
+
+> In computing and computer programming, *exception handling* is the process of responding to the occurrence of **exceptions** – anomalous or exceptional conditions requiring special processing – during the *execution* of a program. In general, an *exception* breaks the normal flow of *execution* and executes a pre-registered *exception handler*; the details of how this is done depend on whether it is a hardware or software exception and how the software exception is implemented.
+>
+> *Exceptions* are defined by different layers of a computer system, and the typical layers are CPU-defined *interrupts*, operating system (OS)-defined *signals*, programming language-defined *exceptions*. Each layer requires different ways of exception handling although they may be interrelated, e.g. a CPU interrupt could be turned into an OS signal. Some *exceptions*, especially hardware ones, may be handled so gracefully that *execution* can resume where it was interrupted.
+>
+> The definition of an *exception* is based on the observation that each *procedure* has a *precondition*, a set of *circumstances* for which it will terminate "normally". An *exception handling* mechanism allows the *procedure* to raise an *exception* if this *precondition* is violated, for example if the *procedure* has been called on an abnormal set of *arguments*. The *exception handling* mechanism then handles the *exception*.
+>
+> The *precondition*, and the definition of *exception*, is subjective. The set of "normal" *circumstances* is defined entirely by the programmer, e.g. the programmer may deem division by zero to be undefined, hence an *exception*, or devise some behavior such as returning zero or a special "ZERO DIVIDE" value (circumventing the need for *exceptions*). Common *exceptions* include an invalid *argument* (e.g. value is outside of the domain of a function), an unavailable resource (like a missing file, a network drive error, or out-of-memory errors), or that the routine has detected a normal condition that requires special handling, e.g., attention, end of file. Social pressure is a major influence on the scope of *exceptions* and use of exception-handling mechanisms, i.e. "examples of use, typically found in core libraries, and code examples in technical books, magazine articles, and online discussion forums, and in an organization’s code standards".
+
+*Exception handling* solves the semipredicate problem, in that the mechanism distinguishes normal return values from erroneous ones. In languages without built-in *exception handling* such as C, routines would need to signal the error in some other way, such as the common return code and `errno` pattern. Taking a broad view, *errors* can be considered to be a proper subset of *exceptions*, and explicit *error mechanisms* such as `errno` can be considered (verbose) forms of *exception handling*. The term "exception" is preferred to "error" because it does not imply that anything is wrong - a condition viewed as an *error* by one procedure or programmer may not be viewed that way by another.
+
+-- [Wikipedia](https://en.wikipedia.org/wiki/Exception_handling)
+
+## Description
+
 PHP has an *exception model* similar to that of other programming languages. An *exception* can be *thrown*, and *caught* ("catched") within PHP. Code may be surrounded in a *`try` block*, to facilitate the catching of potential *exceptions*. Each `try` must have at least one corresponding `catch` or `finally` block.
 
-If an *exception* is thrown and its current *function scope* has no *`catch` block*, the exception will "bubble up" the *call stack* to the calling *function* until it finds a matching *`catch` block*. All *`finally` blocks* it encounters along the way will be executed. If the *call stack* is unwound all the way to the *global scope* without encountering a matching *`catch` block*, the program will terminate with a fatal error unless a *global exception handler* has been set.
+If an *exception* is thrown and its current *function scope* has no *`catch` block*, the exception will "bubble up" the *call stack* to the calling *function* until it finds a matching *`catch` block*. All *`finally` blocks* it encounters along the way will be executed. If the *call stack* is *unwound* all the way to the *global scope* without encountering a matching *`catch` block*, the program will terminate with a fatal error unless a *global exception handler* has been set.
 
-The thrown *object* must be an instance of `Throwable`. Trying to throw an *object* that is not will result in a PHP fatal error.
+The thrown *object* must be an *instance* of `Throwable`. Trying to throw an *object* that is not will result in a PHP fatal error.
 
 As of PHP 8.0.0, the *`throw` keyword* is an *expression* and may be used in any *expression* context. In prior versions it was a *statement* and was required to be on its own line.
 
-## `catch`
+-- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions)
+
+*Example: Exception*
+
+```php
+<?php
+
+class SomeException extends Exception
+{
+    public mixed $value;
+
+    function __construct(mixed $value)
+    {
+        $this->value = $value;
+        $this->message = "Value has beign given.";
+    }
+}
+
+class OtherException extends SomeException
+{
+    function __construct(int $number)
+    {
+        $this->value = $number;
+        $this->message = "Number has beign given.";
+    }
+}
+
+function someRiskySituation(): void
+{
+    $input = readline("Input: ");
+
+    if (empty($input)) {
+        print("No exception.\n");
+    } elseif (!is_numeric($input)) {
+        throw new SomeException($input);
+    } else {
+        throw new OtherException($input);
+    }
+}
+
+try {
+    someRiskySituation();
+} catch (OtherException $e) {
+    print("Some exception: " . $e->getMessage() . " (" . $e->value . ")\n");
+} catch (SomeException $e) {
+    print("Other exception: " . $e->getMessage() . " (" . $e->value . ")\n");
+} finally {
+    print("Will always execute.\n");
+}
+
+print("Will also execute (due to exception has been catched).\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Input:
+No exception.
+Will always execute.
+Will also execute (due to exception has been catched).
+```
+
+```
+Input: 1
+Some exception: Number has beign given. (1)
+Will always execute.
+Will also execute (due to exception has been catched).
+```
+
+```
+Input: a
+Other exception: Value has beign given. (a)
+Will always execute.
+Will also execute (due to exception has been catched).
+```
+
+**Source code**:
+[Example](../../../../example/code/errors_and_exceptions/exceptions/exception.php)
+
+## Throwing exception
+
+>>> `throw` expression
+
+*Example: Throwing an exception*
+
+```php
+<?php
+function inverse($x) {
+    if (!$x) {
+        throw new Exception('Division by zero.');
+    }
+    return 1/$x;
+}
+
+try {
+    echo inverse(5) . "\n";
+    echo inverse(0) . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
+
+// Continue execution
+echo "Hello World\n";
+?>
+```
+
+The above example will output:
+
+```
+0.2
+Caught exception: Division by zero.
+Hello World
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
+
+*Example: Throwing an exception*
+
+```php
+<?php
+
+throw new Exception('The exception has been thrown.');
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+PHP Fatal error:  Uncaught Exception: The exception has been thrown. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/throwing_exception.php:3
+Stack trace:
+#0 {main}
+  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/throwing_exception.php on line 3
+```
+
+**Source code**:
+[Example](../../../../example/code/errors_and_exceptions/exceptions/throwing_exception.php)
+
+*Example: Throwing an defined exception*
+
+```php
+<?php
+
+class SomeException extends Exception
+{
+    public string $name = 'Some exception';
+
+    function __construct()
+    {
+        $this->message = 'The exception has been thrown.';
+    }
+}
+
+throw new SomeException();
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+PHP Fatal error:  Uncaught SomeException: The exception has been thrown. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/throwing_defined_exception.php:13
+Stack trace:
+#0 {main}
+  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/throwing_defined_exception.php on line 13
+```
+
+**Source code**:
+[Example](../../../../example/code/errors_and_exceptions/exceptions/throwing_defined_exception.php)
+
+## Catching exception
+
+>>> `catch`
 
 A *`catch` block* defines how to respond to a thrown *exception*. A *`catch` block* defines one or more *types* of *exception* or *error* it can handle, and optionally a *variable* to which to assign the *exception*. (The *variable* was required prior to PHP 8.0.0.) The first *`catch` block* a thrown *exception* or error encounters that matches the *type* of the thrown *object* will handle the *object*.
 
@@ -23,6 +210,91 @@ When an *exception* is thrown, code following the *statement* will not be execut
 As of PHP 7.1.0, a *`catch` block* may specify multiple exceptions using the pipe (`|`) character. This is useful for when different *exceptions* from different class hierarchies are handled the same.
 
 As of PHP 8.0.0, the *variable name* for a caught *exception* is optional. If not specified, the *`catch` block* will still execute but will not have access to the thrown *object*.
+
+-- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.catch)
+
+*Example: Catching an exception*
+
+```php
+<?php
+
+try {
+    throw new Exception('The exception has been thrown.');
+} catch (Exception $exception) {
+    print("The exception has been catched:\n");
+    print_r($exception);
+}
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+The exception has been catched:
+Exception Object
+(
+    [message:protected] => The exception has been thrown.
+    [string:Exception:private] =>
+    [code:protected] => 0
+    [file:protected] => /projects/php.lab/example/code/errors_and_exceptions/exceptions/catching_exception.php
+    [line:protected] => 4
+    [trace:Exception:private] => Array
+        (
+        )
+
+    [previous:Exception:private] =>
+)
+```
+
+**Source code**:
+[Example](../../../../example/code/errors_and_exceptions/exceptions/catching_exception.php)
+
+*Example: Catching a defined exception*
+
+```php
+<?php
+
+class SomeException extends Exception
+{
+    public string $name = 'Some exception';
+
+    function __construct()
+    {
+        $this->message = 'The exception has been thrown.';
+    }
+}
+
+try {
+    throw new SomeException();
+} catch (Exception $exception) {
+    print("The exception has been catched:\n");
+    print_r($exception);
+}
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+The exception has been catched:
+SomeException Object
+(
+    [message:protected] => The exception has been thrown.
+    [string:Exception:private] =>
+    [code:protected] => 0
+    [file:protected] => /media/storage/repository/php/php.lab/example/code/errors_and_exceptions/exceptions/catching_defined_exception.php
+    [line:protected] => 14
+    [trace:Exception:private] => Array
+        (
+        )
+
+    [previous:Exception:private] =>
+    [name] => Some exception
+)
+```
+
+**Source code**:
+[Example](../../../../example/code/errors_and_exceptions/exceptions/catching_defined_exception.php)
 
 ## `finally`
 
@@ -59,37 +331,6 @@ Tip
 The *Standard PHP Library (SPL)* provides a good number of built-in *exceptions*.
 
 ## Examples
-
-*Example: Throwing an exception*
-
-```php
-<?php
-function inverse($x) {
-    if (!$x) {
-        throw new Exception('Division by zero.');
-    }
-    return 1/$x;
-}
-
-try {
-    echo inverse(5) . "\n";
-    echo inverse(0) . "\n";
-} catch (Exception $e) {
-    echo 'Caught exception: ',  $e->getMessage(), "\n";
-}
-
-// Continue execution
-echo "Hello World\n";
-?>
-```
-
-The above example will output:
-
-```
-0.2
-Caught exception: Division by zero.
-Hello World
-```
 
 *Example: Exception handling with a `finally` block*
 

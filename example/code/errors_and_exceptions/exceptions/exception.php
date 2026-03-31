@@ -24,7 +24,9 @@ function someRiskySituation(): void
 {
     $input = readline("Input: ");
 
-    if (!is_numeric($input)) {
+    if (empty($input)) {
+        print("No exception.\n");
+    } elseif (!is_numeric($input)) {
         throw new SomeException($input);
     } else {
         throw new OtherException($input);
@@ -34,9 +36,9 @@ function someRiskySituation(): void
 try {
     someRiskySituation();
 } catch (OtherException $e) {
-    print("OTHER CASE: " . $e->getMessage() . " (" . $e->value . ")\n");
+    print("Some exception: " . $e->getMessage() . " (" . $e->value . ")\n");
 } catch (SomeException $e) {
-    print("SOME CASE: " . $e->getMessage() . " (" . $e->value . ")\n");
+    print("Other exception: " . $e->getMessage() . " (" . $e->value . ")\n");
 } finally {
     print("Will always execute.\n");
 }
