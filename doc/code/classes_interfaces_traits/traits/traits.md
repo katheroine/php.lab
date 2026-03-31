@@ -1132,6 +1132,68 @@ Hello World!
 
 -- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.composition)
 
+*Example: Trait using trait*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public function someMethod(): string
+    {
+        return 'per speculum';
+    }
+}
+
+trait OtherTrait
+{
+    use SomeTrait;
+
+    public function otherMethod(): string
+    {
+        return 'in aenigmate';
+    }
+}
+
+class SomeClass
+{
+    use OtherTrait;
+
+    public function anotherMethod(): string
+    {
+        return
+            'Videmus nunc ' . $this->someMethod()
+            . ' et ' . $this->otherMethod() . '.';
+    }
+}
+
+$someObject = new SomeClass();
+print('Traits:' . PHP_EOL);
+print_r(class_uses($someObject));
+print('Some trait method result: ' . $someObject->someMethod() . PHP_EOL);
+print('Other trait method result: ' . $someObject->otherMethod() . PHP_EOL);
+
+print(PHP_EOL . $someObject->anotherMethod() . PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Traits:
+Array
+(
+    [OtherTrait] => OtherTrait
+)
+Some trait method result: per speculum
+Other trait method result: in aenigmate
+
+Videmus nunc per speculum et in aenigmate.
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/trait_using_trait.php)
+
 ## Extending class and using trait
 
 An *inherited member* from a *base class* is *overridden* by a *member* inserted by a *trait*. The *precedence order* is that *members* from the current *class* *override* *trait methods*, which in turn *override* *inherited methods*.
@@ -1197,6 +1259,8 @@ The above example will output:
 ```
 Hello Universe!
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.precedence)
 
 *Example: Extending class and using trait*
 
@@ -1328,6 +1392,88 @@ class Aliased_Talker {
 ?>
 ```
 
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.conflict)
+
+*Example: Multiple traits using and conflict resolution*
+
+```php
+<?php
+
+trait SomeTrait
+{
+    public const string SOME_CONSTANT = 'constant';
+    public string $someProperty = 'property';
+
+    public function someMethod(): void
+    {
+        print('some trait: ' . __METHOD__ . PHP_EOL);
+    }
+
+    public function otherMethod(): void
+    {
+        print('some trait: ' . __METHOD__ . PHP_EOL);
+    }
+}
+
+trait OtherTrait
+{
+    public const string SOME_CONSTANT = 'constant';
+    public string $someProperty = 'property';
+
+    public function someMethod(): void
+    {
+        print('other trait: ' . __METHOD__ . PHP_EOL);
+    }
+
+    public function otherMethod(): void
+    {
+        print('other trait: ' . __METHOD__ . PHP_EOL);
+    }
+}
+
+class SomeClass
+{
+    use SomeTrait, OtherTrait
+    {
+        SomeTrait::someMethod insteadof OtherTrait;
+        OtherTrait::otherMethod insteadOf SomeTrait;
+        OtherTrait::someMethod as firstMethod;
+        SomeTrait::otherMethod as secondMethod;
+    }
+}
+
+$someObject = new SomeClass();
+
+print($someObject::SOME_CONSTANT . PHP_EOL);
+print($someObject->someProperty . PHP_EOL);
+
+print(PHP_EOL);
+
+$someObject->someMethod();
+$someObject->otherMethod();
+$someObject->firstMethod();
+$someObject->secondMethod();
+
+print(PHP_EOL);
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+constant
+property
+
+some trait: SomeTrait::someMethod
+other trait: OtherTrait::otherMethod
+other trait: OtherTrait::someMethod
+some trait: SomeTrait::otherMethod
+
+```
+
+**Source code**:
+[Example](../../../../example/code/classes_interfaces_traits/traits/multiple_traits_using_and_conflicts_resolution.php)
+
 ## Changing method visibility
 
 Using the as syntax, one can also adjust the *visibility* of the *method* in the exhibiting *class*.
@@ -1354,6 +1500,8 @@ class MyClass2 {
 }
 ?>
 ```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.oop5.traits.php#language.oop5.traits.visibility)
 
 [▵ Up](#traits)
 [⌂ Home](../../../../README.md)

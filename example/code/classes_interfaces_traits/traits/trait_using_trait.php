@@ -36,4 +36,4 @@ print_r(class_uses($someObject));
 print('Some trait method result: ' . $someObject->someMethod() . PHP_EOL);
 print('Other trait method result: ' . $someObject->otherMethod() . PHP_EOL);
 
-print($someObject->anotherMethod() . PHP_EOL);
+print(PHP_EOL . $someObject->anotherMethod() . PHP_EOL);
