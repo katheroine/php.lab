@@ -1,0 +1,59 @@
+<?php
+
+class ZeroException extends Exception
+{
+    public function __construct(int $number)
+    {
+        $this->number = $number;
+        $this->message = "0 number has beign given.";
+    }
+}
+
+class OneException extends Exception
+{
+    public function __construct(int $number)
+    {
+        $this->number = $number;
+        $this->message = "1 number has beign given.";
+    }
+}
+
+class ThousandException extends Exception
+{
+    public function __construct(int $number)
+    {
+        $this->number = $number;
+        $this->message = "1000 number has beign given.";
+    }
+}
+
+function drawNumber()
+{
+    $number = readline("Give some number: ");
+
+    if ($number == 0) {
+        throw new ZeroException($number);
+    } elseif ($number == 1) {
+        throw new OneException($number);
+    } elseif ($number == 1000) {
+        throw new ThousandException($number);
+    }
+
+    return $number;
+}
+
+print("Program begin...\n");
+
+try {
+    print("Risky code...\n");
+
+    $number = drawNumber();
+
+    print("Given number " . $number . " didn't case exception throwing.\n");
+} catch (ZeroException | OneException $e) {
+    print("CASE 1: " . $e->getMessage() . " (" . $e->number . ")\n");
+} catch (ThousandException $e) {
+    print("CASE 2: " . $e->getMessage() . " (" . $e->number . ")\n");
+}
+
+print("Program end...\n");
