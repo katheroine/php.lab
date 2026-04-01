@@ -1305,6 +1305,42 @@ Program end...
 
 ### Rethrowing exception
 
+*Example: Nested exception*
+
+```php
+<?php
+
+class MyException extends Exception { }
+
+class Test {
+    public function testing() {
+        try {
+            try {
+                throw new MyException('foo!');
+            } catch (MyException $e) {
+                // rethrow it
+                throw $e;
+            }
+        } catch (Exception $e) {
+            var_dump($e->getMessage());
+        }
+    }
+}
+
+$foo = new Test;
+$foo->testing();
+
+?>
+```
+
+The above example will output:
+
+```
+string(4) "foo!"
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
+
 *Example: Rethrowing an exception in the catch block*
 
 ```php
@@ -1485,8 +1521,6 @@ Stack trace:
 
 If an *exception* is allowed to bubble up to the *global scope*, it may be caught by a *global exception handler* if set. The `set_exception_handler()` function can set a *function* that will be called in place of a *`catch` block* if no other block is invoked. The effect is essentially the same as if the entire program were wrapped in a *`try`-`catch` block* with that function as the `catch`.
 
-## Notes
-
 Note:
 
 Internal PHP functions mainly use *error reporting*, only modern object-oriented extensions use *exceptions*. However, *errors* can be easily translated to *exceptions* with `ErrorException`. This technique only works with non-fatal *errors*, however.
@@ -1506,44 +1540,6 @@ set_error_handler('exceptions_error_handler');
 Tip
 
 The *Standard PHP Library (SPL)* provides a good number of built-in *exceptions*.
-
-## Examples
-
-*Example: Nested exception*
-
-```php
-<?php
-
-class MyException extends Exception { }
-
-class Test {
-    public function testing() {
-        try {
-            try {
-                throw new MyException('foo!');
-            } catch (MyException $e) {
-                // rethrow it
-                throw $e;
-            }
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-        }
-    }
-}
-
-$foo = new Test;
-$foo->testing();
-
-?>
-```
-
-The above example will output:
-
-```
-string(4) "foo!"
-```
-
--- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
 
 ## Extending exceptions
 
@@ -1704,6 +1700,153 @@ echo "\n\n";
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.exceptions.extending.php)
+
+## Exceptions hierarchy
+
+*Example: Exceptions hierarchy*
+
+```php
+<?php
+
+class NumberValueException extends Exception
+{
+    function __construct(
+        public int $number = 0,
+        string $message = "Some number has beign given.",
+        int $code = 0,
+        ?Throwable $previous = null,
+    ) {
+        parent::__construct($message, $code, $previous);
+    }
+
+    public function __toString() {
+        return __CLASS__ . ": [{$this->code}]: {$this->message} ($this->number)";
+    }
+}
+
+class ZeroException extends NumberValueException
+{
+    function __construct(
+        public int $number = 0,
+        string $message = "0 number has beign given.",
+        int $code = 0,
+        ?Throwable $previous = null,
+    ) {
+        parent::__construct($number, $message, $code, $previous);
+    }
+}
+
+class OneException extends NumberValueException
+{
+    function __construct(
+        public int $number = 1,
+        string $message = "1 number has beign given.",
+        int $code = 0,
+        ?Throwable $previous = null,
+    ) {
+        parent::__construct($number, $message, $code, $previous);
+    }
+}
+
+class ThousandException extends NumberValueException
+{
+    function __construct(
+        public int $number = 1000,
+        string $message = "1000 number has beign given.",
+        int $code = 0,
+        ?Throwable $previous = null,
+    ) {
+        parent::__construct($number, $message, $code, $previous);
+    }
+}
+
+function draw_number(): int
+{
+    $number = readline("Give some number: ");
+
+    if ($number == 0) {
+        throw new ZeroException($number);
+    } elseif ($number == 1) {
+        throw new OneException($number);
+    } elseif ($number == 10) {
+        throw new NumberValueException($number);
+    } elseif ($number == 1000) {
+        throw new ThousandException($number);
+    }
+
+    return $number;
+}
+
+print("Program begin...\n");
+
+try {
+    print("Risky code...\n");
+
+    $number = draw_number();
+
+    print("Given number {$number} didn't case exception throwing.\n");
+} catch (ZeroException $e) {
+    print("CASE 1: {$e->getMessage()} ({$e->number})\n{$e}\n");
+} catch (OneException $e) {
+    print("CASE 2: {$e->getMessage()} ({$e->number})\n{$e}\n");
+} catch (NumberValueException $e) {
+    print("CASE 0: {$e->getMessage()} ({$e->number})\n{$e}\n");
+} catch (ThousandException $e) { // Will be never catched.
+    print("CASE 3: {$e->getMessage()} ({$e->number})\n{$e}\n");
+}
+
+print("Program end...\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Program begin...
+Risky code...
+Give some number: 0
+CASE 1: 0 number has beign given. (0)
+NumberValueException: [0]: 0 number has beign given. (0)
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 1
+CASE 2: 1 number has beign given. (1)
+NumberValueException: [0]: 1 number has beign given. (1)
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 2
+Given number 2 didn't case exception throwing.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 10
+CASE 0: Some number has beign given. (10)
+NumberValueException: [0]: Some number has beign given. (10)
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 1000
+CASE 0: 1000 number has beign given. (1000)
+NumberValueException: [0]: 1000 number has beign given. (1000)
+Program end...
+```
+
+**Source code**:
+[Example](../../../../example/code/errors_and_exceptions/exceptions/exceptions_hierarchy.php)
 
 [▵ Up](#exceptions)
 [⌂ Home](../../../../README.md)
