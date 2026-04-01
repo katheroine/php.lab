@@ -1090,6 +1090,219 @@ string(6) "Fourth"
 
 -- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
 
+*Example: Nesting `try`-`catch` in `try`*
+
+```php
+<?php
+
+class SomeException extends Exception
+{
+    function __construct(public mixed $number)
+    {
+        $this->message = "Number has beign given.";
+    }
+}
+
+class OtherException extends Exception
+{
+    function __construct(public mixed $value)
+    {
+        $this->message = "Value has beign given.";
+    }
+}
+
+function someRiskySituation()
+{
+    $input = readline("Input: ");
+
+    if (empty($input)) {
+        return $input;
+    } elseif (is_numeric($input)) {
+        throw new SomeException($input);
+    } else {
+        throw new OtherException($input);
+    }
+}
+
+print("Program begin...\n");
+
+try {
+    try {
+        print("Risky code...\n");
+
+        $result = someRiskySituation();
+
+        print("Result {$result} didn't case exception throwing.\n");
+    } catch (SomeException $e) {
+        print("SOME CASE: " . $e->getMessage() . " (" . $e->number . ")\n");
+    }
+} catch (OtherException $e) {
+    print("OTHER CASE: " . $e->getMessage() . " (" . $e->value . ")\n");
+} finally {
+    print("Will always execute.\n");
+}
+
+print("Program end...\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Program begin...
+Risky code...
+Input: 0
+Result 0 didn't case exception throwing.
+Will always execute.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Input: 1
+SOME CASE: Number has beign given. (1)
+Will always execute.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Input: a
+OTHER CASE: Value has beign given. (a)
+Will always execute.
+Program end...
+```
+
+**Source code**:
+[Example](../../../../example/code/errors_and_exceptions/exceptions)
+
+*Example: Nestring `try`-`catch` in `catch`*
+
+```php
+<?php
+
+class SomeException extends Exception
+{
+    function __construct(public mixed $number)
+    {
+        $this->message = "Number has beign given.";
+    }
+}
+
+class OtherException extends Exception
+{
+    function __construct(public mixed $value)
+    {
+        $this->message = "Value has beign given.";
+    }
+}
+
+function someRiskySituation()
+{
+    $input = readline("Input: ");
+
+    if (empty($input)) {
+        return $input;
+    } elseif (is_numeric($input)) {
+        throw new SomeException($input);
+    } else {
+        throw new OtherException($input);
+    }
+}
+
+print("Program begin...\n");
+
+try {
+    print("Risky code...\n");
+
+    $result = someRiskySituation();
+
+    print("Result {$result} didn't case exception throwing.\n");
+} catch (SomeException $e) {
+    print("SOME CASE: " . $e->getMessage() . " (" . $e->number . ")\n");
+} catch (OtherException $e) {
+    print("OTHER CASE: " . $e->getMessage() . " (" . $e->value . ")\n");
+
+    try {
+        print("Another risky code...\n");
+
+        $result = someRiskySituation();
+
+        print("Another result {$result} didn't case exception throwing.\n");
+    } catch (SomeException $e) {
+        print("SOME CASE: " . $e->getMessage() . " (" . $e->number . ")\n");
+    } catch (OtherException $e) {
+        print("OTHER CASE: " . $e->getMessage() . " (" . $e->value . ")\n");
+    }
+} finally {
+    print("Will always execute.\n");
+}
+
+print("Program end...\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Program begin...
+Risky code...
+Input: 0
+Result 0 didn't case exception throwing.
+Will always execute.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Input: 1
+SOME CASE: Number has beign given. (1)
+Will always execute.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Input: a
+OTHER CASE: Value has beign given. (a)
+Another risky code...
+Input: 0
+Another result 0 didn't case exception throwing.
+Will always execute.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Input: a
+OTHER CASE: Value has beign given. (a)
+Another risky code...
+Input: 1
+SOME CASE: Number has beign given. (1)
+Will always execute.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Input: a
+OTHER CASE: Value has beign given. (a)
+Another risky code...
+Input: a
+OTHER CASE: Value has beign given. (a)
+Will always execute.
+Program end...
+```
+
+**Source code**:
+[Example](../../../../example/code/errors_and_exceptions/exceptions/nesting_try_catch_in_catch.php)
+
 ### Rethrowing exception
 
 *Example: Rethrowing an exception in the catch block*
