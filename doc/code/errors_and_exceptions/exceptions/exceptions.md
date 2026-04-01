@@ -798,6 +798,264 @@ Another notable interaction is between an *exception* thrown from within a *`try
 
 -- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.finally)
 
+## `try` - `catch` - `finally`
+
+*Example: `try` - `catch` - `finally`*
+
+```php
+<?php
+
+class NumberValueException extends Exception
+{
+    public int $number;
+}
+
+class ZeroException extends NumberValueException
+{
+    public function __construct(int $number)
+    {
+        $this->number = $number;
+        $this->message = "0 number has beign given.";
+    }
+}
+
+class OneException extends NumberValueException
+{
+    public function __construct(int $number)
+    {
+        $this->number = $number;
+        $this->message = "1 number has beign given.";
+    }
+}
+
+class ThousandException extends NumberValueException
+{
+    public function __construct(int $number)
+    {
+        $this->number = $number;
+        $this->message = "1000 number has beign given.";
+    }
+}
+
+function drawNumber()
+{
+    $number = readline("Give some number: ");
+
+    if ($number == 0) {
+        throw new ZeroException($number);
+    } elseif ($number == 1) {
+        throw new OneException($number);
+    } elseif ($number == 1000) {
+        throw new ThousandException($number);
+    } elseif ($number == 10000) {
+        throw new NumberValueException();
+    }
+}
+
+print("Program begin...\n");
+
+try {
+    print("Risky code...\n");
+
+    $number = drawNumber();
+
+    print("Given number " . $number . " didn't case exception throwing.\n");
+} catch (ZeroException $e) {
+    print("CASE 1: " . $e->getMessage() . " (" . $e->number . ")\n");
+} catch (OneException $e) {
+    print("CASE 2: " . $e->getMessage() . " (" . $e->number . ")\n");
+} catch (ThousandException $e) {
+    print("CASE 3: " . $e->getMessage() . " (" . $e->number . ")\n");
+} finally {
+    print("End of risks.\n");
+}
+
+print("Program end...\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Program begin...
+Risky code...
+Give some number:
+Given number  didn't case exception throwing.
+End of risks.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 0
+CASE 1: 0 number has beign given. (0)
+End of risks.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 1
+CASE 2: 1 number has beign given. (1)
+End of risks.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 2
+Given number  didn't case exception throwing.
+End of risks.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 1000
+CASE 3: 1000 number has beign given. (1000)
+End of risks.
+Program end...
+```
+
+```
+Program begin...
+Risky code...
+Give some number: 10000
+End of risks.
+PHP Fatal error:  Uncaught NumberValueException in /projects/php.lab/example/code/errors_and_exceptions/exceptions/try_catch_finally.php:46
+Stack trace:
+#0 /projects/php.lab/example/code/errors_and_exceptions/exceptions/try_catch_finally.php(55): drawNumber()
+#1 {main}
+  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/try_catch_finally.php on line 46
+```
+
+**Source code**:
+[Example](../../../../example/code/errors_and_exceptions/exceptions/try_catch_finally.php)
+
+## Throwing and catching exception and returning value
+
+*Example: Throwing and catching an exception and returning a value*
+
+```php
+<?php
+
+class SomeException extends Exception
+{
+    function __construct(public mixed $number)
+    {
+        $this->message = "Number has beign given.";
+    }
+}
+
+class OtherException extends Exception
+{
+    function __construct(public mixed $value)
+    {
+        $this->message = "Value has beign given.";
+    }
+}
+
+function someRiskySituation(): void
+{
+    $input = readline("Input: ");
+
+    if (empty($input)) {
+        return;
+    } elseif (is_numeric($input)) {
+        throw new SomeException($input);
+    } else {
+        throw new OtherException($input);
+    }
+}
+
+function someFunction(): int
+{
+    try {
+        someRiskySituation();
+        return 1;
+    } catch (SomeException $e) {
+        print("SOME CASE: " . $e->getMessage() . " (" . $e->number . ")\n");
+        return 2;
+    } catch (OtherException $e) {
+        print("OTHER CASE: " . $e->getMessage() . " (" . $e->value . ")\n");
+        return 3;
+    } finally {
+        print("Will always execute.\n");
+    }
+
+    print("Will not execute (due to return).\n");
+}
+
+$result = someFunction();
+print("RETURNED: {$result}\n\n");
+
+function otherFunction(): int
+{
+    try {
+        someRiskySituation();
+        return 1;
+    } catch (SomeException $e) {
+        print("SOME CASE: " . $e->getMessage() . " (" . $e->number . ")\n");
+        return 2;
+    } catch (OtherException $e) {
+        print("OTHER CASE: " . $e->getMessage() . " (" . $e->value . ")\n");
+        return 3;
+    } finally {
+        print("Will always execute.\n");
+        return 4;
+    }
+
+    print("Will not execute (due to return).\n");
+}
+
+$result = otherFunction();
+print("RETURNED: {$result}\n\n");
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Input:
+Will always execute.
+RETURNED: 1
+
+Input:
+Will always execute.
+RETURNED: 4
+```
+
+```
+Input: 1
+SOME CASE: Number has beign given. (1)
+Will always execute.
+RETURNED: 2
+
+Input: 1
+SOME CASE: Number has beign given. (1)
+Will always execute.
+RETURNED: 4
+```
+
+```
+Input: a
+OTHER CASE: Value has beign given. (a)
+Will always execute.
+RETURNED: 3
+
+Input: a
+OTHER CASE: Value has beign given. (a)
+Will always execute.
+RETURNED: 4
+```
+
+**Source code**:
+[Example](../../../../example/code/errors_and_exceptions/exceptions)
+
 ## Global exception handler
 
 If an *exception* is allowed to bubble up to the *global scope*, it may be caught by a *global exception handler* if set. The `set_exception_handler()` function can set a *function* that will be called in place of a *`catch` block* if no other block is invoked. The effect is essentially the same as if the entire program were wrapped in a *`try`-`catch` block* with that function as the `catch`.
