@@ -1056,6 +1056,218 @@ RETURNED: 4
 **Source code**:
 [Example](../../../../example/code/errors_and_exceptions/exceptions)
 
+## Nested exceptions
+
+*Example: Exception in `try` and in `finally`*
+
+```php
+<?php
+
+try {
+    try {
+        throw new Exception(message: 'Third', previous: new Exception('Fourth'));
+    } finally {
+        throw new Exception(message: 'First', previous: new Exception('Second'));
+    }
+} catch (Exception $e) {
+    var_dump(
+        $e->getMessage(),
+        $e->getPrevious()->getMessage(),
+        $e->getPrevious()->getPrevious()->getMessage(),
+        $e->getPrevious()->getPrevious()->getPrevious()->getMessage(),
+    );
+}
+```
+
+The above example will output:
+
+```
+string(5) "First"
+string(6) "Second"
+string(5) "Third"
+string(6) "Fourth"
+```
+
+-- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
+
+### Rethrowing exception
+
+*Example: Rethrowing an exception in the catch block*
+
+```php
+<?php
+
+class SomeException extends Exception
+{
+    function __construct(public mixed $number)
+    {
+        $this->message = "Number has beign given.";
+    }
+}
+
+class OtherException extends Exception
+{
+    function __construct(public mixed $value)
+    {
+        $this->message = "Value has beign given.";
+    }
+}
+
+function someRiskySituation(): void
+{
+    $input = readline("Input: ");
+
+    if (empty($input)) {
+        return;
+    } elseif (is_numeric($input)) {
+        throw new SomeException($input);
+    } else {
+        throw new OtherException($input);
+    }
+}
+
+try {
+    someRiskySituation();
+} catch (SomeException $e) {
+    print("SOME CASE: " . $e->getMessage() . " (" . $e->number . ")\n");
+
+    throw $e;
+} catch (OtherException $e) {
+    print("OTHER CASE: " . $e->getMessage() . " (" . $e->value . ")\n");
+
+    throw new OtherException($e->getMessage() . ' rethrown');
+} finally {
+    print("Will always execute.\n");
+}
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Input: 0
+Will always execute.
+```
+
+```
+Input: 1
+SOME CASE: Number has beign given. (1)
+Will always execute.
+PHP Fatal error:  Uncaught SomeException: Number has beign given. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php:26
+Stack trace:
+#0 /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php(33): someRiskySituation()
+#1 {main}
+  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php on line 26
+```
+
+```
+Input: a
+OTHER CASE: Value has beign given. (a)
+Will always execute.
+PHP Fatal error:  Uncaught OtherException: Value has beign given. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php:41
+Stack trace:
+#0 {main}
+  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php on line 41
+```
+
+**Source code**:
+[Example](../../../../example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php)
+
+*Example: Rethrowing an exception in the catch block and throwing an exception in the finally block*
+
+```php
+<?php
+
+class SomeException extends Exception
+{
+    function __construct(public mixed $number)
+    {
+        $this->message = "Number has beign given.";
+    }
+}
+
+class OtherException extends Exception
+{
+    function __construct(public mixed $value)
+    {
+        $this->message = "Value has beign given.";
+    }
+}
+
+function someRiskySituation(): void
+{
+    $input = readline("Input: ");
+
+    if (empty($input)) {
+        return;
+    } elseif (is_numeric($input)) {
+        throw new SomeException($input);
+    } else {
+        throw new OtherException($input);
+    }
+}
+
+try {
+    someRiskySituation();
+} catch (SomeException $e) {
+    print("SOME CASE: " . $e->getMessage() . " (" . $e->number . ")\n");
+
+    throw $e;
+} catch (OtherException $e) {
+    print("OTHER CASE: " . $e->getMessage() . " (" . $e->value . ")\n");
+
+    throw new OtherException($e->getMessage() . ' rethrown');
+} finally {
+    print("Will always execute.\n");
+
+    throw new Exception('From always executed code.');
+}
+
+```
+
+**Result (PHP 8.4)**:
+
+```
+Input: 0
+Will always execute.
+PHP Fatal error:  Uncaught Exception: From always executed code. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:45
+Stack trace:
+#0 {main}
+  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php on line 45
+```
+
+```
+Input: 1
+SOME CASE: Number has beign given. (1)
+Will always execute.
+PHP Fatal error:  Uncaught SomeException: Number has beign given. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:26
+Stack trace:
+#0 /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php(33): someRiskySituation()
+#1 {main}
+
+Next Exception: From always executed code. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:45
+Stack trace:
+#0 {main}
+  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php on line 45
+```
+
+```
+Input: a
+OTHER CASE: Value has beign given. (a)
+Will always execute.
+PHP Fatal error:  Uncaught OtherException: Value has beign given. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:41
+Stack trace:
+#0 {main}
+
+Next Exception: From always executed code. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:45
+Stack trace:
+#0 {main}
+  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php on line 45
+```
+
+**Source code**:
+[Example](../../../../example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php)
+
 ## Global exception handler
 
 If an *exception* is allowed to bubble up to the *global scope*, it may be caught by a *global exception handler* if set. The `set_exception_handler()` function can set a *function* that will be called in place of a *`catch` block* if no other block is invoked. The effect is essentially the same as if the entire program were wrapped in a *`try`-`catch` block* with that function as the `catch`.
@@ -1116,38 +1328,6 @@ The above example will output:
 
 ```
 string(4) "foo!"
-```
-
--- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)
-
-*Example: Exception in `try` and in `finally`*
-
-```php
-<?php
-
-try {
-    try {
-        throw new Exception(message: 'Third', previous: new Exception('Fourth'));
-    } finally {
-        throw new Exception(message: 'First', previous: new Exception('Second'));
-    }
-} catch (Exception $e) {
-    var_dump(
-        $e->getMessage(),
-        $e->getPrevious()->getMessage(),
-        $e->getPrevious()->getPrevious()->getMessage(),
-        $e->getPrevious()->getPrevious()->getPrevious()->getMessage(),
-    );
-}
-```
-
-The above example will output:
-
-```
-string(5) "First"
-string(6) "Second"
-string(5) "Third"
-string(6) "Fourth"
 ```
 
 -- [PHP Reference](https://www.php.net/manual/en/language.exceptions.php#language.exceptions.examples)

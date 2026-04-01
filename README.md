@@ -563,6 +563,8 @@ Laboratory of PHP.
             7. [Code always executed](./example/code/errors_and_exceptions/exceptions/code_always_executed.php)
             8. [`try`-`catch`-`finally`](./example/code/errors_and_exceptions/exceptions/try_catch_finally.php)
             9. [Throwing and catching an exception and returning a value](./example/code/errors_and_exceptions/exceptions/throwing_and_catching_exception_and_returning_value.php)
+            10. [Rethrowing an exception in the catch block](./example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php)
+            11. [Rethrowing an exception in the catch block and throwing an exception in the finally block](./example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php)
             3. [In-place exceptions throwing](./example/code/errors_and_exceptions/exceptions/inplace_exceptions_throwing.php)
             4. [Exceptions hierarchy](./example/code/errors_and_exceptions/exceptions/exceptions_hierarchy.php)
             5. [Catching all exceptions](./example/code/errors_and_exceptions/exceptions/catching_all_exceptions.php)
