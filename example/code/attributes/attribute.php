@@ -1,90 +1,53 @@
 <?php
 
 #[Attribute]
-class SomeFunctionAttribute
+class SomeAttribute
 {
+    public function __construct(public string $someArgument)
+    {
+    }
 }
 
-#[Attribute]
-class SomeParamenterAttribute
-{
-}
-
-#[Attribute]
-class SomeEnumAttribute
-{
-}
-
-#[Attribute]
-class SomeInterfaceAttribute
-{
-}
-
-#[Attribute]
-class SomeTraitAttribute
-{
-}
-
-#[Attribute]
-class SomeClassAttribute
-{
-}
-
-#[Attribute]
-class SomeConstantAttribute
-{
-}
-
-#[Attribute]
-class SomePropertyAttribute
-{
-}
-
-#[Attribute]
-class SomeMethodAttribute
-{
-}
-
-#[SomeFunctionAttribute]
+#[SomeAttribute('some function')]
 function someFunction(#[SomeParamenterAttribute] string $someArgument)
 {
 }
 
-#[SomeEnumAttribute]
+#[SomeAttribute('some enum')]
 enum SomeEnum
 {
 }
 
-#[SomeInterfaceAttribute]
+#[SomeAttribute('some interface')]
 interface SomeInterface
 {
 }
 
-#[SomeTraitAttribute]
+#[SomeAttribute('some trait')]
 trait SomeTrait
 {
 }
 
-#[SomeClassAttribute]
+#[SomeAttribute('some interface')]
 class someClass implements SomeInterface
 {
     use SomeTrait;
 
-    #[SomeConstantAttribute]
+    #[SomeAttribute('some class constant')]
     public const SOME_CONSTANT = 1024;
 
-    #[SomePropertyAttribute]
+    #[SomeAttribute('some property')]
     private string $someProperty = 'hello';
 
-    #[SomeMethodAttribute]
+    #[SomeAttribute('some method')]
     function someMethod(): void
     {
     }
 }
 
-$someAnonymousFunction = #[SomeAnonymousFunctionAttribute] function() {};
+$someAnonymousFunction = #[SomeAttribute('some anonymous function')] function() {};
 
-$someAnonymousClassObject = new #[SomeAnonymousClassAttribute] class {};
+$someAnonymousClassObject = new #[SomeAttribute('some anonymous class object')] class {};
 
 function displayAttribute(ReflectionAttribute $attributeReflection)
 {
