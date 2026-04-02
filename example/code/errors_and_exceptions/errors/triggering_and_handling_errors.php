@@ -6,7 +6,7 @@ function myCustomErrorHandler(int $errNo, string $errMsg, string $file, int $lin
 {
     $error = error_get_last();
     if ($error) {
-        print($error::class . "\n");
+        print($error::class . PHP_EOL);
     }
     print("Wow my custom error handler got #[$errNo] occurred in [$file] at line [$line]: [$errMsg]\n");
 }
@@ -17,8 +17,8 @@ try {
     echo $someNotSetVariable;
 } catch (Throwable $e) {
     print("Error catched!\n");
-    print($e->getMessage() . "\n");
-    print($e::class . "\n");
+    print($e->getMessage() . PHP_EOL);
+    print($e::class . PHP_EOL);
 }
 
 print(PHP_EOL);
@@ -27,8 +27,8 @@ try {
     someNoneExistentFunction();
 } catch (Throwable $e) {
     print("Error catched!\n");
-    print($e->getMessage() . "\n");
-    print($e::class . "\n");
+    print($e->getMessage() . PHP_EOL);
+    print($e::class . PHP_EOL);
 }
 
 print(PHP_EOL);
@@ -37,8 +37,8 @@ try {
     someNotExistentExpression;
 } catch (Throwable $e) {
     print("Error catched!\n");
-    print($e->getMessage() . "\n");
-    print($e::class . "\n");
+    print($e->getMessage() . PHP_EOL);
+    print($e::class . PHP_EOL);
 }
 
 print(PHP_EOL);
@@ -47,8 +47,8 @@ try {
     trigger_error("Hello, my name is Spookey!", E_USER_ERROR);
 } catch (Throwable $e) {
     print("Error catched!\n");
-    print($e->getMessage() . "\n");
-    print($e::class . "\n");
+    print($e->getMessage() . PHP_EOL);
+    print($e::class . PHP_EOL);
 }
 
 print(PHP_EOL);
