@@ -712,3 +712,7 @@ Laboratory of PHP.
     4. [Logger interface (PSR-3)](./example/standards/logger_interface_-_psr-3/)
     5. [Simple cache (PSR-16)](./example/standards/simple_cache_-_psr-16/)
     6. [Caching interface (PSR-6)](./example/standards/caching_interface_-_psr-6/)
+
+## License
+
+This project is licensed under the GPL-3.0 - see [LICENSE.md](LICENSE.md).
