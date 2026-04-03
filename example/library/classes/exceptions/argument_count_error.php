@@ -1,4 +1,9 @@
 <?php
+/*
+ * Copyright (C) 2024-2026 Katarzyna Krasińska
+ * PHP.lab - https://github.com/katheroine/php.lab
+ * Licensed under GPL-3.0 - see LICENSE.md
+ */
 
 // "ArgumentCountError is thrown when too few arguments are passed to a user-defined function or method.
 // This error is also thrown when too many arguments are passed to a non-variadic built-in function."

@@ -1,4 +1,9 @@
 <?php
+/*
+ * Copyright (C) 2024-2026 Katarzyna Krasińska
+ * PHP.lab - https://github.com/katheroine/php.lab
+ * Licensed under GPL-3.0 - see LICENSE.md
+ */
 
 $someTextSingleQuoted = 'Videmus nunc per speculum et in aenigmate.';
 $someTextDoubleQuoted = "Omnis mundi creatura,\nquasi liber et pictura,\nnobis est in speculum.";

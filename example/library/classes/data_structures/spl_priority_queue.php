@@ -1,4 +1,9 @@
 <?php
+/*
+ * Copyright (C) 2024-2026 Katarzyna Krasińska
+ * PHP.lab - https://github.com/katheroine/php.lab
+ * Licensed under GPL-3.0 - see LICENSE.md
+ */
 
 // "The SplPriorityQueue class provides the main functionalities of a prioritized queue, implemented using a max heap."
 // -- https://www.php.net/manual/en/class.splpriorityqueue.php

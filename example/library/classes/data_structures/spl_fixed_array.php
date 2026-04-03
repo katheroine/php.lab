@@ -1,4 +1,9 @@
 <?php
+/*
+ * Copyright (C) 2024-2026 Katarzyna Krasińska
+ * PHP.lab - https://github.com/katheroine/php.lab
+ * Licensed under GPL-3.0 - see LICENSE.md
+ */
 
 // "The SplFixedArray class provides the main functionalities of array.
 // The main difference between a SplFixedArray and a normal PHP array

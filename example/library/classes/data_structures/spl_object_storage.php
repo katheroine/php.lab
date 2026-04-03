@@ -1,4 +1,9 @@
 <?php
+/*
+ * Copyright (C) 2024-2026 Katarzyna Krasińska
+ * PHP.lab - https://github.com/katheroine/php.lab
+ * Licensed under GPL-3.0 - see LICENSE.md
+ */
 
 // "The SplObjectStorage class provides a map from objects to data or, by ignoring data, an object set.
 // This dual purpose can be useful in many cases involving the need to uniquely identify objects."

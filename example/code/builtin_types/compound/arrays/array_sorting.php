@@ -1,4 +1,9 @@
 <?php
+/*
+ * Copyright (C) 2024-2026 Katarzyna Krasińska
+ * PHP.lab - https://github.com/katheroine/php.lab
+ * Licensed under GPL-3.0 - see LICENSE.md
+ */
 
 $someNumbers = [7, 9, 2, 6, 3];
 $someValues = [5.2, 5.1, 3, 2.9, 5.0];

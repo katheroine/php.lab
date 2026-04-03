@@ -1,4 +1,9 @@
 <?php
+/*
+ * Copyright (C) 2024-2026 Katarzyna Krasińska
+ * PHP.lab - https://github.com/katheroine/php.lab
+ * Licensed under GPL-3.0 - see LICENSE.md
+ */
 
 // "The SplStack class provides the main functionalities of a stack implemented using a doubly linked list
 // by setting the iterator mode to SplDoublyLinkedList::IT_MODE_LIFO."
