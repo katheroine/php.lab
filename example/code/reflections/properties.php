@@ -79,3 +79,5 @@ print(PHP_EOL);
 $propertyReflection->setAccessible(true);
 $propertyReflection->setValue($someObject, "welcome");
 print('Property value: ' . $propertyReflection->getValue($someObject) . PHP_EOL);
+
+print(PHP_EOL);

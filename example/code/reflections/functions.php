@@ -2,7 +2,7 @@
 
 function someFunction(int $someArgument, string $otherArgument = "0"): string
 {
-    return "${someArgument} ${otherArgument}";
+    return "{$someArgument} {$otherArgument}";
 }
 
 $functionReflection = new ReflectionFunction('someFunction');
@@ -103,3 +103,5 @@ print(PHP_EOL);
 
 print('Invocation result: ' . $functionReflection->invoke(3, "times lucky") . PHP_EOL);
 print('Invocation result: ' . $functionReflection->invokeArgs([3, "times lucky"]) . PHP_EOL);
+
+print(PHP_EOL);

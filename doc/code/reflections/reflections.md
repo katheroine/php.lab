@@ -203,7 +203,11 @@ If you're *overwriting* the *constructor*, remember to *call* the *parent's cons
 
 ## The `Reflection` class
 
-### Class synopsis
+**Description**
+
+The `ReflectionClass` class reports information about a *class*.
+
+**Synopsis**
 
 ```php
 class Reflection {
@@ -212,6 +216,29 @@ public static export(Reflector $reflector, bool $return = false): string
 public static getModifierNames(int $modifiers): array
 }
 ```
+
+**Properties*
+
+* `name`
+    - Name of the class. Read-only, throws `ReflectionException` in attempt to write.
+
+**Predefined constants**
+
+***`ReflectionClass` modifiers***
+
+* `ReflectionClass::IS_IMPLICIT_ABSTRACT int`
+    - Indicates the class is abstract because it has some abstract methods.
+* `ReflectionClass::IS_EXPLICIT_ABSTRACT int`
+    - Indicates the class is abstract because of its definition.
+* `ReflectionClass::IS_FINAL int`
+    - Indicates the class is final.
+* `ReflectionClass::IS_READONLY int`
+    - Indicates the class is readonly.
+* `ReflectionClass::SKIP_INITIALIZATION_ON_SERIALIZE int`
+    - Indicates that `serialize()` should not trigger initialization of a lazy object.
+* `ReflectionClass::SKIP_DESTRUCTOR int`
+    - Indicates an object destructor should not be called when resetting it as lazy.
+
 
 -- [PHP Reference](https://www.php.net/manual/en/class.reflection.php)
 

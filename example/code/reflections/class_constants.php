@@ -62,3 +62,5 @@ print(PHP_EOL);
 
 print("Declaring class:\n");
 var_dump($classConstantReflection->getDeclaringClass());
+
+print(PHP_EOL);

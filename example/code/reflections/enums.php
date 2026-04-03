@@ -132,7 +132,6 @@ print("Properties:\n");
 var_dump($enumReflection->getProperties());
 print('Has property someObjectVariable? ' . $enumReflection->hasProperty('someObjectVariable') . PHP_EOL);
 print("Property someObjectVariable value:\n");
-// var_dump($enumReflection->getProperty('someObjectVariable'));
 
 print(PHP_EOL);
 
@@ -143,7 +142,6 @@ print(PHP_EOL);
 
 print("Static properties:\n");
 var_dump($enumReflection->getStaticProperties());
-// print('Static property someClassVariable value: ' . $enumReflection->getStaticPropertyValue('someClassVariable') . PHP_EOL);
 
 print(PHP_EOL);
 
@@ -151,7 +149,6 @@ print("Methods:\n");
 var_dump($enumReflection->getMethods());
 print('Has method someObjectFunction? ' . $enumReflection->hasMethod('someObjectFunction') . PHP_EOL);
 print("Method someObjectFunction:\n");
-// var_dump($enumReflection->getMethod('someObjectFunction'));
 
 print(PHP_EOL);
 
@@ -163,6 +160,3 @@ print(PHP_EOL);
 print("To string:\n" . $enumReflection->__toString() . PHP_EOL);
 
 print(PHP_EOL);
-
-// $enumReflection->setStaticPropertyValue('someClassVariable', 2048);
-// print('Static property someClassVariable value: ' . $enumReflection->getStaticPropertyValue('someClassVariable') . PHP_EOL);

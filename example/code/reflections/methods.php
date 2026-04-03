@@ -125,8 +125,6 @@ var_dump($methodReflection->getStaticVariables());
 print(PHP_EOL);
 
 print('Has prototype? ' . $methodReflection->hasPrototype() . PHP_EOL);
-// print("Prototype:\n");
-// var_dump($methodReflection->getPrototype());
 
 print(PHP_EOL);
 
@@ -148,3 +146,5 @@ print(PHP_EOL);
 $methodReflection->setAccessible(true);
 print('Invocation result: ' . $methodReflection->invoke($someObject, "Moly") . PHP_EOL);
 print('Invocation result: ' . $methodReflection->invokeArgs($someObject, ["Moly"]) . PHP_EOL);
+
+print(PHP_EOL);

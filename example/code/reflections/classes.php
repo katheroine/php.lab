@@ -169,3 +169,5 @@ print(PHP_EOL);
 
 $classReflection->setStaticPropertyValue('someClassVariable', 2048);
 print('Static property someClassVariable value: ' . $classReflection->getStaticPropertyValue('someClassVariable') . PHP_EOL);
+
+print(PHP_EOL);
