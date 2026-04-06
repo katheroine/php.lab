@@ -1,0 +1,247 @@
+# PHP coding standards
+
+|  | PSR-1 | PSR-2 | PSR-12 | Symfony |
+| :---- | :---- | :---- | :---- | :---- |
+| Files |  |  |  |  |
+| File names case |  |  |  | Use UpperCamelCase for naming PHP files (e.g. EnvVarProcessor.php) and snake\_case for naming Twig templates and web assets (section\_layout.html.twig, index.scss); |
+| Character encoding | PHP code MUST use only UTF-8 without BOM. [🔗](https://www.php-fig.org/psr/psr-1/#22-character-encoding) |  |  |  |
+| File ending character |  | All PHP files MUST use the Unix LF (linefeed) line ending. | All PHP files MUST use the Unix LF (linefeed) line ending only. |  |
+| File ending line |  | All PHP files MUST end with a single blank line. | All PHP files MUST end with a non-blank line, terminated with a single LF.  |  |
+| PHP tag types | PHP code MUST use the long \<?php ?\> tags or the short-echo \<?= ?\> tags; it MUST NOT use the other tag variations. [🔗](https://www.php-fig.org/psr/psr-1/#21-php-tags) |  |  |  |
+| Omitting of the ending PHP tag ?\> |  | The closing ?\> tag MUST be omitted from files containing only PHP. | The closing ?\> tag MUST be omitted from files containing only PHP. |  |
+| Files purpose | A file SHOULD declare new symbols (classes, functions, constants, etc.) and cause no other side effects, or it SHOULD execute logic with side effects, but SHOULD NOT do both. [🔗](https://www.php-fig.org/psr/psr-1/#23-side-effects) |  |  |  |
+| **Lines** |  |  |  |  |
+| Line length hard limit |  | There MUST NOT be a hard limit on line length. | There MUST NOT be a hard limit on line length. |  |
+| Line lenght soft limit  |  | The soft limit MUST be **120** characters. Automated style checkers MUST warn but MUST NOT error at the soft limit. | The soft limit on line length MUST be **120** characters. |  |
+| Line length recomended limit |  | Lines SHOULD NOT be longer than **80** characters. Lines longer than that SHOULD be split into multiple subsequent lines of no more than **80** characters each. | Lines SHOULD NOT be longer than **80** characters. Lines longer than that SHOULD be split into multiple subsequent lines of no more than **80** characters each. |  |
+| Trailing whitespaces at the end of lines |  | There MUST NOT be trailing whitespace at the end of non-blank lines. | There MUST NOT be trailing whitespace at the end of lines. |  |
+| Blank lines for redability |  | Blank lines MAY be added to improve readability and to indicate related blocks of code. | Blank lines MAY be added to improve readability and to indicate related blocks of code except where explicitly forbidden. |  |
+| Allowed number of statements per line |  | There MUST NOT be more than **1** statement per line. | There MUST NOT be more than **1** statement per line. |  |
+| **Indenting** |  |  |  |  |
+| Indenting character |  | Code MUST use **spaces** for indenting. MUST NOT use tabs for indenting. | Code MUST use **spaces** for indenting. MUST NOT use tabs for indenting. |  |
+| Indenting length |  | Code MUST use **4** spaces for indenting. | Code MUST use an indent of **4** spaces for each indent level. |  |
+| **Delimiters** |  |  |  |  |
+| Space after coma delimiter |  |  |  | Add a single space after each comma delimiter. |
+| **Header of a PHP file** |  |  |  |  |
+| Header of a PHP file contents |  |  | May consist of a number of different blocks. |  |
+| Blank line separators of the blocks in a header of a PHP file |  |  | If present, each of the blocks MUST be separated by a single blank line and MUST not contain a blank line. |  |
+| Order of the blocks in a header of a PHP file |  |  | Each block MUST be in the order listed below, although blocks that are not relevant may be omitted: opening \<?php tag file-level docblock one or more declare statements the namespace declaration of the file one or more class-based… …function-based… …constant-based use import statements the remainder of the code in the file |  |
+| Header of the files with mix of HTML and PHP |  |  | When a file contains a mix of HTML and PHP, any of the above sections may still be used. If so, they MUST be present at the top of the file, even if the remainder of the code consists of a closing PHP tag and then a mixture of HTML and PHP. |  |
+| Opening \<?php tag |  |  | When the opening \<?php tag is on the first line of the file, it MUST be on its own line with no other statements unless it is a file containing markup outside of PHP opening and closing tags. |  |
+| Directives |  |  |  |  |
+| Declare statements formatting |  |  | Declare statements MUST contain no spaces and MUST be exactly declare(strict\_types=1) (with an optional semi-colon terminator).  |  |
+| Block declare statements formatting |  |  | Block declare statements are allowed and MUST be formatted as below. Note position of braces and spacing: declare(ticks=1) {     // some code } |  |
+| Strinc types declaration formatting in files containing markup outside PHP opening and closing tags |  |  | When wishing to declare strict types in files containing markup outside PHP opening and closing tags, the declaration MUST be on the first line of the file and include an opening PHP tag, the strict types declaration and closing tag: \<?php declare(strict\_types=1) ?\> |  |
+| Imports |  |  |  |  |
+| Leading backslash in import statement beginning |  |  | Import statements MUST never begin with a leading backslash. |  |
+| Fully qualified import statements |  |  | Import statements MUST always be fully qualified. |  |
+| Import with compound namespaces |  |  | Compound namespaces with a depth of more than two MUST NOT be used. |  |
+| Use declarations |  |  |  |  |
+| Use declarations placement |  | When present, all use declarations MUST go after the namespace declaration. |  |  |
+| Number of use declarations per line |  | There MUST be one use keyword per declaration. |  |  |
+| Blank line after the use block |  | There MUST be one blank line after the use block. |  |  |
+| Keywords, Types & Predefined Constants |  |  |  |  |
+| Keywords case |  | PHP [keywords](https://www.php.net/manual/en/reserved.keywords.php) MUST be in lower case. | All PHP reserved [keywords](https://www.php.net/manual/en/reserved.keywords.php) MUST be in lower case.  |  |
+| Predefined constants case (true, false, null) |  | The PHP constants true, false, and null MUST be in lower case. |  |  |
+| Types case |  |  | All PHP reserved [types](https://www.php.net/manual/en/reserved.other-reserved-words.php) MUST be in lower case. |  |
+| Types short/log forms |  |  | Short form of type keywords MUST be used i.e. **bool** instead of boolean, **int** instead of integer etc. |  |
+| Blank line before return statement |  |  |  | Add a blank line before return statements, unless the return is alone inside a statement-group (like an if statement). |
+| Constants & Variables |  |  |  |  |
+| Constant names case |  |  |  | Use SCREAMING\_SNAKE\_CASE for constants (e.g. InputArgument::IS\_ARRAY). |
+| Variable names case |  |  |  | Use camelCase for PHP variables (e.g. $acceptableContentTypes). |
+| Configuration parameters case |  |  |  | Use snake\_case for configuration parameters and Twig template variables (e.g. framework.csrf\_protection, http\_status\_code). |
+| Operators |  |  |  |  |
+| Multiple spaces around an operator |  |  | When space is permitted around an operator, multiple spaces MAY be used for readability purposes. |  |
+| **Unary operators** |  |  |  |  |
+| Space between the operator and operand in the increment & decrement operators |  |  | The increment/decrement operators MUST NOT have any space between the operator and operand. | Place unary operators (\!, \--, ...) adjacent to the affected variable. |
+| Space within the parentheses in type casting operators |  |  | Type casting operators MUST NOT have any space within the parentheses. |  |
+| **Binary operators** |  |  |  |  |
+| Spaces around the binary arithmetic, comparison, assignment, bitwise, logical, string, and type operators |  |  | All binary arithmetic, comparison, assignment, bitwise, logical, string, and type operators MUST be preceded and followed by at least one space. | Add a single space around binary operators (\==, &&, ...), with the exception of the concatenation (.) operator. |
+| Identical comparison operator using necessity |  |  |  | Always use [identical comparison](https://www.php.net/manual/en/language.operators.comparison.php) operator \=== unless you need type juggling. |
+| Yoda conditions using necessity |  |  |  | Use [Yoda conditions](https://en.wikipedia.org/wiki/Yoda_conditions) when checking a variable against an expression to avoid an accidental assignment inside the condition statement (this applies to \==, \!=, \===, and \!==). |
+| **Ternary operators** |  |  |  |  |
+| Spaces around the characters of the conditional operator |  |  | The conditional operator, also known simply as the ternary operator, MUST be preceded and followed by at least one space around both the ? and : characters. |  |
+| Spaces around the characters of the conditional operator when the middle operand is omitted |  |  | When the middle operand of the conditional operator is omitted, the operator MUST follow the same style rules as other binary comparison operators. |  |
+| Control structures |  |  |  |  |
+| Space after control structure keyword |  | There MUST be one space after the control structure keyword. | There MUST be one space after the control structure keyword. |  |
+| Space after opening parethensis in control structure |  | There MUST NOT be a space after the opening parenthesis.  | There MUST NOT be a space after the opening parenthesis. |  |
+| Space before closing parethensis in control structure |  | There MUST NOT be a space before the closing parenthesis.  | There MUST NOT be a space before the closing parenthesis. |  |
+| Space between closing parethensis and opening brace |  | There MUST be one space between the closing parenthesis and the opening brace. | There MUST be one space between the closing parenthesis and the opening brace. |  |
+| Opening brace placement in control structure |  | Opening braces for control structures MUST go on the same line as  the control structure keyword. |  |  |
+| Closing brace placement in control structure |  | The closing brace MUST be on the next line after the body. | The closing brace MUST be on the next line after the body. |  |
+| Control structure body indention |  | The structure body MUST be indented once. | The structure body MUST be indented once. |  |
+| Control structure body placement |  |  | The body MUST be on the next line after the opening brace. |  |
+| Control structure body enclosed by braces to indicate control structure body regardless of the number of statements it contains |  | The body of each structure MUST be enclosed by braces. *This standardizes how the structures look, and reduces the likelihood of introducing errors as new lines get added to the body.* | The body of each structure MUST be enclosed by braces. *This standardizes how the structures look and reduces the likelihood of introducing errors as new lines get added to the body.* | Use braces to indicate control structure body regardless of the number of statements it contains. |
+| Using  else, elseif, break after if and case conditions |  |  |  | Do not use else, elseif, break after if and case conditions which return or throw something. |
+| **Control structure if \- elseif \- else** |  |  |  |  |
+| Keywords else if or keyword elseif |  | The keyword elseif SHOULD be used instead of else if so that all control keywords look like single words. | The keyword elseif SHOULD be used instead of else if so that all control keywords look like single words. |  |
+| Splitting expression in parentheses across multiple lines |  |  | Expressions in parentheses MAY be split across multiple lines, where each subsequent line is indented at least once. |  |
+| First condition placement when expression is split across multiple lines |  |  | When doing so, the first condition MUST be on the next line. |  |
+| Closing parenthesis and opening brace placement when expression is split across multiple lines |  |  | The closing parenthesis and opening brace MUST be placed together on their own line with one space between them. |  |
+| Boolean operators between conditions placement when expression is split across multiple lines |  |  | Boolean operators between conditions MUST always be at the beginning or at the end of the line, not a mix of both. |  |
+| **Control structure switch \- case** |  |  |  |  |
+| Statement case indention |  | The case statement MUST be indented once from switch. | The case statement MUST be indented once from switch. |  |
+| Keyword break indention |  | The break keyword (or other terminating keyword) MUST be indented at the same level as the case body. | The break keyword (or other terminating keywords) MUST be indented at the same level as the case body. |  |
+| Comment such as // no break when fall-through is intentional in a non-empty case body |  | There MUST be a comment such as // no break when fall-through is intentional in a non-empty case body. | There MUST be a comment such as // no break when fall-through is intentional in a non-empty case body. |  |
+| Splitting expression in parentheses across multiple lines |  |  | Expressions in parentheses MAY be split across multiple lines, where each subsequent line is indented at least once. |  |
+| First condition placement when expression is split across multiple lines |  |  | When doing so, the first condition MUST be on the next line. |  |
+| Closing parenthesis and opening brace placement when expression is split across multiple lines |  |  | The closing parenthesis and opening brace MUST be placed together on their own line with one space between them. |  |
+| Boolean operators between conditions placement when expression is split across multiple lines |  |  | Boolean operators between conditions MUST always be at the beginning or at the end of the line, not a mix of both. |  |
+| **Control structure while, do \- while** |  |  |  |  |
+| **Control structure while** |  |  |  |  |
+| Splitting expression in parentheses across multiple lines |  |  | Expressions in parentheses MAY be split across multiple lines, where each subsequent line is indented at least once. |  |
+| First condition placement when expression is split across multiple lines |  |  | When doing so, the first condition MUST be on the next line. |  |
+| Closing parenthesis and opening brace placement when expression is split across multiple lines |  |  | The closing parenthesis and opening brace MUST be placed together on their own line with one space between them. |  |
+| Boolean operators between conditions placement when expression is split across multiple lines |  |  | Boolean operators between conditions MUST always be at the beginning or at the end of the line, not a mix of both. |  |
+| **Control structure do \- while** |  |  |  |  |
+| Splitting expression in parentheses across multiple lines |  |  | Expressions in parentheses MAY be split across multiple lines, where each subsequent line is indented at least once. |  |
+| First condition placement when expression is split across multiple lines |  |  | When doing so, the first condition MUST be on the next line.  |  |
+| Boolean operators between conditions placement when expression is split across multiple lines |  |  | Boolean operators between conditions MUST always be at the beginning or at the end of the line, not a mix of both. |  |
+| **Control structure for** |  |  |  |  |
+| Splitting expression in parentheses across multiple lines |  |  | Expressions in parentheses MAY be split across multiple lines, where each subsequent line is indented at least once. |  |
+| First expression placement when expression is split across multiple lines |  |  | When doing so, the first expression MUST be on the next line. |  |
+| Closing parenthesis and opening brace placement when expression is split across multiple lines |  |  | The closing parenthesis and opening brace MUST be placed together on their own line with one space between them. |  |
+| **Control structure foreach** |  |  |  |  |
+| **Control structure try \- catch** |  |  |  |  |
+| Arrays |  |  |  |  |
+| Coma after last array item in multi-line array |  |  |  | Add a comma after each array item in a multi-line array, even after the last one. |
+| Spaces around offset accessors |  |  |  | Do not use spaces around \[ offset accessor and before \] offset accessor. |
+| Closures & Functions |  |  |  |  |
+| Function names case |  |  |  | Use camelCase for function names (e.g. hasSession()). |
+| Space after function keyword in closure definition |  | Closures MUST be declared with a space after the function keyword. | Closures MUST be declared with a space after the function keyword. |  |
+| Space before use keyword in closure definition |  | Closures MUST be declared with a space before the use keyword. | Closures MUST be declared with a space before the use keyword. |  |
+| Space after use keyword in closure definition |  | Closures MUST be declared with a space after the use keyword. | Closures MUST be declared with a space after the use keyword. |  |
+| Function argument names case |  |  |  | Use camelCase for function arguments (e.g. $acceptableContentTypes). |
+| Space after opening parethensis of argument list in closure definition/call |  | There MUST NOT be a space after the opening parenthesis of the argument list. | There MUST NOT be a space after the opening parenthesis of the argument list. |  |
+| Space before closing parethensis of argument list in closure definition/call |  | There MUST NOT be a space before the closing parenthesis of the argument list. | There MUST NOT be a space before the closing parenthesis of the argument. |  |
+| Space after opening parethensis of variable list in closure definition/call |  | There MUST NOT be a space after the opening parenthesis of the variable list. | There MUST NOT be a space after the opening parenthesis of the variable list. |  |
+| Space before closing parethensis of variable list in closure definition/call |  | There MUST NOT be a space before the closing parenthesis of the variable list. | There MUST NOT be a space before the closing parenthesis of the variable list. |  |
+| Space before coma on argument list in closure definition/call |  | In the argument list, there MUST NOT be a space before each comma. | In the argument list there MUST NOT be a space before each comma. |  |
+| Space after coma on argument list in closure definition/call |  | In the argument list, there MUST be one space after each comma. | In the argument list there MUST NOT be a space after each comma. |  |
+| Space before coma on variable list in closure definition/call |  | In the variable list, there MUST NOT be a space before each comma. | In the variable list, there MUST NOT be a space before each comma. |  |
+| Space after coma on variable list in closure definition/call |  | In the variable list, there MUST be one space after each comma. | In the variable list, there MUST NOT be a space after each comma. |  |
+| Closure arguments with default values placement in closure definition/call |  | Closure arguments with default values MUST go at the end of the argument list. | Closure arguments with default values MUST go at the end of the argument list. |  |
+| List of function/closure arguments split acros multi lines in closure definition/call |  | Argument lists MAY be split across multiple lines, where each subsequent line is indented once. | Argument lists MAY be split across multiple lines, where each subsequent line is indented once. | Declare all the arguments on the same line as the function name, no matter how many arguments there are. |
+| Arguments placement on list of function/closure arguments split acros multi lines in closure definition/call |  | When doing so, the first item in the list MUST be on the next line. | When doing so, the first item in the list MUST be on the next line. |  |
+| Number of arguments per line on list of function/closure arguments split acros multi lines in closure definition/call |  | There MUST be only one argument per line. | There MUST be only one argument per line. |  |
+| List of closure variables split acros multi lines in closure definition/call |  | Variable lists MAY be split across multiple lines, where each subsequent line is indented once. | Variable lists MAY be split across multiple lines, where each subsequent line is indented once. |  |
+| Variables placement in list of closure variables split acros multi lines in closure definition/call |  | When doing so, the first item in the list MUST be on the next line. | When doing so, the first item in the list MUST be on the next line. |  |
+| Number of variables per line on list of closure variables split acros multi lines in closure definition/call |  | There MUST be only one variable per line. | There MUST be only one variable per line. |  |
+| Closing parenthesis and opening brace in closure with list of closure arguments split acros multi lines in closure definition/call |  | When the ending list of arguments is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them. | When the ending list of arguments is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them. |  |
+| Closing parenthesis and opening brace in closure with list of closure variables split acros multi lines in closure definition/call |  | When the ending list of variables is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them. | When the ending list of variables is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them. |  |
+| Return type declaration in closure definition |  |  | If a return type is present, it MUST follow the same rules as with normal functions and methods. |  |
+| Keyword use in closure declaration |  |  | If the use keyword is present, the colon MUST follow the use list closing parentheses with no spaces between the two characters. |  |
+| Opening brace placement in closure definition/call |  | The opening brace MUST go on the same line as the function keyword. *MUST be on the next line following the function keyword name when preceding argument or variable is not split or in the same line as closing parethensis when preceding list is split.* | The opening brace MUST go on the same line. |  |
+| Closing brace placement in closure definition/call |  | The closing brace MUST go on the next line following the body. *MUST be on the next line following the closure body* | Closing brace MUST go on the next line following the body. |  |
+| Using return null; in function explicitly returning null values |  |  |  | Use return null; when a function explicitly returns null values. |
+| Using return; in function returning void values |  |  |  | Use return; when the function returns void values. |
+| Space after function call |  | Function calls MUST NOT have space after them. |  |  |
+| Classes |  |  |  |  |
+| Placing class definitions in the files | Each class is in a file by itself. [🔗](https://www.php-fig.org/psr/psr-1/#3-namespace-and-class-names) |  |  |  |
+| Only one class per file limitation |  |  |  | Define one class per file \- this does not apply to private helper classes that are not intended to be instantiated from the outside and thus are not concerned by the [PSR-0](https://www.php-fig.org/psr/psr-0/) and [PSR-4](https://www.php-fig.org/psr/psr-4/) autoload standards. |
+| Class names case | MUST be StudlyCaps [🔗](https://www.php-fig.org/psr/psr-1/#3-namespace-and-class-names) |  |  | Use UpperCamelCase for all PHP classes, interfaces, traits and enums names (e.g. ConsoleLogger). |
+| Abstract class prefix |  |  |  | Prefix all abstract classes with Abstract except PHPUnit \*TestCase.  |
+| Class and enumerations name suffix |  |  |  | Don't use a dedicated suffix for classes or enumerations (e.g. like Class or Enum), except for the cases listed below. Suffix exceptions with Exception, Prefix PHP attributes that relate to service configuration with As (e.g. \#\[AsCommand\], \#\[AsEventListener\], etc.), Prefix PHP attributes that relate to controller arguments with Map (e.g. \#\[MapEntity\], \#\[MapCurrentUser\], etc.); |
+| Keyword extends placement in class definition |  | The extends keyword MUST be declared on the same line as the class name. | The extends keyword MUST be declared on the same line as the class name.  | Declare the class inheritance and all the implemented interfaces on the same line as the class name. |
+| Keyword implements placement in class definition |  | The implements keyword MUST be declared on the same line as the class name. | The implements keyword MUST be declared on the same line as the class name. |  |
+| List of implements split acros multi lines in class definition |  | Lists of implements MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one interface per line. | Lists of implements MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one interface per line.   |  |
+| List of extends split acros multi lines in class definition |  |  | Lists of extends (in the case of interfaces) MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one interface per line. |  |
+| Opening brace placement in class definition |  | The opening brace for the class MUST go on its own line. | The opening brace for the class MUST go on its own line. Opening braces MUST be on their own line and MUST NOT be preceded or followed by a blank line. |  |
+| Closing brace placement in class definition |  | The closing brace for the class MUST go on the next line after the body | The closing brace for the class MUST go on the next line after the body. Closing braces MUST be on their own line and MUST NOT be preceded by a blank line. Any closing brace MUST NOT be followed by any comment or statement on the same line. |  |
+| Keyword use placement in class definition |  |  | The use keyword used inside the classes to implement traits MUST be declared on the next line after the opening brace. |  |
+| Using use statement for every class |  |  |  | Add a use statement for every class that is not part of the global namespace. |
+| Number of trait including per line in class definition |  |  | Each individual trait that is imported into a class MUST be included one-per-line and each inclusion MUST have its own use import statement. |  |
+| Closing brace after the use import placement in class definition |  |  | When the class has nothing after the use import statement, the class closing brace MUST be on the next line after the use import statement. |  |
+| Blank line after the use import placement in class definition |  |  | Otherwise, it MUST have a blank line after the use import statement. |  |
+| Keywords insteadof and as |  |  | When using the insteadof and as operators they must be in separated lines with indentations. |  |
+| Class properties before methods in class declaration |  |  |  | Declare class properties before methods. |
+| **Keywords abstract, final & static** |  |  |  |  |
+| Keyword abstract placement |  | When present, the abstract declarations MUST precede the visibility declaration. | When present, the abstract declarations MUST precede the visibility declaration. |  |
+| Keyword final placement |  | When present, the final declarations MUST precede the visibility declaration. | When present, the final declarations MUST precede the visibility declaration. |  |
+| Keyword static placement |  | When present, the static declaration MUST come after the visibility declaration. | When present, the static declaration MUST come after the visibility declaration. |  |
+| **Class Constants** |  |  |  |  |
+| Class constants names case | Class constants MUST be declared in all UPPER\_CASE\_WITH\_UNDERSCORE\_SEPARATORS. [🔗](https://www.php-fig.org/psr/psr-1/#41-constants) |  |  |  |
+| Class constant visiblity declaration |  |  | Visibility MUST be declared on all constants if your project PHP minimum version supports constant visibilities (PHP 7.1 or later). |  |
+| **Class Properties** |  |  |  |  |
+| Class properties names case (Naming convention consistency) | Whatever naming convention is used SHOULD be applied consistently within a reasonable scope. That scope may be vendor-level, package-level, class-level, or method-level. [🔗](https://www.php-fig.org/psr/psr-1/#42-properties) |  |  |  |
+| Property visiblity declaration |  | Visibility MUST be declared on all properties. | Visibility MUST be declared on all properties. |  |
+| Single underscore prefix in property names for indication of non-public visibility |  | Property names SHOULD NOT be prefixed with a single underscore to indicate protected or private visibility. | Property names MUST NOT be prefixed with a single underscore to indicate protected or private visibility. That is, an underscore prefix explicitly has no meaning. |  |
+| Keyword var (used to declare property) |  | The var keyword MUST NOT be used to declare a property. | The var keyword MUST NOT be used to declare a property.  |  |
+| Property type declaration |  |  | There MUST be a space between type declaration and property name.  |  |
+| Property declarations per statement |  | There MUST NOT be more than one property declared per statement. | There MUST NOT be more than one property declared per statement. |  |
+| **Class Methods** |  |  |  |  |
+| Method names case | Method names MUST be declared in camelCase. [🔗](https://www.php-fig.org/psr/psr-1/#43-methods) |  |  | Use camelCase method names (e.g. hasSession()). |
+| Single underscore prefix in method names for indication of non-public visibility |  | Method names SHOULD NOT be prefixed with a single underscore to indicate protected or private visibility. | Method names MUST NOT be prefixed with a single underscore to indicate protected or private visibility. That is, an underscore prefix explicitly has no meaning. |  |
+| Method visiblity declaration |  | Visibility MUST be declared on all methods. | Visibility MUST be declared on all methods. |  |
+| Space after method name in method definition |  | Method names MUST NOT be declared with a space after the method name. | Method and function names MUST NOT be declared with space after the method name. |  |
+| Method argument names case |  |  |  | Use camelCase for method arguments (e.g. $acceptableContentTypes). |
+| Space after opening parethensis of argument list in method definition |  | There MUST NOT be a space after the opening parenthesis. | There MUST NOT be a space after the opening parenthesis. |  |
+| Space before closing parethensis of argument list in method definition |  | There MUST NOT be a space before the closing parenthesis. | There MUST NOT be a space before the closing parenthesis. |  |
+| Space before coma on argument list in method definition |  | In the argument list, there MUST NOT be a space before each comma. | In the argument list, there MUST NOT be a space before each comma. |  |
+| Space after coma on argument list in method definition |  | In the argument list, there MUST be one space after each comma. | In the argument list, there MUST be one space after each comma. |  |
+| List of method arguments with reference operator |  |  | When using the reference operator & before an argument, there MUST NOT be a space after it. |  |
+| List of method arguments with variadic three dot operator |  |  | There MUST NOT be a space between the variadic three dot operator and the argument name. |  |
+| List of method arguments with reference and variadic three dot operators |  |  | When combining both the reference operator and the variadic three dot operator, there MUST NOT be any space between the two of them. |  |
+| Method arguments with default values placement |  | Method arguments with default values MUST go at the end of the argument list. | Method and function arguments with default values MUST go at the end of the argument list. |  |
+| List of method arguments split acros multi lines in method definition |  | Argument lists MAY be split across multiple lines, where each subsequent line is indented once. | Argument lists MAY be split across multiple lines, where each subsequent line is indented once. |  |
+| Arguments placement on list of method arguments split acros multi lines in method definition |  | When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line. | When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line. |  |
+| Number of arguments per line on list of method arguments split acros multi lines in method definition |  | There MUST be only one argument per line. | There MUST be only one argument per line. | Declare all the arguments on the same line as the method name, no matter how many arguments there are. The only exception are constructor methods using [constructor property promotion](https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion), where each parameter must be on a new line with [trailing comma](https://wiki.php.net/rfc/trailing_comma_in_parameter_list). |
+| Closing parenthesis and opening brace in method with list of method arguments split acros multi lines in method definition |  | When the argument list is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them. | When the argument list is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them. |  |
+| Return type declaration in method definition |  |  | When you have a return type declaration present, there MUST be one space after the colon followed by the type declaration. The colon and declaration MUST be on the same line as the argument list closing parenthesis with no spaces between the two characters. |  |
+| Return type declaration with nullable type in method definition |  |  | In nullable type declarations, there MUST NOT be a space between the question mark and the type. |  |
+| Opening brace placement in method definition |  | The opening brace MUST go on its own line. *MUST be on the next line following the method name when argument list is not split or in the same line as closing parethensis when list is split* | The opening brace MUST go on its own line.  |  |
+| Closing brace placement in method definition |  | The closing brace MUST go on the next line following the body. *MUST be on the next line following the method body.* | The closing brace MUST go on the next line following the body. |  |
+| Comments or statements following closing brace in method definition |  |  | Any closing brace MUST NOT be followed by any comment or statement on the same line. |  |
+| Space after method call |  | Method calls MUST NOT have space after them. |  |  |
+| Space between method name and opening parenthesis in method call |   | When making a method or function call, there MUST NOT be a space between the method or function name and the opening parenthesis. | When making a method or function call, there MUST NOT be a space between the method or function name and the opening parenthesis. |  |
+| Space after opening parethensis of argument list in method call |   | There MUST NOT be a space after the opening parenthesis. | There MUST NOT be a space after the opening parenthesis. |  |
+| Space before closing parethensis  of argument list in method call |  | There MUST NOT be a space before the closing parenthesis. | There MUST NOT be a space before the closing parenthesis. |  |
+| Space before coma of argument list on argument list in method call |  | In the argument list, there MUST NOT be a space before each comma. | In the argument list, there MUST NOT be a space before each comma. |  |
+| Space after coma of argument list on argument list in method call |  | In the argument list, there MUST be one space after each comma. | In the argument list, there MUST be one space after each comma. |  |
+| List of method arguments split acros multi lines in method call |  | Argument lists MAY be split across multiple lines, where each subsequent line is indented once. | Argument lists MAY be split across multiple lines, where each subsequent line is indented once. |  |
+| Arguments placement on list of method arguments split acros multi lines in method call |  | When doing so, the first item in the list MUST be on the next line. | When doing so, the first item in the list MUST be on the next line. |  |
+| Number of arguments per line on list of method arguments split acros multi lines in method call |  | There MUST be only one argument per line. | There MUST be only one argument per line. |  |
+| Single argument being split across multiple lines in method call |  |  | A single argument being split across multiple lines (as might be the case with an anonymous function or array) does not constitute splitting the argument list itself. |  |
+| **Class instantiating** |  |  |  |  |
+| Parentheses in class instantiating |  |  | When instantiating a new class, parentheses MUST always be present even when there are no arguments passed to the constructor. | Use parentheses when instantiating classes regardless of the number of arguments the constructor has. |
+| **Anonymous classes** |  |  |  |  |
+| Opening brace, class keyword and list of implements placement |  |  | The opening brace MAY be on the same line as the class keyword so long as the list of implements interfaces does not wrap. If the list of interfaces wraps, the brace MUST be placed on the line immediately following the last interface. |  |
+| Enumerations |  |  |  |  |
+| Enumeration names case |  |  |  | Use UpperCamelCase for enumeration cases (e.g. InputArgumentMode::IsArray); |
+| Placing enum definitions in the namespaces |  |  |  | Use namespaces for all PHP classes, interfaces, traits and enums. |
+| Interfaces |  |  |  |  |
+| Interface name suffix |  |  |  | Suffix interfaces with Interface. |
+| Placing interface definitions in the namespaces |  |  |  | Use namespaces for all interfaces. |
+| Traits |  |  |  |  |
+| Trait name suffix |  |  |  | Suffix traits with Trait. |
+| Placing trait definitions in the namespaces |  |  |  | Use namespaces for all traits. |
+| Exceptions |  |  |  |  |
+| Exception names suffix |  |  |  | Suffix exceptions with Exception. |
+| Concatenation by sprintf function for exception and error message strings creation |  |  |  | Exception and error message strings must be concatenated using [sprintf](https://secure.php.net/manual/en/function.sprintf.php). |
+| Backticks and double quotes in exception and error messages |  |  |  | Exception and error messages must not contain backticks, even when referring to a technical element (such as a method or variable name). Double quotes must be used at all time. |
+| Exception and error messages format |  |  |  | Exception and error messages must start with a capital letter and finish with a dot . |
+| Using get\_debug\_type() and ::class retrieving class name for exception, error and deprecation messages |  |  |  | Exception, error and deprecation messages containing a class name must use get\_debug\_type() instead of ::class to retrieve it. |
+| Services |  |  |  |  |
+| Service name when there is one service for a class |  |  |  | A service name must be the same as the fully qualified class name (FQCN) of its class (e.g. App\\EventSubscriber\\UserSubscriber); |
+| Service name when there are multiple services for the same class |  |  |  | If there are multiple services for the same class, use the FQCN for the main service and use lowercase and underscored names for the rest of services. Optionally divide them in groups separated with dots (e.g. something.service\_name, fos\_user.something.service\_name); |
+| Service parameter names |  |  |  | Use lowercase letters for parameter names (except when referring to environment variables with the %env(VARIABLE\_NAME)% syntax); |
+| Class aliases for public services |  |  |  | Add class aliases for public services (e.g. alias Symfony\\Component\\Something\\ClassName to something.service\_name). |
+| Tests |  |  |  |  |
+|  |  |  |  | Do not add the void return type to methods in tests. |
+|  |  |  |  | Declare public methods first, then protected ones and finally private ones. The exceptions to this rule are the class constructor and the setUp() and tearDown() methods of PHPUnit tests, which must always be the first methods to increase readability. |
+| Namespaces and Use Declarations |  |  |  |  |
+| Namespaces requireness | Code written for PHP 5.3 and after MUST use formal namespaces. Code written for 5.2.x and before SHOULD use the pseudo-namespacing convention of Vendor\_ prefixes on class names. [🔗](https://www.php-fig.org/psr/psr-1/#3-namespace-and-class-names) |  |  |  |
+| Placing class definitions in the namespaces | Each class is in a namespace of at least one level: a top-level vendor name. [🔗](https://www.php-fig.org/psr/psr-1/#3-namespace-and-class-names) |  |  | Use namespaces for all PHP classes. |
+| Namespaces and class names autoloading convention | Namespaces and classes MUST follow an "autoloading" PSR: \[PSR-0, **PSR-4**\]. [🔗](https://www.php-fig.org/psr/psr-1/#3-namespace-and-class-names) |  |  |  |
+| Blank line after namespace declaration |  | When present, there MUST be one blank line after the namespace declaration. |  |  |
+| Blank line after use block |  | There MUST be one blank line after the block of use declarations. |  |  |
+| Documentation |  |  |  |  |
+| Type null placement in PHPDoc tags like @param or @return |  |  |  | When PHPDoc tags like @param or @return include null and other types, always place null at the end of the list of types. |
+| Type names in type-hinting |  |  |  | For type-hinting in PHPDocs and casting, use bool (instead of boolean or Boolean), int (instead of integer), float (instead of double or real); |
+| Situations when PHPDoc blocks shoul be used |  |  |  | Add PHPDoc blocks for classes, methods, and functions only when they add relevant information that does not duplicate the name, native type declaration or context (e.g. instanceof checks). |
+| Annotations and types allowed to use |  |  |  | Only use annotations and types defined in the PHPDoc reference. In order to improve types for static analysis, the following annotations are also allowed: Generics, with the exception of @template-covariant, Conditional return types using the vendor-prefixed @psalm-return, Class constants, Callable types. |
+| Grouping annotations |  |  |  | Group annotations together so that annotations of the same type immediately follow each other, and annotations of a different type are separated by a single blank line. |
+| Omitting the @return annotation |  |  |  | Omit the @return annotation if the method does not return anything. |
+| Using one-line PHPDoc blocks on classes, methods and functions |  |  |  | Don't use one-line PHPDoc blocks on classes, methods and functions, even when they contain just one annotation (e.g. don't put  /\*\*    {@inheritdoc} \*/ in a single line). |
+| Using the @author tag |  |  |  | When adding a new class or when making significant changes to an existing class, an @author tag with personal contact information may be added, or expanded. Please note it is possible to have the personal contact information updated or removed per request to the core team. |
+
