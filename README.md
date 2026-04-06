@@ -706,7 +706,7 @@ A curated knowledge base and laboratory for PHP engineering.
         4. [Exceptions](https://github.com/katheroine/php.lab/tree/main/example/library/interfaces/exceptions/)
             1. [Throwable](https://github.com/katheroine/php.lab/tree/main/example/library/interfaces/exceptions/throwable.php)
 4. [Standards](https://github.com/katheroine/php.lab/tree/main/example/standards/)
-    1. [Basic coding standard (PSR-1)](https://github.com/katheroine/php.psr-1.lab)
+    1. [Basic coding standard (PSR-1)](https://katheroine.github.io/php.psr-1.lab/)
     2. [Extended coding style (PSR-12)](https://github.com/katheroine/php.lab/tree/main/example/standards/extended_coding_style_-_psr-12/)
     3. [Autoloading standard (PSR-4)](https://github.com/katheroine/php.lab/tree/main/example/standards/autoloading_standard_-_psr-4/)
     4. [Logger interface (PSR-3)](https://github.com/katheroine/php.lab/tree/main/example/standards/logger_interface_-_psr-3/)
