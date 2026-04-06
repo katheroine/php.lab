@@ -1,6 +1,6 @@
 # PHP.lab 🐘
 
-Laboratory of PHP.
+A curated knowledge base and laboratory for PHP engineering.
 
 ## Index
 
