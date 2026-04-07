@@ -1,3 +1,6 @@
 [submodule "standards/basic_coding_standard_-_psr-1"]
 	path = standard/coding/basic_coding_standard_-_psr-1
 	url = https://github.com/katheroine/php.psr-1.lab
+[submodule "standard/coding/extended_coding_style_-_psr-12"]
+	path = standard/coding/extended_coding_style_-_psr-12
+	url = https://github.com/katheroine/php.psr-12.lab
