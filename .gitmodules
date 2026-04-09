@@ -4,3 +4,6 @@
 [submodule "standard/coding/extended_coding_style_-_psr-12"]
 	path = standard/coding/extended_coding_style_-_psr-12
 	url = https://github.com/katheroine/php.psr-12.lab
+[submodule "standard/coding/coding_style_-_PER_3.0"]
+	path = standard/coding/coding_style_-_PER_3.0
+	url = https://github.com/katheroine/php.per.3.0.lab
