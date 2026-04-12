@@ -66,7 +66,7 @@ Other function result: 9
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function.php)
+[Example](../../../examples/code/functions/function.php)
 
 Note:
 
@@ -138,7 +138,7 @@ Inner funcion
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function_with_function_definition.php)
+[Example](../../../examples/code/functions/function_with_function_definition.php)
 
 *Example: Function with class definition*
 
@@ -170,7 +170,7 @@ Some class property: 10
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function_with_class_definition.php)
+[Example](../../../examples/code/functions/function_with_class_definition.php)
 
 *Function names* follow the same rules as other *labels* in PHP. A valid function name starts with a letter or underscore, followed by any number of letters, numbers, or underscores. As a regular expression, it would be expressed thus: `^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$`.
 
@@ -203,7 +203,7 @@ Some function
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function_call_before_definition.php)
+[Example](../../../examples/code/functions/function_call_before_definition.php)
 
 When a function is defined in a conditional manner such as the two examples shown. Its definition must be processed prior to being called.
 
@@ -247,7 +247,7 @@ Some function
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function_conditional_call_after_conditional_definition.php)
+[Example](../../../examples/code/functions/function_conditional_call_after_conditional_definition.php)
 
 *Example: Function conditional call after conditional definition*
 
@@ -296,7 +296,7 @@ It works!
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function_global_scope.php)
+[Example](../../../examples/code/functions/function_global_scope.php)
 
 PHP does not support *function overloading*, nor is it possible to *undefine* or *redefine* previously-declared functions.
 
@@ -342,7 +342,7 @@ result: OUT
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function_calling_function.php)
+[Example](../../../examples/code/functions/function_calling_function.php)
 
 It is possible to call *recursive functions* in PHP.
 
@@ -402,7 +402,7 @@ Eats peanuts and interprets the code.
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function_arguments.php)
+[Example](../../../examples/code/functions/function_arguments.php)
 
 PHP supports *passing arguments by value* (the default), *passing by reference*, and *default argument values*. *Variable-length argument lists* and *named arguments* are also supported.
 
@@ -474,7 +474,7 @@ After: 5
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/passing_arguments_by_value.php)
+[Example](../../../examples/code/functions/passing_arguments_by_value.php)
 
 ### Passing arguments by reference
 
@@ -528,7 +528,7 @@ After: 10
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/passing_arguments_by_reference.php)
+[Example](../../../examples/code/functions/passing_arguments_by_reference.php)
 
 ### Default parameter values
 
@@ -584,7 +584,7 @@ Result of calling function with provided argument: 8
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function_arguments_default_value.php)
+[Example](../../../examples/code/functions/function_arguments_default_value.php)
 
 *Default parameter* values may be *scalar values*, *arrays*, the *special type null*, and as of PHP 8.1.0, *objects* using the `new ClassName()` syntax.
 
@@ -845,7 +845,7 @@ Result of calling function with 5 arguments: 120
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function_arguments_variable_number.php)
+[Example](../../../examples/code/functions/function_arguments_variable_number.php)
 
 ### Named arguments
 
@@ -917,7 +917,7 @@ Blue elephant...
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function_named_arguments.php)
+[Example](../../../examples/code/functions/function_named_arguments.php)
 
 *Named arguments* can be combined with *positional arguments*. In this case, the *named arguments* must come after the *positional arguments*. It is also possible to specify only some of the optional arguments of a function, regardless of their order.
 
@@ -1020,7 +1020,7 @@ Violet elephant...
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function_returning_value.php)
+[Example](../../../examples/code/functions/function_returning_value.php)
 
 A *function* can not *return* multiple values, but similar results can be obtained by returning an *array*.
 
@@ -1111,7 +1111,7 @@ A static local variable: 2
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function_with_static_variable.php)
+[Example](../../../examples/code/functions/function_with_static_variable.php)
 
 ## Variable functions
 
@@ -1185,7 +1185,7 @@ Other function result: 9
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/variable_function.php)
+[Example](../../../examples/code/functions/variable_function.php)
 
 *Object methods* can also be called with the *variable functions* syntax.
 

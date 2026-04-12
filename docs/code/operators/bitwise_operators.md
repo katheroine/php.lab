@@ -45,7 +45,7 @@ print("~{$b} = {$c}\n"); // 1111 1111 1111 1111 1111 1111 1111 0011 // -13
 ```
 
 **View**:
-[Example](../../../example/code/operators/bitwise_operators.php)
+[Example](../../../examples/code/operators/bitwise_operators.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -116,7 +116,7 @@ print("\$n instanceof stdClass: " . ($is_stdclass ? "true" : "false") . "\n\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/bitwise_operators.php)
+[Example](../../../examples/code/operators/bitwise_operators.php)
 
 **Execute**:
 * [OnlinePHP]()

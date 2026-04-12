@@ -71,7 +71,7 @@ print("({$b} xor {$b}) = {$c}\n\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/logical_operators.php)
+[Example](../../../examples/code/operators/logical_operators.php)
 
 **Execute**:
 * [OnlinePHP]()

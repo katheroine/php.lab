@@ -156,7 +156,7 @@ Other function result: 9
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/function_as_variable.php)
+[Example](../../../examples/code/functions/function_as_variable.php)
 
 [▵ Up](#first-class-callable-syntax)
 [⌂ Home](../../../README.md)

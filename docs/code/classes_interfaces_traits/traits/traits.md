@@ -144,7 +144,7 @@ method
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/trait.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/trait.php)
 
 ## Trait and reusability
 
@@ -248,7 +248,7 @@ Core: In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/trait_and_reusability.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/trait_and_reusability.php)
 
 ## Trait members access
 
@@ -353,7 +353,7 @@ method
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/trait_members_access.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/trait_members_access.php)
 
 ## Trait constant
 
@@ -450,7 +450,7 @@ constant
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/trait_constant.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/trait_constant.php)
 
 ## Trait property
 
@@ -537,7 +537,7 @@ property
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/trait_property.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/trait_property.php)
 
 ## Trait method
 
@@ -582,7 +582,7 @@ method
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/trait_method.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/trait_method.php)
 
 ## Trait static members
 
@@ -721,7 +721,7 @@ static property
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/trait_static_property.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/trait_static_property.php)
 
 *Example: Static methods*
 
@@ -808,7 +808,7 @@ static method
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/trait_static_method.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/trait_static_method.php)
 
 ## Trait abstract method
 
@@ -883,7 +883,7 @@ Hello world!
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/trait_abstract_method.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/trait_abstract_method.php)
 
 ## Trait final method
 
@@ -985,7 +985,7 @@ another method overriden in derived
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/trait_final_method.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/trait_final_method.php)
 
 ## Multiple trait using
 
@@ -1088,7 +1088,7 @@ Videmus nunc per speculum et in aenigmate.
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/multiple_trait_using.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/multiple_trait_using.php)
 
 ## Trait using trait
 
@@ -1192,7 +1192,7 @@ Videmus nunc per speculum et in aenigmate.
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/trait_using_trait.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/trait_using_trait.php)
 
 ## Extending class and using trait
 
@@ -1339,7 +1339,7 @@ C++ leaves them in your hands, providing a deeper look at "how computers think".
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/extending_class_and_using_trait.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/extending_class_and_using_trait.php)
 
 ## Conflict resolution
 
@@ -1472,7 +1472,7 @@ some trait: SomeTrait::otherMethod
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/multiple_traits_using_and_conflicts_resolution.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/multiple_traits_using_and_conflicts_resolution.php)
 
 ## Changing method visibility
 
@@ -1556,7 +1556,7 @@ another method
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/traits/trait_members_visibility_changing.php)
+[Example](../../../../examples/code/classes_interfaces_traits/traits/trait_members_visibility_changing.php)
 
 [▵ Up](#traits)
 [⌂ Home](../../../../README.md)

@@ -86,7 +86,7 @@ Type: object
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/object.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/object.php)
 
 ## Object definition and initialization
 
@@ -226,7 +226,7 @@ SomeClass Object
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/object_definition_and_initialisation.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/object_definition_and_initialisation.php)
 
 ## Object assignment and overwriting
 
@@ -310,7 +310,7 @@ SomeClass Object
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/object_definition_and_initialisation.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/object_definition_and_initialisation.php)
 
 ## Creating objects
 
@@ -397,7 +397,7 @@ SomeClass Object
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/object_creating.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/object_creating.php)
 
 ## Displaying objects
 
@@ -450,7 +450,7 @@ SomeClass Object
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/object_displaying.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/object_displaying.php)
 
 ## Modifying objects
 
@@ -528,7 +528,7 @@ SomeClass Object
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/object_modifying.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/object_modifying.php)
 
 ## Destroying objects
 
@@ -569,7 +569,7 @@ bool(false)
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/object_destroying.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/object_destroying.php)
 
 ## Object properties
 
@@ -645,7 +645,7 @@ programming language: PHP
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/object_properties.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/object_properties.php)
 
 ### Defining and initialising object properties
 
@@ -745,7 +745,7 @@ object(OtherClass)#3 (3) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/object_properties_defining_and_initialising.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/object_properties_defining_and_initialising.php)
 
 #### Object dynamic properties
 
@@ -792,7 +792,7 @@ SomeClass Object
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/object_dynamic_properties.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/object_dynamic_properties.php)
 
 ### Accessing object properties
 
@@ -858,7 +858,7 @@ privateProperty: hello
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/object_properties_accessing.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/object_properties_accessing.php)
 
 ## Updating object properties
 
@@ -943,7 +943,7 @@ object(SomeClass)#1 (3) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/object_properties_updating.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/object_properties_updating.php)
 
 ## Testing for `object`
 
@@ -994,7 +994,7 @@ Is object? no
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/testing_for_object.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/testing_for_object.php)
 
 ## Casting to `object`
 
@@ -1174,7 +1174,7 @@ to object: object(stdClass)#4 (3) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/casting_to_object.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/casting_to_object.php)
 
 ## Casting from `object`
 
@@ -1285,7 +1285,7 @@ Object from class to object: array(3) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/objects/casting_from_object.php)
+[Example](../../../../../examples/code/builtin_types/compound/objects/casting_from_object.php)
 
 [▵ Up](#objects)
 [⌂ Home](../../../../../README.md)

@@ -166,7 +166,7 @@ echo "(" . gettype($co) . ")\n\n";
 ```
 
 **View**:
-[Example](../../../example/code/types/types.php)
+[Example](../../../examples/code/types/types.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -214,8 +214,8 @@ $u = function(int $number) {
 // function:
 Closure Object
 (
-    [name] => {closure:/media/storage/repository/php/php.lab/example/code/types/types.php:14}
-    [file] => /media/storage/repository/php/php.lab/example/code/types/types.php
+    [name] => {closure:/media/storage/repository/php/php.lab/examples/code/types/types.php:14}
+    [file] => /media/storage/repository/php/php.lab/examples/code/types/types.php
     [line] => 14
     [parameter] => Array
         (
@@ -360,7 +360,7 @@ print("Answer: " . gettype($answer)
 ```
 
 **View**:
-[Example](../../../example/code/types/functions/function_gettype.php)
+[Example](../../../examples/code/types/functions/function_gettype.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -463,7 +463,7 @@ print("Some variable: " . $someVariable . ": " . gettype($someVariable) . "\n");
 ```
 
 **View**:
-[Example](../../../example/code/types/functions/function_settype.php)
+[Example](../../../examples/code/types/functions/function_settype.php)
 
 **Execute**:
 * [OnlinePHP]()

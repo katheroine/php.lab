@@ -61,7 +61,7 @@ Some anonymous class
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class.php)
 
 They can pass *arguments* through to their *constructors*, *extend* other *classes*, *implement* *interfaces*, and *use* *traits* just like a normal *class* can:
 
@@ -139,7 +139,7 @@ with readonly property
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_with_constructor.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_with_constructor.php)
 
 ## Anonymous class extending class
 
@@ -180,7 +180,7 @@ extending other class
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_extending_class.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_extending_class.php)
 
 ## Anonymous class implementing interface
 
@@ -220,7 +220,7 @@ implementing interface
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_implementing_interface.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_implementing_interface.php)
 
 ## Anonymous class using trait
 
@@ -269,7 +269,7 @@ using trait
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_using_trait.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_using_trait.php)
 
 ## Readonly anonymous class
 
@@ -327,7 +327,7 @@ Some anonymous readonly class
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/readonly_anonymous_class.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/anonymous_classes/readonly_anonymous_class.php)
 
 ## Anonymous class object
 
@@ -387,11 +387,11 @@ print('Class: ' . get_class($someObject) . PHP_EOL);
 
 ```
 Type: object
-Class: class@anonymous/projects/php.lab/example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_object_type.php:3$0
+Class: class@anonymous/projects/php.lab/examples/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_object_type.php:3$0
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_object_class.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_object_class.php)
 
 Nesting an *anonymous class* within another *class* does not give it *access* to any *private* or *protected methods* or *properties* of that outer *class*. In order to use the outer *class protected properties* or *methods*, the *anonymous class* can extend the outer *class*. To use the *private properties* of the outer *class* in the anonymous class, they must be *passed* through its *constructor*:
 
@@ -483,7 +483,7 @@ modified
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_object_as_another_class_property.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/anonymous_classes/anonymous_class_object_as_another_class_property.php)
 
 [▵ Up](#anonymous-classes)
 [⌂ Home](../../../README.md)

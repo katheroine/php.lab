@@ -67,7 +67,7 @@ Type: object
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/generator.php)
+[Example](../../../examples/code/generators/generator.php)
 
 A simple example of this is to reimplement the `range()` *function* as a *generator*. The standard `range()` function has to generate an *array* with every value in it and return it, which can result in large *arrays*: for example, calling `range(0, 1000000)` will result in well over 100 MB of memory being used.
 
@@ -237,7 +237,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/generator_yielding_value.php)
+[Example](../../../examples/code/generators/generator_yielding_value.php)
 
 ### Yielding values with keys
 
@@ -357,7 +357,7 @@ one: 1; three: 3; five: 5;
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/generator_yielding_key_value.php)
+[Example](../../../examples/code/generators/generator_yielding_key_value.php)
 
 ### Yielding `null` values
 
@@ -422,7 +422,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/generator_yielding_null.php)
+[Example](../../../examples/code/generators/generator_yielding_null.php)
 
 ### Yielding by value
 
@@ -455,7 +455,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/yielding_element_by_value.php)
+[Example](../../../examples/code/generators/yielding_element_by_value.php)
 
 ### Yielding by reference
 
@@ -521,7 +521,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/yielding_element_by_reference.php)
+[Example](../../../examples/code/generators/yielding_element_by_reference.php)
 
 ### Generator calling generator
 
@@ -583,7 +583,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/generator_calling_generator.php)
+[Example](../../../examples/code/generators/generator_calling_generator.php)
 
 ### Yielding from array
 
@@ -621,7 +621,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/yielding_from_array.php)
+[Example](../../../examples/code/generators/yielding_from_array.php)
 
 *Example: Yielding from array with keys*
 
@@ -657,7 +657,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/yielding_from_array_with_keys.php)
+[Example](../../../examples/code/generators/yielding_from_array_with_keys.php)
 
 ### Yielding from generator
 
@@ -712,7 +712,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/yielding_from_generator.php)
+[Example](../../../examples/code/generators/yielding_from_generator.php)
 
 *Example: Yielding from generator with keys*
 
@@ -761,7 +761,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/yielding_from_generator_with_keys.php)
+[Example](../../../examples/code/generators/yielding_from_generator_with_keys.php)
 
 ### Yielding from and keys collision
 
@@ -863,7 +863,7 @@ one: 2; two: 4; three: 6;
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/yielding_from_and_keys_collision.php)
+[Example](../../../examples/code/generators/yielding_from_and_keys_collision.php)
 
 ### Yielding from array and generator
 
@@ -991,7 +991,7 @@ print($result . PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../example/code/generators/generator_returning_value.php)
+[Example](../../../examples/code/generators/generator_returning_value.php)
 
 ## Comparing generators with `Iterator` objects
 

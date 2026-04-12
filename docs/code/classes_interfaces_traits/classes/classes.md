@@ -70,7 +70,7 @@ cauliflower
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/class.php)
 
 ## Class definition
 
@@ -162,7 +162,7 @@ print($otherObject->otherMethod() . PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_definition.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/class_definition.php)
 
 ## Class instantiation
 
@@ -239,7 +239,7 @@ Initialied property: onion
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/class_instantiation.php)
 
 If a *variable* containing a *string* with the *name of a class* is used with `new`, a new *instance* of that *class* will be created. If the *class* is in a *namespace*, its *fully qualified name* must be used when doing this.
 
@@ -319,7 +319,7 @@ object(AnotherClass)#3 (0) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_from_string.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/class_instantiation_from_string.php)
 
 As of PHP 8.0.0, using `new` with arbitrary *expressions* is supported. This allows more complex *instantiation* if the *expression* produces a *string*. The *expressions* must be wrapped in parentheses.
 
@@ -422,7 +422,7 @@ object(AnotherClass)#3 (0) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_from_expression.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/class_instantiation_from_expression.php)
 
 In the *class context*, it is possible to create a new *object* by `new self` and `new parent`.
 
@@ -514,7 +514,7 @@ object(BaseClass)#5 (0) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_from_static_self_and_parent.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/class_instantiation_from_static_self_and_parent.php)
 
 It's possible to create *instances* of an *object* in a couple of ways:
 
@@ -591,7 +591,7 @@ object(SomeClass)#1 (0) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_by_factory_method.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/class_instantiation_by_factory_method.php)
 
 *Example: Class instantiation ways*
 
@@ -711,7 +711,7 @@ By parent: SomeClass
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/class_instantiation_ways.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/constructors_and_destructors/class_instantiation_ways.php)
 
 When *assigning* an already created *instance* of a *class* to a new *variable*, the new *variable* will access the same *instance* as the *object* that was assigned. This behaviour is the same when *passing* *instances* to a *function*. A *copy* of an already created *object* can be made by *cloning* it.
 
@@ -812,7 +812,7 @@ object(AnotherClass)#2 (0) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/object_assignment_passing_and_returning.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/object_assignment_passing_and_returning.php)
 
 *Example: Object access*
 
@@ -958,7 +958,7 @@ SomeClass Object
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/object_access.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/object_access.php)
 
 It is possible to access a member of a newly created object in a single expression:
 
@@ -1018,7 +1018,7 @@ pumpkin
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_instantiation_and_immediate_instance_member_access.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/class_instantiation_and_immediate_instance_member_access.php)
 
 ## Readonly classes
 
@@ -1094,7 +1094,7 @@ Some readonly property: magenta
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/readonly_class.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/readonly_class.php)
 
 A *readonly class* can be extended if, and only if, the *child class* is also a *readonly class*.
 
@@ -1136,7 +1136,7 @@ Some readonly property: magenta
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/readonly_class_inheritance.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/readonly_class_inheritance.php)
 
 ## Class name resolution
 
@@ -1227,7 +1227,7 @@ SomeNamespace\SomeClass
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/class_name_resolution.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/class_name_resolution.php)
 
 [▵ Up](#classes)
 [⌂ Home](../../../README.md)

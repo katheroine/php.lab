@@ -33,7 +33,7 @@ If PHP's *default error handling* is inadequate, you can also handle many *types
 *Example: Triggering and handling errors*
 
 ```php
-Wow my custom error handler got #[2] occurred in [/projects/php.lab/example/code/errors_and_exceptions/errors/triggering_and_handling_errors.php] at line [17]: [Undefined variable $someNotSetVariable]
+Wow my custom error handler got #[2] occurred in [/projects/php.lab/examples/code/errors_and_exceptions/errors/triggering_and_handling_errors.php] at line [17]: [Undefined variable $someNotSetVariable]
 
 Error catched!
 Call to undefined function someNoneExistentFunction()
@@ -43,8 +43,8 @@ Error catched!
 Undefined constant "someNotExistentExpression"
 Error
 
-Wow my custom error handler got #[8192] occurred in [/projects/php.lab/example/code/errors_and_exceptions/errors/triggering_and_handling_errors.php] at line [47]: [Passing E_USER_ERROR to trigger_error() is deprecated since 8.4, throw an exception or call exit with a string message instead]
-Wow my custom error handler got #[256] occurred in [/projects/php.lab/example/code/errors_and_exceptions/errors/triggering_and_handling_errors.php] at line [47]: [Hello, my name is Spookey!]
+Wow my custom error handler got #[8192] occurred in [/projects/php.lab/examples/code/errors_and_exceptions/errors/triggering_and_handling_errors.php] at line [47]: [Passing E_USER_ERROR to trigger_error() is deprecated since 8.4, throw an exception or call exit with a string message instead]
+Wow my custom error handler got #[256] occurred in [/projects/php.lab/examples/code/errors_and_exceptions/errors/triggering_and_handling_errors.php] at line [47]: [Hello, my name is Spookey!]
 
 ```
 
@@ -109,7 +109,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/errors/triggering_and_handling_errors.php)
+[Example](../../../../examples/code/errors_and_exceptions/errors/triggering_and_handling_errors.php)
 
 ## Errors as exceptions
 
@@ -235,11 +235,11 @@ print(PHP_EOL);
 
 ```
 Error catched!
-someFunction(): Argument #1 ($someArgument) must be of type int, string given, called in /media/storage/repository/php/php.lab/example/code/errors_and_exceptions/errors/catching_errors.php on line 9
+someFunction(): Argument #1 ($someArgument) must be of type int, string given, called in /media/storage/repository/php/php.lab/examples/code/errors_and_exceptions/errors/catching_errors.php on line 9
 TypeError
 
 Error catched!
-Too few arguments to function someFunction(), 0 passed in /media/storage/repository/php/php.lab/example/code/errors_and_exceptions/errors/catching_errors.php on line 23 and exactly 1 expected
+Too few arguments to function someFunction(), 0 passed in /media/storage/repository/php/php.lab/examples/code/errors_and_exceptions/errors/catching_errors.php on line 23 and exactly 1 expected
 ArgumentCountError
 
 Error catched!
@@ -262,7 +262,7 @@ UnhandledMatchError
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/errors/catching_errors.php)
+[Example](../../../../examples/code/errors_and_exceptions/errors/catching_errors.php)
 
 ## Error hierarchy
 

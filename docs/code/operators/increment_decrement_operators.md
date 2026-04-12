@@ -86,7 +86,7 @@ print(PHP_EOL);
 ```
 
 **View**:
-[Example](../../../example/code/operators/arithmetic_operators.php)
+[Example](../../../examples/code/operators/arithmetic_operators.php)
 
 **Execute**:
 * [OnlinePHP]()

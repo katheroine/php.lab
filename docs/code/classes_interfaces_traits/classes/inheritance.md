@@ -215,7 +215,7 @@ public method
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_inheritance.php)
 
 ## Extending class
 
@@ -259,7 +259,7 @@ Derived class property: derived
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/extending_class.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/extending_class.php)
 
 Note:
 
@@ -309,7 +309,7 @@ Species: Vulpes vulpes
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/base_and_derived_class.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/base_and_derived_class.php)
 
 ## Multilevel inheritance
 
@@ -398,7 +398,7 @@ Am I domesticated? 1
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/multilevel_inheritance.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/multilevel_inheritance.php)
 
 ## Members visibility
 
@@ -557,7 +557,7 @@ SomeDerivedClass::anotherMethod
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_members_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_members_visibility.php)
 
 *Example: Class members visibility modifiers*
 
@@ -647,7 +647,7 @@ Am I domesticated?
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_members_visibility_modifiers.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_members_visibility_modifiers.php)
 
 ## Encapsulation
 
@@ -757,7 +757,7 @@ Is ID 200 a friend?
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/encapsulation.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/encapsulation.php)
 
 ## Polimorphism
 
@@ -836,7 +836,7 @@ Description: The Central European summer day temperature
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/polimorphism.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/polimorphism.php)
 
 ## Class members overriding
 
@@ -1018,7 +1018,7 @@ static::SOME_PUBLIC_CONSTANT : derived public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_constant_overriding_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_constant_overriding_with_visibility.php)
 
 ### Dynamic property overriding
 
@@ -1164,7 +1164,7 @@ $this->somePublicProperty : derived public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_property_overriding_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_property_overriding_with_visibility.php)
 
 ### Static property overriding
 
@@ -1338,7 +1338,7 @@ static::$somePublicProperty : derived static public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_static_property_overriding_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_static_property_overriding_with_visibility.php)
 
 ### Dynamic method overriding
 
@@ -1553,7 +1553,7 @@ $this->somePublicMethod() : derived public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_with_visibility.php)
 
 ### Static method overriding
 
@@ -1763,7 +1763,7 @@ $this->somePublicMethod() : derived public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_static_method_overriding_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_static_method_overriding_with_visibility.php)
 
 *Example: Class inheritance and method overriding*
 
@@ -1808,7 +1808,7 @@ Other method from derived class
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_method_overriding.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_inheritance_and_method_overriding.php)
 
 ### Hook overriding
 
@@ -1990,7 +1990,7 @@ $this->somePublicProperty : derived public derived hook
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_property_hook_overriding_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_property_hook_overriding_with_visibility.php)
 
 ## Final class members
 
@@ -2187,7 +2187,7 @@ self::SOME_FINAL_PUBLIC_CONSTANT : base final public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_final_constant.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_final_constant.php)
 
 ### Final property
 
@@ -2363,7 +2363,7 @@ $this->someFinalPublicProperty : base final public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_final_property.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_final_property.php)
 
 ### Final method
 
@@ -2587,7 +2587,7 @@ self::someFinalPublicMethod() : base final public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_final_method.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_final_method.php)
 
 ### Final hook
 
@@ -2731,7 +2731,7 @@ Derived class property: derived
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_final_property_hook.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_final_property_hook.php)
 
 ## Members overriding and compatibility
 
@@ -2824,7 +2824,7 @@ Kitty Pranky
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_members_overriding_and_visibility_compatibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_members_overriding_and_visibility_compatibility.php)
 
 ### Overriding and method parameter number and requireness rules
 
@@ -3024,7 +3024,7 @@ Kitty Pranky
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_parameter_number_compatibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_parameter_number_compatibility.php)
 
 *Exapmle: Class method overriding and parameter requireness compatibility*
 
@@ -3104,7 +3104,7 @@ garden($bush, 5);
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_parameter_requireness_compatibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_parameter_requireness_compatibility.php)
 
 ### Overriding and method parameter name rule
 
@@ -3516,7 +3516,7 @@ Guide knowledge: There's a time dilation.
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_types_compatibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_method_overriding_and_types_compatibility.php)
 
 ### Overriding and constructor signature compatibility rules
 
@@ -3943,7 +3943,7 @@ static::SOME_PUBLIC_CONSTANT : derived public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_constant_access_with_visibility.php
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_constant_access_with_visibility.php
 
 #### Class final constant access
 
@@ -4132,7 +4132,7 @@ static::SOME_FINAL_PUBLIC_CONSTANT : base final public const
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_final_constant_access_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_final_constant_access_with_visibility.php)
 
 ### Property access
 
@@ -4280,7 +4280,7 @@ $this->somePublicProperty : derived public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_property_access_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_property_access_with_visibility.php)
 
 #### Static property access
 
@@ -4670,7 +4670,7 @@ static::$somePublicProperty : derived static public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_static_property_access_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_static_property_access_with_visibility.php)
 
 #### Readonly property access
 
@@ -4831,7 +4831,7 @@ $this->somePublicProperty : derived readonly public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_readonly_property_access_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_readonly_property_access_with_visibility.php)
 
 #### Final property access
 
@@ -4908,7 +4908,7 @@ $this->someFinalPublicProperty : base final public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_final_property_access_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_final_property_access_with_visibility.php)
 
 ### Method access
 
@@ -5171,7 +5171,7 @@ $this->somePublicMethod() : derived public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_access_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_method_access_with_visibility.php)
 
 #### Static method access
 
@@ -5596,7 +5596,7 @@ static::somePublicStaticMethod() : derived public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_static_method_access_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_static_method_access_with_visibility.php)
 
 #### Final method access
 
@@ -5722,7 +5722,7 @@ $this->someFinalPublicMethod() : base final public
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_final_method_access_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_final_method_access_with_visibility.php)
 
 ### Hooks access
 
@@ -5937,7 +5937,7 @@ $this->somePublicProperty : derived public base hook + derived public derived ho
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_property_hook_access_with_visibility.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_property_hook_access_with_visibility.php)
 
 ## Overloading
 
@@ -6189,7 +6189,7 @@ secret exists? no
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_property_overloading.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_property_overloading.php)
 
 ### Method overloading
 
@@ -6301,7 +6301,7 @@ print('1 * 2 * 3 = ' . $result . PHP_EOL . PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/class_method_overloading.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/class_method_overloading.php)
 
 ## Final class
 
@@ -6378,7 +6378,7 @@ basic -> derived
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/final_class.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/final_class.php)
 
 ## Late static bindings
 
@@ -6414,7 +6414,7 @@ Hello, there!
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/static_method_call.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/static_method_call.php)
 
 *Example: Non-static method call*
 
@@ -6441,7 +6441,7 @@ Hello, there!
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/nonstatic_method_call.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/nonstatic_method_call.php)
 
 *Example: Forwarding method call*
 
@@ -6500,7 +6500,7 @@ Hello, here!
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/forwarding_method_call.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/forwarding_method_call.php)
 
 *Example: Non-forwarding method call*
 
@@ -6553,7 +6553,7 @@ Hello, here!
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/nonforwarding_method_call.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/nonforwarding_method_call.php)
 
 *Example: forward_static_call function*
 
@@ -6609,7 +6609,7 @@ Hello, here!
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/forward_static_call.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/forward_static_call.php)
 
 ### Limitations of `self::`
 
@@ -6741,7 +6741,7 @@ Hello, here!
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/self_vs_static_member_referencing.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/self_vs_static_member_referencing.php)
 
 *Example: `static::` usage in a non-static context*
 
@@ -6839,7 +6839,7 @@ Hello, private!
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/inheritance/static_vs_this_member_referencing.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/inheritance/static_vs_this_member_referencing.php)
 
 Note:
 

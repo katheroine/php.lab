@@ -245,7 +245,7 @@ foreach ($a as $i)
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/foreach/foreach.php)
+[Example](../../../examples/code/control_flow/foreach/foreach.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -281,7 +281,7 @@ endforeach;
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/foreach/foreach_alternative_syntax.php)
+[Example](../../../examples/code/control_flow/foreach/foreach_alternative_syntax.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -338,7 +338,7 @@ echo "\n";
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/foreach/foreach_alternative_syntax.php)
+[Example](../../../examples/code/control_flow/foreach/foreach_alternative_syntax.php)
 
 **Execute**:
 * [OnlinePHP]()

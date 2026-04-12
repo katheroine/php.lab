@@ -90,7 +90,7 @@ Other function result: 9
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/anonymous_function.php)
+[Example](../../../examples/code/functions/anonymous_function.php)
 
 ## Closures
 
@@ -201,7 +201,7 @@ Other function result: 9
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/closure.php)
+[Example](../../../examples/code/functions/closure.php)
 
 As of PHP 8.0.0, the list of scope-inherited variables may include a trailing comma, which will be ignored.
 
@@ -242,7 +242,7 @@ After: 3
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/closure_binding_by_value.php)
+[Example](../../../examples/code/functions/closure_binding_by_value.php)
 
 ### Binding by reference
 
@@ -279,7 +279,7 @@ After: 10
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/closure_binding_by_reference.php)
+[Example](../../../examples/code/functions/closure_binding_by_reference.php)
 
 ### The parent scope
 
@@ -431,7 +431,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/closure_binding_this.php)
+[Example](../../../examples/code/functions/closure_binding_this.php)
 
 ### Static anonymous functions
 
@@ -538,7 +538,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/static_anonymous_function.php)
+[Example](../../../examples/code/functions/static_anonymous_function.php)
 
 ### Changelog
 
@@ -590,7 +590,7 @@ Other function result: 9
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/arrow_function.php)
+[Example](../../../examples/code/functions/arrow_function.php)
 
 When a *variable* used in the *expression* is defined in the *parent scope* it will be *implicitly captured by-value*. In the following example, the *functions* `$fn1` and `$fn2` behave the same way.
 
@@ -647,7 +647,7 @@ Other function result: Variable: binded variable
 ```
 
 **Source code**:
-[Example](../../../example/code/functions/arrow_function_binding.php)
+[Example](../../../examples/code/functions/arrow_function_binding.php)
 
 This also works if the *arrow functions* are *nested*:
 

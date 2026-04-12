@@ -104,7 +104,7 @@ Will also execute (due to exception has been catched).
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/exception.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/exception.php)
 
 ## Throwing exception
 
@@ -155,14 +155,14 @@ throw new Exception('The exception has been thrown.');
 **Result (PHP 8.4)**:
 
 ```
-PHP Fatal error:  Uncaught Exception: The exception has been thrown. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/throwing_exception.php:3
+PHP Fatal error:  Uncaught Exception: The exception has been thrown. in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/throwing_exception.php:3
 Stack trace:
 #0 {main}
-  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/throwing_exception.php on line 3
+  thrown in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/throwing_exception.php on line 3
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/throwing_exception.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/throwing_exception.php)
 
 *Example: Throwing an defined exception*
 
@@ -186,14 +186,14 @@ throw new SomeException();
 **Result (PHP 8.4)**:
 
 ```
-PHP Fatal error:  Uncaught SomeException: The exception has been thrown. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/throwing_defined_exception.php:13
+PHP Fatal error:  Uncaught SomeException: The exception has been thrown. in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/throwing_defined_exception.php:13
 Stack trace:
 #0 {main}
-  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/throwing_defined_exception.php on line 13
+  thrown in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/throwing_defined_exception.php on line 13
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/throwing_defined_exception.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/throwing_defined_exception.php)
 
 As of PHP 8.0.0, the *`throw` keyword* is an *expression* and may be used in any *expression* context. In prior versions it was a *statement* and was required to be on its own line.
 
@@ -243,10 +243,10 @@ readline("Give some number: ") or throw new Exception('The exception has been th
 
 ```
 Give some number: 0
-PHP Fatal error:  Uncaught Exception: The exception has been thrown. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/throwing_exception_as_expression.php:3
+PHP Fatal error:  Uncaught Exception: The exception has been thrown. in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/throwing_exception_as_expression.php:3
 Stack trace:
 #0 {main}
-  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/throwing_exception_as_expression.php on line 3
+  thrown in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/throwing_exception_as_expression.php on line 3
 ```
 
 ```
@@ -254,7 +254,7 @@ Give some number: 1
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions)
 
 ## Catching exception
 
@@ -289,7 +289,7 @@ Exception Object
     [message:protected] => The exception has been thrown.
     [string:Exception:private] =>
     [code:protected] => 0
-    [file:protected] => /projects/php.lab/example/code/errors_and_exceptions/exceptions/catching_exception.php
+    [file:protected] => /projects/php.lab/examples/code/errors_and_exceptions/exceptions/catching_exception.php
     [line:protected] => 4
     [trace:Exception:private] => Array
         (
@@ -300,7 +300,7 @@ Exception Object
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/catching_exception.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/catching_exception.php)
 
 *Example: Catching a defined exception*
 
@@ -335,7 +335,7 @@ SomeException Object
     [message:protected] => The exception has been thrown.
     [string:Exception:private] =>
     [code:protected] => 0
-    [file:protected] => /projects/php.lab/example/code/errors_and_exceptions/exceptions/catching_defined_exception.php
+    [file:protected] => /projects/php.lab/examples/code/errors_and_exceptions/exceptions/catching_defined_exception.php
     [line:protected] => 14
     [trace:Exception:private] => Array
         (
@@ -347,7 +347,7 @@ SomeException Object
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/catching_defined_exception.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/catching_defined_exception.php)
 
 As of PHP 8.0.0, the *variable name* for a caught *exception* is optional. If not specified, the *`catch` block* will still execute but will not have access to the thrown *object*.
 
@@ -402,7 +402,7 @@ The exception has been catched.
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/catching_exception_and_ommiting_caught_variable.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/catching_exception_and_ommiting_caught_variable.php)
 
 Multiple *`catch` blocks* can be used to catch different *classes* of *exceptions*. Normal execution (when no *exception* is thrown within the *`try` block*) will continue after that last *`catch` block* defined in sequence. *Exceptions* can be *thrown* (or *re-thrown*) within a *`catch` block*. If not, execution will continue after the *`catch` block* that was triggered.
 
@@ -535,7 +535,7 @@ Program end...
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/catching_exceptions_of_various_types.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/catching_exceptions_of_various_types.php)
 
 As of PHP 7.1.0, a *`catch` block* may specify multiple *exceptions* using the pipe (`|`) character. This is useful for when different *exceptions* from different class hierarchies are handled the same.
 
@@ -674,7 +674,7 @@ Program end...
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/catching_exception_of_multiple_types.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/catching_exception_of_multiple_types.php)
 
 ## Code always executed
 
@@ -761,7 +761,7 @@ The code has been executed.
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/code_always_executed.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/code_always_executed.php)
 
 One notable interaction is between the *`finally` block* and a *`return` statement*. If a *`return` statement* is encountered inside either the `try` or the `catch` blocks, the *`finally` block* will still be executed. Moreover, the *`return` statement* is evaluated when encountered, but the result will be returned after the *`finally` block* is executed. Additionally, if the *`finally` block* also contains a *`return` statement*, the value from the *`finally` block* is returned.
 
@@ -926,15 +926,15 @@ Program begin...
 Risky code...
 Give some number: 10000
 End of risks.
-PHP Fatal error:  Uncaught NumberValueException in /projects/php.lab/example/code/errors_and_exceptions/exceptions/try_catch_finally.php:46
+PHP Fatal error:  Uncaught NumberValueException in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/try_catch_finally.php:46
 Stack trace:
-#0 /projects/php.lab/example/code/errors_and_exceptions/exceptions/try_catch_finally.php(55): drawNumber()
+#0 /projects/php.lab/examples/code/errors_and_exceptions/exceptions/try_catch_finally.php(55): drawNumber()
 #1 {main}
-  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/try_catch_finally.php on line 46
+  thrown in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/try_catch_finally.php on line 46
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/try_catch_finally.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/try_catch_finally.php)
 
 ## Throwing and catching exception and returning value
 
@@ -1054,7 +1054,7 @@ RETURNED: 4
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions)
 
 ## Nested exceptions
 
@@ -1176,7 +1176,7 @@ Program end...
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions)
 
 *Example: Nestring `try`-`catch` in `catch`*
 
@@ -1301,7 +1301,7 @@ Program end...
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/nesting_try_catch_in_catch.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/nesting_try_catch_in_catch.php)
 
 ### Rethrowing exception
 
@@ -1402,25 +1402,25 @@ Will always execute.
 Input: 1
 SOME CASE: Number has beign given. (1)
 Will always execute.
-PHP Fatal error:  Uncaught SomeException: Number has beign given. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php:26
+PHP Fatal error:  Uncaught SomeException: Number has beign given. in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php:26
 Stack trace:
-#0 /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php(33): someRiskySituation()
+#0 /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php(33): someRiskySituation()
 #1 {main}
-  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php on line 26
+  thrown in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php on line 26
 ```
 
 ```
 Input: a
 OTHER CASE: Value has beign given. (a)
 Will always execute.
-PHP Fatal error:  Uncaught OtherException: Value has beign given. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php:41
+PHP Fatal error:  Uncaught OtherException: Value has beign given. in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php:41
 Stack trace:
 #0 {main}
-  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php on line 41
+  thrown in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php on line 41
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch.php)
 
 *Example: Rethrowing an exception in the catch block and throwing an exception in the finally block*
 
@@ -1479,43 +1479,43 @@ try {
 ```
 Input: 0
 Will always execute.
-PHP Fatal error:  Uncaught Exception: From always executed code. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:45
+PHP Fatal error:  Uncaught Exception: From always executed code. in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:45
 Stack trace:
 #0 {main}
-  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php on line 45
+  thrown in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php on line 45
 ```
 
 ```
 Input: 1
 SOME CASE: Number has beign given. (1)
 Will always execute.
-PHP Fatal error:  Uncaught SomeException: Number has beign given. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:26
+PHP Fatal error:  Uncaught SomeException: Number has beign given. in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:26
 Stack trace:
-#0 /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php(33): someRiskySituation()
+#0 /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php(33): someRiskySituation()
 #1 {main}
 
-Next Exception: From always executed code. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:45
+Next Exception: From always executed code. in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:45
 Stack trace:
 #0 {main}
-  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php on line 45
+  thrown in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php on line 45
 ```
 
 ```
 Input: a
 OTHER CASE: Value has beign given. (a)
 Will always execute.
-PHP Fatal error:  Uncaught OtherException: Value has beign given. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:41
+PHP Fatal error:  Uncaught OtherException: Value has beign given. in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:41
 Stack trace:
 #0 {main}
 
-Next Exception: From always executed code. in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:45
+Next Exception: From always executed code. in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php:45
 Stack trace:
 #0 {main}
-  thrown in /projects/php.lab/example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php on line 45
+  thrown in /projects/php.lab/examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php on line 45
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/rethrowing_exception_in_catch_and_finally.php)
 
 ## Global exception handler
 
@@ -1846,7 +1846,7 @@ Program end...
 ```
 
 **Source code**:
-[Example](../../../../example/code/errors_and_exceptions/exceptions/exceptions_hierarchy.php)
+[Example](../../../../examples/code/errors_and_exceptions/exceptions/exceptions_hierarchy.php)
 
 [▵ Up](#exceptions)
 [⌂ Home](../../../../README.md)

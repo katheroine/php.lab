@@ -154,7 +154,7 @@ Type: array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array.php)
 
 ## Syntax
 
@@ -232,7 +232,7 @@ array(2) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_syntax.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_syntax.php)
 
 ## Array definition and initialisation
 
@@ -371,7 +371,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_definition_and_initialisation.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_definition_and_initialisation.php)
 
 ## Array assignment and overwriting
 
@@ -453,7 +453,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_assignment_and_overwriting.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_assignment_and_overwriting.php)
 
 ## Creating arrays
 
@@ -600,7 +600,7 @@ array(3) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_creating.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_creating.php)
 
 ## Displaying arrays
 
@@ -764,7 +764,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_displaying.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_displaying.php)
 
 ## Modifying arrays
 
@@ -900,7 +900,7 @@ array(4) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_modifying.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_modifying.php)
 
 ## Destroying arrays
 
@@ -947,7 +947,7 @@ bool(false)
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_destroying.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_destroying.php)
 
 ## Copying arrays
 
@@ -1032,7 +1032,7 @@ array(5) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_values.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_values.php)
 
 ## Array indexes and keys
 
@@ -1099,7 +1099,7 @@ array(5) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_keys.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_keys.php)
 
 Additionally the following *key casts* will occur:
 
@@ -1376,7 +1376,7 @@ array(7) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_key_type_casting_and_overwriting.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_key_type_casting_and_overwriting.php)
 
 This example creates a one-based *array*.
 
@@ -1568,7 +1568,7 @@ $data['operating_system']: Linux
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_elements.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_elements.php)
 
 ### Creating array elements
 
@@ -1724,7 +1724,7 @@ array(1) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_element_appending_with_array_access_operator.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_element_appending_with_array_access_operator.php)
 
 In this example, we defined an *array* that consists of three numbers initially. Then, we added the number `4` to the *array*.
 
@@ -1872,7 +1872,7 @@ array(5) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_elements_creating.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_elements_creating.php)
 
 ### Accessing array elements
 
@@ -2064,7 +2064,7 @@ $items['color']: blue
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_elements_accessing.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_elements_accessing.php)
 
 #### Improper element access with unquoted key
 
@@ -2304,7 +2304,7 @@ array(3) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_elements_modifying.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_elements_modifying.php)
 
 ### Destroying array elements
 
@@ -2401,7 +2401,7 @@ array(1) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_elements_destroying.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_elements_destroying.php)
 
 ## Indexed arrays
 
@@ -2439,7 +2439,7 @@ Type: array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/indexed_arrays.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/indexed_arrays.php)
 
 ## Associative arrays
 
@@ -2474,7 +2474,7 @@ Type: array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/associative_arrays.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/associative_arrays.php)
 
 ## Nested arrays
 
@@ -2608,7 +2608,7 @@ Second nested data: 127
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/nested_arrays.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/nested_arrays.php)
 
 ## Testing for `array`
 
@@ -2653,7 +2653,7 @@ Is array? no
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/testing_for_array.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/testing_for_array.php)
 
 ## Array destructuring
 
@@ -2860,7 +2860,7 @@ Name: violet, Value: 9055202
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_destructuring.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_destructuring.php)
 
 ## Array unpacking
 
@@ -3097,7 +3097,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_unpacking.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_unpacking.php)
 
 ### Keys overwriting
 
@@ -3297,7 +3297,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_unpacking_and_key_overwriting.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_unpacking_and_key_overwriting.php)
 
 ### Unpacking the result of the function call
 
@@ -3503,7 +3503,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_merging.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_merging.php)
 
 *Example: Array merging and key overwriting*
 
@@ -3655,7 +3655,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_merging_and_key_overwriting.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_merging_and_key_overwriting.php)
 
 ## Array adding
 
@@ -3728,7 +3728,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_adding.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_adding.php)
 
 *Example: Array adding and key overwriting*
 
@@ -3868,7 +3868,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_adding_and_key_overwriting.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_adding_and_key_overwriting.php)
 
 ## Array combining
 
@@ -3903,7 +3903,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_combining.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_combining.php)
 
 ## Array comparing
 
@@ -3953,7 +3953,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_comparing.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_comparing.php)
 
 ## Array sorting
 
@@ -4126,7 +4126,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_sorting.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_sorting.php)
 
 ## Array size
 
@@ -4158,7 +4158,7 @@ Length of values: 5 (the same: 5)
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_size.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_size.php)
 
 ## Array internal pointer
 
@@ -4288,7 +4288,7 @@ key: NULL
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/array_internal_pointer.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/array_internal_pointer.php)
 
 ## Iterating over arrays
 
@@ -4476,7 +4476,7 @@ blackberry
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/iterating_over_array_and_reading_elements.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/iterating_over_array_and_reading_elements.php)
 
 ### Iterating over arrays and updating elements
 
@@ -4760,7 +4760,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/iterating_over_array_and_updating_elements.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/iterating_over_array_and_updating_elements.php)
 
 ## Passing array to the function
 
@@ -4845,7 +4845,7 @@ result: 18 16 14
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/passing_array_to_function.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/passing_array_to_function.php)
 
 ## Casting to `array`
 
@@ -5123,7 +5123,7 @@ class object to array: array(3) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/casting_to_array.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/casting_to_array.php)
 
 ## Casting from `array`
 
@@ -5236,7 +5236,7 @@ Associative array to object: object(stdClass)#3 (3) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/compound/arrays/casting_from_array.php)
+[Example](../../../../../examples/code/builtin_types/compound/arrays/casting_from_array.php)
 
 [▵ Up](#arrays)
 [⌂ Home](../../../../../README.md)

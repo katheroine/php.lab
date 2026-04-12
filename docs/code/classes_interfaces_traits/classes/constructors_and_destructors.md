@@ -47,7 +47,7 @@ Destructor is running...
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_and_destructor.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_and_destructor.php)
 
 ## Constructor
 
@@ -145,7 +145,7 @@ object(SomeClass)#2 (3) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor.php)
 
 ### Old-style constructors
 
@@ -232,7 +232,7 @@ object(SomeClass)#1 (3) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_arguments.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_arguments.php)
 
 ### Constructor promotion
 
@@ -311,7 +311,7 @@ object(SomeClass)#2 (4) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion.php)
 
 #### Property modifiers used in constructor promotion
 
@@ -368,7 +368,7 @@ hello
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion_property_modifiers.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion_property_modifiers.php)
 
 #### Selective constructor promotion
 
@@ -437,7 +437,7 @@ object(SomeClass)#2 (4) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion_for_not_all_properties.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion_for_not_all_properties.php)
 
 #### Property type declarations in constructor promotion
 
@@ -526,7 +526,7 @@ array (
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion_property_type_declarations.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_promotion_property_type_declarations.php)
 
 #### Property and argument restrictions in constructor promotions
 
@@ -698,7 +698,7 @@ DifferentClass constructor
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_and_inheritance.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor_and_inheritance.php)
 
 #### Signature compatibility
 
@@ -834,7 +834,7 @@ object(Card)#1 (4) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/private_constructor.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/constructors_and_destructors/private_constructor.php)
 
 ## Destructor
 
@@ -900,7 +900,7 @@ Instance quantity: 0
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/constructors_and_destructors/constructor.php)
 
 *Example: Destructor Example*
 
@@ -1024,7 +1024,7 @@ DifferentClass destructor
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/constructors_and_destructors/destructor_and_inheritance.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/constructors_and_destructors/destructor_and_inheritance.php)
 
 ### Destructor calling edge cases
 

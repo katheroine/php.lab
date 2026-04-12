@@ -228,7 +228,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../example/code/attributes/attribute.php)
+[Example](../../../examples/code/attributes/attribute.php)
 
 *Example: Attributes*
 
@@ -473,7 +473,7 @@ Array
 ```
 
 **Source code**:
-[Example](../../../example/code/attributes/attributes.php)
+[Example](../../../examples/code/attributes/attributes.php)
 
 ## Attribute syntax
 
@@ -677,7 +677,7 @@ Some attribute.
 ```
 
 **Source code**:
-[Example](../../../example/code/attributes/attribute_with_argument.php)
+[Example](../../../examples/code/attributes/attribute_with_argument.php)
 
 ## Repeatable attribute
 
@@ -735,7 +735,7 @@ Other attribute 3.
 ```
 
 **Source code**:
-[Example](../../../example/code/attributes/repeatable_attribute.php)
+[Example](../../../examples/code/attributes/repeatable_attribute.php)
 
 ## Reading attributes with the reflection API
 

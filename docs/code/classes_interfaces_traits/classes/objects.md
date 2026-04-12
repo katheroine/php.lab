@@ -69,7 +69,7 @@ object(SomeClass)#1 (3) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/objects/class_object.php)
 
 ## Class object definition and initialization
 
@@ -142,7 +142,7 @@ SomeClass Object
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_definition_and_initialisation.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/objects/class_object_definition_and_initialisation.php)
 
 ## Modifying class objects
 
@@ -261,7 +261,7 @@ OtherClass Object
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_modifying.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/objects/class_object_modifying.php)
 
 ## Iterating over class objects
 
@@ -475,7 +475,7 @@ someProtectedProperty: pear
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/objects/iterating_over_object_and_reading_properties.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/objects/iterating_over_object_and_reading_properties.php)
 
 ### Iterating over objects and updating elements
 
@@ -682,7 +682,7 @@ OtherClass Object
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/objects/iterating_over_object_and_updating_properties.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/objects/iterating_over_object_and_updating_properties.php)
 
 ## Comparing class objects
 
@@ -859,7 +859,7 @@ Are identical
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_comparing.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/objects/class_object_comparing.php)
 
 ## Serializing class objects
 
@@ -966,7 +966,7 @@ object(SomeClass)#2 (3) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_serializing.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/objects/class_object_serializing.php)
 
 ## Cloning class objects
 
@@ -1182,7 +1182,7 @@ object(SomeClass)#3 (2) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_cloning.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/objects/class_object_cloning.php)
 
 ## Objects and references
 
@@ -1320,7 +1320,7 @@ object(SomeClass)#1 (1) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/objects/class_object_and_reference.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/objects/class_object_and_reference.php)
 
 ## Lazy objects
 
@@ -1394,7 +1394,7 @@ object(SomeClass)#3 (1) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/objects/lazy_ghost.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/objects/lazy_ghost.php)
 
 *Example: Lazy proxy*
 
@@ -1459,7 +1459,7 @@ lazy proxy object(SomeClass)#3 (1) {
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/classes/objects/lazy_proxy.php)
+[Example](../../../../examples/code/classes_interfaces_traits/classes/objects/lazy_proxy.php)
 
 ### Creating lazy objects
 

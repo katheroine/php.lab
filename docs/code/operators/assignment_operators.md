@@ -32,7 +32,7 @@ print(PHP_EOL);
 ```
 
 **View**:
-[Example](../../../example/code/operators/basic_assignment_operator.php)
+[Example](../../../examples/code/operators/basic_assignment_operator.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -142,7 +142,7 @@ print("\$a ^= 3; \$a: {$a}\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/assignment_operators.php)
+[Example](../../../examples/code/operators/assignment_operators.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -241,7 +241,7 @@ print(PHP_EOL);
 ```
 
 **View**:
-[Example](../../../example/code/operators/assignment_operators.php)
+[Example](../../../examples/code/operators/assignment_operators.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -295,7 +295,7 @@ print("(\$f = 2.5) = {$fv}\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/assignment_operator_expression_value.php)
+[Example](../../../examples/code/operators/assignment_operator_expression_value.php)
 
 **Execute**:
 * [OnlinePHP]()

@@ -66,7 +66,7 @@ method
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/interfaces/interface.php)
+[Example](../../../../examples/code/classes_interfaces_traits/interfaces/interface.php)
 
 *Example: Interface example*
 
@@ -240,7 +240,7 @@ C++ leaves them in your hands, providing a deeper look at "how computers think".
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/interfaces/interface_and_dependency_injection.php)
+[Example](../../../../examples/code/classes_interfaces_traits/interfaces/interface_and_dependency_injection.php)
 
 An *interface*, together with *type declarations*, provides a good way to make sure that a particular *object* contains particular *methods*. See `instanceof` operator and *type declarations*.
 
@@ -310,7 +310,7 @@ Core: In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/interfaces/implementing_interface.php)
+[Example](../../../../examples/code/classes_interfaces_traits/interfaces/implementing_interface.php)
 
 ## Interface constant
 
@@ -378,7 +378,7 @@ constant
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/interfaces/interface_constant.php)
+[Example](../../../../examples/code/classes_interfaces_traits/interfaces/interface_constant.php)
 
 ## Interface method
 
@@ -419,7 +419,7 @@ method
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/interfaces/interface_method.php)
+[Example](../../../../examples/code/classes_interfaces_traits/interfaces/interface_method.php)
 
 ## Interface property (hooks)
 
@@ -552,7 +552,7 @@ some <value>
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/interfaces/interface_property_hooks.php)
+[Example](../../../../examples/code/classes_interfaces_traits/interfaces/interface_property_hooks.php)
 
 ## Interface and magic methods
 
@@ -629,7 +629,7 @@ Videmus nunc per speculum et in aenigmate.
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/interfaces/multiple_interface_implementing.php)
+[Example](../../../../examples/code/classes_interfaces_traits/interfaces/multiple_interface_implementing.php)
 
 ## Interface extending interface
 
@@ -736,7 +736,7 @@ Videmus nunc some method et other method.
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/interfaces/interface_extending_interface.php)
+[Example](../../../../examples/code/classes_interfaces_traits/interfaces/interface_extending_interface.php)
 
 *Example: Multiple interface inheritance*
 
@@ -889,7 +889,7 @@ C++ leaves them in your hands, providing a deeper look at "how computers think".
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/interfaces/extending_class_and_implementing_interface.php)
+[Example](../../../../examples/code/classes_interfaces_traits/interfaces/extending_class_and_implementing_interface.php)
 
 ## Interface implemented by abstract class
 
@@ -1007,7 +1007,7 @@ C++ leaves them in your hands, providing a deeper look at "how computers think".
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/interfaces/interface_implemented_by_abstract_class.php)
+[Example](../../../../examples/code/classes_interfaces_traits/interfaces/interface_implemented_by_abstract_class.php)
 
 ## Intefaces and variance compatibility
 

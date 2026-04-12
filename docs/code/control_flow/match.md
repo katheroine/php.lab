@@ -257,7 +257,7 @@ print($greetings . PHP_EOL);
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/match/match.php)
+[Example](../../../examples/code/control_flow/match/match.php)
 
 **Execute**:
 * [OnlinePHP]()

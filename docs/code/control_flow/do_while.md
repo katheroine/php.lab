@@ -65,7 +65,7 @@ do {
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/while/do_while.php)
+[Example](../../../examples/code/control_flow/while/do_while.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -127,7 +127,7 @@ print "\n";
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/while/do_while_formatting.php)
+[Example](../../../examples/code/control_flow/while/do_while_formatting.php)
 
 **Execute**:
 * [OnlinePHP]()

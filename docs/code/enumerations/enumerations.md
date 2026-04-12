@@ -84,7 +84,7 @@ Type: object
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/enum.php)
+[Example](../../../examples/code/enumerations/enum.php)
 
 ## Usage
 
@@ -153,7 +153,7 @@ Post status: Status Enum
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/use_cases/enum_use_case_constant_set_of_states.php)
+[Example](../../../examples/code/enumerations/use_cases/enum_use_case_constant_set_of_states.php)
 
 *Example: Advanced exclusive values*
 
@@ -246,7 +246,7 @@ Role: frontend developer
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/use_cases/enum_use_case_set_of_options_in_the_contract.php)
+[Example](../../../examples/code/enumerations/use_cases/enum_use_case_set_of_options_in_the_contract.php)
 
 ## Basic enumerations
 
@@ -360,7 +360,7 @@ Enum name property: SomeCase
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/basic_enums.php)
+[Example](../../../examples/code/enumerations/basic_enums.php)
 
 ## Backed enumerations
 
@@ -515,7 +515,7 @@ Enum case try right wrong right value: NULL
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/backed_enums.php)
+[Example](../../../examples/code/enumerations/backed_enums.php)
 
 ## Enumeration case values listing
 
@@ -567,7 +567,7 @@ another case
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/enum_case_values_listing.php)
+[Example](../../../examples/code/enumerations/enum_case_values_listing.php)
 
 ## Enumeration constants
 
@@ -616,7 +616,7 @@ int(3)
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/enum_constants.php)
+[Example](../../../examples/code/enumerations/enum_constants.php)
 
 ## Enumeration methods
 
@@ -677,7 +677,7 @@ string(6) "rabbit"
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/enum_methods.php)
+[Example](../../../examples/code/enumerations/enum_methods.php)
 
 ## Enumeration static methods
 
@@ -751,7 +751,7 @@ string(3) "fox"
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/enum_static_methods.php)
+[Example](../../../examples/code/enumerations/enum_static_methods.php)
 
 ## Interfaces
 
@@ -931,7 +931,7 @@ owl
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/enum_iplementing_interface.php)
+[Example](../../../examples/code/enumerations/enum_iplementing_interface.php)
 
 ## Traits
 
@@ -1009,7 +1009,7 @@ string(3) "fox"
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/enum_using_trait.php)
+[Example](../../../examples/code/enumerations/enum_using_trait.php)
 
 ## Enum values in constant expressions
 
@@ -1123,7 +1123,7 @@ owl
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/enum_case_as_constant_value.php)
+[Example](../../../examples/code/enumerations/enum_case_as_constant_value.php)
 
 *Example: Enum case in constant expression*
 
@@ -1184,7 +1184,7 @@ owl
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/enum_case_in_constant_expression.php)
+[Example](../../../examples/code/enumerations/enum_case_in_constant_expression.php)
 
 ## Enumration serialization
 
@@ -1406,7 +1406,7 @@ Backed enum case to object: enum(SomeBackedEnum::OtherCase)
 ```
 
 **Source code**:
-[Example](../../../example/code/enumerations/casting_from_enum_case.php)
+[Example](../../../examples/code/enumerations/casting_from_enum_case.php)
 
 [▵ Up](#enumerations)
 [⌂ Home](../../../README.md)

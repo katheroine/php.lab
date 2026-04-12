@@ -103,7 +103,7 @@ print($a . "\n");
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/goto/goto.php)
+[Example](../../../examples/code/control_flow/goto/goto.php)
 
 **Execute**:
 * [OnlinePHP]()

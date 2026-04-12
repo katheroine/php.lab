@@ -264,7 +264,7 @@ switch ($now) {
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/switch/switch.php)
+[Example](../../../examples/code/control_flow/switch/switch.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -308,7 +308,7 @@ endswitch;
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/switch/switch_alternative_syntax.php)
+[Example](../../../examples/code/control_flow/switch/switch_alternative_syntax.php)
 
 **Execute**:
 * [OnlinePHP]()

@@ -70,7 +70,7 @@ print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/constants/constants.php)
+[Example](../../../examples/code/literals_constants_variables/constants/constants.php)
 
 **Execute**:
 * [OnlinePHP](https://onlinephp.io/c/d3636)
@@ -126,7 +126,7 @@ print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/constants/constant_definition.php)
+[Example](../../../examples/code/literals_constants_variables/constants/constant_definition.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -213,7 +213,7 @@ print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/constants/constant_definition_types.php)
+[Example](../../../examples/code/literals_constants_variables/constants/constant_definition_types.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -330,7 +330,7 @@ print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/constants/constant_definition_expressions.php)
+[Example](../../../examples/code/literals_constants_variables/constants/constant_definition_expressions.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -422,7 +422,7 @@ print("Number: " . NUMBER . "\nValue: " . constant('VALUE') . "\nText: " . (get_
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/constants/constant_access.php)
+[Example](../../../examples/code/literals_constants_variables/constants/constant_access.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -609,7 +609,7 @@ print(PHP_EOL);
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/constants/constant_scope.php)
+[Example](../../../examples/code/literals_constants_variables/constants/constant_scope.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -733,7 +733,7 @@ print("Number: " . NUMBER . "\nText: " . TEXT . "\n");
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/constants/functions/function_define.php)
+[Example](../../../examples/code/literals_constants_variables/constants/functions/function_define.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -850,7 +850,7 @@ print("Is number defined: "
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/constants/functions/function_defined.php)
+[Example](../../../examples/code/literals_constants_variables/constants/functions/function_defined.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -962,7 +962,7 @@ print("Number: " . constant('NUMBER') . "\nText: " . constant('TEXT') . "\n");
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/constants/functions/function_constant.php)
+[Example](../../../examples/code/literals_constants_variables/constants/functions/function_constant.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1117,7 +1117,7 @@ print("Number: " . (get_defined_constants())['NUMBER'] . "\nText: " . (get_defin
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/constants/functions/function_get_defined_constants.php)
+[Example](../../../examples/code/literals_constants_variables/constants/functions/function_get_defined_constants.php)
 
 **Execute**:
 * [OnlinePHP]()

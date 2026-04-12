@@ -48,7 +48,7 @@ As string: -9.2
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/float.php)
+[Example](../../../../../examples/code/builtin_types/scalar/floating_point/float.php)
 
 ## Syntax
 
@@ -136,7 +136,7 @@ var_dump($otherValueInScientificNotationWithNegativeExponent);
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/float_syntax.php)
+[Example](../../../../../examples/code/builtin_types/scalar/floating_point/float_syntax.php)
 
 *Example: Float exponential notation*
 
@@ -190,7 +190,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/float_exponential_notation.php)
+[Example](../../../../../examples/code/builtin_types/scalar/floating_point/float_exponential_notation.php)
 
 ## Size
 
@@ -257,7 +257,7 @@ Smallest representable positive number x, so that x + 1.0 != 1.02.2204460492503E
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/float_values_range.php)
+[Example](../../../../../examples/code/builtin_types/scalar/floating_point/float_values_range.php)
 
 ## Usage
 
@@ -286,7 +286,7 @@ Distance: 1200 km
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/use_cases/float_use_case_measure.php)
+[Example](../../../../../examples/code/builtin_types/scalar/floating_point/use_cases/float_use_case_measure.php)
 
 *Example: Calculation use case*
 
@@ -311,7 +311,7 @@ Circle area (r=5.5): 95.033177771091
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/use_cases/float_use_case_calculation.php)
+[Example](../../../../../examples/code/builtin_types/scalar/floating_point/use_cases/float_use_case_calculation.php)
 
 ## Testing for `float`
 
@@ -362,7 +362,7 @@ Is float? no
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/testing_for_float.php)
+[Example](../../../../../examples/code/builtin_types/scalar/floating_point/testing_for_float.php)
 
 ## Comparing floats
 
@@ -414,7 +414,7 @@ Not a number: yes
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/nan.php)
+[Example](../../../../../examples/code/builtin_types/scalar/floating_point/nan.php)
 
 ## Infinity
 
@@ -457,7 +457,7 @@ Is -INF inifinite? yes
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/infinity.php)
+[Example](../../../../../examples/code/builtin_types/scalar/floating_point/infinity.php)
 
 ## Casting to `float`
 
@@ -675,7 +675,7 @@ false to float: float(0)
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/casting_to_float.php)
+[Example](../../../../../examples/code/builtin_types/scalar/floating_point/casting_to_float.php)
 
 ## Casting from `float`
 
@@ -787,7 +787,7 @@ Negative to object: object(stdClass)#3 (1) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/floating_point/casting_from_float.php)
+[Example](../../../../../examples/code/builtin_types/scalar/floating_point/casting_from_float.php)
 
 [▵ Up](#floating-point)
 [⌂ Home](../../../README.md)

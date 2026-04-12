@@ -72,7 +72,7 @@ property
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/abstract_classes/abstract_class.php)
+[Example](../../../../examples/code/classes_interfaces_traits/abstract_classes/abstract_class.php)
 
 *Example: Abstract class without abstract members*
 
@@ -128,7 +128,7 @@ Core: In omnibus requiem quaesivi, et nusquam inveni nisi in angulo cum libro.
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/abstract_classes/abstract_class_without_abstract_members.php)
+[Example](../../../../examples/code/classes_interfaces_traits/abstract_classes/abstract_class_without_abstract_members.php)
 
 ## Abstract method
 
@@ -287,7 +287,7 @@ Result: 6
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/abstract_classes/abstract_method.php)
+[Example](../../../../examples/code/classes_interfaces_traits/abstract_classes/abstract_method.php)
 
 ## Abstract property (hooks)
 
@@ -419,7 +419,7 @@ some <value>
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/abstract_classes/abstract_property_hooks.php)
+[Example](../../../../examples/code/classes_interfaces_traits/abstract_classes/abstract_property_hooks.php)
 
 *Example: Abstract class with abstract members*
 
@@ -481,7 +481,7 @@ Description: The satanistic ritual hidden in the book for kids. Oh noes!
 ```
 
 **Source code**:
-[Example](../../../../example/code/classes_interfaces_traits/abstract_classes/abstract_class_with_abstract_members.php)
+[Example](../../../../examples/code/classes_interfaces_traits/abstract_classes/abstract_class_with_abstract_members.php)
 
 [▵ Up](#abstract-classes)
 [⌂ Home](../../../../README.md)

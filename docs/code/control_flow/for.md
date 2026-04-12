@@ -119,7 +119,7 @@ for ($i = 0; $i < 10; $i++)
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/while/do_while.php)
+[Example](../../../examples/code/control_flow/while/do_while.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -155,7 +155,7 @@ endfor;
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/while/do_while.php)
+[Example](../../../examples/code/control_flow/while/do_while.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -213,7 +213,7 @@ echo "\n";
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/while/do_while.php)
+[Example](../../../examples/code/control_flow/while/do_while.php)
 
 **Execute**:
 * [OnlinePHP]()

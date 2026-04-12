@@ -83,7 +83,7 @@ else
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/if/if_elseif_else.php)
+[Example](../../../examples/code/control_flow/if/if_elseif_else.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -131,7 +131,7 @@ endif;
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/if/if_elseif_else_alternative_syntax.php)
+[Example](../../../examples/code/control_flow/if/if_elseif_else_alternative_syntax.php)
 
 **Execute**:
 * [OnlinePHP]()

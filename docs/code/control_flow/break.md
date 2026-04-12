@@ -62,7 +62,7 @@ while ($i < 10)
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/break/break.php)
+[Example](../../../examples/code/control_flow/break/break.php)
 
 **Execute**:
 * [OnlinePHP]()

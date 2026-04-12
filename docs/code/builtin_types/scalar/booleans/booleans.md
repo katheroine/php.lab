@@ -44,7 +44,7 @@ As string:
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/booleans/bool.php)
+[Example](../../../../../examples/code/builtin_types/scalar/booleans/bool.php)
 
 ## Booleans as singleton types
 
@@ -144,7 +144,7 @@ False: bool(false)
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/booleans/bool_syntax.php)
+[Example](../../../../../examples/code/builtin_types/scalar/booleans/bool_syntax.php)
 
 ## Usage
 
@@ -170,7 +170,7 @@ Access granted.
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/booleans/use_cases/bool_use_case_comparison_result.php)
+[Example](../../../../../examples/code/builtin_types/scalar/booleans/use_cases/bool_use_case_comparison_result.php)
 
 *Example: Control structures use case*
 
@@ -194,7 +194,7 @@ Go outside!
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/booleans/use_cases/bool_use_case_control_structures.php)
+[Example](../../../../../examples/code/builtin_types/scalar/booleans/use_cases/bool_use_case_control_structures.php)
 
 ## Testing for `bool`
 
@@ -235,7 +235,7 @@ Is bool? no
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/booleans/use_cases/bool_use_case_comparison_result.php)
+[Example](../../../../../examples/code/builtin_types/scalar/booleans/use_cases/bool_use_case_comparison_result.php)
 
 ## Logical context
 
@@ -291,7 +291,7 @@ C++ Java PHP Docker Git
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/booleans/logical_context.php)
+[Example](../../../../../examples/code/builtin_types/scalar/booleans/logical_context.php)
 
 *Example: Logical context and equal operator*
 
@@ -318,7 +318,7 @@ You're right.
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/booleans/logical_context_and_equal_operator.php)
+[Example](../../../../../examples/code/builtin_types/scalar/booleans/logical_context_and_equal_operator.php)
 
 ## Casting to `bool`
 
@@ -554,7 +554,7 @@ null to bool: bool(false)
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/booleans/casting_to_bool.php)
+[Example](../../../../../examples/code/builtin_types/scalar/booleans/casting_to_bool.php)
 
 ## Casting from `bool`
 
@@ -639,7 +639,7 @@ False to object: object(stdClass)#2 (1) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/booleans/casting_from_bool.php)
+[Example](../../../../../examples/code/builtin_types/scalar/booleans/casting_from_bool.php)
 
 ## Automatic conversion to `bool`
 
@@ -818,7 +818,7 @@ casted to true
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/booleans/automatic_conversions_to_bool.php)
+[Example](../../../../../examples/code/builtin_types/scalar/booleans/automatic_conversions_to_bool.php)
 
 [▵ Up](#booleans)
 [⌂ Home](../../../../../README.md)

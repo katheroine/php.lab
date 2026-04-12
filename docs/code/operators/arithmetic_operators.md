@@ -54,7 +54,7 @@ print("{$a} ** {$b} = {$c}\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/arithmetic_operators.php)
+[Example](../../../examples/code/operators/arithmetic_operators.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -126,7 +126,7 @@ print("{$f1} % {$f2} = " . ($f1 % $f2) . "\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/modulo_operator.php)
+[Example](../../../examples/code/operators/modulo_operator.php)
 
 **Execute**:
 * [OnlinePHP]()

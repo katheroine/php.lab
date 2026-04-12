@@ -62,7 +62,7 @@ else
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/if/if_else.php)
+[Example](../../../examples/code/control_flow/if/if_else.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -97,7 +97,7 @@ endif;
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/if/if_else_alternative_syntax.php)
+[Example](../../../examples/code/control_flow/if/if_else_alternative_syntax.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -194,7 +194,7 @@ print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/if/if_else_formatting.php)
+[Example](../../../examples/code/control_flow/if/if_else_formatting.php)
 
 **Execute**:
 * [OnlinePHP]()

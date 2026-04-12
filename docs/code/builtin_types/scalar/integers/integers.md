@@ -50,7 +50,7 @@ As string: -9
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/integers/int.php)
+[Example](../../../../../examples/code/builtin_types/scalar/integers/int.php)
 
 ## Syntax
 
@@ -167,7 +167,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/integers/int_syntax.php)
+[Example](../../../../../examples/code/builtin_types/scalar/integers/int_syntax.php)
 
 Formally, the structure for *`int` literals* is as of PHP 8.1.0 (previously, the `0o` or `0O` octal prefixes were not allowed, and prior to PHP 7.4.0 the underscores were not allowed):
 
@@ -282,7 +282,7 @@ print(PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/integers/int_bin_oct_dec_hex_notation.php)
+[Example](../../../../../examples/code/builtin_types/scalar/integers/int_bin_oct_dec_hex_notation.php)
 
 ## Values range
 
@@ -323,7 +323,7 @@ The size of an integer in bytes: PHP_INT_SIZE = 8 (integer)
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/integers/int_values_range.php)
+[Example](../../../../../examples/code/builtin_types/scalar/integers/int_values_range.php)
 
 ### Integer overflow
 
@@ -385,7 +385,7 @@ Developer has 21 skills.
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/integers/use_cases/int_use_case_quantity.php)
+[Example](../../../../../examples/code/builtin_types/scalar/integers/use_cases/int_use_case_quantity.php)
 
 *Example: Index use case*
 
@@ -419,7 +419,7 @@ Role no. 5: DevOps engineer with AWS
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/integers/use_cases/int_use_case_index.php)
+[Example](../../../../../examples/code/builtin_types/scalar/integers/use_cases/int_use_case_index.php)
 
 ## Testing for `int`
 
@@ -458,7 +458,7 @@ Is int? no
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/integers/testing_for_int.php)
+[Example](../../../../../examples/code/builtin_types/scalar/integers/testing_for_int.php)
 
 ## Integer division
 
@@ -752,7 +752,7 @@ false to int: int(0)
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/integers/casting_to_int.php)
+[Example](../../../../../examples/code/builtin_types/scalar/integers/casting_to_int.php)
 
 ## Casting from `int`
 
@@ -866,7 +866,7 @@ Negative to object: object(stdClass)#3 (1) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/integers/casting_from_int.php)
+[Example](../../../../../examples/code/builtin_types/scalar/integers/casting_from_int.php)
 
 [▵ Up](#integers)
 [⌂ Home](../../../../../README.md)

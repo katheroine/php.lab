@@ -65,7 +65,7 @@ print("{$a} <=> {$b} = {$c}\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/comparison_operators.php)
+[Example](../../../examples/code/operators/comparison_operators.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -124,7 +124,7 @@ print("(string) {$s1} !== (string) {$s2} = " . ($s1 !== $s2) . "\n\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/strict_equality_inequality_operators.php)
+[Example](../../../examples/code/operators/strict_equality_inequality_operators.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -175,7 +175,7 @@ print("{$a} <=> {$b} = " . ($a <=> $b) . "\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/three_way_comparison_operator.php)
+[Example](../../../examples/code/operators/three_way_comparison_operator.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -370,7 +370,7 @@ print("Value is {$state}. ");
 ```
 
 **View**:
-[Example](../../../example/code/operators/ternary_operator.php)
+[Example](../../../examples/code/operators/ternary_operator.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -425,7 +425,7 @@ print("Your nickname is: {$nickname}\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/ternary_operator.php)
+[Example](../../../examples/code/operators/ternary_operator.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -475,7 +475,7 @@ print("null: {$result}\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/ternary_operator_conversions.php)
+[Example](../../../examples/code/operators/ternary_operator_conversions.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -534,7 +534,7 @@ print($result . PHP_EOL);
 ```
 
 **View**:
-[Example](../../../example/code/operators/nested_ternary_operators.php)
+[Example](../../../examples/code/operators/nested_ternary_operators.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -630,7 +630,7 @@ print(PHP_EOL);
 ```
 
 **View**:
-[Example](../../../example/code/operators/null_coalescing_operator.php)
+[Example](../../../examples/code/operators/null_coalescing_operator.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -724,7 +724,7 @@ print($result . PHP_EOL);
 ```
 
 **View**:
-[Example](../../../example/code/operators/nested_null_coalescing_operator.php)
+[Example](../../../examples/code/operators/nested_null_coalescing_operator.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -756,7 +756,7 @@ print("Value: {$value}\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/null_coalescing_operator_conversions.php)
+[Example](../../../examples/code/operators/null_coalescing_operator_conversions.php)
 
 **Execute**:
 * [OnlinePHP]()

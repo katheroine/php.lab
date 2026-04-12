@@ -83,7 +83,7 @@ print("Number: {$number}\nText: " . $text . "\n\n");
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/variables.php)
+[Example](../../../examples/code/literals_constants_variables/variables/variables.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -119,7 +119,7 @@ print("Number: {$number}\nText: {$text}\n");
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/variable_definition.php)
+[Example](../../../examples/code/literals_constants_variables/variables/variable_definition.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -223,7 +223,7 @@ print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/variable_definition_types.php)
+[Example](../../../examples/code/literals_constants_variables/variables/variable_definition_types.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -286,7 +286,7 @@ print("Number: " . $number . "\nText: {$text}\n\n");
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/variable_access.php)
+[Example](../../../examples/code/literals_constants_variables/variables/variable_access.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -377,7 +377,7 @@ print("Assinged by value: {$byValue}\nAssigned by reference: {$byReference}\n\n"
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/variable_assignment.php)
+[Example](../../../examples/code/literals_constants_variables/variables/variable_assignment.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -422,7 +422,7 @@ print("Does number exist: " . (isset($number) ? 'yes' : 'no') . "\nDoes number e
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/variable_destroying.php)
+[Example](../../../examples/code/literals_constants_variables/variables/variable_destroying.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -482,7 +482,7 @@ function show()
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/global_variable_in_included_file.php)
+[Example](../../../examples/code/literals_constants_variables/variables/global_variable_in_included_file.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -542,7 +542,7 @@ print("Arrow function result: {$result}\n");
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/variable_binding_to_closure.php)
+[Example](../../../examples/code/literals_constants_variables/variables/variable_binding_to_closure.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -605,7 +605,7 @@ $anotherVariable = 20000;
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/variable_from_file_included_within_function.php)
+[Example](../../../examples/code/literals_constants_variables/variables/variable_from_file_included_within_function.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -758,7 +758,7 @@ print(PHP_EOL);
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/variable_scope.php)
+[Example](../../../examples/code/literals_constants_variables/variables/variable_scope.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -866,7 +866,7 @@ print("Global variable: {$globalVariable}\n\n");
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/global_variables.php)
+[Example](../../../examples/code/literals_constants_variables/variables/global_variables.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -984,7 +984,7 @@ someFunction();
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/static_variables.php)
+[Example](../../../examples/code/literals_constants_variables/variables/static_variables.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1135,7 +1135,7 @@ print(PHP_EOL);
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/static_variables_and_inheritance.php)
+[Example](../../../examples/code/literals_constants_variables/variables/static_variables_and_inheritance.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1320,7 +1320,7 @@ print("Is number defined: "
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/functions/function_isset.php)
+[Example](../../../examples/code/literals_constants_variables/variables/functions/function_isset.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1482,7 +1482,7 @@ print("Is number defined: "
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/functions/function_unset.php)
+[Example](../../../examples/code/literals_constants_variables/variables/functions/function_unset.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -1617,7 +1617,7 @@ print("Number: " . (get_defined_vars())['number'] . "\nText: " . (get_defined_va
 ```
 
 **View**:
-[Example](../../../example/code/literals_constants_variables/variables/functions/function_get_defined_vars.php)
+[Example](../../../examples/code/literals_constants_variables/variables/functions/function_get_defined_vars.php)
 
 **Execute**:
 * [OnlinePHP]()

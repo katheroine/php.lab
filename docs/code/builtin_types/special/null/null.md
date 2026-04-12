@@ -36,7 +36,7 @@ As string:
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/special/null/null.php)
+[Example](../../../../../examples/code/builtin_types/special/null/null.php)
 
 ## Syntax
 
@@ -93,7 +93,7 @@ Null: NULL
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/special/null/null_syntax.php)
+[Example](../../../../../examples/code/builtin_types/special/null/null_syntax.php)
 
 ## Usage
 
@@ -123,7 +123,7 @@ Username is missing.
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/special/null/use_cases/null_use_case_undefined_value.php)
+[Example](../../../../../examples/code/builtin_types/special/null/use_cases/null_use_case_undefined_value.php)
 
 *Example: Database query with no result use case*
 
@@ -156,7 +156,7 @@ User not found.
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/special/null/use_cases/null_use_case_database_query_no_result.php)
+[Example](../../../../../examples/code/builtin_types/special/null/use_cases/null_use_case_database_query_no_result.php)
 
 ## Testing for `null`
 
@@ -223,7 +223,7 @@ Is null? no
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/special/null/testing_for_null.php)
+[Example](../../../../../examples/code/builtin_types/special/null/testing_for_null.php)
 
 ## Casting to `null`
 
@@ -262,7 +262,7 @@ NULL
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/special/null/null_as_unset_effect.php)
+[Example](../../../../../examples/code/builtin_types/special/null/null_as_unset_effect.php)
 
 ## Casting from `null`
 
@@ -327,7 +327,7 @@ object(stdClass)#1 (0) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/special/null/casting_from_null.php)
+[Example](../../../../../examples/code/builtin_types/special/null/casting_from_null.php)
 
 [▵ Up](#null)
 [⌂ Home](../../../../../README.md)

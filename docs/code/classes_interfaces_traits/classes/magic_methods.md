@@ -216,7 +216,7 @@ object(SomeClass)#1 (1) {
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__set.php)
+[Example](../../../../examples/library/methods/magic_methods/__set.php)
 
 ### `__get`
 
@@ -289,7 +289,7 @@ linux
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__get.php)
+[Example](../../../../examples/library/methods/magic_methods/__get.php)
 
 ### `__isset`
 
@@ -365,7 +365,7 @@ false
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__isset.php)
+[Example](../../../../examples/library/methods/magic_methods/__isset.php)
 
 ### `__unset`
 
@@ -445,7 +445,7 @@ object(SomeClass)#1 (1) {
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__unset.php)
+[Example](../../../../examples/library/methods/magic_methods/__unset.php)
 
 ## `__call` and `callStatic`
 
@@ -576,7 +576,7 @@ array(3) {
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__call.php)
+[Example](../../../../examples/library/methods/magic_methods/__call.php)
 
 ### `__callStatic`
 
@@ -646,7 +646,7 @@ array(3) {
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__callStatic.php)
+[Example](../../../../examples/library/methods/magic_methods/__callStatic.php)
 
 ## `__invoke` and `__toString`
 
@@ -846,7 +846,7 @@ Exported: array (
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__invoke.php)
+[Example](../../../../examples/library/methods/magic_methods/__invoke.php)
 
 ### `__toString`
 
@@ -943,7 +943,7 @@ Magic method __toString
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__toString.php)
+[Example](../../../../examples/library/methods/magic_methods/__toString.php)
 
 ## `__sleep` and `__wakeup`
 
@@ -1101,7 +1101,7 @@ object(SomeClass)#2 (3) {
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__sleep.php)
+[Example](../../../../examples/library/methods/magic_methods/__sleep.php)
 
 ### `__wakeup`
 
@@ -1203,7 +1203,7 @@ object(SomeClass)#2 (6) {
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__wakeup.php)
+[Example](../../../../examples/library/methods/magic_methods/__wakeup.php)
 
 ## `__serialize()` and `__unserialize()`
 
@@ -1371,7 +1371,7 @@ object(SomeClass)#2 (3) {
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__serialize.php)
+[Example](../../../../examples/library/methods/magic_methods/__serialize.php)
 
 ### `__unserialize`
 
@@ -1492,7 +1492,7 @@ object(SomeClass)#2 (6) {
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__unserialize.php)
+[Example](../../../../examples/library/methods/magic_methods/__unserialize.php)
 
 ## `__set_state` and `__debugInfo`
 
@@ -1634,7 +1634,7 @@ object(stdClass)#2 (4) {
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__set_state.php)
+[Example](../../../../examples/library/methods/magic_methods/__set_state.php)
 
 ### `__debugInfo`
 
@@ -1732,7 +1732,7 @@ object(SomeClass)#1 (4) {
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__debugInfo.php)
+[Example](../../../../examples/library/methods/magic_methods/__debugInfo.php)
 
 ## `__clone`, `__construct`, `__destruct`
 
@@ -1933,7 +1933,7 @@ object(SomeClass)#4 (2) {
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__clone.php)
+[Example](../../../../examples/library/methods/magic_methods/__clone.php)
 
 ### `__construct`
 
@@ -2031,7 +2031,7 @@ object(SomeClass)#2 (3) {
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__construct.php)
+[Example](../../../../examples/library/methods/magic_methods/__construct.php)
 
 ### `__destruct`
 
@@ -2097,7 +2097,7 @@ Instance quantity: 0
 ```
 
 **Source code**:
-[Example](../../../../example/library/methods/magic_methods/__destruct.php)
+[Example](../../../../examples/library/methods/magic_methods/__destruct.php)
 
 [▵ Up](#magic-methods)
 [⌂ Home](../../../README.md)

@@ -55,7 +55,7 @@ print("\$n instanceof stdClass: " . ($is_stdclass ? "true" : "false") . "\n\n");
 ```
 
 **View**:
-[Example](../../../example/code/operators/instanceof_operator_conversions.php)
+[Example](../../../examples/code/operators/instanceof_operator_conversions.php)
 
 **Execute**:
 * [OnlinePHP]()

@@ -83,7 +83,7 @@ $a = [3, 5, 7]; // array:
 ```
 
 **View**:
-[Example](../../example/features/dynamicaly_typed_language.php)
+[Example](../../examples/features/dynamicaly_typed_language.php)
 
 **Execute**:
 * [OnlinePHP](https://onlinephp.io/c/a2017)
@@ -163,7 +163,7 @@ $someVariable = "bye"; // bye (string)
 ```
 
 **View**:
-[Example](../../example/features/loosely_typed_language.php)
+[Example](../../examples/features/loosely_typed_language.php)
 
 **Execute**:
 * [OnlinePHP](https://onlinephp.io/c/9c4c2)

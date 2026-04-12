@@ -68,7 +68,7 @@ while ($i < 10) {
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/while/while.php)
+[Example](../../../examples/code/control_flow/while/while.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -146,7 +146,7 @@ print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/while/while_formatting.php)
+[Example](../../../examples/code/control_flow/while/while_formatting.php)
 
 **Execute**:
 * [OnlinePHP]()

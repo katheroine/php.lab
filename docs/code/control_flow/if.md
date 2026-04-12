@@ -57,7 +57,7 @@ if (2 > 1)
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/if/if.php)
+[Example](../../../examples/code/control_flow/if/if.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -87,7 +87,7 @@ endif;
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/if/if_formatting.php)
+[Example](../../../examples/code/control_flow/if/if_formatting.php)
 
 **Execute**:
 * [OnlinePHP]()
@@ -163,7 +163,7 @@ print("\n");
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/if/if_formatting.php)
+[Example](../../../examples/code/control_flow/if/if_formatting.php)
 
 **Execute**:
 * [OnlinePHP]()

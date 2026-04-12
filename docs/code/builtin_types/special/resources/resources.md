@@ -59,7 +59,7 @@ As string: Resource id #5
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/special/resource/resource.php)
+[Example](../../../../../examples/code/builtin_types/special/resource/resource.php)
 
 ## Usage
 
@@ -111,7 +111,7 @@ Type: stream
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/special/resource/checking_resource_type.php)
+[Example](../../../../../examples/code/builtin_types/special/resource/checking_resource_type.php)
 
 [▵ Up](#resources)
 [⌂ Home](../../../../../README.md)

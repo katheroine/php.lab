@@ -46,7 +46,7 @@ Type: string
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/string.php)
 
 ## Syntax
 
@@ -548,7 +548,7 @@ For beste of bon and blod.
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_syntax.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/string_syntax.php)
 
 *Example: Escape sequences*
 
@@ -614,7 +614,7 @@ Escape:
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/escape_sequences.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/escape_sequences.php)
 
 ## Usage
 
@@ -639,7 +639,7 @@ HELLO, PHP!
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/use_cases/string_use_case_text_processing.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/use_cases/string_use_case_text_processing.php)
 
 *Example: Text statistics use case*
 
@@ -680,7 +680,7 @@ Vowels: 51, Consonants: 75, Spaces: 15
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/use_cases/string_use_case_text_statistics.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/use_cases/string_use_case_text_statistics.php)
 
 ## Details of the `string` type
 
@@ -732,7 +732,7 @@ Is string? no
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/testing_for_string.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/testing_for_string.php)
 
 ## String interpolation
 
@@ -1038,7 +1038,7 @@ Other object property: flower
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_interpolation.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/string_interpolation.php)
 
 ## String length and word count
 
@@ -1073,7 +1073,7 @@ Words quantity: 7
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_length_and_word_count.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/string_length_and_word_count.php)
 
 ## String access and modification by character
 
@@ -1208,7 +1208,7 @@ Welcome to the bundle!
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_array_access.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/string_array_access.php)
 
 ## Numeric strings
 
@@ -1311,7 +1311,7 @@ print($arithmeticOperationResult . PHP_EOL);
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/numeric_strings.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/numeric_strings.php)
 
 ## Operations on strings
 
@@ -1349,7 +1349,7 @@ ex nihilo nihil fit
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_concatenation.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/string_concatenation.php)
 
 ### String trimming
 
@@ -1372,7 +1372,7 @@ Trimmed: <<Sapere aude.>>
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_trimming.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/string_trimming.php)
 
 ### Case change
 
@@ -1399,7 +1399,7 @@ Lower case: stat rosa pristina nomine, nomina nuda tenemus.
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/string_cases.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/string_cases.php)
 
 ## Casting to `string`
 
@@ -1530,7 +1530,7 @@ false to string: string(0) ""
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/casting_to_string.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/casting_to_string.php)
 
 ## Casting from `string`
 
@@ -1698,7 +1698,7 @@ Numeric string -3 to object: object(stdClass)#5 (1) {
 ```
 
 **Source code**:
-[Example](../../../../../example/code/builtin_types/scalar/strings/casting_from_string.php)
+[Example](../../../../../examples/code/builtin_types/scalar/strings/casting_from_string.php)
 
 [▵ Up](#strings)
 [⌂ Home](../../../../../README.md)

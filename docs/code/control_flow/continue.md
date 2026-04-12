@@ -117,7 +117,7 @@ while ($i < 10)
 ```
 
 **View**:
-[Example](../../../example/code/control_flow/continue/continue.php)
+[Example](../../../examples/code/control_flow/continue/continue.php)
 
 **Execute**:
 * [OnlinePHP]()
