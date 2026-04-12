@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (C) 2024-2026 Katarzyna Krasińska
  * PHP.lab - https://github.com/katheroine/php.lab
