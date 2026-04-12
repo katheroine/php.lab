@@ -708,10 +708,11 @@ A curated knowledge base and laboratory for PHP engineering.
 4. [Standards](https://github.com/katheroine/php.lab/tree/main/example/standards/)
     1. [Basic coding standard (PSR-1)](https://katheroine.github.io/php.psr-1.lab/)
     2. [Extended coding style (PSR-12)](https://katheroine.github.io/php.psr-12.lab/)
-    3. [Autoloading standard (PSR-4)](https://github.com/katheroine/php.lab/tree/main/example/standards/autoloading_standard_-_psr-4/)
-    4. [Logger interface (PSR-3)](https://github.com/katheroine/php.lab/tree/main/example/standards/logger_interface_-_psr-3/)
-    5. [Simple cache (PSR-16)](https://github.com/katheroine/php.lab/tree/main/example/standards/simple_cache_-_psr-16/)
-    6. [Caching interface (PSR-6)](https://github.com/katheroine/php.lab/tree/main/example/standards/caching_interface_-_psr-6/)
+    3. [PER Coding Style 3.0](https://github.com/katheroine/php.per.3.0.lab/)
+    4. [Autoloading standard (PSR-4)](https://github.com/katheroine/php.lab/tree/main/example/standards/autoloading_standard_-_psr-4/)
+    5. [Logger interface (PSR-3)](https://github.com/katheroine/php.lab/tree/main/example/standards/logger_interface_-_psr-3/)
+    6. [Simple cache (PSR-16)](https://github.com/katheroine/php.lab/tree/main/example/standards/simple_cache_-_psr-16/)
+    7. [Caching interface (PSR-6)](https://github.com/katheroine/php.lab/tree/main/example/standards/caching_interface_-_psr-6/)
 
 ## License
 
