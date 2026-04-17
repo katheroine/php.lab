@@ -709,7 +709,7 @@ A curated knowledge base and laboratory for PHP engineering.
     1. [Basic coding standard (PSR-1)](https://katheroine.github.io/php.psr-1.lab/)
     2. [Extended coding style (PSR-12)](https://katheroine.github.io/php.psr-12.lab/)
     3. [PER Coding Style 3.0](https://github.com/katheroine/php.per.3.0.lab/)
-    4. [Autoloading standard (PSR-4)](https://github.com/katheroine/php.lab/tree/main/examples/standards/autoloading_standard_-_psr-4/)
+    4. [Autoloading standard (PSR-4)](https://katheroine.github.io/php.psr-4.lab/)
     5. [Logger interface (PSR-3)](https://github.com/katheroine/php.lab/tree/main/examples/standards/logger_interface_-_psr-3/)
     6. [Simple cache (PSR-16)](https://github.com/katheroine/php.lab/tree/main/examples/standards/simple_cache_-_psr-16/)
     7. [Caching interface (PSR-6)](https://github.com/katheroine/php.lab/tree/main/examples/standards/caching_interface_-_psr-6/)
