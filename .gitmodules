@@ -8,5 +8,5 @@
 	path = standards/coding/coding_style_-_per_3.0
 	url = https://github.com/katheroine/php.per.3.0.lab
 [submodule "standards/autoloading/php.psr-4.lab"]
-	path = standards/autoloading/php.psr-4.lab
+	path = standards/autoloading/autoloading_standard_-_psr-4
 	url = https://github.com/katheroine/php.psr-4.lab
