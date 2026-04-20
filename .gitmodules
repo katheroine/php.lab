@@ -10,3 +10,6 @@
 [submodule "standards/autoloading/php.psr-4.lab"]
 	path = standards/autoloading/autoloading_standard_-_psr-4
 	url = https://github.com/katheroine/php.psr-4.lab
+[submodule "standards/logging/logger_interface_-_psr-3"]
+	path = standards/logging/logger_interface_-_psr-3
+	url = https://github.com/katheroine/php.psr-3.lab
