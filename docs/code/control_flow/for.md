@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: `do`-`while` loop statement](./do_while.md)
-[▼ Next: `foreach` loop statement](./foreach.md)
+[▲ Previous: `do`-`while` loop statement](do_while.md)
+[▼ Next: `foreach` loop statement](foreach.md)
 
 # `for` loop statement
 
@@ -281,5 +281,5 @@ echo "\n";
 
 [▵ Up](#for-loop-statement)
 [⌂ Home](../../../README.md)
-[▲ Previous: `do`-`while` loop statement](./do_while.md)
-[▼ Next: `foreach` loop statement](./foreach.md)
+[▲ Previous: `do`-`while` loop statement](do_while.md)
+[▼ Next: `foreach` loop statement](foreach.md)

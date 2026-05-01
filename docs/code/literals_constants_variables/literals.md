@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
 [▲ Previous: PHP features](../../intro/php_features.md)
-[▼ Next: Constants](../../code/literals_constants_variables/constants.md)
+[▼ Next: Constants](constants.md)
 
 # Literals
 
@@ -45,4 +45,4 @@ In the asbove example `15.5` and `"Hello, there!"` are literals. They are used t
 [▵ Up](#literals)
 [⌂ Home](../../../README.md)
 [▲ Previous: PHP features](../../intro/php_features.md)
-[▼ Next: Constants](../../code/literals_constants_variables/constants.md)s
+[▼ Next: Constants](constants.md)

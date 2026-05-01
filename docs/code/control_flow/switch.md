@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: `if`-`elseif`-`else` conditional statement](./if_elseif_else.md)
-[▼ Next: `match` conditional expression](./match.md)
+[▲ Previous: `if`-`elseif`-`else` conditional statement](if_elseif_else.md)
+[▼ Next: `match` conditional expression](match.md)
 
 # `switch` conditional statement
 
@@ -322,5 +322,5 @@ Good morning!
 
 [▵ Up](#switch-conditional-statement)
 [⌂ Home](../../../README.md)
-[▲ Previous: `if`-`elseif`-`else` conditional statement](./if_elseif_else.md)
-[▼ Next: `match` conditional expression](./match.md)
+[▲ Previous: `if`-`elseif`-`else` conditional statement](if_elseif_else.md)
+[▼ Next: `match` conditional expression](match.md)

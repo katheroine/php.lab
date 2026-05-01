@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Control flow](../control_flow/control_flow.md)
-[▼ Next: `if`-`else` conditional statement](./if_else.md)
+[▲ Previous: Control flow](control_flow.md)
+[▼ Next: `if`-`else` conditional statement](if_else.md)
 
 # `if` conditional statement
 
@@ -188,5 +188,5 @@ print("\n");
 
 [▵ Up](#if-conditional-statement)
 [⌂ Home](../../../README.md)
-[▲ Previous: Control flow](../control_flow/control_flow.md)
-[▼ Next: `if`-`else` conditional statement](./if_else.md)
+[▲ Previous: Control flow](control_flow.md)
+[▼ Next: `if`-`else` conditional statement](if_else.md)

@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: `while` loop statement](./while.md)
-[▼ Next: `for` loop statement](./for.md)
+[▲ Previous: `while` loop statement](while.md)
+[▼ Next: `for` loop statement](for.md)
 
 # `do`-`while` loop statement
 
@@ -184,5 +184,5 @@ print "\n";
 
 [▵ Up](#do---while-loop-statement)
 [⌂ Home](../../../README.md)
-[▲ Previous: `while` loop statement](./while.md)
-[▼ Next: `for` loop statement](./for.md)
+[▲ Previous: `while` loop statement](while.md)
+[▼ Next: `for` loop statement](for.md)

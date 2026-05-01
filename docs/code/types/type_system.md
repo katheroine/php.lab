@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Types](./types.md)
-[▼ Next: Type declarations](./type_declarations.md)
+[▲ Previous: Types](types.md)
+[▼ Next: Type declarations](type_declarations.md)
 
 # Type system
 
@@ -97,5 +97,5 @@ Note: PHP does not support user-defined type aliases.
 
 [▵ Up](#type-system)
 [⌂ Home](../../../README.md)
-[▲ Previous: Types](./types.md)
-[▼ Next: Type declarations](./type_declarations.md)
+[▲ Previous: Types](types.md)
+[▼ Next: Type declarations](type_declarations.md)

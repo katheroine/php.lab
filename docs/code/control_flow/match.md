@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: `switch` conditional statement](./switch.md)
-[▼ Next: `while` loop statement](./while.md)
+[▲ Previous: `switch` conditional statement](switch.md)
+[▼ Next: `while` loop statement](while.md)
 
 # `match` conditional expression
 
@@ -273,5 +273,5 @@ Hello!
 
 [▵ Up](#match-conditional-expression)
 [⌂ Home](../../../README.md)
-[▲ Previous: `switch` conditional statement](./switch.md)
-[▼ Next: `while` loop statement](./while.md)
+[▲ Previous: `switch` conditional statement](switch.md)
+[▼ Next: `while` loop statement](while.md)

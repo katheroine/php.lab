@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Type operators](./type_operators.md)
-[▼ Next: Execution operators](./execution_operators.md)
+[▲ Previous: Type operators](type_operators.md)
+[▼ Next: Execution operators](execution_operators.md)
 
 # Functional operators
 
@@ -88,5 +88,5 @@ Be aware that, to avoid syntax ambiguity, *arrow functions MUST be wrapped in pa
 
 [▵ Up](#functional-operators)
 [⌂ Home](../../../README.md)
-[▲ Previous: Type operators](./type_operators.md)
-[▼ Next: Execution operators](./execution_operators.md)
+[▲ Previous: Type operators](type_operators.md)
+[▼ Next: Execution operators](execution_operators.md)

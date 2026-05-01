@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: `continue` instruction](./continue.md)
-[▼ Next: Null](../null/null.md)
+[▲ Previous: `continue` instruction](continue.md)
+[▼ Next: Null](../builtin_types/special/null/null.md)
 
 # `goto` instruction
 
@@ -117,5 +117,5 @@ print($a . "\n");
 
 [▵ Up](#goto-instruction)
 [⌂ Home](../../../README.md)
-[▲ Previous: `continue` instruction](./continue.md)
-[▼ Next: Null](../null/null.md)
+[▲ Previous: `continue` instruction](continue.md)
+[▼ Next: Null](../builtin_types/special/null/null.md)

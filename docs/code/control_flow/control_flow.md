@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Error control operators](./error_control_operators.md)
-[▼ Next: `if` conditional statement](./if.md)
+[▲ Previous: Error control operators](../operators/error_control_operators.md)
+[▼ Next: `if` conditional statement](if.md)
 
 # Control flow
 
@@ -28,5 +28,5 @@ Any PHP script is built out of a series of *statements*. A *statement* can be an
 
 [▵ Up](#control-flow)
 [⌂ Home](../../../README.md)
-[▲ Previous: Error control operators](./error_control_operators.md)
-[▼ Next: `if` conditional statement](./if.md)
+[▲ Previous: Error control operators](../operators/error_control_operators.md)
+[▼ Next: `if` conditional statement](if.md)

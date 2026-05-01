@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Literals](./literals.md)
-[▼ Next: Variables](./variables.md)
+[▲ Previous: Literals](literals.md)
+[▼ Next: Variables](variables.md)
 
 # Constants
 
@@ -1163,5 +1163,5 @@ Array
 
 [▵ Up](#constants)
 [⌂ Home](../../../README.md)
-[▲ Previous: Literals](./literals.md)
-[▼ Next: Variables](./variables.md)
+[▲ Previous: Literals](literals.md)
+[▼ Next: Variables](variables.md)

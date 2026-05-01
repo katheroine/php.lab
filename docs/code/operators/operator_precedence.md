@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Operators](./operators.md)
-[▼ Next: Arithmetic operators](./arithmetic_operators.md)
+[▲ Previous: Operators](operators.md)
+[▼ Next: Arithmetic operators](arithmetic_operators.md)
 
 # Operator precedence
 
@@ -144,5 +144,5 @@ Although `=` has a lower precedence than most other operators, PHP will still al
 
 [▵ Up](#operator-precedence)
 [⌂ Home](../../../README.md)
-[▲ Previous: Operators](./operators.md)
-[▼ Next: Arithmetic operators](./arithmetic_operators.md)
+[▲ Previous: Operators](operators.md)
+[▼ Next: Arithmetic operators](arithmetic_operators.md)

@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: `break` instruction](./break.md)
-[▼ Next: `goto` instruction](./goto.md)
+[▲ Previous: `break` instruction](break.md)
+[▼ Next: `goto` instruction](goto.md)
 
 # `continue` instruction
 
@@ -143,5 +143,5 @@ while ($i < 10)
 
 [▵ Up](#continue-instruction)
 [⌂ Home](../../../README.md)
-[▲ Previous: `break` instruction](./break.md)
-[▼ Next: `goto` instruction](./goto.md)
+[▲ Previous: `break` instruction](break.md)
+[▼ Next: `goto` instruction](goto.md)

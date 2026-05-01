@@ -1,5 +1,6 @@
 [⌂ Home](../../README.md)
 [▲ Previous: PHP history](php_history.md)
+[▼ Next: Literals](../code/literals_constants_variables/literals.md)
 
 # PHP features
 
@@ -474,3 +475,4 @@ This process of compiling to bytecode and interpreting it at runtime is typical 
 [▵ Up](#php-features)
 [⌂ Home](../../README.md)
 [▲ Previous: PHP history](php_history.md)
+[▼ Next: Literals](../code/literals_constants_variables/literals.md)

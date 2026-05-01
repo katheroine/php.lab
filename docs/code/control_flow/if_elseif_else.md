@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: `if`-`else` conditional statement](./if_else.md)
-[▼ Next: `switch` conditional statement](./switch.md)
+[▲ Previous: `if`-`else` conditional statement](if_else.md)
+[▼ Next: `switch` conditional statement](switch.md)
 
 # `if`-`elseif`-`else` multiple conditional statement
 
@@ -147,5 +147,5 @@ endif;
 
 [▵ Up](#if---elseif---else-conditional-statement)
 [⌂ Home](../../../README.md)
-[▲ Previous: `if`-`else` conditional statement](./if_else.md)
-[▼ Next: `switch` conditional statement](./switch.md)
+[▲ Previous: `if`-`else` conditional statement](if_else.md)
+[▼ Next: `switch` conditional statement](switch.md)

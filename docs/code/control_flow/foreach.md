@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: `for` loop statement](./for.md)
-[▼ Next: `break` instruction](./break.md)
+[▲ Previous: `for` loop statement](for.md)
+[▼ Next: `break` instruction](break.md)
 
 # `foreach` loop statement
 
@@ -400,5 +400,5 @@ echo "\n";
 
 [▵ Up](#foreach-loop-statement)
 [⌂ Home](../../../README.md)
-[▲ Previous: `for` loop statement](./for.md)
-[▼ Next: `break` instruction](./break.md)
+[▲ Previous: `for` loop statement](for.md)
+[▼ Next: `break` instruction](break.md)

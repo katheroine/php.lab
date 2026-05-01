@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Array operators](./array_operators.md)
-[▼ Next: Functional operators](./functional_operators.md)
+[▲ Previous: Array operators](array_operators.md)
+[▼ Next: Functional operators](functional_operators.md)
 
 # Type operators
 
@@ -304,5 +304,5 @@ The `instanceof` operator has a functional variant with the `is_a()` function.
 
 [▵ Up](#type-operators)
 [⌂ Home](../../../README.md)
-[▲ Previous: Array operators](./array_operators.md)
-[▼ Next: Functional operators](./functional_operators.md)
+[▲ Previous: Array operators](array_operators.md)
+[▼ Next: Functional operators](functional_operators.md)

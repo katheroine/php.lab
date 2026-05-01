@@ -1,5 +1,5 @@
 [⌂ Home](../../../../../README.md)
-[▲ Previous: Null](../../special/null/null.md)
+[▲ Previous: Null](../null/null.md)
 [▼ Next: Booleans](../../scalar/booleans/booleans.md)
 
 # Resources
@@ -115,5 +115,5 @@ Type: stream
 
 [▵ Up](#resources)
 [⌂ Home](../../../../../README.md)
-[▲ Previous: Null](../../special/null/null.md)
+[▲ Previous: Null](../null/null.md)
 [▼ Next: Booleans](../../scalar/booleans/booleans.md)

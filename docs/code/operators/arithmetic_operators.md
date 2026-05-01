@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Operator precedence](./operator_precedence.md)
-[▼ Next: Logical operators](./logical_operators.md)
+[▲ Previous: Operator precedence](operator_precedence.md)
+[▼ Next: Logical operators](logical_operators.md)
 
 # Arithmetic operators
 
@@ -146,5 +146,5 @@ print("{$f1} % {$f2} = " . ($f1 % $f2) . "\n");
 
 [▵ Up](#arithmetic-operators)
 [⌂ Home](../../../README.md)
-[▲ Previous: Operator precedence](./operator_precedence.md)
-[▼ Next: Logical operators](./logical_operators.md)
+[▲ Previous: Operator precedence](operator_precedence.md)
+[▼ Next: Logical operators](logical_operators.md)

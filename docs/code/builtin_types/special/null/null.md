@@ -1,6 +1,6 @@
 [⌂ Home](../../../../../README.md)
 [▲ Previous: `goto` instruction](../../../control_flow/goto.md)
-[▼ Next: Resources](../../special/resources/resources.md)
+[▼ Next: Resources](../resources/resources.md)
 
 # Null
 
@@ -332,4 +332,4 @@ object(stdClass)#1 (0) {
 [▵ Up](#null)
 [⌂ Home](../../../../../README.md)
 [▲ Previous: `goto` instruction](../../../control_flow/goto.md)
-[▼ Next: Resources](../../special/resources/resources.md)
+[▼ Next: Resources](../resources/resources.md)

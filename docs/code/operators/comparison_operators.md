@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Bitwise operators](./bitwise_operators.md)
-[▼ Next: Increment & decrement operators](./increment_decrement_operators.md)
+[▲ Previous: Bitwise operators](bitwise_operators.md)
+[▼ Next: Increment & decrement operators](increment_decrement_operators.md)
 
 # Comparison operators
 
@@ -773,5 +773,5 @@ Value: whatever
 
 [▵ Up](#comparison-operators)
 [⌂ Home](../../../README.md)
-[▲ Previous: Bitwise operators](./bitwise_operators.md)
-[▼ Next: Increment & decrement operators](./increment_decrement_operators.md)
+[▲ Previous: Bitwise operators](bitwise_operators.md)
+[▼ Next: Increment & decrement operators](increment_decrement_operators.md)

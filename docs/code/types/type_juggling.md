@@ -1,5 +1,5 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: Type declarations](./type_declarations.md)
+[▲ Previous: Type declarations](type_declarations.md)
 [▼ Next: Expressions](../expressions/expressions.md)
 
 # Type juggling
@@ -221,5 +221,5 @@ echo $a;       // bar
 
 [▵ Up](#type-juggling)
 [⌂ Home](../../../README.md)
-[▲ Previous: Type declarations](./type_declarations.md)
+[▲ Previous: Type declarations](type_declarations.md)
 [▼ Next: Expressions](../expressions/expressions.md)

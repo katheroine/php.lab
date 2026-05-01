@@ -1,6 +1,6 @@
 [⌂ Home](../../../README.md)
-[▲ Previous: `if` conditional statement](./if.md)
-[▼ Next: `if`-`elseif`-`else` conditional statement](./if_elseif_else.md)
+[▲ Previous: `if` conditional statement](if.md)
+[▼ Next: `if`-`elseif`-`else` conditional statement](if_elseif_else.md)
 
 # `if`-`else` conditional statement
 
@@ -225,5 +225,5 @@ print("\n");
 
 [▵ Up](#if---else-conditional-statement)
 [⌂ Home](../../../README.md)
-[▲ Previous: `if` conditional statement](./if.md)
-[▼ Next: `if`-`elseif`-`else` conditional statement](./if_elseif_else.md)
+[▲ Previous: `if` conditional statement](if.md)
+[▼ Next: `if`-`elseif`-`else` conditional statement](if_elseif_else.md)
